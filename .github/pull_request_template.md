@@ -21,7 +21,7 @@ Prefix
 -->
 
 # 🩵 Issue
-<!-- #IssueNumber 써주세요 -->
+<!-- 작업한 이슈번호를 # 뒤에 붙여주세요. -->
 <!-- 종료키워드 close, closes, closed- fix, fixes, fixed- resolve, resolves, resolved -->
 close #
 

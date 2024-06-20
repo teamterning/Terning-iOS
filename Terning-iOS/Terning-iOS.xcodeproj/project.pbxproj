@@ -20,6 +20,8 @@
 		71E3C4062C241DD40026C4DD /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C4052C241DD40026C4DD /* ReactiveMoya */; };
 		71E3C4082C241DD40026C4DD /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C4072C241DD40026C4DD /* RxMoya */; };
 		71E3C40D2C2423280026C4DD /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C40C2C2423280026C4DD /* .swiftlint.yml */; };
+		71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C40E2C243B510026C4DD /* UIView+.swift */; };
+		71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C4112C243BDD0026C4DD /* getClassName.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,10 +35,11 @@
 		71E3C3E22C241B470026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		71E3C3ED2C241C8E0026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		71E3C3EF2C241C980026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		71E3C3F12C241CA40026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		71E3C3F32C241CB00026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		71E3C3F52C241CBB0026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		71E3C40C2C2423280026C4DD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		71E3C40E2C243B510026C4DD /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		71E3C4112C243BDD0026C4DD /* getClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getClassName.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +111,7 @@
 		71E3C3E42C241B8A0026C4DD /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				71E3C4102C243BBC0026C4DD /* Utils */,
 				71E3C3EC2C241C500026C4DD /* Constants */,
 				71E3C3EA2C241C3D0026C4DD /* Fonts */,
 				71E3C3EB2C241C480026C4DD /* Extension */,
@@ -152,7 +156,7 @@
 		71E3C3EB2C241C480026C4DD /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				71E3C3F12C241CA40026C4DD /* .gitkeep */,
+				71E3C40E2C243B510026C4DD /* UIView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -163,6 +167,14 @@
 				71E3C3ED2C241C8E0026C4DD /* .gitkeep */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		71E3C4102C243BBC0026C4DD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				71E3C4112C243BDD0026C4DD /* getClassName.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,6 +262,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		71E3C4092C24217E0026C4DD /* SwiftLint Script */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -273,8 +286,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
 				71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */,
 				71E3C3CD2C22BAF40026C4DD /* AppDelegate.swift in Sources */,
+				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

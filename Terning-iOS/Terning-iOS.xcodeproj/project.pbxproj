@@ -12,12 +12,6 @@
 		71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C3D02C22BAF40026C4DD /* ViewController.swift */; };
 		71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C3D52C22BAF50026C4DD /* Assets.xcassets */; };
 		71E3C3D92C22BAF50026C4DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C3D72C22BAF50026C4DD /* LaunchScreen.storyboard */; };
-		71E3C3E32C241B470026C4DD /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C3E22C241B470026C4DD /* .gitkeep */; };
-		71E3C3EE2C241C8E0026C4DD /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C3ED2C241C8E0026C4DD /* .gitkeep */; };
-		71E3C3F02C241C980026C4DD /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C3EF2C241C980026C4DD /* .gitkeep */; };
-		71E3C3F22C241CA40026C4DD /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C3F12C241CA40026C4DD /* .gitkeep */; };
-		71E3C3F42C241CB00026C4DD /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C3F32C241CB00026C4DD /* .gitkeep */; };
-		71E3C3F62C241CBB0026C4DD /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C3F52C241CBB0026C4DD /* .gitkeep */; };
 		71E3C3F92C241D900026C4DD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C3F82C241D900026C4DD /* Kingfisher */; };
 		71E3C3FC2C241D9A0026C4DD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C3FB2C241D9A0026C4DD /* SnapKit */; };
 		71E3C3FE2C241D9A0026C4DD /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C3FD2C241D9A0026C4DD /* SnapKit-Dynamic */; };
@@ -25,6 +19,7 @@
 		71E3C4042C241DD40026C4DD /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C4032C241DD40026C4DD /* Moya */; };
 		71E3C4062C241DD40026C4DD /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C4052C241DD40026C4DD /* ReactiveMoya */; };
 		71E3C4082C241DD40026C4DD /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C4072C241DD40026C4DD /* RxMoya */; };
+		71E3C40D2C2423280026C4DD /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C40C2C2423280026C4DD /* .swiftlint.yml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +36,7 @@
 		71E3C3F12C241CA40026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		71E3C3F32C241CB00026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		71E3C3F52C241CBB0026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		71E3C40C2C2423280026C4DD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +60,7 @@
 		71E3C3C02C22BAF40026C4DD = {
 			isa = PBXGroup;
 			children = (
+				71E3C40C2C2423280026C4DD /* .swiftlint.yml */,
 				71E3C3CB2C22BAF40026C4DD /* Terning-iOS */,
 				71E3C3CA2C22BAF40026C4DD /* Products */,
 			);
@@ -80,7 +77,7 @@
 		71E3C3CB2C22BAF40026C4DD /* Terning-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				71E3C3E02C2414870026C4DD /* Applicatoin */,
+				71E3C3E02C2414870026C4DD /* Application */,
 				71E3C3E42C241B8A0026C4DD /* Resource */,
 				71E3C3E72C241BF20026C4DD /* Source */,
 				71E3C3E12C241B170026C4DD /* Network */,
@@ -89,7 +86,7 @@
 			path = "Terning-iOS";
 			sourceTree = "<group>";
 		};
-		71E3C3E02C2414870026C4DD /* Applicatoin */ = {
+		71E3C3E02C2414870026C4DD /* Application */ = {
 			isa = PBXGroup;
 			children = (
 				71E3C3CC2C22BAF40026C4DD /* AppDelegate.swift */,
@@ -97,7 +94,7 @@
 				71E3C3D72C22BAF50026C4DD /* LaunchScreen.storyboard */,
 				71E3C3D02C22BAF40026C4DD /* ViewController.swift */,
 			);
-			path = Applicatoin;
+			path = Application;
 			sourceTree = "<group>";
 		};
 		71E3C3E12C241B170026C4DD /* Network */ = {
@@ -178,6 +175,7 @@
 				71E3C3C52C22BAF40026C4DD /* Sources */,
 				71E3C3C62C22BAF40026C4DD /* Frameworks */,
 				71E3C3C72C22BAF40026C4DD /* Resources */,
+				71E3C4092C24217E0026C4DD /* SwiftLint Script */,
 			);
 			buildRules = (
 			);
@@ -241,18 +239,34 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71E3C3E32C241B470026C4DD /* .gitkeep in Resources */,
+				71E3C40D2C2423280026C4DD /* .swiftlint.yml in Resources */,
 				71E3C3D92C22BAF50026C4DD /* LaunchScreen.storyboard in Resources */,
-				71E3C3F02C241C980026C4DD /* .gitkeep in Resources */,
-				71E3C3F22C241CA40026C4DD /* .gitkeep in Resources */,
 				71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */,
-				71E3C3EE2C241C8E0026C4DD /* .gitkeep in Resources */,
-				71E3C3F42C241CB00026C4DD /* .gitkeep in Resources */,
-				71E3C3F62C241CBB0026C4DD /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		71E3C4092C24217E0026C4DD /* SwiftLint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		71E3C3C52C22BAF40026C4DD /* Sources */ = {
@@ -316,7 +330,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -379,7 +393,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -406,6 +420,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Terning-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -434,6 +449,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Terning-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

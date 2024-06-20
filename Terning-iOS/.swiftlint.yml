@@ -1,0 +1,33 @@
+disabled_rules:
+    # 비활성화하고 싶은 규칙
+    - trailing_whitespace
+    - identifier_name
+    - line_length
+    - type_name
+    - legacy_constructor
+    - unused_setter_value
+    - void_function_in_ternary
+    - function_parameter_count
+    - function_body_length
+    - nesting
+    - comment_spacing
+    - cyclomatic_complexity
+
+opt_in_rules:
+    - empty_count
+    - empty_string
+    - closure_end_indentation
+    - let_var_whitespace
+
+included:
+    - Terning-iOS
+excluded:
+    # AppDelegate, SceneDelegate, config file 무시
+    - Terning-iOS/Application/AppDelegate.swift
+    - Terning-iOS/Application/SceneDelegate.swift
+
+file_length:
+    warning: 400 # 400줄 넘어가면 경고 입니다 ^_^
+    error: 1200 # 1200줄 은 진짜 에러 입니다 ^^ 혼나요
+
+force_cast: warning # 강제 캐스팅도 경고 입니다 ^^

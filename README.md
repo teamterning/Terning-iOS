@@ -65,7 +65,21 @@ ex) [Feat] - TerningPoint 홈 화면 구현
 > **Foldering**
 
 ```
-
+├── 📂 Terning-iOS
+│   ├── 📂 Application
+│   │   ├── AppDelegate.swift
+│   │   └── SceneDelegate.swift
+│   ├── Info.plist
+│   ├── 📂 Network
+│   ├── 📂 Resource
+│   │   ├── Assets.xcassets
+│   │   ├── 📂 Constants
+│   │   ├── 📂 Extension
+│   │   ├── 📂 Fonts
+│   │   └── 📂 Utils
+│   └── 📂 Source
+│       ├── 📂 Data
+│       └── 📂 Presentation
 
 ```
 

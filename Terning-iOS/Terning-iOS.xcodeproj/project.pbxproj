@@ -1,0 +1,585 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		71E3C3CD2C22BAF40026C4DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C3CC2C22BAF40026C4DD /* AppDelegate.swift */; };
+		71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C3CE2C22BAF40026C4DD /* SceneDelegate.swift */; };
+		71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C3D02C22BAF40026C4DD /* ViewController.swift */; };
+		71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C3D52C22BAF50026C4DD /* Assets.xcassets */; };
+		71E3C3D92C22BAF50026C4DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C3D72C22BAF50026C4DD /* LaunchScreen.storyboard */; };
+		71E3C3F92C241D900026C4DD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C3F82C241D900026C4DD /* Kingfisher */; };
+		71E3C3FC2C241D9A0026C4DD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C3FB2C241D9A0026C4DD /* SnapKit */; };
+		71E3C3FE2C241D9A0026C4DD /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C3FD2C241D9A0026C4DD /* SnapKit-Dynamic */; };
+		71E3C4012C241DA30026C4DD /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C4002C241DA30026C4DD /* Then */; };
+		71E3C4042C241DD40026C4DD /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C4032C241DD40026C4DD /* Moya */; };
+		71E3C4062C241DD40026C4DD /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C4052C241DD40026C4DD /* ReactiveMoya */; };
+		71E3C4082C241DD40026C4DD /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C4072C241DD40026C4DD /* RxMoya */; };
+		71E3C40D2C2423280026C4DD /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C40C2C2423280026C4DD /* .swiftlint.yml */; };
+		71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C40E2C243B510026C4DD /* UIView+.swift */; };
+		71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C4112C243BDD0026C4DD /* getClassName.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		71E3C3C92C22BAF40026C4DD /* Terning-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Terning-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		71E3C3CC2C22BAF40026C4DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		71E3C3CE2C22BAF40026C4DD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		71E3C3D02C22BAF40026C4DD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		71E3C3D52C22BAF50026C4DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		71E3C3D82C22BAF50026C4DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		71E3C3DA2C22BAF50026C4DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		71E3C3E22C241B470026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		71E3C3ED2C241C8E0026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		71E3C3EF2C241C980026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		71E3C3F32C241CB00026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		71E3C3F52C241CBB0026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		71E3C40C2C2423280026C4DD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		71E3C40E2C243B510026C4DD /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		71E3C4112C243BDD0026C4DD /* getClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getClassName.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		71E3C3C62C22BAF40026C4DD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71E3C3F92C241D900026C4DD /* Kingfisher in Frameworks */,
+				71E3C3FC2C241D9A0026C4DD /* SnapKit in Frameworks */,
+				71E3C3FE2C241D9A0026C4DD /* SnapKit-Dynamic in Frameworks */,
+				71E3C4042C241DD40026C4DD /* Moya in Frameworks */,
+				71E3C4082C241DD40026C4DD /* RxMoya in Frameworks */,
+				71E3C4012C241DA30026C4DD /* Then in Frameworks */,
+				71E3C4062C241DD40026C4DD /* ReactiveMoya in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		71E3C3C02C22BAF40026C4DD = {
+			isa = PBXGroup;
+			children = (
+				71E3C40C2C2423280026C4DD /* .swiftlint.yml */,
+				71E3C3CB2C22BAF40026C4DD /* Terning-iOS */,
+				71E3C3CA2C22BAF40026C4DD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		71E3C3CA2C22BAF40026C4DD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				71E3C3C92C22BAF40026C4DD /* Terning-iOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		71E3C3CB2C22BAF40026C4DD /* Terning-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				71E3C3E02C2414870026C4DD /* Application */,
+				71E3C3E42C241B8A0026C4DD /* Resource */,
+				71E3C3E72C241BF20026C4DD /* Source */,
+				71E3C3E12C241B170026C4DD /* Network */,
+				71E3C3DA2C22BAF50026C4DD /* Info.plist */,
+			);
+			path = "Terning-iOS";
+			sourceTree = "<group>";
+		};
+		71E3C3E02C2414870026C4DD /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				71E3C3CC2C22BAF40026C4DD /* AppDelegate.swift */,
+				71E3C3CE2C22BAF40026C4DD /* SceneDelegate.swift */,
+				71E3C3D72C22BAF50026C4DD /* LaunchScreen.storyboard */,
+				71E3C3D02C22BAF40026C4DD /* ViewController.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		71E3C3E12C241B170026C4DD /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				71E3C3E22C241B470026C4DD /* .gitkeep */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		71E3C3E42C241B8A0026C4DD /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				71E3C4102C243BBC0026C4DD /* Utils */,
+				71E3C3EC2C241C500026C4DD /* Constants */,
+				71E3C3EA2C241C3D0026C4DD /* Fonts */,
+				71E3C3EB2C241C480026C4DD /* Extension */,
+				71E3C3D52C22BAF50026C4DD /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		71E3C3E72C241BF20026C4DD /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				71E3C3E82C241C020026C4DD /* Presentation */,
+				71E3C3E92C241C1B0026C4DD /* Data */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		71E3C3E82C241C020026C4DD /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				71E3C3F32C241CB00026C4DD /* .gitkeep */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		71E3C3E92C241C1B0026C4DD /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				71E3C3F52C241CBB0026C4DD /* .gitkeep */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		71E3C3EA2C241C3D0026C4DD /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				71E3C3EF2C241C980026C4DD /* .gitkeep */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		71E3C3EB2C241C480026C4DD /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				71E3C40E2C243B510026C4DD /* UIView+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		71E3C3EC2C241C500026C4DD /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				71E3C3ED2C241C8E0026C4DD /* .gitkeep */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		71E3C4102C243BBC0026C4DD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				71E3C4112C243BDD0026C4DD /* getClassName.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		71E3C3C82C22BAF40026C4DD /* Terning-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 71E3C3DD2C22BAF50026C4DD /* Build configuration list for PBXNativeTarget "Terning-iOS" */;
+			buildPhases = (
+				71E3C3C52C22BAF40026C4DD /* Sources */,
+				71E3C3C62C22BAF40026C4DD /* Frameworks */,
+				71E3C3C72C22BAF40026C4DD /* Resources */,
+				71E3C4092C24217E0026C4DD /* SwiftLint Script */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Terning-iOS";
+			packageProductDependencies = (
+				71E3C3F82C241D900026C4DD /* Kingfisher */,
+				71E3C3FB2C241D9A0026C4DD /* SnapKit */,
+				71E3C3FD2C241D9A0026C4DD /* SnapKit-Dynamic */,
+				71E3C4002C241DA30026C4DD /* Then */,
+				71E3C4032C241DD40026C4DD /* Moya */,
+				71E3C4052C241DD40026C4DD /* ReactiveMoya */,
+				71E3C4072C241DD40026C4DD /* RxMoya */,
+			);
+			productName = "Terning-iOS";
+			productReference = 71E3C3C92C22BAF40026C4DD /* Terning-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		71E3C3C12C22BAF40026C4DD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					71E3C3C82C22BAF40026C4DD = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 71E3C3C42C22BAF40026C4DD /* Build configuration list for PBXProject "Terning-iOS" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 71E3C3C02C22BAF40026C4DD;
+			packageReferences = (
+				71E3C3F72C241D900026C4DD /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				71E3C3FA2C241D9A0026C4DD /* XCRemoteSwiftPackageReference "SnapKit" */,
+				71E3C3FF2C241DA30026C4DD /* XCRemoteSwiftPackageReference "Then" */,
+				71E3C4022C241DD40026C4DD /* XCRemoteSwiftPackageReference "Moya" */,
+			);
+			productRefGroup = 71E3C3CA2C22BAF40026C4DD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				71E3C3C82C22BAF40026C4DD /* Terning-iOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		71E3C3C72C22BAF40026C4DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71E3C40D2C2423280026C4DD /* .swiftlint.yml in Resources */,
+				71E3C3D92C22BAF50026C4DD /* LaunchScreen.storyboard in Resources */,
+				71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		71E3C4092C24217E0026C4DD /* SwiftLint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		71E3C3C52C22BAF40026C4DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
+				71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */,
+				71E3C3CD2C22BAF40026C4DD /* AppDelegate.swift in Sources */,
+				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
+				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		71E3C3D72C22BAF50026C4DD /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				71E3C3D82C22BAF50026C4DD /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		71E3C3DB2C22BAF50026C4DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		71E3C3DC2C22BAF50026C4DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		71E3C3DE2C22BAF50026C4DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Terning-iOS/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "th1ngjin.Terning-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		71E3C3DF2C22BAF50026C4DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Terning-iOS/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "th1ngjin.Terning-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		71E3C3C42C22BAF40026C4DD /* Build configuration list for PBXProject "Terning-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71E3C3DB2C22BAF50026C4DD /* Debug */,
+				71E3C3DC2C22BAF50026C4DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		71E3C3DD2C22BAF50026C4DD /* Build configuration list for PBXNativeTarget "Terning-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71E3C3DE2C22BAF50026C4DD /* Debug */,
+				71E3C3DF2C22BAF50026C4DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		71E3C3F72C241D900026C4DD /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
+		71E3C3FA2C241D9A0026C4DD /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		71E3C3FF2C241DA30026C4DD /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		71E3C4022C241DD40026C4DD /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		71E3C3F82C241D900026C4DD /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71E3C3F72C241D900026C4DD /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		71E3C3FB2C241D9A0026C4DD /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71E3C3FA2C241D9A0026C4DD /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		71E3C3FD2C241D9A0026C4DD /* SnapKit-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71E3C3FA2C241D9A0026C4DD /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = "SnapKit-Dynamic";
+		};
+		71E3C4002C241DA30026C4DD /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71E3C3FF2C241DA30026C4DD /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		71E3C4032C241DD40026C4DD /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71E3C4022C241DD40026C4DD /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		71E3C4052C241DD40026C4DD /* ReactiveMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71E3C4022C241DD40026C4DD /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = ReactiveMoya;
+		};
+		71E3C4072C241DD40026C4DD /* RxMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71E3C4022C241DD40026C4DD /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = RxMoya;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 71E3C3C12C22BAF40026C4DD /* Project object */;
+}

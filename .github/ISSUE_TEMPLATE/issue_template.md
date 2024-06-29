@@ -21,11 +21,13 @@ Prefix
 -->
 
 ---
+
 name: iOS Part Issue Template
 about: '🍎 Terning 기능 이슈 템플릿입니다. 🍎'
 title: '[Feat] 작업 내용'
 labels: ''
 assignees: ''
+
 ---
 
 # 🍎 이슈 요약

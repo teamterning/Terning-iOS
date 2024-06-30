@@ -35,6 +35,11 @@
 ex) [Feat] #5 - 서버 연결 구현
 
 ---
+> Code Convention
+
+[터닝 코드 컨벤션](https://abundant-quiver-13f.notion.site/Code-Convention-a0949dcd93184be4be1f6456c48ab80c)
+
+---
 
 > **Code Review Rule**
 

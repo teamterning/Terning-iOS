@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6EC2C2FF42500C54EA7 /* TNTabBarController.swift */; };
+		71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6EE2C2FF48800C54EA7 /* TNTabBarItem.swift */; };
+		71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6F02C2FFB5800C54EA7 /* CALayer+.swift */; };
 		71E3C3CD2C22BAF40026C4DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C3CC2C22BAF40026C4DD /* AppDelegate.swift */; };
 		71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C3CE2C22BAF40026C4DD /* SceneDelegate.swift */; };
 		71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C3D02C22BAF40026C4DD /* ViewController.swift */; };
@@ -25,6 +28,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		71D7E6EC2C2FF42500C54EA7 /* TNTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNTabBarController.swift; sourceTree = "<group>"; };
+		71D7E6EE2C2FF48800C54EA7 /* TNTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNTabBarItem.swift; sourceTree = "<group>"; };
+		71D7E6F02C2FFB5800C54EA7 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
 		71E3C3C92C22BAF40026C4DD /* Terning-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Terning-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		71E3C3CC2C22BAF40026C4DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71E3C3CE2C22BAF40026C4DD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +66,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		71D7E6EB2C2FF41200C54EA7 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				71D7E6EC2C2FF42500C54EA7 /* TNTabBarController.swift */,
+				71D7E6EE2C2FF48800C54EA7 /* TNTabBarItem.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
 		71E3C3C02C22BAF40026C4DD = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +147,7 @@
 		71E3C3E82C241C020026C4DD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				71D7E6EB2C2FF41200C54EA7 /* TabBar */,
 				71E3C3F32C241CB00026C4DD /* .gitkeep */,
 			);
 			path = Presentation;
@@ -157,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				71E3C40E2C243B510026C4DD /* UIView+.swift */,
+				71D7E6F02C2FFB5800C54EA7 /* CALayer+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -288,9 +305,12 @@
 			files = (
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
 				71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */,
+				71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */,
 				71E3C3CD2C22BAF40026C4DD /* AppDelegate.swift in Sources */,
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
+				71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */,
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
+				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

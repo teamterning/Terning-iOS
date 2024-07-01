@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		717D37EA2C32FA2F00A857DB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 717D37E92C32FA2F00A857DB /* SnapKit */; };
 		71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6EC2C2FF42500C54EA7 /* TNTabBarController.swift */; };
 		71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6EE2C2FF48800C54EA7 /* TNTabBarItem.swift */; };
 		71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6F02C2FFB5800C54EA7 /* CALayer+.swift */; };
@@ -16,8 +17,6 @@
 		71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C3D52C22BAF50026C4DD /* Assets.xcassets */; };
 		71E3C3D92C22BAF50026C4DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C3D72C22BAF50026C4DD /* LaunchScreen.storyboard */; };
 		71E3C3F92C241D900026C4DD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C3F82C241D900026C4DD /* Kingfisher */; };
-		71E3C3FC2C241D9A0026C4DD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C3FB2C241D9A0026C4DD /* SnapKit */; };
-		71E3C3FE2C241D9A0026C4DD /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C3FD2C241D9A0026C4DD /* SnapKit-Dynamic */; };
 		71E3C4012C241DA30026C4DD /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C4002C241DA30026C4DD /* Then */; };
 		71E3C4042C241DD40026C4DD /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C4032C241DD40026C4DD /* Moya */; };
 		71E3C4062C241DD40026C4DD /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 71E3C4052C241DD40026C4DD /* ReactiveMoya */; };
@@ -54,10 +53,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				71E3C3F92C241D900026C4DD /* Kingfisher in Frameworks */,
-				71E3C3FC2C241D9A0026C4DD /* SnapKit in Frameworks */,
-				71E3C3FE2C241D9A0026C4DD /* SnapKit-Dynamic in Frameworks */,
 				71E3C4042C241DD40026C4DD /* Moya in Frameworks */,
 				71E3C4082C241DD40026C4DD /* RxMoya in Frameworks */,
+				717D37EA2C32FA2F00A857DB /* SnapKit in Frameworks */,
 				71E3C4012C241DA30026C4DD /* Then in Frameworks */,
 				71E3C4062C241DD40026C4DD /* ReactiveMoya in Frameworks */,
 			);
@@ -213,12 +211,11 @@
 			name = "Terning-iOS";
 			packageProductDependencies = (
 				71E3C3F82C241D900026C4DD /* Kingfisher */,
-				71E3C3FB2C241D9A0026C4DD /* SnapKit */,
-				71E3C3FD2C241D9A0026C4DD /* SnapKit-Dynamic */,
 				71E3C4002C241DA30026C4DD /* Then */,
 				71E3C4032C241DD40026C4DD /* Moya */,
 				71E3C4052C241DD40026C4DD /* ReactiveMoya */,
 				71E3C4072C241DD40026C4DD /* RxMoya */,
+				717D37E92C32FA2F00A857DB /* SnapKit */,
 			);
 			productName = "Terning-iOS";
 			productReference = 71E3C3C92C22BAF40026C4DD /* Terning-iOS.app */;
@@ -250,9 +247,9 @@
 			mainGroup = 71E3C3C02C22BAF40026C4DD;
 			packageReferences = (
 				71E3C3F72C241D900026C4DD /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				71E3C3FA2C241D9A0026C4DD /* XCRemoteSwiftPackageReference "SnapKit" */,
 				71E3C3FF2C241DA30026C4DD /* XCRemoteSwiftPackageReference "Then" */,
 				71E3C4022C241DD40026C4DD /* XCRemoteSwiftPackageReference "Moya" */,
+				717D37E82C32FA2F00A857DB /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 71E3C3CA2C22BAF40026C4DD /* Products */;
 			projectDirPath = "";
@@ -452,9 +449,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Terning-iOS/Info.plist";
@@ -468,8 +467,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "th1ngjin.Terning-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.terning.Terning-iOS";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -481,9 +482,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Terning-iOS/Info.plist";
@@ -497,8 +500,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "th1ngjin.Terning-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.terning.Terning-iOS";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -529,20 +534,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		717D37E82C32FA2F00A857DB /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
 		71E3C3F72C241D900026C4DD /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 7.12.0;
-			};
-		};
-		71E3C3FA2C241D9A0026C4DD /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.7.1;
 			};
 		};
 		71E3C3FF2C241DA30026C4DD /* XCRemoteSwiftPackageReference "Then" */ = {
@@ -564,20 +569,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		717D37E92C32FA2F00A857DB /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 717D37E82C32FA2F00A857DB /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
 		71E3C3F82C241D900026C4DD /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 71E3C3F72C241D900026C4DD /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		71E3C3FB2C241D9A0026C4DD /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 71E3C3FA2C241D9A0026C4DD /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		71E3C3FD2C241D9A0026C4DD /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 71E3C3FA2C241D9A0026C4DD /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 		71E3C4002C241DA30026C4DD /* Then */ = {
 			isa = XCSwiftPackageProductDependency;

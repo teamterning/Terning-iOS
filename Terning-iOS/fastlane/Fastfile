@@ -1,0 +1,191 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+
+
+  ############# version #############
+
+
+desc "Set Marketing and Build version"
+lane :set_version do |version|
+  increment_version_number(
+    version_number: version[:version],
+    xcodeproj: "./Terning-iOS.xcodeproj"
+  )
+
+  increment_build_number(
+    build_number: Time.new.strftime("%Y.%m%d.%H%M"), # 2023.0703.2100
+    xcodeproj: "./Terning-iOS.xcodeproj"
+  )
+end
+
+
+
+
+
+  ############# AppStore Release #############
+# 아직 배포는 쓰지 않기 환경 설정 안했으니까 !!
+
+desc "Build app and release to App Store."
+lane :release do |version|
+  start_time = Time.now
+  version = version[:version] # fastlane release version:2.0.3
+
+  match(
+    type: "appstore",
+    app_identifier: "com.terning.Terning-iOS",
+    readonly: true
+  )
+
+  if version
+    puts "버전 정보: #{version}"
+    set_version(version: version)
+  else 
+    puts "버전 입력 X"
+    increment_build_number(
+      build_number: Time.new.strftime("%Y.%m%d.%H%M"),
+      xcodeproj: "./Terning-iOS.xcodeproj"
+    )
+  end
+
+  build_app(
+    workspace: "Terning-iOS.xcworkspace",
+    scheme: "Terning-iOS",
+    configuration: "Release"
+  )
+
+  upload_to_app_store(
+    app_version: version,
+    submit_for_review: false,  # 심사 제출은 자동(true)/수동(false)으로 진행
+    force: true,
+    automatic_release: true,
+    skip_screenshots: true,
+    skip_metadata: false,  # true면 메타데이터 업로드 건너뛰기 <릴리즈 사진이나 기타 등등 데이터>
+    submission_information: { add_id_info_uses_idfa: false }
+  )
+
+  # ✅ Slack 설정.
+  slack(
+    message: "🍎AppStore 심사까지 성공했습니다!🍎",
+    slack_url: ENV["TERNING_DISCORD"], # 디스코드나 깃허브 webHooks사용 ..
+    payload: { "Version": version }
+  )
+
+  # ✅ 에러 처리.
+  error do |lane, exception, options|
+    slack(
+      message: "에러 발생 : #{exception}",
+      success: false,
+      slack_url: ENV["TERNING_DISCORD"]
+    )
+  end
+
+  end_time = Time.now
+  elapsed_time = ((end_time - start_time) / 60).round(2)
+  puts "fastlane.tools just completed your tasks in #{elapsed_time} minutes!🎉"
+end
+
+
+
+
+
+  
+  ############# beta #############
+
+desc "Push a new beta build to TestFlight"
+lane :beta do |version|
+  start_time = Time.now
+  version = version[:version] # 버전 정보 추출
+
+  match(
+    type: "appstore",
+    app_identifier: "com.terning.Terning-iOS",
+    readonly: true
+  )
+
+  if version
+    puts "버전 정보: #{version}"
+    set_version(version: version)
+  else
+    puts "버전 입력 X"
+    increment_build_number(
+      build_number: Time.new.strftime("%Y.%m%d.%H%M"),
+      xcodeproj: "./Terning-iOS.xcodeproj"
+    )
+  end
+
+  build_app(workspace: "Terning-iOS.xcworkspace", scheme: "Terning-iOS")
+
+  upload_to_testflight(skip_waiting_for_build_processing: true)
+
+  # ✅ Slack 설정.
+  slack(
+    username: "이명진",
+    message: "TestFlight 배포 성공.",
+    icon_url: "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/a6/68/d0/a668d049-8c1a-0e7b-19c3-287093c0a501/AppIcon-1x_U007emarketing-0-7-0-85-220.png/1024x1024bb.png",
+    slack_url: ENV["TERNING_DISCORD"],
+    payload: { "Version": version }
+  )
+
+  # ✅ 에러 처리.
+  error do |lane, exception, options|
+    slack(
+      message: "에러 발생 : #{exception}",
+      success: false,
+      slack_url: ENV["TERNING_DISCORD"]
+    )
+  end
+
+  end_time = Time.now
+  elapsed_time = ((end_time - start_time) / 60).round(2)
+  puts "fastlane.tools just completed your tasks in #{elapsed_time} minutes!🎉"
+end
+
+
+
+
+  ############# Device Management #############
+
+  desc "Register Devices"
+  lane :register_new_device do  |options|
+    device_name = prompt(text: "Enter the device name: ")
+    device_udid = prompt(text: "Enter the device UDID: ")
+    device_hash = {}
+    device_hash[device_name] = device_udid
+    register_devices(devices: device_hash)
+    match(type: "development", force_for_new_devices: true)
+  end
+
+  ############# match #############
+
+
+  desc "Match all code signing"
+  lane :match_read_only do
+    match(
+      type: "appstore",
+      app_identifier: "com.terning.Terning-iOS",
+      readonly: true
+    )
+
+    match(
+      type: "development",
+      app_identifier: "com.terning.Terning-iOS",
+      readonly: true
+    )
+  end
+end

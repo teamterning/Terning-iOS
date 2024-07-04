@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAC2C370439002A6999 /* Pretendard-Light.otf */; };
+		71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAE2C370439002A6999 /* Pretendard-Medium.otf */; };
+		71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */; };
+		71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EB12C37043A002A6999 /* Pretendard-Regular.otf */; };
+		71461EBD2C3705B6002A6999 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461EBC2C3705B6002A6999 /* FontLiterals.swift */; };
 		717D37EA2C32FA2F00A857DB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 717D37E92C32FA2F00A857DB /* SnapKit */; };
 		71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6EC2C2FF42500C54EA7 /* TNTabBarController.swift */; };
 		71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6EE2C2FF48800C54EA7 /* TNTabBarItem.swift */; };
@@ -27,6 +32,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		71461EAC2C370439002A6999 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
+		71461EAE2C370439002A6999 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		71461EB12C37043A002A6999 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		71461EBC2C3705B6002A6999 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
 		71D7E6EC2C2FF42500C54EA7 /* TNTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNTabBarController.swift; sourceTree = "<group>"; };
 		71D7E6EE2C2FF48800C54EA7 /* TNTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNTabBarItem.swift; sourceTree = "<group>"; };
 		71D7E6F02C2FFB5800C54EA7 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
@@ -38,8 +48,6 @@
 		71E3C3D82C22BAF50026C4DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		71E3C3DA2C22BAF50026C4DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		71E3C3E22C241B470026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		71E3C3ED2C241C8E0026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		71E3C3EF2C241C980026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		71E3C3F32C241CB00026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		71E3C3F52C241CBB0026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		71E3C40C2C2423280026C4DD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -125,7 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				71E3C4102C243BBC0026C4DD /* Utils */,
-				71E3C3EC2C241C500026C4DD /* Constants */,
+				71E3C3EC2C241C500026C4DD /* Literal */,
 				71E3C3EA2C241C3D0026C4DD /* Fonts */,
 				71E3C3EB2C241C480026C4DD /* Extension */,
 				71E3C3D52C22BAF50026C4DD /* Assets.xcassets */,
@@ -162,7 +170,10 @@
 		71E3C3EA2C241C3D0026C4DD /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				71E3C3EF2C241C980026C4DD /* .gitkeep */,
+				71461EAC2C370439002A6999 /* Pretendard-Light.otf */,
+				71461EAE2C370439002A6999 /* Pretendard-Medium.otf */,
+				71461EB12C37043A002A6999 /* Pretendard-Regular.otf */,
+				71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -176,12 +187,12 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		71E3C3EC2C241C500026C4DD /* Constants */ = {
+		71E3C3EC2C241C500026C4DD /* Literal */ = {
 			isa = PBXGroup;
 			children = (
-				71E3C3ED2C241C8E0026C4DD /* .gitkeep */,
+				71461EBC2C3705B6002A6999 /* FontLiterals.swift */,
 			);
-			path = Constants;
+			path = Literal;
 			sourceTree = "<group>";
 		};
 		71E3C4102C243BBC0026C4DD /* Utils */ = {
@@ -266,8 +277,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				71E3C40D2C2423280026C4DD /* .swiftlint.yml in Resources */,
+				71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */,
 				71E3C3D92C22BAF50026C4DD /* LaunchScreen.storyboard in Resources */,
 				71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */,
+				71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */,
+				71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */,
+				71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +323,7 @@
 				71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */,
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
+				71461EBD2C3705B6002A6999 /* FontLiterals.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

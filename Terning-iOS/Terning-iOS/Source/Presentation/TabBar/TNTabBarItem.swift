@@ -61,13 +61,3 @@ enum TNTabBarItem {
         }
     }
 }
-
-// testCode
-    
-extension UIViewController {
-    
-    convenience init(backgroundColor: UIColor) {
-        self.init()
-        self.view.backgroundColor = backgroundColor
-    }
-}

@@ -27,7 +27,7 @@ extension TNTabBarController {
         tabBar.do {
             $0.backgroundColor = .white
             $0.unselectedItemTintColor = .gray
-            $0.tintColor = .terningMain1
+            $0.tintColor = .terningMain
             $0.layer.applyShadow(alpha: 0.05, y: -2, blur: 5)
         }
     }

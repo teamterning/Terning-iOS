@@ -12,6 +12,9 @@
 		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
 		7121A13A2C3A6CEB0056DB8B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7121A1392C3A6CEB0056DB8B /* RxCocoa */; };
 		7121A13C2C3A6CEB0056DB8B /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 7121A13B2C3A6CEB0056DB8B /* RxRelay */; };
+		7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A13D2C3A98E10056DB8B /* LabelFactory.swift */; };
+		7121A1402C3AB9EE0056DB8B /* JobDetailInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */; };
+		7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1422C3AE9C20056DB8B /* PaletteCell.swift */; };
 		71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAC2C370439002A6999 /* Pretendard-Light.otf */; };
 		71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAE2C370439002A6999 /* Pretendard-Medium.otf */; };
 		71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */; };
@@ -42,6 +45,9 @@
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		7121A13D2C3A98E10056DB8B /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
+		7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailInfoView.swift; sourceTree = "<group>"; };
+		7121A1422C3AE9C20056DB8B /* PaletteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteCell.swift; sourceTree = "<group>"; };
 		71461EAC2C370439002A6999 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		71461EAE2C370439002A6999 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -89,10 +95,20 @@
 		7121A1312C396F980056DB8B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				7121A1412C3AE99D0056DB8B /* Cell */,
 				7121A1322C396FB40056DB8B /* CustomButton.swift */,
 				7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */,
+				7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */,
 			);
 			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		7121A1412C3AE99D0056DB8B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				7121A1422C3AE9C20056DB8B /* PaletteCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		71D7E6EB2C2FF41200C54EA7 /* TabBar */ = {
@@ -226,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				71E3C4112C243BDD0026C4DD /* getClassName.swift */,
+				7121A13D2C3A98E10056DB8B /* LabelFactory.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -347,7 +364,9 @@
 			files = (
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
 				71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */,
+				7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */,
 				71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */,
+				7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */,
 				71E3C3CD2C22BAF40026C4DD /* AppDelegate.swift in Sources */,
 				71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */,
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
@@ -359,6 +378,7 @@
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
 				7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */,
 				71461EBD2C3705B6002A6999 /* FontLiterals.swift in Sources */,
+				7121A1402C3AB9EE0056DB8B /* JobDetailInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

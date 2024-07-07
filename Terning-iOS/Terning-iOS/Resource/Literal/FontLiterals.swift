@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIFont {
+public extension UIFont {
     @nonobjc class var heading1: UIFont {
         return UIFont.font(.pretendardSemiBold, ofSize: 24)
     }
@@ -125,14 +125,14 @@ extension UIFont {
     }
 }
 
-enum FontName: String {
+public enum FontName: String {
     case pretendardLight = "Pretendard-Light"
     case pretendardMedium = "Pretendard-Medium"
     case pretendardRegular = "Pretendard-Regular"
     case pretendardSemiBold = "Pretendard-SemiBold"
 }
 
-extension UIFont {
+public extension UIFont {
     static func font(_ style: FontName, ofSize size: CGFloat) -> UIFont {
         guard let customFont = UIFont(name: style.rawValue, size: size) else {
             print("🍎 \(style.rawValue) font 가 등록되지 않았습니다.! 🍎")

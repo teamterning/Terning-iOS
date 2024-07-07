@@ -28,7 +28,7 @@ final class CustomAlertViewController: UIViewController {
     private var disposeBag = DisposeBag()
     private var currentMode: AlertMode = .info
     
-    private let selectedColorIndexRelay = BehaviorRelay<Int>(value: 0)
+    let selectedColorIndexRelay = BehaviorRelay<Int>(value: 0)
     
     // MARK: - UI Components
     

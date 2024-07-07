@@ -73,9 +73,7 @@
 		71E3C3D52C22BAF50026C4DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		71E3C3D82C22BAF50026C4DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		71E3C3DA2C22BAF50026C4DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		71E3C3E22C241B470026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		71E3C3F32C241CB00026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		71E3C3F52C241CBB0026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		71E3C40C2C2423280026C4DD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		71E3C40E2C243B510026C4DD /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		71E3C4112C243BDD0026C4DD /* getClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getClassName.swift; sourceTree = "<group>"; };
@@ -208,7 +206,6 @@
 			isa = PBXGroup;
 			children = (
 				7121A1442C3B079F0056DB8B /* Base */,
-				71E3C3E22C241B470026C4DD /* .gitkeep */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -248,7 +245,6 @@
 			isa = PBXGroup;
 			children = (
 				7121A1472C3B07F30056DB8B /* Announcements */,
-				71E3C3F52C241CBB0026C4DD /* .gitkeep */,
 			);
 			path = Data;
 			sourceTree = "<group>";

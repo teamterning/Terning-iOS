@@ -15,6 +15,10 @@
 		7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A13D2C3A98E10056DB8B /* LabelFactory.swift */; };
 		7121A1402C3AB9EE0056DB8B /* JobDetailInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */; };
 		7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1422C3AE9C20056DB8B /* PaletteCell.swift */; };
+		7121A1462C3B07AA0056DB8B /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1452C3B07AA0056DB8B /* BaseResponse.swift */; };
+		7121A1492C3B08360056DB8B /* JobDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1482C3B08360056DB8B /* JobDetailModel.swift */; };
+		7121A14B2C3B09800056DB8B /* setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A14A2C3B09800056DB8B /* setImage.swift */; };
+		7121A1512C3B09E10056DB8B /* Result+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1502C3B09E10056DB8B /* Result+.swift */; };
 		71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAC2C370439002A6999 /* Pretendard-Light.otf */; };
 		71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAE2C370439002A6999 /* Pretendard-Medium.otf */; };
 		71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */; };
@@ -48,6 +52,10 @@
 		7121A13D2C3A98E10056DB8B /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
 		7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailInfoView.swift; sourceTree = "<group>"; };
 		7121A1422C3AE9C20056DB8B /* PaletteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteCell.swift; sourceTree = "<group>"; };
+		7121A1452C3B07AA0056DB8B /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		7121A1482C3B08360056DB8B /* JobDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailModel.swift; sourceTree = "<group>"; };
+		7121A14A2C3B09800056DB8B /* setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setImage.swift; sourceTree = "<group>"; };
+		7121A1502C3B09E10056DB8B /* Result+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+.swift"; sourceTree = "<group>"; };
 		71461EAC2C370439002A6999 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		71461EAE2C370439002A6999 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -111,6 +119,42 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		7121A1442C3B079F0056DB8B /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				7121A1452C3B07AA0056DB8B /* BaseResponse.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		7121A1472C3B07F30056DB8B /* Announcements */ = {
+			isa = PBXGroup;
+			children = (
+				7121A1482C3B08360056DB8B /* JobDetailModel.swift */,
+			);
+			path = Announcements;
+			sourceTree = "<group>";
+		};
+		7121A14C2C3B09B30056DB8B /* UIKit+ */ = {
+			isa = PBXGroup;
+			children = (
+				71E3C40E2C243B510026C4DD /* UIView+.swift */,
+				71D7E6F02C2FFB5800C54EA7 /* CALayer+.swift */,
+				71461ED32C3811E8002A6999 /* ViewController+.swift */,
+				71461ED52C38150C002A6999 /* UILabel+.swift */,
+				7121A1342C39CCF60056DB8B /* UIButton+.swift */,
+			);
+			path = "UIKit+";
+			sourceTree = "<group>";
+		};
+		7121A14D2C3B09BF0056DB8B /* Foundation+ */ = {
+			isa = PBXGroup;
+			children = (
+				7121A1502C3B09E10056DB8B /* Result+.swift */,
+			);
+			path = "Foundation+";
+			sourceTree = "<group>";
+		};
 		71D7E6EB2C2FF41200C54EA7 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +207,7 @@
 		71E3C3E12C241B170026C4DD /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				7121A1442C3B079F0056DB8B /* Base */,
 				71E3C3E22C241B470026C4DD /* .gitkeep */,
 			);
 			path = Network;
@@ -202,6 +247,7 @@
 		71E3C3E92C241C1B0026C4DD /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				7121A1472C3B07F30056DB8B /* Announcements */,
 				71E3C3F52C241CBB0026C4DD /* .gitkeep */,
 			);
 			path = Data;
@@ -221,11 +267,8 @@
 		71E3C3EB2C241C480026C4DD /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				71E3C40E2C243B510026C4DD /* UIView+.swift */,
-				71D7E6F02C2FFB5800C54EA7 /* CALayer+.swift */,
-				71461ED32C3811E8002A6999 /* ViewController+.swift */,
-				71461ED52C38150C002A6999 /* UILabel+.swift */,
-				7121A1342C39CCF60056DB8B /* UIButton+.swift */,
+				7121A14D2C3B09BF0056DB8B /* Foundation+ */,
+				7121A14C2C3B09B30056DB8B /* UIKit+ */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -243,6 +286,7 @@
 			children = (
 				71E3C4112C243BDD0026C4DD /* getClassName.swift */,
 				7121A13D2C3A98E10056DB8B /* LabelFactory.swift */,
+				7121A14A2C3B09800056DB8B /* setImage.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -371,11 +415,15 @@
 				71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */,
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
 				71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */,
+				7121A1512C3B09E10056DB8B /* Result+.swift in Sources */,
+				7121A1462C3B07AA0056DB8B /* BaseResponse.swift in Sources */,
 				7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */,
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
+				7121A14B2C3B09800056DB8B /* setImage.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
+				7121A1492C3B08360056DB8B /* JobDetailModel.swift in Sources */,
 				7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */,
 				71461EBD2C3705B6002A6999 /* FontLiterals.swift in Sources */,
 				7121A1402C3AB9EE0056DB8B /* JobDetailInfoView.swift in Sources */,

@@ -115,7 +115,7 @@ extension CustomButton {
             var updatedConfiguration = button.configuration
             switch button.state {
             case .normal:
-                updatedConfiguration?.background.backgroundColor = .terningMain1
+                updatedConfiguration?.background.backgroundColor = .terningMain
             case .highlighted:
                 updatedConfiguration?.background.backgroundColor = .terningMain2
             default:
@@ -129,7 +129,7 @@ extension CustomButton {
     }
     
     private func updateBackgroundColor() {
-        let bgColor: UIColor = self.isEnabled ? .terningMain1 :.grey200
+        let bgColor: UIColor = self.isEnabled ? .terningMain :.grey200
         self.configuration?.background.backgroundColor = bgColor
     }
 }

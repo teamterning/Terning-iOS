@@ -24,10 +24,11 @@ final class JobDetailInfoView: UIView {
         $0.textColor = .grey500
     }
     
-    // MARK: - initialization
+    // MARK: - Init
     
     init(title: String, description: String) {
         super.init(frame: .zero)
+        
         self.setUI(title: title, description: description)
         self.setLayout()
     }

@@ -17,7 +17,19 @@ final class CustomOnboardingButton: UIButton {
     private var selectedTitle: String
     var index: Int = 0
     
-    // MARK: - initialization
+    override var isHighlighted: Bool {
+        didSet {
+            if isSelected {
+                self.layer.borderColor = isHighlighted ? UIColor.terningMain2.cgColor : UIColor.terningMain.cgColor
+                self.backgroundColor = isHighlighted ? .terningSelectPressed : .terningSelect
+            } else {
+                self.layer.borderColor = isHighlighted ? UIColor.terningMain2.cgColor : UIColor.terningMain.cgColor
+                self.backgroundColor = isHighlighted ? .terningPressed : .clear
+            }
+        }
+    }
+    
+    // MARK: - Init
     
     init(
         originalTitle: String,
@@ -34,6 +46,7 @@ final class CustomOnboardingButton: UIButton {
         setUI(cornerRadius: cornerRadius)
         setLayout(height: height)
         setStyle()
+        setAddTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -41,38 +54,18 @@ final class CustomOnboardingButton: UIButton {
     }
 }
 
-// MARK: - Methods
-    
-extension CustomOnboardingButton {
-    @objc private func buttonTapped() {
-        self.isSelected.toggle()
-        setStyle()
-    }
-    
-    public func selectButton() {
-        guard !self.isSelected else { return }
-        self.isSelected = true
-        setStyle()
-    }
-    
-    public func deselectButton() {
-        guard self.isSelected else { return }
-        self.isSelected = false
-        setStyle()
-    }
-}
-    
 // MARK: - UI & Layout
 
 extension CustomOnboardingButton {
     private func setUI(cornerRadius: CGFloat) {
-        self.layer.cornerRadius = cornerRadius
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.terningMain.cgColor
+        self.makeBorder(
+            width: 1,
+            color: .terningMain,
+            cornerRadius: cornerRadius
+        )
         self.titleLabel?.numberOfLines = 0
         self.titleLabel?.textAlignment = .center
         self.titleLabel?.font = .button3
-        self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
     private func setLayout(height: CGFloat) {
@@ -93,15 +86,34 @@ extension CustomOnboardingButton {
         }
     }
     
-    override var isHighlighted: Bool {
-        didSet {
-            if isSelected {
-                self.layer.borderColor = isHighlighted ? UIColor.terningMain2.cgColor : UIColor.terningMain.cgColor
-                self.backgroundColor = isHighlighted ? .terningSelectPressed : .terningSelect
-            } else {
-                self.layer.borderColor = isHighlighted ? UIColor.terningMain2.cgColor : UIColor.terningMain.cgColor
-                self.backgroundColor = isHighlighted ? .terningPressed : .clear
-            }
-        }
+    private func setAddTarget() {
+        self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+    }
+}
+
+// MARK: - Methods
+
+extension CustomOnboardingButton {
+    public func selectButton() {
+        guard !self.isSelected else { return }
+        self.isSelected = true
+        setStyle()
+    }
+    
+    public func deselectButton() {
+        guard self.isSelected else { return }
+        self.isSelected = false
+        setStyle()
+    }
+}
+
+
+// MARK: - @objc func
+
+extension CustomOnboardingButton {
+    @objc
+    private func buttonTapped() {
+        self.isSelected.toggle()
+        setStyle()
     }
 }

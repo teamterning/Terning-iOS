@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */; };
-		2D4EE3892C3D9EA400E3E95B /* getKrDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3882C3D9EA400E3E95B /* getKrDate.swift */; };
+		2D4EE3892C3D9EA400E3E95B /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3882C3D9EA400E3E95B /* Date+.swift */; };
 		2D4EE38B2C3D9FD900E3E95B /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE38A2C3D9FD900E3E95B /* CustomDatePicker.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
@@ -50,7 +50,7 @@
 
 /* Begin PBXFileReference section */
 		2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
-		2D4EE3882C3D9EA400E3E95B /* getKrDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getKrDate.swift; sourceTree = "<group>"; };
+		2D4EE3882C3D9EA400E3E95B /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		2D4EE38A2C3D9FD900E3E95B /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
@@ -156,6 +156,7 @@
 		7121A14D2C3B09BF0056DB8B /* Foundation+ */ = {
 			isa = PBXGroup;
 			children = (
+				2D4EE3882C3D9EA400E3E95B /* Date+.swift */,
 				7121A1502C3B09E10056DB8B /* Result+.swift */,
 			);
 			path = "Foundation+";
@@ -291,7 +292,6 @@
 				71E3C4112C243BDD0026C4DD /* getClassName.swift */,
 				7121A13D2C3A98E10056DB8B /* LabelFactory.swift */,
 				7121A14A2C3B09800056DB8B /* setImage.swift */,
-				2D4EE3882C3D9EA400E3E95B /* getKrDate.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -428,7 +428,7 @@
 				7121A14B2C3B09800056DB8B /* setImage.swift in Sources */,
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
-				2D4EE3892C3D9EA400E3E95B /* getKrDate.swift in Sources */,
+				2D4EE3892C3D9EA400E3E95B /* Date+.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
 				7121A1492C3B08360056DB8B /* JobDetailModel.swift in Sources */,

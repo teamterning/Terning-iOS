@@ -1,5 +1,5 @@
 //
-//  getKrDate.swift
+//  Date+.swift
 //  Terning-iOS
 //
 //  Created by 정민지 on 7/10/24.

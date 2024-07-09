@@ -21,9 +21,7 @@ public final class CustomDatePicker: UIPickerView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.dataSource = self
-        self.delegate = self
-        
+        setDelegate()
         setSelectedRow()
     }
     
@@ -81,23 +79,19 @@ extension CustomDatePicker: UIPickerViewDelegate {
     public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let containerView = UIView()
         
-        let label = UILabel()
+        var label = UILabel()
         label.textAlignment = .center
         
-        if component == 0 {
-            label.text = "\(years[row])년"
-        } else {
-            label.text  = "\(months[row])월"
-        }
+        label.text = (component == 0) ? "\(years[row])년" : "\(months[row])월"
         
         containerView.addSubview(label)
         
-        label.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
+        label.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
             if component == 0 {
-                make.trailing.equalToSuperview().inset(15)
+                $0.trailing.equalToSuperview().inset(15)
             } else {
-                make.leading.equalToSuperview().inset(26)
+                $0.leading.equalToSuperview().inset(26)
             }
         }
         
@@ -113,8 +107,13 @@ extension CustomDatePicker: UIPickerViewDelegate {
 
 // MARK: - Methods
 
-/// 한국 날짜로 현재 년도와 달을 초기 화면에 뜨는 년도와 달로 설정
 extension CustomDatePicker {
+    private func setDelegate() {
+        self.dataSource = self
+        self.delegate = self
+    }
+
+    /// 한국 날짜로 현재 년도와 달을 초기 화면에 뜨는 년도와 달로 설정
     private func setSelectedRow() {
         let (currentYear, currentMonth) = Date().getCurrentKrYearAndMonth()
         
@@ -122,9 +121,6 @@ extension CustomDatePicker {
            let initialMonthIndex = months.firstIndex(of: currentMonth) {
             self.selectRow(initialYearIndex, inComponent: 0, animated: false)
             self.selectRow(initialMonthIndex, inComponent: 1, animated: false)
-            
-            pickerView(self, didSelectRow: initialYearIndex, inComponent: 0)
-            pickerView(self, didSelectRow: initialMonthIndex, inComponent: 1)
         }
     }
 }

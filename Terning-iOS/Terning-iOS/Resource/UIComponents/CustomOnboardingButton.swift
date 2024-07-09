@@ -41,34 +41,26 @@ final class CustomOnboardingButton: UIButton {
     }
 }
 
-
 // MARK: - Methods
     
 extension CustomOnboardingButton {
     @objc private func buttonTapped() {
-        toggleButton()
-    }
-    
-    private func toggleButton() {
         self.isSelected.toggle()
         setStyle()
     }
     
-    
-    func selectButton() {
+    public func selectButton() {
         guard !self.isSelected else { return }
         self.isSelected = true
         setStyle()
     }
     
-    func deselectButton() {
+    public func deselectButton() {
         guard self.isSelected else { return }
         self.isSelected = false
         setStyle()
     }
 }
-
-
     
 // MARK: - UI & Layout
 
@@ -76,29 +68,27 @@ extension CustomOnboardingButton {
     private func setUI(cornerRadius: CGFloat) {
         self.layer.cornerRadius = cornerRadius
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.borderColor = UIColor.terningMain.cgColor
         self.titleLabel?.numberOfLines = 0
         self.titleLabel?.textAlignment = .center
-        self.titleLabel?.font = UIFont.systemFont(ofSize: 10, weight: .bold)
+        self.titleLabel?.font = .button3
+        self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
     private func setLayout(height: CGFloat) {
         self.snp.makeConstraints {
             $0.height.equalTo(height)
         }
-        self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
     private func setStyle() {
         if self.isSelected {
             self.setTitle(selectedTitle, for: .normal)
-            self.setTitleColor(.green, for: .normal)
-            self.layer.borderColor = UIColor.green.cgColor
-            self.backgroundColor = UIColor.green.withAlphaComponent(0.3)
+            self.setTitleColor(.terningMain, for: .normal)
+            self.backgroundColor = .terningSelect
         } else {
             self.setTitle(originalTitle, for: .normal)
-            self.setTitleColor(.gray, for: .normal)
-            self.layer.borderColor = UIColor.lightGray.cgColor
+            self.setTitleColor(.grey400, for: .normal)
             self.backgroundColor = .clear
         }
     }
@@ -106,9 +96,11 @@ extension CustomOnboardingButton {
     override var isHighlighted: Bool {
         didSet {
             if isSelected {
-                self.backgroundColor = isHighlighted ? UIColor.green.withAlphaComponent(0.5) : UIColor.green.withAlphaComponent(0.3)
+                self.layer.borderColor = isHighlighted ? UIColor.terningMain2.cgColor : UIColor.terningMain.cgColor
+                self.backgroundColor = isHighlighted ? .terningSelectPressed : .terningSelect
             } else {
-                self.backgroundColor = isHighlighted ? UIColor.green.withAlphaComponent(0.1) : .clear
+                self.layer.borderColor = isHighlighted ? UIColor.terningMain2.cgColor : UIColor.terningMain.cgColor
+                self.backgroundColor = isHighlighted ? .terningPressed : .clear
             }
         }
     }

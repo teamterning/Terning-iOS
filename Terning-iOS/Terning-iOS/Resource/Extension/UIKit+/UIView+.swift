@@ -15,9 +15,14 @@ extension UIView {
     }
     
     /// width와 color를 받아 UIView의 Border를 설정합니다.
-    func makeBorder(width: CGFloat, color: UIColor) {
+    func makeBorder(
+        width: CGFloat,
+        color: UIColor,
+        cornerRadius: CGFloat = 0
+    ) {
         layer.borderWidth = width
         layer.borderColor = color.cgColor
+        layer.cornerRadius = cornerRadius
     }
 }
 

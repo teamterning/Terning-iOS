@@ -37,7 +37,7 @@ final class CustomProgressView: UIView {
         self.totalSteps = totalSteps
         
         super.init(frame: .zero)
-
+        
         self.setUI()
         self.setLayout()
         self.setStep(currentStep: currentStep)
@@ -56,25 +56,27 @@ extension CustomProgressView {
             let circleView = UIView().then {
                 $0.layer.cornerRadius = circleSize / 2
                 $0.layer.borderWidth = 2
-                $0.layer.borderColor = UIColor.lightGray.cgColor
-                $0.backgroundColor = .gray
+                $0.layer.borderColor = UIColor.grey200.cgColor
+                $0.backgroundColor = .grey300
             }
             let labelView = UILabel().then {
                 $0.text = "\(step)"
                 $0.textColor = .white
                 $0.textAlignment = .center
-                $0.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+                $0.font = .button3
             }
             
-            addSubview(circleView)
-            addSubview(labelView)
+            addSubviews(
+                circleView,
+                labelView
+            )
             
             circleViews.append(circleView)
             labelViews.append(labelView)
             
             if step < totalSteps {
                 let lineView = UIView().then {
-                    $0.backgroundColor = .darkGray
+                    $0.backgroundColor = .grey400
                 }
                 addSubview(lineView)
                 lineViews.append(lineView)
@@ -103,8 +105,8 @@ extension CustomProgressView {
                 }
             }
             
-            labelView.snp.makeConstraints { make in
-                make.edges.equalTo(circleView)
+            labelView.snp.makeConstraints {
+                $0.edges.equalTo(circleView)
             }
             
             if index < lineViews.count {
@@ -122,6 +124,9 @@ extension CustomProgressView {
             $0.trailing.equalToSuperview()
         }
     }
+    
+    
+    // MARK: - Methods
     
     /// 현재 step만큼 색상 변경
     func setStep(currentStep: Int) {

@@ -5,17 +5,17 @@
 : 맞춤형 인턴 추천 및 일정 관리를 통해, 
   사회인을 향한 대학생의 마지막 터닝포인트를 함께합니다.
 
-## **Member**
+## **1. Member**
 | 이명진<br/>([@thingineeer](https://github.com/thingineeer)) | 정민지<br/>([@wjdalswl](https://github.com/wjdalswl)) | 김민성<br/>([@mminny](https://github.com/mminny)) |
 | :---: | :---: | :---: |
 | <img width="540" src="https://github.com/teamterning/Terning-iOS/assets/88179341/5ce47573-b805-4be0-9b6f-ac03d9fd4163"/> | <img width="540" src="https://github.com/teamterning/Terning-iOS/assets/88179341/ed6c378e-f17d-4dd6-8081-8b69da816d51"/> | <img width="540" src="https://github.com/teamterning/Terning-iOS/assets/88179341/f6420a14-2ca9-4463-a075-e0594e50e107"/> |
 <br>
 
-## [Project Design](https://www.figma.com/board/h597MCTAjj8PawsF1nbHMC/iOS-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%84%A4%EA%B3%84?node-id=0-1&t=elsfeNTTSrKMhUfx-1)
+## [2. Project Design](https://www.figma.com/board/h597MCTAjj8PawsF1nbHMC/iOS-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%84%A4%EA%B3%84?node-id=0-1&t=elsfeNTTSrKMhUfx-1)
 <img width="941" alt="image" src="https://github.com/teamterning/Terning-iOS/assets/88179341/8e4c42ce-4bef-4c02-87b8-b7adfb5ced1f">
 
 
-## **Commit Message Rule**
+## **3. Commit Message Rule**
 
 `[prefix] #이슈번호 - 이슈 내용`
 
@@ -36,39 +36,39 @@
 [Setting]: 프로젝트 세팅 및 전반적 기능
 [Test]: 테스트 코드
 ```
-ex) [Feat] #5 - 서버 연결 구현
+> ex) [Feat] #5 - 서버 연결 구현
 
 ---
 
-## Code Convention
+## **4. Code Convention**
 
 [터닝 코드 컨벤션](https://abundant-quiver-13f.notion.site/Code-Convention-a0949dcd93184be4be1f6456c48ab80c)
 
 ---
 
-## **Code Review Rule**
+## **5. Code Review Rule**
 
 코드 리뷰를 최대한 빨리 달고 반영하자!
 
 ---
 
-## **Issue Naming Rule**
+## **6. Issue Naming Rule**
 
 `[Prefix] - 이슈내용`
 
-ex) [Feat] - TerningPoint 홈 화면 구현
+> ex) [Feat] - TerningPoint 홈 화면 구현
 
 ---
 
-## **PR Naming Rule**
+## **7. PR Naming Rule**
 
 `[Prefix] #이슈번호- 작업내용`
 
-ex) [Feat] #1 - TerningPoint 홈 화면 구현
+> ex) [Feat] #1 - TerningPoint 홈 화면 구현
 
 ---
 
-## **Git Flow**
+## **8. Git Flow**
 
 1. 이슈 생성
 2. 브랜치 생성
@@ -79,13 +79,13 @@ ex) [Feat] #1 - TerningPoint 홈 화면 구현
 
 ---
 
-## **Git**
+## **9.Git**
 
 충돌 안나게 같은 파일 최대한 작업하지 않기
 
 ---
 
-## **Development Environment and Using Library**
+## 10. **Development Environment and Using Library**
 
 - Development Environment
 <p align="left">
@@ -118,7 +118,7 @@ ex) [Feat] #1 - TerningPoint 홈 화면 구현
 
 ---
 
-## **Foldering**
+## 11. **Foldering**
 
 ```
 ├── 📂 Terning-iOS

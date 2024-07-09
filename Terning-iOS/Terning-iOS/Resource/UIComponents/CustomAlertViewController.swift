@@ -69,7 +69,7 @@ final class CustomAlertViewController: UIViewController {
         $0.image = UIImage(resource: .icHome)
     }
     
-    private let titleLabel = LabelFactory.build(
+    private let mainLabel = LabelFactory.build(
         text: "[한양대학교 컬렉티브임팩트센터] /코이카 영프로페셔널(YP) 모집합니다",
         font: .title4,
         textColor: .grey500
@@ -158,8 +158,10 @@ final class CustomAlertViewController: UIViewController {
     }
     
     // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.setUI()
         self.setLayout(alertType)
         self.bindViews(alertType)
@@ -205,21 +207,25 @@ extension CustomAlertViewController {
         guard alertType == .custom else { return } // custom 타입 일때만 사용 가능한 메서드
         
         self.JobImageView.setImage(with: model.companyImage)
-        self.titleLabel.text = model.title
+        self.mainLabel.text = model.title
         self.dDayLabel.text = model.dDay
         self.deadlineInfoView.setDescriptionText(description: model.deadline)
         self.workPeriodInfoView.setDescriptionText(description: model.workingPeriod)
         self.workStartInfoView.setDescriptionText(description: model.startDate)
     }
     
-    public func setComponentDatas(
-        mainLabel: String,
-        subLabel: String,
-        buttonLabel: String
-    ) {
+    
+    /// 알림창에 들어갈 String 값을 커스텀 해주는 메서드 입니다.
+    /// - Parameters:
+    ///   - mainLabel: 메인 text
+    ///   - subLabel: 서브 text
+    ///   - buttonLabel: 중앙 버튼 text
+    public func setComponentDatas(mainLabel: String, subLabel: String, buttonLabel: String) {
         guard alertType == .normal else { return } // normal 타입 일때만 사용 가능한 메서드
         
-        
+        self.mainLabel.text = mainLabel
+        self.subLabel.text = subLabel
+        self.centerButton.setTitle(title: buttonLabel)
     }
     
     private func bindViews(_ type: AlertType) {
@@ -277,7 +283,7 @@ extension CustomAlertViewController {
         alertView.addSubviews(
             JobImageView,
             palettecollectionView,
-            titleLabel,
+            mainLabel,
             subLabel,
             sepeartorView,
             dDayLabel,
@@ -306,13 +312,13 @@ extension CustomAlertViewController {
             $0.width.height.equalTo(80)
         }
         
-        titleLabel.snp.makeConstraints {
+        mainLabel.snp.makeConstraints {
             $0.top.equalTo(JobImageView.snp.bottom).offset(15)
             $0.horizontalEdges.equalToSuperview().inset(21)
         }
         
         subLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.top.equalTo(mainLabel.snp.bottom).offset(4)
             $0.centerX.equalToSuperview()
         }
         
@@ -373,9 +379,13 @@ extension CustomAlertViewController {
         
         alertView.addSubviews(
             alertImageView,
+            mainLabel,
+            subLabel,
             centerButton,
             closeButton
         )
+        
+        mainLabel.do { $0.numberOfLines = 1 } // 기본 3줄로 초기화한 속성을 normal일때 한줄로 처리 해줍니다.
         
         alertView.snp.makeConstraints {
             $0.centerX.centerY.equalToSuperview()
@@ -390,8 +400,18 @@ extension CustomAlertViewController {
             $0.height.equalTo(203)
         }
         
+        mainLabel.snp.makeConstraints {
+            $0.top.equalTo(alertImageView.snp.bottom).offset(20)
+            $0.horizontalEdges.equalToSuperview().inset(21)
+        }
+        
+        subLabel.snp.makeConstraints {
+            $0.top.equalTo(mainLabel.snp.bottom).offset(4)
+            $0.centerX.equalToSuperview()
+        }
+        
         centerButton.snp.makeConstraints {
-            $0.top.equalTo(alertImageView.snp.bottom).offset(25)
+            $0.top.equalTo(subLabel.snp.bottom).offset(40)
             $0.horizontalEdges.equalToSuperview().inset(16)
             $0.height.equalTo(40)
         }
@@ -419,7 +439,7 @@ extension CustomAlertViewController {
     /// contentsLabel의 텍스트 변경
     @discardableResult
     public func setTitle(_ title: String) -> Self {
-        self.titleLabel.text = title
+        self.mainLabel.text = title
         return self
     }
     

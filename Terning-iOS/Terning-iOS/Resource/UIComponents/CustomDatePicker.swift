@@ -57,39 +57,42 @@ extension CustomDatePicker: UIPickerViewDelegate {
         return 40
     }
     
-    public func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+    public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let containerView: UIView
+        let label: UILabel
+        
+        if let view = view, let reusedLabel = view.subviews.first as? UILabel {
+            containerView = view
+            label = reusedLabel
+        } else {
+            containerView = UIView()
+            label = UILabel()
+            label.textAlignment = .center
+            containerView.addSubview(label)
+            
+            label.snp.makeConstraints {
+                $0.centerY.equalToSuperview()
+                if component == 0 {
+                    $0.trailing.equalToSuperview().inset(15)
+                } else {
+                    $0.leading.equalToSuperview().inset(26)
+                }
+            }
+        }
+        
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .right
         paragraphStyle.tailIndent = 45
         
-        var label: String
-        label = (component == 0) ? "\(years[row])년" : "\(months[row])월"
+        let text = (component == 0) ? "\(years[row])년" : "\(months[row])월"
         
-        return NSAttributedString(string: label, attributes: [
+        let attributedString = NSAttributedString(string: text, attributes: [
             NSAttributedString.Key.paragraphStyle: paragraphStyle,
             NSAttributedString.Key.font: UIFont.title3,
             NSAttributedString.Key.foregroundColor: UIColor.grey500
         ])
-    }
-
-    public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let containerView = UIView()
         
-        var label = UILabel()
-        label.textAlignment = .center
-        
-        label.text = (component == 0) ? "\(years[row])년" : "\(months[row])월"
-        
-        containerView.addSubview(label)
-        
-        label.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            if component == 0 {
-                $0.trailing.equalToSuperview().inset(15)
-            } else {
-                $0.leading.equalToSuperview().inset(26)
-            }
-        }
+        label.attributedText = attributedString
         
         return containerView
     }
@@ -108,7 +111,7 @@ extension CustomDatePicker {
         self.dataSource = self
         self.delegate = self
     }
-
+    
     /// 한국 날짜로 현재 년도와 달을 초기 화면에 뜨는 년도와 달로 설정
     private func setSelectedRow() {
         let (currentYear, currentMonth) = Date().getCurrentKrYearAndMonth()

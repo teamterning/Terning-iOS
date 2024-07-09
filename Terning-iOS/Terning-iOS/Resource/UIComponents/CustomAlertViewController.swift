@@ -7,12 +7,18 @@
 
 import UIKit
 
-import RxSwift
-import RxRelay
 import RxCocoa
+import RxRelay
+import RxSwift
 
 import SnapKit
 import Then
+
+@frozen
+enum AlertType {
+    case custom
+    case normal
+}
 
 enum AlertMode {
     case info
@@ -28,13 +34,15 @@ final class CustomAlertViewController: UIViewController {
     private var disposeBag = DisposeBag()
     private var currentMode: AlertMode = .info
     
+    private var alertType: AlertType!
+    
     let selectedColorIndexRelay = BehaviorRelay<Int>(value: 0)
     
     // MARK: - UI Components
     
     private let alertView = UIView()
     
-    private lazy var PalettecollectionView: UICollectionView = {
+    private lazy var palettecollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 14
         layout.minimumLineSpacing = 6
@@ -57,6 +65,10 @@ final class CustomAlertViewController: UIViewController {
         $0.makeBorder(width: 1, color: .terningMain)
     }
     
+    private let alertImageView = UIImageView().then {
+        $0.image = UIImage(resource: .icHome)
+    }
+    
     private let titleLabel = LabelFactory.build(
         text: "[한양대학교 컬렉티브임팩트센터] /코이카 영프로페셔널(YP) 모집합니다",
         font: .title4,
@@ -65,7 +77,7 @@ final class CustomAlertViewController: UIViewController {
         $0.numberOfLines = 3
     }
     
-    private let infoView = LabelFactory.build(
+    private let subLabel = LabelFactory.build(
         text: "공고를 캘린더에 스크랩 하시겠어요?",
         font: .body5,
         textColor: .grey350
@@ -149,9 +161,21 @@ final class CustomAlertViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUI()
-        self.setLayout()
-        self.bindViews()
-        switchMode(to: .info)
+        self.setLayout(alertType)
+        self.bindViews(alertType)
+        if alertType == .custom {
+            switchMode(to: .info)
+        }
+    }
+    
+    init(alertType: AlertType) {
+        
+        self.alertType = alertType
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -159,19 +183,102 @@ final class CustomAlertViewController: UIViewController {
 
 extension CustomAlertViewController {
     private func setUI() {
-        view.backgroundColor = .black.withAlphaComponent(0.8)
+        view.backgroundColor = .black.withAlphaComponent(0.3)
         alertView.backgroundColor = .white
-        alertView.layer.cornerRadius = 12
+        alertView.layer.cornerRadius = 20
     }
     
-    private func setLayout() {
+    private func setLayout(_ type: AlertType) {
+        switch type {
+        case .custom:
+            setCustomLayout()
+        case .normal:
+            setNormalLayout()
+        }
+    }
+}
+
+// MARK: - Methods
+
+extension CustomAlertViewController {
+    public func setData(model: JobDetailModel) {
+        guard alertType == .custom else { return } // custom 타입 일때만 사용 가능한 메서드
+        
+        self.JobImageView.setImage(with: model.companyImage)
+        self.titleLabel.text = model.title
+        self.dDayLabel.text = model.dDay
+        self.deadlineInfoView.setDescriptionText(description: model.deadline)
+        self.workPeriodInfoView.setDescriptionText(description: model.workingPeriod)
+        self.workStartInfoView.setDescriptionText(description: model.startDate)
+    }
+    
+    public func setComponentDatas(
+        mainLabel: String,
+        subLabel: String,
+        buttonLabel: String
+    ) {
+        guard alertType == .normal else { return } // normal 타입 일때만 사용 가능한 메서드
+        
+        
+    }
+    
+    private func bindViews(_ type: AlertType) {
+        
+        self.centerButton.rx.tap.subscribe { _ in
+            self.centerButtonTapAction?()
+        }.disposed(by: disposeBag)
+        
+        self.closeButton.rx.tap.bind { [weak self] in
+            guard let self = self else { return }
+            
+            self.dismiss(animated: false)
+        }.disposed(by: disposeBag)
+        
+        if type == .custom {
+            customBinds()
+        }
+    }
+    
+    private func switchMode(to mode: AlertMode) {
+        self.currentMode = mode
+        let isInfoMode = mode == .info
+        
+        self.detailsVStackView.isHidden = !isInfoMode
+        self.dDayLabel.isHidden = !isInfoMode
+        self.palettecollectionView.isHidden = isInfoMode
+    }
+    
+    private func handleColorSelection(at index: Int) {
+        selectedColorIndexRelay.accept(index)
+    }
+    
+    private func customBinds() {
+        self.colorButton.rx.tap.bind { [weak self] in
+            guard let self = self else { return }
+            
+            let newMode: AlertMode = self.currentMode == .info ? .color : .info
+            self.switchMode(to: newMode)
+        }.disposed(by: disposeBag)
+        
+        self.selectedColorIndexRelay
+            .asObservable()
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                
+                colorButton.setBackgroundColor(colors[index], for: .normal)
+                self.palettecollectionView.reloadData()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func setCustomLayout() {
         view.addSubview(alertView)
         
         alertView.addSubviews(
             JobImageView,
-            PalettecollectionView,
+            palettecollectionView,
             titleLabel,
-            infoView,
+            subLabel,
             sepeartorView,
             dDayLabel,
             detailsVStackView,
@@ -187,7 +294,7 @@ extension CustomAlertViewController {
             $0.height.equalTo(421)
         }
         
-        PalettecollectionView.snp.makeConstraints {
+        palettecollectionView.snp.makeConstraints {
             $0.top.equalTo(sepeartorView.snp.bottom).offset(19)
             $0.horizontalEdges.equalToSuperview().inset(35)
             $0.height.greaterThanOrEqualTo(88)
@@ -204,13 +311,13 @@ extension CustomAlertViewController {
             $0.horizontalEdges.equalToSuperview().inset(21)
         }
         
-        infoView.snp.makeConstraints {
+        subLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(4)
             $0.centerX.equalToSuperview()
         }
         
         colorButton.snp.makeConstraints {
-            $0.top.equalTo(infoView.snp.bottom).offset(15)
+            $0.top.equalTo(subLabel.snp.bottom).offset(15)
             $0.leading.equalTo(alertView.snp.leading).offset(24)
             $0.width.equalTo(65)
             $0.height.equalTo(26)
@@ -260,60 +367,40 @@ extension CustomAlertViewController {
             $0.width.height.equalTo(30)
         }
     }
-}
-
-// MARK: - Methods
-
-extension CustomAlertViewController {
-    public func setData(model: JobDetailModel) {
-        self.JobImageView.setImage(with: model.companyImage)
-        self.titleLabel.text = model.title
-        self.dDayLabel.text = model.dDay
-        self.deadlineInfoView.setDescriptionText(description: model.deadline)
-        self.workPeriodInfoView.setDescriptionText(description: model.workingPeriod)
-        self.workStartInfoView.setDescriptionText(description: model.startDate)
-    }
     
-    private func bindViews() {
-        self.centerButton.rx.tap.subscribe { _ in
-            self.centerButtonTapAction?()
-        }.disposed(by: disposeBag)
+    private func setNormalLayout() {
+        view.addSubview(alertView)
         
-        self.colorButton.rx.tap.bind { [weak self] in
-            guard let self = self else { return }
-            
-            let newMode: AlertMode = self.currentMode == .info ? .color : .info
-            self.switchMode(to: newMode)
-        }.disposed(by: disposeBag)
+        alertView.addSubviews(
+            alertImageView,
+            centerButton,
+            closeButton
+        )
         
-        self.closeButton.rx.tap.bind { [weak self] in
-            guard let self = self else { return }
-            
-            self.dismiss(animated: false)
-        }.disposed(by: disposeBag)
+        alertView.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(30)
+            $0.height.equalTo(421)
+        }
         
-        self.selectedColorIndexRelay
-            .asObservable()
-            .subscribe(onNext: { [weak self] index in
-                guard let self = self else { return }
-                
-                colorButton.setBackgroundColor(colors[index], for: .normal)
-                self.PalettecollectionView.reloadData()
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func switchMode(to mode: AlertMode) {
-        self.currentMode = mode
-        let isInfoMode = mode == .info
+        alertImageView.snp.makeConstraints {
+            $0.top.equalTo(alertView.snp.top).offset(60)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(279.02)
+            $0.height.equalTo(203)
+        }
         
-        self.detailsVStackView.isHidden = !isInfoMode
-        self.dDayLabel.isHidden = !isInfoMode
-        self.PalettecollectionView.isHidden = isInfoMode
-    }
-    
-    private func handleColorSelection(at index: Int) {
-        selectedColorIndexRelay.accept(index)
+        centerButton.snp.makeConstraints {
+            $0.top.equalTo(alertImageView.snp.bottom).offset(25)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(40)
+        }
+        
+        closeButton.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(10)
+            $0.right.equalToSuperview().offset(-10)
+            $0.width.height.equalTo(30)
+        }
     }
 }
 

@@ -63,11 +63,7 @@ extension CustomDatePicker: UIPickerViewDelegate {
         paragraphStyle.tailIndent = 45
         
         var label: String
-        if component == 0 {
-            label = "\(years[row])년"
-        } else {
-            label = "\(months[row])월"
-        }
+        label = (component == 0) ? "\(years[row])년" : "\(months[row])월"
         
         return NSAttributedString(string: label, attributes: [
             NSAttributedString.Key.paragraphStyle: paragraphStyle,

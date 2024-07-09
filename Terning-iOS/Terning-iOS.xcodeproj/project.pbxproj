@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
+		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
+		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
+		7121A13A2C3A6CEB0056DB8B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7121A1392C3A6CEB0056DB8B /* RxCocoa */; };
+		7121A13C2C3A6CEB0056DB8B /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 7121A13B2C3A6CEB0056DB8B /* RxRelay */; };
+		7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A13D2C3A98E10056DB8B /* LabelFactory.swift */; };
+		7121A1402C3AB9EE0056DB8B /* JobDetailInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */; };
+		7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1422C3AE9C20056DB8B /* PaletteCell.swift */; };
+		7121A1462C3B07AA0056DB8B /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1452C3B07AA0056DB8B /* BaseResponse.swift */; };
+		7121A1492C3B08360056DB8B /* JobDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1482C3B08360056DB8B /* JobDetailModel.swift */; };
+		7121A14B2C3B09800056DB8B /* setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A14A2C3B09800056DB8B /* setImage.swift */; };
+		7121A1512C3B09E10056DB8B /* Result+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1502C3B09E10056DB8B /* Result+.swift */; };
 		71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAC2C370439002A6999 /* Pretendard-Light.otf */; };
 		71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAE2C370439002A6999 /* Pretendard-Medium.otf */; };
 		71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */; };
@@ -34,6 +46,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		7121A13D2C3A98E10056DB8B /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
+		7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailInfoView.swift; sourceTree = "<group>"; };
+		7121A1422C3AE9C20056DB8B /* PaletteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteCell.swift; sourceTree = "<group>"; };
+		7121A1452C3B07AA0056DB8B /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		7121A1482C3B08360056DB8B /* JobDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailModel.swift; sourceTree = "<group>"; };
+		7121A14A2C3B09800056DB8B /* setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setImage.swift; sourceTree = "<group>"; };
+		7121A1502C3B09E10056DB8B /* Result+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+.swift"; sourceTree = "<group>"; };
 		71461EAC2C370439002A6999 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		71461EAE2C370439002A6999 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -51,9 +73,7 @@
 		71E3C3D52C22BAF50026C4DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		71E3C3D82C22BAF50026C4DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		71E3C3DA2C22BAF50026C4DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		71E3C3E22C241B470026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		71E3C3F32C241CB00026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		71E3C3F52C241CBB0026C4DD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		71E3C40C2C2423280026C4DD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		71E3C40E2C243B510026C4DD /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		71E3C4112C243BDD0026C4DD /* getClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getClassName.swift; sourceTree = "<group>"; };
@@ -67,8 +87,10 @@
 				71E3C3F92C241D900026C4DD /* Kingfisher in Frameworks */,
 				71E3C4042C241DD40026C4DD /* Moya in Frameworks */,
 				71E3C4082C241DD40026C4DD /* RxMoya in Frameworks */,
+				7121A13A2C3A6CEB0056DB8B /* RxCocoa in Frameworks */,
 				717D37EA2C32FA2F00A857DB /* SnapKit in Frameworks */,
 				71E3C4012C241DA30026C4DD /* Then in Frameworks */,
+				7121A13C2C3A6CEB0056DB8B /* RxRelay in Frameworks */,
 				71E3C4062C241DD40026C4DD /* ReactiveMoya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,6 +98,61 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7121A1312C396F980056DB8B /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				7121A1412C3AE99D0056DB8B /* Cell */,
+				7121A1322C396FB40056DB8B /* CustomButton.swift */,
+				7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */,
+				7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		7121A1412C3AE99D0056DB8B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				7121A1422C3AE9C20056DB8B /* PaletteCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		7121A1442C3B079F0056DB8B /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				7121A1452C3B07AA0056DB8B /* BaseResponse.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		7121A1472C3B07F30056DB8B /* Announcements */ = {
+			isa = PBXGroup;
+			children = (
+				7121A1482C3B08360056DB8B /* JobDetailModel.swift */,
+			);
+			path = Announcements;
+			sourceTree = "<group>";
+		};
+		7121A14C2C3B09B30056DB8B /* UIKit+ */ = {
+			isa = PBXGroup;
+			children = (
+				71E3C40E2C243B510026C4DD /* UIView+.swift */,
+				71D7E6F02C2FFB5800C54EA7 /* CALayer+.swift */,
+				71461ED32C3811E8002A6999 /* ViewController+.swift */,
+				71461ED52C38150C002A6999 /* UILabel+.swift */,
+				7121A1342C39CCF60056DB8B /* UIButton+.swift */,
+			);
+			path = "UIKit+";
+			sourceTree = "<group>";
+		};
+		7121A14D2C3B09BF0056DB8B /* Foundation+ */ = {
+			isa = PBXGroup;
+			children = (
+				7121A1502C3B09E10056DB8B /* Result+.swift */,
+			);
+			path = "Foundation+";
+			sourceTree = "<group>";
+		};
 		71D7E6EB2C2FF41200C54EA7 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,7 +205,7 @@
 		71E3C3E12C241B170026C4DD /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				71E3C3E22C241B470026C4DD /* .gitkeep */,
+				7121A1442C3B079F0056DB8B /* Base */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -136,6 +213,7 @@
 		71E3C3E42C241B8A0026C4DD /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				7121A1312C396F980056DB8B /* UIComponents */,
 				71E3C4102C243BBC0026C4DD /* Utils */,
 				71E3C3EC2C241C500026C4DD /* Literal */,
 				71E3C3EA2C241C3D0026C4DD /* Fonts */,
@@ -166,7 +244,7 @@
 		71E3C3E92C241C1B0026C4DD /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				71E3C3F52C241CBB0026C4DD /* .gitkeep */,
+				7121A1472C3B07F30056DB8B /* Announcements */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -185,10 +263,8 @@
 		71E3C3EB2C241C480026C4DD /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				71E3C40E2C243B510026C4DD /* UIView+.swift */,
-				71D7E6F02C2FFB5800C54EA7 /* CALayer+.swift */,
-				71461ED32C3811E8002A6999 /* ViewController+.swift */,
-				71461ED52C38150C002A6999 /* UILabel+.swift */,
+				7121A14D2C3B09BF0056DB8B /* Foundation+ */,
+				7121A14C2C3B09B30056DB8B /* UIKit+ */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -205,6 +281,8 @@
 			isa = PBXGroup;
 			children = (
 				71E3C4112C243BDD0026C4DD /* getClassName.swift */,
+				7121A13D2C3A98E10056DB8B /* LabelFactory.swift */,
+				7121A14A2C3B09800056DB8B /* setImage.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -233,6 +311,8 @@
 				71E3C4052C241DD40026C4DD /* ReactiveMoya */,
 				71E3C4072C241DD40026C4DD /* RxMoya */,
 				717D37E92C32FA2F00A857DB /* SnapKit */,
+				7121A1392C3A6CEB0056DB8B /* RxCocoa */,
+				7121A13B2C3A6CEB0056DB8B /* RxRelay */,
 			);
 			productName = "Terning-iOS";
 			productReference = 71E3C3C92C22BAF40026C4DD /* Terning-iOS.app */;
@@ -267,6 +347,7 @@
 				71E3C3FF2C241DA30026C4DD /* XCRemoteSwiftPackageReference "Then" */,
 				71E3C4022C241DD40026C4DD /* XCRemoteSwiftPackageReference "Moya" */,
 				717D37E82C32FA2F00A857DB /* XCRemoteSwiftPackageReference "SnapKit" */,
+				7121A1382C3A6CEB0056DB8B /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 71E3C3CA2C22BAF40026C4DD /* Products */;
 			projectDirPath = "";
@@ -323,15 +404,25 @@
 			files = (
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
 				71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */,
+				7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */,
 				71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */,
+				7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */,
 				71E3C3CD2C22BAF40026C4DD /* AppDelegate.swift in Sources */,
 				71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */,
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
 				71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */,
+				7121A1512C3B09E10056DB8B /* Result+.swift in Sources */,
+				7121A1462C3B07AA0056DB8B /* BaseResponse.swift in Sources */,
+				7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */,
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
+				7121A14B2C3B09800056DB8B /* setImage.swift in Sources */,
+				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
+				7121A1492C3B08360056DB8B /* JobDetailModel.swift in Sources */,
+				7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */,
 				71461EBD2C3705B6002A6999 /* FontLiterals.swift in Sources */,
+				7121A1402C3AB9EE0056DB8B /* JobDetailInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,6 +649,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		7121A1382C3A6CEB0056DB8B /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
 		717D37E82C32FA2F00A857DB /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -593,6 +692,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7121A1392C3A6CEB0056DB8B /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7121A1382C3A6CEB0056DB8B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		7121A13B2C3A6CEB0056DB8B /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7121A1382C3A6CEB0056DB8B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
 		717D37E92C32FA2F00A857DB /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 717D37E82C32FA2F00A857DB /* XCRemoteSwiftPackageReference "SnapKit" */;

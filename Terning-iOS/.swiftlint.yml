@@ -25,6 +25,7 @@ excluded:
     # AppDelegate, SceneDelegate, config file 무시
     - Terning-iOS/Application/AppDelegate.swift
     - Terning-iOS/Application/SceneDelegate.swift
+    - Terning-iOS/Resource/UIComponents/CustomAlertViewController.swift
 
 file_length:
     warning: 400 # 400줄 넘어가면 경고 입니다 ^_^

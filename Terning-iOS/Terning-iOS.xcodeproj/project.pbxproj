@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
 		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				7121A1412C3AE99D0056DB8B /* Cell */,
 				7121A1322C396FB40056DB8B /* CustomButton.swift */,
 				7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */,
+				2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */,
 				7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */,
 			);
 			path = UIComponents;
@@ -416,6 +419,7 @@
 				7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */,
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
 				7121A14B2C3B09800056DB8B /* setImage.swift in Sources */,
+				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,

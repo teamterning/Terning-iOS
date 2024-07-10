@@ -14,18 +14,22 @@ final class WelcomeView: UIView {
     
     // MARK: - UI Components
     
-    private let welcomeLabel = UILabel().then {
-        $0.textColor = .black
-        $0.font = .title1
-        $0.textAlignment = .center
+    private let welcomeLabel = LabelFactory.build(
+        text: "터치 3번으로\n원하는 대학생 인턴 공고를 띄워드릴게요",
+        font: .title1,
+        textColor: .terningBlack,
+        lineSpacing: 1.2
+    ).then {
         $0.numberOfLines = 0
     }
     
-    private let welcomeGuideLabel = UILabel().then {
-        $0.textColor = .grey300
-        $0.font = .body2
-        $0.textAlignment = .center
-        $0.numberOfLines = 0
+    private let welcomeGuideLabel = LabelFactory.build(
+        text: "마음에 드는 공고를 스크랩하며\n나만의 인턴 캘린더를 채워보세요",
+        font: .body2,
+        textColor: .grey300,
+        lineSpacing: 1.2
+    ).then {
+        $0.numberOfLines = 2
     }
     
     private let logoImageView = UIImageView().then {

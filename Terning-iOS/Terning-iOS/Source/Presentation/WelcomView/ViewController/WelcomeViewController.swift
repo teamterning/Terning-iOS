@@ -77,10 +77,10 @@ extension WelcomeViewController {
     @objc private func startButtonDidTap() {
         switch viewType {
         case .first:
-            // 프로필 설정 화면으로 이동
+            // TODO: 프로필 설정 화면으로 이동
             break
         case .second:
-            // 온보딩 화면으로 이동
+            // TODO: 온보딩 화면으로 이동
             break
         }
     }

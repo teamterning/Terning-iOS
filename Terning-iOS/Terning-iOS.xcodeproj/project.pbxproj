@@ -11,6 +11,8 @@
 		2D4EE3872C3D7CB200E3E95B /* CustomOnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */; };
 		2D4EE3892C3D9EA400E3E95B /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3882C3D9EA400E3E95B /* Date+.swift */; };
 		2D4EE38B2C3D9FD900E3E95B /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE38A2C3D9FD900E3E95B /* CustomDatePicker.swift */; };
+		2D4EE3942C3DD5B700E3E95B /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3932C3DD5B700E3E95B /* WelcomeView.swift */; };
+		2D4EE3962C3DD5CB00E3E95B /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3952C3DD5CB00E3E95B /* WelcomeViewController.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
 		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
@@ -57,6 +59,8 @@
 		2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOnboardingButton.swift; sourceTree = "<group>"; };
 		2D4EE3882C3D9EA400E3E95B /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		2D4EE38A2C3D9FD900E3E95B /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
+		2D4EE3932C3DD5B700E3E95B /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		2D4EE3952C3DD5CB00E3E95B /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +116,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D4EE3922C3DD5A000E3E95B /* WelcomView */ = {
+			isa = PBXGroup;
+			children = (
+				2D4EE39C2C3E6E3200E3E95B /* View */,
+				2D4EE39D2C3E6E3A00E3E95B /* ViewController */,
+			);
+			path = WelcomView;
+			sourceTree = "<group>";
+		};
+		2D4EE39C2C3E6E3200E3E95B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2D4EE3932C3DD5B700E3E95B /* WelcomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2D4EE39D2C3E6E3A00E3E95B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2D4EE3952C3DD5CB00E3E95B /* WelcomeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		7121A1312C396F980056DB8B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +283,7 @@
 		71E3C3E82C241C020026C4DD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				2D4EE3922C3DD5A000E3E95B /* WelcomView */,
 				71D7E6EB2C2FF41200C54EA7 /* TabBar */,
 				71E3C3F32C241CB00026C4DD /* .gitkeep */,
 			);
@@ -423,6 +453,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D4EE3962C3DD5CB00E3E95B /* WelcomeViewController.swift in Sources */,
 				7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */,
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
 				71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */,
@@ -431,6 +462,7 @@
 				7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */,
 				71E3C3CD2C22BAF40026C4DD /* AppDelegate.swift in Sources */,
 				2D4EE38B2C3D9FD900E3E95B /* CustomDatePicker.swift in Sources */,
+				2D4EE3942C3DD5B700E3E95B /* WelcomeView.swift in Sources */,
 				71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */,
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
 				71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */,

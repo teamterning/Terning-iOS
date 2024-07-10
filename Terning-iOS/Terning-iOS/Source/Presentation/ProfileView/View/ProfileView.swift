@@ -230,11 +230,23 @@ extension ProfileView {
         }
     }
 }
-    
+
 // MARK: - Methods
 
 extension ProfileView {
-    func updateValidationLabelConstraints() {
+    func updateValidationUI(message: ValidationMessage) {
+        nameValidationLabel.text = message.rawValue
+        nameValidationLabel.textColor = message.textColor
+        underLineView.backgroundColor = message.underlineColor
+        nameValidationIconImageView.image = message.iconImage
+        nameValidationIconImageView.tintColor = message.iconTintColor
+        nameValidationIconImageView.isHidden = message == .defaultMessage
+        
+        updateValidationLabelConstraints()
+        layoutIfNeeded()
+    }
+    
+    private func updateValidationLabelConstraints() {
         nameValidationLabel.snp.removeConstraints()
         if nameValidationIconImageView.isHidden {
             nameValidationLabel.snp.makeConstraints {
@@ -248,18 +260,6 @@ extension ProfileView {
                 $0.trailing.equalToSuperview().inset(24)
             }
         }
-    }
-    
-    func updateValidationUI(message: ValidationMessage) {
-        nameValidationLabel.text = message.rawValue
-        nameValidationLabel.textColor = message.textColor
-        underLineView.backgroundColor = message.underlineColor
-        nameValidationIconImageView.image = message.iconImage
-        nameValidationIconImageView.tintColor = message.iconTintColor
-        nameValidationIconImageView.isHidden = message == .defaultMessage
-        
-        updateValidationLabelConstraints()
-        layoutIfNeeded()
     }
 }
 

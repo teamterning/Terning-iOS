@@ -445,7 +445,7 @@ extension CustomAlertViewController {
     
     /// 중앙 버튼의 텍스트 변경
     @discardableResult
-    public func setLeftButtonTitle(_ title: NSAttributedString) -> Self {
+    public func setCenterButtonTitle(_ title: NSAttributedString) -> Self {
         self.centerButton.changeTitle(attributedString: title)
         return self
     }

@@ -42,7 +42,7 @@ final class JobDetailInfoView: UIView {
 
 extension JobDetailInfoView {
     private func setUI(title: String, description: String) {
-        self.backgroundColor = .white
+        self.backgroundColor = .clear
         self.titleLabel.text = title
         self.descriptionLabel.text = description
     }

@@ -12,6 +12,21 @@ extension UIViewController {
         self.init()
         self.view.backgroundColor = backgroundColor
     }
+    
+    func showToast(message: String, heightOffset: CGFloat? = nil) {
+        let height = heightOffset ?? 88 // default 값
+        
+        Toast.show(
+            message: message,
+            view: self.view,
+            safeAreaBottomInset: self.safeAreaBottomInset(),
+            height: height
+        )
+    }
+    
+    private func safeAreaBottomInset() -> CGFloat {
+        return view.safeAreaInsets.bottom
+    }
 }
 
 public extension UIViewController {

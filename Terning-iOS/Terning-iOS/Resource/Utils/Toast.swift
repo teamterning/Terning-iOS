@@ -25,7 +25,7 @@ public class Toast {
         // MARK: - UI Components
         
         let toastContainer = UIView().then {
-            $0.backgroundColor = .gray.withAlphaComponent(0.7)
+            $0.backgroundColor = .toastGrey.withAlphaComponent(0.95)
             $0.alpha = 1.0
             $0.layer.cornerRadius = 15
             $0.clipsToBounds = true

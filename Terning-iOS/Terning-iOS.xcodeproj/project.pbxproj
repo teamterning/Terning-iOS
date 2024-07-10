@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D4EE3872C3D7CB200E3E95B /* CustomOnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */; };
 		2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */; };
+		2D4EE3872C3D7CB200E3E95B /* CustomOnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */; };
 		2D4EE3892C3D9EA400E3E95B /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3882C3D9EA400E3E95B /* Date+.swift */; };
 		2D4EE38B2C3D9FD900E3E95B /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE38A2C3D9FD900E3E95B /* CustomDatePicker.swift */; };
+		2D4EE3A22C3E788200E3E95B /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3A12C3E788200E3E95B /* ProfileViewModel.swift */; };
+		2D4EE3A42C3E789200E3E95B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3A32C3E789200E3E95B /* ProfileView.swift */; };
+		2D4EE3A62C3E78A200E3E95B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3A52C3E78A200E3E95B /* ProfileViewController.swift */; };
+		2D4EE3AB2C3E854E00E3E95B /* ValidationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3AA2C3E854E00E3E95B /* ValidationMessage.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
 		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
@@ -50,10 +54,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOnboardingButton.swift; sourceTree = "<group>"; };
 		2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
+		2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOnboardingButton.swift; sourceTree = "<group>"; };
 		2D4EE3882C3D9EA400E3E95B /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		2D4EE38A2C3D9FD900E3E95B /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
+		2D4EE3A12C3E788200E3E95B /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		2D4EE3A32C3E789200E3E95B /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		2D4EE3A52C3E78A200E3E95B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		2D4EE3AA2C3E854E00E3E95B /* ValidationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationMessage.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +114,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D4EE3A02C3E787200E3E95B /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				2D4EE3A82C3E78B800E3E95B /* View */,
+				2D4EE3A72C3E78B400E3E95B /* ViewController */,
+				2D4EE3A92C3E78BE00E3E95B /* ViewModel */,
+				2D4EE3AA2C3E854E00E3E95B /* ValidationMessage.swift */,
+			);
+			path = ProfileView;
+			sourceTree = "<group>";
+		};
+		2D4EE3A72C3E78B400E3E95B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2D4EE3A52C3E78A200E3E95B /* ProfileViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2D4EE3A82C3E78B800E3E95B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2D4EE3A32C3E789200E3E95B /* ProfileView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2D4EE3A92C3E78BE00E3E95B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2D4EE3A12C3E788200E3E95B /* ProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		7121A1312C396F980056DB8B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +290,7 @@
 		71E3C3E82C241C020026C4DD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				2D4EE3A02C3E787200E3E95B /* ProfileView */,
 				71D7E6EB2C2FF41200C54EA7 /* TabBar */,
 				71E3C3F32C241CB00026C4DD /* .gitkeep */,
 			);
@@ -415,21 +459,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
+				2D4EE3A42C3E789200E3E95B /* ProfileView.swift in Sources */,
 				71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */,
 				7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */,
 				71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */,
 				7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */,
+				2D4EE3AB2C3E854E00E3E95B /* ValidationMessage.swift in Sources */,
 				71E3C3CD2C22BAF40026C4DD /* AppDelegate.swift in Sources */,
 				2D4EE38B2C3D9FD900E3E95B /* CustomDatePicker.swift in Sources */,
 				71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */,
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
 				71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */,
+				2D4EE3A22C3E788200E3E95B /* ProfileViewModel.swift in Sources */,
 				7121A1512C3B09E10056DB8B /* Result+.swift in Sources */,
 				7121A1462C3B07AA0056DB8B /* BaseResponse.swift in Sources */,
 				7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */,
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
 				7121A14B2C3B09800056DB8B /* setImage.swift in Sources */,
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
+				2D4EE3A62C3E78A200E3E95B /* ProfileViewController.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
 				2D4EE3892C3D9EA400E3E95B /* Date+.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,

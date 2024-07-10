@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        let vc = TNTabBarController()
+        let vc = ProfileViewController(viewType: .fix, viewModel: ProfileViewModel())
         window.rootViewController = vc
         self.window = window
         window.makeKeyAndVisible()

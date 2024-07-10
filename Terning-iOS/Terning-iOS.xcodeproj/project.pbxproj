@@ -24,6 +24,8 @@
 		7121A14B2C3B09800056DB8B /* setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A14A2C3B09800056DB8B /* setImage.swift */; };
 		7121A1512C3B09E10056DB8B /* Result+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1502C3B09E10056DB8B /* Result+.swift */; };
 		7121A1532C3DE3680056DB8B /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */; };
+		7121A1552C3EA01F0056DB8B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1542C3EA01F0056DB8B /* Toast.swift */; };
+		7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1562C3EA4C10056DB8B /* LoadingIndicator.swift */; };
 		71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAC2C370439002A6999 /* Pretendard-Light.otf */; };
 		71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAE2C370439002A6999 /* Pretendard-Medium.otf */; };
 		71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */; };
@@ -66,6 +68,8 @@
 		7121A14A2C3B09800056DB8B /* setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setImage.swift; sourceTree = "<group>"; };
 		7121A1502C3B09E10056DB8B /* Result+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+.swift"; sourceTree = "<group>"; };
 		7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
+		7121A1542C3EA01F0056DB8B /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		7121A1562C3EA4C10056DB8B /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		71461EAC2C370439002A6999 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		71461EAE2C370439002A6999 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -298,6 +302,8 @@
 				71E3C4112C243BDD0026C4DD /* getClassName.swift */,
 				7121A13D2C3A98E10056DB8B /* LabelFactory.swift */,
 				7121A14A2C3B09800056DB8B /* setImage.swift */,
+				7121A1542C3EA01F0056DB8B /* Toast.swift */,
+				7121A1562C3EA4C10056DB8B /* LoadingIndicator.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -417,6 +423,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */,
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
 				71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */,
 				7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */,
@@ -430,6 +437,7 @@
 				7121A1512C3B09E10056DB8B /* Result+.swift in Sources */,
 				7121A1462C3B07AA0056DB8B /* BaseResponse.swift in Sources */,
 				7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */,
+				7121A1552C3EA01F0056DB8B /* Toast.swift in Sources */,
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
 				7121A14B2C3B09800056DB8B /* setImage.swift in Sources */,
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,

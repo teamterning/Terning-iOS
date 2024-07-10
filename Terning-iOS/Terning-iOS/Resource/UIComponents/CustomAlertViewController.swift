@@ -185,7 +185,7 @@ final class CustomAlertViewController: UIViewController {
 
 extension CustomAlertViewController {
     private func setUI() {
-        view.backgroundColor = .black.withAlphaComponent(0.3)
+        view.backgroundColor = .terningBlack.withAlphaComponent(0.3)
         alertView.backgroundColor = .white
         alertView.layer.cornerRadius = 20
     }
@@ -445,7 +445,7 @@ extension CustomAlertViewController {
     
     /// 중앙 버튼의 텍스트 변경
     @discardableResult
-    public func setLeftButtonTitle(_ title: NSAttributedString) -> Self {
+    public func setCenterButtonTitle(_ title: NSAttributedString) -> Self {
         self.centerButton.changeTitle(attributedString: title)
         return self
     }

@@ -60,7 +60,7 @@ extension CustomNavigationBar {
             self.backgroundColor = .white
             
             if isShadow {
-                self.layer.applyShadow(alpha: 0.15, y: 3, blur: 4, spread: 0)
+                self.layer.applyShadow(color: .terningBlack, alpha: 0.15, y: 3, blur: 4, spread: 0)
             }
             
             if type == .centerTitleWithLeftButton {
@@ -86,7 +86,7 @@ extension CustomNavigationBar {
     private func createTitleLabel() -> UILabel {
         return UILabel().then {
             $0.font = .title2
-            $0.textColor = .black
+            $0.textColor = .terningBlack
         }
     }
 }
@@ -130,9 +130,7 @@ extension CustomNavigationBar {
     }
     
     private func setAddTarget(_ type: NavigationBarType) {
-        if type == .centerTitleWithLeftButton {
-            leftButton.addTarget(self, action: #selector(popToPreviousVC), for: .touchUpInside)
-        }
+        leftButton.addTarget(self, action: #selector(popToPreviousVC), for: .touchUpInside)
     }
 }
 

@@ -113,10 +113,26 @@
 		2D4EE3922C3DD5A000E3E95B /* WelcomView */ = {
 			isa = PBXGroup;
 			children = (
-				2D4EE3932C3DD5B700E3E95B /* WelcomeView.swift */,
-				2D4EE3952C3DD5CB00E3E95B /* WelcomeViewController.swift */,
+				2D4EE39C2C3E6E3200E3E95B /* View */,
+				2D4EE39D2C3E6E3A00E3E95B /* ViewController */,
 			);
 			path = WelcomView;
+			sourceTree = "<group>";
+		};
+		2D4EE39C2C3E6E3200E3E95B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2D4EE3932C3DD5B700E3E95B /* WelcomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2D4EE39D2C3E6E3A00E3E95B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2D4EE3952C3DD5CB00E3E95B /* WelcomeViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		7121A1312C396F980056DB8B /* UIComponents */ = {

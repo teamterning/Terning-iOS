@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D4EE3872C3D7CB200E3E95B /* CustomOnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */; };
 		2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */; };
+		2D4EE3872C3D7CB200E3E95B /* CustomOnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */; };
 		2D4EE3892C3D9EA400E3E95B /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3882C3D9EA400E3E95B /* Date+.swift */; };
 		2D4EE38B2C3D9FD900E3E95B /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE38A2C3D9FD900E3E95B /* CustomDatePicker.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
@@ -23,6 +23,7 @@
 		7121A1492C3B08360056DB8B /* JobDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1482C3B08360056DB8B /* JobDetailModel.swift */; };
 		7121A14B2C3B09800056DB8B /* setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A14A2C3B09800056DB8B /* setImage.swift */; };
 		7121A1512C3B09E10056DB8B /* Result+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1502C3B09E10056DB8B /* Result+.swift */; };
+		7121A1532C3DE3680056DB8B /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */; };
 		71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAC2C370439002A6999 /* Pretendard-Light.otf */; };
 		71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAE2C370439002A6999 /* Pretendard-Medium.otf */; };
 		71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */; };
@@ -50,8 +51,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOnboardingButton.swift; sourceTree = "<group>"; };
 		2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
+		2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOnboardingButton.swift; sourceTree = "<group>"; };
 		2D4EE3882C3D9EA400E3E95B /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		2D4EE38A2C3D9FD900E3E95B /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -64,6 +65,7 @@
 		7121A1482C3B08360056DB8B /* JobDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailModel.swift; sourceTree = "<group>"; };
 		7121A14A2C3B09800056DB8B /* setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setImage.swift; sourceTree = "<group>"; };
 		7121A1502C3B09E10056DB8B /* Result+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+.swift"; sourceTree = "<group>"; };
+		7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		71461EAC2C370439002A6999 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		71461EAE2C370439002A6999 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */,
 				2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */,
 				2D4EE38A2C3D9FD900E3E95B /* CustomDatePicker.swift */,
+				7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */,
 				7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */,
 			);
 			path = UIComponents;
@@ -432,6 +435,7 @@
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
 				2D4EE3892C3D9EA400E3E95B /* Date+.swift in Sources */,
+				7121A1532C3DE3680056DB8B /* CustomNavigationBar.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
 				7121A1492C3B08360056DB8B /* JobDetailModel.swift in Sources */,

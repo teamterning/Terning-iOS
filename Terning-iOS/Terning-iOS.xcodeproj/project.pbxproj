@@ -120,7 +120,6 @@
 				2D4EE3A82C3E78B800E3E95B /* View */,
 				2D4EE3A72C3E78B400E3E95B /* ViewController */,
 				2D4EE3A92C3E78BE00E3E95B /* ViewModel */,
-				2D4EE3AA2C3E854E00E3E95B /* ValidationMessage.swift */,
 			);
 			path = ProfileView;
 			sourceTree = "<group>";
@@ -339,6 +338,7 @@
 				71E3C4112C243BDD0026C4DD /* getClassName.swift */,
 				7121A13D2C3A98E10056DB8B /* LabelFactory.swift */,
 				7121A14A2C3B09800056DB8B /* setImage.swift */,
+				2D4EE3AA2C3E854E00E3E95B /* ValidationMessage.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";

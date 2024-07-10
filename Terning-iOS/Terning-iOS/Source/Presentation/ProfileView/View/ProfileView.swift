@@ -22,7 +22,7 @@ final class ProfileView: UIView {
         text: "반가워요!\n이름을 알려주세요",
         font: .heading2,
         textAlignment: .left
-    ).then() {
+    ).then {
         $0.numberOfLines = 0
     }
     
@@ -280,5 +280,9 @@ extension ProfileView {
     
     public func getNameCountLabel() -> UILabel {
         return nameCountLabel
+    }
+    
+    public func getSnsTypeLabel() -> UILabel {
+        return snsTypeLabel
     }
 }

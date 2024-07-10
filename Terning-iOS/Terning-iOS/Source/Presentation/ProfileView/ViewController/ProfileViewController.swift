@@ -6,8 +6,10 @@
 //
 
 import UIKit
-import SnapKit
+
 import RxSwift
+
+import SnapKit
 
 @frozen
 enum ProfileViewType {
@@ -62,7 +64,23 @@ extension ProfileViewController {
     
     private func setLayout() {
         profileView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.horizontalEdges.bottom.equalToSuperview()
+        }
+    }
+}
+
+// MARK: - Public Methods
+
+extension ProfileViewController {
+    public func setUserData(userName: String, snsType: String) {
+        profileView.getNameTextField().text = userName
+        if snsType == "apple" {
+            profileView.getSnsTypeLabel().text = "Apple 로그인"
+        } else if snsType == "kakao" {
+            profileView.getSnsTypeLabel().text = "Kakao 로그인"
+        } else {
+            profileView.getSnsTypeLabel().text = "정보 없음"
         }
     }
 }
@@ -98,13 +116,14 @@ extension ProfileViewController {
             .subscribe(onNext: { [weak self] message in
                 self?.profileView.updateValidationUI(message: message)
             })
-            .disposed(by: disposeBag)
+            .disposed(
+                by: disposeBag
+            )
     }
 }
 
-
 // MARK: - UITextFieldDelegate
-extension ProfileViewController : UITextFieldDelegate {
+extension ProfileViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let currentText = textField.text else { return true }
         let newText = (currentText as NSString).replacingCharacters(in: range, with: string)

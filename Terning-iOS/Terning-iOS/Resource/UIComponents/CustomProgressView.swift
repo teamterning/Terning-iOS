@@ -125,7 +125,6 @@ extension CustomProgressView {
         }
     }
     
-    
     // MARK: - Methods
     
     /// 현재 step만큼 색상 변경

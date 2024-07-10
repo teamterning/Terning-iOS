@@ -16,7 +16,7 @@ public final class CustomDatePicker: UIPickerView {
     
     var onDateSelected: ((Int, Int) -> Void)?
     
-    // MARK: - initialization
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)

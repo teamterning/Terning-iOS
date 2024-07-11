@@ -23,7 +23,7 @@ final class CustomProgressView: UIView {
     private var labelViews: [UILabel] = []
     private var lineViews: [UIView] = []
     
-    // MARK: - initialization
+    // MARK: - Init
     
     init(
         currentStep: Int,
@@ -125,7 +125,6 @@ extension CustomProgressView {
         }
     }
     
-
     // MARK: - Methods
     
     /// 현재 step만큼 색상 변경

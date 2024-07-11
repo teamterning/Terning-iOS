@@ -25,60 +25,56 @@ final class CustomNavigationBar: UIView {
     // MARK: - Properties
     
     private var naviType: NavigationBarType!
-    private var viewController: UIViewController?
-    
     private var isShadow: Bool = false
     private let disposeBag = DisposeBag()
+    var leftButtonAction: (() -> Void)?
     
     // MARK: - UI Components
     
-    private lazy var centerTitleLabel = LabelFactory.build(
+    private var centerTitleLabel = LabelFactory.build(
         font: .title2,
         textColor: .terningBlack
     )
     
-    let leftButton = UIButton().then {
+    private let leftButton = UIButton().then {
         $0.setImage(UIImage(resource: .icBackArrow), for: .normal)
     }
     
-    let calendarBackButton = UIButton().then {
+    private let calendarBackButton = UIButton().then {
         $0.setImage(UIImage(resource: .icBackArrowGreen), for: .normal)
     }
     
-    let calendarFrontButton = UIButton().then {
+    private let calendarFrontButton = UIButton().then {
         $0.setImage(UIImage(resource: .icFrontArrow), for: .normal)
     }
     
-    let calendarListButton = UIButton().then {
+    private let calendarListButton = UIButton().then {
         $0.setImage(UIImage(resource: .icCalendar), for: .normal)
         $0.setImage(UIImage(resource: .icCalendarFill), for: .selected)
     }
     
     // MARK: - Observables
     
-    var leftButtonTapped: Observable<Void> {
-        return leftButton.rx.tap.asObservable()
-    }
-    
-    var calendarBackButtonTapped: Observable<Void> {
+    var calendarBackButtonDidTap: Observable<Void> {
         return calendarBackButton.rx.tap.asObservable()
     }
     
-    var calendarFrontButtonTapped: Observable<Void> {
+    var calendarFrontButtonDidTap: Observable<Void> {
         return calendarFrontButton.rx.tap.asObservable()
     }
     
-    var calendarListButtonTapped: Observable<Void> {
+    var calendarListButtonDidTap: Observable<Void> {
         return calendarListButton.rx.tap.asObservable()
     }
     
     // MARK: - Life Cycles
     
-    init(_ viewController: UIViewController, type: NavigationBarType, isShadow: Bool = false) {
+    init(type: NavigationBarType, isShadow: Bool = false, leftButtonAction: (() -> Void)? = nil) {
         super.init(frame: .zero)
         
-        self.viewController = viewController
+        self.naviType = type
         self.isShadow = isShadow
+        self.leftButtonAction = leftButtonAction
         self.setUI(type)
         self.setLayout(type)
         self.bindAction(type)
@@ -93,7 +89,6 @@ final class CustomNavigationBar: UIView {
 
 extension CustomNavigationBar {
     private func setUI(_ type: NavigationBarType) {
-        
         self.backgroundColor = .white
         
         switch type {
@@ -155,7 +150,7 @@ extension CustomNavigationBar {
         if type == .leftButton || type == .centerTitleWithLeftButton {
             leftButton.rx.tap
                 .subscribe(onNext: { [weak self] in
-                    self?.viewController?.popOrDismissViewController()
+                    self?.leftButtonAction?()
                 })
                 .disposed(by: disposeBag)
         }
@@ -166,6 +161,7 @@ extension CustomNavigationBar {
 
 extension CustomNavigationBar {
     /// 내비게이션의 title을 세팅합니다.
+    @discardableResult
     func setTitle(_ title: String) -> Self {
         self.centerTitleLabel.text = title
         return self

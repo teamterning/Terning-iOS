@@ -11,23 +11,15 @@ class FilteringCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static let filteringCellIdentifier = "FilteringCell"
-    var thereScrap: Bool = true
-    
     // MARK: - UIComponents
     
     lazy var filterButton = UIButton().then {
-        $0.backgroundColor = UIColor(red: 30/255, green: 172/255, blue: 97/255, alpha: 1)
+        $0.backgroundColor = .terningMain
         $0.layer.cornerRadius = 5
         $0.layer.masksToBounds = true
     }
     
-    let filterLabel = UILabel().then {
-        $0.text = "필터링"
-        $0.textColor = .white
-        $0.textAlignment = .center
-        $0.font = UIFont.systemFont(ofSize: 12)
-    }
+    let filterLabel = LabelFactory.build(text: "필터링", font: .button4, textColor: .white)
     
     let filterImage = UIImageView().then {
         $0.image = UIImage(resource: .icFilter)
@@ -35,7 +27,6 @@ class FilteringCell: UICollectionViewCell {
     
     var grade = LabelFactory.build(text: "3학년", font: .detail2, textColor: .black)
         
-    
     var period = LabelFactory.build(text: "1~3개월", font: .detail2, textColor: .black)
     
     var month = LabelFactory.build(text: "1월", font: .detail2, textColor: .black)
@@ -63,11 +54,20 @@ class FilteringCell: UICollectionViewCell {
     
 }
 
-// MARK: - Extensions
+// MARK: - UI & Layout
 
 extension FilteringCell {
     func setHierarchy() {
-        contentView.addSubviews(filterButton, filterLabel, filterImage, grade, verticalBar1, period, verticalBar2, month)
+        contentView.addSubviews(
+            filterButton,
+            filterLabel,
+            filterImage,
+            grade,
+            verticalBar1,
+            period,
+            verticalBar2,
+            month
+        )
     }
     
     func setLayout() {
@@ -114,4 +114,3 @@ extension FilteringCell {
         }
     }
 }
-

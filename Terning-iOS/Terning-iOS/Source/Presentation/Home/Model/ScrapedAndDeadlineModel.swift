@@ -35,6 +35,5 @@ extension ScrapedAndDeadlineModel {
                 title: "[유한킴벌리] 그린캠프 w.대학생 숲활동가 모집3"
             )
         ]
-        
     }
 }

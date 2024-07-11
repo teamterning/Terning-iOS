@@ -23,10 +23,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     // MARK: - Properties
     
     let numberOfSections: Int = 14
-    var isExceededScrapNum: Bool = false
-    
     var cardModelItems: [JobCardModel] = JobCardModel.getJobCardData()
-    
     var scrapedAndDeadlineItems: [ScrapedAndDeadlineModel] = ScrapedAndDeadlineModel.getScrapedData()
     
     // MARK: - UIComponents
@@ -49,7 +46,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     }
 }
 
-// MARK: - Extensions
+// MARK: - UI & Layout
 
 extension HomeViewController: UICollectionViewDataSource {
     
@@ -58,7 +55,7 @@ extension HomeViewController: UICollectionViewDataSource {
         return numberOfSections
     }
     
-     // Header 설정하는 부분
+    // Header 설정하는 부분
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let section = HomeSection(rawValue: indexPath.section)
         
@@ -91,17 +88,15 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 && isExceededScrapNum {
-            return 5 // 스크랩 되어있고 데드라인 일 때 하는 거라 서버에서 데이터를 받아서 해야해서 magic number는 수정해야함.
-            
-        } else if section == 0 /*&& (isExceededScrapNum == false)*/ {
+        
+        if section == 0 {
             if HomeView.layoutForCheckDeadlineCell || HomeView.layoutForNonScrapCell {
                 return 1
                 
             } else if HomeView.hasDueToday {
                 return 4
             }
-    
+            
             return 0
             
         } else if section == 1 {
@@ -120,6 +115,7 @@ extension HomeViewController: UICollectionViewDataSource {
             return 0
         }
     }
+
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let section = HomeSection(rawValue: indexPath.section)
@@ -141,7 +137,7 @@ extension HomeViewController: UICollectionViewDataSource {
                 return cell
                 
             } else if HomeView.hasAnyScrap && !HomeView.hasDueToday {
-                let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: CheckDeadlineCell.checkDeadlineCellIdentifier, for: indexPath) as! CheckDeadlineCell
+                let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: CheckDeadlineCell.className, for: indexPath) as! CheckDeadlineCell
                 
                 return cell
             }
@@ -149,19 +145,19 @@ extension HomeViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
             
         case .filtering:
-            let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: "FilteringCell", for: indexPath) as! FilteringCell
+            let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: FilteringCell.className, for: indexPath) as! FilteringCell
             return cell
             
         case .sort:
-            let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: "SortButtonCell", for: indexPath) as! SortButtonCell
+            let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: SortButtonCell.className, for: indexPath) as! SortButtonCell
             return cell
             
         case .decoration:
-            let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: "DecorationCell", for: indexPath) as! DecorationCell
+            let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: DecorationCell.className, for: indexPath) as! DecorationCell
             return cell
             
         case .jobCard:
-            let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: "JobCardScrapedCell", for: indexPath) as! JobCardScrapedCell
+            let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as! JobCardScrapedCell
             
             let model = cardModelItems[indexPath.row]
             
@@ -181,13 +177,13 @@ extension HomeViewController: UICollectionViewDataSource {
         rootView.collectionView.register(
             ScrapInfoHeaderCell.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: "ScrapInfoHeaderCell"
+            withReuseIdentifier: ScrapInfoHeaderCell.className
         )
         
         rootView.collectionView.register(
             FilteringHeaderCell.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: "FilteringHeaderCell"
+            withReuseIdentifier: FilteringHeaderCell.className
         )
         
         // Cells
@@ -209,22 +205,22 @@ extension HomeViewController: UICollectionViewDataSource {
         
         rootView.collectionView.register(
             FilteringCell.self,
-            forCellWithReuseIdentifier: FilteringCell.filteringCellIdentifier
+            forCellWithReuseIdentifier: FilteringCell.className
         )
         
         rootView.collectionView.register(
             SortButtonCell.self,
-            forCellWithReuseIdentifier: SortButtonCell.sortButtonCellIdentifier
+            forCellWithReuseIdentifier: SortButtonCell.className
         )
         
         rootView.collectionView.register(
             DecorationCell.self,
-            forCellWithReuseIdentifier: DecorationCell.DecorationCellIdentifier
+            forCellWithReuseIdentifier: DecorationCell.className
         )
         
         rootView.collectionView.register(
             JobCardScrapedCell.self,
-            forCellWithReuseIdentifier: JobCardScrapedCell.jobCardScrapedCellIdentifier
+            forCellWithReuseIdentifier: JobCardScrapedCell.className
         )
     }
     
@@ -235,4 +231,3 @@ extension HomeViewController: UICollectionViewDataSource {
         rootView.collectionView.dataSource = self
     }
 }
-

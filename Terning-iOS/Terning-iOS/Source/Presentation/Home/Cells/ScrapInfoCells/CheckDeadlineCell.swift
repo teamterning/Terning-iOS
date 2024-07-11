@@ -12,7 +12,7 @@ import Then
 
 class CheckDeadlineCell: UICollectionViewCell {
     
-    static let checkDeadlineCellIdentifier = CheckDeadlineCell.className
+    // MARK: - Properties
     
     // MARK: - UIComponents
     let checkDeadlineCard = UIView().then {
@@ -22,7 +22,6 @@ class CheckDeadlineCell: UICollectionViewCell {
     }
     
     let checkDeadlineCardLabel = LabelFactory.build(text: "오늘 마감인 공고가 없어요 \n 캘린더에서 가까운 공고 일정을 확인해보세요", font: .detail3, textAlignment: .center).then {
-        
         $0.numberOfLines = 2
     }
     
@@ -47,11 +46,16 @@ class CheckDeadlineCell: UICollectionViewCell {
     }
 }
 
-// MARK: - Extensions
+// MARK: - UI & Layout
 
 extension CheckDeadlineCell {
     func setHierarchy() {
-        contentView.addSubviews(checkDeadlineCard, checkDeadlineCardLabel, checkDeadlineButton, checkDeadlineButtonLabel)
+        contentView.addSubviews(
+            checkDeadlineCard,
+            checkDeadlineCardLabel,
+            checkDeadlineButton,
+            checkDeadlineButtonLabel
+        )
     }
     
     func setLayout() {
@@ -76,6 +80,5 @@ extension CheckDeadlineCell {
             $0.centerX.equalTo(checkDeadlineButton)
             $0.centerY.equalTo(checkDeadlineButton)
         }
-
     }
 }

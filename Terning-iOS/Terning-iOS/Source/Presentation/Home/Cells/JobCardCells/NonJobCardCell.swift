@@ -20,7 +20,12 @@ class NonJobCardCell: UICollectionViewCell {
     
     var descriptionLabel = LabelFactory.build(text: "지금 공고 필터링을 설정하고 내 계획에 딱 맞는 대학생 인턴 공고를 추천받아보세요!", font: .detail2, textColor: .grey500)
     
-    lazy var emptyStackView = UIStackView(arrangedSubviews: [emptyJobCard, descriptionLabel]).then {
+    lazy var emptyStackView = UIStackView(
+        arrangedSubviews: [
+            emptyJobCard,
+            descriptionLabel
+        ]
+    ).then {
         $0.axis = .vertical
         $0.spacing = 20
         $0.alignment = .center
@@ -39,11 +44,11 @@ class NonJobCardCell: UICollectionViewCell {
     }
 }
 
-// MARK: - Extensions
+// MARK: - UI & Layout
 
 extension NonJobCardCell {
     func setHierarchy() {
-        contentView.addSubviews(emptyStackView)
+        contentView.addSubview(emptyStackView)
     }
     
     func setLayout() {

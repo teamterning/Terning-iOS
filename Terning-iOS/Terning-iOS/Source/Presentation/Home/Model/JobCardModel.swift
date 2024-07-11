@@ -9,7 +9,6 @@ import UIKit
 
 struct JobCardModel {
     var coverImage: UIImage
-//    var scrapIcon: UIImage
     var daysRemaining: String
     var title: String
     var period: String
@@ -24,7 +23,7 @@ extension JobCardModel {
                         // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-                period: "근무기간 2개월",
+                period: "2개월",
                 isScraped: false
             ),
             
@@ -33,7 +32,7 @@ extension JobCardModel {
                         // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-                period: "근무기간 2개월",
+                period: "2개월",
                 isScraped: false
             ),
             
@@ -42,7 +41,7 @@ extension JobCardModel {
                         // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-                period: "근무기간 2개월",
+                period: "2개월",
                 isScraped: false
             ),
             
@@ -51,7 +50,7 @@ extension JobCardModel {
                         // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-                period: "근무기간 2개월",
+                period: "2개월",
                 isScraped: false
             ),
             
@@ -60,7 +59,7 @@ extension JobCardModel {
                         // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-                period: "근무기간 2개월",
+                period: "2개월",
                 isScraped: false
             ),
             
@@ -69,7 +68,7 @@ extension JobCardModel {
                         // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-                period: "근무기간 2개월",
+                period: "2개월",
                 isScraped: false
             ),
             
@@ -78,7 +77,7 @@ extension JobCardModel {
                         // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-                period: "근무기간 2개월",
+                period: "2개월",
                 isScraped: false
             ),
             
@@ -87,7 +86,7 @@ extension JobCardModel {
                         // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-                period: "근무기간 2개월",
+                period: "2개월",
                 isScraped: false
             ),
             
@@ -96,7 +95,7 @@ extension JobCardModel {
                         // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-                period: "근무기간 2개월",
+                period: "2개월",
                 isScraped: false
             ),
             
@@ -105,7 +104,7 @@ extension JobCardModel {
                         // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-                period: "근무기간 2개월",
+                period: "2개월",
                 isScraped: false
             ),
             
@@ -114,10 +113,9 @@ extension JobCardModel {
                         // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-                period: "근무기간 2개월",
+                period: "2개월",
                 isScraped: false
             )
-            
         ]
     }
 }

@@ -14,8 +14,6 @@ class FilteringHeaderCell: UICollectionReusableView {
     
     // MARK: - Properties
     
-    let headerIdentifier2 = "FilteringHedearCell"
-    
     // MARK: - UIComponents
     
     var subTitleLabel = LabelFactory.build(text: "마음에 드는 공고를 스크랩하고 캘린더에서 모아보세요", font: .detail2, textColor: .terningBlack)
@@ -45,17 +43,14 @@ class FilteringHeaderCell: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
-// MARK: - Extensions
+// MARK: - UI & Layout
 
 extension FilteringHeaderCell {
     
     func setHierarchy() {
-        addSubviews(
-            titleStack
-        )
+        addSubview(titleStack)
     }
     
     func setLayout() {

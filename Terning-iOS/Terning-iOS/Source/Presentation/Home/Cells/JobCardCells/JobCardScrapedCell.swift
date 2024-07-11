@@ -11,8 +11,6 @@ class JobCardScrapedCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static let jobCardScrapedCellIdentifier = "JobCardScrapedCell"
-    
     // MARK: - UIComponents
     
     let jobCard = UIView().then {
@@ -25,25 +23,15 @@ class JobCardScrapedCell: UICollectionViewCell {
         $0.image = UIImage(resource: .icHome)
     }
     
-    var daysRemaining = UILabel().then {
-        $0.text = "D-2"
-        $0.textAlignment = .left
-        $0.textColor = UIColor(red: 30/255, green: 172/255, blue: 97/255, alpha: 1)
-        $0.font = UIFont.systemFont(ofSize: 14)
-    }
+    var daysRemaining = LabelFactory.build(text: "D-2", font: .detail0, textColor: .terningMain, textAlignment: .left)
     
-    var jobLabel = UILabel().then {
-        $0.text = "[Someone's Cat] 콘텐츠 마케터 대학생 인턴 채용"
-        $0.textAlignment = .left
+    var jobLabel = LabelFactory.build(text: "[Someone's Cat] 콘텐츠 마케터 대학생 인턴 채용", font: .title5, textColor: .black, textAlignment: .left).then {
         $0.numberOfLines = 2
-        $0.font = UIFont.systemFont(ofSize: 15)
     }
     
-    var period = UILabel().then {
-        $0.text = "근무기간 2개월"
-        $0.textAlignment = .left
-        $0.font = UIFont.systemFont(ofSize: 12)
-    }
+    var periodTitle = LabelFactory.build(text: "근무기간", font: .detail3, textColor: .grey400, textAlignment: .left)
+    
+    var period = LabelFactory.build(text: "2개월", font: .detail3, textColor: .terningMain, textAlignment: .left)
     
     lazy var scrapButton = UIButton().then {
         $0.setImage(.icScrap, for: .normal)
@@ -64,11 +52,18 @@ class JobCardScrapedCell: UICollectionViewCell {
     }
 }
 
-// MARK: - Extensions
-
+// MARK: - UI & Layout
 extension JobCardScrapedCell {
     func setHierarchy() {
-        contentView.addSubviews(jobCard, jobCardCoverImage, daysRemaining, jobLabel, period, scrapButton)
+        contentView.addSubviews(
+            jobCard,
+            jobCardCoverImage,
+            daysRemaining,
+            jobLabel,
+            periodTitle,
+            period,
+            scrapButton
+        )
     }
     
     func setLayout() {
@@ -96,16 +91,20 @@ extension JobCardScrapedCell {
             $0.trailing.equalTo(jobCard.snp.trailing).inset(22)
         }
         
-        period.snp.makeConstraints {
+        periodTitle.snp.makeConstraints {
             $0.bottom.equalTo(jobCard.snp.bottom).inset(9)
             $0.leading.equalTo(jobCardCoverImage.snp.trailing).offset(8)
+        }
+        
+        period.snp.makeConstraints {
+            $0.bottom.equalTo(jobCard.snp.bottom).inset(9)
+            $0.leading.equalTo(periodTitle.snp.trailing).offset(4)
         }
         
         scrapButton.snp.makeConstraints {
             $0.top.equalTo(jobCard.snp.top).offset(62)
             $0.leading.equalTo(jobCardCoverImage.snp.leading).offset(300)
         }
-
     }
     
     func bindData(
@@ -121,4 +120,3 @@ extension JobCardScrapedCell {
     }
     
 }
-

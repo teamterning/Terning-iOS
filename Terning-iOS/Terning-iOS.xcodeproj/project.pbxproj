@@ -281,8 +281,8 @@
 		71E3C3E82C241C020026C4DD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				B8C5DB6F2C3F39A500865B1A /* FilteringSettingView */,
-				B871D7142C3E8498008D78C2 /* HomeView */,
+				B8C5DB6F2C3F39A500865B1A /* FilteringSetting */,
+				B871D7142C3E8498008D78C2 /* Home */,
 				71D7E6EB2C2FF41200C54EA7 /* TabBar */,
 				71E3C3F32C241CB00026C4DD /* .gitkeep */,
 			);
@@ -335,7 +335,7 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		B871D7142C3E8498008D78C2 /* HomeView */ = {
+		B871D7142C3E8498008D78C2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				B871D7212C3E8812008D78C2 /* Model */,
@@ -343,7 +343,7 @@
 				B871D71F2C3E877B008D78C2 /* HomeViewController.swift */,
 				B871D7152C3E84A1008D78C2 /* Cells */,
 			);
-			path = HomeView;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		B871D7152C3E84A1008D78C2 /* Cells */ = {
@@ -421,13 +421,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		B8C5DB6F2C3F39A500865B1A /* FilteringSettingView */ = {
+		B8C5DB6F2C3F39A500865B1A /* FilteringSetting */ = {
 			isa = PBXGroup;
 			children = (
 				B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */,
 				B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */,
 			);
-			path = FilteringSettingView;
+			path = FilteringSetting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

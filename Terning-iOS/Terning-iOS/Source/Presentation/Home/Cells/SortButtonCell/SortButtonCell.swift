@@ -14,8 +14,6 @@ class SortButtonCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static var sortButtonCellIdentifier = "SortButtonCell"
-    
     // MARK: - UIComponents
     
     var sortButtonLabel = UILabel().then {
@@ -27,12 +25,6 @@ class SortButtonCell: UICollectionViewCell {
     var sortButtonIcon = UIImageView().then {
         $0.image = UIImage(resource: .icDownArrow)
     }
-    
-//    lazy var buttonLabelStack = UIStackView(arrangedSubviews: [sortButtonLabel, sortButtonIcon]).then {
-//        $0.axis = .horizontal
-//        $0.spacing = 0
-//    }
-    
     
     // MARK: - LifeCycles
     
@@ -48,23 +40,17 @@ class SortButtonCell: UICollectionViewCell {
     }
 }
 
-// MARK: - Extensions
+// MARK: - UI & Layout
 
 extension SortButtonCell {
     func setHierarchy() {
         contentView.addSubviews(
             sortButtonLabel,
             sortButtonIcon
-//            buttonLabelStack
         )
     }
     
     func setLayout() {
-//        buttonLabelStack.snp.makeConstraints {
-//            $0.top.equalToSuperview().offset(64)
-//            $0.leading.equalToSuperview().offset(214)
-//        }
-        
         sortButtonLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview().offset(240)
@@ -77,4 +63,3 @@ extension SortButtonCell {
         }
     }
 }
-

@@ -11,8 +11,6 @@ class NonScrapInfoCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static let nonScrapInfoCellIdentifier = "NonScrapInfoCell"
-    
     // MARK: - UIComponents
     
     // internshipScrapedStatus~ -> 분기처리가 필요한 화면이라 함수화가 필요함
@@ -22,12 +20,8 @@ class NonScrapInfoCell: UICollectionViewCell {
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
     }
     
-    let internshipScrapedStatusLabel = UILabel().then {
-        $0.text = "아직 스크랩된 인턴 공고가 없어요! \n 관심 공고를 스크랩하면 마감 당일에 알려드릴게요"
-        $0.font = UIFont.systemFont(ofSize: 13)
+    let internshipScrapedStatusLabel = LabelFactory.build(text: "아직 스크랩된 인턴 공고가 없어요! \n 관심 공고를 스크랩하면 마감 당일에 알려드릴게요", font: .detail2, textColor: .grey400).then {
         $0.numberOfLines = 2
-        $0.textAlignment = .center
-        
     }
     
     // MARK: - LifeCycles
@@ -44,11 +38,14 @@ class NonScrapInfoCell: UICollectionViewCell {
     }
 }
 
-// MARK: - Extensions
+// MARK: - UI & Layout
 
 extension NonScrapInfoCell {
     func setHierarchy() {
-        contentView.addSubviews(internshipScrapedStatus, internshipScrapedStatusLabel)
+        contentView.addSubviews(
+            internshipScrapedStatus,
+            internshipScrapedStatusLabel
+        )
     }
     
     func setLayout() {
@@ -63,4 +60,3 @@ extension NonScrapInfoCell {
         }
     }
 }
-

@@ -9,7 +9,7 @@ import UIKit
 
 class IsScrapInfoViewCell: UICollectionViewCell {
     
-    static let isScrapInfoViewCell = IsScrapInfoViewCell.className
+    // MARK: - Properties
     
     // MARK: - UIComponents
     
@@ -43,11 +43,15 @@ class IsScrapInfoViewCell: UICollectionViewCell {
     }
 }
 
-// MARK: - Extensions
+// MARK: - UI & Layout
 
 extension IsScrapInfoViewCell {
     func setHierarchy() {
-        contentView.addSubviews(scrapAndDeadlineCard, colorMark, cardLabel)
+        contentView.addSubviews(
+            scrapAndDeadlineCard,
+            colorMark,
+            cardLabel
+        )
     }
     
     func setLayout() {

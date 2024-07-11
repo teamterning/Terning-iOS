@@ -62,7 +62,7 @@ class HomeView: UIView {
     }
 }
 
-// MARK: - Extensions
+// MARK: - UI & Layout
 
 extension HomeView {
     func setUI() {

@@ -38,11 +38,14 @@ class InavailableFilterView: UICollectionViewCell {
     }
 }
 
-// MARK: - Extensions
+// MARK: - UI & Layout
 
 extension InavailableFilterView {
     func setHierarchy() {
-        contentView.addSubviews(inavailableIcon, inavailableLabel)
+        contentView.addSubviews(
+            inavailableIcon,
+            inavailableLabel
+        )
     }
     
     func setLayout() {

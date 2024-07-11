@@ -14,8 +14,6 @@ class DecorationCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static var DecorationCellIdentifier = "DecorationCell"
-    
     // MARK: - UIComponents
     
     let decorationView = UIView().then {
@@ -36,11 +34,11 @@ class DecorationCell: UICollectionViewCell {
     }
 }
 
-// MARK: - Extensions
+// MARK: - UI & Layout
 
 extension DecorationCell {
     func setHierarchy() {
-        contentView.addSubviews(decorationView)
+        contentView.addSubview(decorationView)
     }
     
     func setLayout() {
@@ -49,7 +47,5 @@ extension DecorationCell {
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(4)
         }
-
     }
 }
-

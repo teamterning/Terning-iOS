@@ -56,6 +56,23 @@
 		71E3C40D2C2423280026C4DD /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C40C2C2423280026C4DD /* .swiftlint.yml */; };
 		71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C40E2C243B510026C4DD /* UIView+.swift */; };
 		71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C4112C243BDD0026C4DD /* getClassName.swift */; };
+		B871D71E2C3E8771008D78C2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D71D2C3E8771008D78C2 /* HomeView.swift */; };
+		B871D7202C3E877B008D78C2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D71F2C3E877B008D78C2 /* HomeViewController.swift */; };
+		B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7222C3E8835008D78C2 /* JobCardModel.swift */; };
+		B871D7252C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7242C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift */; };
+		B871D7272C3E8BC2008D78C2 /* FilteringHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7262C3E8BC2008D78C2 /* FilteringHeaderCell.swift */; };
+		B871D7292C3E8E46008D78C2 /* JobCardScrapedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7282C3E8E46008D78C2 /* JobCardScrapedCell.swift */; };
+		B871D72B2C3E8ED7008D78C2 /* SortButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D72A2C3E8ED7008D78C2 /* SortButtonCell.swift */; };
+		B871D72D2C3E8FE6008D78C2 /* FilteringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D72C2C3E8FE6008D78C2 /* FilteringCell.swift */; };
+		B871D72F2C3E909F008D78C2 /* DecorationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D72E2C3E909F008D78C2 /* DecorationCell.swift */; };
+		B871D7312C3E9118008D78C2 /* NonScrapInfoCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7302C3E9118008D78C2 /* NonScrapInfoCells.swift */; };
+		B871D7332C3EC148008D78C2 /* IsScrapInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */; };
+		B871D7352C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */; };
+		B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */; };
+		B871D7392C3F1A49008D78C2 /* CheckDeadlineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7382C3F1A49008D78C2 /* CheckDeadlineCell.swift */; };
+		B8C5DB6E2C3F353D00865B1A /* InavailableFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */; };
+		B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */; };
+		B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +120,23 @@
 		71E3C40C2C2423280026C4DD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		71E3C40E2C243B510026C4DD /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		71E3C4112C243BDD0026C4DD /* getClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getClassName.swift; sourceTree = "<group>"; };
+		B871D71D2C3E8771008D78C2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B871D71F2C3E877B008D78C2 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		B871D7222C3E8835008D78C2 /* JobCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardModel.swift; sourceTree = "<group>"; };
+		B871D7242C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapInfoHeaderCell.swift; sourceTree = "<group>"; };
+		B871D7262C3E8BC2008D78C2 /* FilteringHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringHeaderCell.swift; sourceTree = "<group>"; };
+		B871D7282C3E8E46008D78C2 /* JobCardScrapedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardScrapedCell.swift; sourceTree = "<group>"; };
+		B871D72A2C3E8ED7008D78C2 /* SortButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButtonCell.swift; sourceTree = "<group>"; };
+		B871D72C2C3E8FE6008D78C2 /* FilteringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringCell.swift; sourceTree = "<group>"; };
+		B871D72E2C3E909F008D78C2 /* DecorationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecorationCell.swift; sourceTree = "<group>"; };
+		B871D7302C3E9118008D78C2 /* NonScrapInfoCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonScrapInfoCells.swift; sourceTree = "<group>"; };
+		B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsScrapInfoViewCell.swift; sourceTree = "<group>"; };
+		B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapedAndDeadlineModel.swift; sourceTree = "<group>"; };
+		B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonJobCardCell.swift; sourceTree = "<group>"; };
+		B871D7382C3F1A49008D78C2 /* CheckDeadlineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDeadlineCell.swift; sourceTree = "<group>"; };
+		B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InavailableFilterView.swift; sourceTree = "<group>"; };
+		B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSettingView.swift; sourceTree = "<group>"; };
+		B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,6 +361,8 @@
 			children = (
 				2D4EE3A02C3E787200E3E95B /* ProfileView */,
 				2D4EE3922C3DD5A000E3E95B /* WelcomeView */,
+				B8C5DB6F2C3F39A500865B1A /* FilteringSetting */,
+				B871D7142C3E8498008D78C2 /* Home */,
 				71D7E6EB2C2FF41200C54EA7 /* TabBar */,
 				71E3C3F32C241CB00026C4DD /* .gitkeep */,
 			);
@@ -380,6 +416,101 @@
 				7121A1562C3EA4C10056DB8B /* LoadingIndicator.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		B871D7142C3E8498008D78C2 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B871D7212C3E8812008D78C2 /* Model */,
+				B871D71D2C3E8771008D78C2 /* HomeView.swift */,
+				B871D71F2C3E877B008D78C2 /* HomeViewController.swift */,
+				B871D7152C3E84A1008D78C2 /* Cells */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		B871D7152C3E84A1008D78C2 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B871D7162C3E84BD008D78C2 /* HeaderCells */,
+				B871D7172C3E84D5008D78C2 /* ScrapInfoCells */,
+				B871D7182C3E84EB008D78C2 /* FilteringCell */,
+				B871D7192C3E84F5008D78C2 /* DecorationCell */,
+				B871D71A2C3E850A008D78C2 /* SortButtonCell */,
+				B871D71B2C3E8513008D78C2 /* JobCardCells */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		B871D7162C3E84BD008D78C2 /* HeaderCells */ = {
+			isa = PBXGroup;
+			children = (
+				B871D7242C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift */,
+				B871D7262C3E8BC2008D78C2 /* FilteringHeaderCell.swift */,
+			);
+			path = HeaderCells;
+			sourceTree = "<group>";
+		};
+		B871D7172C3E84D5008D78C2 /* ScrapInfoCells */ = {
+			isa = PBXGroup;
+			children = (
+				B871D7302C3E9118008D78C2 /* NonScrapInfoCells.swift */,
+				B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */,
+				B871D7382C3F1A49008D78C2 /* CheckDeadlineCell.swift */,
+			);
+			path = ScrapInfoCells;
+			sourceTree = "<group>";
+		};
+		B871D7182C3E84EB008D78C2 /* FilteringCell */ = {
+			isa = PBXGroup;
+			children = (
+				B871D72C2C3E8FE6008D78C2 /* FilteringCell.swift */,
+			);
+			path = FilteringCell;
+			sourceTree = "<group>";
+		};
+		B871D7192C3E84F5008D78C2 /* DecorationCell */ = {
+			isa = PBXGroup;
+			children = (
+				B871D72E2C3E909F008D78C2 /* DecorationCell.swift */,
+			);
+			path = DecorationCell;
+			sourceTree = "<group>";
+		};
+		B871D71A2C3E850A008D78C2 /* SortButtonCell */ = {
+			isa = PBXGroup;
+			children = (
+				B871D72A2C3E8ED7008D78C2 /* SortButtonCell.swift */,
+			);
+			path = SortButtonCell;
+			sourceTree = "<group>";
+		};
+		B871D71B2C3E8513008D78C2 /* JobCardCells */ = {
+			isa = PBXGroup;
+			children = (
+				B871D7282C3E8E46008D78C2 /* JobCardScrapedCell.swift */,
+				B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */,
+				B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */,
+			);
+			path = JobCardCells;
+			sourceTree = "<group>";
+		};
+		B871D7212C3E8812008D78C2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B871D7222C3E8835008D78C2 /* JobCardModel.swift */,
+				B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B8C5DB6F2C3F39A500865B1A /* FilteringSetting */ = {
+			isa = PBXGroup;
+			children = (
+				B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */,
+				B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */,
+			);
+			path = FilteringSetting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -497,11 +628,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B871D7332C3EC148008D78C2 /* IsScrapInfoViewCell.swift in Sources */,
 				2D4EE3962C3DD5CB00E3E95B /* WelcomeViewController.swift in Sources */,
 				7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */,
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
 				2D4EE3A42C3E789200E3E95B /* ProfileView.swift in Sources */,
 				71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */,
+				B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */,
 				7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */,
 				71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */,
 				7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */,
@@ -512,16 +645,29 @@
 				71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */,
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
 				71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */,
+				B871D7352C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift in Sources */,
 				2D4EE3A22C3E788200E3E95B /* ProfileViewModel.swift in Sources */,
 				7121A1512C3B09E10056DB8B /* Result+.swift in Sources */,
+				B871D7272C3E8BC2008D78C2 /* FilteringHeaderCell.swift in Sources */,
 				7121A1462C3B07AA0056DB8B /* BaseResponse.swift in Sources */,
+				B8C5DB6E2C3F353D00865B1A /* InavailableFilterView.swift in Sources */,
 				7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */,
 				7121A1552C3EA01F0056DB8B /* Toast.swift in Sources */,
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
+				B871D7392C3F1A49008D78C2 /* CheckDeadlineCell.swift in Sources */,
+				B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */,
+				B871D72F2C3E909F008D78C2 /* DecorationCell.swift in Sources */,
+				B871D7202C3E877B008D78C2 /* HomeViewController.swift in Sources */,
 				7121A14B2C3B09800056DB8B /* setImage.swift in Sources */,
+				B871D7292C3E8E46008D78C2 /* JobCardScrapedCell.swift in Sources */,
+				B871D71E2C3E8771008D78C2 /* HomeView.swift in Sources */,
+				B871D72B2C3E8ED7008D78C2 /* SortButtonCell.swift in Sources */,
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
+				B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */,
 				2D4EE3A62C3E78A200E3E95B /* ProfileViewController.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
+				B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */,
+				B871D7312C3E9118008D78C2 /* NonScrapInfoCells.swift in Sources */,
 				2D4EE3892C3D9EA400E3E95B /* Date+.swift in Sources */,
 				7121A1532C3DE3680056DB8B /* CustomNavigationBar.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,
@@ -530,6 +676,8 @@
 				7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */,
 				2D4EE3872C3D7CB200E3E95B /* CustomOnboardingButton.swift in Sources */,
 				71461EBD2C3705B6002A6999 /* FontLiterals.swift in Sources */,
+				B871D72D2C3E8FE6008D78C2 /* FilteringCell.swift in Sources */,
+				B871D7252C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift in Sources */,
 				7121A1402C3AB9EE0056DB8B /* JobDetailInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

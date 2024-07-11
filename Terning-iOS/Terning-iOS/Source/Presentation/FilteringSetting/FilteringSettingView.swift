@@ -16,17 +16,14 @@ class FilteringSettingView: UIView {
     
     // user  select one's grade
     let gradeSelectionTitle = LabelFactory.build(text: "재학 상태를 선택해주세요", font: .title3, textColor: .terningBlack).then {
-        
         $0.numberOfLines = 1
     }
     
     let gradeSelectionSubTitle = LabelFactory.build(text: "휴학중이라면, 휴학 전 마지막 수료 학년을 선택해주세요", font: .body3, textColor: UIColor(red: 137/255, green: 137/255, blue: 137/255, alpha: 1.0)).then {
-        
         $0.numberOfLines = 1
     }
     
     lazy var titleStack1 = UIStackView(arrangedSubviews: [gradeSelectionTitle, gradeSelectionSubTitle]).then {
-        
         $0.axis = .vertical
         $0.spacing = 0
         $0.alignment = .leading

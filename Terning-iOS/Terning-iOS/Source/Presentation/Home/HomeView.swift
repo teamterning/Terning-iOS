@@ -92,7 +92,6 @@ extension HomeView {
     
     func makeCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
-            
             if sectionNumber == 0 {
                 // Item
                 if self.layoutForNonScrapCell || self.layoutForCheckDeadlineCell {
@@ -125,7 +124,6 @@ extension HomeView {
                     ]
                     
                     return section
-                    
                 } else if self.layoutForIsScrapInfoCell {
                     let itemSize = NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(0.5),
@@ -161,9 +159,8 @@ extension HomeView {
                     
                     return section
                 }
-                
+
                 return nil
-                
             } else if sectionNumber == 1 {
                 // Item
                 let itemSize = NSCollectionLayoutSize(
@@ -192,9 +189,7 @@ extension HomeView {
                     ]
 
                 return section
-                
             } else if sectionNumber == 2 {
-                
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
                     heightDimension: .absolute(1.0))
@@ -215,7 +210,6 @@ extension HomeView {
                 section.contentInsets.bottom = 15
                 
                 return section
-                
             } else if sectionNumber == 3 {
                 // Item
                 let itemSize = NSCollectionLayoutSize(
@@ -235,7 +229,6 @@ extension HomeView {
                 let section = NSCollectionLayoutSection(group: group)
                 
                 return section
-                
             } else if sectionNumber == 4 {
                 // Item
                 let itemSize = NSCollectionLayoutSize(
@@ -255,11 +248,8 @@ extension HomeView {
                 let section = NSCollectionLayoutSection(group: group)
                 section.interGroupSpacing = -58
                 return section
-                
             } else {
-                
                 return nil
-                
             }
         }
     }

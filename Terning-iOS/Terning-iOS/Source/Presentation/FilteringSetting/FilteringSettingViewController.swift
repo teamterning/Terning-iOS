@@ -15,7 +15,6 @@ class FilteringSettingViewController: UIViewController {
     // MARK: - UIComponents
     
     var rootView = FilteringSettingView()
-//    private lazy var  filteringSettingNavigationBar = CustomNavigation
     
     // MARK: - LifeCycles
     
@@ -51,7 +50,6 @@ extension FilteringSettingViewController {
         if rootView.gradeButton1.isSelected {
             rootView.gradeButton1.backgroundColor = .clear
             rootView.gradeButton1.isSelected.toggle()
-            
         } else {
             rootView.gradeButton1.backgroundColor = .terningMain
             rootView.gradeButton1.isSelected.toggle()
@@ -65,7 +63,6 @@ extension FilteringSettingViewController {
         if rootView.gradeButton2.isSelected {
             rootView.gradeButton2.backgroundColor = .clear
             rootView.gradeButton2.isSelected.toggle()
-            
         } else {
             rootView.gradeButton2.backgroundColor = .terningMain
             rootView.gradeButton2.isSelected.toggle()
@@ -79,7 +76,6 @@ extension FilteringSettingViewController {
         if rootView.gradeButton3.isSelected {
             rootView.gradeButton3.backgroundColor = .clear
             rootView.gradeButton3.isSelected.toggle()
-            
         } else {
             rootView.gradeButton3.backgroundColor = .terningMain
             rootView.gradeButton3.isSelected.toggle()
@@ -92,7 +88,6 @@ extension FilteringSettingViewController {
         if rootView.gradeButton4.isSelected {
             rootView.gradeButton4.backgroundColor = .clear
             rootView.gradeButton4.isSelected.toggle()
-            
         } else {
             rootView.gradeButton4.backgroundColor = .terningMain
             rootView.gradeButton4.isSelected.toggle()

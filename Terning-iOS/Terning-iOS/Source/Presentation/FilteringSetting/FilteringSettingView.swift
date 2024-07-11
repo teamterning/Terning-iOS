@@ -13,7 +13,7 @@ import Then
 class FilteringSettingView: UIView {
     
     // MARK: - UIComponents
-    
+
     // user  select one's grade
     let gradeSelectionTitle = LabelFactory.build(text: "재학 상태를 선택해주세요", font: .title3, textColor: .terningBlack).then {
         $0.numberOfLines = 1
@@ -67,9 +67,9 @@ class FilteringSettingView: UIView {
     }
     
     // user select period
-    let periodSelectionTitle = LabelFactory.build(text: "재학 상태를 선택해주세요", font: .title3, textColor: .terningBlack)
+    let periodSelectionTitle = LabelFactory.build(text: "희망하는 인턴 근무 기간을 선택해주세요", font: .title3, textColor: .terningBlack)
     
-    let periodSelectionSubTitle = LabelFactory.build(text: "휴학중이라면, 휴학 전 마지막 수료 학년을 선택해주세요", font: .body3, textColor: UIColor(red: 137/255, green: 137/255, blue: 137/255, alpha: 1.0))
+    let periodSelectionSubTitle = LabelFactory.build(text: "선택한 기간동안 근무할 수 있는 인턴 공고를 찾아드릴게요", font: .body3, textColor: UIColor(red: 137/255, green: 137/255, blue: 137/255, alpha: 1.0))
     
     lazy var titleStack2 = UIStackView(arrangedSubviews: [periodSelectionTitle, periodSelectionSubTitle]).then {
         
@@ -147,9 +147,12 @@ extension FilteringSettingView {
     
     func setHierarchy() {
         addSubviews(
-            titleStack1, gradeButtonStack,
-            titleStack2, periodButtonStack,
-            titleStack3, monthPickerView
+            titleStack1,
+            gradeButtonStack,
+            titleStack2,
+            periodButtonStack,
+            titleStack3,
+            monthPickerView
         )
     }
     
@@ -208,6 +211,7 @@ extension FilteringSettingView {
             $0.height.equalTo(36)
         }
         
+        // date selection layout
         titleStack3.snp.makeConstraints {
             $0.top.equalTo(periodButtonStack.snp.bottom).offset(35)
             $0.leading.equalToSuperview().offset(20)

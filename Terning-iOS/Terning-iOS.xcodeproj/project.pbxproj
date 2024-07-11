@@ -56,6 +56,8 @@
 		71E3C40D2C2423280026C4DD /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C40C2C2423280026C4DD /* .swiftlint.yml */; };
 		71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C40E2C243B510026C4DD /* UIView+.swift */; };
 		71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C4112C243BDD0026C4DD /* getClassName.swift */; };
+		B86A67542C408B1B00CB90E5 /* SortBottomSheetview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86A67532C408B1B00CB90E5 /* SortBottomSheetview.swift */; };
+		B86A67562C408B2C00CB90E5 /* SortBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86A67552C408B2C00CB90E5 /* SortBottomSheetViewController.swift */; };
 		B871D71E2C3E8771008D78C2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D71D2C3E8771008D78C2 /* HomeView.swift */; };
 		B871D7202C3E877B008D78C2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D71F2C3E877B008D78C2 /* HomeViewController.swift */; };
 		B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7222C3E8835008D78C2 /* JobCardModel.swift */; };
@@ -120,6 +122,8 @@
 		71E3C40C2C2423280026C4DD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		71E3C40E2C243B510026C4DD /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		71E3C4112C243BDD0026C4DD /* getClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getClassName.swift; sourceTree = "<group>"; };
+		B86A67532C408B1B00CB90E5 /* SortBottomSheetview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortBottomSheetview.swift; sourceTree = "<group>"; };
+		B86A67552C408B2C00CB90E5 /* SortBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortBottomSheetViewController.swift; sourceTree = "<group>"; };
 		B871D71D2C3E8771008D78C2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B871D71F2C3E877B008D78C2 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B871D7222C3E8835008D78C2 /* JobCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardModel.swift; sourceTree = "<group>"; };
@@ -359,6 +363,7 @@
 		71E3C3E82C241C020026C4DD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				B86A67522C408AF900CB90E5 /* SortBottomSheet */,
 				2D4EE3A02C3E787200E3E95B /* ProfileView */,
 				2D4EE3922C3DD5A000E3E95B /* WelcomeView */,
 				B8C5DB6F2C3F39A500865B1A /* FilteringSetting */,
@@ -416,6 +421,15 @@
 				7121A1562C3EA4C10056DB8B /* LoadingIndicator.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		B86A67522C408AF900CB90E5 /* SortBottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				B86A67532C408B1B00CB90E5 /* SortBottomSheetview.swift */,
+				B86A67552C408B2C00CB90E5 /* SortBottomSheetViewController.swift */,
+			);
+			path = SortBottomSheet;
 			sourceTree = "<group>";
 		};
 		B871D7142C3E8498008D78C2 /* Home */ = {
@@ -633,6 +647,7 @@
 				7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */,
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
 				2D4EE3A42C3E789200E3E95B /* ProfileView.swift in Sources */,
+				B86A67542C408B1B00CB90E5 /* SortBottomSheetview.swift in Sources */,
 				71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */,
 				B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */,
 				7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */,
@@ -652,6 +667,7 @@
 				7121A1462C3B07AA0056DB8B /* BaseResponse.swift in Sources */,
 				B8C5DB6E2C3F353D00865B1A /* InavailableFilterView.swift in Sources */,
 				7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */,
+				B86A67562C408B2C00CB90E5 /* SortBottomSheetViewController.swift in Sources */,
 				7121A1552C3EA01F0056DB8B /* Toast.swift in Sources */,
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
 				B871D7392C3F1A49008D78C2 /* CheckDeadlineCell.swift in Sources */,

@@ -18,6 +18,10 @@ enum HomeSection: Int, CaseIterable {
     case jobCard
 }
 
+protocol bindFilterSettingDataProtocol {
+    func bindFilterSettingData(grade: String?, period: String?, month: String?)
+}
+
 class HomeViewController: UIViewController, UICollectionViewDelegate {
     
     // MARK: - Properties
@@ -229,5 +233,23 @@ extension HomeViewController: UICollectionViewDataSource {
     private func setDelegate() {
         rootView.collectionView.delegate = self
         rootView.collectionView.dataSource = self
+    }
+    
+    // MARK: - setTarget()
+    
+    private func setTarget() {
+        
+    }
+    
+    // MARK: - button click event
+    
+    func pushToFilteringSettingView() {
+        let filteringSettingView = FilteringSettingViewController()
+        self.navigationController?.pushViewController(filteringSettingView, animated: true)
+    }
+    
+    @objc
+    func filteringButtonDidTap() {
+        pushToFilteringSettingView()
     }
 }

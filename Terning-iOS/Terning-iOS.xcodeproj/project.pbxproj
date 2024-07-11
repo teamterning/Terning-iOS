@@ -56,7 +56,7 @@
 		B871D72B2C3E8ED7008D78C2 /* SortButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D72A2C3E8ED7008D78C2 /* SortButtonCell.swift */; };
 		B871D72D2C3E8FE6008D78C2 /* FilteringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D72C2C3E8FE6008D78C2 /* FilteringCell.swift */; };
 		B871D72F2C3E909F008D78C2 /* DecorationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D72E2C3E909F008D78C2 /* DecorationCell.swift */; };
-		B871D7312C3E9118008D78C2 /* NotScrapInfoCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7302C3E9118008D78C2 /* NotScrapInfoCells.swift */; };
+		B871D7312C3E9118008D78C2 /* NonScrapInfoCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7302C3E9118008D78C2 /* NonScrapInfoCells.swift */; };
 		B871D7332C3EC148008D78C2 /* IsScrapInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */; };
 		B871D7352C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */; };
 		B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */; };
@@ -111,7 +111,7 @@
 		B871D72A2C3E8ED7008D78C2 /* SortButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButtonCell.swift; sourceTree = "<group>"; };
 		B871D72C2C3E8FE6008D78C2 /* FilteringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringCell.swift; sourceTree = "<group>"; };
 		B871D72E2C3E909F008D78C2 /* DecorationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecorationCell.swift; sourceTree = "<group>"; };
-		B871D7302C3E9118008D78C2 /* NotScrapInfoCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotScrapInfoCells.swift; sourceTree = "<group>"; };
+		B871D7302C3E9118008D78C2 /* NonScrapInfoCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonScrapInfoCells.swift; sourceTree = "<group>"; };
 		B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsScrapInfoViewCell.swift; sourceTree = "<group>"; };
 		B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapedAndDeadlineModel.swift; sourceTree = "<group>"; };
 		B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonJobCardCell.swift; sourceTree = "<group>"; };
@@ -371,7 +371,7 @@
 		B871D7172C3E84D5008D78C2 /* ScrapInfoCells */ = {
 			isa = PBXGroup;
 			children = (
-				B871D7302C3E9118008D78C2 /* NotScrapInfoCells.swift */,
+				B871D7302C3E9118008D78C2 /* NonScrapInfoCells.swift */,
 				B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */,
 				B871D7382C3F1A49008D78C2 /* CheckDeadlineCell.swift */,
 			);
@@ -576,7 +576,7 @@
 				B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
 				B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */,
-				B871D7312C3E9118008D78C2 /* NotScrapInfoCells.swift in Sources */,
+				B871D7312C3E9118008D78C2 /* NonScrapInfoCells.swift in Sources */,
 				2D4EE3892C3D9EA400E3E95B /* Date+.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,

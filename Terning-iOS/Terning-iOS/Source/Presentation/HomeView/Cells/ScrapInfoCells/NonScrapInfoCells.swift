@@ -54,7 +54,7 @@ extension NonScrapInfoCell {
     func setLayout() {
         internshipScrapedStatus.snp.makeConstraints {
             $0.verticalEdges.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(3)
+            $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
         internshipScrapedStatusLabel.snp.makeConstraints {

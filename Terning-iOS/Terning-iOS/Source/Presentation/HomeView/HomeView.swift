@@ -113,7 +113,7 @@ extension HomeView {
                     
                     // Section
                     let section = NSCollectionLayoutSection(group: group)
-                    //
+
                     section.contentInsets.top = 40
                     section.contentInsets.bottom = 25
             
@@ -141,8 +141,6 @@ extension HomeView {
                         heightDimension: .absolute(139))
                     
                     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                    
-//                    group.contentInsets.leading = 20
                     
                     group.contentInsets.top = 11
                     

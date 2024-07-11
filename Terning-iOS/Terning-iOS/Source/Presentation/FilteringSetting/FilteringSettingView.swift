@@ -140,7 +140,7 @@ class FilteringSettingView: UIView {
     }
 }
 
-// MARK: Extensions
+// MARK: UI & Layout
 
 extension FilteringSettingView {
     

@@ -43,6 +43,8 @@
 		71CCC0712C3F36DE00789A9B /* TNCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCC0702C3F36DE00789A9B /* TNCalendarViewController.swift */; };
 		71CCC0732C3F36EA00789A9B /* TNCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCC0722C3F36EA00789A9B /* TNCalendarView.swift */; };
 		71CCC0762C3F373400789A9B /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 71CCC0752C3F373400789A9B /* FSCalendar */; };
+		71CCC0792C3FDABF00789A9B /* TNCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCC0782C3FDABF00789A9B /* TNCalendarViewModel.swift */; };
+		71CCC07C2C3FDB0400789A9B /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCC07B2C3FDB0400789A9B /* ViewModelType.swift */; };
 		71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6EC2C2FF42500C54EA7 /* TNTabBarController.swift */; };
 		71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6EE2C2FF48800C54EA7 /* TNTabBarItem.swift */; };
 		71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6F02C2FFB5800C54EA7 /* CALayer+.swift */; };
@@ -94,6 +96,8 @@
 		71461ED52C38150C002A6999 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		71CCC0702C3F36DE00789A9B /* TNCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarViewController.swift; sourceTree = "<group>"; };
 		71CCC0722C3F36EA00789A9B /* TNCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarView.swift; sourceTree = "<group>"; };
+		71CCC0782C3FDABF00789A9B /* TNCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarViewModel.swift; sourceTree = "<group>"; };
+		71CCC07B2C3FDB0400789A9B /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		71D7E6EC2C2FF42500C54EA7 /* TNTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNTabBarController.swift; sourceTree = "<group>"; };
 		71D7E6EE2C2FF48800C54EA7 /* TNTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNTabBarItem.swift; sourceTree = "<group>"; };
 		71D7E6F02C2FFB5800C54EA7 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
@@ -252,6 +256,7 @@
 		71CCC06D2C3F369A00789A9B /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				71CCC0772C3FDAAC00789A9B /* ViewModel */,
 				71CCC06F2C3F36C300789A9B /* ViewController */,
 				71CCC06E2C3F36BB00789A9B /* View */,
 			);
@@ -272,6 +277,22 @@
 				71CCC0702C3F36DE00789A9B /* TNCalendarViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		71CCC0772C3FDAAC00789A9B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				71CCC0782C3FDABF00789A9B /* TNCalendarViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		71CCC07A2C3FDAEB00789A9B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				71CCC07B2C3FDB0400789A9B /* ViewModelType.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		71D7E6EB2C2FF41200C54EA7 /* TabBar */ = {
@@ -339,6 +360,7 @@
 				71E3C3EC2C241C500026C4DD /* Literal */,
 				71E3C3EA2C241C3D0026C4DD /* Fonts */,
 				71E3C3EB2C241C480026C4DD /* Extension */,
+				71CCC07A2C3FDAEB00789A9B /* Protocols */,
 				71E3C3D52C22BAF50026C4DD /* Assets.xcassets */,
 			);
 			path = Resource;
@@ -545,7 +567,9 @@
 				2D4EE3942C3DD5B700E3E95B /* WelcomeView.swift in Sources */,
 				71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */,
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
+				71CCC0792C3FDABF00789A9B /* TNCalendarViewModel.swift in Sources */,
 				71CCC0732C3F36EA00789A9B /* TNCalendarView.swift in Sources */,
+				71CCC07C2C3FDB0400789A9B /* ViewModelType.swift in Sources */,
 				71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */,
 				2D4EE3A22C3E788200E3E95B /* ProfileViewModel.swift in Sources */,
 				71CCC0712C3F36DE00789A9B /* TNCalendarViewController.swift in Sources */,

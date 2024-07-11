@@ -23,7 +23,7 @@ final class CustomProgressView: UIView {
     private var labelViews: [UILabel] = []
     private var lineViews: [UIView] = []
     
-    // MARK: - initialization
+    // MARK: - Init
     
     init(
         currentStep: Int,
@@ -124,7 +124,6 @@ extension CustomProgressView {
             $0.trailing.equalToSuperview()
         }
     }
-    
     
     // MARK: - Methods
     

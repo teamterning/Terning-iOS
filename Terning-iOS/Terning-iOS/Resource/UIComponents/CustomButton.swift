@@ -54,6 +54,8 @@ extension CustomButton {
     /// 버튼의 Title 변경
     @discardableResult
     public func setTitle(title: String) -> Self {
+        self.title = title
+        
         self.setAttributedTitle(
             NSAttributedString(
                 string: title,

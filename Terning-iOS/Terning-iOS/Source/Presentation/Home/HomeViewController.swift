@@ -90,10 +90,10 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if section == 0 {
-            if HomeView.layoutForCheckDeadlineCell || HomeView.layoutForNonScrapCell {
+            if rootView.layoutForCheckDeadlineCell || rootView.layoutForNonScrapCell {
                 return 1
                 
-            } else if HomeView.hasDueToday {
+            } else if rootView.hasDueToday {
                 return 4
             }
             
@@ -122,12 +122,12 @@ extension HomeViewController: UICollectionViewDataSource {
         
         switch section {
         case .scrap:
-            if !HomeView.hasAnyScrap && !HomeView.hasDueToday {
+            if !rootView.hasAnyScrap && !rootView.hasDueToday {
                 let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonScrapInfoCell.className, for: indexPath) as! NonScrapInfoCell
                 
                 return cell
                 
-            } else if HomeView.hasAnyScrap && HomeView.hasDueToday {
+            } else if rootView.hasAnyScrap && rootView.hasDueToday {
                 let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: IsScrapInfoViewCell.className, for: indexPath) as! IsScrapInfoViewCell
                 
                 let model = scrapedAndDeadlineItems[indexPath.row]
@@ -136,7 +136,7 @@ extension HomeViewController: UICollectionViewDataSource {
                 
                 return cell
                 
-            } else if HomeView.hasAnyScrap && !HomeView.hasDueToday {
+            } else if rootView.hasAnyScrap && !rootView.hasDueToday {
                 let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: CheckDeadlineCell.className, for: indexPath) as! CheckDeadlineCell
                 
                 return cell
@@ -187,19 +187,19 @@ extension HomeViewController: UICollectionViewDataSource {
         )
         
         // Cells
-        if !HomeView.hasAnyScrap {
+        if !rootView.hasAnyScrap {
             rootView.collectionView.register(
                 NonScrapInfoCell.self,
                 forCellWithReuseIdentifier: NonScrapInfoCell.className
             )
             
-        } else if HomeView.hasDueToday {
+        } else if rootView.hasDueToday {
             rootView.collectionView.register(
                 IsScrapInfoViewCell.self,
                 forCellWithReuseIdentifier: IsScrapInfoViewCell.className
             )
             
-        } else if HomeView.hasAnyScrap && !HomeView.hasDueToday {
+        } else if rootView.hasAnyScrap && !rootView.hasDueToday {
             rootView.collectionView.register(CheckDeadlineCell.self, forCellWithReuseIdentifier: CheckDeadlineCell.className)
         }
         

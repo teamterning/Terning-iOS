@@ -19,12 +19,12 @@ class HomeView: UIView {
     var scrapAndDeadlineCardDatas = ScrapedAndDeadlineModel.getScrapedData()
     lazy var scrapDataCount = scrapAndDeadlineCardDatas.count
     
-    static var hasAnyScrap = true
-    static var hasDueToday = false
+    var hasAnyScrap = true
+    var hasDueToday = false
     
-    static var layoutForNonScrapCell: Bool = !HomeView.hasAnyScrap && !HomeView.hasDueToday
-    static var layoutForCheckDeadlineCell: Bool = HomeView.hasAnyScrap && !HomeView.hasDueToday
-    static var layoutForIsScrapInfoCell: Bool = HomeView.hasAnyScrap && HomeView.hasDueToday
+    lazy var layoutForNonScrapCell: Bool = !hasAnyScrap && !hasDueToday
+    lazy var layoutForCheckDeadlineCell: Bool = hasAnyScrap && !hasDueToday
+    lazy var layoutForIsScrapInfoCell: Bool = hasAnyScrap && hasDueToday
     
     // MARK: - UIComponents
     
@@ -95,7 +95,7 @@ extension HomeView {
             
             if sectionNumber == 0 {
                 // Item
-                if HomeView.layoutForNonScrapCell || HomeView.layoutForCheckDeadlineCell {
+                if self.layoutForNonScrapCell || self.layoutForCheckDeadlineCell {
                     let itemSize = NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
                         heightDimension: .fractionalHeight(1.0))
@@ -126,7 +126,7 @@ extension HomeView {
                     
                     return section
                     
-                } else if HomeView.layoutForIsScrapInfoCell {
+                } else if self.layoutForIsScrapInfoCell {
                     let itemSize = NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(0.5),
                         heightDimension: .fractionalHeight(1.0))

@@ -70,13 +70,15 @@ extension OnboardingPageViewController {
             viewModel: OnboardingViewModel(),
             step: 3
         )
-
+        
         gradeViewController.onboardingView.nextButton.rx.tap.subscribe(with: self) { owner, _ in
             owner.moveToNextPage()
         }.disposed(by: disposeBag)
+        
         jobPeriodViewController.onboardingView.nextButton.rx.tap.subscribe(with: self) { owner, _ in
             owner.moveToNextPage()
         }.disposed(by: disposeBag)
+        
         graduationDateViewController.onboardingView.nextButton.rx.tap.subscribe(with: self) { owner, _ in
             owner.moveToNextPage()
         }.disposed(by: disposeBag)
@@ -112,7 +114,7 @@ extension OnboardingPageViewController {
             let nextVC = pages[currentIndex + 1]
             setViewControllers([nextVC], direction: .forward, animated: true, completion: nil)
         } else {
-            let data = OnboardingData.shared
+            _ = OnboardingData.shared
         }
     }
     

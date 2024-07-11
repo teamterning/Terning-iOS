@@ -55,7 +55,7 @@ enum TNTabBarItem {
     var viewController: UIViewController {
         switch self {
         case .home:
-            return ViewController(backgroundColor: .white)
+            return HomeViewController()
         default:
             return ViewController(backgroundColor: .terningMain)
         }

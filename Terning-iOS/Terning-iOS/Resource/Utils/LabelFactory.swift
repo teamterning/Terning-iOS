@@ -20,7 +20,7 @@ struct LabelFactory {
     ///   - characterSpacing: 자간 (defalut = -0.5 (-0.005))
     ///
     static func build(
-        text: String?,
+        text: String? = "",
         font: UIFont,
         backgroundColor: UIColor = .clear,
         textColor: UIColor = .terningBlack,

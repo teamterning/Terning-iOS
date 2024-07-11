@@ -1,5 +1,5 @@
 //
-//  CustomProgressView.swift
+//  CustomprogressView.swift
 //  Terning-iOS
 //
 //  Created by 정민지 on 7/9/24.
@@ -16,6 +16,7 @@ final class CustomProgressView: UIView {
     private var circleSize: CGFloat
     private var lineLength: CGFloat
     private var totalSteps: Int
+    private var currentStep: Int
     
     // MARK: - UI Components
     
@@ -32,6 +33,7 @@ final class CustomProgressView: UIView {
         lineLength: CGFloat
     ) {
         
+        self.currentStep = currentStep
         self.circleSize = circleSize
         self.lineLength = lineLength
         self.totalSteps = totalSteps
@@ -124,18 +126,31 @@ extension CustomProgressView {
             $0.trailing.equalToSuperview()
         }
     }
+}
     
-    // MARK: - Methods
-    
+// MARK: - Methods
+
+extension CustomProgressView {
     /// 현재 step만큼 색상 변경
-    func setStep(currentStep: Int) {
+    private func setStep(currentStep: Int) {
         for (index, circleView) in circleViews.enumerated() {
             circleView.backgroundColor = index < currentStep ? .terningMain : .grey300
-            circleView.layer.borderColor = index < currentStep ? UIColor.calRed.cgColor : UIColor.grey200.cgColor
+            circleView.layer.borderColor = index < currentStep ? UIColor.terningSub2.cgColor : UIColor.grey200.cgColor
         }
         
         for (index, lineView) in lineViews.enumerated() {
             lineView.backgroundColor = index < currentStep - 1 ? .terningMain : .grey400
         }
+    }
+}
+
+// MARK: - Public Methods
+
+extension CustomProgressView {
+    @discardableResult
+    public func setCurrentStep(_ currentStep: Int) -> Self {
+        setStep(currentStep: currentStep)
+        setNeedsLayout()
+        return self
     }
 }

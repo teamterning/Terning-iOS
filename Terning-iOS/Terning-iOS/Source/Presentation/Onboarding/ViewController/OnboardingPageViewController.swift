@@ -55,9 +55,21 @@ final class OnboardingPageViewController: UIPageViewController {
 
 extension OnboardingPageViewController {
     private func setPages() {
-        let gradeViewController = OnboardingViewController(viewType: .grade, step: 1)
-        let jobPeriodViewController = OnboardingViewController(viewType: .jobPeriod, step: 2)
-        let graduationDateViewController = OnboardingViewController(viewType: .graduationDate, step: 3)
+        let gradeViewController = OnboardingViewController(
+            viewType: .grade,
+            viewModel: OnboardingViewModel(),
+            step: 1
+        )
+        let jobPeriodViewController = OnboardingViewController(
+            viewType: .jobPeriod,
+            viewModel: OnboardingViewModel(),
+            step: 2
+        )
+        let graduationDateViewController = OnboardingViewController(
+            viewType: .graduationDate,
+            viewModel: OnboardingViewModel(),
+            step: 3
+        )
 
         gradeViewController.onboardingView.nextButton.rx.tap.subscribe(with: self) { owner, _ in
             owner.moveToNextPage()

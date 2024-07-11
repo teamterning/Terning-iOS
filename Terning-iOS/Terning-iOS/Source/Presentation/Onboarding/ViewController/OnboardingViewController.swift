@@ -27,11 +27,11 @@ final class OnboardingViewController: UIViewController {
     
     // MARK: - Init
     
-    init(viewType: OnboardingViewType, step: Int = 1) {
+    init(viewType: OnboardingViewType, viewModel: OnboardingViewModel, step: Int = 1) {
         
         self.viewType = viewType
         self.step = step
-        self.viewModel = OnboardingViewModel()
+        self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
     }

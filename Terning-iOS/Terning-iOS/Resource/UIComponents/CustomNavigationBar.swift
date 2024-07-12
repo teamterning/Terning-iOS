@@ -37,20 +37,19 @@ final class CustomNavigationBar: UIView {
     )
     
     private let leftButton = UIButton().then {
-        $0.setImage(UIImage(resource: .icBackArrow), for: .normal)
+        $0.setImage(.icBackArrow, for: .normal)
     }
     
     private let calendarBackButton = UIButton().then {
-        $0.setImage(UIImage(resource: .icBackArrowGreen), for: .normal)
+        $0.setImage(.icBackArrowGreen, for: .normal)
     }
     
     private let calendarFrontButton = UIButton().then {
-        $0.setImage(UIImage(resource: .icFrontArrow), for: .normal)
+        $0.setImage(.icFrontArrowGreen, for: .normal)
     }
     
     private let calendarListButton = UIButton().then {
-        $0.setImage(UIImage(resource: .icCalendar), for: .normal)
-        $0.setImage(UIImage(resource: .icCalendarFill), for: .selected)
+        $0.setImage(.icList, for: .normal)
     }
     
     // MARK: - Observables

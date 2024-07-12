@@ -18,6 +18,10 @@ enum HomeSection: Int, CaseIterable {
     case jobCard
 }
 
+protocol bindFilterSettingDataProtocol {
+    func bindFilterSettingData(grade: String?, period: String?, month: String?)
+}
+
 class HomeViewController: UIViewController, UICollectionViewDelegate {
     
     // MARK: - Properties
@@ -115,7 +119,6 @@ extension HomeViewController: UICollectionViewDataSource {
             return 0
         }
     }
-
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let section = HomeSection(rawValue: indexPath.section)
@@ -123,51 +126,85 @@ extension HomeViewController: UICollectionViewDataSource {
         switch section {
         case .scrap:
             if !rootView.hasAnyScrap && !rootView.hasDueToday {
-                let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonScrapInfoCell.className, for: indexPath) as! NonScrapInfoCell
+                guard let cell = rootView.collectionView.dequeueReusableCell(
+                    withReuseIdentifier: NonScrapInfoCell.className,
+                    for: indexPath
+                ) as? NonScrapInfoCell else {
+                    return UICollectionViewCell()
+                }
                 
                 return cell
                 
             } else if rootView.hasAnyScrap && rootView.hasDueToday {
-                let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: IsScrapInfoViewCell.className, for: indexPath) as! IsScrapInfoViewCell
-                
+                guard let cell = rootView.collectionView.dequeueReusableCell(
+                    withReuseIdentifier: IsScrapInfoViewCell.className,
+                    for: indexPath
+                ) as? IsScrapInfoViewCell else {
+                    return UICollectionViewCell()
+                }
                 let model = scrapedAndDeadlineItems[indexPath.row]
-                
                 cell.bindData(color: model.color, title: model.title)
                 
                 return cell
                 
             } else if rootView.hasAnyScrap && !rootView.hasDueToday {
-                let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: CheckDeadlineCell.className, for: indexPath) as! CheckDeadlineCell
+                guard let cell = rootView.collectionView.dequeueReusableCell(
+                    withReuseIdentifier: CheckDeadlineCell.className,
+                    for: indexPath
+                ) as? CheckDeadlineCell else {
+                    return UICollectionViewCell()
+                }
                 
                 return cell
             }
             
-            return UICollectionViewCell()
-            
         case .filtering:
-            let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: FilteringCell.className, for: indexPath) as! FilteringCell
+            guard let cell = rootView.collectionView.dequeueReusableCell(
+                withReuseIdentifier: FilteringCell.className,
+                for: indexPath
+            ) as? FilteringCell else {
+                return UICollectionViewCell()
+            }
+            cell.delegate = self
+            
             return cell
             
         case .sort:
-            let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: SortButtonCell.className, for: indexPath) as! SortButtonCell
+            guard let cell = rootView.collectionView.dequeueReusableCell(
+                withReuseIdentifier: SortButtonCell.className,
+                for: indexPath
+            ) as? SortButtonCell else {
+                return UICollectionViewCell()
+            }
+            
             return cell
             
         case .decoration:
-            let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: DecorationCell.className, for: indexPath) as! DecorationCell
+            guard let cell = rootView.collectionView.dequeueReusableCell(
+                withReuseIdentifier: DecorationCell.className,
+                for: indexPath
+            ) as? DecorationCell else {
+                return UICollectionViewCell()
+            }
+            
             return cell
             
         case .jobCard:
-            let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as! JobCardScrapedCell
-            
+            guard let cell = rootView.collectionView.dequeueReusableCell(
+                withReuseIdentifier: JobCardScrapedCell.className,
+                for: indexPath
+            ) as? JobCardScrapedCell else {
+                return UICollectionViewCell()
+            }
             let model = cardModelItems[indexPath.row]
-            
             cell.bindData(coverImage: model.coverImage, daysRemaining: model.daysRemaining, title: model.title, period: model.period)
             
             return cell
             
-        default:
+        case .none:
             return UICollectionViewCell()
         }
+        return UICollectionViewCell()
     }
     
     // MARK: - register()
@@ -229,5 +266,14 @@ extension HomeViewController: UICollectionViewDataSource {
     private func setDelegate() {
         rootView.collectionView.delegate = self
         rootView.collectionView.dataSource = self
+    }
+}
+
+// MARK: - Methods
+
+extension HomeViewController: FilteringButtonTappedProtocol {
+    func filteringButtonTapped() {
+        let filteringSettingView = FilteringSettingViewController()
+        self.navigationController?.pushViewController(filteringSettingView, animated: true)
     }
 }

@@ -25,7 +25,7 @@ class FilteringSettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setTarget()
+        setAddTarget()
     }
 }
 
@@ -33,64 +33,66 @@ class FilteringSettingViewController: UIViewController {
 
 extension FilteringSettingViewController {
     
-    func setTarget() {
-        rootView.gradeButton1.addTarget(self, action: #selector(gradeButton1DidTap), for: .touchUpInside)
-        rootView.gradeButton2.addTarget(self, action: #selector(gradeButton2DidTap), for: .touchUpInside)
-        rootView.gradeButton3.addTarget(self, action: #selector(gradeButton3DidTap), for: .touchUpInside)
-        rootView.gradeButton4.addTarget(self, action: #selector(gradeButton4DidTap), for: .touchUpInside)
+    func setAddTarget() {
+        rootView.gradeButton1.addTarget(self, action: #selector(gradeButtonDidTap), for: .touchUpInside)
+        rootView.gradeButton2.addTarget(self, action: #selector(gradeButtonDidTap), for: .touchUpInside)
+        rootView.gradeButton3.addTarget(self, action: #selector(gradeButtonDidTap), for: .touchUpInside)
+        rootView.gradeButton4.addTarget(self, action: #selector(gradeButtonDidTap), for: .touchUpInside)
+        rootView.periodButton1.addTarget(self, action: #selector(periodButtonDidTap), for: .touchUpInside)
+        rootView.periodButton2.addTarget(self, action: #selector(periodButtonDidTap), for: .touchUpInside)
+        rootView.periodButton3.addTarget(self, action: #selector(periodButtonDidTap), for: .touchUpInside)
     }
     
-    // MARK: - ButtonClickEvent
+    // MARK: - @objc Function
     
     @objc
-    func gradeButton1DidTap() {
-        print("1학년")
-
-
-        if rootView.gradeButton1.isSelected {
-            rootView.gradeButton1.backgroundColor = .clear
-            rootView.gradeButton1.isSelected.toggle()
-        } else {
-            rootView.gradeButton1.backgroundColor = .terningMain
-            rootView.gradeButton1.isSelected.toggle()
-        }
-    }
-    
-    @objc
-    func gradeButton2DidTap() {
-        print("2학년")
+    func gradeButtonDidTap(_ sender: UIButton) {
+        var gradeButtons: [UIButton] {
+            return [
+                rootView.gradeButton1,
+                rootView.gradeButton2,
+                rootView.gradeButton3,
+                rootView.gradeButton4
+            ]
+            }
         
-        if rootView.gradeButton2.isSelected {
-            rootView.gradeButton2.backgroundColor = .clear
-            rootView.gradeButton2.isSelected.toggle()
-        } else {
-            rootView.gradeButton2.backgroundColor = .terningMain
-            rootView.gradeButton2.isSelected.toggle()
+        for gradeButton in gradeButtons {
+            if gradeButton == sender {
+                gradeButton.backgroundColor = .terningMain
+                gradeButton.setTitleColor(.white, for: .normal)
+                gradeButton.isSelected.toggle()
+                print("선택되었습니다.")
+            } else {
+                gradeButton.backgroundColor = .clear
+                gradeButton.setTitleColor(.grey400, for: .normal)
+                gradeButton.isSelected = false
+                print("취소되었습니다.")
+            }
         }
     }
     
     @objc
-    func gradeButton3DidTap() {
-        print("3학년")
+    func periodButtonDidTap(_ sender: UIButton) {
+        var periodButtons: [UIButton] {
+            return [
+                rootView.periodButton1,
+                rootView.periodButton2,
+                rootView.periodButton3
+            ]
+        }
         
-        if rootView.gradeButton3.isSelected {
-            rootView.gradeButton3.backgroundColor = .clear
-            rootView.gradeButton3.isSelected.toggle()
-        } else {
-            rootView.gradeButton3.backgroundColor = .terningMain
-            rootView.gradeButton3.isSelected.toggle()
-        }
-    }
-    
-    @objc
-    func gradeButton4DidTap() {
-        print("4학년")
-        if rootView.gradeButton4.isSelected {
-            rootView.gradeButton4.backgroundColor = .clear
-            rootView.gradeButton4.isSelected.toggle()
-        } else {
-            rootView.gradeButton4.backgroundColor = .terningMain
-            rootView.gradeButton4.isSelected.toggle()
+        for periodButton in periodButtons {
+            if periodButton == sender {
+                periodButton.backgroundColor = .terningMain
+                periodButton.setTitleColor(.white, for: .normal)
+                periodButton.isSelected.toggle()
+                print("선택되었습니다.")
+            } else {
+                periodButton.backgroundColor = .clear
+                periodButton.setTitleColor(.grey400, for: .normal)
+                periodButton.isSelected = false
+                print("취소되었습니다.")
+            }
         }
     }
 }

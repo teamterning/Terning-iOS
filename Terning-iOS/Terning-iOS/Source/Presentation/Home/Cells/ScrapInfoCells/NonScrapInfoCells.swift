@@ -20,7 +20,11 @@ class NonScrapInfoCell: UICollectionViewCell {
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
     }
     
-    let internshipScrapedStatusLabel = LabelFactory.build(text: "아직 스크랩된 인턴 공고가 없어요! \n 관심 공고를 스크랩하면 마감 당일에 알려드릴게요", font: .detail2, textColor: .grey400).then {
+    let internshipScrapedStatusLabel = LabelFactory.build(
+        text: "아직 스크랩된 인턴 공고가 없어요! \n 관심 공고를 스크랩하면 마감 당일에 알려드릴게요",
+        font: .detail2,
+        textColor: .grey400
+    ).then {
         $0.numberOfLines = 2
     }
     

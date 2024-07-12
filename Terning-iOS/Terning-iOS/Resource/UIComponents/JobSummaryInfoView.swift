@@ -85,7 +85,8 @@ extension JobSummaryInfoView {
             $0.width.equalTo(60)
         }
         
-        var previousLabel: UILabel? = nil
+        var previousLabel: UILabel?
+        
         for (index, label) in descriptionLabels.enumerated() {
             self.addSubview(label)
             label.snp.makeConstraints {

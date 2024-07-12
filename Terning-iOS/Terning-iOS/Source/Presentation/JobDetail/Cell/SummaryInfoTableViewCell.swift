@@ -61,7 +61,7 @@ extension SummaryInfoTableViewCell {
 // MARK: - Methods
 
 extension SummaryInfoTableViewCell {
-    func configure(with summaryInfo: SummaryInfoModel) {
+    func bind(with summaryInfo: SummaryInfoModel) {
         qualificationLabel.setDescriptionText(descriptions: summaryInfo.qualification)
         dutyLabel.setDescriptionText(descriptions: summaryInfo.jobType)
     }

@@ -82,7 +82,7 @@ extension CompanyInfoTableViewCell {
 // MARK: - Methods
 
 extension CompanyInfoTableViewCell {
-    func configure(with companyInfo: CompanyInfoModel) {
+    func bind(with companyInfo: CompanyInfoModel) {
         companyImageView.setImage(with: companyInfo.companyImage ?? "placeholder_image", placeholder: "placeholder_image")
         companyNameLabel.text = companyInfo.company
         companyTypeLabel.text = companyInfo.companyCategory

@@ -55,7 +55,7 @@ extension DetailInfoTableViewCell {
 // MARK: - Methods
 
 extension DetailInfoTableViewCell {
-    func configure(with detailInfo: DetailInfoModel) {
+    func bind(with detailInfo: DetailInfoModel) {
         datailDescriptionLabel.text = detailInfo.detail
     }
 }

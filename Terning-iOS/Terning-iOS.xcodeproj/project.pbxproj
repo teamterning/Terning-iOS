@@ -31,11 +31,8 @@
 		2DC61F032C4087B4009F991F /* JobSummaryInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F022C4087B4009F991F /* JobSummaryInfoView.swift */; };
 		2DC61F052C40926D009F991F /* JobDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F042C40926D009F991F /* JobDetailView.swift */; };
 		2DC61F072C4145CD009F991F /* CustomScrapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F062C4145CD009F991F /* CustomScrapButton.swift */; };
-		2DC61F0A2C418D09009F991F /* BottomInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F092C418D09009F991F /* BottomInfoModel.swift */; };
-		2DC61F0C2C418D20009F991F /* DetailInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F0B2C418D20009F991F /* DetailInfoModel.swift */; };
-		2DC61F0E2C418D35009F991F /* SummaryInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F0D2C418D35009F991F /* SummaryInfoModel.swift */; };
-		2DC61F102C418D44009F991F /* CompanyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F0F2C418D44009F991F /* CompanyInfoModel.swift */; };
-		2DC61F122C418D5A009F991F /* MainInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F112C418D5A009F991F /* MainInfoModel.swift */; };
+		2DC61F152C41AB54009F991F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F142C41AB54009F991F /* LoginViewController.swift */; };
+		2DC61F192C41B261009F991F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F182C41B261009F991F /* LoginView.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
 		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
@@ -122,11 +119,8 @@
 		2DC61F022C4087B4009F991F /* JobSummaryInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobSummaryInfoView.swift; sourceTree = "<group>"; };
 		2DC61F042C40926D009F991F /* JobDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailView.swift; sourceTree = "<group>"; };
 		2DC61F062C4145CD009F991F /* CustomScrapButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScrapButton.swift; sourceTree = "<group>"; };
-		2DC61F092C418D09009F991F /* BottomInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomInfoModel.swift; sourceTree = "<group>"; };
-		2DC61F0B2C418D20009F991F /* DetailInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoModel.swift; sourceTree = "<group>"; };
-		2DC61F0D2C418D35009F991F /* SummaryInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInfoModel.swift; sourceTree = "<group>"; };
-		2DC61F0F2C418D44009F991F /* CompanyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyInfoModel.swift; sourceTree = "<group>"; };
-		2DC61F112C418D5A009F991F /* MainInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInfoModel.swift; sourceTree = "<group>"; };
+		2DC61F142C41AB54009F991F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		2DC61F182C41B261009F991F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
@@ -343,6 +337,31 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		2DC61F132C41A52E009F991F /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				2DC61F162C41B23B009F991F /* ViwController */,
+				2DC61F172C41B24C009F991F /* View */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		2DC61F162C41B23B009F991F /* ViwController */ = {
+			isa = PBXGroup;
+			children = (
+				2DC61F142C41AB54009F991F /* LoginViewController.swift */,
+			);
+			path = ViwController;
+			sourceTree = "<group>";
+		};
+		2DC61F172C41B24C009F991F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2DC61F182C41B261009F991F /* LoginView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		7121A1312C396F980056DB8B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,11 +399,6 @@
 			isa = PBXGroup;
 			children = (
 				7121A1482C3B08360056DB8B /* JobDetailModel.swift */,
-				2DC61F112C418D5A009F991F /* MainInfoModel.swift */,
-				2DC61F0F2C418D44009F991F /* CompanyInfoModel.swift */,
-				2DC61F0D2C418D35009F991F /* SummaryInfoModel.swift */,
-				2DC61F0B2C418D20009F991F /* DetailInfoModel.swift */,
-				2DC61F092C418D09009F991F /* BottomInfoModel.swift */,
 			);
 			path = Announcements;
 			sourceTree = "<group>";
@@ -492,6 +506,7 @@
 		71E3C3E82C241C020026C4DD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				2DC61F132C41A52E009F991F /* Login */,
 				B86A67522C408AF900CB90E5 /* SortBottomSheet */,
 				2DC61EEE2C40759F009F991F /* JobDetail */,
 				2D4EE3D82C3F520000E3E95B /* Onboarding */,
@@ -775,9 +790,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DC61F012C40825D009F991F /* DetailInfoTableViewCell.swift in Sources */,
-				2DC61F102C418D44009F991F /* CompanyInfoModel.swift in Sources */,
 				B871D7332C3EC148008D78C2 /* IsScrapInfoViewCell.swift in Sources */,
-				2DC61F0A2C418D09009F991F /* BottomInfoModel.swift in Sources */,
 				2D4EE3962C3DD5CB00E3E95B /* WelcomeViewController.swift in Sources */,
 				7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */,
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
@@ -808,7 +821,6 @@
 				B86A67562C408B2C00CB90E5 /* SortBottomSheetViewController.swift in Sources */,
 				2DC61F122C418D5A009F991F /* MainInfoModel.swift in Sources */,
 				7121A1552C3EA01F0056DB8B /* Toast.swift in Sources */,
-				2DC61F0E2C418D35009F991F /* SummaryInfoModel.swift in Sources */,
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
 				2DC61EF52C4075EB009F991F /* MainInfoTableViewCell.swift in Sources */,
 				2DC61F072C4145CD009F991F /* CustomScrapButton.swift in Sources */,
@@ -824,12 +836,12 @@
 				B871D71E2C3E8771008D78C2 /* HomeView.swift in Sources */,
 				B871D72B2C3E8ED7008D78C2 /* SortButtonCell.swift in Sources */,
 				2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */,
-				2DC61F0C2C418D20009F991F /* DetailInfoModel.swift in Sources */,
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
 				2DC61EF92C407E65009F991F /* JobDetailTableViewHeaderCell.swift in Sources */,
 				B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */,
 				B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */,
 				2D4EE3A62C3E78A200E3E95B /* ProfileViewController.swift in Sources */,
+				2DC61F192C41B261009F991F /* LoginView.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
 				2DC61EF72C4075F3009F991F /* JobDetailViewModel.swift in Sources */,
 				B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */,
@@ -838,6 +850,7 @@
 				7121A1532C3DE3680056DB8B /* CustomNavigationBar.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
+				2DC61F152C41AB54009F991F /* LoginViewController.swift in Sources */,
 				2DC61F052C40926D009F991F /* JobDetailView.swift in Sources */,
 				7121A1492C3B08360056DB8B /* JobDetailModel.swift in Sources */,
 				2D4EE3ED2C4020DC00E3E95B /* OnboardingViewModel.swift in Sources */,

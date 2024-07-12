@@ -43,7 +43,7 @@ extension FilteringSettingViewController {
         rootView.periodButton3.addTarget(self, action: #selector(periodButtonDidTap), for: .touchUpInside)
     }
     
-    // MARK: - ButtonClickEvent
+    // MARK: - @objc Function
     
     @objc
     func gradeButtonDidTap(_ sender: UIButton) {

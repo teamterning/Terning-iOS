@@ -21,6 +21,21 @@
 		2D4EE3E82C400D6900E3E95B /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3E72C400D6900E3E95B /* OnboardingPageViewController.swift */; };
 		2D4EE3EA2C400ECB00E3E95B /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3E92C400ECB00E3E95B /* OnboardingViewController.swift */; };
 		2D4EE3ED2C4020DC00E3E95B /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3EC2C4020DC00E3E95B /* OnboardingViewModel.swift */; };
+		2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */; };
+		2DC61EF52C4075EB009F991F /* MainInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF42C4075EB009F991F /* MainInfoTableViewCell.swift */; };
+		2DC61EF72C4075F3009F991F /* JobDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF62C4075F3009F991F /* JobDetailViewModel.swift */; };
+		2DC61EF92C407E65009F991F /* JobDetailTableViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF82C407E65009F991F /* JobDetailTableViewHeaderCell.swift */; };
+		2DC61EFD2C40823C009F991F /* CompanyInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EFC2C40823C009F991F /* CompanyInfoTableViewCell.swift */; };
+		2DC61EFF2C40824A009F991F /* SummaryInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EFE2C40824A009F991F /* SummaryInfoTableViewCell.swift */; };
+		2DC61F012C40825D009F991F /* DetailInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F002C40825D009F991F /* DetailInfoTableViewCell.swift */; };
+		2DC61F032C4087B4009F991F /* JobSummaryInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F022C4087B4009F991F /* JobSummaryInfoView.swift */; };
+		2DC61F052C40926D009F991F /* JobDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F042C40926D009F991F /* JobDetailView.swift */; };
+		2DC61F072C4145CD009F991F /* CustomScrapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F062C4145CD009F991F /* CustomScrapButton.swift */; };
+		2DC61F0A2C418D09009F991F /* BottomInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F092C418D09009F991F /* BottomInfoModel.swift */; };
+		2DC61F0C2C418D20009F991F /* DetailInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F0B2C418D20009F991F /* DetailInfoModel.swift */; };
+		2DC61F0E2C418D35009F991F /* SummaryInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F0D2C418D35009F991F /* SummaryInfoModel.swift */; };
+		2DC61F102C418D44009F991F /* CompanyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F0F2C418D44009F991F /* CompanyInfoModel.swift */; };
+		2DC61F122C418D5A009F991F /* MainInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F112C418D5A009F991F /* MainInfoModel.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
 		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
@@ -97,6 +112,21 @@
 		2D4EE3E72C400D6900E3E95B /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
 		2D4EE3E92C400ECB00E3E95B /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		2D4EE3EC2C4020DC00E3E95B /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailViewController.swift; sourceTree = "<group>"; };
+		2DC61EF42C4075EB009F991F /* MainInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInfoTableViewCell.swift; sourceTree = "<group>"; };
+		2DC61EF62C4075F3009F991F /* JobDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailViewModel.swift; sourceTree = "<group>"; };
+		2DC61EF82C407E65009F991F /* JobDetailTableViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailTableViewHeaderCell.swift; sourceTree = "<group>"; };
+		2DC61EFC2C40823C009F991F /* CompanyInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyInfoTableViewCell.swift; sourceTree = "<group>"; };
+		2DC61EFE2C40824A009F991F /* SummaryInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInfoTableViewCell.swift; sourceTree = "<group>"; };
+		2DC61F002C40825D009F991F /* DetailInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoTableViewCell.swift; sourceTree = "<group>"; };
+		2DC61F022C4087B4009F991F /* JobSummaryInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobSummaryInfoView.swift; sourceTree = "<group>"; };
+		2DC61F042C40926D009F991F /* JobDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailView.swift; sourceTree = "<group>"; };
+		2DC61F062C4145CD009F991F /* CustomScrapButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScrapButton.swift; sourceTree = "<group>"; };
+		2DC61F092C418D09009F991F /* BottomInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomInfoModel.swift; sourceTree = "<group>"; };
+		2DC61F0B2C418D20009F991F /* DetailInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoModel.swift; sourceTree = "<group>"; };
+		2DC61F0D2C418D35009F991F /* SummaryInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInfoModel.swift; sourceTree = "<group>"; };
+		2DC61F0F2C418D44009F991F /* CompanyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyInfoModel.swift; sourceTree = "<group>"; };
+		2DC61F112C418D5A009F991F /* MainInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInfoModel.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
@@ -266,17 +296,66 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		2DC61EEE2C40759F009F991F /* JobDetail */ = {
+			isa = PBXGroup;
+			children = (
+				2DC61EEF2C4075AF009F991F /* ViewController */,
+				2DC61EF02C4075BE009F991F /* View */,
+				2DC61F082C418807009F991F /* Cell */,
+				2DC61EF12C4075C9009F991F /* ViewModel */,
+			);
+			path = JobDetail;
+			sourceTree = "<group>";
+		};
+		2DC61EEF2C4075AF009F991F /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2DC61EF02C4075BE009F991F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2DC61F042C40926D009F991F /* JobDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2DC61EF12C4075C9009F991F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2DC61EF62C4075F3009F991F /* JobDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2DC61F082C418807009F991F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2DC61EF82C407E65009F991F /* JobDetailTableViewHeaderCell.swift */,
+				2DC61EF42C4075EB009F991F /* MainInfoTableViewCell.swift */,
+				2DC61EFC2C40823C009F991F /* CompanyInfoTableViewCell.swift */,
+				2DC61EFE2C40824A009F991F /* SummaryInfoTableViewCell.swift */,
+				2DC61F002C40825D009F991F /* DetailInfoTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		7121A1312C396F980056DB8B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
 				7121A1412C3AE99D0056DB8B /* Cell */,
 				7121A1322C396FB40056DB8B /* CustomButton.swift */,
+				2DC61F062C4145CD009F991F /* CustomScrapButton.swift */,
 				2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */,
 				7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */,
 				2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */,
 				2D4EE38A2C3D9FD900E3E95B /* CustomDatePicker.swift */,
 				7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */,
 				7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */,
+				2DC61F022C4087B4009F991F /* JobSummaryInfoView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -301,6 +380,11 @@
 			isa = PBXGroup;
 			children = (
 				7121A1482C3B08360056DB8B /* JobDetailModel.swift */,
+				2DC61F112C418D5A009F991F /* MainInfoModel.swift */,
+				2DC61F0F2C418D44009F991F /* CompanyInfoModel.swift */,
+				2DC61F0D2C418D35009F991F /* SummaryInfoModel.swift */,
+				2DC61F0B2C418D20009F991F /* DetailInfoModel.swift */,
+				2DC61F092C418D09009F991F /* BottomInfoModel.swift */,
 			);
 			path = Announcements;
 			sourceTree = "<group>";
@@ -409,6 +493,7 @@
 			isa = PBXGroup;
 			children = (
 				B86A67522C408AF900CB90E5 /* SortBottomSheet */,
+				2DC61EEE2C40759F009F991F /* JobDetail */,
 				2D4EE3D82C3F520000E3E95B /* Onboarding */,
 				2D4EE3A02C3E787200E3E95B /* ProfileView */,
 				2D4EE3922C3DD5A000E3E95B /* WelcomeView */,
@@ -689,7 +774,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DC61F012C40825D009F991F /* DetailInfoTableViewCell.swift in Sources */,
+				2DC61F102C418D44009F991F /* CompanyInfoModel.swift in Sources */,
 				B871D7332C3EC148008D78C2 /* IsScrapInfoViewCell.swift in Sources */,
+				2DC61F0A2C418D09009F991F /* BottomInfoModel.swift in Sources */,
 				2D4EE3962C3DD5CB00E3E95B /* WelcomeViewController.swift in Sources */,
 				7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */,
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
@@ -700,6 +788,7 @@
 				7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */,
 				2D4EE3E62C3FFF9200E3E95B /* OnboardingView.swift in Sources */,
 				71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */,
+				2DC61EFD2C40823C009F991F /* CompanyInfoTableViewCell.swift in Sources */,
 				7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */,
 				2D4EE3AB2C3E854E00E3E95B /* ValidationMessage.swift in Sources */,
 				71E3C3CD2C22BAF40026C4DD /* AppDelegate.swift in Sources */,
@@ -708,6 +797,7 @@
 				71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */,
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
 				71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */,
+				2DC61EFF2C40824A009F991F /* SummaryInfoTableViewCell.swift in Sources */,
 				B871D7352C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift in Sources */,
 				2D4EE3A22C3E788200E3E95B /* ProfileViewModel.swift in Sources */,
 				7121A1512C3B09E10056DB8B /* Result+.swift in Sources */,
@@ -716,11 +806,16 @@
 				B8C5DB6E2C3F353D00865B1A /* InavailableFilterView.swift in Sources */,
 				7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */,
 				B86A67562C408B2C00CB90E5 /* SortBottomSheetViewController.swift in Sources */,
+				2DC61F122C418D5A009F991F /* MainInfoModel.swift in Sources */,
 				7121A1552C3EA01F0056DB8B /* Toast.swift in Sources */,
+				2DC61F0E2C418D35009F991F /* SummaryInfoModel.swift in Sources */,
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
+				2DC61EF52C4075EB009F991F /* MainInfoTableViewCell.swift in Sources */,
+				2DC61F072C4145CD009F991F /* CustomScrapButton.swift in Sources */,
 				2D4EE3E82C400D6900E3E95B /* OnboardingPageViewController.swift in Sources */,
 				2D4EE3EA2C400ECB00E3E95B /* OnboardingViewController.swift in Sources */,
 				B871D7392C3F1A49008D78C2 /* CheckDeadlineCell.swift in Sources */,
+				2DC61F032C4087B4009F991F /* JobSummaryInfoView.swift in Sources */,
 				B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */,
 				B871D72F2C3E909F008D78C2 /* DecorationCell.swift in Sources */,
 				B871D7202C3E877B008D78C2 /* HomeViewController.swift in Sources */,
@@ -728,17 +823,22 @@
 				B871D7292C3E8E46008D78C2 /* JobCardScrapedCell.swift in Sources */,
 				B871D71E2C3E8771008D78C2 /* HomeView.swift in Sources */,
 				B871D72B2C3E8ED7008D78C2 /* SortButtonCell.swift in Sources */,
+				2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */,
+				2DC61F0C2C418D20009F991F /* DetailInfoModel.swift in Sources */,
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
+				2DC61EF92C407E65009F991F /* JobDetailTableViewHeaderCell.swift in Sources */,
 				B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */,
 				B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */,
 				2D4EE3A62C3E78A200E3E95B /* ProfileViewController.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
+				2DC61EF72C4075F3009F991F /* JobDetailViewModel.swift in Sources */,
 				B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */,
 				B871D7312C3E9118008D78C2 /* NonScrapInfoCells.swift in Sources */,
 				2D4EE3892C3D9EA400E3E95B /* Date+.swift in Sources */,
 				7121A1532C3DE3680056DB8B /* CustomNavigationBar.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
+				2DC61F052C40926D009F991F /* JobDetailView.swift in Sources */,
 				7121A1492C3B08360056DB8B /* JobDetailModel.swift in Sources */,
 				2D4EE3ED2C4020DC00E3E95B /* OnboardingViewModel.swift in Sources */,
 				7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */,

@@ -17,6 +17,10 @@
 		2D4EE3A42C3E789200E3E95B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3A32C3E789200E3E95B /* ProfileView.swift */; };
 		2D4EE3A62C3E78A200E3E95B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3A52C3E78A200E3E95B /* ProfileViewController.swift */; };
 		2D4EE3AB2C3E854E00E3E95B /* ValidationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3AA2C3E854E00E3E95B /* ValidationMessage.swift */; };
+		2D4EE3E62C3FFF9200E3E95B /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3E52C3FFF9200E3E95B /* OnboardingView.swift */; };
+		2D4EE3E82C400D6900E3E95B /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3E72C400D6900E3E95B /* OnboardingPageViewController.swift */; };
+		2D4EE3EA2C400ECB00E3E95B /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3E92C400ECB00E3E95B /* OnboardingViewController.swift */; };
+		2D4EE3ED2C4020DC00E3E95B /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3EC2C4020DC00E3E95B /* OnboardingViewModel.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
 		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
@@ -89,6 +93,10 @@
 		2D4EE3A32C3E789200E3E95B /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		2D4EE3A52C3E78A200E3E95B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		2D4EE3AA2C3E854E00E3E95B /* ValidationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationMessage.swift; sourceTree = "<group>"; };
+		2D4EE3E52C3FFF9200E3E95B /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		2D4EE3E72C400D6900E3E95B /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
+		2D4EE3E92C400ECB00E3E95B /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		2D4EE3EC2C4020DC00E3E95B /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
@@ -221,6 +229,41 @@
 				2D4EE3A12C3E788200E3E95B /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2D4EE3D82C3F520000E3E95B /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				2D4EE3F02C40210700E3E95B /* ViewController */,
+				2D4EE3EF2C4020F100E3E95B /* View */,
+				2D4EE3EE2C4020E800E3E95B /* ViewModel */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		2D4EE3EE2C4020E800E3E95B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2D4EE3EC2C4020DC00E3E95B /* OnboardingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2D4EE3EF2C4020F100E3E95B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2D4EE3E52C3FFF9200E3E95B /* OnboardingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2D4EE3F02C40210700E3E95B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2D4EE3E92C400ECB00E3E95B /* OnboardingViewController.swift */,
+				2D4EE3E72C400D6900E3E95B /* OnboardingPageViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		7121A1312C396F980056DB8B /* UIComponents */ = {
@@ -366,6 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				B86A67522C408AF900CB90E5 /* SortBottomSheet */,
+				2D4EE3D82C3F520000E3E95B /* Onboarding */,
 				2D4EE3A02C3E787200E3E95B /* ProfileView */,
 				2D4EE3922C3DD5A000E3E95B /* WelcomeView */,
 				B8C5DB6F2C3F39A500865B1A /* FilteringSetting */,
@@ -654,6 +698,7 @@
 				71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */,
 				B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */,
 				7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */,
+				2D4EE3E62C3FFF9200E3E95B /* OnboardingView.swift in Sources */,
 				71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */,
 				7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */,
 				2D4EE3AB2C3E854E00E3E95B /* ValidationMessage.swift in Sources */,
@@ -673,6 +718,8 @@
 				B86A67562C408B2C00CB90E5 /* SortBottomSheetViewController.swift in Sources */,
 				7121A1552C3EA01F0056DB8B /* Toast.swift in Sources */,
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
+				2D4EE3E82C400D6900E3E95B /* OnboardingPageViewController.swift in Sources */,
+				2D4EE3EA2C400ECB00E3E95B /* OnboardingViewController.swift in Sources */,
 				B871D7392C3F1A49008D78C2 /* CheckDeadlineCell.swift in Sources */,
 				B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */,
 				B871D72F2C3E909F008D78C2 /* DecorationCell.swift in Sources */,
@@ -693,6 +740,7 @@
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
 				7121A1492C3B08360056DB8B /* JobDetailModel.swift in Sources */,
+				2D4EE3ED2C4020DC00E3E95B /* OnboardingViewModel.swift in Sources */,
 				7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */,
 				2D4EE3872C3D7CB200E3E95B /* CustomOnboardingButton.swift in Sources */,
 				71461EBD2C3705B6002A6999 /* FontLiterals.swift in Sources */,

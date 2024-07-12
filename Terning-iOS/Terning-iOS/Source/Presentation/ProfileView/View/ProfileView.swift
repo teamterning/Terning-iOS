@@ -274,7 +274,7 @@ extension ProfileView {
         return nameTextField
     }
     
-    public func getSaveButton() -> UIButton {
+    public func getSaveButton() -> CustomButton {
         return saveButton
     }
     

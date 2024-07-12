@@ -1,0 +1,153 @@
+//
+//  JobDetailView.swift
+//  Terning-iOS
+//
+//  Created by 정민지 on 7/12/24.
+//
+
+import UIKit
+
+import SnapKit
+
+final class JobDetailView: UIView {
+    
+    // MARK: - Properties
+    
+    var mainInfo: MainInfoModel?
+    var companyInfo: CompanyInfoModel?
+    var summaryInfo: SummaryInfoModel?
+    var detailInfo: DetailInfoModel?
+    private var url: String?
+    
+    // MARK: - UI Components
+    
+    let tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        return tableView
+    }()
+
+    private let bottomView = UIView().then {
+        $0.backgroundColor = .white
+        $0.layer.shadowColor = UIColor.black.cgColor
+        $0.layer.shadowOpacity = 0.05
+        $0.layer.shadowOffset = CGSize(width: 0, height: -4)
+        $0.layer.shadowRadius = 2
+        $0.layer.masksToBounds = false
+    }
+    
+    private let companyImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+        $0.layer.cornerRadius = 30
+        $0.layer.borderColor = UIColor.terningMain.cgColor
+        $0.layer.borderWidth = 1
+        $0.backgroundColor = .red
+    }
+    
+    private var scrapLabel = LabelFactory.build(
+        text: "512회",
+        font: .detail3,
+        textColor: .grey400,
+        lineSpacing: 1.2,
+        characterSpacing: 0.002
+    )
+    
+    private var scrapButton = CustomScrapButton()
+    
+    private var goSiteButton = CustomButton(title: "지원 사이트로 이동하기")
+    
+    // MARK: - Init
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setUI()
+        setLayout()
+        setButtonAction()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - UI & Layout
+
+extension JobDetailView {
+    private func setUI() {
+        tableView.register(MainInfoTableViewCell.self, forCellReuseIdentifier: MainInfoTableViewCell.className)
+        tableView.register(CompanyInfoTableViewCell.self, forCellReuseIdentifier: CompanyInfoTableViewCell.className)
+        tableView.register(SummaryInfoTableViewCell.self, forCellReuseIdentifier: SummaryInfoTableViewCell.className)
+        tableView.register(DetailInfoTableViewCell.self, forCellReuseIdentifier: DetailInfoTableViewCell.className)
+        tableView.register(JobDetailTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: JobDetailTableViewHeaderView.className)
+        tableView.backgroundColor = .white
+    }
+    
+    private func setLayout() {
+        self.addSubviews(tableView, bottomView)
+        
+        bottomView.addSubviews(scrapLabel, scrapButton, goSiteButton)
+        
+        tableView.snp.makeConstraints {
+            $0.top.horizontalEdges.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(68)
+        }
+        
+        bottomView.snp.makeConstraints {
+            $0.horizontalEdges.bottom.equalToSuperview()
+            $0.height.equalTo(68)
+        }
+        
+        scrapLabel.snp.makeConstraints {
+            $0.bottom.equalTo(bottomView.snp.bottom).inset(9)
+            $0.leading.equalTo(bottomView.snp.leading).inset(21)
+            $0.width.equalTo(45)
+        }
+        
+        scrapButton.snp.makeConstraints {
+            $0.top.equalTo(bottomView.snp.top).inset(16)
+            $0.centerX.equalTo(scrapLabel.snp.centerX)
+        }
+        
+        goSiteButton.snp.makeConstraints {
+            $0.top.equalTo(bottomView.snp.top).inset(10)
+            $0.leading.equalTo(scrapLabel.snp.trailing).offset(12)
+            $0.trailing.equalTo(bottomView.snp.trailing).inset(20)
+            $0.height.equalTo(48)
+        }
+    }
+}
+
+// MARK: - Methods
+extension JobDetailView {
+    private func setButtonAction() {
+        goSiteButton.addTarget(self, action: #selector(goToUrl), for: .touchUpInside)
+    }
+}
+
+// MARK: - Public Methods
+
+extension JobDetailView {
+    func setUrl(_ url: String?) {
+        self.url = url
+    }
+    
+    func setScrapped(_ isScrap: Bool) {
+        scrapButton.isSelected = isScrap
+        scrapButton.updateImage()
+    }
+    
+    func setScrapCount(_ count: Int) {
+        scrapLabel.text = "\(count)회"
+    }
+}
+
+// MARK: - @objc func
+
+extension JobDetailView {
+    @objc private func goToUrl() {
+        guard let urlString = url, let url = URL(string: urlString) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+}

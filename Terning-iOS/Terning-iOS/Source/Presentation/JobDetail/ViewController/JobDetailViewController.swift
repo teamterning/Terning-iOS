@@ -139,7 +139,7 @@ extension JobDetailViewController: UITableViewDataSource {
                   let mainInfo = jobDetailView.mainInfo else {
                 return UITableViewCell()
             }
-            cell.configure(with: mainInfo)
+            cell.bind(with: mainInfo)
             cell.selectionStyle = .none
             return cell
         case .companyInfo:
@@ -147,7 +147,7 @@ extension JobDetailViewController: UITableViewDataSource {
                   let companyInfo = jobDetailView.companyInfo else {
                 return UITableViewCell()
             }
-            cell.configure(with: companyInfo)
+            cell.bind(with: companyInfo)
             cell.selectionStyle = .none
             return cell
         case .summaryInfo:
@@ -155,7 +155,7 @@ extension JobDetailViewController: UITableViewDataSource {
                   let summaryInfo = jobDetailView.summaryInfo else {
                 return UITableViewCell()
             }
-            cell.configure(with: summaryInfo)
+            cell.bind(with: summaryInfo)
             cell.selectionStyle = .none
             return cell
         case .detailInfo:
@@ -163,7 +163,7 @@ extension JobDetailViewController: UITableViewDataSource {
                   let detailInfo = jobDetailView.detailInfo else {
                 return UITableViewCell()
             }
-            cell.configure(with: detailInfo)
+            cell.bind(with: detailInfo)
             cell.selectionStyle = .none
             return cell
         }

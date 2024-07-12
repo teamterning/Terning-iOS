@@ -162,7 +162,7 @@ extension MainInfoTableViewCell {
 // MARK: - Methods
 
 extension MainInfoTableViewCell {
-    func configure(with mainInfo: MainInfoModel) {
+    func bind(with mainInfo: MainInfoModel) {
         if let dDayInt = Int(mainInfo.dDay) {
             dDayLabel.text = "D-\(dDayInt)"
         } else {

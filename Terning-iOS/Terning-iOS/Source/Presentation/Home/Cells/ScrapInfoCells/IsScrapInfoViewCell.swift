@@ -25,7 +25,11 @@ class IsScrapInfoViewCell: UICollectionViewCell {
         $0.clipsToBounds = true
     }
     
-    var cardLabel = LabelFactory.build(text: "[유한킴벌리] 그린캠프 w.대학생 숲활동가 모집3", font: .button3, textAlignment: .left).then {
+    var cardLabel = LabelFactory.build(
+        text: "[유한킴벌리] 그린캠프 w.대학생 숲활동가 모집3",
+        font: .button3,
+        textAlignment: .left
+    ).then {
         $0.numberOfLines = 3
     }
     

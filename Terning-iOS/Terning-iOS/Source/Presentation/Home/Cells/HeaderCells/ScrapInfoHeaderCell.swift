@@ -16,7 +16,11 @@ class ScrapInfoHeaderCell: UICollectionReusableView {
     
     // MARK: - UIComponents
     
-    let titleLabel = LabelFactory.build(text: "오늘 마감되는 남지우님의 관심공고", font: .title1, textColor: .terningBlack)
+    let titleLabel = LabelFactory.build(
+        text: "오늘 마감되는 남지우님의 관심공고",
+        font: .title1,
+        textColor: .terningBlack
+    )
     
     // MARK: - LifeCycles
     

@@ -136,7 +136,7 @@ extension HomeView {
                     // Group
                     let groupSize = NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(0.8),
-                        heightDimension: .absolute(139))
+                        heightDimension: .absolute(159))
                     
                     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                     
@@ -161,7 +161,7 @@ extension HomeView {
                 }
 
                 return nil
-            } else if sectionNumber == 1 {
+            } else if sectionNumber == 1 { // 필터링하는 부분
                 // Item
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
@@ -172,7 +172,7 @@ extension HomeView {
                 // Group
                 let groupSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .absolute(28))
+                    heightDimension: .absolute(83)) // 헤더가 포함된 사이즈여야함.
                 
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 
@@ -189,7 +189,7 @@ extension HomeView {
                     ]
 
                 return section
-            } else if sectionNumber == 2 {
+            } else if sectionNumber == 2 { // 화면의 회색 바
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
                     heightDimension: .absolute(1.0))
@@ -206,11 +206,11 @@ extension HomeView {
                 // Section
                 let section = NSCollectionLayoutSection(group: group)
                 
-                section.contentInsets.top = 50
-                section.contentInsets.bottom = 15
+//                section.contentInsets.top = 50
+//                section.contentInsets.bottom = 15
                 
                 return section
-            } else if sectionNumber == 3 {
+            } else if sectionNumber == 3 { // 정렬 설정하는 버튼
                 // Item
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
@@ -229,7 +229,7 @@ extension HomeView {
                 let section = NSCollectionLayoutSection(group: group)
                 
                 return section
-            } else if sectionNumber == 4 {
+            } else if sectionNumber == 4 { // 공고 카드
                 // Item
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
@@ -244,9 +244,11 @@ extension HomeView {
                 
                 let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
                 
+                group.interItemSpacing = .fixed(20)
+                
                 // Section
                 let section = NSCollectionLayoutSection(group: group)
-                section.interGroupSpacing = -58
+                section.interGroupSpacing = -28
                 return section
             } else {
                 return nil

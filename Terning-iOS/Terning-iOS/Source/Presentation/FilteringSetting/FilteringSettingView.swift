@@ -13,21 +13,24 @@ import Then
 class FilteringSettingView: UIView {
     
     // MARK: - UIComponents
-    
+
     // user  select one's grade
-    let gradeSelectionTitle = LabelFactory.build(text: "재학 상태를 선택해주세요", font: .title3, textColor: .terningBlack).then {
-        $0.numberOfLines = 1
-    }
+    let gradeSelectionTitle = LabelFactory.build(
+        text: "재학 상태를 선택해주세요",
+        font: .title3,
+        textColor: .terningBlack
+    )
     
-    let gradeSelectionSubTitle = LabelFactory.build(text: "휴학중이라면, 휴학 전 마지막 수료 학년을 선택해주세요", font: .body3, textColor: UIColor(red: 137/255, green: 137/255, blue: 137/255, alpha: 1.0)).then {
-        $0.numberOfLines = 1
-    }
-    
+    let gradeSelectionSubTitle = LabelFactory.build(
+        text: "휴학중이라면, 휴학 전 마지막 수료 학년을 선택해주세요",
+        font: .body3,
+        textColor: .grey375
+    )
+
     lazy var titleStack1 = UIStackView(arrangedSubviews: [gradeSelectionTitle, gradeSelectionSubTitle]).then {
         $0.axis = .vertical
         $0.spacing = 0
         $0.alignment = .leading
-        $0.distribution = .fillProportionally
     }
     
     lazy var gradeButton1 = UIButton().then {
@@ -67,16 +70,23 @@ class FilteringSettingView: UIView {
     }
     
     // user select period
-    let periodSelectionTitle = LabelFactory.build(text: "재학 상태를 선택해주세요", font: .title3, textColor: .terningBlack)
+    let periodSelectionTitle = LabelFactory.build(
+        text: "희망하는 인턴 근무 기간을 선택해주세요",
+        font: .title3,
+        textColor: .terningBlack
+    )
     
-    let periodSelectionSubTitle = LabelFactory.build(text: "휴학중이라면, 휴학 전 마지막 수료 학년을 선택해주세요", font: .body3, textColor: UIColor(red: 137/255, green: 137/255, blue: 137/255, alpha: 1.0))
+    let periodSelectionSubTitle = LabelFactory.build(
+        text: "선택한 기간동안 근무할 수 있는 인턴 공고를 찾아드릴게요",
+        font: .body3,
+        textColor: .grey375
+    )
     
     lazy var titleStack2 = UIStackView(arrangedSubviews: [periodSelectionTitle, periodSelectionSubTitle]).then {
         
         $0.axis = .vertical
         $0.spacing = 0
         $0.alignment = .leading
-        $0.distribution = .fillProportionally
     }
     
     lazy var periodButton1 = UIButton().then {
@@ -111,16 +121,23 @@ class FilteringSettingView: UIView {
     var monthPickerView = CustomDatePicker()
     
     // user select month
-    let monthSelectionTitle = LabelFactory.build(text: "입사를 계획중인 달을 선택해주세요", font: .title3, textColor: .terningBlack)
+    let monthSelectionTitle = LabelFactory.build(
+        text: "입사를 계획중인 달을 선택해주세요",
+        font: .title3,
+        textColor: .terningBlack
+    )
     
-    let monthSelectionSubTitle = LabelFactory.build(text: "선택한 달부터 근무를 시작할 수 있는 공고를 찾아드릴게요", font: .body3, textColor: UIColor(red: 137/255, green: 137/255, blue: 137/255, alpha: 1.0))
+    let monthSelectionSubTitle = LabelFactory.build(
+        text: "선택한 달부터 근무를 시작할 수 있는 공고를 찾아드릴게요",
+        font: .body3,
+        textColor: UIColor(red: 137/255, green: 137/255, blue: 137/255, alpha: 1.0)
+    )
 
     lazy var titleStack3 = UIStackView(arrangedSubviews: [monthSelectionTitle, monthSelectionSubTitle]).then {
         
         $0.axis = .vertical
         $0.spacing = 0
         $0.alignment = .leading
-        $0.distribution = .fillProportionally
     }
     // MARK: LifeCycles
     
@@ -147,19 +164,19 @@ extension FilteringSettingView {
     
     func setHierarchy() {
         addSubviews(
-            titleStack1, gradeButtonStack,
-            titleStack2, periodButtonStack,
-            titleStack3, monthPickerView
+            titleStack1,
+            gradeButtonStack,
+            titleStack2,
+            periodButtonStack,
+            titleStack3,
+            monthPickerView
         )
     }
     
     func setLayout() {
-        // grade selection layout
         titleStack1.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide.snp.bottom).offset(99)
             $0.bottom.equalToSuperview().inset(625)
             $0.leading.equalToSuperview().offset(20)
-            $0.height.equalTo(200)
         }
         
         gradeButton1.snp.makeConstraints {
@@ -184,7 +201,6 @@ extension FilteringSettingView {
             $0.height.equalTo(36)
         }
         
-        // period selection layout
         titleStack2.snp.makeConstraints {
             $0.top.equalTo(gradeButtonStack.snp.bottom).offset(35)
             $0.leading.equalToSuperview().offset(20)

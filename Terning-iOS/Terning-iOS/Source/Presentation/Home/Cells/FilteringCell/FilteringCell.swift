@@ -7,29 +7,40 @@
 
 import UIKit
 
+import SnapKit
+import Then
+
+protocol FilteringButtonTappedProtocol {
+    func filteringButtonTapped()
+}
+
 class FilteringCell: UICollectionViewCell {
     
     // MARK: - Properties
     
+    var delegate: FilteringButtonTappedProtocol?
+    
     // MARK: - UIComponents
     
-    lazy var filterButton = UIButton().then {
-        $0.backgroundColor = .terningMain
-        $0.layer.cornerRadius = 5
-        $0.layer.masksToBounds = true
-    }
+    lazy var filterButton = FilterButton()
     
-    let filterLabel = LabelFactory.build(text: "필터링", font: .button4, textColor: .white)
-    
-    let filterImage = UIImageView().then {
-        $0.image = UIImage(resource: .icFilter)
-    }
-    
-    var grade = LabelFactory.build(text: "3학년", font: .detail2, textColor: .black)
+    var grade = LabelFactory.build(
+        text: "3학년",
+        font: .detail2,
+        textColor: .black
+    )
         
-    var period = LabelFactory.build(text: "1~3개월", font: .detail2, textColor: .black)
+    var period = LabelFactory.build(
+        text: "1~3개월",
+        font: .detail2,
+        textColor: .black
+    )
     
-    var month = LabelFactory.build(text: "1월", font: .detail2, textColor: .black)
+    var month = LabelFactory.build(
+        text: "1월",
+        font: .detail2,
+        textColor: .black
+    )
     
     let verticalBar1 = UIImageView().then {
         $0.image = UIImage(resource: .icVerticalBar)
@@ -46,6 +57,7 @@ class FilteringCell: UICollectionViewCell {
         
         setHierarchy()
         setLayout()
+        setAddTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -60,8 +72,6 @@ extension FilteringCell {
     func setHierarchy() {
         contentView.addSubviews(
             filterButton,
-            filterLabel,
-            filterImage,
             grade,
             verticalBar1,
             period,
@@ -74,18 +84,8 @@ extension FilteringCell {
         filterButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(55)
             $0.leading.equalToSuperview().offset(20)
-            $0.width.equalTo(75)
             $0.height.equalTo(28)
-        }
-        
-        filterLabel.snp.makeConstraints {
-            $0.top.equalTo(filterButton.snp.top).offset(7)
-            $0.leading.equalTo(filterButton.snp.leading).offset(32)
-        }
-        
-        filterImage.snp.makeConstraints {
-            $0.verticalEdges.equalTo(filterButton)
-            $0.leading.equalTo(filterButton.snp.leading).offset(2)
+            $0.width.equalTo(75)
         }
         
         grade.snp.makeConstraints {
@@ -112,5 +112,16 @@ extension FilteringCell {
             $0.top.equalToSuperview().offset(62)
             $0.leading.equalTo(verticalBar2.snp.trailing).offset(34)
         }
+    }
+    
+    func setAddTarget() {
+        filterButton.addTarget(self, action: #selector(filteringButtonDidTap), for: .touchUpInside)
+    }
+    
+    // MARK: - objc Function
+    
+    @objc
+    func filteringButtonDidTap() {
+        delegate?.filteringButtonTapped()
     }
 }

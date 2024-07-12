@@ -103,7 +103,7 @@ extension JobCardScrapedCell {
         
         scrapButton.snp.makeConstraints {
             $0.top.equalTo(jobCard.snp.top).offset(62)
-            $0.leading.equalTo(jobCardCoverImage.snp.leading).offset(300)
+            $0.trailing.equalTo(jobCard.snp.trailing).inset(17)
         }
     }
     

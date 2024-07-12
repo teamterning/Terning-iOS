@@ -22,12 +22,13 @@ class FilteringSettingView: UIView {
     let gradeSelectionSubTitle = LabelFactory.build(text: "휴학중이라면, 휴학 전 마지막 수료 학년을 선택해주세요", font: .body3, textColor: UIColor(red: 137/255, green: 137/255, blue: 137/255, alpha: 1.0)).then {
         $0.numberOfLines = 1
     }
+
     
     lazy var titleStack1 = UIStackView(arrangedSubviews: [gradeSelectionTitle, gradeSelectionSubTitle]).then {
         $0.axis = .vertical
         $0.spacing = 0
         $0.alignment = .leading
-        $0.distribution = .fillProportionally
+//        $0.distribution = .fillProportionally
     }
     
     lazy var gradeButton1 = UIButton().then {
@@ -76,7 +77,6 @@ class FilteringSettingView: UIView {
         $0.axis = .vertical
         $0.spacing = 0
         $0.alignment = .leading
-        $0.distribution = .fillProportionally
     }
     
     lazy var periodButton1 = UIButton().then {
@@ -120,7 +120,6 @@ class FilteringSettingView: UIView {
         $0.axis = .vertical
         $0.spacing = 0
         $0.alignment = .leading
-        $0.distribution = .fillProportionally
     }
     // MARK: LifeCycles
     
@@ -157,12 +156,9 @@ extension FilteringSettingView {
     }
     
     func setLayout() {
-        // grade selection layout
         titleStack1.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide.snp.bottom).offset(99)
             $0.bottom.equalToSuperview().inset(625)
             $0.leading.equalToSuperview().offset(20)
-            $0.height.equalTo(200)
         }
         
         gradeButton1.snp.makeConstraints {
@@ -187,7 +183,6 @@ extension FilteringSettingView {
             $0.height.equalTo(36)
         }
         
-        // period selection layout
         titleStack2.snp.makeConstraints {
             $0.top.equalTo(gradeButtonStack.snp.bottom).offset(35)
             $0.leading.equalToSuperview().offset(20)
@@ -211,7 +206,6 @@ extension FilteringSettingView {
             $0.height.equalTo(36)
         }
         
-        // date selection layout
         titleStack3.snp.makeConstraints {
             $0.top.equalTo(periodButtonStack.snp.bottom).offset(35)
             $0.leading.equalToSuperview().offset(20)

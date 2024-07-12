@@ -120,7 +120,6 @@ extension HomeViewController: UICollectionViewDataSource {
         }
     }
 
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let section = HomeSection(rawValue: indexPath.section)
         
@@ -150,6 +149,9 @@ extension HomeViewController: UICollectionViewDataSource {
             
         case .filtering:
             let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: FilteringCell.className, for: indexPath) as! FilteringCell
+            
+            cell.delegate = self
+            
             return cell
             
         case .sort:
@@ -240,16 +242,13 @@ extension HomeViewController: UICollectionViewDataSource {
     private func setTarget() {
         
     }
-    
-    // MARK: - button click event
-    
-    func pushToFilteringSettingView() {
+}
+
+// MARK: - button click event
+
+extension HomeViewController: FilteringButtonTappedProtocol {
+    func filteringButtonTapped() {
         let filteringSettingView = FilteringSettingViewController()
         self.navigationController?.pushViewController(filteringSettingView, animated: true)
-    }
-    
-    @objc
-    func filteringButtonDidTap() {
-        pushToFilteringSettingView()
     }
 }

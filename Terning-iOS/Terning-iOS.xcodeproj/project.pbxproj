@@ -58,6 +58,7 @@
 		71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C4112C243BDD0026C4DD /* getClassName.swift */; };
 		B86A67542C408B1B00CB90E5 /* SortBottomSheetview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86A67532C408B1B00CB90E5 /* SortBottomSheetview.swift */; };
 		B86A67562C408B2C00CB90E5 /* SortBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86A67552C408B2C00CB90E5 /* SortBottomSheetViewController.swift */; };
+		B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86A67572C41166800CB90E5 /* FilterButton.swift */; };
 		B871D71E2C3E8771008D78C2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D71D2C3E8771008D78C2 /* HomeView.swift */; };
 		B871D7202C3E877B008D78C2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D71F2C3E877B008D78C2 /* HomeViewController.swift */; };
 		B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7222C3E8835008D78C2 /* JobCardModel.swift */; };
@@ -124,6 +125,7 @@
 		71E3C4112C243BDD0026C4DD /* getClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getClassName.swift; sourceTree = "<group>"; };
 		B86A67532C408B1B00CB90E5 /* SortBottomSheetview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortBottomSheetview.swift; sourceTree = "<group>"; };
 		B86A67552C408B2C00CB90E5 /* SortBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortBottomSheetViewController.swift; sourceTree = "<group>"; };
+		B86A67572C41166800CB90E5 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		B871D71D2C3E8771008D78C2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B871D71F2C3E877B008D78C2 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B871D7222C3E8835008D78C2 /* JobCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardModel.swift; sourceTree = "<group>"; };
@@ -436,8 +438,8 @@
 			isa = PBXGroup;
 			children = (
 				B871D7212C3E8812008D78C2 /* Model */,
-				B871D71D2C3E8771008D78C2 /* HomeView.swift */,
 				B871D71F2C3E877B008D78C2 /* HomeViewController.swift */,
+				B871D71D2C3E8771008D78C2 /* HomeView.swift */,
 				B871D7152C3E84A1008D78C2 /* Cells */,
 			);
 			path = Home;
@@ -479,6 +481,7 @@
 			isa = PBXGroup;
 			children = (
 				B871D72C2C3E8FE6008D78C2 /* FilteringCell.swift */,
+				B86A67572C41166800CB90E5 /* FilterButton.swift */,
 			);
 			path = FilteringCell;
 			sourceTree = "<group>";
@@ -680,6 +683,7 @@
 				B871D72B2C3E8ED7008D78C2 /* SortButtonCell.swift in Sources */,
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
 				B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */,
+				B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */,
 				2D4EE3A62C3E78A200E3E95B /* ProfileViewController.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
 				B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */,

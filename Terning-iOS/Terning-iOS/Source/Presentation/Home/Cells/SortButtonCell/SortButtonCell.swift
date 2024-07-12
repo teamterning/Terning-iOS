@@ -16,9 +16,7 @@ class SortButtonCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     
-    var sortButtonLabel = UILabel().then {
-        $0.text = "채용 마감 이른 순"
-        $0.textAlignment = .center
+    var sortButtonLabel = LabelFactory.build(text: "채용 마감 이른 순", font: .button3, textColor: .terningBlack, textAlignment: .center).then {
         $0.isUserInteractionEnabled = true
     }
     
@@ -52,12 +50,12 @@ extension SortButtonCell {
     
     func setLayout() {
         sortButtonLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().offset(240)
         }
         
         sortButtonIcon.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(1)
+            $0.centerY.equalToSuperview()
             $0.trailing.equalTo(sortButtonLabel.snp.trailing).offset(18 + 5)
             $0.width.height.equalTo(18)
         }

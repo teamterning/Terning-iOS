@@ -8,6 +8,20 @@
 import RxSwift
 import RxRelay
 
-final class TNCalendarViewModel {
-    
-}
+//final class TNCalendarViewModel: ViewModelType {
+//    
+//    
+//    struct Input {
+//        
+//    }
+//    
+//    struct Output {
+//        
+//    }
+//    
+//    func transform(input: Input, disposeBag: DisposeBag) -> Output {
+//        <#code#>
+//    }
+//    
+//    
+//}

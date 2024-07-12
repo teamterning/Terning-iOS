@@ -149,7 +149,6 @@ extension HomeViewController: UICollectionViewDataSource {
             
         case .filtering:
             let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: FilteringCell.className, for: indexPath) as! FilteringCell
-            
             cell.delegate = self
             
             return cell

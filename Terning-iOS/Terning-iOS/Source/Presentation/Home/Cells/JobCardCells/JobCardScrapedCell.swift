@@ -16,13 +16,7 @@ class JobCardScrapedCell: UICollectionViewCell {
     let jobCard = UIView().then {
         $0.backgroundColor = UIColor.white
         $0.layer.cornerRadius = 10
-        $0.layer.applyShadow(
-            color: .black,
-            alpha: 0.25,
-            x: 0,
-            y: 0,
-            blur: 4,
-            spread: 0
+        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0
         )
     }
     

@@ -15,10 +15,7 @@ class NonJobCardCell: UICollectionViewCell {
     // MARK: - UIComponents
     var emptyJobCard = UIView().then {
         $0.backgroundColor = .clear
-        $0.makeBorder(
-            width: 1,
-            color: .terningBlack,
-            cornerRadius: 0
+        $0.makeBorder(width: 1, color: .terningBlack, cornerRadius: 0
         )
     }
     

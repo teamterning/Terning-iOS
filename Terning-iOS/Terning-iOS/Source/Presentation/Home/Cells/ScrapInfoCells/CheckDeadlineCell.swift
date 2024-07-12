@@ -16,19 +16,10 @@ class CheckDeadlineCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     let checkDeadlineCard = UIView().then {
-        $0.makeBorder(
-            width: 1,
-            color: .grey150,
-            cornerRadius: 5
+        $0.makeBorder(width: 1, color: .grey150, cornerRadius: 5
         )
         $0.backgroundColor =  .white
-        $0.layer.applyShadow(
-            color: .black,
-            alpha: 0.25,
-            x: 0,
-            y: 0,
-            blur: 4,
-            spread: 0
+        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0
         )
     }
     
@@ -42,10 +33,7 @@ class CheckDeadlineCell: UICollectionViewCell {
     
     var checkDeadlineButton = UIButton().then {
         $0.backgroundColor = .clear
-        $0.makeBorder(
-            width: 1,
-            color: .terningMain,
-            cornerRadius: 14
+        $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 14
         )
     }
     

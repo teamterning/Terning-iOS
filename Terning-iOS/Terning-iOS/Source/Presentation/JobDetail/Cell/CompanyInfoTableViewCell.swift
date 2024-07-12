@@ -17,8 +17,7 @@ final class CompanyInfoTableViewCell: UITableViewCell {
         $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 30
         $0.layer.masksToBounds = true 
-        $0.layer.borderColor = UIColor.terningMain.cgColor
-        $0.layer.borderWidth = 1
+        $0.makeBorder(width: 2, color: .terningMain)
     }
     
     private let companyNameLabel = LabelFactory.build(

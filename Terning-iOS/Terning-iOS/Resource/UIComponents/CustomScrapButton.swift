@@ -20,6 +20,7 @@ class CustomScrapButton: UIButton {
         super.init(frame: frame)
         
         setUI()
+        setButtonAction()
     }
     
     required init?(coder: NSCoder) {
@@ -30,15 +31,18 @@ class CustomScrapButton: UIButton {
 // MARK: - UI & Layout
 
 extension CustomScrapButton {
-    private func  setUI() {
+    private func setUI() {
         self.setImage(deselectedImage, for: .normal)
-        self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
 }
 
 // MARK: - Methods
 
 extension CustomScrapButton {
+    private func setButtonAction() {
+        self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+    }
+    
    func updateImage() {
         if self.isSelected {
             self.setImage(selectedImage, for: .normal)

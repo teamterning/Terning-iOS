@@ -15,9 +15,11 @@ final class MainInfoTableViewCell: UITableViewCell {
     // MARK: - UI Components
     
     private let dDayDivView = UIView().then {
-        $0.layer.cornerRadius = 10
-        $0.layer.borderColor = UIColor.terningMain.cgColor
-        $0.layer.borderWidth = 1
+        $0.makeBorder(
+            width: 1,
+            color: .terningMain,
+            cornerRadius: 10
+        )
     }
     
     private let dDayLabel = LabelFactory.build(
@@ -87,24 +89,21 @@ final class MainInfoTableViewCell: UITableViewCell {
 
 extension MainInfoTableViewCell {
     private func setUI() {
-        [dDayDivView,
-         titleLabel,
-         divView,
-         viewsTitleLabel,
-         viewsLabel
-        ].forEach {
-            self.addSubview($0)
-        }
+        self.addSubviews(
+            dDayDivView,
+            titleLabel,
+            divView,
+            viewsTitleLabel,
+            viewsLabel
+        )
         
         dDayDivView.addSubview(dDayLabel)
         
-        [
+        divView.addSubviews(
             deadlineInfoView,
             workPeriodInfoView,
             workStartInfoView
-        ].forEach {
-            divView.addSubviews($0)
-        }
+        )
     }
     
     private func setLayout() {

@@ -45,8 +45,7 @@ class FilteringCell: UICollectionViewCell {
         
         setHierarchy()
         setLayout()
-        
-        filterButton.addTarget(self, action: #selector(filteringButtonDidTap), for: .touchUpInside)
+        setTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -103,7 +102,11 @@ extension FilteringCell {
         }
     }
     
-    // MARK: - button click event
+    func setTarget() {
+        filterButton.addTarget(self, action: #selector(filteringButtonDidTap), for: .touchUpInside)
+    }
+    
+    // MARK: - objc Function
     
     @objc
     func filteringButtonDidTap() {

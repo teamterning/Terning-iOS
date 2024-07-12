@@ -11,8 +11,6 @@ import SnapKit
 
 class FilterButton: UIButton {
     
-//    private let filterButton: UIButton
-    
     init(config: UIButton.Configuration = .filled(), titleContainer: AttributeContainer = .init()) {
         super.init(frame: .zero)
         

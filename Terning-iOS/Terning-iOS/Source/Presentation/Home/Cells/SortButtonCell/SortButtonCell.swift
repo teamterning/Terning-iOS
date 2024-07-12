@@ -11,9 +11,7 @@ import SnapKit
 import Then
 
 class SortButtonCell: UICollectionViewCell {
-    
-    // MARK: - Properties
-    
+
     // MARK: - UIComponents
     
     var sortButtonLabel = LabelFactory.build(text: "채용 마감 이른 순", font: .button3, textColor: .terningBlack, textAlignment: .center).then {

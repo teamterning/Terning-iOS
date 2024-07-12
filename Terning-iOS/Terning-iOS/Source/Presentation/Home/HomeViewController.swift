@@ -236,15 +236,9 @@ extension HomeViewController: UICollectionViewDataSource {
         rootView.collectionView.delegate = self
         rootView.collectionView.dataSource = self
     }
-    
-    // MARK: - setTarget()
-    
-    private func setTarget() {
-        
-    }
 }
 
-// MARK: - button click event
+// MARK: - Methods
 
 extension HomeViewController: FilteringButtonTappedProtocol {
     func filteringButtonTapped() {

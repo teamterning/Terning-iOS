@@ -25,7 +25,7 @@ class FilteringSettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setTarget()
+        setAddTarget()
     }
 }
 
@@ -33,7 +33,7 @@ class FilteringSettingViewController: UIViewController {
 
 extension FilteringSettingViewController {
     
-    func setTarget() {
+    func setAddTarget() {
         rootView.gradeButton1.addTarget(self, action: #selector(gradeButtonDidTap), for: .touchUpInside)
         rootView.gradeButton2.addTarget(self, action: #selector(gradeButtonDidTap), for: .touchUpInside)
         rootView.gradeButton3.addTarget(self, action: #selector(gradeButtonDidTap), for: .touchUpInside)

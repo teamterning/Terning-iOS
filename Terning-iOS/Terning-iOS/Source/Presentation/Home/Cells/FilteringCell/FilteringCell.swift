@@ -57,7 +57,7 @@ class FilteringCell: UICollectionViewCell {
         
         setHierarchy()
         setLayout()
-        setTarget()
+        setAddTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -114,7 +114,7 @@ extension FilteringCell {
         }
     }
     
-    func setTarget() {
+    func setAddTarget() {
         filterButton.addTarget(self, action: #selector(filteringButtonDidTap), for: .touchUpInside)
     }
     

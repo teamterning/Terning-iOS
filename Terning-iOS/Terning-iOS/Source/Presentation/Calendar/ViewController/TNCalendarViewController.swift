@@ -22,6 +22,7 @@ final class TNCalendarViewController: UIViewController {
     private let rootView = TNCalendarView()
     private let disposeBag = DisposeBag()
     private var selectedDate: Date?
+    private var scraps: [Date: [Scrap]] = [:] // 스크랩 데이터를 저장할 딕셔너리
     
     // MARK: - Life Cycles
     
@@ -33,6 +34,7 @@ final class TNCalendarViewController: UIViewController {
         bindNavigation()
         bindViewModel()
         updateNaviBarTitle(for: rootView.calendarView.currentPage)
+        loadDummyData() // 더미 데이터 로드
     }
     
     override func loadView() {
@@ -84,6 +86,22 @@ final class TNCalendarViewController: UIViewController {
         let dateString = formatter.string(from: date)
         rootView.naviBar.setTitle(dateString)
     }
+    
+    private func loadDummyData() {
+        let dummyData = createDummyData()
+        for item in dummyData.scrapsByDeadline {
+            if let date = dateFormatter.date(from: item.deadline) {
+                scraps[date] = item.scraps
+            }
+        }
+        rootView.calendarView.reloadData()
+    }
+    
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
 }
 
 extension TNCalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
@@ -109,7 +127,9 @@ extension TNCalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FS
             }
         }()
         
-        cell.bind(date: date, textColor: isCurrentMonth ? .black : .grey200, state: dateStatus)
+        let eventCount = scraps[date]?.count ?? 0
+        
+        cell.bind(date: date, textColor: isCurrentMonth ? .black : .grey200, state: dateStatus, eventCount: eventCount)
         
         return cell
     }
@@ -139,7 +159,7 @@ extension TNCalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FS
     }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        return 1 // Dot 일단 숨김
+        return 0 // Dot 반환하지 않음 (셀에서 처리!)
     }
     
     // 주간일때 그림자와 라운드 넣어주는 함수
@@ -147,14 +167,13 @@ extension TNCalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FS
         if calendar.scope == .week {
             rootView.calendarView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             rootView.calendarView.layer.cornerRadius = 20
-            rootView.calendarView.layer.applyShadow(alpha: 0.25, y: 4, blur: 4)
+            rootView.calendarView.layer.applyShadow(alpha: 0.1, y: 2, blur: 4)
             
             rootView.calendarView.snp.updateConstraints { make in
                 make.height.equalTo(90 + 20) // 주간 뷰 높이 설정
             }
         } else {
-            
-            rootView.calendarView.layer.maskedCorners = []
+            rootView.calendarView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             rootView.calendarView.layer.cornerRadius = 0
             rootView.calendarView.layer.shadowOpacity = 0
             

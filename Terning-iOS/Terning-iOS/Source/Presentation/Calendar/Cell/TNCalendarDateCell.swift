@@ -36,8 +36,24 @@ final class TNCalendarDateCell: FSCalendarCell {
         characterSpacing: 0.002
     )
     
-    private let separatorView = UIView().then { $0.backgroundColor = .grey200 }
+    private let dotStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.distribution = .equalSpacing
+        $0.alignment = .center
+        $0.spacing = 2
+    }
     
+    private let dotViews: [UIView] = (0..<3).map { _ in
+        UIView().then {
+            $0.backgroundColor = .red
+            $0.layer.cornerRadius = 2.5
+            $0.snp.makeConstraints { make in
+                make.width.height.equalTo(5)
+            }
+        }
+    }
+    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -54,11 +70,11 @@ final class TNCalendarDateCell: FSCalendarCell {
     
     private func setUI() {
         contentView.backgroundColor = .white
-//        contentView.layer.masksToBounds = true
     }
     
     private func setHierarchy() {
-        contentView.addSubviews(selectView, dateLabel, separatorView)
+        contentView.addSubviews(selectView, dateLabel, dotStackView)
+        dotViews.forEach { dotStackView.addArrangedSubview($0) }
     }
     
     private func setLayout() {
@@ -73,16 +89,16 @@ final class TNCalendarDateCell: FSCalendarCell {
             $0.center.equalTo(selectView)
         }
         
-        separatorView.snp.makeConstraints {
-            $0.height.equalTo(1)
-            $0.bottom.equalTo(contentView.snp.bottom)
-            $0.horizontalEdges.equalToSuperview()
+        dotStackView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(selectView.snp.bottom).offset(4) // 원하는 위치로 조정
+            $0.height.equalTo(5)
         }
     }
     
     // MARK: - Methods
     
-    func bind(date: Date, textColor: UIColor, state: CalendarState) {
+    func bind(date: Date, textColor: UIColor, state: CalendarState, eventCount: Int) {
         
         switch state {
         case .today:
@@ -103,5 +119,9 @@ final class TNCalendarDateCell: FSCalendarCell {
         
         dateLabel.text = formatter.string(from: date)
         dateLabel.textColor = textColor
+        
+        for (index, dotView) in dotViews.enumerated() {
+            dotView.isHidden = index >= eventCount
+        }
     }
 }

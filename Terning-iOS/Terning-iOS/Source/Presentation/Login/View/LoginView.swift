@@ -19,11 +19,11 @@ final class LoginView: UIView {
         $0.layer.masksToBounds = true
     }
     
-    private var kakaoLoginButton = UIButton().then {
+    private let kakaoLoginButton = UIButton(type: .custom).then {
         $0.setImage(.iosBtnBoxKakao, for: .normal)
     }
     
-    private var appleLoginButton = UIButton().then {
+    private let appleLoginButton = UIButton(type: .custom).then {
         $0.setImage(.iosBtnBoxApple, for: .normal)
     }
     
@@ -45,20 +45,6 @@ final class LoginView: UIView {
 
 extension LoginView {
     private func setUI() {
-        kakaoLoginButton.configuration = .plain()
-        kakaoLoginButton.configurationUpdateHandler = { button in
-            var config = button.configuration
-            config?.image = button.isHighlighted ? .iosBtnBoxKakao : .iosBtnBoxKakao
-            button.configuration = config
-        }
-        
-        appleLoginButton.configuration = .plain()
-        appleLoginButton.configurationUpdateHandler = { button in
-            var config = button.configuration
-            config?.image = button.isHighlighted ? .iosBtnBoxApple : .iosBtnBoxApple
-            button.configuration = config
-        }
-        
         self.addSubviews(
             logoImageView,
             kakaoLoginButton,

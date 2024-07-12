@@ -45,7 +45,7 @@ extension FilteringSettingViewController {
     @objc
     func gradeButton1DidTap() {
         print("1학년")
-        
+
 
         if rootView.gradeButton1.isSelected {
             rootView.gradeButton1.backgroundColor = .clear

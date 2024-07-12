@@ -22,4 +22,5 @@ struct JobDetailModel: Codable {
     let detail: String
     let url: String
     let isScrap: Bool
+    let scrapCount: Int
 }

@@ -19,7 +19,12 @@ class InavailableFilterView: UICollectionViewCell {
         $0.tintColor = .grey200
     }
     
-    let inavailableLabel = LabelFactory.build(text: "필터링 설정에 일치하는 인턴 공고가 없어요! \n 딱 맞는 인턴 공고가 올라오면 바로 알려드릴게요", font: .body4, textColor: .grey400, textAlignment: .center).then {
+    let inavailableLabel = LabelFactory.build(
+        text: "필터링 설정에 일치하는 인턴 공고가 없어요! \n 딱 맞는 인턴 공고가 올라오면 바로 알려드릴게요",
+        font: .body4,
+        textColor: .grey400,
+        textAlignment: .center
+    ).then {
         
         $0.numberOfLines = 2
     }

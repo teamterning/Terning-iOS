@@ -38,7 +38,6 @@ extension FilteringSettingViewController {
         rootView.gradeButton2.addTarget(self, action: #selector(gradeButtonDidTap), for: .touchUpInside)
         rootView.gradeButton3.addTarget(self, action: #selector(gradeButtonDidTap), for: .touchUpInside)
         rootView.gradeButton4.addTarget(self, action: #selector(gradeButtonDidTap), for: .touchUpInside)
-        
         rootView.periodButton1.addTarget(self, action: #selector(periodButtonDidTap), for: .touchUpInside)
         rootView.periodButton2.addTarget(self, action: #selector(periodButtonDidTap), for: .touchUpInside)
         rootView.periodButton3.addTarget(self, action: #selector(periodButtonDidTap), for: .touchUpInside)

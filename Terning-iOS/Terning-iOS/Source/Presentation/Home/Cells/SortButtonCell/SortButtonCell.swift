@@ -14,7 +14,12 @@ class SortButtonCell: UICollectionViewCell {
 
     // MARK: - UIComponents
     
-    var sortButtonLabel = LabelFactory.build(text: "채용 마감 이른 순", font: .button3, textColor: .terningBlack, textAlignment: .center).then {
+    var sortButtonLabel = LabelFactory.build(
+        text: "채용 마감 이른 순",
+        font: .button3,
+        textColor: .terningBlack,
+        textAlignment: .center
+    ).then {
         $0.isUserInteractionEnabled = true
     }
     

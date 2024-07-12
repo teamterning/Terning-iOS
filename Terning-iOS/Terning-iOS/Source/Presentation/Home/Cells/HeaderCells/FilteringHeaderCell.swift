@@ -16,9 +16,17 @@ class FilteringHeaderCell: UICollectionReusableView {
     
     // MARK: - UIComponents
     
-    var subTitleLabel = LabelFactory.build(text: "마음에 드는 공고를 스크랩하고 캘린더에서 모아보세요", font: .detail2, textColor: .terningBlack)
+    var subTitleLabel = LabelFactory.build(
+        text: "마음에 드는 공고를 스크랩하고 캘린더에서 모아보세요",
+        font: .detail2,
+        textColor: .terningBlack
+    )
     
-    var titleLabel = LabelFactory.build(text: "내 계획에 딱 맞는 대학생 인턴 공고", font: .title1, textColor: .terningBlack)
+    var titleLabel = LabelFactory.build(
+        text: "내 계획에 딱 맞는 대학생 인턴 공고",
+        font: .title1,
+        textColor: .terningBlack
+    )
     
     lazy var titleStack = UIStackView(
         arrangedSubviews: [

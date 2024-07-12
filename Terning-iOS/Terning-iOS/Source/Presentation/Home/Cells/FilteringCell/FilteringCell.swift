@@ -24,11 +24,23 @@ class FilteringCell: UICollectionViewCell {
     
     lazy var filterButton = FilterButton()
     
-    var grade = LabelFactory.build(text: "3학년", font: .detail2, textColor: .black)
+    var grade = LabelFactory.build(
+        text: "3학년",
+        font: .detail2,
+        textColor: .black
+    )
         
-    var period = LabelFactory.build(text: "1~3개월", font: .detail2, textColor: .black)
+    var period = LabelFactory.build(
+        text: "1~3개월",
+        font: .detail2,
+        textColor: .black
+    )
     
-    var month = LabelFactory.build(text: "1월", font: .detail2, textColor: .black)
+    var month = LabelFactory.build(
+        text: "1월",
+        font: .detail2,
+        textColor: .black
+    )
     
     let verticalBar1 = UIImageView().then {
         $0.image = UIImage(resource: .icVerticalBar)

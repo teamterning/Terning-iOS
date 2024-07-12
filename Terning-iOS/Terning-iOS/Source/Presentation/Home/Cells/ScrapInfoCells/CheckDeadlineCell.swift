@@ -16,21 +16,45 @@ class CheckDeadlineCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     let checkDeadlineCard = UIView().then {
-        $0.makeBorder(width: 1, color: .grey150, cornerRadius: 5)
+        $0.makeBorder(
+            width: 1,
+            color: .grey150,
+            cornerRadius: 5
+        )
         $0.backgroundColor =  .white
-        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
+        $0.layer.applyShadow(
+            color: .black,
+            alpha: 0.25,
+            x: 0,
+            y: 0,
+            blur: 4,
+            spread: 0
+        )
     }
     
-    let checkDeadlineCardLabel = LabelFactory.build(text: "오늘 마감인 공고가 없어요 \n 캘린더에서 가까운 공고 일정을 확인해보세요", font: .detail3, textAlignment: .center).then {
+    let checkDeadlineCardLabel = LabelFactory.build(
+        text: "오늘 마감인 공고가 없어요 \n 캘린더에서 가까운 공고 일정을 확인해보세요",
+        font: .detail3,
+        textAlignment: .center
+    ).then {
         $0.numberOfLines = 2
     }
     
     var checkDeadlineButton = UIButton().then {
         $0.backgroundColor = .clear
-        $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 14)
+        $0.makeBorder(
+            width: 1,
+            color: .terningMain,
+            cornerRadius: 14
+        )
     }
     
-    var checkDeadlineButtonLabel = LabelFactory.build(text: "공고 마감 일정 확인하기", font: .button4, textColor: .terningMain, textAlignment: .center)
+    var checkDeadlineButtonLabel = LabelFactory.build(
+        text: "공고 마감 일정 확인하기",
+        font: .button4,
+        textColor: .terningMain,
+        textAlignment: .center
+    )
     
     // MARK: - LifeCycles
     

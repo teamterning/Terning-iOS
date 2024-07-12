@@ -16,22 +16,49 @@ class JobCardScrapedCell: UICollectionViewCell {
     let jobCard = UIView().then {
         $0.backgroundColor = UIColor.white
         $0.layer.cornerRadius = 10
-        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
+        $0.layer.applyShadow(
+            color: .black,
+            alpha: 0.25,
+            x: 0,
+            y: 0,
+            blur: 4,
+            spread: 0
+        )
     }
     
     var jobCardCoverImage = UIImageView().then {
         $0.image = UIImage(resource: .icHome)
     }
     
-    var daysRemaining = LabelFactory.build(text: "D-2", font: .detail0, textColor: .terningMain, textAlignment: .left)
+    var daysRemaining = LabelFactory.build(
+        text: "D-2",
+        font: .detail0,
+        textColor: .terningMain,
+        textAlignment: .left
+    )
     
-    var jobLabel = LabelFactory.build(text: "[Someone's Cat] 콘텐츠 마케터 대학생 인턴 채용", font: .title5, textColor: .black, textAlignment: .left).then {
+    var jobLabel = LabelFactory.build(
+        text: "[Someone's Cat] 콘텐츠 마케터 대학생 인턴 채용",
+        font: .title5,
+        textColor: .black,
+        textAlignment: .left
+    ).then {
         $0.numberOfLines = 2
     }
     
-    var periodTitle = LabelFactory.build(text: "근무기간", font: .detail3, textColor: .grey400, textAlignment: .left)
+    var periodTitle = LabelFactory.build(
+        text: "근무기간",
+        font: .detail3,
+        textColor: .grey400,
+        textAlignment: .left
+    )
     
-    var period = LabelFactory.build(text: "2개월", font: .detail3, textColor: .terningMain, textAlignment: .left)
+    var period = LabelFactory.build(
+        text: "2개월",
+        font: .detail3,
+        textColor: .terningMain,
+        textAlignment: .left
+    )
     
     lazy var scrapButton = UIButton().then {
         $0.setImage(.icScrap, for: .normal)

@@ -19,24 +19,18 @@ class FilteringSettingView: UIView {
         text: "재학 상태를 선택해주세요",
         font: .title3,
         textColor: .terningBlack
-    ).then {
-        $0.numberOfLines = 1
-    }
+    )
     
     let gradeSelectionSubTitle = LabelFactory.build(
         text: "휴학중이라면, 휴학 전 마지막 수료 학년을 선택해주세요",
         font: .body3,
-        textColor: UIColor(red: 137/255, green: 137/255, blue: 137/255, alpha: 1.0)
-    ).then {
-        $0.numberOfLines = 1
-    }
+        textColor: .grey375
+    )
 
-    
     lazy var titleStack1 = UIStackView(arrangedSubviews: [gradeSelectionTitle, gradeSelectionSubTitle]).then {
         $0.axis = .vertical
         $0.spacing = 0
         $0.alignment = .leading
-//        $0.distribution = .fillProportionally
     }
     
     lazy var gradeButton1 = UIButton().then {
@@ -85,7 +79,7 @@ class FilteringSettingView: UIView {
     let periodSelectionSubTitle = LabelFactory.build(
         text: "선택한 기간동안 근무할 수 있는 인턴 공고를 찾아드릴게요",
         font: .body3,
-        textColor: UIColor(red: 137/255, green: 137/255, blue: 137/255, alpha: 1.0)
+        textColor: .grey375
     )
     
     lazy var titleStack2 = UIStackView(arrangedSubviews: [periodSelectionTitle, periodSelectionSubTitle]).then {

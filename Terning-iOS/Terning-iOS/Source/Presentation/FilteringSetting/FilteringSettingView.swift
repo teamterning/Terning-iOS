@@ -14,6 +14,8 @@ class FilteringSettingView: UIView {
     
     // MARK: - UIComponents
     
+    lazy var navi = CustomNavigationBar(type: .centerTitleWithLeftButton, isShadow: true).setTitle("필터링 재설정")
+    
     let gradeSelectionTitle = LabelFactory.build(
         text: "재학 상태를 선택해주세요",
         font: .title3,
@@ -169,6 +171,7 @@ extension FilteringSettingView {
     
     func setHierarchy() {
         addSubviews(
+            navi,
             titleStack1,
             gradeButtonStack,
             titleStack2,
@@ -180,6 +183,12 @@ extension FilteringSettingView {
     }
     
     func setLayout() {
+        navi.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(68)
+        }
+        
         titleStack1.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(625)
             $0.leading.equalToSuperview().offset(20)

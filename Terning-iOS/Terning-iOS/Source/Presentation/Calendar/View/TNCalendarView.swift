@@ -16,9 +16,13 @@ final class TNCalendarView: UIView {
     
     // MARK: - UIComponents
     
+    let dummyView = UIView().then { $0.backgroundColor = .white }
     lazy var naviBar = CustomNavigationBar(type: .calendar)
-    private let scrollView = UIScrollView()
-    private let contentView = UIView().then { $0.backgroundColor = .white }
+    
+    let calendarViewContainer = UIView().then {
+        $0.layer.masksToBounds = true
+        $0.backgroundColor = .white
+    }
     
     let calendarView = FSCalendar().then {
         $0.scope = .month
@@ -31,12 +35,8 @@ final class TNCalendarView: UIView {
         $0.appearance.headerMinimumDissolvedAlpha = 0.0
         $0.appearance.headerTitleColor = .white
         $0.weekdayHeight = 48
-        
         $0.clipsToBounds = false
-        
-        // 달에 유효하지 않은 날짜의 색 지정
         $0.appearance.titlePlaceholderColor = .grey200
-        // 평일 날짜 색
         $0.appearance.titleDefaultColor = .black
         
         let weekdayTexts = ["일", "월", "화", "수", "목", "금", "토"]
@@ -44,11 +44,34 @@ final class TNCalendarView: UIView {
             label.text = weekdayTexts[index]
             label.textColor = index == 0 ? .calRed : .black
         }
-        
         $0.placeholderType = .fillHeadTail
     }
     
-    private let separatorView = UIView().then { $0.backgroundColor = .grey200 }
+    let separatorView = UIView().then { $0.backgroundColor = .grey200 }
+    
+    // 캘린더 주간 뷰
+    lazy var calenderBottomCollectionView: UICollectionView = {
+        let layout = CompositionalLayout.createCalendarBottomLayout()
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.isScrollEnabled = true
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.isHidden = true
+        return collectionView
+    }()
+    
+    // 리스트 뷰
+    lazy var calenderListCollectionView: UICollectionView = {
+        let layout = CompositionalLayout.createCalendarBottomLayout()
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .grey200
+        collectionView.isScrollEnabled = true
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.isHidden = true
+        return collectionView
+    }()
     
     // MARK: - Life Cycles
     
@@ -65,20 +88,30 @@ final class TNCalendarView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - UI & Layout
-    
+    // 주간일 때 라운딩 처리 메서드
+    func roundCalendarViewCorners(radius: CGFloat) {
+        calendarViewContainer.layer.cornerRadius = radius
+        calendarViewContainer.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+    }
+}
+
+// MARK: - UI & Layout
+
+extension TNCalendarView {
     private func setUI() {
-        backgroundColor = .white
+        backgroundColor = .grey200
     }
     
     private func setHierarchy() {
         addSubviews(
+            dummyView,
             naviBar,
-            scrollView,
-            separatorView
+            separatorView,
+            calendarViewContainer,
+            calenderBottomCollectionView,
+            calenderListCollectionView
         )
-        scrollView.addSubview(contentView)
-        contentView.addSubviews(calendarView)
+        calendarViewContainer.addSubview(calendarView)
     }
     
     private func setLayout() {
@@ -87,20 +120,18 @@ final class TNCalendarView: UIView {
             $0.height.equalTo(68)
         }
         
-        scrollView.snp.makeConstraints {
-            $0.top.equalTo(naviBar.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
+        dummyView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(naviBar.snp.top)
         }
         
-        contentView.snp.makeConstraints {
+        calendarViewContainer.snp.makeConstraints {
+            $0.top.equalTo(naviBar.snp.bottom)
             $0.horizontalEdges.equalToSuperview()
-            $0.centerX.top.bottom.equalToSuperview()
-            $0.height.equalTo(1300)
         }
         
         calendarView.snp.makeConstraints {
-            $0.top.equalTo(contentView.snp.top).offset(10)
-            $0.horizontalEdges.equalToSuperview()
+            $0.edges.equalToSuperview()
             $0.height.equalTo(90 * 6 + 48) // 기본 높이 설정
         }
         
@@ -110,5 +141,17 @@ final class TNCalendarView: UIView {
             $0.height.equalTo(1)
         }
         
+        self.bringSubviewToFront(separatorView)
+        
+        calenderBottomCollectionView.snp.makeConstraints {
+            $0.top.equalTo(calendarView.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        calenderListCollectionView.snp.makeConstraints {
+            $0.top.equalTo(naviBar.snp.bottom)
+            $0.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
+        }
     }
 }

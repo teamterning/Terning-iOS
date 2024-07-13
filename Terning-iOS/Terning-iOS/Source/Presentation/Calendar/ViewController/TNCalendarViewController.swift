@@ -17,6 +17,11 @@ import FSCalendar
 
 final class TNCalendarViewController: UIViewController {
     
+    
+    // MARK: - Properties
+    
+    private var isListViewVisible = false
+
     // MARK: - UIComponents
     
     private let rootView = TNCalendarView()
@@ -46,11 +51,18 @@ final class TNCalendarViewController: UIViewController {
     private func setDelegate() {
         rootView.calendarView.delegate = self
         rootView.calendarView.dataSource = self
+        rootView.calenderBottomCollectionView.delegate = self
+        rootView.calenderBottomCollectionView.dataSource = self
+        
         // rootView.calendarView.adjustsBoundingRectWhenChangingMonths = true
     }
     
     private func setRegister() {
         rootView.calendarView.register(TNCalendarDateCell.self, forCellReuseIdentifier: TNCalendarDateCell.className)
+        
+        rootView.calenderBottomCollectionView.register(JobListingCell.self, forCellWithReuseIdentifier: JobListingCell.className)
+        rootView.calenderBottomCollectionView.register(CalendarDateHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CalendarDateHeaderView.className)
+        
     }
     
     private func bindNavigation() {
@@ -66,11 +78,13 @@ final class TNCalendarViewController: UIViewController {
         
         rootView.naviBar.calendarListButtonDidTap
             .subscribe(with: self) { owner, _ in
-                print("리스트 뷰 선택")
+                owner.toggleListView()
             }.disposed(by: disposeBag)
     }
     
-    private func bindViewModel() {}
+    private func bindViewModel() {
+
+    }
     
     private func moveCalendar(by months: Int) {
         let currentPage = rootView.calendarView.currentPage
@@ -102,6 +116,22 @@ final class TNCalendarViewController: UIViewController {
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()
+    
+    private func toggleListView() {
+        if isListViewVisible {
+            // 리스트 뷰를 감추고 기존 뷰를 보이게 함
+            rootView.separatorView.isHidden = false
+            rootView.calendarViewContainer.isHidden = false
+            rootView.calenderListCollectionView.isHidden = true
+        } else {
+            // 기존 뷰를 감추고 리스트 뷰를 보이게 함
+            rootView.separatorView.isHidden = true
+            rootView.calendarViewContainer.isHidden = true
+            rootView.calenderListCollectionView.isHidden = false
+        }
+        isListViewVisible.toggle()
+    }
+    
 }
 
 extension TNCalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
@@ -165,23 +195,26 @@ extension TNCalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FS
     // 주간일때 그림자와 라운드 넣어주는 함수
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         if calendar.scope == .week {
-            rootView.calendarView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            rootView.calendarView.layer.cornerRadius = 20
-            rootView.calendarView.layer.applyShadow(alpha: 0.1, y: 2, blur: 4)
+            
+            rootView.calenderBottomCollectionView.backgroundColor = .grey200
+            rootView.roundCalendarViewCorners(radius: 20)
+            rootView.layer.applyShadow(alpha: 0.1, y: 2, blur: 4)
             
             rootView.calendarView.snp.updateConstraints { make in
                 make.height.equalTo(90 + 20) // 주간 뷰 높이 설정
             }
+            rootView.calenderBottomCollectionView.isHidden = false
         } else {
-            rootView.calendarView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            rootView.calendarView.layer.cornerRadius = 0
-            rootView.calendarView.layer.shadowOpacity = 0
+            rootView.roundCalendarViewCorners(radius: 0)
+            rootView.layer.shadowOpacity = 0
             
             rootView.calendarView.snp.updateConstraints { make in
                 let weekCount = calculateWeekCount(for: calendar.currentPage)
                 let cellHeight = weekCount == 6 ? 90 : 106
-                make.height.equalTo(cellHeight * weekCount)
+                make.height.equalTo(cellHeight * weekCount + 48)
             }
+            
+            rootView.calenderBottomCollectionView.isHidden = true
         }
         
         updateNaviBarTitle(for: calendar.currentPage)
@@ -206,5 +239,36 @@ extension TNCalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FS
             calendar.setScope(.week, animated: true)
         }
         calendar.reloadData()
+    }
+}
+
+extension TNCalendarViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath)
+    }
+}
+
+extension TNCalendarViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else { return UICollectionViewCell() }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CalendarDateHeaderView.className, for: indexPath) as? CalendarDateHeaderView else { return UICollectionReusableView() }
+        
+        return headerView
+        
     }
 }

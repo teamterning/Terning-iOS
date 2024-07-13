@@ -85,12 +85,6 @@ final class TNCalendarView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // 주간일 때 라운딩 처리 메서드
-    func roundCalendarViewCorners(radius: CGFloat) {
-        calendarViewContainer.layer.cornerRadius = radius
-        calendarViewContainer.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-    }
 }
 
 // MARK: - UI & Layout
@@ -151,5 +145,15 @@ extension TNCalendarView {
             $0.top.equalTo(naviBar.snp.bottom)
             $0.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
         }
+    }
+}
+
+// MARK: - Methods
+
+extension TNCalendarView {
+    // 주간일 때 라운딩 처리 메서드
+    func roundCalendarViewCorners(radius: CGFloat) {
+        calendarViewContainer.layer.cornerRadius = radius
+        calendarViewContainer.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
 }

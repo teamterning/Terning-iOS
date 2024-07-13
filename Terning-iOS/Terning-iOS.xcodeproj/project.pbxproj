@@ -59,14 +59,13 @@
 		71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509202C41AD35006D8E56 /* JobListingCell.swift */; };
 		71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509222C41BD90006D8E56 /* CompositionalLayout.swift */; };
 		71B509252C41D027006D8E56 /* CalendarDateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509242C41D027006D8E56 /* CalendarDateHeaderView.swift */; };
-		71B509272C41FB41006D8E56 /* TodayScrapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509262C41FB41006D8E56 /* TodayScrapModel.swift */; };
+		71B509272C41FB41006D8E56 /* ScrapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509262C41FB41006D8E56 /* ScrapModel.swift */; };
 		71CCC0712C3F36DE00789A9B /* TNCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCC0702C3F36DE00789A9B /* TNCalendarViewController.swift */; };
 		71CCC0732C3F36EA00789A9B /* TNCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCC0722C3F36EA00789A9B /* TNCalendarView.swift */; };
 		71CCC0762C3F373400789A9B /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 71CCC0752C3F373400789A9B /* FSCalendar */; };
 		71CCC0792C3FDABF00789A9B /* TNCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCC0782C3FDABF00789A9B /* TNCalendarViewModel.swift */; };
 		71CCC07C2C3FDB0400789A9B /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCC07B2C3FDB0400789A9B /* ViewModelType.swift */; };
 		71CCC07F2C40377E00789A9B /* TNCalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCC07E2C40377E00789A9B /* TNCalendarDateCell.swift */; };
-		71CCC0822C41288000789A9B /* ScrapResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCC0812C41288000789A9B /* ScrapResult.swift */; };
 		71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6EC2C2FF42500C54EA7 /* TNTabBarController.swift */; };
 		71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6EE2C2FF48800C54EA7 /* TNTabBarItem.swift */; };
 		71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6F02C2FFB5800C54EA7 /* CALayer+.swift */; };
@@ -155,13 +154,12 @@
 		71B509202C41AD35006D8E56 /* JobListingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListingCell.swift; sourceTree = "<group>"; };
 		71B509222C41BD90006D8E56 /* CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayout.swift; sourceTree = "<group>"; };
 		71B509242C41D027006D8E56 /* CalendarDateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateHeaderView.swift; sourceTree = "<group>"; };
-		71B509262C41FB41006D8E56 /* TodayScrapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayScrapModel.swift; sourceTree = "<group>"; };
+		71B509262C41FB41006D8E56 /* ScrapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapModel.swift; sourceTree = "<group>"; };
 		71CCC0702C3F36DE00789A9B /* TNCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarViewController.swift; sourceTree = "<group>"; };
 		71CCC0722C3F36EA00789A9B /* TNCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarView.swift; sourceTree = "<group>"; };
 		71CCC0782C3FDABF00789A9B /* TNCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarViewModel.swift; sourceTree = "<group>"; };
 		71CCC07B2C3FDB0400789A9B /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		71CCC07E2C40377E00789A9B /* TNCalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarDateCell.swift; sourceTree = "<group>"; };
-		71CCC0812C41288000789A9B /* ScrapResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapResult.swift; sourceTree = "<group>"; };
 		71D7E6EC2C2FF42500C54EA7 /* TNTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNTabBarController.swift; sourceTree = "<group>"; };
 		71D7E6EE2C2FF48800C54EA7 /* TNTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNTabBarItem.swift; sourceTree = "<group>"; };
 		71D7E6F02C2FFB5800C54EA7 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
@@ -502,8 +500,7 @@
 		71CCC0802C41282400789A9B /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				71CCC0812C41288000789A9B /* ScrapResult.swift */,
-				71B509262C41FB41006D8E56 /* TodayScrapModel.swift */,
+				71B509262C41FB41006D8E56 /* ScrapModel.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -885,7 +882,6 @@
 				7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */,
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
 				2D4EE3A42C3E789200E3E95B /* ProfileView.swift in Sources */,
-				71CCC0822C41288000789A9B /* ScrapResult.swift in Sources */,
 				B86A67542C408B1B00CB90E5 /* SortBottomSheetview.swift in Sources */,
 				71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */,
 				B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */,
@@ -904,7 +900,7 @@
 				71CCC0792C3FDABF00789A9B /* TNCalendarViewModel.swift in Sources */,
 				71CCC0732C3F36EA00789A9B /* TNCalendarView.swift in Sources */,
 				71CCC07C2C3FDB0400789A9B /* ViewModelType.swift in Sources */,
-				71B509272C41FB41006D8E56 /* TodayScrapModel.swift in Sources */,
+				71B509272C41FB41006D8E56 /* ScrapModel.swift in Sources */,
 				71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */,
 				2DC61EFF2C40824A009F991F /* SummaryInfoTableViewCell.swift in Sources */,
 				B871D7352C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift in Sources */,
@@ -917,7 +913,6 @@
 				B8C5DB6E2C3F353D00865B1A /* InavailableFilterView.swift in Sources */,
 				7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */,
 				B86A67562C408B2C00CB90E5 /* SortBottomSheetViewController.swift in Sources */,
-				2DC61F122C418D5A009F991F /* MainInfoModel.swift in Sources */,
 				7121A1552C3EA01F0056DB8B /* Toast.swift in Sources */,
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
 				2DC61EF52C4075EB009F991F /* MainInfoTableViewCell.swift in Sources */,

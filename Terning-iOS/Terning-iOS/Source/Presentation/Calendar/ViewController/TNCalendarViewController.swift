@@ -58,8 +58,12 @@ extension TNCalendarViewController {
     private func setDelegate() {
         rootView.calendarView.delegate = self
         rootView.calendarView.dataSource = self
+        
         rootView.calenderBottomCollectionView.delegate = self
         rootView.calenderBottomCollectionView.dataSource = self
+        
+        rootView.calenderListCollectionView.delegate = self
+        rootView.calenderListCollectionView.dataSource = self
     }
     
     private func setRegister() {
@@ -67,6 +71,10 @@ extension TNCalendarViewController {
         
         rootView.calenderBottomCollectionView.register(JobListingCell.self, forCellWithReuseIdentifier: JobListingCell.className)
         rootView.calenderBottomCollectionView.register(CalendarDateHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CalendarDateHeaderView.className)
+        
+        rootView.calenderListCollectionView.register(JobListingCell.self, forCellWithReuseIdentifier: JobListingCell.className)
+        rootView.calenderListCollectionView.register(CalendarDateHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CalendarDateHeaderView.className)
+        rootView.calenderListCollectionView.register(CalendarDateFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CalendarDateFooterView.className)
     }
     
     private func bindNavigation() {
@@ -106,8 +114,8 @@ extension TNCalendarViewController {
     }
     
     private func loadDummyData() {
-        let dummyData = generateDummyData1()
-        for item in dummyData.scrapsByDeadline {
+        let dummyData = generateDummyData3()
+        for item in dummyData {
             if let date = dateFormatter.date(from: item.deadline) {
                 scraps[date] = item.scraps
             }
@@ -263,26 +271,72 @@ extension TNCalendarViewController: UICollectionViewDelegate {
 
 extension TNCalendarViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        if collectionView == rootView.calenderBottomCollectionView {
+            return 1
+        } else {
+            return scraps.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return calendarDaily.count
+        if collectionView == rootView.calenderBottomCollectionView {
+            return calendarDaily.count
+        } else {
+            let scrapSection = Array(scraps.values)[section]
+            return scrapSection.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else { return UICollectionViewCell() }
         
-        cell.bind(model: calendarDaily[indexPath.row])
-        
-        return cell
+        if collectionView == rootView.calenderBottomCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else { return UICollectionViewCell() }
+            
+            cell.bind(model: calendarDaily[indexPath.row])
+            print("calenderBottomCollectionView")
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else {
+                return UICollectionViewCell()
+            }
+            
+            let scrapSection = Array(scraps.values)[indexPath.section]
+            let scrapItem = scrapSection[indexPath.row]
+            cell.bind(model: scrapItem)
+            print("calenderListCollectionView")
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CalendarDateHeaderView.className, for: indexPath) as? CalendarDateHeaderView else { return UICollectionReusableView() }
-        
-        return headerView
-        
+        if collectionView == rootView.calenderBottomCollectionView {
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CalendarDateHeaderView.className, for: indexPath) as? CalendarDateHeaderView else { return UICollectionReusableView() }
+            
+            return headerView
+        } else {
+            switch kind {
+            case UICollectionView.elementKindSectionHeader:
+                guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CalendarDateHeaderView.className, for: indexPath) as? CalendarDateHeaderView else {
+                    return UICollectionReusableView()
+                }
+                
+                let scrapSection = Array(scraps.keys)[indexPath.section]
+                let formattedDate = dateFormatter.string(from: scrapSection)
+                headerView.bind(title: formattedDate)
+                
+                return headerView
+                
+            case UICollectionView.elementKindSectionFooter:
+                guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CalendarDateFooterView.className, for: indexPath) as? CalendarDateFooterView else {
+                    return UICollectionReusableView()
+                }
+                
+                return footerView
+                
+            default:
+                return UICollectionReusableView()
+            }
+        }
     }
 }

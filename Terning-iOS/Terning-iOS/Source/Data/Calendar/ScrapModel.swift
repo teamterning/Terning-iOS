@@ -82,7 +82,7 @@ func generateDummyData2() -> [DailyScrapModel] {
 }
 
 // 더미 데이터 3
-func generateDummyData3() -> ScrapsByDeadlineModel {
+func generateDummyData3() -> [MonthlyScrapModel] {
     let scrapsByDeadline = [
         MonthlyScrapModel(deadline: "2024-07-05", scraps: [
             DailyScrapModel(scrapId: 1, title: "개발자 인턴 모집", color: "#FF98F7", internshipAnnouncementId: 101, dDay: "D-5", workingPeriod: "2개월", companyImage: "company.image1", startYear: 2024, startMonth: 8),
@@ -90,6 +90,8 @@ func generateDummyData3() -> ScrapsByDeadlineModel {
         ]),
         MonthlyScrapModel(deadline: "2024-07-10", scraps: [
             DailyScrapModel(scrapId: 3, title: "마케팅 인턴 모집", color: "#FF12B4", internshipAnnouncementId: 103, dDay: "D-10", workingPeriod: "3개월", companyImage: "company.image3", startYear: 2024, startMonth: 8),
+            DailyScrapModel(scrapId: 4, title: "회계 인턴 모집", color: "#0000FF", internshipAnnouncementId: 104, dDay: "D-10", workingPeriod: "6개월", companyImage: "company.image4", startYear: 2024, startMonth: 8),
+            DailyScrapModel(scrapId: 4, title: "회계 인턴 모집", color: "#0000FF", internshipAnnouncementId: 104, dDay: "D-10", workingPeriod: "6개월", companyImage: "company.image4", startYear: 2024, startMonth: 8),
             DailyScrapModel(scrapId: 4, title: "회계 인턴 모집", color: "#0000FF", internshipAnnouncementId: 104, dDay: "D-10", workingPeriod: "6개월", companyImage: "company.image4", startYear: 2024, startMonth: 8)
         ]),
         MonthlyScrapModel(deadline: "2024-07-15", scraps: [
@@ -105,5 +107,5 @@ func generateDummyData3() -> ScrapsByDeadlineModel {
             DailyScrapModel(scrapId: 10, title: "영업 인턴 모집", color: "#FFA500", internshipAnnouncementId: 110, dDay: "D-25", workingPeriod: "6개월", companyImage: "company.image10", startYear: 2024, startMonth: 8)
         ])
     ]
-    return ScrapsByDeadlineModel(scrapsByDeadline: scrapsByDeadline)
+    return scrapsByDeadline
 }

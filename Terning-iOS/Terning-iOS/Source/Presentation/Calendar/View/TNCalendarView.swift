@@ -6,10 +6,8 @@
 //
 
 import UIKit
-
 import SnapKit
 import Then
-
 import FSCalendar
 
 final class TNCalendarView: UIView {
@@ -50,8 +48,8 @@ final class TNCalendarView: UIView {
     // 캘린더 주간 뷰
     lazy var calenderBottomCollectionView: UICollectionView = {
         let layout = CompositionalLayout.createCalendarBottomLayout()
-        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
         collectionView.backgroundColor = .white
         collectionView.isScrollEnabled = true
         collectionView.showsVerticalScrollIndicator = false
@@ -61,9 +59,9 @@ final class TNCalendarView: UIView {
     
     // 리스트 뷰
     lazy var calenderListCollectionView: UICollectionView = {
-        let layout = CompositionalLayout.createCalendarBottomLayout()
-        
+        let layout = CompositionalLayout.createCalendarListLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
         collectionView.backgroundColor = .back
         collectionView.isScrollEnabled = true
         collectionView.showsVerticalScrollIndicator = false

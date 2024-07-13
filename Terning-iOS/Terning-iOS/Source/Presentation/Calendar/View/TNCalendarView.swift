@@ -132,7 +132,7 @@ extension TNCalendarView {
         
         calendarView.snp.makeConstraints {
             $0.edges.equalToSuperview()
-            $0.height.equalTo(90 * 6 + 48) // 기본 높이 설정
+            $0.height.equalTo(90 * 6 + 48 + 28) // 기본 높이 설정
         }
         
         separatorView.snp.makeConstraints {

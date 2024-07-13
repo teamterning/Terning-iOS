@@ -10,7 +10,17 @@ import UIKit
 import SnapKit
 import Then
 
+protocol SortButtonTappedProtocol {
+    func pushToBottomSheet()
+}
+
+// 명진이형이 일단 냅두라해서 냅둠
+
 class SortButtonCell: UICollectionViewCell {
+    
+    // MARK: - Properties
+    
+    var sortButtonDelegate: SortButtonTappedProtocol?
 
     // MARK: - UIComponents
     
@@ -27,6 +37,12 @@ class SortButtonCell: UICollectionViewCell {
         $0.image = UIImage(resource: .icDownArrow)
     }
     
+    lazy var sortButtonStack = UIStackView(arrangedSubviews: [sortButtonLabel, sortButtonIcon]).then {
+        $0.axis = .horizontal
+        $0.spacing = 4
+        $0.alignment = .center
+    }
+    
     // MARK: - LifeCycles
     
     override init(frame: CGRect) {
@@ -34,6 +50,7 @@ class SortButtonCell: UICollectionViewCell {
         
         setHierarchy()
         setLayout()
+        setTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -46,21 +63,28 @@ class SortButtonCell: UICollectionViewCell {
 extension SortButtonCell {
     func setHierarchy() {
         contentView.addSubviews(
-            sortButtonLabel,
-            sortButtonIcon
+            sortButtonStack
         )
     }
     
     func setLayout() {
-        sortButtonLabel.snp.makeConstraints {
+        sortButtonStack.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(240)
+            $0.leading.equalToSuperview().offset(245)
         }
-        
-        sortButtonIcon.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.trailing.equalTo(sortButtonLabel.snp.trailing).offset(18 + 5)
-            $0.width.height.equalTo(18)
-        }
+    }
+    
+    // MARK: - Method
+    
+    func setTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(sortButtonTapped))
+        sortButtonStack.addGestureRecognizer(tapGesture)
+    }
+    
+    // MARK: - objc Function
+    
+    @objc
+    func sortButtonTapped() {
+        sortButtonDelegate?.pushToBottomSheet()
     }
 }

@@ -34,6 +34,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     
     var rootView = HomeView()
     
+    var bottomSheet = SortBottomSheetView()
+    
     // MARK: - LifeCycles
     
     override func loadView() {
@@ -176,6 +178,7 @@ extension HomeViewController: UICollectionViewDataSource {
             ) as? SortButtonCell else {
                 return UICollectionViewCell()
             }
+            cell.sortButtonDelegate = self
             
             return cell
             
@@ -277,4 +280,16 @@ extension HomeViewController: FilteringButtonTappedProtocol {
         filteringSettingView.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(filteringSettingView, animated: true)
     }
+}
+
+extension HomeViewController: SortButtonTappedProtocol {
+    func pushToBottomSheet() {
+        print("It will be pushed to BottomSheetView")
+        // bottom sheet로 push 하는 코드 작성
+        let bottomSheetVC = CustomBottomSheetViewController()
+        
+        bottomSheetVC.modalPresentationStyle = .overFullScreen
+        self.present(bottomSheetVC, animated: false, completion: nil)
+    }
+
 }

@@ -75,9 +75,9 @@ extension HomeView {
     
     func setLayout() {
         homeLogo.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(70)
+            $0.top.equalTo(safeAreaLayoutGuide)
             $0.leading.equalToSuperview().offset(23)
-            $0.height.equalTo(45)
+            $0.height.equalTo(36)
             $0.width.equalTo(160)
         }
         
@@ -205,10 +205,7 @@ extension HomeView {
                 
                 // Section
                 let section = NSCollectionLayoutSection(group: group)
-                
-//                section.contentInsets.top = 50
-//                section.contentInsets.bottom = 15
-                
+            
                 return section
             } else if sectionNumber == 3 { // 정렬 설정하는 버튼
                 // Item
@@ -221,7 +218,7 @@ extension HomeView {
                 // Group
                 let groupSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .absolute(36))
+                    heightDimension: .absolute(45))
                 
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 

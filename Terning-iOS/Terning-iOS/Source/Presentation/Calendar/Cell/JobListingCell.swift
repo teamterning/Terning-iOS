@@ -146,19 +146,19 @@ extension JobListingCell {
         }
         
         mainTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(deadlineLabel.snp.bottom).offset(4)
+            $0.top.equalTo(containerView.snp.top).offset(16)
             $0.leading.equalTo(mainImageView.snp.trailing).offset(8)
             $0.trailing.equalToSuperview()
         }
         
         workingPeriodLabel.snp.makeConstraints {
-            $0.top.equalTo(mainTitleLabel.snp.bottom).offset(8)
+            $0.top.equalTo(containerView.snp.top).offset(59)
             $0.leading.equalTo(mainImageView.snp.trailing).offset(8)
             $0.bottom.equalToSuperview()
         }
         
         monthLabel.snp.makeConstraints {
-            $0.top.equalTo(mainTitleLabel.snp.bottom).offset(8)
+            $0.top.equalTo(containerView.snp.top).offset(59)
             $0.leading.equalTo(workingPeriodLabel.snp.trailing).offset(8)
             $0.bottom.equalToSuperview()
         }
@@ -175,8 +175,11 @@ extension JobListingCell {
     
     // MARK: - Methods
     
-    func bindData(image: UIImage) {
-        self.mainImageView.image = image
+    func bind(model: DailyScrapModel) {
+        self.colorMark.backgroundColor = UIColor(hex: model.color)
+        self.deadlineLabel.text = model.dDay
+        self.mainTitleLabel.text = model.title
+        self.monthLabel.text = model.workingPeriod
     }
     
     private func setAddTarget() {
@@ -192,4 +195,22 @@ extension JobListingCell {
     func scrapButtonDidTap(_ sender: UIButton) {
         delegate?.scrapButtonDidTap(wantsTolike: (sender.isSelected == true))
     }
+}
+                                  
+extension UIColor {
+  convenience init(hex: String, alpha: CGFloat = 1.0) {
+      var hexFormatted: String = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
+      
+      if hexFormatted.hasPrefix("#") {
+          hexFormatted = String(hexFormatted.dropFirst())
+      }
+      
+      assert(hexFormatted.count == 6, "Invalid hex code used.")
+      var rgbValue: UInt64 = 0
+      Scanner(string: hexFormatted).scanHexInt64(&rgbValue)
+      
+      self.init(red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+                green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+                blue: CGFloat(rgbValue & 0x0000FF) / 255.0, alpha: alpha)
+  }
 }

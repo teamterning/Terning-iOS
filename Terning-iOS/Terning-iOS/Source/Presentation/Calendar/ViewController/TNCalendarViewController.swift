@@ -30,7 +30,8 @@ final class TNCalendarViewController: UIViewController {
     private let rootView = TNCalendarView()
     private let disposeBag = DisposeBag()
     private var selectedDate: Date?
-    private var scraps: [Date: [Scrap]] = [:] // 스크랩 데이터를 저장할 딕셔너리
+    private var scraps: [Date: [DailyScrapModel]] = [:] // 스크랩 데이터를 저장할 딕셔너리
+    private var calendarDaily = generateDummyData2()
     
     // MARK: - Life Cycles
     
@@ -105,7 +106,7 @@ extension TNCalendarViewController {
     }
     
     private func loadDummyData() {
-        let dummyData = createDummyData()
+        let dummyData = generateDummyData1()
         for item in dummyData.scrapsByDeadline {
             if let date = dateFormatter.date(from: item.deadline) {
                 scraps[date] = item.scraps
@@ -266,11 +267,13 @@ extension TNCalendarViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return calendarDaily.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else { return UICollectionViewCell() }
+        
+        cell.bind(model: calendarDaily[indexPath.row])
         
         return cell
     }

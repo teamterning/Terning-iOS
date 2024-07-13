@@ -115,9 +115,7 @@ extension ProfileViewController {
             .subscribe(onNext: { [weak self] message in
                 self?.profileView.updateValidationUI(message: message)
             })
-            .disposed(
-                by: disposeBag
-            )
+            .disposed(by: disposeBag)
     }
 }
 

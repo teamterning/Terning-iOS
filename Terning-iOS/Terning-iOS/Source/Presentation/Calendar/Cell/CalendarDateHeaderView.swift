@@ -50,8 +50,7 @@ extension CalendarDateHeaderView {
     
     private func setLayout() {
         titleLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview()
-            $0.centerY.equalToSuperview()
+            $0.leading.centerY.equalToSuperview()
         }
     }
 }

@@ -37,7 +37,6 @@ final class CalendarDateHeaderView: UICollectionReusableView {
     }
 }
 
-
 // MARK: - UI & Layout
 
 extension CalendarDateHeaderView {

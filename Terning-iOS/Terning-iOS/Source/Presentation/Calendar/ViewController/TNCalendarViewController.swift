@@ -17,7 +17,6 @@ import FSCalendar
 
 final class TNCalendarViewController: UIViewController {
     
-    
     // MARK: - Properties
     
     private var isListViewVisible = false
@@ -163,7 +162,7 @@ extension TNCalendarViewController: FSCalendarDelegate {
         if calendar.scope == .week {
             
             rootView.calenderBottomCollectionView.backgroundColor = .grey200
-            rootView.roundCalendarViewCorners(radius: 20)
+            rootView.roundCalendarViewCorners(radius: 20) // 라운드 처리 해주기
             rootView.layer.applyShadow(alpha: 0.1, y: 2, blur: 4)
             
             rootView.calendarView.snp.updateConstraints { make in
@@ -171,7 +170,7 @@ extension TNCalendarViewController: FSCalendarDelegate {
             }
             rootView.calenderBottomCollectionView.isHidden = false
         } else {
-            rootView.roundCalendarViewCorners(radius: 0)
+            rootView.roundCalendarViewCorners(radius: 0)  // 라운드 처리 풀어 주기
             rootView.layer.shadowOpacity = 0
             
             rootView.calendarView.snp.updateConstraints {
@@ -227,7 +226,7 @@ extension TNCalendarViewController: FSCalendarDataSource {
 
 extension TNCalendarViewController: FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        return .clear
+        return .clear // 기본 title 숨김
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, subtitleDefaultColorFor date: Date) -> UIColor? {

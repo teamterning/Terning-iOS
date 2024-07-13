@@ -21,27 +21,18 @@ class FilteringSettingViewController: UIViewController {
     
     // MARK: - UIComponents
     
-    lazy var navi = CustomNavigationBar(self, type: .centerTitleWithLeftButton).setTitle("필터링 재설정")
-    
     var rootView = FilteringSettingView()
     
     // MARK: - LifeCycles
     
     override func loadView() {
         view = rootView
-        view.addSubview(navi)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setAddTarget()
-        
-        navi.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(68)
-        }
     }
 }
 

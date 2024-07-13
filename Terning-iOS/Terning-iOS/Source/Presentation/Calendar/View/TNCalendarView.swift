@@ -32,8 +32,6 @@ final class TNCalendarView: UIView {
         $0.appearance.titleFont = .body7
         $0.scrollEnabled = true
         $0.scrollDirection = .horizontal
-        $0.appearance.headerMinimumDissolvedAlpha = 0.0
-        $0.appearance.headerTitleColor = .white
         $0.weekdayHeight = 48
         $0.clipsToBounds = false
         $0.appearance.titlePlaceholderColor = .grey200
@@ -66,7 +64,7 @@ final class TNCalendarView: UIView {
         let layout = CompositionalLayout.createCalendarBottomLayout()
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .grey200
+        collectionView.backgroundColor = .back
         collectionView.isScrollEnabled = true
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isHidden = true
@@ -99,7 +97,7 @@ final class TNCalendarView: UIView {
 
 extension TNCalendarView {
     private func setUI() {
-        backgroundColor = .grey200
+        backgroundColor = .back
     }
     
     private func setHierarchy() {

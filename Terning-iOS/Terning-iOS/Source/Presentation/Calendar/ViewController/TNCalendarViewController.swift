@@ -293,7 +293,6 @@ extension TNCalendarViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else { return UICollectionViewCell() }
             
             cell.bind(model: calendarDaily[indexPath.row])
-            print("calenderBottomCollectionView")
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else {
@@ -302,8 +301,8 @@ extension TNCalendarViewController: UICollectionViewDataSource {
             
             let scrapSection = Array(scraps.values)[indexPath.section]
             let scrapItem = scrapSection[indexPath.row]
+            
             cell.bind(model: scrapItem)
-            print("calenderListCollectionView")
             return cell
         }
     }

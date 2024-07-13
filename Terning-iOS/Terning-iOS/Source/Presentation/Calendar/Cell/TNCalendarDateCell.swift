@@ -47,13 +47,14 @@ final class TNCalendarDateCell: FSCalendarCell {
         UIView().then {
             $0.backgroundColor = .red
             $0.layer.cornerRadius = 2.5
-            $0.snp.makeConstraints { make in
-                make.width.height.equalTo(5)
+            $0.snp.makeConstraints {
+                $0.width.height.equalTo(5)
             }
         }
     }
     
-
+    // MARK: - Life Cycles
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -65,7 +66,9 @@ final class TNCalendarDateCell: FSCalendarCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
     
+extension TNCalendarDateCell {
     // MARK: - UI & Layout
     
     private func setUI() {
@@ -73,12 +76,15 @@ final class TNCalendarDateCell: FSCalendarCell {
     }
     
     private func setHierarchy() {
-        contentView.addSubviews(selectView, dateLabel, dotStackView)
+        contentView.addSubviews(
+            selectView,
+            dateLabel,
+            dotStackView
+        )
         dotViews.forEach { dotStackView.addArrangedSubview($0) }
     }
     
     private func setLayout() {
-        
         selectView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().offset(19)
@@ -91,12 +97,15 @@ final class TNCalendarDateCell: FSCalendarCell {
         
         dotStackView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(selectView.snp.bottom).offset(4) // 원하는 위치로 조정
+            $0.top.equalTo(selectView.snp.bottom).offset(4)
             $0.height.equalTo(5)
         }
     }
+}
+
+extension TNCalendarDateCell {
     
-    // MARK: - Methods
+    // MARK: - bind
     
     func bind(date: Date, textColor: UIColor, state: CalendarState, eventCount: Int) {
         

@@ -8,9 +8,8 @@
 import RxCocoa
 import RxSwift
 
-final class ProfileViewModel {
-    private let disposeBag = DisposeBag()
-    
+final class ProfileViewModel: ViewModelType {
+
     let nameRelay = BehaviorRelay<String>(value: "")
     private let nameValidationMessageRelay = BehaviorRelay<ValidationMessage>(value: .defaultMessage)
     
@@ -30,7 +29,7 @@ final class ProfileViewModel {
     
     // MARK: - Transform
     
-    func transform(input: Input) -> Output {
+    func transform(input: Input, disposeBag: DisposeBag) -> Output {
         input.name
             .bind(to: nameRelay)
             .disposed(by: disposeBag)

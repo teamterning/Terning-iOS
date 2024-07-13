@@ -32,6 +32,7 @@ class FilteringSettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setNavigationBind()
         setAddTarget()
     }
 }
@@ -51,6 +52,13 @@ extension FilteringSettingViewController {
         rootView.periodButton3.addTarget(self, action: #selector(periodButtonDidTap), for: .touchUpInside)
         
         rootView.saveButton.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
+    }
+    
+    func setNavigationBind() {
+        rootView.navi.leftButtonAction = {
+            let homeView = HomeViewController()
+            self.navigationController?.pushViewController(homeView, animated: true)
+        }
     }
     
     // MARK: - @objc Function

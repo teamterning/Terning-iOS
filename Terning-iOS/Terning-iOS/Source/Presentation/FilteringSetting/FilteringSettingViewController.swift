@@ -39,8 +39,9 @@ class FilteringSettingViewController: UIViewController {
         setAddTarget()
         
         navi.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(80)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(68)
         }
     }
 }

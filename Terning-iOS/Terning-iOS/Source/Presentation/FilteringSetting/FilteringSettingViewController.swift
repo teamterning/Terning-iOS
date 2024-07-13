@@ -35,7 +35,6 @@ class FilteringSettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUI()
         setAddTarget()
         
         navi.snp.makeConstraints {
@@ -49,10 +48,6 @@ class FilteringSettingViewController: UIViewController {
 // MARK: - UI & Layout
 
 extension FilteringSettingViewController {
-    
-    func setUI() {
-        self.tabBarController?.tabBar.isHidden = true
-    }
     
     func setAddTarget() {
         rootView.gradeButton1.addTarget(self, action: #selector(gradeButtonDidTap), for: .touchUpInside)
@@ -81,19 +76,21 @@ extension FilteringSettingViewController {
         }
         
         for gradeButton in gradeButtons_dict {
-            if gradeButton.key  == sender {
+            if gradeButton.key == sender {
                 gradeButton.key.backgroundColor = .terningMain
                 gradeButton.key.setTitleColor(.white, for: .normal)
                 gradeButton.key.isSelected.toggle()
                 grade = gradeButton.value
                 print("\(grade + 1)학년 선택되었습니다.")
-            } else if gradeButton.key == sender {
+                
+            } else if !gradeButton.key.isSelected {
                 continue
                 
             } else if gradeButton.key.isSelected {
                 gradeButton.key.backgroundColor = .clear
                 gradeButton.key.setTitleColor(.grey400, for: .normal)
                 gradeButton.key.isSelected = false
+                print("\(gradeButton.value)취소되었습니다.")
             }
         }
         return UIButton()
@@ -123,7 +120,7 @@ extension FilteringSettingViewController {
                     print("7개월 이상 선택되었습니다.")
                 }
                 
-            } else if periodButton.key == sender {
+            } else if !periodButton.key.isSelected {
                 continue
 
             } else if periodButton.key.isSelected {

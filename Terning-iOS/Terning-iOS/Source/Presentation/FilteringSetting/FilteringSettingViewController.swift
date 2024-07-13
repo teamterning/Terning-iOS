@@ -21,27 +21,19 @@ class FilteringSettingViewController: UIViewController {
     
     // MARK: - UIComponents
     
-    lazy var navi = CustomNavigationBar(self, type: .centerTitleWithLeftButton).setTitle("필터링 재설정")
-    
     var rootView = FilteringSettingView()
     
     // MARK: - LifeCycles
     
     override func loadView() {
         view = rootView
-        view.addSubview(navi)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setNavigationBind()
         setAddTarget()
-        
-        navi.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(68)
-        }
     }
 }
 
@@ -60,6 +52,12 @@ extension FilteringSettingViewController {
         rootView.periodButton3.addTarget(self, action: #selector(periodButtonDidTap), for: .touchUpInside)
         
         rootView.saveButton.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
+    }
+    
+    func setNavigationBind() {
+        rootView.navi.leftButtonAction = { [weak self] in
+            self?.popOrDismissViewController()
+        }
     }
     
     // MARK: - @objc Function

@@ -26,6 +26,7 @@ final class WelcomeViewController: UIViewController {
     private lazy var customView = WelcomeView(viewType: viewType)
     
     // MARK: - Init
+    
     init(viewType: WelcomeViewType) {
         
         self.viewType = viewType
@@ -37,7 +38,8 @@ final class WelcomeViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - ViewDidLoad
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

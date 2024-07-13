@@ -14,15 +14,21 @@ final class JobDetailInfoView: UIView {
     
     // MARK: - UI Components
     
-    private let titleLabel = UILabel().then {
-        $0.font = .body2
-        $0.textColor = .grey350
-    }
+    private let titleLabel = LabelFactory.build(
+        text: " ",
+        font: .body2,
+        textColor: .grey350,
+        lineSpacing: 1.2,
+        characterSpacing: 0.002
+    )
     
-    private let descriptionLabel = UILabel().then {
-        $0.font = .body3
-        $0.textColor = .grey500
-    }
+    private let descriptionLabel = LabelFactory.build(
+        text: " ",
+        font: .body3,
+        textColor: .grey500,
+        lineSpacing: 1.2,
+        characterSpacing: 0.002
+    )
     
     // MARK: - Init
     
@@ -51,7 +57,7 @@ extension JobDetailInfoView {
         self.addSubviews(titleLabel, descriptionLabel)
         
         titleLabel.snp.makeConstraints {
-            $0.top.leading.equalToSuperview()
+            $0.verticalEdges.leading.equalToSuperview()
         }
         
         descriptionLabel.snp.makeConstraints {
@@ -68,6 +74,13 @@ extension JobDetailInfoView {
     @discardableResult
     func setDescriptionText(description: String) -> Self {
         self.descriptionLabel.text = description
+        return self
+    }
+    
+    @discardableResult
+    func setTitleTextColor(titleColor: UIColor, descriptionColor: UIColor) -> Self {
+        self.titleLabel.textColor = titleColor
+        self.descriptionLabel.textColor = descriptionColor
         return self
     }
 }

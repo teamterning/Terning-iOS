@@ -43,7 +43,7 @@ final class ProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - ViewDidLoad
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,8 +107,7 @@ extension ProfileViewController {
         
         output.isNameValid
             .subscribe(onNext: { [weak self] isValid in
-                self?.profileView.getSaveButton().isEnabled = isValid
-                self?.profileView.getSaveButton().backgroundColor = isValid ? .terningMain : .grey200
+                self?.profileView.getSaveButton().setEnabled(isValid)
             })
             .disposed(by: disposeBag)
         

@@ -34,7 +34,7 @@ final class TNCalendarView: UIView {
         $0.clipsToBounds = false
         $0.appearance.titlePlaceholderColor = .grey200
         $0.appearance.titleDefaultColor = .black
-        
+
         let weekdayTexts = ["일", "월", "화", "수", "목", "금", "토"]
         $0.calendarWeekdayView.weekdayLabels.enumerated().forEach { (index, label) in
             label.text = weekdayTexts[index]

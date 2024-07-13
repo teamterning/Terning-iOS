@@ -65,7 +65,7 @@ struct CompositionalLayout {
                 )
             )
             
-            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
             
             let group = NSCollectionLayoutGroup.vertical(
                 layoutSize: .init(

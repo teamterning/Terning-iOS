@@ -149,6 +149,11 @@ extension TNCalendarViewController {
 // MARK: - FSCalendarDelegate
 
 extension TNCalendarViewController: FSCalendarDelegate {
+    
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        return monthPosition == .current // 현재 월이 아닌 날짜는 선택되지 않도록 설정
+    }
+    
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         updateNaviBarTitle(for: calendar.currentPage)
         calendar.reloadData()
@@ -178,6 +183,7 @@ extension TNCalendarViewController: FSCalendarDelegate {
                 make.height.equalTo(90 + 20) // 주간 뷰 높이 설정
             }
             rootView.calenderBottomCollectionView.isHidden = false
+            
         } else {
             rootView.roundCalendarViewCorners(radius: 0)  // 라운드 처리 풀어 주기
             rootView.layer.shadowOpacity = 0
@@ -188,10 +194,12 @@ extension TNCalendarViewController: FSCalendarDelegate {
                 let cellHeight = weekCount == 6 ? 90 : 106
                 let addHeight = weekCount == 6 ? 28 : 39 // 캘린더 주에 맞는 추가 높이 설정
                 
-                $0.height.equalTo(cellHeight * weekCount + 48 + addHeight)
+                let point = cellHeight * weekCount + 48 + addHeight
+                $0.height.equalTo(point.adjustedH)
             }
             
             rootView.calenderBottomCollectionView.isHidden = true
+            rootView.calenderBottomCollectionView.backgroundColor = .white
         }
         
         updateNaviBarTitle(for: calendar.currentPage)
@@ -329,6 +337,11 @@ extension TNCalendarViewController: UICollectionViewDataSource {
             case UICollectionView.elementKindSectionFooter:
                 guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CalendarDateFooterView.className, for: indexPath) as? CalendarDateFooterView else {
                     return UICollectionReusableView()
+                }
+                
+                // 마지막 섹션인 경우 배경색 설정
+                if indexPath.section == collectionView.numberOfSections - 1 {
+                    footerView.backgroundColor = .back
                 }
                 
                 return footerView

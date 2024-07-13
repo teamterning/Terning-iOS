@@ -111,14 +111,14 @@ extension TNCalendarDateCell {
         
         switch state {
         case .today:
-            selectView.backgroundColor = .terningMain
+            selectView.backgroundColor = .grey200
             selectView.isHidden = false
             dateLabel.textColor = .white
         case .normal:
             selectView.isHidden = true
             dateLabel.textColor = .black
         case .selected:
-            selectView.backgroundColor = .grey200
+            selectView.backgroundColor = .terningMain
             selectView.isHidden = false
             dateLabel.textColor = .black
         }

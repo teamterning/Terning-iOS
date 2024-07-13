@@ -99,7 +99,7 @@ extension ProfileViewController {
 extension ProfileViewController {
     private func bindViewModel() {
         let input = ProfileViewModel.Input(name: profileView.getNameTextField().rx.text.orEmpty.asObservable())
-        let output = viewModel.transform(input: input)
+        let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
         output.nameCountText
             .bind(to: profileView.getNameCountLabel().rx.text)

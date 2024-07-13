@@ -56,8 +56,10 @@ enum TNTabBarItem {
         switch self {
         case .home:
             return HomeViewController()
+        case .calendar:
+            return TNCalendarViewController()
         default:
-            return ViewController(backgroundColor: .terningMain)
+            return ViewController(backgroundColor: .calGreen2)
         }
     }
 }

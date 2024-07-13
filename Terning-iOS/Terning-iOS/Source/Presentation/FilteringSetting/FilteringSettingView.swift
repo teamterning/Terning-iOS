@@ -13,8 +13,7 @@ import Then
 class FilteringSettingView: UIView {
     
     // MARK: - UIComponents
-
-    // user  select one's grade
+    
     let gradeSelectionTitle = LabelFactory.build(
         text: "재학 상태를 선택해주세요",
         font: .title3,
@@ -69,7 +68,6 @@ class FilteringSettingView: UIView {
         $0.distribution = .fillEqually
     }
     
-    // user select period
     let periodSelectionTitle = LabelFactory.build(
         text: "희망하는 인턴 근무 기간을 선택해주세요",
         font: .title3,
@@ -120,7 +118,6 @@ class FilteringSettingView: UIView {
     
     var monthPickerView = CustomDatePicker()
     
-    // user select month
     let monthSelectionTitle = LabelFactory.build(
         text: "입사를 계획중인 달을 선택해주세요",
         font: .title3,
@@ -139,6 +136,14 @@ class FilteringSettingView: UIView {
         $0.spacing = 0
         $0.alignment = .leading
     }
+    
+    lazy var saveButton = UIButton().then {
+        $0.setTitle("저장하기", for: .normal)
+        $0.titleLabel?.font = .button0
+        $0.setTitleColor(.white, for: .normal)
+        $0.backgroundColor = .terningMain
+    }
+    
     // MARK: LifeCycles
     
     override init(frame: CGRect) {
@@ -169,7 +174,8 @@ extension FilteringSettingView {
             titleStack2,
             periodButtonStack,
             titleStack3,
-            monthPickerView
+            monthPickerView,
+            saveButton
         )
     }
     
@@ -232,6 +238,12 @@ extension FilteringSettingView {
         monthPickerView.snp.makeConstraints {
             $0.top.equalTo(titleStack3.snp.bottom).offset(20)
             $0.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        saveButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(52)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(52)
         }
     }
 }

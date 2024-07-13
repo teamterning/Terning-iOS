@@ -274,6 +274,7 @@ extension HomeViewController: UICollectionViewDataSource {
 extension HomeViewController: FilteringButtonTappedProtocol {
     func filteringButtonTapped() {
         let filteringSettingView = FilteringSettingViewController()
+        filteringSettingView.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(filteringSettingView, animated: true)
     }
 }

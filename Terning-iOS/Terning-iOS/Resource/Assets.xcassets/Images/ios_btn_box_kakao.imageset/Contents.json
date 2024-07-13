@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Property 1=active.svg",
+      "filename" : "ios_btn_box_kakao.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "ios_btn_box_kakao2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "ios_btn_box_kakao3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

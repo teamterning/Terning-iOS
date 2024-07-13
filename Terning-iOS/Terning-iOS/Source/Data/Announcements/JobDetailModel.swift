@@ -22,4 +22,35 @@ struct JobDetailModel: Codable {
     let detail: String
     let url: String
     let isScrap: Bool
+    let scrapCount: Int
+}
+
+struct MainInfoModel {
+    let dDay: String
+    let title: String
+    let deadline: String
+    let workingPeriod: String
+    let startDate: String
+    let viewCount: Int
+}
+
+struct CompanyInfoModel {
+    let company: String
+    let companyCategory: String
+    let companyImage: String?
+}
+
+struct SummaryInfoModel {
+    let qualification: [String]
+    let jobType: [String]
+}
+
+struct DetailInfoModel {
+    let detail: String
+}
+
+struct BottomInfoModel {
+    let url: String?
+    let isScrap: Bool
+    let scrapCount: Int
 }

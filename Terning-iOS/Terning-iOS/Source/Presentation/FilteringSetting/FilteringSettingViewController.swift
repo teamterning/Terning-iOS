@@ -55,9 +55,8 @@ extension FilteringSettingViewController {
     }
     
     func setNavigationBind() {
-        rootView.navi.leftButtonAction = {
-            let homeView = HomeViewController()
-            self.navigationController?.pushViewController(homeView, animated: true)
+        rootView.navi.leftButtonAction = { [weak self] in
+            self?.popOrDismissViewController()
         }
     }
     

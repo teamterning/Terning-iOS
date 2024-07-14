@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 import SnapKit
 import Then
 
@@ -77,7 +76,6 @@ final class JobListingCell: UICollectionViewCell {
     private let colorMark = UIView().then {
         $0.backgroundColor = .calOrange
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
-        
     }
     
     // MARK: - Life Cycles
@@ -123,7 +121,6 @@ extension JobListingCell {
     }
     
     private func setLayout() {
-        
         colorMark.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()
             $0.width.equalTo(8)
@@ -137,7 +134,6 @@ extension JobListingCell {
         mainImageView.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
             $0.width.height.equalTo(76)
-            $0.bottom.equalToSuperview()
         }
         
         deadlineLabel.snp.makeConstraints {
@@ -146,27 +142,25 @@ extension JobListingCell {
         }
         
         mainTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(deadlineLabel.snp.bottom).offset(4)
+            $0.top.equalTo(containerView.snp.top).offset(16)
             $0.leading.equalTo(mainImageView.snp.trailing).offset(8)
             $0.trailing.equalToSuperview()
         }
         
         workingPeriodLabel.snp.makeConstraints {
-            $0.top.equalTo(mainTitleLabel.snp.bottom).offset(8)
+            $0.top.equalTo(containerView.snp.top).offset(59)
             $0.leading.equalTo(mainImageView.snp.trailing).offset(8)
-            $0.bottom.equalToSuperview()
         }
         
         monthLabel.snp.makeConstraints {
-            $0.top.equalTo(mainTitleLabel.snp.bottom).offset(8)
+            $0.top.equalTo(containerView.snp.top).offset(59)
             $0.leading.equalTo(workingPeriodLabel.snp.trailing).offset(8)
-            $0.bottom.equalToSuperview()
         }
         
         scrapButton.snp.makeConstraints {
             $0.trailing.equalTo(contentView.snp.trailing).inset(17)
             $0.height.width.equalTo(24)
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(12)
         }
     }
 }
@@ -175,8 +169,15 @@ extension JobListingCell {
     
     // MARK: - Methods
     
-    func bindData(image: UIImage) {
-        self.mainImageView.image = image
+    func bind(model: DailyScrapModel) {
+        guard let day = model.dDay else { return print("JobListingCell Error dDay") }
+        guard let workingPeriod = model.workingPeriod else { return print("JobListingCell Error workingPeriod") }
+        
+        self.deadlineLabel.text = day
+        self.monthLabel.text = workingPeriod
+        
+        self.mainTitleLabel.text = model.title
+        self.colorMark.backgroundColor = UIColor(hex: model.color)
     }
     
     private func setAddTarget() {
@@ -192,4 +193,22 @@ extension JobListingCell {
     func scrapButtonDidTap(_ sender: UIButton) {
         delegate?.scrapButtonDidTap(wantsTolike: (sender.isSelected == true))
     }
+}
+                                  
+extension UIColor {
+  convenience init(hex: String, alpha: CGFloat = 1.0) {
+      var hexFormatted: String = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
+      
+      if hexFormatted.hasPrefix("#") {
+          hexFormatted = String(hexFormatted.dropFirst())
+      }
+      
+      assert(hexFormatted.count == 6, "Invalid hex code used.")
+      var rgbValue: UInt64 = 0
+      Scanner(string: hexFormatted).scanHexInt64(&rgbValue)
+      
+      self.init(red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+                green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+                blue: CGFloat(rgbValue & 0x0000FF) / 255.0, alpha: alpha)
+  }
 }

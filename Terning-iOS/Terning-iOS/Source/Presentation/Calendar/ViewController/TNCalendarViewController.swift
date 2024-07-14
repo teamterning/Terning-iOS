@@ -30,7 +30,8 @@ final class TNCalendarViewController: UIViewController {
     private let rootView = TNCalendarView()
     private let disposeBag = DisposeBag()
     private var selectedDate: Date?
-    private var scraps: [Date: [Scrap]] = [:] // 스크랩 데이터를 저장할 딕셔너리
+    private var scraps: [Date: [DailyScrapModel]] = [:] // 스크랩 데이터를 저장할 딕셔너리
+    private var calendarDaily = generateDummyData2()
     
     // MARK: - Life Cycles
     
@@ -57,8 +58,12 @@ extension TNCalendarViewController {
     private func setDelegate() {
         rootView.calendarView.delegate = self
         rootView.calendarView.dataSource = self
+        
         rootView.calenderBottomCollectionView.delegate = self
         rootView.calenderBottomCollectionView.dataSource = self
+        
+        rootView.calenderListCollectionView.delegate = self
+        rootView.calenderListCollectionView.dataSource = self
     }
     
     private func setRegister() {
@@ -66,6 +71,10 @@ extension TNCalendarViewController {
         
         rootView.calenderBottomCollectionView.register(JobListingCell.self, forCellWithReuseIdentifier: JobListingCell.className)
         rootView.calenderBottomCollectionView.register(CalendarDateHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CalendarDateHeaderView.className)
+        
+        rootView.calenderListCollectionView.register(JobListingCell.self, forCellWithReuseIdentifier: JobListingCell.className)
+        rootView.calenderListCollectionView.register(CalendarDateHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CalendarDateHeaderView.className)
+        rootView.calenderListCollectionView.register(CalendarDateFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CalendarDateFooterView.className)
     }
     
     private func bindNavigation() {
@@ -105,8 +114,8 @@ extension TNCalendarViewController {
     }
     
     private func loadDummyData() {
-        let dummyData = createDummyData()
-        for item in dummyData.scrapsByDeadline {
+        let dummyData = generateDummyData3()
+        for item in dummyData {
             if let date = dateFormatter.date(from: item.deadline) {
                 scraps[date] = item.scraps
             }
@@ -140,6 +149,11 @@ extension TNCalendarViewController {
 // MARK: - FSCalendarDelegate
 
 extension TNCalendarViewController: FSCalendarDelegate {
+    
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        return monthPosition == .current // 현재 월이 아닌 날짜는 선택되지 않도록 설정
+    }
+    
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         updateNaviBarTitle(for: calendar.currentPage)
         calendar.reloadData()
@@ -161,7 +175,7 @@ extension TNCalendarViewController: FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         if calendar.scope == .week {
             
-            rootView.calenderBottomCollectionView.backgroundColor = .grey200
+            rootView.calenderBottomCollectionView.backgroundColor = .back
             rootView.roundCalendarViewCorners(radius: 20) // 라운드 처리 해주기
             rootView.layer.applyShadow(alpha: 0.1, y: 2, blur: 4)
             
@@ -169,6 +183,7 @@ extension TNCalendarViewController: FSCalendarDelegate {
                 make.height.equalTo(90 + 20) // 주간 뷰 높이 설정
             }
             rootView.calenderBottomCollectionView.isHidden = false
+            
         } else {
             rootView.roundCalendarViewCorners(radius: 0)  // 라운드 처리 풀어 주기
             rootView.layer.shadowOpacity = 0
@@ -179,10 +194,12 @@ extension TNCalendarViewController: FSCalendarDelegate {
                 let cellHeight = weekCount == 6 ? 90 : 106
                 let addHeight = weekCount == 6 ? 28 : 39 // 캘린더 주에 맞는 추가 높이 설정
                 
-                $0.height.equalTo(cellHeight * weekCount + 48 + addHeight)
+                let point = cellHeight * weekCount + 48 + addHeight
+                $0.height.equalTo(point.adjustedH)
             }
             
             rootView.calenderBottomCollectionView.isHidden = true
+            rootView.calenderBottomCollectionView.backgroundColor = .white
         }
         
         updateNaviBarTitle(for: calendar.currentPage)
@@ -262,24 +279,76 @@ extension TNCalendarViewController: UICollectionViewDelegate {
 
 extension TNCalendarViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        if collectionView == rootView.calenderBottomCollectionView {
+            return 1
+        } else {
+            return scraps.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if collectionView == rootView.calenderBottomCollectionView {
+            return calendarDaily.count
+        } else {
+            let scrapSection = Array(scraps.values)[section]
+            return scrapSection.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else { return UICollectionViewCell() }
         
-        return cell
+        if collectionView == rootView.calenderBottomCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else { return UICollectionViewCell() }
+            
+            cell.bind(model: calendarDaily[indexPath.row])
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else {
+                return UICollectionViewCell()
+            }
+            
+            let scrapSection = Array(scraps.values)[indexPath.section]
+            let scrapItem = scrapSection[indexPath.row]
+            
+            cell.bind(model: scrapItem)
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CalendarDateHeaderView.className, for: indexPath) as? CalendarDateHeaderView else { return UICollectionReusableView() }
-        
-        return headerView
-        
+        if collectionView == rootView.calenderBottomCollectionView {
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CalendarDateHeaderView.className, for: indexPath) as? CalendarDateHeaderView else { return UICollectionReusableView() }
+            
+            return headerView
+        } else {
+            switch kind {
+            case UICollectionView.elementKindSectionHeader:
+                guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CalendarDateHeaderView.className, for: indexPath) as? CalendarDateHeaderView else {
+                    return UICollectionReusableView()
+                }
+                
+                let scrapSection = Array(scraps.keys)[indexPath.section]
+                let formattedDate = dateFormatter.string(from: scrapSection)
+                headerView.bind(title: formattedDate)
+                
+                return headerView
+                
+            case UICollectionView.elementKindSectionFooter:
+                guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CalendarDateFooterView.className, for: indexPath) as? CalendarDateFooterView else {
+                    return UICollectionReusableView()
+                }
+                
+                // 마지막 섹션인 경우 배경색 설정
+                if indexPath.section == collectionView.numberOfSections - 1 {
+                    footerView.backgroundColor = .back
+                }
+                
+                return footerView
+                
+            default:
+                return UICollectionReusableView()
+            }
+        }
     }
 }

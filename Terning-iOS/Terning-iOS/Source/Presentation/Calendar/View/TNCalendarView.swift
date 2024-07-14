@@ -6,10 +6,8 @@
 //
 
 import UIKit
-
 import SnapKit
 import Then
-
 import FSCalendar
 
 final class TNCalendarView: UIView {
@@ -32,13 +30,11 @@ final class TNCalendarView: UIView {
         $0.appearance.titleFont = .body7
         $0.scrollEnabled = true
         $0.scrollDirection = .horizontal
-        $0.appearance.headerMinimumDissolvedAlpha = 0.0
-        $0.appearance.headerTitleColor = .white
         $0.weekdayHeight = 48
         $0.clipsToBounds = false
         $0.appearance.titlePlaceholderColor = .grey200
         $0.appearance.titleDefaultColor = .black
-        
+
         let weekdayTexts = ["일", "월", "화", "수", "목", "금", "토"]
         $0.calendarWeekdayView.weekdayLabels.enumerated().forEach { (index, label) in
             label.text = weekdayTexts[index]
@@ -52,8 +48,8 @@ final class TNCalendarView: UIView {
     // 캘린더 주간 뷰
     lazy var calenderBottomCollectionView: UICollectionView = {
         let layout = CompositionalLayout.createCalendarBottomLayout()
-        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
         collectionView.backgroundColor = .white
         collectionView.isScrollEnabled = true
         collectionView.showsVerticalScrollIndicator = false
@@ -63,10 +59,10 @@ final class TNCalendarView: UIView {
     
     // 리스트 뷰
     lazy var calenderListCollectionView: UICollectionView = {
-        let layout = CompositionalLayout.createCalendarBottomLayout()
-        
+        let layout = CompositionalLayout.createCalendarListLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .grey200
+        
+        collectionView.backgroundColor = .back
         collectionView.isScrollEnabled = true
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isHidden = true
@@ -87,19 +83,13 @@ final class TNCalendarView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // 주간일 때 라운딩 처리 메서드
-    func roundCalendarViewCorners(radius: CGFloat) {
-        calendarViewContainer.layer.cornerRadius = radius
-        calendarViewContainer.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-    }
 }
 
 // MARK: - UI & Layout
 
 extension TNCalendarView {
     private func setUI() {
-        backgroundColor = .grey200
+        backgroundColor = .back
     }
     
     private func setHierarchy() {
@@ -153,5 +143,15 @@ extension TNCalendarView {
             $0.top.equalTo(naviBar.snp.bottom)
             $0.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
         }
+    }
+}
+
+// MARK: - Methods
+
+extension TNCalendarView {
+    // 주간일 때 라운딩 처리 메서드
+    func roundCalendarViewCorners(radius: CGFloat) {
+        calendarViewContainer.layer.cornerRadius = radius
+        calendarViewContainer.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
 }

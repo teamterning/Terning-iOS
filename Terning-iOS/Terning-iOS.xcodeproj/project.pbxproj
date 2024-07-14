@@ -59,6 +59,7 @@
 		71461EBD2C3705B6002A6999 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461EBC2C3705B6002A6999 /* FontLiterals.swift */; };
 		71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461ED32C3811E8002A6999 /* ViewController+.swift */; };
 		71461ED62C38150C002A6999 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461ED52C38150C002A6999 /* UILabel+.swift */; };
+		716E08AC2C44349A00469E3B /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 716E08AB2C44349A00469E3B /* Config.xcconfig */; };
 		717D37EA2C32FA2F00A857DB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 717D37E92C32FA2F00A857DB /* SnapKit */; };
 		71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509202C41AD35006D8E56 /* JobListingCell.swift */; };
 		71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509222C41BD90006D8E56 /* CompositionalLayout.swift */; };
@@ -139,7 +140,6 @@
 		2DC61F142C41AB54009F991F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2DC61F182C41B261009F991F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		2DC61F282C421335009F991F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		2DC61F312C421684009F991F /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
@@ -160,6 +160,7 @@
 		71461EBC2C3705B6002A6999 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
 		71461ED32C3811E8002A6999 /* ViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+.swift"; sourceTree = "<group>"; };
 		71461ED52C38150C002A6999 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		716E08AB2C44349A00469E3B /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		71B509202C41AD35006D8E56 /* JobListingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListingCell.swift; sourceTree = "<group>"; };
 		71B509222C41BD90006D8E56 /* CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayout.swift; sourceTree = "<group>"; };
 		71B509242C41D027006D8E56 /* CalendarDateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateHeaderView.swift; sourceTree = "<group>"; };
@@ -231,13 +232,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2D4EE3922C3DD5A000E3E95B /* WelcomeView */ = {
+		2D4EE3922C3DD5A000E3E95B /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
 				2D4EE39C2C3E6E3200E3E95B /* View */,
 				2D4EE39D2C3E6E3A00E3E95B /* ViewController */,
 			);
-			path = WelcomeView;
+			path = Welcome;
 			sourceTree = "<group>";
 		};
 		2D4EE39C2C3E6E3200E3E95B /* View */ = {
@@ -256,14 +257,14 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		2D4EE3A02C3E787200E3E95B /* ProfileView */ = {
+		2D4EE3A02C3E787200E3E95B /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				2D4EE3A82C3E78B800E3E95B /* View */,
 				2D4EE3A72C3E78B400E3E95B /* ViewController */,
 				2D4EE3A92C3E78BE00E3E95B /* ViewModel */,
 			);
-			path = ProfileView;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		2D4EE3A72C3E78B400E3E95B /* ViewController */ = {
@@ -468,6 +469,14 @@
 			path = "Foundation+";
 			sourceTree = "<group>";
 		};
+		716E08AA2C44346F00469E3B /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				716E08AB2C44349A00469E3B /* Config.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		71CCC06D2C3F369A00789A9B /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -564,7 +573,6 @@
 				71E3C3E72C241BF20026C4DD /* Source */,
 				71E3C3E12C241B170026C4DD /* Network */,
 				71E3C3DA2C22BAF50026C4DD /* Info.plist */,
-				2DC61F312C421684009F991F /* Config.xcconfig */,
 			);
 			path = "Terning-iOS";
 			sourceTree = "<group>";
@@ -591,6 +599,7 @@
 		71E3C3E42C241B8A0026C4DD /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				716E08AA2C44346F00469E3B /* Config */,
 				7121A1312C396F980056DB8B /* UIComponents */,
 				71E3C4102C243BBC0026C4DD /* Utils */,
 				71E3C3EC2C241C500026C4DD /* Literal */,
@@ -619,8 +628,8 @@
 				B86A67522C408AF900CB90E5 /* SortBottomSheet */,
 				2DC61EEE2C40759F009F991F /* JobDetail */,
 				2D4EE3D82C3F520000E3E95B /* Onboarding */,
-				2D4EE3A02C3E787200E3E95B /* ProfileView */,
-				2D4EE3922C3DD5A000E3E95B /* WelcomeView */,
+				2D4EE3A02C3E787200E3E95B /* Profile */,
+				2D4EE3922C3DD5A000E3E95B /* Welcome */,
 				B8C5DB6F2C3F39A500865B1A /* FilteringSetting */,
 				B871D7142C3E8498008D78C2 /* Home */,
 				71D7E6EB2C2FF41200C54EA7 /* TabBar */,
@@ -873,6 +882,7 @@
 				71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */,
 				71E3C3D92C22BAF50026C4DD /* LaunchScreen.storyboard in Resources */,
 				71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */,
+				716E08AC2C44349A00469E3B /* Config.xcconfig in Resources */,
 				71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */,
 				71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */,
 				71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */,
@@ -1010,7 +1020,6 @@
 /* Begin XCBuildConfiguration section */
 		71E3C3DB2C22BAF50026C4DD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2DC61F312C421684009F991F /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1074,7 +1083,6 @@
 		};
 		71E3C3DC2C22BAF50026C4DD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2DC61F312C421684009F991F /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1131,7 +1139,6 @@
 		};
 		71E3C3DE2C22BAF50026C4DD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2DC61F312C421684009F991F /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1165,7 +1172,6 @@
 		};
 		71E3C3DF2C22BAF50026C4DD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2DC61F312C421684009F991F /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

@@ -30,7 +30,6 @@ class CustomBottomSheetViewController: UIViewController {
     private let floatingPanel = UIView().then {
         $0.backgroundColor = .grey300
         $0.layer.cornerRadius = 2
-        $0.isUserInteractionEnabled = false
     }
     
     // MARK: LifeCycles
@@ -133,9 +132,8 @@ extension CustomBottomSheetViewController {
         hideButtonSheet()
     }
     
-    // MARK: - objc Functions
     @objc
     func sortButtonSelected(_ sender: UIButton) {
-        print("sss")
+        print("sort button selected")
     }
 }

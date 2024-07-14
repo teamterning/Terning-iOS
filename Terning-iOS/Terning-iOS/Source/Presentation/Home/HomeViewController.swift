@@ -284,8 +284,6 @@ extension HomeViewController: FilteringButtonTappedProtocol {
 
 extension HomeViewController: SortButtonTappedProtocol {
     func pushToBottomSheet() {
-        print("It will be pushed to BottomSheetView")
-        // bottom sheet로 push 하는 코드 작성
         let bottomSheetVC = CustomBottomSheetViewController()
         
         bottomSheetVC.modalPresentationStyle = .overFullScreen

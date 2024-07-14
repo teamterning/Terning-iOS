@@ -7,13 +7,34 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
+
 import SnapKit
+
+import KakaoSDKAuth
+import KakaoSDKUser
 
 final class LoginViewController: UIViewController {
     
     // MARK: - UI Components
     
     private let loginView = LoginView()
+    private let viewModel: LoginViewModel
+    private let disposeBag = DisposeBag()
+    
+    // MARK: - Init
+    
+    init(viewModel: LoginViewModel) {
+        
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - View Life Cycle
     
@@ -23,6 +44,7 @@ final class LoginViewController: UIViewController {
         
         setUI()
         setLayout()
+        bindViewModel()
     }
 }
 
@@ -37,5 +59,36 @@ extension LoginViewController {
         loginView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+}
+
+// MARK: - Bind
+
+extension LoginViewController {
+    private func bindViewModel() {
+        let input = LoginViewModel.Input(
+            kakaoLoginButtonTapped: loginView.kakaoLoginButton.rx.tap.asObservable(),
+            appleLoginButtonTapped: loginView.appleLoginButton.rx.tap.asObservable()
+        )
+        
+        let output = viewModel.transform(input)
+        
+        output.loginSuccess
+            .drive(onNext: { [weak self] success in
+                if success {
+                    self?.navigateToNextScreen()
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Methods
+
+extension LoginViewController {
+    private func navigateToNextScreen() {
+        let tabBarController = TNTabBarController()
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(tabBarController, animated: false)
     }
 }

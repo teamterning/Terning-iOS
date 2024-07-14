@@ -19,11 +19,11 @@ final class LoginView: UIView {
         $0.layer.masksToBounds = true
     }
     
-    private let kakaoLoginButton = UIButton(type: .custom).then {
+    let kakaoLoginButton = UIButton(type: .custom).then {
         $0.setImage(.iosBtnBoxKakao, for: .normal)
     }
     
-    private let appleLoginButton = UIButton(type: .custom).then {
+    let appleLoginButton = UIButton(type: .custom).then {
         $0.setImage(.iosBtnBoxApple, for: .normal)
     }
     

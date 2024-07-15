@@ -63,6 +63,8 @@
 		71780C322C45705C0073B731 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C312C45705C0073B731 /* Encodable+.swift */; };
 		71780C352C45725E0073B731 /* Providers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C342C45725E0073B731 /* Providers.swift */; };
 		71780C372C4575D80073B731 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C362C4575D80073B731 /* Config.swift */; };
+		71780C3A2C4577FF0073B731 /* CalendarTargertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C392C4577FF0073B731 /* CalendarTargertType.swift */; };
+		71780C3C2C457DD70073B731 /* AuthTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C3B2C457DD70073B731 /* AuthTargetType.swift */; };
 		717D37EA2C32FA2F00A857DB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 717D37E92C32FA2F00A857DB /* SnapKit */; };
 		71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509202C41AD35006D8E56 /* JobListingCell.swift */; };
 		71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509222C41BD90006D8E56 /* CompositionalLayout.swift */; };
@@ -167,6 +169,8 @@
 		71780C312C45705C0073B731 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		71780C342C45725E0073B731 /* Providers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Providers.swift; sourceTree = "<group>"; };
 		71780C362C4575D80073B731 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		71780C392C4577FF0073B731 /* CalendarTargertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTargertType.swift; sourceTree = "<group>"; };
+		71780C3B2C457DD70073B731 /* AuthTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTargetType.swift; sourceTree = "<group>"; };
 		71B509202C41AD35006D8E56 /* JobListingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListingCell.swift; sourceTree = "<group>"; };
 		71B509222C41BD90006D8E56 /* CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayout.swift; sourceTree = "<group>"; };
 		71B509242C41D027006D8E56 /* CalendarDateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateHeaderView.swift; sourceTree = "<group>"; };
@@ -493,6 +497,15 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		71780C382C45778D0073B731 /* TargetType */ = {
+			isa = PBXGroup;
+			children = (
+				71780C392C4577FF0073B731 /* CalendarTargertType.swift */,
+				71780C3B2C457DD70073B731 /* AuthTargetType.swift */,
+			);
+			path = TargetType;
+			sourceTree = "<group>";
+		};
 		71CCC06D2C3F369A00789A9B /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -607,6 +620,7 @@
 		71E3C3E12C241B170026C4DD /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				71780C382C45778D0073B731 /* TargetType */,
 				7121A1442C3B079F0056DB8B /* Base */,
 				71780C332C4572300073B731 /* Service */,
 			);
@@ -980,9 +994,11 @@
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
 				2DC61EF52C4075EB009F991F /* MainInfoTableViewCell.swift in Sources */,
 				2DC61F292C421335009F991F /* LoginViewModel.swift in Sources */,
+				71780C3C2C457DD70073B731 /* AuthTargetType.swift in Sources */,
 				2DC61F072C4145CD009F991F /* CustomScrapButton.swift in Sources */,
 				2D4EE3E82C400D6900E3E95B /* OnboardingPageViewController.swift in Sources */,
 				2D4EE3EA2C400ECB00E3E95B /* OnboardingViewController.swift in Sources */,
+				71780C3A2C4577FF0073B731 /* CalendarTargertType.swift in Sources */,
 				B871D7392C3F1A49008D78C2 /* CheckDeadlineCell.swift in Sources */,
 				2DC61F032C4087B4009F991F /* JobSummaryInfoView.swift in Sources */,
 				B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */,

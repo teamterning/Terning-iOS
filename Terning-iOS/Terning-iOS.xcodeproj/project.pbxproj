@@ -72,6 +72,7 @@
 		71780C482C458FF80073B731 /* HomeTargertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C472C458FF80073B731 /* HomeTargertType.swift */; };
 		71780C4A2C4591B90073B731 /* MyPageTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C492C4591B90073B731 /* MyPageTargetType.swift */; };
 		71780C4C2C4598590073B731 /* ScrapsTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C4B2C4598590073B731 /* ScrapsTargetType.swift */; };
+		71780C4E2C459F610073B731 /* FiltersTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C4D2C459F610073B731 /* FiltersTargetType.swift */; };
 		717D37EA2C32FA2F00A857DB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 717D37E92C32FA2F00A857DB /* SnapKit */; };
 		71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509202C41AD35006D8E56 /* JobListingCell.swift */; };
 		71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509222C41BD90006D8E56 /* CompositionalLayout.swift */; };
@@ -185,6 +186,7 @@
 		71780C472C458FF80073B731 /* HomeTargertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTargertType.swift; sourceTree = "<group>"; };
 		71780C492C4591B90073B731 /* MyPageTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTargetType.swift; sourceTree = "<group>"; };
 		71780C4B2C4598590073B731 /* ScrapsTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapsTargetType.swift; sourceTree = "<group>"; };
+		71780C4D2C459F610073B731 /* FiltersTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersTargetType.swift; sourceTree = "<group>"; };
 		71B509202C41AD35006D8E56 /* JobListingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListingCell.swift; sourceTree = "<group>"; };
 		71B509222C41BD90006D8E56 /* CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayout.swift; sourceTree = "<group>"; };
 		71B509242C41D027006D8E56 /* CalendarDateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateHeaderView.swift; sourceTree = "<group>"; };
@@ -519,6 +521,7 @@
 				71780C472C458FF80073B731 /* HomeTargertType.swift */,
 				71780C492C4591B90073B731 /* MyPageTargetType.swift */,
 				71780C4B2C4598590073B731 /* ScrapsTargetType.swift */,
+				71780C4D2C459F610073B731 /* FiltersTargetType.swift */,
 			);
 			path = TargetType;
 			sourceTree = "<group>";
@@ -1038,6 +1041,7 @@
 				71780C3C2C457DD70073B731 /* AuthTargetType.swift in Sources */,
 				2DC61F072C4145CD009F991F /* CustomScrapButton.swift in Sources */,
 				2D4EE3E82C400D6900E3E95B /* OnboardingPageViewController.swift in Sources */,
+				71780C4E2C459F610073B731 /* FiltersTargetType.swift in Sources */,
 				2D4EE3EA2C400ECB00E3E95B /* OnboardingViewController.swift in Sources */,
 				71780C3A2C4577FF0073B731 /* CalendarTargerType.swift in Sources */,
 				B871D7392C3F1A49008D78C2 /* CheckDeadlineCell.swift in Sources */,

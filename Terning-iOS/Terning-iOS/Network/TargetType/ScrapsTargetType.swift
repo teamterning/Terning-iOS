@@ -26,8 +26,8 @@ extension ScrapsTargetType: TargetType {
     var path: String {
         switch self {
         case .addScrap(let id, _),
-             .getDaily(let id),
-             .patchScrap(let id, _):
+                .getDaily(let id),
+                .patchScrap(let id, _):
             return "/scraps/\(id)"
         }
     }
@@ -45,8 +45,7 @@ extension ScrapsTargetType: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .addScrap(_, let color),
-             .patchScrap(_, let color):
+        case .addScrap(_, let color), .patchScrap(_, let color):
             return .requestParameters(parameters: ["color": color], encoding: JSONEncoding.default)
         case .getDaily:
             return .requestPlain
@@ -55,5 +54,9 @@ extension ScrapsTargetType: TargetType {
     
     var headers: [String : String]? {
         return Config.headerWithAccessToken
+    }
+    
+    var validationType: ValidationType {
+        return .successCodes
     }
 }

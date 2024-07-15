@@ -52,4 +52,8 @@ extension CalendarTargerType: TargetType {
     var headers: [String : String]? {
         return Config.defaultHeader
     }
+    
+    var validationType: ValidationType {
+        return .successCodes
+    }
 }

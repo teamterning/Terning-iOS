@@ -1,5 +1,5 @@
 //
-//  ScrapsTargetType.swift
+//  AnnouncementsTargetType.swift
 //  Terning-iOS
 //
 //  Created by 이명진 on 7/16/24.
@@ -8,13 +8,11 @@
 import Foundation
 import Moya
 
-enum ScrapsTargetType {
-    case addScrap(internshipAnnouncementId: Double, color: Int)
-    case getDaily(scrapId: Double)
-    case patchScrap(scrapId: Double, color: Int)
+enum AnnouncementsTargetType {
+    case getAnnouncements(internshipAnnouncementId: Double)
 }
 
-extension ScrapsTargetType: TargetType {
+extension AnnouncementsTargetType: TargetType {
     
     var baseURL: URL {
         guard let url = URL(string: Config.baseURL) else {
@@ -25,29 +23,21 @@ extension ScrapsTargetType: TargetType {
     
     var path: String {
         switch self {
-        case .addScrap(let id, _),
-                .getDaily(let id),
-                .patchScrap(let id, _):
-            return "/scraps/\(id)"
+        case .getAnnouncements(let internshipAnnouncementId):
+            return "/announcements/\(internshipAnnouncementId)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .addScrap:
-            return .post
-        case .getDaily:
+        case .getAnnouncements:
             return .get
-        case .patchScrap:
-            return .patch
         }
     }
     
     var task: Moya.Task {
         switch self {
-        case .addScrap(_, let color), .patchScrap(_, let color):
-            return .requestParameters(parameters: ["color": color], encoding: JSONEncoding.default)
-        case .getDaily:
+        case .getAnnouncements:
             return .requestPlain
         }
     }

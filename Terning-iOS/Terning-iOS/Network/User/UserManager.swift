@@ -53,23 +53,21 @@ final class UserManager {
                         print(error.localizedDescription)
                         completion(.failure(.networkFail))
                     }
-                }
-                if status >= 400 {
+                } else if status >= 400 {
                     print("400 error")
                     completion(.failure(.networkFail))
                 }
             case .failure(let error):
                 print(error.localizedDescription)
                 if let response = error.response {
-                    if let responseData = String(data: response.data, encoding: .utf8) {
+                    if let responseData = String(bytes: response.data, encoding: .utf8) {
                         print("\n 🔥 SignIn 메세지 \(responseData)\n")
                     } else {
-                        print(error.localizedDescription)
+                        print("Failed to decode response data as UTF-8 string.")
                     }
                 } else {
                     print(error.localizedDescription)
                 }
-                
                 completion(.failure(.networkFail))
             }
         }
@@ -114,4 +112,3 @@ final class UserManager {
         self.authType = nil
     }
 }
-

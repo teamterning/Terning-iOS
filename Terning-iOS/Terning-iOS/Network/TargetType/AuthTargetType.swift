@@ -51,7 +51,7 @@ extension AuthTargetType: TargetType {
         case .getNewToken:
             return .requestPlain
         case .signUp(let name, let profileImage):
-            return .requestParameters(parameters: ["name": name, "profileImage" : profileImage], encoding: JSONEncoding.default)
+            return .requestParameters(parameters: ["name": name, "profileImage": profileImage], encoding: JSONEncoding.default)
         case .postOnboarding(let grade, let workingPeriod, let startYear, let startMonth):
             return .requestParameters(
                 parameters: [

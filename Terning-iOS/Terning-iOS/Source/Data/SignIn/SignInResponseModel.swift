@@ -14,4 +14,3 @@ struct SignInResponseModel: Codable {
     let userId: String
     let authType: String
 }
-

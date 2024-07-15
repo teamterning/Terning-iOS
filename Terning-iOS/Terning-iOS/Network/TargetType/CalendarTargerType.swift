@@ -49,7 +49,7 @@ extension CalendarTargerType: TargetType {
         }
     }
     
-    var headers: [String : String]? {
+    var headers: [String: String]? {
         return Config.defaultHeader
     }
     

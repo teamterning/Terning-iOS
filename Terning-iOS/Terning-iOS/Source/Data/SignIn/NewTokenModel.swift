@@ -12,4 +12,3 @@ import Foundation
 struct NewTokenModel: Codable {
     let refreshToken: String
 }
-

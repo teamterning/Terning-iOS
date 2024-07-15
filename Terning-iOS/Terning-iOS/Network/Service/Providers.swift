@@ -10,14 +10,14 @@ import Foundation
 import Moya
 
 struct Providers {
-    static let calendarProvider = MoyaProvider<CalendarTargerType>(withAuth: false)
-    static let authProvider = MoyaProvider<AuthTargetType>(withAuth: false)
-    static let homeProvider = MoyaProvider<HomeTargertType>(withAuth: false)
-    static let myPageProvider = MoyaProvider<MyPageTargetType>(withAuth: false)
-    static let scrapsProvider = MoyaProvider<ScrapsTargetType>(withAuth: false)
-    static let filtersProvider = MoyaProvider<FiltersTargetType>(withAuth: false)
-    static let announcementsProvider = MoyaProvider<AnnouncementsProviderTargetType>(withAuth: false)
-    static let searchProvider = MoyaProvider<SearchTargetType>(withAuth: false)
+    static let calendarProvider = MoyaProvider<CalendarTargerType>(withAuth: true)
+    static let authProvider = MoyaProvider<AuthTargetType>(withAuth: true)
+    static let homeProvider = MoyaProvider<HomeTargertType>(withAuth: true)
+    static let myPageProvider = MoyaProvider<MyPageTargetType>(withAuth: true)
+    static let scrapsProvider = MoyaProvider<ScrapsTargetType>(withAuth: true)
+    static let filtersProvider = MoyaProvider<FiltersTargetType>(withAuth: true)
+    static let announcementsProvider = MoyaProvider<AnnouncementsTargetType>(withAuth: true)
+    static let searchProvider = MoyaProvider<SearchTargetType>(withAuth: true)
 }
 
 extension MoyaProvider {
@@ -30,4 +30,3 @@ extension MoyaProvider {
         }
     }
 }
-

@@ -11,6 +11,8 @@ import Moya
 enum AuthTargetType {
     case signIn(authType: String)
     case getNewToken
+    case signUp(name: String, profileImage: Int)
+    case postOnboarding(grade: Int, workingPeriod: Int, startYear: Int, startMonth: Int)
 }
 
 extension AuthTargetType: TargetType {
@@ -28,15 +30,17 @@ extension AuthTargetType: TargetType {
             return "/auth/sign-in"
         case .getNewToken:
             return "/auth/token-reissue"
+        case .signUp:
+            return "/auth/sign-up"
+        case .postOnboarding:
+            return "/auth/sign-up/filter"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .signIn:
+        case .signIn, .signUp, .getNewToken, .postOnboarding:
             return .post
-        case .getNewToken:
-            return .get
         }
     }
     
@@ -46,13 +50,28 @@ extension AuthTargetType: TargetType {
             return .requestParameters(parameters: ["authType": authType], encoding: JSONEncoding.default)
         case .getNewToken:
             return .requestPlain
+        case .signUp(let name, let profileImage):
+            return .requestParameters(parameters: ["name": name, "profileImage" : profileImage], encoding: JSONEncoding.default)
+        case .postOnboarding(let grade, let workingPeriod, let startYear, let startMonth):
+            return .requestParameters(
+                parameters: [
+                    "grade": grade,
+                    "workingPeriod": workingPeriod,
+                    "startYear": startYear,
+                    "startMonth": startMonth
+                ],
+                encoding: JSONEncoding.default)
         }
     }
     
     var headers: [String: String]? {
         switch self {
-        case .signIn, .getNewToken:
-            return Config.headerWithAccessToken
+        case .signIn:
+            return Config.defaultHeader
+        case .getNewToken:
+            return ["Content-Type": "application/json", "refreshToken": Config.refreshToken]
+        case .signUp, .postOnboarding:
+            return ["Content-Type": "application/json", "User-Id": Config.userId]
         }
     }
     

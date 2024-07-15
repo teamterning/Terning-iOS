@@ -1,5 +1,5 @@
 //
-//  CalendarTargertType.swift
+//  CalendarTargerType.swift
 //  Terning-iOS
 //
 //  Created by 이명진 on 7/16/24.
@@ -8,13 +8,13 @@
 import Foundation
 import Moya
 
-enum CalendarTargertType {
+enum CalendarTargerType {
     case getMonthlyDefault(year: Int, month: Int)
     case getMonthlyList(year: Int, month: Int)
     case getDaily(date: String)
 }
 
-extension CalendarTargertType: TargetType {
+extension CalendarTargerType: TargetType {
     var baseURL: URL {
         guard let url = URL(string: Config.baseURL) else {
             fatalError("baseURL could not be configured")

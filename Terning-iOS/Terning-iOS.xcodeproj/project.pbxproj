@@ -63,8 +63,14 @@
 		71780C322C45705C0073B731 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C312C45705C0073B731 /* Encodable+.swift */; };
 		71780C352C45725E0073B731 /* Providers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C342C45725E0073B731 /* Providers.swift */; };
 		71780C372C4575D80073B731 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C362C4575D80073B731 /* Config.swift */; };
-		71780C3A2C4577FF0073B731 /* CalendarTargertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C392C4577FF0073B731 /* CalendarTargertType.swift */; };
+		71780C3A2C4577FF0073B731 /* CalendarTargerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C392C4577FF0073B731 /* CalendarTargerType.swift */; };
 		71780C3C2C457DD70073B731 /* AuthTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C3B2C457DD70073B731 /* AuthTargetType.swift */; };
+		71780C3E2C45849A0073B731 /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C3D2C45849A0073B731 /* UserDefaultWrapper.swift */; };
+		71780C402C4584D40073B731 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C3F2C4584D40073B731 /* UserManager.swift */; };
+		71780C442C45860C0073B731 /* SignInResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C432C45860C0073B731 /* SignInResponseModel.swift */; };
+		71780C462C4589400073B731 /* NewTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C452C4589400073B731 /* NewTokenModel.swift */; };
+		71780C482C458FF80073B731 /* HomeTargertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C472C458FF80073B731 /* HomeTargertType.swift */; };
+		71780C4A2C4591B90073B731 /* MyPageTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C492C4591B90073B731 /* MyPageTargetType.swift */; };
 		717D37EA2C32FA2F00A857DB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 717D37E92C32FA2F00A857DB /* SnapKit */; };
 		71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509202C41AD35006D8E56 /* JobListingCell.swift */; };
 		71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509222C41BD90006D8E56 /* CompositionalLayout.swift */; };
@@ -169,8 +175,14 @@
 		71780C312C45705C0073B731 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		71780C342C45725E0073B731 /* Providers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Providers.swift; sourceTree = "<group>"; };
 		71780C362C4575D80073B731 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		71780C392C4577FF0073B731 /* CalendarTargertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTargertType.swift; sourceTree = "<group>"; };
+		71780C392C4577FF0073B731 /* CalendarTargerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTargerType.swift; sourceTree = "<group>"; };
 		71780C3B2C457DD70073B731 /* AuthTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTargetType.swift; sourceTree = "<group>"; };
+		71780C3D2C45849A0073B731 /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
+		71780C3F2C4584D40073B731 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		71780C432C45860C0073B731 /* SignInResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInResponseModel.swift; sourceTree = "<group>"; };
+		71780C452C4589400073B731 /* NewTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenModel.swift; sourceTree = "<group>"; };
+		71780C472C458FF80073B731 /* HomeTargertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTargertType.swift; sourceTree = "<group>"; };
+		71780C492C4591B90073B731 /* MyPageTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTargetType.swift; sourceTree = "<group>"; };
 		71B509202C41AD35006D8E56 /* JobListingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListingCell.swift; sourceTree = "<group>"; };
 		71B509222C41BD90006D8E56 /* CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayout.swift; sourceTree = "<group>"; };
 		71B509242C41D027006D8E56 /* CalendarDateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateHeaderView.swift; sourceTree = "<group>"; };
@@ -500,10 +512,29 @@
 		71780C382C45778D0073B731 /* TargetType */ = {
 			isa = PBXGroup;
 			children = (
-				71780C392C4577FF0073B731 /* CalendarTargertType.swift */,
+				71780C392C4577FF0073B731 /* CalendarTargerType.swift */,
 				71780C3B2C457DD70073B731 /* AuthTargetType.swift */,
+				71780C472C458FF80073B731 /* HomeTargertType.swift */,
+				71780C492C4591B90073B731 /* MyPageTargetType.swift */,
 			);
 			path = TargetType;
+			sourceTree = "<group>";
+		};
+		71780C412C4584DA0073B731 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				71780C3F2C4584D40073B731 /* UserManager.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		71780C422C4586000073B731 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				71780C432C45860C0073B731 /* SignInResponseModel.swift */,
+				71780C452C4589400073B731 /* NewTokenModel.swift */,
+			);
+			path = SignIn;
 			sourceTree = "<group>";
 		};
 		71CCC06D2C3F369A00789A9B /* Calendar */ = {
@@ -620,6 +651,7 @@
 		71E3C3E12C241B170026C4DD /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				71780C412C4584DA0073B731 /* User */,
 				71780C382C45778D0073B731 /* TargetType */,
 				7121A1442C3B079F0056DB8B /* Base */,
 				71780C332C4572300073B731 /* Service */,
@@ -672,6 +704,7 @@
 		71E3C3E92C241C1B0026C4DD /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				71780C422C4586000073B731 /* SignIn */,
 				71CCC0802C41282400789A9B /* Calendar */,
 				7121A1472C3B07F30056DB8B /* Announcements */,
 			);
@@ -718,6 +751,7 @@
 				71B509222C41BD90006D8E56 /* CompositionalLayout.swift */,
 				71B5092C2C4326F8006D8E56 /* adjusted+.swift */,
 				71B5092E2C432F90006D8E56 /* ViewControllerUtils.swift */,
+				71780C3D2C45849A0073B731 /* UserDefaultWrapper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -960,6 +994,7 @@
 				B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */,
 				7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */,
 				2D4EE3E62C3FFF9200E3E95B /* OnboardingView.swift in Sources */,
+				71780C4A2C4591B90073B731 /* MyPageTargetType.swift in Sources */,
 				71780C372C4575D80073B731 /* Config.swift in Sources */,
 				71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */,
 				2DC61EFD2C40823C009F991F /* CompanyInfoTableViewCell.swift in Sources */,
@@ -967,7 +1002,9 @@
 				71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */,
 				2D4EE3AB2C3E854E00E3E95B /* ValidationMessage.swift in Sources */,
 				71B5092F2C432F90006D8E56 /* ViewControllerUtils.swift in Sources */,
+				71780C402C4584D40073B731 /* UserManager.swift in Sources */,
 				71E3C3CD2C22BAF40026C4DD /* AppDelegate.swift in Sources */,
+				71780C442C45860C0073B731 /* SignInResponseModel.swift in Sources */,
 				2D4EE38B2C3D9FD900E3E95B /* CustomDatePicker.swift in Sources */,
 				2D4EE3942C3DD5B700E3E95B /* WelcomeView.swift in Sources */,
 				71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */,
@@ -998,10 +1035,13 @@
 				2DC61F072C4145CD009F991F /* CustomScrapButton.swift in Sources */,
 				2D4EE3E82C400D6900E3E95B /* OnboardingPageViewController.swift in Sources */,
 				2D4EE3EA2C400ECB00E3E95B /* OnboardingViewController.swift in Sources */,
-				71780C3A2C4577FF0073B731 /* CalendarTargertType.swift in Sources */,
+				71780C3A2C4577FF0073B731 /* CalendarTargerType.swift in Sources */,
 				B871D7392C3F1A49008D78C2 /* CheckDeadlineCell.swift in Sources */,
 				2DC61F032C4087B4009F991F /* JobSummaryInfoView.swift in Sources */,
+				71780C462C4589400073B731 /* NewTokenModel.swift in Sources */,
 				B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */,
+				71780C482C458FF80073B731 /* HomeTargertType.swift in Sources */,
+				71780C3E2C45849A0073B731 /* UserDefaultWrapper.swift in Sources */,
 				B871D72F2C3E909F008D78C2 /* DecorationCell.swift in Sources */,
 				B871D7202C3E877B008D78C2 /* HomeViewController.swift in Sources */,
 				7121A14B2C3B09800056DB8B /* setImage.swift in Sources */,

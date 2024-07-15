@@ -19,7 +19,7 @@ class MainHomeView: UIView {
     var scrapAndDeadlineCardDatas = ScrapedAndDeadlineModel.getScrapedData()
     lazy var scrapDataCount = scrapAndDeadlineCardDatas.count
     
-    var hasAnyScrap = true
+    var hasAnyScrap = false
     var hasDueToday = false
     
     // Section 1에서의 아이템들을 분기 처리하기 위한 테스트 데이터 입니다.
@@ -96,7 +96,7 @@ extension MainHomeView {
         }
         
         gradientView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(278)
+            $0.top.equalToSuperview().offset(268)
             $0.horizontalEdges.equalToSuperview()
         }
     }
@@ -249,7 +249,7 @@ extension MainHomeView {
                     // Section
                     let section = NSCollectionLayoutSection(group: group)
                     
-                    let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(104))
+                    let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(130))
                     let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                         layoutSize: headerSize,
                         elementKind: UICollectionView.elementKindSectionHeader,
@@ -259,6 +259,7 @@ extension MainHomeView {
                     sectionHeader.pinToVisibleBounds = true
                     section.boundarySupplementaryItems = [sectionHeader]
                     section.interGroupSpacing = 12
+                    section.contentInsets = .init(top: 10, leading: 0, bottom: 0, trailing: 0)
                     
                     return section
                 }

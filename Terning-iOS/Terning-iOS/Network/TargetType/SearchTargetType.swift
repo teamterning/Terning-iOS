@@ -53,7 +53,7 @@ extension SearchTargetType: TargetType {
         }
     }
     
-    var headers: [String : String]? {
+    var headers: [String: String]? {
         return Config.headerWithAccessToken
     }
     

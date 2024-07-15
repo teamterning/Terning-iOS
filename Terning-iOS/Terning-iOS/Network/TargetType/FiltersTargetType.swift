@@ -63,4 +63,3 @@ extension FiltersTargetType: TargetType {
         return .successCodes
     }
 }
-

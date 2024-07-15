@@ -9,7 +9,7 @@ import Foundation
 
 import Moya
 
-enum RNError: Error {
+enum TNError: Error {
     case networkFail
     case etc
 }
@@ -33,7 +33,7 @@ final class UserManager {
         self.authType = authType
     }
     
-    func signIn(authType: String, completion: @escaping(Result<String, RNError>) -> Void) {
+    func signIn(authType: String, completion: @escaping(Result<String, TNError>) -> Void) {
         authProvider.request(.signIn(authType: authType)) { [weak self] response in
             guard let self = self else { return }
             switch response {
@@ -73,7 +73,7 @@ final class UserManager {
         }
     }
     
-    func getNewToken(completion: @escaping(Result<Bool, RNError>) -> Void) {
+    func getNewToken(completion: @escaping(Result<Bool, TNError>) -> Void) {
         authProvider.request(.getNewToken) { [weak self] response in
             guard let self = self else { return }
             switch response {

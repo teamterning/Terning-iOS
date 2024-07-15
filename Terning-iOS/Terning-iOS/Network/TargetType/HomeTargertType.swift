@@ -53,5 +53,3 @@ extension HomeTargertType: TargetType {
         return .successCodes
     }
 }
-
-

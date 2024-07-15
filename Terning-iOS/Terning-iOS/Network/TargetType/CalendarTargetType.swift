@@ -25,11 +25,11 @@ extension CalendarTargerType: TargetType {
     var path: String {
         switch self {
         case .getMonthlyDefault:
-            return "calendar/monthly-default"
+            return "/calendar/monthly-default"
         case .getMonthlyList:
-            return "calendar/monthly-list"
+            return "/calendar/monthly-list"
         case .getDaily:
-            return "calendar/daily"
+            return "/calendar/daily"
         }
     }
     

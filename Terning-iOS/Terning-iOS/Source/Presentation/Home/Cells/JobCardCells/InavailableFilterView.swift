@@ -12,6 +12,8 @@ import Then
 
 class InavailableFilterView: UICollectionViewCell {
     
+    var filtetButtonDelegate: FilteringButtonDidTapProtocol?
+    
     // MARK: - UIComponents
     
     let inavailableIcon = UIImageView().then {
@@ -55,14 +57,14 @@ extension InavailableFilterView {
     
     func setLayout() {
         inavailableIcon.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(78)
+            $0.top.equalToSuperview().offset(100)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(36)
             $0.width.equalTo(36)
         }
         
         inavailableLabel.snp.makeConstraints {
-            $0.top.equalTo(inavailableIcon.snp.bottom).offset(9)
+            $0.top.equalTo(inavailableIcon.snp.bottom)
             $0.centerX.equalToSuperview()
         }
     }

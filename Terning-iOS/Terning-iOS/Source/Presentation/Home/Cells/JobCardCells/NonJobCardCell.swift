@@ -14,16 +14,17 @@ class NonJobCardCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     var emptyJobCard = UIView().then {
-        $0.backgroundColor = .clear
-        $0.makeBorder(width: 1, color: .terningBlack, cornerRadius: 0
-        )
+        $0.backgroundColor = .white
+        $0.makeBorder(width: 1, color: .terningBlack, cornerRadius: 0)
     }
     
     var descriptionLabel = LabelFactory.build(
-        text: "지금 공고 필터링을 설정하고 내 계획에 딱 맞는 대학생 인턴 공고를 추천받아보세요!",
+        text: "지금 공고 필터링을 설정하고 \n 내 계획에 딱 맞는 대학생 인턴 공고를 추천받아보세요!",
         font: .detail2,
         textColor: .grey500
-    )
+    ).then {
+        $0.numberOfLines = 2
+    }
     
     lazy var emptyStackView = UIStackView(
         arrangedSubviews: [
@@ -34,6 +35,7 @@ class NonJobCardCell: UICollectionViewCell {
         $0.axis = .vertical
         $0.spacing = 20
         $0.alignment = .center
+        $0.distribution = .fillProportionally
     }
     
     // MARK: - LifeCycles
@@ -53,12 +55,19 @@ class NonJobCardCell: UICollectionViewCell {
 
 extension NonJobCardCell {
     func setHierarchy() {
-        contentView.addSubview(emptyStackView)
+        contentView.addSubviews(emptyJobCard, descriptionLabel)
     }
     
     func setLayout() {
-        emptyStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        emptyJobCard.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.height.equalTo(222)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        descriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(emptyJobCard.snp.bottom).offset(20)
+            $0.centerX.equalToSuperview()
         }
     }
 }

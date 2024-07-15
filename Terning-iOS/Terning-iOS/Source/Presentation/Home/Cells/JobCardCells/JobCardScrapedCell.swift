@@ -139,5 +139,4 @@ extension JobCardScrapedCell {
         self.jobLabel.text = title
         self.period.text = period
     }
-    
 }

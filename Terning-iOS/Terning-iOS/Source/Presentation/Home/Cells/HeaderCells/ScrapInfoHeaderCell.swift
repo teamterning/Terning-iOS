@@ -12,8 +12,6 @@ import Then
 
 class ScrapInfoHeaderCell: UICollectionReusableView {
     
-    // MARK: - Properties
-    
     // MARK: - UIComponents
     
     let titleLabel = LabelFactory.build(

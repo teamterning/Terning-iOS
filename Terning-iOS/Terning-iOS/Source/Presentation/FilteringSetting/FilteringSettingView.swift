@@ -28,7 +28,12 @@ class FilteringSettingView: UIView {
         textColor: .grey375
     )
 
-    lazy var titleStack1 = UIStackView(arrangedSubviews: [gradeSelectionTitle, gradeSelectionSubTitle]).then {
+    lazy var titleStack1 = UIStackView(
+        arrangedSubviews: [
+            gradeSelectionTitle,
+            gradeSelectionSubTitle
+        ]
+    ).then {
         $0.axis = .vertical
         $0.spacing = 0
         $0.alignment = .leading
@@ -62,8 +67,14 @@ class FilteringSettingView: UIView {
         $0.titleLabel?.font = .button3
     }
     
-    lazy var gradeButtonStack = UIStackView(arrangedSubviews: [gradeButton1, gradeButton2, gradeButton3, gradeButton4]).then {
-        
+    lazy var gradeButtonStack = UIStackView(
+        arrangedSubviews: [
+            gradeButton1,
+            gradeButton2,
+            gradeButton3,
+            gradeButton4
+        ]
+    ).then {
         $0.axis = .horizontal
         $0.spacing = 13
         $0.alignment = .center
@@ -82,8 +93,12 @@ class FilteringSettingView: UIView {
         textColor: .grey375
     )
     
-    lazy var titleStack2 = UIStackView(arrangedSubviews: [periodSelectionTitle, periodSelectionSubTitle]).then {
-        
+    lazy var titleStack2 = UIStackView(
+        arrangedSubviews: [
+            periodSelectionTitle,
+            periodSelectionSubTitle
+        ]
+    ).then {
         $0.axis = .vertical
         $0.spacing = 0
         $0.alignment = .leading
@@ -110,8 +125,13 @@ class FilteringSettingView: UIView {
         $0.titleLabel?.font = .button3
     }
     
-    lazy var periodButtonStack = UIStackView(arrangedSubviews: [periodButton1, periodButton2, periodButton3]).then {
-        
+    lazy var periodButtonStack = UIStackView(
+        arrangedSubviews: [
+            periodButton1,
+            periodButton2,
+            periodButton3
+        ]
+    ).then {
         $0.axis = .horizontal
         $0.spacing = 16
         $0.alignment = .center
@@ -132,8 +152,12 @@ class FilteringSettingView: UIView {
         textColor: UIColor(red: 137/255, green: 137/255, blue: 137/255, alpha: 1.0)
     )
 
-    lazy var titleStack3 = UIStackView(arrangedSubviews: [monthSelectionTitle, monthSelectionSubTitle]).then {
-        
+    lazy var titleStack3 = UIStackView(
+        arrangedSubviews: [
+            monthSelectionTitle,
+            monthSelectionSubTitle
+        ]
+    ).then {
         $0.axis = .vertical
         $0.spacing = 0
         $0.alignment = .leading

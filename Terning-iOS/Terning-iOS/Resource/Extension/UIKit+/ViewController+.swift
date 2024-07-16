@@ -59,3 +59,24 @@ public extension UIViewController {
         }
     }
 }
+
+extension UIViewController {
+    
+    /**
+     
+     - Description:
+     
+     텍스트 필드 외부를 터치하면, 키보드가 내려갑니다.
+     
+     */
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}

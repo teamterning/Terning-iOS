@@ -16,6 +16,7 @@ struct JobCardModel {
     let isScraped: Bool
 }
 
+// dummy data
 extension JobCardModel {
     static func getJobCardData() -> [JobCardModel] {
         return [
@@ -108,104 +109,6 @@ extension JobCardModel {
                 companyImage: UIImage(resource: .icHome),
                 isScraped: false
             )
-//            JobCardModel(
-//                coverImage: UIImage(resource: .icHome),
-//                // scrapIcon: UIImage(resource: .ic28Bookmark),
-//                daysRemaining: "D-2",
-//                title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-//                period: "2개월",
-//                isScraped: false
-//            ),
-//            
-//            JobCardModel(
-//                coverImage: UIImage(resource: .icHome),
-//                // scrapIcon: UIImage(resource: .ic28Bookmark),
-//                daysRemaining: "D-2",
-//                title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-//                period: "2개월",
-//                isScraped: false
-//            ),
-//            
-//            JobCardModel(
-//                coverImage: UIImage(resource: .icHome),
-//                // scrapIcon: UIImage(resource: .ic28Bookmark),
-//                daysRemaining: "D-2",
-//                title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-//                period: "2개월",
-//                isScraped: false
-//            ),
-//            
-//            JobCardModel(
-//                coverImage: UIImage(resource: .icHome),
-//                // scrapIcon: UIImage(resource: .ic28Bookmark),
-//                daysRemaining: "D-2",
-//                title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-//                period: "2개월",
-//                isScraped: false
-//            ),
-//            
-//            JobCardModel(
-//                coverImage: UIImage(resource: .icHome),
-//                // scrapIcon: UIImage(resource: .ic28Bookmark),
-//                daysRemaining: "D-2",
-//                title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-//                period: "2개월",
-//                isScraped: false
-//            ),
-//            
-//            JobCardModel(
-//                coverImage: UIImage(resource: .icHome),
-//                // scrapIcon: UIImage(resource: .ic28Bookmark),
-//                daysRemaining: "D-2",
-//                title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-//                period: "2개월",
-//                isScraped: false
-//            ),
-//            
-//            JobCardModel(
-//                coverImage: UIImage(resource: .icHome),
-//                // scrapIcon: UIImage(resource: .ic28Bookmark),
-//                daysRemaining: "D-2",
-//                title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-//                period: "2개월",
-//                isScraped: false
-//            ),
-//            
-//            JobCardModel(
-//                coverImage: UIImage(resource: .icHome),
-//                // scrapIcon: UIImage(resource: .ic28Bookmark),
-//                daysRemaining: "D-2",
-//                title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-//                period: "2개월",
-//                isScraped: false
-//            ),
-//            
-//            JobCardModel(
-//                coverImage: UIImage(resource: .icHome),
-//                // scrapIcon: UIImage(resource: .ic28Bookmark),
-//                daysRemaining: "D-2",
-//                title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-//                period: "2개월",
-//                isScraped: false
-//            ),
-//            
-//            JobCardModel(
-//                coverImage: UIImage(resource: .icHome),
-//                // scrapIcon: UIImage(resource: .ic28Bookmark),
-//                daysRemaining: "D-2",
-//                title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-//                period: "2개월",
-//                isScraped: false
-//            ),
-//            
-//            JobCardModel(
-//                coverImage: UIImage(resource: .icHome),
-//                // scrapIcon: UIImage(resource: .ic28Bookmark),
-//                daysRemaining: "D-2",
-//                title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-//                period: "2개월",
-//                isScraped: false
-//            )
         ]
     }
 }

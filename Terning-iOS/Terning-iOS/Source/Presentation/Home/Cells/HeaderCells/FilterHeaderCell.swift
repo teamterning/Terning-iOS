@@ -91,7 +91,7 @@ final class FilterHeaderCell: UICollectionReusableView {
         ]
     ).then {
         $0.axis = .horizontal
-        $0.spacing = 27
+        $0.spacing = 23
         $0.distribution = .fillProportionally
         $0.alignment = .center
     }
@@ -194,6 +194,41 @@ extension FilterHeaderCell {
            sortButtonStack.addGestureRecognizer(tapGesture)
        }
     
+    func bindData(model: UserFilteringInfoModel) {
+        switch model.grade {
+        case 0: 
+            grade.text = "1학년"
+            
+        case 1:
+            grade.text = "2학년"
+            
+        case 2:
+            grade.text = "3학년"
+            
+        case 3:
+            grade.text = "4학년"
+            
+        default:
+            grade.text = "-"
+        }
+        
+        switch model.workingPeriod {
+        case 0:
+            period.text = "1개월 ~ 3개월"
+            
+        case 1:
+            period.text = "4개월 ~ 6개월"
+            
+        case 2:
+            period.text = "7개월 이상"
+        
+        default:
+            period.text = "-"
+        }
+
+        month.text = "\(model.startYear)년 \(model.startMonth)월"
+    }
+    
     // objc Functions
     
     @objc
@@ -205,6 +240,5 @@ extension FilterHeaderCell {
     @objc
     func sortButtonDidTap() {
         print("tap")
-        // bottomSheetViewController에서 함수 구현 후 넣어주면 됨.
     }
 }

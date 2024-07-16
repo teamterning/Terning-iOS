@@ -214,7 +214,7 @@ extension FilteringSettingView {
         }
         
         titleStack1.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(625)
+            $0.top.equalToSuperview().offset(143)
             $0.leading.equalToSuperview().offset(20)
         }
         
@@ -276,7 +276,7 @@ extension FilteringSettingView {
         saveButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(52)
             $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(52)
+            $0.height.equalTo(62)
         }
     }
 }

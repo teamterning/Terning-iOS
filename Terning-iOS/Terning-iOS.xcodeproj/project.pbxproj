@@ -125,6 +125,7 @@
 		B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */; };
 		B871D7392C3F1A49008D78C2 /* CheckDeadlineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7382C3F1A49008D78C2 /* CheckDeadlineCell.swift */; };
 		B8BE0E102C465AAD00B3D298 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE0E0F2C465AAD00B3D298 /* Config.swift */; };
+		B8BE0E142C46D38700B3D298 /* UserFilteringInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE0E132C46D38700B3D298 /* UserFilteringInfoModel.swift */; };
 		B8C5DB6E2C3F353D00865B1A /* InavailableFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */; };
 		B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */; };
 		B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */; };
@@ -246,6 +247,7 @@
 		B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonJobCardCell.swift; sourceTree = "<group>"; };
 		B871D7382C3F1A49008D78C2 /* CheckDeadlineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDeadlineCell.swift; sourceTree = "<group>"; };
 		B8BE0E0F2C465AAD00B3D298 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		B8BE0E132C46D38700B3D298 /* UserFilteringInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFilteringInfoModel.swift; sourceTree = "<group>"; };
 		B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InavailableFilterView.swift; sourceTree = "<group>"; };
 		B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSettingView.swift; sourceTree = "<group>"; };
 		B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSettingViewController.swift; sourceTree = "<group>"; };
@@ -901,6 +903,7 @@
 			children = (
 				B871D7222C3E8835008D78C2 /* JobCardModel.swift */,
 				B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */,
+				B8BE0E132C46D38700B3D298 /* UserFilteringInfoModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1128,6 +1131,7 @@
 				7121A1532C3DE3680056DB8B /* CustomNavigationBar.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,
 				71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */,
+				B8BE0E142C46D38700B3D298 /* UserFilteringInfoModel.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
 				2DC61F152C41AB54009F991F /* LoginViewController.swift in Sources */,
 				B8D549392C450C9600553BB5 /* MainHomeView.swift in Sources */,

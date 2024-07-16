@@ -26,6 +26,7 @@ final class MainHomeViewController: UIViewController, UICollectionViewDelegate {
     private let numberOfSections: Int = 2
     private var cardModelItems: [JobCardModel] = JobCardModel.getJobCardData()
     private var scrapedAndDeadlineItems: [ScrapedAndDeadlineModel] = ScrapedAndDeadlineModel.getScrapedData()
+    private var UserFilteringInfoModelItems: [UserFilteringInfoModel] = UserFilteringInfoModel.getUserFilteringInfo()
     
     // MARK: - UIComponents
     
@@ -104,6 +105,15 @@ extension MainHomeViewController: UICollectionViewDataSource {
                     for: indexPath) as? FilterHeaderCell else {
                     return UICollectionReusableView()
                 }
+                let model = UserFilteringInfoModelItems[indexPath.row]
+                headerView.bindData(
+                    model: UserFilteringInfoModel(
+                        grade: model.grade,
+                        workingPeriod: model.workingPeriod,
+                        startYear: model.startYear,
+                        startMonth: model.startMonth
+                    )
+                )
                 
                 headerView.backgroundColor = .white
                 headerView.filtetButtonDelegate = self
@@ -165,7 +175,19 @@ extension MainHomeViewController: UICollectionViewDataSource {
                     return UICollectionViewCell()
                 }
                 let model = scrapedAndDeadlineItems[indexPath.row]
-                cell.bindData(color: model.color, title: model.title)
+                cell.bindData(
+                    model: ScrapedAndDeadlineModel(
+                        scrapId: model.scrapId,
+                        internshipAnnouncementId: model.internshipAnnouncementId,
+                        companyImage: model.companyImage,
+                        title: model.title,
+                        dDay: model.dDay,
+                        deadLine: model.deadLine,
+                        workingPeriod: model.workingPeriod,
+                        startYearMonth: model.startYearMonth,
+                        color: model.color
+                    )
+                )
                 
                 return cell
                 
@@ -210,7 +232,16 @@ extension MainHomeViewController: UICollectionViewDataSource {
                 }
                 
                 let model = cardModelItems[indexPath.row]
-                cell.bindData(model: JobCardModel(internshipAnnouncementId: model.internshipAnnouncementId, title: model.title, dDay: model.dDay, workingPeriod: model.workingPeriod, companyImage: model.companyImage, isScraped: model.isScraped))
+                cell.bindData(
+                    model: JobCardModel(
+                        internshipAnnouncementId: model.internshipAnnouncementId,
+                        title: model.title,
+                        dDay: model.dDay,
+                        workingPeriod: model.workingPeriod,
+                        companyImage: model.companyImage,
+                        isScraped: model.isScraped
+                    )
+                )
                 
                 return cell
             }

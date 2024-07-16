@@ -12,6 +12,10 @@ import Then
 
 final class JobCardScrapedCell: UICollectionViewCell {
     
+    // MARK: - Properties
+    
+    var internshipAnnouncementId: Int = 0
+    
     // MARK: - UIComponents
     
     private let jobCard = UIView().then {
@@ -20,18 +24,18 @@ final class JobCardScrapedCell: UICollectionViewCell {
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
     }
     
-    private let jobCardCoverImage = UIImageView().then {
+    private var jobCardCoverImage = UIImageView().then {
         $0.image = UIImage(resource: .icHome)
     }
     
-    private let daysRemaining = LabelFactory.build(
+    private var daysRemaining = LabelFactory.build(
         text: "D-2",
         font: .detail0,
         textColor: .terningMain,
         textAlignment: .left
     )
     
-    private let jobLabel = LabelFactory.build(
+    private var jobLabel = LabelFactory.build(
         text: "[Someone's Cat] 콘텐츠 마케터 대학생 인턴 채용",
         font: .title5,
         textColor: .black,
@@ -40,14 +44,14 @@ final class JobCardScrapedCell: UICollectionViewCell {
         $0.numberOfLines = 2
     }
     
-    private let periodTitle = LabelFactory.build(
+    private var periodTitle = LabelFactory.build(
         text: "근무기간",
         font: .detail3,
         textColor: .grey400,
         textAlignment: .left
     )
     
-    private let period = LabelFactory.build(
+    private var period = LabelFactory.build(
         text: "2개월",
         font: .detail3,
         textColor: .terningMain,
@@ -137,6 +141,7 @@ extension JobCardScrapedCell {
     // MARK: - Methods
     
     func bindData(model: JobCardModel) {
+        self.internshipAnnouncementId = model.internshipAnnouncementId
 //      self.jobCardCoverImage.setImage(with: model.companyImage) URL로 이미지 받아올 때 사용예시라 남겨놨습니다.
         self.jobCardCoverImage.image = model.companyImage
         self.daysRemaining.text = model.dDay

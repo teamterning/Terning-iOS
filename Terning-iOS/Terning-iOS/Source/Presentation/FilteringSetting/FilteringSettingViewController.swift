@@ -14,10 +14,30 @@ class FilteringSettingViewController: UIViewController {
     
     // MARK: - Properties
     
-    var grade: Int = 0
-    var workingPeriod: Int = 0
-    var startYear: Int = 2024
-    var startMonth: Int = 8
+    var gradeButtons_dict: [UIButton: Int] {
+        return [
+            rootView.gradeButton1: 0,
+            rootView.gradeButton2: 1,
+            rootView.gradeButton3: 2,
+            rootView.gradeButton4: 3
+        ]
+    }
+    
+    var periodButtons_dict: [UIButton: Int] {
+        return [
+            rootView.periodButton1: 0,
+            rootView.periodButton2: 1,
+            rootView.periodButton3: 2
+        ]
+    }
+    
+    private var UserFilteringInfoModelItems: [UserFilteringInfoModel] = UserFilteringInfoModel.getUserFilteringInfo()
+    lazy var model = UserFilteringInfoModelItems[0]
+    
+    lazy var grade: Int = model.grade
+    lazy var workingPeriod: Int = model.workingPeriod
+    lazy var startYear: Int = model.startYear
+    lazy var startMonth: Int = model.startMonth
     
     // MARK: - UIComponents
     
@@ -34,6 +54,7 @@ class FilteringSettingViewController: UIViewController {
         
         setNavigationBind()
         setAddTarget()
+        bindData(model: model)
     }
 }
 
@@ -60,19 +81,48 @@ extension FilteringSettingViewController {
         }
     }
     
+    // MARK: - Methods
+    
+    func bindData(model: UserFilteringInfoModel) {
+        if model.grade == 0 {
+            rootView.gradeButton1.isSelected = true
+            rootView.gradeButton1.setBackgroundColor(.terningMain, for: .selected)
+            rootView.gradeButton1.setTitleColor(.white, for: .selected)
+        } else if model.grade == 1 {
+            rootView.gradeButton2.isSelected = true
+            rootView.gradeButton2.setBackgroundColor(.terningMain, for: .selected)
+            rootView.gradeButton2.setTitleColor(.white, for: .selected)
+        } else if model.grade == 2 {
+            rootView.gradeButton3.isSelected = true
+            rootView.gradeButton3.setBackgroundColor(.terningMain, for: .selected)
+            rootView.gradeButton3.setTitleColor(.white, for: .selected)
+        } else if model.grade == 3 {
+            rootView.gradeButton4.isSelected = true
+            rootView.gradeButton4.setBackgroundColor(.terningMain, for: .selected)
+            rootView.gradeButton4.setTitleColor(.white, for: .selected)
+        }
+        
+        if model.workingPeriod == 0 {
+            rootView.periodButton1.isSelected = true
+            rootView.periodButton1.setBackgroundColor(.terningMain, for: .selected)
+            rootView.periodButton1.setTitleColor(.white, for: .selected)
+        } else if model.workingPeriod == 1 {
+            rootView.periodButton2.isSelected = true
+            rootView.periodButton2.setBackgroundColor(.terningMain, for: .selected)
+            rootView.periodButton2.setTitleColor(.white, for: .selected)
+        } else if model.workingPeriod == 2 {
+            rootView.periodButton3.isSelected = true
+            rootView.periodButton3.setBackgroundColor(.terningMain, for: .selected)
+            rootView.periodButton3.setTitleColor(.white, for: .selected)
+        }
+        
+        // CustomDatePicker 데이터 바인딩은 민지 누나의 CustomDatePicker 수정이 끝나면 바로 추가하겠습니다.
+    }
+    
     // MARK: - @objc Function
     
     @objc
     func gradeButtonDidTap(_ sender: UIButton) -> UIButton {
-        var gradeButtons_dict: [UIButton: Int] {
-            return [
-                rootView.gradeButton1: 0,
-                rootView.gradeButton2: 1,
-                rootView.gradeButton3: 2,
-                rootView.gradeButton4: 3
-            ]
-        }
-        
         for gradeButton in gradeButtons_dict {
             if gradeButton.key == sender {
                 gradeButton.key.backgroundColor = .terningMain
@@ -96,14 +146,6 @@ extension FilteringSettingViewController {
     
     @objc
     func periodButtonDidTap(_ sender: UIButton) {
-        var periodButtons_dict: [UIButton: Int] {
-            return [
-                rootView.periodButton1: 0,
-                rootView.periodButton2: 1,
-                rootView.periodButton3: 2
-            ]
-        }
-        
         for periodButton in periodButtons_dict {
             if periodButton.key  == sender {
                 periodButton.key.backgroundColor = .terningMain
@@ -135,6 +177,8 @@ extension FilteringSettingViewController {
             self?.startYear = year
             self?.startMonth = month
         }
+        
         print(grade, workingPeriod, startYear, startMonth)
+        self.popOrDismissViewController(animated: true)
     }
 }

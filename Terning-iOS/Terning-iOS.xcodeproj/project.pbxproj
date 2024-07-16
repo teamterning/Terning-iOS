@@ -61,7 +61,6 @@
 		71461ED62C38150C002A6999 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461ED52C38150C002A6999 /* UILabel+.swift */; };
 		71780C322C45705C0073B731 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C312C45705C0073B731 /* Encodable+.swift */; };
 		71780C352C45725E0073B731 /* Providers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C342C45725E0073B731 /* Providers.swift */; };
-		71780C372C4575D80073B731 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C362C4575D80073B731 /* Config.swift */; };
 		71780C3A2C4577FF0073B731 /* CalendarTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C392C4577FF0073B731 /* CalendarTargetType.swift */; };
 		71780C3C2C457DD70073B731 /* AuthTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C3B2C457DD70073B731 /* AuthTargetType.swift */; };
 		71780C3E2C45849A0073B731 /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C3D2C45849A0073B731 /* UserDefaultWrapper.swift */; };
@@ -115,10 +114,10 @@
 		B871D7352C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */; };
 		B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */; };
 		B871D7392C3F1A49008D78C2 /* CheckDeadlineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7382C3F1A49008D78C2 /* CheckDeadlineCell.swift */; };
+		B8BE0E102C465AAD00B3D298 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE0E0F2C465AAD00B3D298 /* Config.swift */; };
 		B8C5DB6E2C3F353D00865B1A /* InavailableFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */; };
 		B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */; };
 		B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */; };
-		B8D549372C44361000553BB5 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = B8D549362C44361000553BB5 /* Config.xcconfig */; };
 		B8D549392C450C9600553BB5 /* MainHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D549382C450C9600553BB5 /* MainHomeView.swift */; };
 		B8D5493B2C450E9600553BB5 /* FilterHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D5493A2C450E9600553BB5 /* FilterHeaderCell.swift */; };
 		B8D5493D2C455A2100553BB5 /* MainHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D5493C2C455A2100553BB5 /* MainHomeViewController.swift */; };
@@ -176,7 +175,6 @@
 		716E08AB2C44349A00469E3B /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		71780C312C45705C0073B731 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		71780C342C45725E0073B731 /* Providers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Providers.swift; sourceTree = "<group>"; };
-		71780C362C4575D80073B731 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		71780C392C4577FF0073B731 /* CalendarTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTargetType.swift; sourceTree = "<group>"; };
 		71780C3B2C457DD70073B731 /* AuthTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTargetType.swift; sourceTree = "<group>"; };
 		71780C3D2C45849A0073B731 /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
@@ -226,10 +224,10 @@
 		B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapedAndDeadlineModel.swift; sourceTree = "<group>"; };
 		B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonJobCardCell.swift; sourceTree = "<group>"; };
 		B871D7382C3F1A49008D78C2 /* CheckDeadlineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDeadlineCell.swift; sourceTree = "<group>"; };
+		B8BE0E0F2C465AAD00B3D298 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InavailableFilterView.swift; sourceTree = "<group>"; };
 		B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSettingView.swift; sourceTree = "<group>"; };
 		B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSettingViewController.swift; sourceTree = "<group>"; };
-		B8D549362C44361000553BB5 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		B8D549382C450C9600553BB5 /* MainHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeView.swift; sourceTree = "<group>"; };
 		B8D5493A2C450E9600553BB5 /* FilterHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterHeaderCell.swift; sourceTree = "<group>"; };
 		B8D5493C2C455A2100553BB5 /* MainHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeViewController.swift; sourceTree = "<group>"; };
@@ -502,7 +500,7 @@
 			isa = PBXGroup;
 			children = (
 				716E08AB2C44349A00469E3B /* Config.xcconfig */,
-				71780C362C4575D80073B731 /* Config.swift */,
+				B8BE0E0F2C465AAD00B3D298 /* Config.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -922,7 +920,6 @@
 				71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */,
 				71E3C3D92C22BAF50026C4DD /* LaunchScreen.storyboard in Resources */,
 				71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */,
-				B8D549372C44361000553BB5 /* Config.xcconfig in Resources */,
 				71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */,
 				71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */,
 				71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */,
@@ -970,7 +967,6 @@
 				7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */,
 				2D4EE3E62C3FFF9200E3E95B /* OnboardingView.swift in Sources */,
 				71780C4A2C4591B90073B731 /* MyPageTargetType.swift in Sources */,
-				71780C372C4575D80073B731 /* Config.swift in Sources */,
 				71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */,
 				2DC61EFD2C40823C009F991F /* CompanyInfoTableViewCell.swift in Sources */,
 				7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */,
@@ -988,6 +984,7 @@
 				71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */,
 				B8D5493D2C455A2100553BB5 /* MainHomeViewController.swift in Sources */,
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
+				B8BE0E102C465AAD00B3D298 /* Config.swift in Sources */,
 				71CCC0792C3FDABF00789A9B /* TNCalendarViewModel.swift in Sources */,
 				71CCC0732C3F36EA00789A9B /* TNCalendarView.swift in Sources */,
 				71CCC07C2C3FDB0400789A9B /* ViewModelType.swift in Sources */,

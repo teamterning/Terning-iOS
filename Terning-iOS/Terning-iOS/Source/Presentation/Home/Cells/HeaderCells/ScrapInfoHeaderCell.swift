@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class ScrapInfoHeaderCell: UICollectionReusableView {
+final class ScrapInfoHeaderCell: UICollectionReusableView {
     
     // MARK: - UIComponents
     

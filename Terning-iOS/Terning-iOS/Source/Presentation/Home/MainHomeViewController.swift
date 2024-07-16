@@ -19,19 +19,19 @@ protocol bindFilterSettingDataProtocol {
     func bindFilterSettingData(grade: String?, period: String?, month: String?)
 }
 
-class MainHomeViewController: UIViewController, UICollectionViewDelegate {
+final class MainHomeViewController: UIViewController, UICollectionViewDelegate {
     
     // MARK: - Properties
     
-    let scrollView = UIScrollView()
+    private let scrollView = UIScrollView()
     
-    let numberOfSections: Int = 2
-    var cardModelItems: [JobCardModel] = JobCardModel.getJobCardData()
-    var scrapedAndDeadlineItems: [ScrapedAndDeadlineModel] = ScrapedAndDeadlineModel.getScrapedData()
+    private let numberOfSections: Int = 2
+    private var cardModelItems: [JobCardModel] = JobCardModel.getJobCardData()
+    private var scrapedAndDeadlineItems: [ScrapedAndDeadlineModel] = ScrapedAndDeadlineModel.getScrapedData()
     
     // MARK: - UIComponents
     
-    var rootView = MainHomeView()
+    private let rootView = MainHomeView()
     
     // MARK: - LifeCycles
     

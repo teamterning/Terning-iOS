@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class MainHomeView: UIView {
+final class MainHomeView: UIView {
     
     // MARK: - Properties
     
@@ -46,7 +46,7 @@ class MainHomeView: UIView {
         $0.layer.borderWidth = 1
     }
     
-    private let gradientView = UIImageView().then {
+    let gradientView = UIImageView().then {
         $0.image = UIImage(resource: .gradationBar)
     }
     

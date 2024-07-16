@@ -18,7 +18,7 @@ protocol SortButtonDidTapProtocol {
     func sortButtonTapped()
 }
 
-class FilterHeaderCell: UICollectionReusableView {
+final class FilterHeaderCell: UICollectionReusableView {
     
     // MARK: - Properties
     
@@ -185,11 +185,11 @@ extension FilterHeaderCell {
     
     // MARK: - Methods
     
-    func setAddTarget() {
+    private func setAddTarget() {
         filterButton.addTarget(self, action: #selector(filteringButtonDidTap), for: .touchUpInside)
     }
     
-    func setTapGesture() {
+    private func setTapGesture() {
            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(sortButtonDidTap))
            sortButtonStack.addGestureRecognizer(tapGesture)
        }

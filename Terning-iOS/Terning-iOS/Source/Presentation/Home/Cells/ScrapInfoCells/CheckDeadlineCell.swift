@@ -11,9 +11,7 @@ import SnapKit
 import Then
 
 class CheckDeadlineCell: UICollectionViewCell {
-    
-    // MARK: - Properties
-    
+
     // MARK: - UIComponents
     private let checkDeadlineCard = UIView().then {
         $0.makeBorder(width: 1, color: .grey150, cornerRadius: 5

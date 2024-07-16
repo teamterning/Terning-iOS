@@ -15,7 +15,7 @@ struct UserFilteringInfoModel {
 }
 
 extension UserFilteringInfoModel {
-    static func getUserFilteringInfo() -> [UserFilteringInfoModel]{
+    static func getUserFilteringInfo() -> [UserFilteringInfoModel] {
         return [
             UserFilteringInfoModel(
                 grade: 1,

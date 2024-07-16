@@ -14,13 +14,13 @@ final class IsScrapInfoViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    var internshipAnnouncementId: Double = 1
-    var scrapId: Double = 1
-    var companyImage: UIImage = UIImage(resource: .icHomeFill)
-    var dDay = "D-day"
-    var deadline = "2024년 7월 14일"
-    var workingPeriod = "2개월"
-    var startYearMonth = "2025년 10월"
+    private var internshipAnnouncementId: Double = 1
+    private var scrapId: Double = 1
+    private var companyImage: UIImage = UIImage(resource: .icHomeFill)
+    private var dDay = "D-day"
+    private var deadline = "2024년 7월 14일"
+    private var workingPeriod = "2개월"
+    private var startYearMonth = "2025년 10월"
     
     // MARK: - UIComponents
     

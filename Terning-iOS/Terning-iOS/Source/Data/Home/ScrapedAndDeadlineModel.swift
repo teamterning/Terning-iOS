@@ -14,7 +14,7 @@ struct ScrapedAndDeadlineModel {
     let title: String
     let dDay: String
     let deadLine: String
-    let workingPeriod : String
+    let workingPeriod: String
     let startYearMonth: String
     let color: String
 }

@@ -25,7 +25,7 @@ extension JobCardModel {
                 title: "[번개장터] Content Marketer",
                 dDay: "D-DAY",
                 workingPeriod: "1개월",
-                companyImage: UIImage(resource: .icHome)          ,
+                companyImage: UIImage(resource: .icHome),
                 isScraped: false
             ),
             

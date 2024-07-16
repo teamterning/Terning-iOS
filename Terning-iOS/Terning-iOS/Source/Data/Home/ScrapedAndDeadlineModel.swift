@@ -8,8 +8,8 @@
 import UIKit
 
 struct ScrapedAndDeadlineModel {
-    var color: CGColor
-    var title: String
+    let color: CGColor
+    let title: String
 }
 
 extension ScrapedAndDeadlineModel {

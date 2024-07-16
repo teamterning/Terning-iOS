@@ -15,7 +15,7 @@ class CheckDeadlineCell: UICollectionViewCell {
     // MARK: - Properties
     
     // MARK: - UIComponents
-    let checkDeadlineCard = UIView().then {
+    private let checkDeadlineCard = UIView().then {
         $0.makeBorder(width: 1, color: .grey150, cornerRadius: 5
         )
         $0.backgroundColor =  .white
@@ -23,7 +23,7 @@ class CheckDeadlineCell: UICollectionViewCell {
         )
     }
     
-    let checkDeadlineCardLabel = LabelFactory.build(
+    private let checkDeadlineCardLabel = LabelFactory.build(
         text: "오늘 마감인 공고가 없어요 \n 캘린더에서 가까운 공고 일정을 확인해보세요",
         font: .detail3,
         textAlignment: .center
@@ -31,13 +31,12 @@ class CheckDeadlineCell: UICollectionViewCell {
         $0.numberOfLines = 2
     }
     
-    var checkDeadlineButton = UIButton().then {
+    private let checkDeadlineButton = UIButton().then {
         $0.backgroundColor = .clear
-        $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 14
-        )
+        $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 14)
     }
     
-    var checkDeadlineButtonLabel = LabelFactory.build(
+    private let checkDeadlineButtonLabel = LabelFactory.build(
         text: "공고 마감 일정 확인하기",
         font: .button4,
         textColor: .terningMain,
@@ -61,7 +60,7 @@ class CheckDeadlineCell: UICollectionViewCell {
 // MARK: - UI & Layout
 
 extension CheckDeadlineCell {
-    func setHierarchy() {
+    private func setHierarchy() {
         contentView.addSubviews(
             checkDeadlineCard,
             checkDeadlineCardLabel,
@@ -70,7 +69,7 @@ extension CheckDeadlineCell {
         )
     }
     
-    func setLayout() {
+    private func setLayout() {
         checkDeadlineCard.snp.makeConstraints {
             $0.verticalEdges.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(20)

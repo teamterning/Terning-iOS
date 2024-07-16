@@ -7,20 +7,20 @@
 
 import UIKit
 
-class NonScrapInfoCell: UICollectionViewCell {
-    
-    // MARK: - Properties
+import SnapKit
+import Then
+
+final class NonScrapInfoCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     
-    // internshipScrapedStatus~ -> 분기처리가 필요한 화면이라 함수화가 필요함
-    let internshipScrapedStatus = UIView().then {
+    private let internshipScrapedStatus = UIView().then {
         $0.makeBorder(width: 1, color: .grey150, cornerRadius: 5)
         $0.backgroundColor =  .white
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
     }
     
-    let internshipScrapedStatusLabel = LabelFactory.build(
+    private let internshipScrapedStatusLabel = LabelFactory.build(
         text: "아직 스크랩된 인턴 공고가 없어요! \n 관심 공고를 스크랩하면 마감 당일에 알려드릴게요",
         font: .detail2,
         textColor: .grey400
@@ -45,14 +45,14 @@ class NonScrapInfoCell: UICollectionViewCell {
 // MARK: - UI & Layout
 
 extension NonScrapInfoCell {
-    func setHierarchy() {
+    private func setHierarchy() {
         contentView.addSubviews(
             internshipScrapedStatus,
             internshipScrapedStatusLabel
         )
     }
     
-    func setLayout() {
+    private func setLayout() {
         internshipScrapedStatus.snp.makeConstraints {
             $0.verticalEdges.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(20)

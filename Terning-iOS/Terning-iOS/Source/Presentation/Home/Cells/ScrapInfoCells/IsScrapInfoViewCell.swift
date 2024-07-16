@@ -7,25 +7,26 @@
 
 import UIKit
 
-class IsScrapInfoViewCell: UICollectionViewCell {
-    
-    // MARK: - Properties
+import SnapKit
+import Then
+
+final class IsScrapInfoViewCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     
-    var scrapAndDeadlineCard = UIView().then {
+    private let scrapAndDeadlineCard = UIView().then {
         $0.backgroundColor = .white
         $0.makeBorder(width: 1, color: .grey150, cornerRadius: 5)
     }
     
-    var colorMark = UIView().then {
+    private let colorMark = UIView().then {
         $0.backgroundColor = .black
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         $0.makeBorder(width: 0, color: .clear, cornerRadius: 5)
         $0.clipsToBounds = true
     }
     
-    var cardLabel = LabelFactory.build(
+    private let cardLabel = LabelFactory.build(
         text: "[유한킴벌리] 그린캠프 w.대학생 숲활동가 모집3",
         font: .button3,
         textAlignment: .left
@@ -50,7 +51,7 @@ class IsScrapInfoViewCell: UICollectionViewCell {
 // MARK: - UI & Layout
 
 extension IsScrapInfoViewCell {
-    func setHierarchy() {
+    private func setHierarchy() {
         contentView.addSubviews(
             scrapAndDeadlineCard,
             colorMark,
@@ -58,7 +59,7 @@ extension IsScrapInfoViewCell {
         )
     }
     
-    func setLayout() {
+    private func setLayout() {
         scrapAndDeadlineCard.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }

@@ -70,6 +70,22 @@
 		71461EBD2C3705B6002A6999 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461EBC2C3705B6002A6999 /* FontLiterals.swift */; };
 		71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461ED32C3811E8002A6999 /* ViewController+.swift */; };
 		71461ED62C38150C002A6999 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461ED52C38150C002A6999 /* UILabel+.swift */; };
+		71780C322C45705C0073B731 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C312C45705C0073B731 /* Encodable+.swift */; };
+		71780C352C45725E0073B731 /* Providers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C342C45725E0073B731 /* Providers.swift */; };
+		71780C3A2C4577FF0073B731 /* CalendarTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C392C4577FF0073B731 /* CalendarTargetType.swift */; };
+		71780C3C2C457DD70073B731 /* AuthTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C3B2C457DD70073B731 /* AuthTargetType.swift */; };
+		71780C3E2C45849A0073B731 /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C3D2C45849A0073B731 /* UserDefaultWrapper.swift */; };
+		71780C402C4584D40073B731 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C3F2C4584D40073B731 /* UserManager.swift */; };
+		71780C442C45860C0073B731 /* SignInResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C432C45860C0073B731 /* SignInResponseModel.swift */; };
+		71780C462C4589400073B731 /* NewTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C452C4589400073B731 /* NewTokenModel.swift */; };
+		71780C482C458FF80073B731 /* HomeTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C472C458FF80073B731 /* HomeTargetType.swift */; };
+		71780C4A2C4591B90073B731 /* MyPageTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C492C4591B90073B731 /* MyPageTargetType.swift */; };
+		71780C4C2C4598590073B731 /* ScrapsTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C4B2C4598590073B731 /* ScrapsTargetType.swift */; };
+		71780C4E2C459F610073B731 /* FiltersTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C4D2C459F610073B731 /* FiltersTargetType.swift */; };
+		71780C502C45A2870073B731 /* AnnouncementsTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C4F2C45A2870073B731 /* AnnouncementsTargetType.swift */; };
+		71780C522C45A4950073B731 /* SearchTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C512C45A4950073B731 /* SearchTargetType.swift */; };
+		71780C542C45A7DD0073B731 /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C532C45A7DD0073B731 /* NetworkLoggerPlugin.swift */; };
+		71780C562C45A81E0073B731 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C552C45A81E0073B731 /* AuthInterceptor.swift */; };
 		717D37EA2C32FA2F00A857DB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 717D37E92C32FA2F00A857DB /* SnapKit */; };
 		71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509202C41AD35006D8E56 /* JobListingCell.swift */; };
 		71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509222C41BD90006D8E56 /* CompositionalLayout.swift */; };
@@ -100,26 +116,23 @@
 		71E3C40D2C2423280026C4DD /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C40C2C2423280026C4DD /* .swiftlint.yml */; };
 		71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C40E2C243B510026C4DD /* UIView+.swift */; };
 		71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C4112C243BDD0026C4DD /* getClassName.swift */; };
-		B86A67542C408B1B00CB90E5 /* SortBottomSheetview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86A67532C408B1B00CB90E5 /* SortBottomSheetview.swift */; };
-		B86A67562C408B2C00CB90E5 /* SortBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86A67552C408B2C00CB90E5 /* SortBottomSheetViewController.swift */; };
 		B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86A67572C41166800CB90E5 /* FilterButton.swift */; };
-		B871D71E2C3E8771008D78C2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D71D2C3E8771008D78C2 /* HomeView.swift */; };
-		B871D7202C3E877B008D78C2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D71F2C3E877B008D78C2 /* HomeViewController.swift */; };
 		B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7222C3E8835008D78C2 /* JobCardModel.swift */; };
 		B871D7252C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7242C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift */; };
-		B871D7272C3E8BC2008D78C2 /* FilteringHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7262C3E8BC2008D78C2 /* FilteringHeaderCell.swift */; };
 		B871D7292C3E8E46008D78C2 /* JobCardScrapedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7282C3E8E46008D78C2 /* JobCardScrapedCell.swift */; };
-		B871D72B2C3E8ED7008D78C2 /* SortButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D72A2C3E8ED7008D78C2 /* SortButtonCell.swift */; };
-		B871D72D2C3E8FE6008D78C2 /* FilteringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D72C2C3E8FE6008D78C2 /* FilteringCell.swift */; };
-		B871D72F2C3E909F008D78C2 /* DecorationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D72E2C3E909F008D78C2 /* DecorationCell.swift */; };
 		B871D7312C3E9118008D78C2 /* NonScrapInfoCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7302C3E9118008D78C2 /* NonScrapInfoCells.swift */; };
 		B871D7332C3EC148008D78C2 /* IsScrapInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */; };
 		B871D7352C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */; };
 		B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */; };
 		B871D7392C3F1A49008D78C2 /* CheckDeadlineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7382C3F1A49008D78C2 /* CheckDeadlineCell.swift */; };
+		B8BE0E102C465AAD00B3D298 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE0E0F2C465AAD00B3D298 /* Config.swift */; };
 		B8C5DB6E2C3F353D00865B1A /* InavailableFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */; };
 		B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */; };
 		B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */; };
+		B8D549392C450C9600553BB5 /* MainHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D549382C450C9600553BB5 /* MainHomeView.swift */; };
+		B8D5493B2C450E9600553BB5 /* FilterHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D5493A2C450E9600553BB5 /* FilterHeaderCell.swift */; };
+		B8D5493D2C455A2100553BB5 /* MainHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D5493C2C455A2100553BB5 /* MainHomeViewController.swift */; };
+		B8D5493F2C45B46D00553BB5 /* NonJobCardHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D5493E2C45B46D00553BB5 /* NonJobCardHeaderCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -181,6 +194,24 @@
 		71461EBC2C3705B6002A6999 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
 		71461ED32C3811E8002A6999 /* ViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+.swift"; sourceTree = "<group>"; };
 		71461ED52C38150C002A6999 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		716E08AB2C44349A00469E3B /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		71780C312C45705C0073B731 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
+		71780C342C45725E0073B731 /* Providers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Providers.swift; sourceTree = "<group>"; };
+		71780C392C4577FF0073B731 /* CalendarTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTargetType.swift; sourceTree = "<group>"; };
+		71780C3B2C457DD70073B731 /* AuthTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTargetType.swift; sourceTree = "<group>"; };
+		71780C3D2C45849A0073B731 /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
+		71780C3F2C4584D40073B731 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		71780C432C45860C0073B731 /* SignInResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInResponseModel.swift; sourceTree = "<group>"; };
+		71780C452C4589400073B731 /* NewTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenModel.swift; sourceTree = "<group>"; };
+		71780C472C458FF80073B731 /* HomeTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTargetType.swift; sourceTree = "<group>"; };
+		71780C492C4591B90073B731 /* MyPageTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTargetType.swift; sourceTree = "<group>"; };
+		71780C4B2C4598590073B731 /* ScrapsTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapsTargetType.swift; sourceTree = "<group>"; };
+		71780C4D2C459F610073B731 /* FiltersTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersTargetType.swift; sourceTree = "<group>"; };
+		71780C4F2C45A2870073B731 /* AnnouncementsTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementsTargetType.swift; sourceTree = "<group>"; };
+		71780C512C45A4950073B731 /* SearchTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTargetType.swift; sourceTree = "<group>"; };
+		71780C532C45A7DD0073B731 /* NetworkLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerPlugin.swift; sourceTree = "<group>"; };
+		71780C552C45A81E0073B731 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
+		71780C592C4627A30073B731 /* Terning-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Terning-iOS.entitlements"; sourceTree = "<group>"; };
 		71B509202C41AD35006D8E56 /* JobListingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListingCell.swift; sourceTree = "<group>"; };
 		71B509222C41BD90006D8E56 /* CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayout.swift; sourceTree = "<group>"; };
 		71B509242C41D027006D8E56 /* CalendarDateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateHeaderView.swift; sourceTree = "<group>"; };
@@ -207,26 +238,23 @@
 		71E3C40C2C2423280026C4DD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		71E3C40E2C243B510026C4DD /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		71E3C4112C243BDD0026C4DD /* getClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getClassName.swift; sourceTree = "<group>"; };
-		B86A67532C408B1B00CB90E5 /* SortBottomSheetview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortBottomSheetview.swift; sourceTree = "<group>"; };
-		B86A67552C408B2C00CB90E5 /* SortBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortBottomSheetViewController.swift; sourceTree = "<group>"; };
 		B86A67572C41166800CB90E5 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
-		B871D71D2C3E8771008D78C2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		B871D71F2C3E877B008D78C2 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B871D7222C3E8835008D78C2 /* JobCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardModel.swift; sourceTree = "<group>"; };
 		B871D7242C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapInfoHeaderCell.swift; sourceTree = "<group>"; };
-		B871D7262C3E8BC2008D78C2 /* FilteringHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringHeaderCell.swift; sourceTree = "<group>"; };
 		B871D7282C3E8E46008D78C2 /* JobCardScrapedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardScrapedCell.swift; sourceTree = "<group>"; };
-		B871D72A2C3E8ED7008D78C2 /* SortButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButtonCell.swift; sourceTree = "<group>"; };
-		B871D72C2C3E8FE6008D78C2 /* FilteringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringCell.swift; sourceTree = "<group>"; };
-		B871D72E2C3E909F008D78C2 /* DecorationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecorationCell.swift; sourceTree = "<group>"; };
 		B871D7302C3E9118008D78C2 /* NonScrapInfoCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonScrapInfoCells.swift; sourceTree = "<group>"; };
 		B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsScrapInfoViewCell.swift; sourceTree = "<group>"; };
 		B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapedAndDeadlineModel.swift; sourceTree = "<group>"; };
 		B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonJobCardCell.swift; sourceTree = "<group>"; };
 		B871D7382C3F1A49008D78C2 /* CheckDeadlineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDeadlineCell.swift; sourceTree = "<group>"; };
+		B8BE0E0F2C465AAD00B3D298 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InavailableFilterView.swift; sourceTree = "<group>"; };
 		B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSettingView.swift; sourceTree = "<group>"; };
 		B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSettingViewController.swift; sourceTree = "<group>"; };
+		B8D549382C450C9600553BB5 /* MainHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeView.swift; sourceTree = "<group>"; };
+		B8D5493A2C450E9600553BB5 /* FilterHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterHeaderCell.swift; sourceTree = "<group>"; };
+		B8D5493C2C455A2100553BB5 /* MainHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeViewController.swift; sourceTree = "<group>"; };
+		B8D5493E2C45B46D00553BB5 /* NonJobCardHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonJobCardHeaderCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -541,6 +569,8 @@
 			children = (
 				2D4EE3882C3D9EA400E3E95B /* Date+.swift */,
 				7121A1502C3B09E10056DB8B /* Result+.swift */,
+				71780C312C45705C0073B731 /* Encodable+.swift */,
+				71780C532C45A7DD0073B731 /* NetworkLoggerPlugin.swift */,
 			);
 			path = "Foundation+";
 			sourceTree = "<group>";
@@ -548,9 +578,51 @@
 		716E08AA2C44346F00469E3B /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				2DC9861B2C46E01E00D46729 /* Config.swift */,
+				716E08AB2C44349A00469E3B /* Config.xcconfig */,
+				B8BE0E0F2C465AAD00B3D298 /* Config.swift */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		71780C332C4572300073B731 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				71780C342C45725E0073B731 /* Providers.swift */,
+				71780C552C45A81E0073B731 /* AuthInterceptor.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		71780C382C45778D0073B731 /* TargetType */ = {
+			isa = PBXGroup;
+			children = (
+				71780C392C4577FF0073B731 /* CalendarTargetType.swift */,
+				71780C3B2C457DD70073B731 /* AuthTargetType.swift */,
+				71780C472C458FF80073B731 /* HomeTargetType.swift */,
+				71780C492C4591B90073B731 /* MyPageTargetType.swift */,
+				71780C4B2C4598590073B731 /* ScrapsTargetType.swift */,
+				71780C4D2C459F610073B731 /* FiltersTargetType.swift */,
+				71780C4F2C45A2870073B731 /* AnnouncementsTargetType.swift */,
+				71780C512C45A4950073B731 /* SearchTargetType.swift */,
+			);
+			path = TargetType;
+			sourceTree = "<group>";
+		};
+		71780C412C4584DA0073B731 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				71780C3F2C4584D40073B731 /* UserManager.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		71780C422C4586000073B731 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				71780C432C45860C0073B731 /* SignInResponseModel.swift */,
+				71780C452C4589400073B731 /* NewTokenModel.swift */,
+			);
+			path = SignIn;
 			sourceTree = "<group>";
 		};
 		71CCC06D2C3F369A00789A9B /* Calendar */ = {
@@ -644,6 +716,7 @@
 		71E3C3CB2C22BAF40026C4DD /* Terning-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				71780C592C4627A30073B731 /* Terning-iOS.entitlements */,
 				71E3C3E02C2414870026C4DD /* Application */,
 				71E3C3E42C241B8A0026C4DD /* Resource */,
 				71E3C3E72C241BF20026C4DD /* Source */,
@@ -667,7 +740,10 @@
 		71E3C3E12C241B170026C4DD /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				71780C412C4584DA0073B731 /* User */,
+				71780C382C45778D0073B731 /* TargetType */,
 				7121A1442C3B079F0056DB8B /* Base */,
+				71780C332C4572300073B731 /* Service */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -702,7 +778,6 @@
 				2DC985F42C456ED800D46729 /* Search */,
 				71CCC06D2C3F369A00789A9B /* Calendar */,
 				2DC61F132C41A52E009F991F /* Login */,
-				B86A67522C408AF900CB90E5 /* SortBottomSheet */,
 				2DC61EEE2C40759F009F991F /* JobDetail */,
 				2D4EE3D82C3F520000E3E95B /* Onboarding */,
 				2D4EE3A02C3E787200E3E95B /* Profile */,
@@ -719,6 +794,8 @@
 			isa = PBXGroup;
 			children = (
 				2DC986092C46054D00D46729 /* Search */,
+				B8BE0E122C4666BD00B3D298 /* Home */,
+				71780C422C4586000073B731 /* SignIn */,
 				71CCC0802C41282400789A9B /* Calendar */,
 				7121A1472C3B07F30056DB8B /* Announcements */,
 			);
@@ -765,25 +842,16 @@
 				71B509222C41BD90006D8E56 /* CompositionalLayout.swift */,
 				71B5092C2C4326F8006D8E56 /* adjusted+.swift */,
 				71B5092E2C432F90006D8E56 /* ViewControllerUtils.swift */,
+				71780C3D2C45849A0073B731 /* UserDefaultWrapper.swift */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		B86A67522C408AF900CB90E5 /* SortBottomSheet */ = {
-			isa = PBXGroup;
-			children = (
-				B86A67532C408B1B00CB90E5 /* SortBottomSheetview.swift */,
-				B86A67552C408B2C00CB90E5 /* SortBottomSheetViewController.swift */,
-			);
-			path = SortBottomSheet;
 			sourceTree = "<group>";
 		};
 		B871D7142C3E8498008D78C2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				B871D7212C3E8812008D78C2 /* Model */,
-				B871D71F2C3E877B008D78C2 /* HomeViewController.swift */,
-				B871D71D2C3E8771008D78C2 /* HomeView.swift */,
+				B8D5493C2C455A2100553BB5 /* MainHomeViewController.swift */,
+				B8D549382C450C9600553BB5 /* MainHomeView.swift */,
 				B871D7152C3E84A1008D78C2 /* Cells */,
 			);
 			path = Home;
@@ -794,9 +862,6 @@
 			children = (
 				B871D7162C3E84BD008D78C2 /* HeaderCells */,
 				B871D7172C3E84D5008D78C2 /* ScrapInfoCells */,
-				B871D7182C3E84EB008D78C2 /* FilteringCell */,
-				B871D7192C3E84F5008D78C2 /* DecorationCell */,
-				B871D71A2C3E850A008D78C2 /* SortButtonCell */,
 				B871D71B2C3E8513008D78C2 /* JobCardCells */,
 			);
 			path = Cells;
@@ -806,7 +871,9 @@
 			isa = PBXGroup;
 			children = (
 				B871D7242C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift */,
-				B871D7262C3E8BC2008D78C2 /* FilteringHeaderCell.swift */,
+				B8D5493A2C450E9600553BB5 /* FilterHeaderCell.swift */,
+				B8D5493E2C45B46D00553BB5 /* NonJobCardHeaderCell.swift */,
+				B86A67572C41166800CB90E5 /* FilterButton.swift */,
 			);
 			path = HeaderCells;
 			sourceTree = "<group>";
@@ -821,48 +888,23 @@
 			path = ScrapInfoCells;
 			sourceTree = "<group>";
 		};
-		B871D7182C3E84EB008D78C2 /* FilteringCell */ = {
-			isa = PBXGroup;
-			children = (
-				B871D72C2C3E8FE6008D78C2 /* FilteringCell.swift */,
-				B86A67572C41166800CB90E5 /* FilterButton.swift */,
-			);
-			path = FilteringCell;
-			sourceTree = "<group>";
-		};
-		B871D7192C3E84F5008D78C2 /* DecorationCell */ = {
-			isa = PBXGroup;
-			children = (
-				B871D72E2C3E909F008D78C2 /* DecorationCell.swift */,
-			);
-			path = DecorationCell;
-			sourceTree = "<group>";
-		};
-		B871D71A2C3E850A008D78C2 /* SortButtonCell */ = {
-			isa = PBXGroup;
-			children = (
-				B871D72A2C3E8ED7008D78C2 /* SortButtonCell.swift */,
-			);
-			path = SortButtonCell;
-			sourceTree = "<group>";
-		};
 		B871D71B2C3E8513008D78C2 /* JobCardCells */ = {
 			isa = PBXGroup;
 			children = (
+				B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */,
 				B871D7282C3E8E46008D78C2 /* JobCardScrapedCell.swift */,
 				B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */,
-				B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */,
 			);
 			path = JobCardCells;
 			sourceTree = "<group>";
 		};
-		B871D7212C3E8812008D78C2 /* Model */ = {
+		B8BE0E122C4666BD00B3D298 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				B871D7222C3E8835008D78C2 /* JobCardModel.swift */,
 				B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */,
 			);
-			path = Model;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		B8C5DB6F2C3F39A500865B1A /* FilteringSetting */ = {
@@ -997,34 +1039,43 @@
 			files = (
 				2DC61F012C40825D009F991F /* DetailInfoTableViewCell.swift in Sources */,
 				2DC986062C45704600D46729 /* CustomSearchView.swift in Sources */,
+				71780C4C2C4598590073B731 /* ScrapsTargetType.swift in Sources */,
 				B871D7332C3EC148008D78C2 /* IsScrapInfoViewCell.swift in Sources */,
 				2D4EE3962C3DD5CB00E3E95B /* WelcomeViewController.swift in Sources */,
 				7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */,
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
 				2D4EE3A42C3E789200E3E95B /* ProfileView.swift in Sources */,
-				B86A67542C408B1B00CB90E5 /* SortBottomSheetview.swift in Sources */,
 				71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */,
 				B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */,
 				2DC9860B2C46056300D46729 /* RecommendAnnouncementModel.swift in Sources */,
 				7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */,
 				2D4EE3E62C3FFF9200E3E95B /* OnboardingView.swift in Sources */,
+				71780C4A2C4591B90073B731 /* MyPageTargetType.swift in Sources */,
 				71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */,
 				2DC61EFD2C40823C009F991F /* CompanyInfoTableViewCell.swift in Sources */,
 				7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */,
+				71780C562C45A81E0073B731 /* AuthInterceptor.swift in Sources */,
 				71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */,
 				2D4EE3AB2C3E854E00E3E95B /* ValidationMessage.swift in Sources */,
+				71780C542C45A7DD0073B731 /* NetworkLoggerPlugin.swift in Sources */,
+				71780C502C45A2870073B731 /* AnnouncementsTargetType.swift in Sources */,
 				71B5092F2C432F90006D8E56 /* ViewControllerUtils.swift in Sources */,
+				71780C402C4584D40073B731 /* UserManager.swift in Sources */,
 				71E3C3CD2C22BAF40026C4DD /* AppDelegate.swift in Sources */,
+				71780C442C45860C0073B731 /* SignInResponseModel.swift in Sources */,
 				2D4EE38B2C3D9FD900E3E95B /* CustomDatePicker.swift in Sources */,
 				2D4EE3942C3DD5B700E3E95B /* WelcomeView.swift in Sources */,
 				71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */,
+				B8D5493D2C455A2100553BB5 /* MainHomeViewController.swift in Sources */,
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
+				B8BE0E102C465AAD00B3D298 /* Config.swift in Sources */,
 				71CCC0792C3FDABF00789A9B /* TNCalendarViewModel.swift in Sources */,
 				71CCC0732C3F36EA00789A9B /* TNCalendarView.swift in Sources */,
 				2DC986082C45FAC200D46729 /* CustomPageControl.swift in Sources */,
 				71CCC07C2C3FDB0400789A9B /* ViewModelType.swift in Sources */,
 				71B509272C41FB41006D8E56 /* ScrapModel.swift in Sources */,
 				71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */,
+				71780C322C45705C0073B731 /* Encodable+.swift in Sources */,
 				2DC61EFF2C40824A009F991F /* SummaryInfoTableViewCell.swift in Sources */,
 				71B5092D2C4326F8006D8E56 /* adjusted+.swift in Sources */,
 				B871D7352C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift in Sources */,
@@ -1040,34 +1091,39 @@
 				71CCC07F2C40377E00789A9B /* TNCalendarDateCell.swift in Sources */,
 				B8C5DB6E2C3F353D00865B1A /* InavailableFilterView.swift in Sources */,
 				7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */,
-				B86A67562C408B2C00CB90E5 /* SortBottomSheetViewController.swift in Sources */,
 				7121A1552C3EA01F0056DB8B /* Toast.swift in Sources */,
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
 				2DC61EF52C4075EB009F991F /* MainInfoTableViewCell.swift in Sources */,
 				2DC61F292C421335009F991F /* LoginViewModel.swift in Sources */,
+				71780C3C2C457DD70073B731 /* AuthTargetType.swift in Sources */,
 				2DC61F072C4145CD009F991F /* CustomScrapButton.swift in Sources */,
 				2D4EE3E82C400D6900E3E95B /* OnboardingPageViewController.swift in Sources */,
+				71780C4E2C459F610073B731 /* FiltersTargetType.swift in Sources */,
 				2D4EE3EA2C400ECB00E3E95B /* OnboardingViewController.swift in Sources */,
+				71780C3A2C4577FF0073B731 /* CalendarTargetType.swift in Sources */,
 				B871D7392C3F1A49008D78C2 /* CheckDeadlineCell.swift in Sources */,
 				2DC61F032C4087B4009F991F /* JobSummaryInfoView.swift in Sources */,
+				71780C462C4589400073B731 /* NewTokenModel.swift in Sources */,
 				B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */,
-				B871D72F2C3E909F008D78C2 /* DecorationCell.swift in Sources */,
-				B871D7202C3E877B008D78C2 /* HomeViewController.swift in Sources */,
+				71780C482C458FF80073B731 /* HomeTargetType.swift in Sources */,
+				71780C3E2C45849A0073B731 /* UserDefaultWrapper.swift in Sources */,
 				7121A14B2C3B09800056DB8B /* setImage.swift in Sources */,
 				B871D7292C3E8E46008D78C2 /* JobCardScrapedCell.swift in Sources */,
-				B871D71E2C3E8771008D78C2 /* HomeView.swift in Sources */,
-				B871D72B2C3E8ED7008D78C2 /* SortButtonCell.swift in Sources */,
 				2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */,
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
 				2DC61EF92C407E65009F991F /* JobDetailTableViewHeaderCell.swift in Sources */,
+				71780C352C45725E0073B731 /* Providers.swift in Sources */,
+				71780C522C45A4950073B731 /* SearchTargetType.swift in Sources */,
 				B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */,
 				2DC9860D2C4605FC00D46729 /* AdvertisementsModel.swift in Sources */,
 				B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */,
 				2DC985FE2C456FC300D46729 /* SearchView.swift in Sources */,
 				2D4EE3A62C3E78A200E3E95B /* ProfileViewController.swift in Sources */,
 				71B509252C41D027006D8E56 /* CalendarDateHeaderView.swift in Sources */,
+				B8D5493F2C45B46D00553BB5 /* NonJobCardHeaderCell.swift in Sources */,
 				2DC61F192C41B261009F991F /* LoginView.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
+				B8D5493B2C450E9600553BB5 /* FilterHeaderCell.swift in Sources */,
 				2DC61EF72C4075F3009F991F /* JobDetailViewModel.swift in Sources */,
 				B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */,
 				2DC985F72C456F7E00D46729 /* AdvertisementCollectionViewCell.swift in Sources */,
@@ -1078,6 +1134,7 @@
 				71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
 				2DC61F152C41AB54009F991F /* LoginViewController.swift in Sources */,
+				B8D549392C450C9600553BB5 /* MainHomeView.swift in Sources */,
 				2DC61F052C40926D009F991F /* JobDetailView.swift in Sources */,
 				7121A1492C3B08360056DB8B /* JobDetailModel.swift in Sources */,
 				2D4EE3ED2C4020DC00E3E95B /* OnboardingViewModel.swift in Sources */,
@@ -1086,7 +1143,6 @@
 				2D4EE3872C3D7CB200E3E95B /* CustomOnboardingButton.swift in Sources */,
 				2DC985FB2C456FA400D46729 /* SearchCollectionViewHeaderCell.swift in Sources */,
 				71461EBD2C3705B6002A6999 /* FontLiterals.swift in Sources */,
-				B871D72D2C3E8FE6008D78C2 /* FilteringCell.swift in Sources */,
 				B871D7252C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift in Sources */,
 				7121A1402C3AB9EE0056DB8B /* JobDetailInfoView.swift in Sources */,
 			);
@@ -1230,11 +1286,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8Q4H7X3Q58;
+				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Terning-iOS/Info.plist";
@@ -1251,7 +1307,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.terning.Terning-iOS";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1263,11 +1318,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8Q4H7X3Q58;
+				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Terning-iOS/Info.plist";
@@ -1284,7 +1339,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.terning.Terning-iOS";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

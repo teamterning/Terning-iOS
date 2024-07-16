@@ -7,31 +7,31 @@
 
 import UIKit
 
-class JobCardScrapedCell: UICollectionViewCell {
-    
-    // MARK: - Properties
+import SnapKit
+import Then
+
+final class JobCardScrapedCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     
-    let jobCard = UIView().then {
+    private let jobCard = UIView().then {
         $0.backgroundColor = UIColor.white
         $0.layer.cornerRadius = 10
-        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0
-        )
+        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
     }
     
-    var jobCardCoverImage = UIImageView().then {
+    private let jobCardCoverImage = UIImageView().then {
         $0.image = UIImage(resource: .icHome)
     }
     
-    var daysRemaining = LabelFactory.build(
+    private let daysRemaining = LabelFactory.build(
         text: "D-2",
         font: .detail0,
         textColor: .terningMain,
         textAlignment: .left
     )
     
-    var jobLabel = LabelFactory.build(
+    private let jobLabel = LabelFactory.build(
         text: "[Someone's Cat] 콘텐츠 마케터 대학생 인턴 채용",
         font: .title5,
         textColor: .black,
@@ -40,14 +40,14 @@ class JobCardScrapedCell: UICollectionViewCell {
         $0.numberOfLines = 2
     }
     
-    var periodTitle = LabelFactory.build(
+    private let periodTitle = LabelFactory.build(
         text: "근무기간",
         font: .detail3,
         textColor: .grey400,
         textAlignment: .left
     )
     
-    var period = LabelFactory.build(
+    private let period = LabelFactory.build(
         text: "2개월",
         font: .detail3,
         textColor: .terningMain,
@@ -55,6 +55,7 @@ class JobCardScrapedCell: UICollectionViewCell {
     )
     
     lazy var scrapButton = UIButton().then {
+        $0.setImage(.icScrapFill, for: .selected)
         $0.setImage(.icScrap, for: .normal)
     }
     
@@ -65,7 +66,7 @@ class JobCardScrapedCell: UICollectionViewCell {
         
         setHierarchy()
         setLayout()
-
+        setAddTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -74,6 +75,7 @@ class JobCardScrapedCell: UICollectionViewCell {
 }
 
 // MARK: - UI & Layout
+
 extension JobCardScrapedCell {
     func setHierarchy() {
         contentView.addSubviews(
@@ -128,16 +130,25 @@ extension JobCardScrapedCell {
         }
     }
     
-    func bindData(
-        coverImage: UIImage,
-        daysRemaining: String,
-        title: String,
-        period: String
-    ) {
-        self.jobCardCoverImage.image = coverImage
-        self.daysRemaining.text = daysRemaining
-        self.jobLabel.text = title
-        self.period.text = period
+    private func setAddTarget() {
+        scrapButton.addTarget(self, action: #selector(scrapButtonDidTap), for: .touchUpInside)
     }
     
+    // MARK: - Methods
+    
+    func bindData(model: JobCardModel) {
+//      self.jobCardCoverImage.setImage(with: model.companyImage) URL로 이미지 받아올 때 사용예시라 남겨놨습니다.
+        self.jobCardCoverImage.image = model.companyImage
+        self.daysRemaining.text = model.dDay
+        self.jobLabel.text = model.title
+        self.period.text = model.workingPeriod
+        self.scrapButton.isSelected = model.isScraped
+    }
+    
+    // MARK: - objc Functions
+    
+    @objc
+    func scrapButtonDidTap() {
+        print("scrap button")
+    }
 }

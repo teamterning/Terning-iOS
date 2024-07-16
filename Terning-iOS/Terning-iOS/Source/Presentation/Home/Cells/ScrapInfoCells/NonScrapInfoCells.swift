@@ -7,6 +7,10 @@
 
 import UIKit
 
+import SnapKit
+import Then
+
+
 class NonScrapInfoCell: UICollectionViewCell {
     
     // MARK: - Properties
@@ -45,14 +49,14 @@ class NonScrapInfoCell: UICollectionViewCell {
 // MARK: - UI & Layout
 
 extension NonScrapInfoCell {
-    func setHierarchy() {
+    private func setHierarchy() {
         contentView.addSubviews(
             internshipScrapedStatus,
             internshipScrapedStatusLabel
         )
     }
     
-    func setLayout() {
+    private func setLayout() {
         internshipScrapedStatus.snp.makeConstraints {
             $0.verticalEdges.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(20)

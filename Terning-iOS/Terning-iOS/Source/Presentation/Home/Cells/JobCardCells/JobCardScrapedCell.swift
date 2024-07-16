@@ -10,10 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-
-class JobCardScrapedCell: UICollectionViewCell {
-    
-    // MARK: - Properties
+final class JobCardScrapedCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     
@@ -58,6 +55,7 @@ class JobCardScrapedCell: UICollectionViewCell {
     )
     
     lazy var scrapButton = UIButton().then {
+        $0.setImage(.icScrapFill, for: .selected)
         $0.setImage(.icScrap, for: .normal)
     }
     
@@ -68,7 +66,7 @@ class JobCardScrapedCell: UICollectionViewCell {
         
         setHierarchy()
         setLayout()
-        
+        setAddTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -77,6 +75,7 @@ class JobCardScrapedCell: UICollectionViewCell {
 }
 
 // MARK: - UI & Layout
+
 extension JobCardScrapedCell {
     func setHierarchy() {
         contentView.addSubviews(
@@ -131,15 +130,25 @@ extension JobCardScrapedCell {
         }
     }
     
-    func bindData(
-        coverImage: UIImage,
-        daysRemaining: String,
-        title: String,
-        period: String
-    ) {
-        self.jobCardCoverImage.image = coverImage
-        self.daysRemaining.text = daysRemaining
-        self.jobLabel.text = title
-        self.period.text = period
+    private func setAddTarget() {
+        scrapButton.addTarget(self, action: #selector(scrapButtonDidTap), for: .touchUpInside)
+    }
+    
+    // MARK: - Methods
+    
+    func bindData(model: JobCardModel) {
+//      self.jobCardCoverImage.setImage(with: model.companyImage) URL로 이미지 받아올 때 사용예시라 남겨놨습니다.
+        self.jobCardCoverImage.image = model.companyImage
+        self.daysRemaining.text = model.dDay
+        self.jobLabel.text = model.title
+        self.period.text = model.workingPeriod
+        self.scrapButton.isSelected = model.isScraped
+    }
+    
+    // MARK: - objc Functions
+    
+    @objc
+    func scrapButtonDidTap() {
+        print("scrap button")
     }
 }

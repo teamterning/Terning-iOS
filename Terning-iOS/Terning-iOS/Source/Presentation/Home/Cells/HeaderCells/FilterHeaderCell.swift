@@ -91,7 +91,7 @@ final class FilterHeaderCell: UICollectionReusableView {
         ]
     ).then {
         $0.axis = .horizontal
-        $0.spacing = 20
+        $0.spacing = 27
         $0.distribution = .fillProportionally
         $0.alignment = .center
     }
@@ -173,13 +173,13 @@ extension FilterHeaderCell {
         
         decorationView.snp.makeConstraints {
             $0.top.equalTo(FilteringStack.snp.bottom).offset(11)
-            $0.width.equalTo(375)
+            $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(4)
         }
         
         sortButtonStack.snp.makeConstraints {
             $0.top.equalTo(decorationView.snp.bottom).offset(10)
-            $0.leading.equalToSuperview().offset(240)
+            $0.leading.equalToSuperview().offset(280)
         }
     }
     

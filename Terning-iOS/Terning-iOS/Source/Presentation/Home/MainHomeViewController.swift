@@ -21,8 +21,6 @@ protocol bindFilterSettingDataProtocol {
 
 final class MainHomeViewController: UIViewController, UICollectionViewDelegate {
     
-    // MARK: - Properties
-    
     private let scrollView = UIScrollView()
     
     private let numberOfSections: Int = 2
@@ -212,7 +210,7 @@ extension MainHomeViewController: UICollectionViewDataSource {
                 }
                 
                 let model = cardModelItems[indexPath.row]
-                cell.bindData(coverImage: model.coverImage, daysRemaining: model.daysRemaining, title: model.title, period: model.period)
+                cell.bindData(model: JobCardModel(internshipAnnouncementId: model.internshipAnnouncementId, title: model.title, dDay: model.dDay, workingPeriod: model.workingPeriod, companyImage: model.companyImage, isScraped: model.isScraped))
                 
                 return cell
             }

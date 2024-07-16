@@ -58,6 +58,8 @@ enum TNTabBarItem {
             return HomeViewController()
         case .calendar:
             return TNCalendarViewController()
+        case .search:
+            return SearchViewController(viewModel: SearchViewModel())
         default:
             return ViewController(backgroundColor: .calGreen2)
         }

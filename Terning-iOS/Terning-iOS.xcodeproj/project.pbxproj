@@ -37,6 +37,17 @@
 		2DC61F2C2C4213C7009F991F /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 2DC61F2B2C4213C7009F991F /* KakaoSDK */; };
 		2DC61F2E2C4213C7009F991F /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2DC61F2D2C4213C7009F991F /* KakaoSDKAuth */; };
 		2DC61F302C4213C7009F991F /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 2DC61F2F2C4213C7009F991F /* KakaoSDKCommon */; };
+		2DC985F02C456CEF00D46729 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2DC985EF2C456CEF00D46729 /* Config.xcconfig */; };
+		2DC985F72C456F7E00D46729 /* AdvertisementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC985F62C456F7E00D46729 /* AdvertisementCollectionViewCell.swift */; };
+		2DC985F92C456F9300D46729 /* RecommendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC985F82C456F9300D46729 /* RecommendCollectionViewCell.swift */; };
+		2DC985FB2C456FA400D46729 /* SearchCollectionViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC985FA2C456FA400D46729 /* SearchCollectionViewHeaderCell.swift */; };
+		2DC985FE2C456FC300D46729 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC985FD2C456FC300D46729 /* SearchView.swift */; };
+		2DC986012C456FE900D46729 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC986002C456FE900D46729 /* SearchViewController.swift */; };
+		2DC986032C45701D00D46729 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC986022C45701D00D46729 /* SearchViewModel.swift */; };
+		2DC986062C45704600D46729 /* CustomSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC986052C45704600D46729 /* CustomSearchView.swift */; };
+		2DC986082C45FAC200D46729 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC986072C45FAC200D46729 /* CustomPageControl.swift */; };
+		2DC9860B2C46056300D46729 /* RecommendAnnouncementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */; };
+		2DC9860D2C4605FC00D46729 /* AdvertisementsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
 		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
@@ -59,7 +70,6 @@
 		71461EBD2C3705B6002A6999 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461EBC2C3705B6002A6999 /* FontLiterals.swift */; };
 		71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461ED32C3811E8002A6999 /* ViewController+.swift */; };
 		71461ED62C38150C002A6999 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461ED52C38150C002A6999 /* UILabel+.swift */; };
-		716E08AC2C44349A00469E3B /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 716E08AB2C44349A00469E3B /* Config.xcconfig */; };
 		717D37EA2C32FA2F00A857DB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 717D37E92C32FA2F00A857DB /* SnapKit */; };
 		71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509202C41AD35006D8E56 /* JobListingCell.swift */; };
 		71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509222C41BD90006D8E56 /* CompositionalLayout.swift */; };
@@ -140,6 +150,17 @@
 		2DC61F142C41AB54009F991F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2DC61F182C41B261009F991F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		2DC61F282C421335009F991F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		2DC985EF2C456CEF00D46729 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		2DC985F62C456F7E00D46729 /* AdvertisementCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementCollectionViewCell.swift; sourceTree = "<group>"; };
+		2DC985F82C456F9300D46729 /* RecommendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCollectionViewCell.swift; sourceTree = "<group>"; };
+		2DC985FA2C456FA400D46729 /* SearchCollectionViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewHeaderCell.swift; sourceTree = "<group>"; };
+		2DC985FD2C456FC300D46729 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		2DC986002C456FE900D46729 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		2DC986022C45701D00D46729 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		2DC986052C45704600D46729 /* CustomSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchView.swift; sourceTree = "<group>"; };
+		2DC986072C45FAC200D46729 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
+		2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendAnnouncementModel.swift; sourceTree = "<group>"; };
+		2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementsModel.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
@@ -160,7 +181,6 @@
 		71461EBC2C3705B6002A6999 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
 		71461ED32C3811E8002A6999 /* ViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+.swift"; sourceTree = "<group>"; };
 		71461ED52C38150C002A6999 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
-		716E08AB2C44349A00469E3B /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		71B509202C41AD35006D8E56 /* JobListingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListingCell.swift; sourceTree = "<group>"; };
 		71B509222C41BD90006D8E56 /* CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayout.swift; sourceTree = "<group>"; };
 		71B509242C41D027006D8E56 /* CalendarDateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateHeaderView.swift; sourceTree = "<group>"; };
@@ -407,6 +427,60 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		2DC985F42C456ED800D46729 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2DC985F52C456F7500D46729 /* Cell */,
+				2DC985FC2C456FB900D46729 /* View */,
+				2DC985FF2C456FD900D46729 /* ViewController */,
+				2DC986042C45703000D46729 /* ViewModel */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		2DC985F52C456F7500D46729 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2DC985F62C456F7E00D46729 /* AdvertisementCollectionViewCell.swift */,
+				2DC985F82C456F9300D46729 /* RecommendCollectionViewCell.swift */,
+				2DC985FA2C456FA400D46729 /* SearchCollectionViewHeaderCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		2DC985FC2C456FB900D46729 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2DC985FD2C456FC300D46729 /* SearchView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2DC985FF2C456FD900D46729 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2DC986002C456FE900D46729 /* SearchViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2DC986042C45703000D46729 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2DC986022C45701D00D46729 /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2DC986092C46054D00D46729 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */,
+				2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		7121A1312C396F980056DB8B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,6 +490,8 @@
 				2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */,
 				7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */,
 				2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */,
+				2DC986072C45FAC200D46729 /* CustomPageControl.swift */,
+				2DC986052C45704600D46729 /* CustomSearchView.swift */,
 				2D4EE38A2C3D9FD900E3E95B /* CustomDatePicker.swift */,
 				7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */,
 				7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */,
@@ -472,7 +548,7 @@
 		716E08AA2C44346F00469E3B /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				716E08AB2C44349A00469E3B /* Config.xcconfig */,
+				2DC985EF2C456CEF00D46729 /* Config.xcconfig */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -623,6 +699,7 @@
 		71E3C3E82C241C020026C4DD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				2DC985F42C456ED800D46729 /* Search */,
 				71CCC06D2C3F369A00789A9B /* Calendar */,
 				2DC61F132C41A52E009F991F /* Login */,
 				B86A67522C408AF900CB90E5 /* SortBottomSheet */,
@@ -641,6 +718,7 @@
 		71E3C3E92C241C1B0026C4DD /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2DC986092C46054D00D46729 /* Search */,
 				71CCC0802C41282400789A9B /* Calendar */,
 				7121A1472C3B07F30056DB8B /* Announcements */,
 			);
@@ -882,7 +960,7 @@
 				71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */,
 				71E3C3D92C22BAF50026C4DD /* LaunchScreen.storyboard in Resources */,
 				71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */,
-				716E08AC2C44349A00469E3B /* Config.xcconfig in Resources */,
+				2DC985F02C456CEF00D46729 /* Config.xcconfig in Resources */,
 				71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */,
 				71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */,
 				71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */,
@@ -919,6 +997,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DC61F012C40825D009F991F /* DetailInfoTableViewCell.swift in Sources */,
+				2DC986062C45704600D46729 /* CustomSearchView.swift in Sources */,
 				B871D7332C3EC148008D78C2 /* IsScrapInfoViewCell.swift in Sources */,
 				2D4EE3962C3DD5CB00E3E95B /* WelcomeViewController.swift in Sources */,
 				7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */,
@@ -927,6 +1006,7 @@
 				B86A67542C408B1B00CB90E5 /* SortBottomSheetview.swift in Sources */,
 				71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */,
 				B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */,
+				2DC9860B2C46056300D46729 /* RecommendAnnouncementModel.swift in Sources */,
 				7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */,
 				2D4EE3E62C3FFF9200E3E95B /* OnboardingView.swift in Sources */,
 				71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */,
@@ -942,6 +1022,7 @@
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
 				71CCC0792C3FDABF00789A9B /* TNCalendarViewModel.swift in Sources */,
 				71CCC0732C3F36EA00789A9B /* TNCalendarView.swift in Sources */,
+				2DC986082C45FAC200D46729 /* CustomPageControl.swift in Sources */,
 				71CCC07C2C3FDB0400789A9B /* ViewModelType.swift in Sources */,
 				71B509272C41FB41006D8E56 /* ScrapModel.swift in Sources */,
 				71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */,
@@ -949,8 +1030,11 @@
 				71B5092D2C4326F8006D8E56 /* adjusted+.swift in Sources */,
 				B871D7352C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift in Sources */,
 				2D4EE3A22C3E788200E3E95B /* ProfileViewModel.swift in Sources */,
+				2DC985F92C456F9300D46729 /* RecommendCollectionViewCell.swift in Sources */,
+				2DC986032C45701D00D46729 /* SearchViewModel.swift in Sources */,
 				71CCC0712C3F36DE00789A9B /* TNCalendarViewController.swift in Sources */,
 				7121A1512C3B09E10056DB8B /* Result+.swift in Sources */,
+				2DC986012C456FE900D46729 /* SearchViewController.swift in Sources */,
 				B871D7272C3E8BC2008D78C2 /* FilteringHeaderCell.swift in Sources */,
 				7121A1462C3B07AA0056DB8B /* BaseResponse.swift in Sources */,
 				71CCC07F2C40377E00789A9B /* TNCalendarDateCell.swift in Sources */,
@@ -977,13 +1061,16 @@
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
 				2DC61EF92C407E65009F991F /* JobDetailTableViewHeaderCell.swift in Sources */,
 				B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */,
+				2DC9860D2C4605FC00D46729 /* AdvertisementsModel.swift in Sources */,
 				B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */,
+				2DC985FE2C456FC300D46729 /* SearchView.swift in Sources */,
 				2D4EE3A62C3E78A200E3E95B /* ProfileViewController.swift in Sources */,
 				71B509252C41D027006D8E56 /* CalendarDateHeaderView.swift in Sources */,
 				2DC61F192C41B261009F991F /* LoginView.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
 				2DC61EF72C4075F3009F991F /* JobDetailViewModel.swift in Sources */,
 				B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */,
+				2DC985F72C456F7E00D46729 /* AdvertisementCollectionViewCell.swift in Sources */,
 				B871D7312C3E9118008D78C2 /* NonScrapInfoCells.swift in Sources */,
 				2D4EE3892C3D9EA400E3E95B /* Date+.swift in Sources */,
 				7121A1532C3DE3680056DB8B /* CustomNavigationBar.swift in Sources */,
@@ -997,6 +1084,7 @@
 				71B5092B2C42DBBF006D8E56 /* CalendarDateFooterView.swift in Sources */,
 				7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */,
 				2D4EE3872C3D7CB200E3E95B /* CustomOnboardingButton.swift in Sources */,
+				2DC985FB2C456FA400D46729 /* SearchCollectionViewHeaderCell.swift in Sources */,
 				71461EBD2C3705B6002A6999 /* FontLiterals.swift in Sources */,
 				B871D72D2C3E8FE6008D78C2 /* FilteringCell.swift in Sources */,
 				B871D7252C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift in Sources */,

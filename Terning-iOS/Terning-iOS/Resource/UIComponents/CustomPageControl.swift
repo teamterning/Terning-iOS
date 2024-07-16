@@ -10,6 +10,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+import SnapKit
+
 final class CustomPageControl: UIView {
     
     // MARK: - Properties
@@ -80,18 +82,19 @@ extension CustomPageControl {
             dot.addGestureRecognizer(tapGestureRecognizer)
             dot.isUserInteractionEnabled = true
             
-            dot.widthAnchor.constraint(equalToConstant: 6).isActive = true
-            dot.heightAnchor.constraint(equalToConstant: 6).isActive = true
-            dot.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-            
-            if i == 0 {
-                dot.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-            } else {
-                dot.leadingAnchor.constraint(equalTo: dots[i - 1].trailingAnchor, constant: 10).isActive = true
-            }
-            
-            if i == numberOfPages - 1 {
-                dot.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+            dot.snp.makeConstraints { make in
+                make.width.height.equalTo(6)
+                make.centerY.equalToSuperview()
+                
+                if i == 0 {
+                    make.leading.equalToSuperview()
+                } else {
+                    make.leading.equalTo(dots[i - 1].snp.trailing).offset(10)
+                }
+                
+                if i == numberOfPages - 1 {
+                    make.trailing.equalToSuperview()
+                }
             }
         }
     }

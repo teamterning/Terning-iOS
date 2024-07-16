@@ -97,12 +97,3 @@ final class CustomSearchView: UIView, UITextFieldDelegate {
         textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: attributes)
     }
 }
-
-// MARK: - Methods
-
-extension CustomSearchView {
-    @discardableResult
-    func getText() -> String? {
-        return textField.text
-    }
-}

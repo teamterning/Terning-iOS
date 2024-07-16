@@ -37,7 +37,6 @@
 		2DC61F2C2C4213C7009F991F /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 2DC61F2B2C4213C7009F991F /* KakaoSDK */; };
 		2DC61F2E2C4213C7009F991F /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2DC61F2D2C4213C7009F991F /* KakaoSDKAuth */; };
 		2DC61F302C4213C7009F991F /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 2DC61F2F2C4213C7009F991F /* KakaoSDKCommon */; };
-		2DC985F02C456CEF00D46729 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2DC985EF2C456CEF00D46729 /* Config.xcconfig */; };
 		2DC985F72C456F7E00D46729 /* AdvertisementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC985F62C456F7E00D46729 /* AdvertisementCollectionViewCell.swift */; };
 		2DC985F92C456F9300D46729 /* RecommendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC985F82C456F9300D46729 /* RecommendCollectionViewCell.swift */; };
 		2DC985FB2C456FA400D46729 /* SearchCollectionViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC985FA2C456FA400D46729 /* SearchCollectionViewHeaderCell.swift */; };
@@ -48,6 +47,7 @@
 		2DC986082C45FAC200D46729 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC986072C45FAC200D46729 /* CustomPageControl.swift */; };
 		2DC9860B2C46056300D46729 /* RecommendAnnouncementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */; };
 		2DC9860D2C4605FC00D46729 /* AdvertisementsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */; };
+		2DC9861C2C46E01E00D46729 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9861B2C46E01E00D46729 /* Config.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
 		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
@@ -150,7 +150,6 @@
 		2DC61F142C41AB54009F991F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2DC61F182C41B261009F991F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		2DC61F282C421335009F991F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		2DC985EF2C456CEF00D46729 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		2DC985F62C456F7E00D46729 /* AdvertisementCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementCollectionViewCell.swift; sourceTree = "<group>"; };
 		2DC985F82C456F9300D46729 /* RecommendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCollectionViewCell.swift; sourceTree = "<group>"; };
 		2DC985FA2C456FA400D46729 /* SearchCollectionViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewHeaderCell.swift; sourceTree = "<group>"; };
@@ -161,6 +160,7 @@
 		2DC986072C45FAC200D46729 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendAnnouncementModel.swift; sourceTree = "<group>"; };
 		2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementsModel.swift; sourceTree = "<group>"; };
+		2DC9861B2C46E01E00D46729 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = ../../../../../../Downloads/Config.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
@@ -548,7 +548,7 @@
 		716E08AA2C44346F00469E3B /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				2DC985EF2C456CEF00D46729 /* Config.xcconfig */,
+				2DC9861B2C46E01E00D46729 /* Config.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -960,7 +960,6 @@
 				71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */,
 				71E3C3D92C22BAF50026C4DD /* LaunchScreen.storyboard in Resources */,
 				71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */,
-				2DC985F02C456CEF00D46729 /* Config.xcconfig in Resources */,
 				71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */,
 				71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */,
 				71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */,
@@ -1031,6 +1030,7 @@
 				B871D7352C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift in Sources */,
 				2D4EE3A22C3E788200E3E95B /* ProfileViewModel.swift in Sources */,
 				2DC985F92C456F9300D46729 /* RecommendCollectionViewCell.swift in Sources */,
+				2DC9861C2C46E01E00D46729 /* Config.swift in Sources */,
 				2DC986032C45701D00D46729 /* SearchViewModel.swift in Sources */,
 				71CCC0712C3F36DE00789A9B /* TNCalendarViewController.swift in Sources */,
 				7121A1512C3B09E10056DB8B /* Result+.swift in Sources */,

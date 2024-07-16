@@ -245,7 +245,12 @@ extension SearchViewController: UICollectionViewDelegate {
         return headerView
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        guard let sectionType = RecomandType(rawValue: indexPath.section) else { return }
+        
+        if sectionType == .advertisement {
+            searchView.pageControl.currentPage = indexPath.item
+        }
 
-        searchView.pageControl.currentPage = indexPath.item
     }
 }

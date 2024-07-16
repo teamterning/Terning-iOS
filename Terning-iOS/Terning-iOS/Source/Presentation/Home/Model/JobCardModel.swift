@@ -8,11 +8,11 @@
 import UIKit
 
 struct JobCardModel {
-    var coverImage: UIImage
-    var daysRemaining: String
-    var title: String
-    var period: String
-    var isScraped: Bool
+    let coverImage: UIImage
+    let daysRemaining: String
+    let title: String
+    let period: String
+    let isScraped: Bool
 }
 
 extension JobCardModel {
@@ -20,7 +20,7 @@ extension JobCardModel {
         return [
             JobCardModel(
                 coverImage: UIImage(resource: .icHome),
-                        // scrapIcon: UIImage(resource: .ic28Bookmark),
+                // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
                 period: "2개월",
@@ -29,7 +29,7 @@ extension JobCardModel {
             
             JobCardModel(
                 coverImage: UIImage(resource: .icHome),
-                        // scrapIcon: UIImage(resource: .ic28Bookmark),
+                // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
                 period: "2개월",
@@ -38,7 +38,7 @@ extension JobCardModel {
             
             JobCardModel(
                 coverImage: UIImage(resource: .icHome),
-                        // scrapIcon: UIImage(resource: .ic28Bookmark),
+                // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
                 period: "2개월",
@@ -47,7 +47,7 @@ extension JobCardModel {
             
             JobCardModel(
                 coverImage: UIImage(resource: .icHome),
-                        // scrapIcon: UIImage(resource: .ic28Bookmark),
+                // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
                 period: "2개월",
@@ -56,7 +56,7 @@ extension JobCardModel {
             
             JobCardModel(
                 coverImage: UIImage(resource: .icHome),
-                        // scrapIcon: UIImage(resource: .ic28Bookmark),
+                // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
                 period: "2개월",
@@ -65,7 +65,7 @@ extension JobCardModel {
             
             JobCardModel(
                 coverImage: UIImage(resource: .icHome),
-                        // scrapIcon: UIImage(resource: .ic28Bookmark),
+                // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
                 period: "2개월",
@@ -74,7 +74,7 @@ extension JobCardModel {
             
             JobCardModel(
                 coverImage: UIImage(resource: .icHome),
-                        // scrapIcon: UIImage(resource: .ic28Bookmark),
+                // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
                 period: "2개월",
@@ -83,7 +83,7 @@ extension JobCardModel {
             
             JobCardModel(
                 coverImage: UIImage(resource: .icHome),
-                        // scrapIcon: UIImage(resource: .ic28Bookmark),
+                // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
                 period: "2개월",
@@ -92,7 +92,7 @@ extension JobCardModel {
             
             JobCardModel(
                 coverImage: UIImage(resource: .icHome),
-                        // scrapIcon: UIImage(resource: .ic28Bookmark),
+                // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
                 period: "2개월",
@@ -101,7 +101,7 @@ extension JobCardModel {
             
             JobCardModel(
                 coverImage: UIImage(resource: .icHome),
-                        // scrapIcon: UIImage(resource: .ic28Bookmark),
+                // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
                 period: "2개월",
@@ -110,7 +110,7 @@ extension JobCardModel {
             
             JobCardModel(
                 coverImage: UIImage(resource: .icHome),
-                        // scrapIcon: UIImage(resource: .ic28Bookmark),
+                // scrapIcon: UIImage(resource: .ic28Bookmark),
                 daysRemaining: "D-2",
                 title: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
                 period: "2개월",

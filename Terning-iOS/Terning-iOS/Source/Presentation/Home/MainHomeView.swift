@@ -13,14 +13,10 @@ import Then
 class MainHomeView: UIView {
     
     // MARK: - Properties
-    var jobCardDatas = JobCardModel.getJobCardData()
-    lazy var jobCardDataCount = jobCardDatas.count
     
-    var scrapAndDeadlineCardDatas = ScrapedAndDeadlineModel.getScrapedData()
-    lazy var scrapDataCount = scrapAndDeadlineCardDatas.count
-    
-    var hasAnyScrap = false
-    var hasDueToday = false
+    // Section 0에서의 아이템들을 분기 처리하기 위한 테스트 데이터 입니다.
+    var hasAnyScrap = true
+    var hasDueToday = true
     
     // Section 1에서의 아이템들을 분기 처리하기 위한 테스트 데이터 입니다.
     var testDataForNonJobCard = false
@@ -43,14 +39,14 @@ class MainHomeView: UIView {
         return collectionView
     }()
     
-    let homeLogo = UILabel().then {
+    private let homeLogo = UILabel().then {
         $0.text = "LOGO"
         $0.textAlignment = .center
         $0.layer.borderColor = UIColor.black.cgColor
         $0.layer.borderWidth = 1
     }
     
-    let gradientView = UIImageView().then {
+    private let gradientView = UIImageView().then {
         $0.image = UIImage(resource: .gradationBar)
     }
     
@@ -72,16 +68,16 @@ class MainHomeView: UIView {
 // MARK: - UI & Layout
 
 extension MainHomeView {
-    func setUI() {
+    private func setUI() {
         backgroundColor = .white
         gradientView.isHidden = true
     }
     
-    func setHierarchy() {
+    private func setHierarchy() {
         addSubviews(homeLogo, collectionView, gradientView)
     }
     
-    func setLayout() {
+    private func setLayout() {
         homeLogo.snp.makeConstraints {
             $0.top.equalToSuperview().offset(70)
             $0.leading.equalToSuperview().offset(23)
@@ -103,7 +99,7 @@ extension MainHomeView {
     
     // MARK: - CompositionalLayout
     
-    func makeCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+    private func makeCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
             if sectionNumber == 0 {
                 // Item
@@ -149,7 +145,7 @@ extension MainHomeView {
                     // Group
                     let groupSize = NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(0.8),
-                        heightDimension: .absolute(159))
+                        heightDimension: .absolute(116))
                     
                     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                     

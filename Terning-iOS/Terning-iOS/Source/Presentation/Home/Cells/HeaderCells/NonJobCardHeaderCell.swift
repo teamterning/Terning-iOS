@@ -16,27 +16,22 @@ class NonJobCardHeaderCell: UICollectionReusableView {
     
     var filtetButtonDelegate: FilteringButtonDidTapProtocol?
     
-    let colors: [UIColor] = [
-        .init(red: 255/255, green: 255/255, blue: 255/255, alpha: 1),
-        .init(red: 255/255, green: 255/255, blue: 255/255, alpha: 0)
-    ]
-    
     // MARK: - UIComponents
     
     // 상단 타이틀
-    var subTitleLabel = LabelFactory.build(
+    private let subTitleLabel = LabelFactory.build(
         text: "마음에 드는 공고를 스크랩하고 캘린더에서 모아보세요",
         font: .detail2,
         textColor: .terningBlack
     )
     
-    var titleLabel = LabelFactory.build(
+    private let titleLabel = LabelFactory.build(
         text: "내 계획에 딱 맞는 대학생 인턴 공고",
         font: .title1,
         textColor: .terningBlack
     )
     
-    lazy var titleStack = UIStackView(
+    private lazy var titleStack = UIStackView(
         arrangedSubviews: [
             subTitleLabel,
             titleLabel
@@ -46,37 +41,37 @@ class NonJobCardHeaderCell: UICollectionReusableView {
         $0.spacing = 5
         $0.alignment = .leading
     }
-
+    
     // 필터링 버튼 및 필터링 상태 표시 바
-    lazy var filterButton = FilterButton()
+    private lazy var filterButton = FilterButton()
     
-    var grade = LabelFactory.build(
-        text: "-",
-        font: .detail2,
-        textColor: .black
-    )
-        
-    var period = LabelFactory.build(
+    private let grade = LabelFactory.build(
         text: "-",
         font: .detail2,
         textColor: .black
     )
     
-    var month = LabelFactory.build(
+    private let period = LabelFactory.build(
         text: "-",
         font: .detail2,
         textColor: .black
     )
     
-    let verticalBar1 = UIImageView().then {
+    private let month = LabelFactory.build(
+        text: "-",
+        font: .detail2,
+        textColor: .black
+    )
+    
+    private let verticalBar1 = UIImageView().then {
         $0.image = UIImage(resource: .icVerticalBar)
     }
     
-    let verticalBar2 = UIImageView().then {
+    private let verticalBar2 = UIImageView().then {
         $0.image = UIImage(resource: .icVerticalBar)
     }
     
-    lazy var FilteringStack = UIStackView(
+    private lazy var FilteringStack = UIStackView(
         arrangedSubviews: [
             filterButton,
             grade,
@@ -93,7 +88,7 @@ class NonJobCardHeaderCell: UICollectionReusableView {
     }
     
     // 구분선
-    let decorationView = UIView().then {
+    private let decorationView = UIView().then {
         $0.backgroundColor = .grey150
     }
     
@@ -115,11 +110,15 @@ class NonJobCardHeaderCell: UICollectionReusableView {
 // MARK: - UI & Layout
 
 extension NonJobCardHeaderCell {
-    func setHierarchy() {
-        addSubviews(titleStack, FilteringStack, decorationView)
+    private func setHierarchy() {
+        addSubviews(
+            titleStack,
+            FilteringStack,
+            decorationView
+        )
     }
     
-    func setLayout() {
+    private func setLayout() {
         titleStack.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview().offset(20)
@@ -156,14 +155,14 @@ extension NonJobCardHeaderCell {
     
     // MARK: - Methods
     
-    func setAddTarget() {
+    private func setAddTarget() {
         filterButton.addTarget(self, action: #selector(filteringButtonDidTap), for: .touchUpInside)
     }
     
     // objc Functions
     
     @objc
-    func filteringButtonDidTap() {
+    private func filteringButtonDidTap() {
         print("tap")
         filtetButtonDelegate?.filteringButtonTapped()
     }

@@ -7,31 +7,34 @@
 
 import UIKit
 
+import SnapKit
+import Then
+
+
 class JobCardScrapedCell: UICollectionViewCell {
     
     // MARK: - Properties
     
     // MARK: - UIComponents
     
-    let jobCard = UIView().then {
+    private let jobCard = UIView().then {
         $0.backgroundColor = UIColor.white
         $0.layer.cornerRadius = 10
-        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0
-        )
+        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
     }
     
-    var jobCardCoverImage = UIImageView().then {
+    private let jobCardCoverImage = UIImageView().then {
         $0.image = UIImage(resource: .icHome)
     }
     
-    var daysRemaining = LabelFactory.build(
+    private let daysRemaining = LabelFactory.build(
         text: "D-2",
         font: .detail0,
         textColor: .terningMain,
         textAlignment: .left
     )
     
-    var jobLabel = LabelFactory.build(
+    private let jobLabel = LabelFactory.build(
         text: "[Someone's Cat] 콘텐츠 마케터 대학생 인턴 채용",
         font: .title5,
         textColor: .black,
@@ -40,14 +43,14 @@ class JobCardScrapedCell: UICollectionViewCell {
         $0.numberOfLines = 2
     }
     
-    var periodTitle = LabelFactory.build(
+    private let periodTitle = LabelFactory.build(
         text: "근무기간",
         font: .detail3,
         textColor: .grey400,
         textAlignment: .left
     )
     
-    var period = LabelFactory.build(
+    private let period = LabelFactory.build(
         text: "2개월",
         font: .detail3,
         textColor: .terningMain,
@@ -65,7 +68,7 @@ class JobCardScrapedCell: UICollectionViewCell {
         
         setHierarchy()
         setLayout()
-
+        
     }
     
     required init?(coder: NSCoder) {

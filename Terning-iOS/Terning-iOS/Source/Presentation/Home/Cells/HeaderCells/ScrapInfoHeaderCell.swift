@@ -14,7 +14,7 @@ class ScrapInfoHeaderCell: UICollectionReusableView {
     
     // MARK: - UIComponents
     
-    let titleLabel = LabelFactory.build(
+    private let titleLabel = LabelFactory.build(
         text: "오늘 마감되는 남지우님의 관심공고",
         font: .title1,
         textColor: .terningBlack
@@ -38,11 +38,11 @@ class ScrapInfoHeaderCell: UICollectionReusableView {
 
 extension ScrapInfoHeaderCell {
     
-    func setHierarchy() {
+    private func setHierarchy() {
         addSubview(titleLabel)
     }
     
-    func setLayout() {
+    private func setLayout() {
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview().offset(20)

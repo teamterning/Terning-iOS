@@ -6,14 +6,14 @@
 //
 
 import UIKit
-
 import RxSwift
 import RxCocoa
-
 import KakaoSDKUser
 import AuthenticationServices
 
-final class LoginViewModel {
+final class LoginViewModel: NSObject, ViewModelType {
+    
+    private let userInfoRelay = PublishRelay<Bool>()
     private let disposeBag = DisposeBag()
     
     // MARK: - Input
@@ -31,7 +31,7 @@ final class LoginViewModel {
     
     // MARK: - Transform
     
-    func transform(_ input: Input) -> Output {
+    func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let kakaoLoginSuccess = input.kakaoLoginButtonTapped
             .flatMapLatest { _ in
                 self.loginWithKakaoTalk()
@@ -84,11 +84,69 @@ extension LoginViewModel {
 extension LoginViewModel {
     private func loginWithApple() -> Observable<Bool> {
         return Observable<Bool>.create { observer in
-
-            observer.onNext(true)
-            observer.onCompleted()
+            self.requestAppleLogin()
+                .subscribe(onNext: { success in
+                    observer.onNext(success)
+                    observer.onCompleted()
+                }, onError: { error in
+                    observer.onNext(false)
+                    observer.onCompleted()
+                })
+                .disposed(by: self.disposeBag)
             
             return Disposables.create()
         }
+    }
+    
+    private func requestAppleLogin() -> Observable<Bool> {
+        return Observable<Bool>.create { observer in
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let request = appleIDProvider.createRequest()
+            request.requestedScopes = [.fullName, .email]
+            
+            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+            authorizationController.delegate = self
+            authorizationController.presentationContextProvider = self as? ASAuthorizationControllerPresentationContextProviding
+            authorizationController.performRequests()
+            
+            self.userInfoRelay
+                .take(1)
+                .subscribe(onNext: { success in
+                    observer.onNext(success)
+                    observer.onCompleted()
+                })
+                .disposed(by: self.disposeBag)
+            
+            return Disposables.create()
+        }
+    }
+}
+
+// MARK: - Apple Login
+
+extension LoginViewModel: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        switch authorization.credential {
+            case let appleIDCredential as ASAuthorizationAppleIDCredential:
+                let userIdentifier = appleIDCredential.user
+                guard let identityToken = appleIDCredential.identityToken,
+                      let tokenStr = String(data: identityToken, encoding: .utf8) else {
+                    self.userInfoRelay.accept(false)
+                    return
+                }
+                
+                print("User ID : \(String(describing: userIdentifier))")
+                print("token : \(String(describing: tokenStr))")
+                
+                // TODO: - 애플 로그인 서버 연동
+                self.userInfoRelay.accept(true)
+            default:
+                self.userInfoRelay.accept(false)
+        }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("[🍎] Apple Login error - \(error.localizedDescription)")
+        self.userInfoRelay.accept(false)
     }
 }

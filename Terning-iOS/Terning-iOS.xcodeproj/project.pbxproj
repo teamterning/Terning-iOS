@@ -712,6 +712,7 @@
 		71E3C3E92C241C1B0026C4DD /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				B8BE0E122C4666BD00B3D298 /* Home */,
 				71780C422C4586000073B731 /* SignIn */,
 				71CCC0802C41282400789A9B /* Calendar */,
 				7121A1472C3B07F30056DB8B /* Announcements */,
@@ -769,7 +770,6 @@
 			children = (
 				B8D5493C2C455A2100553BB5 /* MainHomeViewController.swift */,
 				B8D549382C450C9600553BB5 /* MainHomeView.swift */,
-				B871D7212C3E8812008D78C2 /* Model */,
 				B871D7152C3E84A1008D78C2 /* Cells */,
 			);
 			path = Home;
@@ -809,20 +809,20 @@
 		B871D71B2C3E8513008D78C2 /* JobCardCells */ = {
 			isa = PBXGroup;
 			children = (
+				B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */,
 				B871D7282C3E8E46008D78C2 /* JobCardScrapedCell.swift */,
 				B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */,
-				B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */,
 			);
 			path = JobCardCells;
 			sourceTree = "<group>";
 		};
-		B871D7212C3E8812008D78C2 /* Model */ = {
+		B8BE0E122C4666BD00B3D298 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				B871D7222C3E8835008D78C2 /* JobCardModel.swift */,
 				B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */,
 			);
-			path = Model;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		B8C5DB6F2C3F39A500865B1A /* FilteringSetting */ = {

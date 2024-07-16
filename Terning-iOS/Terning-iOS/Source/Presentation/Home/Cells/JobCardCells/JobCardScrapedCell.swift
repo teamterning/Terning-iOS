@@ -10,10 +10,15 @@ import UIKit
 import SnapKit
 import Then
 
+protocol scrapButtonDidTapProtocol {
+    func jobDetailAlertViewAppear()
+}
 
-class JobCardScrapedCell: UICollectionViewCell {
+final class JobCardScrapedCell: UICollectionViewCell {
     
     // MARK: - Properties
+    
+    var jobCardScrapedDelegate: scrapButtonDidTapProtocol?
     
     // MARK: - UIComponents
     
@@ -58,7 +63,12 @@ class JobCardScrapedCell: UICollectionViewCell {
     )
     
     lazy var scrapButton = UIButton().then {
-        $0.setImage(.icScrap, for: .normal)
+        $0.isSelected = false
+        if $0.isSelected {
+            $0.setImage(.icScrapFill, for: .normal)
+        } else {
+            $0.setImage(.icScrap, for: .normal)
+        }
     }
     
     // MARK: - LifeCycles
@@ -68,7 +78,7 @@ class JobCardScrapedCell: UICollectionViewCell {
         
         setHierarchy()
         setLayout()
-        
+        setAddTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -77,6 +87,7 @@ class JobCardScrapedCell: UICollectionViewCell {
 }
 
 // MARK: - UI & Layout
+
 extension JobCardScrapedCell {
     func setHierarchy() {
         contentView.addSubviews(
@@ -131,15 +142,25 @@ extension JobCardScrapedCell {
         }
     }
     
-    func bindData(
-        coverImage: UIImage,
-        daysRemaining: String,
-        title: String,
-        period: String
-    ) {
-        self.jobCardCoverImage.image = coverImage
-        self.daysRemaining.text = daysRemaining
-        self.jobLabel.text = title
-        self.period.text = period
+    private func setAddTarget() {
+        scrapButton.addTarget(self, action: #selector(scrapButtonDidTap), for: .touchUpInside)
+    }
+    
+    // MARK: - Methods
+    
+    func bindData(model: JobCardModel) {
+        self.jobCardCoverImage.setImage(with: model.companyImage)
+        self.daysRemaining.text = model.dDay
+        self.jobLabel.text = model.title
+        self.period.text = model.workingPeriod
+        self.scrapButton.isSelected = model.isScraped
+    }
+    
+    // MARK: - objc Functions
+    
+    @objc
+    func scrapButtonDidTap() {
+        print("scrap button")
+        jobCardScrapedDelegate?.jobDetailAlertViewAppear()
     }
 }

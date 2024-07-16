@@ -12,6 +12,16 @@ import Then
 
 final class IsScrapInfoViewCell: UICollectionViewCell {
     
+    // MARK: - Properties
+    
+    private var internshipAnnouncementId: Double = 1
+    private var scrapId: Double = 1
+    private var companyImage: UIImage = UIImage(resource: .icHomeFill)
+    private var dDay = "D-day"
+    private var deadline = "2024년 7월 14일"
+    private var workingPeriod = "2개월"
+    private var startYearMonth = "2025년 10월"
+    
     // MARK: - UIComponents
     
     private let scrapAndDeadlineCard = UIView().then {
@@ -76,11 +86,18 @@ extension IsScrapInfoViewCell {
             $0.width.equalTo(115)
         }
     }
-}
-
-extension IsScrapInfoViewCell {
-    func bindData(color: CGColor, title: String) {
-        self.colorMark.backgroundColor = UIColor(cgColor: color)
-        self.cardLabel.text = title
+    
+    // MARK: - Methods
+    
+    func bindData(model: ScrapedAndDeadlineModel) {
+        self.scrapId = model.scrapId
+        self.internshipAnnouncementId = model.internshipAnnouncementId
+        self.companyImage = model.companyImage
+        self.cardLabel.text = model.title
+        self.dDay = model.dDay
+        self.deadline = model.deadLine
+        self.workingPeriod = model.workingPeriod
+        self.startYearMonth = model.startYearMonth
+        self.colorMark.backgroundColor = UIColor(hex: model.color)
     }
 }

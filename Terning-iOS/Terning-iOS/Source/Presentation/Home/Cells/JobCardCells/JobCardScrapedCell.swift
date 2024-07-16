@@ -12,6 +12,10 @@ import Then
 
 final class JobCardScrapedCell: UICollectionViewCell {
     
+    // MARK: - Properties
+    
+    private var internshipAnnouncementId: Int = 0
+    
     // MARK: - UIComponents
     
     private let jobCard = UIView().then {
@@ -137,6 +141,7 @@ extension JobCardScrapedCell {
     // MARK: - Methods
     
     func bindData(model: JobCardModel) {
+        self.internshipAnnouncementId = model.internshipAnnouncementId
 //      self.jobCardCoverImage.setImage(with: model.companyImage) URL로 이미지 받아올 때 사용예시라 남겨놨습니다.
         self.jobCardCoverImage.image = model.companyImage
         self.daysRemaining.text = model.dDay

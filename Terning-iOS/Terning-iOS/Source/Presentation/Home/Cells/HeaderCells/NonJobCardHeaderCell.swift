@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class NonJobCardHeaderCell: UICollectionReusableView {
+final class NonJobCardHeaderCell: UICollectionReusableView {
     
     // MARK: - Properties
     

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class IsScrapInfoViewCell: UICollectionViewCell {
+final class IsScrapInfoViewCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     

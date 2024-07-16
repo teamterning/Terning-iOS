@@ -10,15 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-protocol scrapButtonDidTapProtocol {
-    func jobDetailAlertViewAppear()
-}
-
 final class JobCardScrapedCell: UICollectionViewCell {
-    
-    // MARK: - Properties
-    
-    var jobCardScrapedDelegate: scrapButtonDidTapProtocol?
     
     // MARK: - UIComponents
     
@@ -63,12 +55,8 @@ final class JobCardScrapedCell: UICollectionViewCell {
     )
     
     lazy var scrapButton = UIButton().then {
-        $0.isSelected = false
-        if $0.isSelected {
-            $0.setImage(.icScrapFill, for: .normal)
-        } else {
-            $0.setImage(.icScrap, for: .normal)
-        }
+        $0.setImage(.icScrapFill, for: .selected)
+        $0.setImage(.icScrap, for: .normal)
     }
     
     // MARK: - LifeCycles
@@ -149,7 +137,8 @@ extension JobCardScrapedCell {
     // MARK: - Methods
     
     func bindData(model: JobCardModel) {
-        self.jobCardCoverImage.setImage(with: model.companyImage)
+//      self.jobCardCoverImage.setImage(with: model.companyImage) URL로 이미지 받아올 때 사용예시라 남겨놨습니다.
+        self.jobCardCoverImage.image = model.companyImage
         self.daysRemaining.text = model.dDay
         self.jobLabel.text = model.title
         self.period.text = model.workingPeriod
@@ -161,6 +150,5 @@ extension JobCardScrapedCell {
     @objc
     func scrapButtonDidTap() {
         print("scrap button")
-        jobCardScrapedDelegate?.jobDetailAlertViewAppear()
     }
 }

@@ -71,7 +71,7 @@ extension LoginViewController {
             appleLoginButtonTapped: loginView.appleLoginButton.rx.tap.asObservable()
         )
         
-        let output = viewModel.transform(input)
+        let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
         output.loginSuccess
             .drive(onNext: { [weak self] success in

@@ -359,20 +359,18 @@ extension MainHomeViewController: FilteringButtonDidTapProtocol {
         let model = scrapedAndDeadlineItems[index]
         
         alertVC.setComponentDatas(
-            jobImgae: model.companyImage,
-            mainLabel: model.title,
             subLabel: "오늘 지원이 마감되는 공고에요!",
             buttonLabel: "공고 상세 정보 보러가기",
             dDayLabel: "D-DAY",
-            deadLineInfo: model.deadLine,
-            workPeriodInfo: model.workingPeriod,
-            workStartInfo: model.startYearMonth,
             color: model.color
         )
+        
+        alertVC.setData(model: ScrapedAndDeadlineModel(scrapId: model.scrapId, internshipAnnouncementId: model.internshipAnnouncementId, companyImage: model.companyImage, title: model.title, dDay: model.dDay, deadLine: model.deadLine, workingPeriod: model.workingPeriod, startYearMonth: model.startYearMonth, color: model.color))
         
         alertVC.centerButtonTapAction = {
             alertVC.dismiss(animated: false)
         }
+        
         alertVC.modalPresentationStyle = .overFullScreen
         alertVC.modalTransitionStyle = .crossDissolve
         self.present(alertVC, animated: true, completion: nil)

@@ -182,7 +182,7 @@ extension ProfileViewController {
         self.signUp(
             name: userName,
             profileImage: imageIndex,
-            authType: userName
+            authType: authType
         )
     }
 }
@@ -208,7 +208,7 @@ extension ProfileViewController {
                         
                         let model = responseDto.result
                         
-                        if responseDto.status == 200 {
+                        if responseDto.status == 201 {
                             UserManager.shared.accessToken = model?.accessToken
                             UserManager.shared.refreshToken = model?.refreshToken
                             UserManager.shared.userId = model?.userId

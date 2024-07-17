@@ -58,59 +58,61 @@ extension LoginViewModel {
             if UserApi.isKakaoTalkLoginAvailable() {
                 UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
                     if let error = error {
-                        print("🍎 errer: \(error)")
+                        print("🍎 error: \(error)")
                         observer.onNext(false)
                         observer.onCompleted()
                     } else {
                         // 토큰 저장
-                        guard let oauthToken = oauthToken else { return }
+                        guard let oauthToken = oauthToken else {
+                            observer.onNext(false)
+                            observer.onCompleted()
+                            return
+                        }
                         
                         UserManager.shared.signIn(authType: "KAKAO") { result in
                             switch result {
                             case .success(let type):
                                 print(type)
-                                observer.onNext(type)
-                                observer.onCompleted()
-                                
+                                observer.onNext(true)
                             case .failure(let error):
                                 print(error)
                                 observer.onNext(false)
-                                observer.onCompleted()
                             }
+                            observer.onCompleted()
                         }
-                        
                     }
-                    observer.onCompleted()
                 }
             } else {
                 UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
                     if let error = error {
                         print(error)
-                        
                         observer.onNext(false)
+                        observer.onCompleted()
                     } else {
                         // 토큰 저장
-                        
-                        guard let oauthToken = oauthToken else { return }
+                        guard let oauthToken = oauthToken else {
+                            observer.onNext(false)
+                            observer.onCompleted()
+                            return
+                        }
                         
                         print("🍎 \(oauthToken.accessToken)")
                         
                         UserManager.shared.accessToken = oauthToken.accessToken
                         
-                        UserManager.shared.signIn(authType: "KAKAO") { [weak self] result in
+                        UserManager.shared.signIn(authType: "KAKAO") { result in
                             switch result {
                             case .success(let type):
                                 print(type)
-                                observer.onNext(type)
+                                observer.onNext(true)
                                 observer.onCompleted()
                             case .failure(let error):
                                 print(error)
                                 observer.onNext(false)
-                                observer.onCompleted()
                             }
+                            
                         }
                     }
-                    observer.onCompleted()
                 }
             }
             return Disposables.create()

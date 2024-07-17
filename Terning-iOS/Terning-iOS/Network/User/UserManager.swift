@@ -78,7 +78,7 @@ final class UserManager {
             }
         }
     }
-
+    
     func getNewToken(completion: @escaping(Result<Bool, TNError>) -> Void) {
         authProvider.request(.getNewToken) { [weak self] response in
             guard let self = self else { return }

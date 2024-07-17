@@ -33,7 +33,12 @@ class MyPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        rootView.bind(model: UserProfileInfoModel(name: model.name, authType: model.authType))
+        rootView.bind(
+            model: UserProfileInfoModel(
+                name: model.name,
+                authType: model.authType
+            )
+        )
         setTapGesture()
         setAddTarget()
         getAppVersion()
@@ -95,5 +100,4 @@ extension MyPageViewController {
     func profileEditButtonDidTap() {
         print("navigate to profile edit view")
     }
-    
 }

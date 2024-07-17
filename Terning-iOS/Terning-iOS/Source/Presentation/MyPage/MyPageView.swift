@@ -14,20 +14,34 @@ class MyPageView: UIView {
     
     // MARK: - UICompoenents
     
-    let userNameLabel = LabelFactory.build(text: "남지우님", font: .heading1, textColor: .terningBlack, textAlignment: .left)
+    let userNameLabel = LabelFactory.build(
+        text: "남지우님",
+        font: .heading1,
+        textColor: .terningBlack,
+        textAlignment: .left
+    )
     
     let profileImage = UIImageView().then {
         $0.image = UIImage(resource: .icHome)
         $0.makeBorder(width: 1, color: .calBlue1)
     }
     
-    let profileEditLabel = LabelFactory.build(text: "프로필 수정", font: .button3, textColor: .grey400)
+    let profileEditLabel = LabelFactory.build(
+        text: "프로필 수정",
+        font: .button3,
+        textColor: .grey400
+    )
     
     let profileEditImage = UIImageView().then {
         $0.image = UIImage(resource: .icFrontArrow)
     }
     
-    lazy var profileEditStack = UIStackView(arrangedSubviews: [profileEditLabel, profileEditImage]).then {
+    lazy var profileEditStack = UIStackView(
+        arrangedSubviews: [
+            profileEditLabel,
+            profileEditImage
+        ]
+    ).then {
         $0.axis = .horizontal
         $0.spacing = 0
         $0.alignment = .center
@@ -54,13 +68,23 @@ class MyPageView: UIView {
         $0.image = UIImage(resource: .icHomeFill)
     }
     
-    let noticeLabel = LabelFactory.build(text: "공지사항", font: .body5, textColor: .black, textAlignment: .left)
+    let noticeLabel = LabelFactory.build(
+        text: "공지사항",
+        font: .body5,
+        textColor: .black,
+        textAlignment: .left
+    )
     
     lazy var noticeButton = UIButton().then {
         $0.setImage(UIImage(resource: .icFrontArrow), for: .normal)
     }
     
-    lazy var noticeStack = UIStackView(arrangedSubviews: [noticeImage, noticeLabel]).then {
+    lazy var noticeStack = UIStackView(
+        arrangedSubviews: [
+            noticeImage,
+            noticeLabel
+        ]
+    ).then {
         $0.axis = .horizontal
         $0.spacing = 12
         $0.distribution = .fillProportionally
@@ -70,13 +94,23 @@ class MyPageView: UIView {
         $0.image = UIImage(resource: .icHomeFill)
     }
     
-    let sendOpinionLabel = LabelFactory.build(text: "의견 보내기", font: .body5, textColor: .black, textAlignment: .left)
+    let sendOpinionLabel = LabelFactory.build(
+        text: "의견 보내기",
+        font: .body5,
+        textColor: .black,
+        textAlignment: .left
+    )
     
     lazy var sendOpinionButton = UIButton().then {
         $0.setImage(UIImage(resource: .icFrontArrow), for: .normal)
     }
     
-    lazy var sendOpinionStack = UIStackView(arrangedSubviews: [sendOpinionImage, sendOpinionLabel]).then {
+    lazy var sendOpinionStack = UIStackView(
+        arrangedSubviews: [
+            sendOpinionImage,
+            sendOpinionLabel
+        ]
+    ).then {
         $0.axis = .horizontal
         $0.spacing = 12
         $0.alignment = .fill
@@ -87,18 +121,36 @@ class MyPageView: UIView {
         $0.image = UIImage(resource: .icHomeFill)
     }
     
-    let versionInfoLabel = LabelFactory.build(text: "버전정보", font: .body5, textColor: .black, textAlignment: .left)
+    let versionInfoLabel = LabelFactory.build(
+        text: "버전정보",
+        font: .body5,
+        textColor: .black,
+        textAlignment: .left
+    )
     
-    let versionInfo = LabelFactory.build(text: "1.1.0", font: .button4, textColor: .grey400)
+    let versionInfo = LabelFactory.build(
+        text: "1.1.0",
+        font: .button4,
+        textColor: .grey400
+    )
     
-    lazy var versionInfoStack = UIStackView(arrangedSubviews: [versionInfoImage, versionInfoLabel]).then {
+    lazy var versionInfoStack = UIStackView(
+        arrangedSubviews: [
+            versionInfoImage,
+            versionInfoLabel
+        ]
+    ).then {
         $0.axis = .horizontal
         $0.spacing = 12
         $0.alignment = .fill
         $0.distribution = .fillProportionally
     }
 
-    lazy var logoutButton = LabelFactory.build(text: "로그아웃", font: .button4, textColor: .grey350).then {
+    lazy var logoutButton = LabelFactory.build(
+        text: "로그아웃",
+        font: .button4,
+        textColor: .grey350
+    ).then {
         $0.isUserInteractionEnabled = true
     }
     
@@ -106,11 +158,21 @@ class MyPageView: UIView {
         $0.image = UIImage(resource: .myPageVerticalBar)
     }
     
-    lazy var leaveButton = LabelFactory.build(text: "탈퇴하기", font: .button4, textColor: .grey350).then {
+    lazy var leaveButton = LabelFactory.build(
+        text: "탈퇴하기",
+        font: .button4,
+        textColor: .grey350
+    ).then {
         $0.isUserInteractionEnabled = true
     }
     
-    lazy var sessionEndStack = UIStackView(arrangedSubviews: [logoutButton, verticalBar, leaveButton]).then {
+    lazy var sessionEndStack = UIStackView(
+        arrangedSubviews: [
+            logoutButton,
+            verticalBar,
+            leaveButton
+        ]
+    ).then {
         $0.axis = .horizontal
         $0.spacing = 4
         $0.alignment = .center

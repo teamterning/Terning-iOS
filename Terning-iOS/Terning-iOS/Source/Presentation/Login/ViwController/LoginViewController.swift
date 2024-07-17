@@ -87,8 +87,9 @@ extension LoginViewController {
 
 extension LoginViewController {
     private func navigateToNextScreen() {
-        let tabBarController = TNTabBarController()
+        let tabBarController = ProfileViewController(viewType: .setting, viewModel: ProfileViewModel())
         
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(tabBarController, animated: false)
+        guard let window = self.view.window else { return }
+        ViewControllerUtils.setRootViewController(window: window, viewController: tabBarController, withAnimation: true)
     }
 }

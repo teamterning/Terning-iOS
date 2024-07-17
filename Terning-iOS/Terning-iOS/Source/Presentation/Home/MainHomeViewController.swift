@@ -23,6 +23,8 @@ final class MainHomeViewController: UIViewController, UICollectionViewDelegate {
     
     private let scrollView = UIScrollView()
     
+    private let providers = Providers.scrapsProvider
+    
     private let numberOfSections: Int = 2
     private var cardModelItems: [JobCardModel] = JobCardModel.getJobCardData()
     private var scrapedAndDeadlineItems: [ScrapedAndDeadlineModel] = ScrapedAndDeadlineModel.getScrapedData()
@@ -43,6 +45,8 @@ final class MainHomeViewController: UIViewController, UICollectionViewDelegate {
         
         setDelegate()
         setRegister()
+        
+        print(UserManager.shared.accessToken)
         
         navigationItem.hidesBackButton = true
     }
@@ -84,7 +88,7 @@ extension MainHomeViewController: UICollectionViewDataSource {
                 
                 headerView.backgroundColor = .white
                 headerView.filtetButtonDelegate = self
-
+                
                 return headerView
             } else if rootView.testDataForInavailable {
                 guard let headerView = collectionView.dequeueReusableSupplementaryView(
@@ -117,11 +121,11 @@ extension MainHomeViewController: UICollectionViewDataSource {
                 
                 headerView.backgroundColor = .white
                 headerView.filtetButtonDelegate = self
-
+                
                 return headerView
                 
             }
-        
+            
         default:
             return UICollectionReusableView()
         }
@@ -204,10 +208,7 @@ extension MainHomeViewController: UICollectionViewDataSource {
             
         case .jobCard:
             if rootView.testDataForNonJobCard {
-                guard let cell = rootView.collectionView.dequeueReusableCell(
-                    withReuseIdentifier: NonJobCardCell.className,
-                    for: indexPath
-                ) as? NonJobCardCell else {
+                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonJobCardCell.className, for: indexPath) as? NonJobCardCell else {
                     return UICollectionViewCell()
                 }
                 
@@ -222,7 +223,7 @@ extension MainHomeViewController: UICollectionViewDataSource {
                 }
                 
                 return cell
-            
+                
             } else {
                 guard let cell = rootView.collectionView.dequeueReusableCell(
                     withReuseIdentifier: JobCardScrapedCell.className,
@@ -230,6 +231,8 @@ extension MainHomeViewController: UICollectionViewDataSource {
                 ) as? JobCardScrapedCell else {
                     return UICollectionViewCell()
                 }
+                
+                cell.delegate = self
                 
                 let model = cardModelItems[indexPath.row]
                 cell.bindData(
@@ -348,5 +351,97 @@ extension MainHomeViewController: FilteringButtonDidTapProtocol {
                 rootView.gradientView.isHidden = true
             }
         }
+    }
+}
+
+// MARK: - Methods
+
+extension MainHomeViewController: ScrapDidTapDelegate {
+    
+    func scrapButtonDidTap(id: Double) {
+        guard let indexPath = self.indexPath(forInternshipAnnouncementId: id),
+              let cell = self.rootView.collectionView.cellForItem(at: indexPath) as? JobCardScrapedCell else {
+            return
+        }
+        
+        if cell.scrapButton.isSelected {
+            showScrapAlert(id: id, alertType: .normal, cell: cell)
+        } else {
+            showScrapAlert(id: id, alertType: .custom, cell: cell)
+        }
+    }
+    
+    private func showScrapAlert(id: Double, alertType: AlertType, cell: JobCardScrapedCell) {
+        let customAlertVC = CustomAlertViewController(alertType: alertType)
+        
+        if alertType == .custom {
+            customAlertVC.centerButtonTapAction = { [weak self] in
+                guard let self = self else { return }
+                let colorIndex = customAlertVC.selectedColorIndexRelay.value
+                self.scrapAnnouncement(internshipAnnouncementId: id, color: colorIndex, cell: cell)
+                self.dismiss(animated: false)
+            }
+        } else if alertType == .normal {
+            customAlertVC.setComponentDatas(mainLabel: "관심 공고가 캘린더에서 사라져요!", subLabel: "스크랩을 취소하시겠어요?", buttonLabel: "스크랩 취소하기")
+            customAlertVC.centerButtonTapAction = { [weak self] in
+                guard let self = self else { return }
+                self.cancelScrapAnnouncement(internshipAnnouncementId: id, cell: cell)
+                self.dismiss(animated: false)
+            }
+        }
+        
+        customAlertVC.modalPresentationStyle = .overFullScreen
+        customAlertVC.modalTransitionStyle = .crossDissolve
+        
+        self.present(customAlertVC, animated: false)
+    }
+    
+    private func scrapAnnouncement(internshipAnnouncementId: Double, color: Int, cell: JobCardScrapedCell) {
+        providers.request(.addScrap(internshipAnnouncementId: internshipAnnouncementId, color: color)) { [weak self] result in
+            LoadingIndicator.hideLoading()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                if 200..<300 ~= status {
+                    print("스크랩 성공")
+                    cell.updateScrapButton(isSelected: true)
+                } else {
+                    print("400 error")
+                    self.showToast(message: "네트워크 오류")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showToast(message: "네트워크 오류")
+            }
+        }
+    }
+    
+    private func cancelScrapAnnouncement(internshipAnnouncementId: Double, cell: JobCardScrapedCell) {
+        providers.request(.removeScrap(scrapId: internshipAnnouncementId)) { [weak self] result in
+            LoadingIndicator.hideLoading()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                if 200..<300 ~= status {
+                    print("스크랩 취소 성공")
+                    cell.updateScrapButton(isSelected: false)
+                } else {
+                    print("400 error")
+                    self.showToast(message: "네트워크 오류")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showToast(message: "네트워크 오류")
+            }
+        }
+    }
+    
+    private func indexPath(forInternshipAnnouncementId id: Double) -> IndexPath? {
+        for (index, model) in cardModelItems.enumerated() where model.internshipAnnouncementId == id {
+            return IndexPath(row: index, section: HomeSection.jobCard.rawValue)
+        }
+        return nil
     }
 }

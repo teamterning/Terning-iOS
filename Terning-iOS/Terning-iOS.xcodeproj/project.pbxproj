@@ -115,6 +115,7 @@
 		71E3C40D2C2423280026C4DD /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C40C2C2423280026C4DD /* .swiftlint.yml */; };
 		71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C40E2C243B510026C4DD /* UIView+.swift */; };
 		71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C4112C243BDD0026C4DD /* getClassName.swift */; };
+		71FFB2B22C47DD8000C60697 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 716E08AB2C44349A00469E3B /* Config.xcconfig */; };
 		B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86A67572C41166800CB90E5 /* FilterButton.swift */; };
 		B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7222C3E8835008D78C2 /* JobCardModel.swift */; };
 		B871D7252C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7242C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift */; };
@@ -1003,6 +1004,7 @@
 				71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */,
 				71E3C3D92C22BAF50026C4DD /* LaunchScreen.storyboard in Resources */,
 				71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */,
+				71FFB2B22C47DD8000C60697 /* Config.xcconfig in Resources */,
 				71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */,
 				71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */,
 				71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */,
@@ -1288,11 +1290,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8Q4H7X3Q58;
+				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Terning-iOS/Info.plist";
@@ -1309,7 +1309,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.terning.Terning-iOS";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1323,11 +1322,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8Q4H7X3Q58;
+				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Terning-iOS/Info.plist";
@@ -1344,7 +1341,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.terning.Terning-iOS";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

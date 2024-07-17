@@ -15,6 +15,7 @@ final class LoginViewModel: NSObject, ViewModelType {
     
     private let userInfoRelay = PublishRelay<Bool>()
     private let disposeBag = DisposeBag()
+    private var authId: Int = 0
     
     // MARK: - Input
     
@@ -57,6 +58,7 @@ extension LoginViewModel {
             if UserApi.isKakaoTalkLoginAvailable() {
                 UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
                     if let error = error {
+                        print("🍎 errer: \(error)")
                         observer.onNext(false)
                     } else {
                         // 토큰 저장
@@ -127,21 +129,29 @@ extension LoginViewModel {
 extension LoginViewModel: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
-            case let appleIDCredential as ASAuthorizationAppleIDCredential:
-                let userIdentifier = appleIDCredential.user
-                guard let identityToken = appleIDCredential.identityToken,
-                      let tokenStr = String(data: identityToken, encoding: .utf8) else {
-                    self.userInfoRelay.accept(false)
-                    return
-                }
-                
-                print("User ID : \(String(describing: userIdentifier))")
-                print("token : \(String(describing: tokenStr))")
-                
-                // TODO: - 애플 로그인 서버 연동
-                self.userInfoRelay.accept(true)
-            default:
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            let userIdentifier = appleIDCredential.user
+            guard let identityToken = appleIDCredential.identityToken,
+                  let tokenStr = String(data: identityToken, encoding: .utf8) else {
                 self.userInfoRelay.accept(false)
+                return
+            }
+            
+            print("User ID : \(String(describing: userIdentifier))")
+            print("token : \(String(describing: tokenStr))")
+            
+            UserManager.shared.signIn(authType: "APPLE") { [weak self] result in
+                switch result {
+                case .success(let type):
+                    self?.userInfoRelay.accept(true)
+                case .failure(let error):
+                    print(error)
+                    self?.userInfoRelay.accept(false)
+                }
+            }
+            
+        default:
+            break
         }
     }
     

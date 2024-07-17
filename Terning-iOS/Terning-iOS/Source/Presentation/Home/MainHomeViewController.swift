@@ -50,8 +50,6 @@ final class MainHomeViewController: UIViewController {
         setDelegate()
         setRegister()
         
-        print(UserManager.shared.accessToken)
-        
         navigationItem.hidesBackButton = true
     }
 }
@@ -370,14 +368,19 @@ extension MainHomeViewController: FilteringButtonDidTapProtocol {
         let alertVC = CustomAlertViewController(alertType: .custom)
         let model = scrapedAndDeadlineItems[index]
         
-        alertVC.setComponentDatas(
-            subLabel: "오늘 지원이 마감되는 공고에요!",
-            buttonLabel: "공고 상세 정보 보러가기",
-            dDayLabel: "D-DAY"
+        alertVC.setData(
+            model: ScrapedAndDeadlineModel(
+                scrapId: model.scrapId,
+                internshipAnnouncementId: model.internshipAnnouncementId,
+                companyImage: model.companyImage,
+                title: model.title,
+                dDay: model.dDay,
+                deadLine: model.deadLine,
+                workingPeriod: model.workingPeriod,
+                startYearMonth: model.startYearMonth,
+                color: model.color
+            )
         )
-        
-        alertVC.setData(model: ScrapedAndDeadlineModel(scrapId: model.scrapId, internshipAnnouncementId: model.internshipAnnouncementId, companyImage: model.companyImage, title: model.title, dDay: model.dDay, deadLine: model.deadLine, workingPeriod: model.workingPeriod, startYearMonth: model.startYearMonth,
-            color: model.color))
         
         alertVC.centerButtonTapAction = {
             alertVC.dismiss(animated: false)
@@ -409,7 +412,6 @@ extension MainHomeViewController: UICollectionViewDelegate {
             self.scrapedCardIndex = indexPath.row
             presentJobCardDetailView(index: scrapedCardIndex)
             
-            JobDetailViewController().internshipAnnouncementId = cardModelItems[scrapedCardIndex].internshipAnnouncementId
         default:
             break
         }
@@ -445,6 +447,7 @@ extension MainHomeViewController: ScrapDidTapDelegate {
             }
         } else if alertType == .normal {
             customAlertVC.setComponentDatas(mainLabel: "관심 공고가 캘린더에서 사라져요!", subLabel: "스크랩을 취소하시겠어요?", buttonLabel: "스크랩 취소하기")
+            
             customAlertVC.centerButtonTapAction = { [weak self] in
                 guard let self = self else { return }
                 self.cancelScrapAnnouncement(internshipAnnouncementId: id, cell: cell)

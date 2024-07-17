@@ -24,6 +24,10 @@ extension UIViewController {
         )
     }
     
+    func showNetworkFailureToast() {
+        showToast(message: "네트워크 통신 실패")
+    }
+    
     private func safeAreaBottomInset() -> CGFloat {
         return view.safeAreaInsets.bottom
     }

@@ -49,7 +49,10 @@ extension AuthTargetType: TargetType {
         case .signIn(let authType):
             return .requestParameters(parameters: ["authType": authType], encoding: JSONEncoding.default)
         case .getNewToken:
-            return .requestPlain
+            return .requestParameters(
+                parameters: ["Authorization": Config.refreshToken],
+                encoding: JSONEncoding.default
+            )
         case .signUp(let name, let profileImage, let authType):
             return .requestParameters(
                 parameters: [

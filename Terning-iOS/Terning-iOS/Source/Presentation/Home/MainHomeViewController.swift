@@ -19,7 +19,7 @@ protocol bindFilterSettingDataProtocol {
     func bindFilterSettingData(grade: String?, period: String?, month: String?)
 }
 
-final class MainHomeViewController: UIViewController, UICollectionViewDelegate {
+final class MainHomeViewController: UIViewController {
     
     private let scrollView = UIScrollView()
     
@@ -29,6 +29,10 @@ final class MainHomeViewController: UIViewController, UICollectionViewDelegate {
     private var cardModelItems: [JobCardModel] = JobCardModel.getJobCardData()
     private var scrapedAndDeadlineItems: [ScrapedAndDeadlineModel] = ScrapedAndDeadlineModel.getScrapedData()
     private var UserFilteringInfoModelItems: [UserFilteringInfoModel] = UserFilteringInfoModel.getUserFilteringInfo()
+    private var UserProfileInfomModelItems: [UserProfileInfoModel] = UserProfileInfoModel.getUserProfileInfo()
+    
+    var deadlineTodayCardIndex: Int = 0
+    var scrapedCardIndex: Int = 0
     
     // MARK: - UIComponents
     
@@ -74,6 +78,14 @@ extension MainHomeViewController: UICollectionViewDataSource {
                 
                 return UICollectionReusableView()
             }
+            
+            let model = UserProfileInfomModelItems[indexPath.row]
+            headerView.bind(
+                model: UserProfileInfoModel(
+                    name: model.name,
+                    authType: model.authType
+                )
+            )
             
             return headerView
             
@@ -156,6 +168,7 @@ extension MainHomeViewController: UICollectionViewDataSource {
         }
     }
     
+    // 셀 설정하는 부분
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let section = HomeSection(rawValue: indexPath.section)
         
@@ -350,6 +363,55 @@ extension MainHomeViewController: FilteringButtonDidTapProtocol {
             } else {
                 rootView.gradientView.isHidden = true
             }
+        }
+    }
+    
+    func presentTodayDeadlineDetialView(index: Int) {
+        let alertVC = CustomAlertViewController(alertType: .custom)
+        let model = scrapedAndDeadlineItems[index]
+        
+        alertVC.setComponentDatas(
+            subLabel: "오늘 지원이 마감되는 공고에요!",
+            buttonLabel: "공고 상세 정보 보러가기",
+            dDayLabel: "D-DAY"
+        )
+        
+        alertVC.setData(model: ScrapedAndDeadlineModel(scrapId: model.scrapId, internshipAnnouncementId: model.internshipAnnouncementId, companyImage: model.companyImage, title: model.title, dDay: model.dDay, deadLine: model.deadLine, workingPeriod: model.workingPeriod, startYearMonth: model.startYearMonth,
+            color: model.color))
+        
+        alertVC.centerButtonTapAction = {
+            alertVC.dismiss(animated: false)
+        }
+        
+        alertVC.modalPresentationStyle = .overFullScreen
+        alertVC.modalTransitionStyle = .crossDissolve
+        self.present(alertVC, animated: true, completion: nil)
+    }
+    
+    func presentJobCardDetailView(index: Int) {
+        let JobDetailView = JobDetailViewController()
+        JobDetailView.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(JobDetailView, animated: true)
+    }
+}
+
+extension MainHomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let section = indexPath.section
+        
+        switch section {
+        case 0:
+            self.deadlineTodayCardIndex = indexPath.row
+            presentTodayDeadlineDetialView(index: deadlineTodayCardIndex)
+            print(scrapedAndDeadlineItems[deadlineTodayCardIndex].color)
+        case 1:
+            self.scrapedCardIndex = indexPath.row
+            presentJobCardDetailView(index: scrapedCardIndex)
+            
+            JobDetailViewController().internshipAnnouncementId = cardModelItems[scrapedCardIndex].internshipAnnouncementId
+        default:
+            break
         }
     }
 }

@@ -112,7 +112,7 @@ extension MainHomeView {
                     // Group
                     let groupSize = NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .absolute(139))
+                        heightDimension: .absolute(116))
                     
                     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                     
@@ -163,7 +163,7 @@ extension MainHomeView {
                     // Group
                     let groupSize = NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(0.8),
-                        heightDimension: .absolute(139))
+                        heightDimension: .absolute(116))
                     
                     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                     

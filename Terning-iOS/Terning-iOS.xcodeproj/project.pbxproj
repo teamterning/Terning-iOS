@@ -21,6 +21,10 @@
 		2D4EE3E82C400D6900E3E95B /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3E72C400D6900E3E95B /* OnboardingPageViewController.swift */; };
 		2D4EE3EA2C400ECB00E3E95B /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3E92C400ECB00E3E95B /* OnboardingViewController.swift */; };
 		2D4EE3ED2C4020DC00E3E95B /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3EC2C4020DC00E3E95B /* OnboardingViewModel.swift */; };
+		2D89C74D2C47E8EA002B035F /* ProfileImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C74C2C47E8EA002B035F /* ProfileImageViewModel.swift */; };
+		2D89C74F2C47E98B002B035F /* ProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C74E2C47E98B002B035F /* ProfileImageViewController.swift */; };
+		2D89C7512C47E99B002B035F /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C7502C47E99B002B035F /* ProfileImageView.swift */; };
+		2D89C7542C47E9AE002B035F /* ProfileImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C7532C47E9AE002B035F /* ProfileImageCell.swift */; };
 		2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */; };
 		2DC61EF52C4075EB009F991F /* MainInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF42C4075EB009F991F /* MainInfoTableViewCell.swift */; };
 		2DC61EF72C4075F3009F991F /* JobDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF62C4075F3009F991F /* JobDetailViewModel.swift */; };
@@ -151,6 +155,10 @@
 		2D4EE3E72C400D6900E3E95B /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
 		2D4EE3E92C400ECB00E3E95B /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		2D4EE3EC2C4020DC00E3E95B /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		2D89C74C2C47E8EA002B035F /* ProfileImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViewModel.swift; sourceTree = "<group>"; };
+		2D89C74E2C47E98B002B035F /* ProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViewController.swift; sourceTree = "<group>"; };
+		2D89C7502C47E99B002B035F /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		2D89C7532C47E9AE002B035F /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
 		2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailViewController.swift; sourceTree = "<group>"; };
 		2DC61EF42C4075EB009F991F /* MainInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInfoTableViewCell.swift; sourceTree = "<group>"; };
 		2DC61EF62C4075F3009F991F /* JobDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailViewModel.swift; sourceTree = "<group>"; };
@@ -309,6 +317,7 @@
 		2D4EE3A02C3E787200E3E95B /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				2D89C7522C47E9A3002B035F /* Cell */,
 				2D4EE3A82C3E78B800E3E95B /* View */,
 				2D4EE3A72C3E78B400E3E95B /* ViewController */,
 				2D4EE3A92C3E78BE00E3E95B /* ViewModel */,
@@ -320,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				2D4EE3A52C3E78A200E3E95B /* ProfileViewController.swift */,
+				2D89C74E2C47E98B002B035F /* ProfileImageViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -328,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				2D4EE3A32C3E789200E3E95B /* ProfileView.swift */,
+				2D89C7502C47E99B002B035F /* ProfileImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -336,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				2D4EE3A12C3E788200E3E95B /* ProfileViewModel.swift */,
+				2D89C74C2C47E8EA002B035F /* ProfileImageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -373,6 +385,14 @@
 				2D4EE3E72C400D6900E3E95B /* OnboardingPageViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2D89C7522C47E9A3002B035F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2D89C7532C47E9AE002B035F /* ProfileImageCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		2DC61EEE2C40759F009F991F /* JobDetail */ = {
@@ -1055,6 +1075,7 @@
 				2D4EE3E62C3FFF9200E3E95B /* OnboardingView.swift in Sources */,
 				71780C4A2C4591B90073B731 /* MyPageTargetType.swift in Sources */,
 				71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */,
+				2D89C74F2C47E98B002B035F /* ProfileImageViewController.swift in Sources */,
 				2DC61EFD2C40823C009F991F /* CompanyInfoTableViewCell.swift in Sources */,
 				7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */,
 				71780C562C45A81E0073B731 /* AuthInterceptor.swift in Sources */,
@@ -1110,6 +1131,7 @@
 				71780C3E2C45849A0073B731 /* UserDefaultWrapper.swift in Sources */,
 				7121A14B2C3B09800056DB8B /* setImage.swift in Sources */,
 				B871D7292C3E8E46008D78C2 /* JobCardScrapedCell.swift in Sources */,
+				2D89C74D2C47E8EA002B035F /* ProfileImageViewModel.swift in Sources */,
 				2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */,
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
 				2DC61EF92C407E65009F991F /* JobDetailTableViewHeaderCell.swift in Sources */,
@@ -1120,6 +1142,7 @@
 				B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */,
 				2DC985FE2C456FC300D46729 /* SearchView.swift in Sources */,
 				2D4EE3A62C3E78A200E3E95B /* ProfileViewController.swift in Sources */,
+				2D89C7512C47E99B002B035F /* ProfileImageView.swift in Sources */,
 				71B509252C41D027006D8E56 /* CalendarDateHeaderView.swift in Sources */,
 				B8D5493F2C45B46D00553BB5 /* NonJobCardHeaderCell.swift in Sources */,
 				2DC61F192C41B261009F991F /* LoginView.swift in Sources */,
@@ -1129,6 +1152,7 @@
 				B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */,
 				2DC985F72C456F7E00D46729 /* AdvertisementCollectionViewCell.swift in Sources */,
 				B871D7312C3E9118008D78C2 /* NonScrapInfoCells.swift in Sources */,
+				2D89C7542C47E9AE002B035F /* ProfileImageCell.swift in Sources */,
 				2D4EE3892C3D9EA400E3E95B /* Date+.swift in Sources */,
 				7121A1532C3DE3680056DB8B /* CustomNavigationBar.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,

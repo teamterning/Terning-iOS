@@ -75,6 +75,7 @@ extension LoginViewController {
         
         output.loginSuccess
             .drive(onNext: { [weak self] success in
+                print(success)
                 if success {
                     self?.navigateToNextScreen()
                 }
@@ -89,7 +90,10 @@ extension LoginViewController {
     private func navigateToNextScreen() {
         let tabBarController = ProfileViewController(viewType: .setting, viewModel: ProfileViewModel())
         
-        guard let window = self.view.window else { return }
+        guard let window = self.view.window else {
+            print("Window is nil")
+            return
+        }
         ViewControllerUtils.setRootViewController(window: window, viewController: tabBarController, withAnimation: true)
     }
 }

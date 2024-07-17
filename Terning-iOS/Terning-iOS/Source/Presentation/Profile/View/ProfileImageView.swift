@@ -22,7 +22,7 @@ final class ProfileImageView: UIView {
     
     // MARK: - UI Components
     
-    private let titleLable = LabelFactory.build(
+    private let titleLabel = LabelFactory.build(
         text: "프로필 이미지 선택",
         font: .title2,
         textAlignment: .left
@@ -62,28 +62,29 @@ extension ProfileImageView {
     
     private func setHierarchy() {
         addSubviews(
-            titleLable,
+            titleLabel,
             collectionView,
             saveButton
         )
     }
                     
     private func setLayout() {
-        titleLable.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(4)
+            $0.horizontalEdges.equalToSuperview().inset(28)
         }
         
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(titleLable.snp.bottom).offset(21.33)
-            $0.horizontalEdges.equalToSuperview().inset(13.33)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(21.33)
+            $0.horizontalEdges.equalToSuperview().inset(44)
             $0.bottom.equalTo(saveButton.snp.top).offset(21.33)
             
         }
         
         saveButton.snp.makeConstraints {
-            $0.bottom.horizontalEdges.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(24)
             $0.height.equalTo(54)
+            $0.bottom.equalToSuperview().inset(12)
         }
     }
 }

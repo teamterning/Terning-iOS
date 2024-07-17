@@ -17,7 +17,7 @@ final class ProfileImageViewController: UIViewController {
     
     private let viewModel: ProfileImageViewModel
     private let disposeBag = DisposeBag()
-    private var selectedIndex = BehaviorSubject<Int>(value: 0)
+    var selectedIndex = BehaviorSubject<Int>(value: 0)
     
     // MARK: - UI Components
     
@@ -77,9 +77,7 @@ extension ProfileImageViewController {
     
     private func setLayout() {
         profileImageView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(24)
-            $0.bottom.equalToSuperview().inset(44)
+            $0.edges.equalToSuperview()
         }
     }
 }
@@ -101,7 +99,7 @@ extension ProfileImageViewController {
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
                 print("Selected index: \(index)")
-                self.navigateToNextViewController(with: index)
+                selectedIndex.onNext(index)
             })
             .disposed(by: disposeBag)
     }

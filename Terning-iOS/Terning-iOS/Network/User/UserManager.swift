@@ -28,13 +28,13 @@ final class UserManager {
     
     private init() {}
     
-    func updateToken(accessToken: String, refreshToken: String, isKakao: Bool) {
+    func updateToken(accessToken: String, refreshToken: String) {
         self.accessToken = accessToken
         self.refreshToken = refreshToken
-        self.authType = authType
     }
     
-    func signIn(authType: String, completion: @escaping(Result<String, TNError>) -> Void) {
+    func signIn(authType: String, completion: @escaping(Result<Bool, TNError>) -> Void) {
+        print("🍎🍎signIn 함수 시작🍎🍎")
         authProvider.request(.signIn(authType: authType)) { [weak self] response in
             guard let self = self else { return }
             switch response {
@@ -43,16 +43,20 @@ final class UserManager {
                 if 200..<300 ~= status {
                     do {
                         let responseDto = try result.map(BaseResponse<SignInResponseModel>.self)
-                        guard let data = responseDto.result else { return }
+                        guard let data = responseDto.result else {
+                            completion(.failure(.networkFail))
+                            return
+                        }
+                        
                         self.accessToken = data.accessToken
                         self.refreshToken = data.refreshToken
                         self.userId = data.userId
                         self.authId = data.authId
                         self.authType = data.authType
                         
-                        completion(.success(data.authId))
+                        completion(.success(true))
                     } catch {
-                        print(error.localizedDescription)
+                        print("🍎🍎🍎🍎\(error.localizedDescription)")
                         completion(.failure(.networkFail))
                     }
                 } else if status >= 400 {
@@ -60,12 +64,12 @@ final class UserManager {
                     completion(.failure(.networkFail))
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                print(" 🔥 🔥 \(error.localizedDescription)")
                 if let response = error.response {
                     if let responseData = String(bytes: response.data, encoding: .utf8) {
                         print("\n 🔥 SignIn 메세지 \(responseData)\n")
                     } else {
-                        print("Failed to decode response data as UTF-8 string.")
+                        print(" 🔥Failed to decode response data as UTF-8 string.")
                     }
                 } else {
                     print(error.localizedDescription)

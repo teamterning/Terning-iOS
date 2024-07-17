@@ -11,7 +11,7 @@ import Moya
 enum AuthTargetType {
     case signIn(authType: String)
     case getNewToken
-    case signUp(name: String, profileImage: Int)
+    case signUp(name: String, profileImage: Int, authType: String)
     case postOnboarding(grade: Int, workingPeriod: Int, startYear: Int, startMonth: Int)
 }
 
@@ -50,8 +50,15 @@ extension AuthTargetType: TargetType {
             return .requestParameters(parameters: ["authType": authType], encoding: JSONEncoding.default)
         case .getNewToken:
             return .requestPlain
-        case .signUp(let name, let profileImage):
-            return .requestParameters(parameters: ["name": name, "profileImage": profileImage], encoding: JSONEncoding.default)
+        case .signUp(let name, let profileImage, let authType):
+            return .requestParameters(
+                parameters: [
+                    "name": name,
+                    "profileImage": profileImage,
+                    "authType": authType
+                ],
+                encoding: JSONEncoding.default
+            )
         case .postOnboarding(let grade, let workingPeriod, let startYear, let startMonth):
             return .requestParameters(
                 parameters: [
@@ -65,14 +72,18 @@ extension AuthTargetType: TargetType {
     }
     
     var headers: [String: String]? {
+        var headers: [String: String] = ["Content-Type": "application/json"]
         switch self {
         case .signIn:
-            return Config.defaultHeader
+            if let accessToken = UserManager.shared.accessToken {
+                headers["Authorization"] = "Bearer \(accessToken)"
+            }
         case .getNewToken:
-            return ["Content-Type": "application/json", "refreshToken": Config.refreshToken]
+            headers["Authorization"] = Config.refreshToken
         case .signUp, .postOnboarding:
-            return ["Content-Type": "application/json", "authId": Config.authId]
+            headers["authId"] = Config.authId
         }
+        return headers
     }
     
     var validationType: ValidationType {

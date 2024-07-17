@@ -10,5 +10,6 @@ import Foundation
 // MARK: - NewTokenModel
 
 struct NewTokenModel: Codable {
+    let accessToken: String
     let refreshToken: String
 }

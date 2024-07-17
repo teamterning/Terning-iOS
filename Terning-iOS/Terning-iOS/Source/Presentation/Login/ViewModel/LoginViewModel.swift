@@ -177,13 +177,14 @@ extension LoginViewModel: ASAuthorizationControllerDelegate {
             print("User ID : \(String(describing: userIdentifier))")
             print("token : \(String(describing: tokenStr))")
             
-            UserManager.shared.signIn(authType: "APPLE") { [weak self] result in
+            UserManager.shared.signIn(authType: "APPLE") { result in
                 switch result {
                 case .success(let type):
-                    self?.userInfoRelay.accept(true)
+                    print(type)
+                    self.userInfoRelay.accept(type)
                 case .failure(let error):
                     print(error)
-                    self?.userInfoRelay.accept(false)
+                    self.userInfoRelay.accept(false)
                 }
             }
             

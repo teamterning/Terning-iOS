@@ -71,7 +71,7 @@ extension AuthTargetType: TargetType {
         case .getNewToken:
             return ["Content-Type": "application/json", "refreshToken": Config.refreshToken]
         case .signUp, .postOnboarding:
-            return ["Content-Type": "application/json", "User-Id": Config.userId]
+            return ["Content-Type": "application/json", "authId": Config.authId]
         }
     }
     

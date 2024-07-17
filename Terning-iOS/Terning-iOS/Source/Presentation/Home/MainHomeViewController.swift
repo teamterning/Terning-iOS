@@ -46,6 +46,8 @@ final class MainHomeViewController: UIViewController, UICollectionViewDelegate {
         setDelegate()
         setRegister()
         
+        print(UserManager.shared.accessToken)
+        
         navigationItem.hidesBackButton = true
     }
 }

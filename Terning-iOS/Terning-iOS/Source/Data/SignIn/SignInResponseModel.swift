@@ -11,6 +11,7 @@ import Foundation
 
 struct SignInResponseModel: Codable {
     let accessToken, refreshToken: String
-    let userId: String
+    let userId: Int
+    let authId: String
     let authType: String
 }

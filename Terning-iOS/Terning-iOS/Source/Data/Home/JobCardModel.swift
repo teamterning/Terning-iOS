@@ -8,7 +8,7 @@
 import UIKit
 
 struct JobCardModel {
-    let internshipAnnouncementId: Int
+    let internshipAnnouncementId: Double
     let title: String
     let dDay: String
     let workingPeriod: String

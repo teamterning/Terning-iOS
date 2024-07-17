@@ -215,6 +215,10 @@ extension CustomAlertViewController {
         DispatchQueue.main.async {
             self.colorButton.setBackgroundColor(UIColor(hex: model.color), for: .normal)
         }
+        self.subLabel.text = "오늘 지원이 마감되는 공고예요!"
+        self.centerButton.setTitle(title: "공고 상세 정보 보러가기")
+        
+        
     }
     
     
@@ -224,6 +228,8 @@ extension CustomAlertViewController {
     ///   - subLabel: 서브 text
     ///   - buttonLabel: 중앙 버튼 text
     public func setComponentDatas( subLabel: String, buttonLabel: String, dDayLabel: String) {
+        guard alertType == .normal else { return }
+        
         self.subLabel.text = subLabel
         self.centerButton.setTitle(title: buttonLabel)
         self.dDayLabel.text = dDayLabel

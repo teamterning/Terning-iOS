@@ -28,7 +28,6 @@ final class MainHomeViewController: UIViewController {
     private var scrapedAndDeadlineItems: [ScrapedAndDeadlineModel] = ScrapedAndDeadlineModel.getScrapedData()
     private var UserFilteringInfoModelItems: [UserFilteringInfoModel] = UserFilteringInfoModel.getUserFilteringInfo()
     
-    
     var deadlineTodayCardIndex: Int = 0
     var scrapedCardIndex: Int = 0
     

@@ -115,6 +115,7 @@
 		71E3C40D2C2423280026C4DD /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 71E3C40C2C2423280026C4DD /* .swiftlint.yml */; };
 		71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C40E2C243B510026C4DD /* UIView+.swift */; };
 		71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C4112C243BDD0026C4DD /* getClassName.swift */; };
+		B855485A2C47EEBB00EC67F6 /* UserProfileInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85548592C47EEBB00EC67F6 /* UserProfileInfoModel.swift */; };
 		B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86A67572C41166800CB90E5 /* FilterButton.swift */; };
 		B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7222C3E8835008D78C2 /* JobCardModel.swift */; };
 		B871D7252C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7242C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift */; };
@@ -237,6 +238,7 @@
 		71E3C40C2C2423280026C4DD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		71E3C40E2C243B510026C4DD /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		71E3C4112C243BDD0026C4DD /* getClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getClassName.swift; sourceTree = "<group>"; };
+		B85548592C47EEBB00EC67F6 /* UserProfileInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileInfoModel.swift; sourceTree = "<group>"; };
 		B86A67572C41166800CB90E5 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		B871D7222C3E8835008D78C2 /* JobCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardModel.swift; sourceTree = "<group>"; };
 		B871D7242C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapInfoHeaderCell.swift; sourceTree = "<group>"; };
@@ -904,6 +906,7 @@
 				B871D7222C3E8835008D78C2 /* JobCardModel.swift */,
 				B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */,
 				B8BE0E132C46D38700B3D298 /* UserFilteringInfoModel.swift */,
+				B85548592C47EEBB00EC67F6 /* UserProfileInfoModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1064,6 +1067,7 @@
 				71780C402C4584D40073B731 /* UserManager.swift in Sources */,
 				71E3C3CD2C22BAF40026C4DD /* AppDelegate.swift in Sources */,
 				71780C442C45860C0073B731 /* SignInResponseModel.swift in Sources */,
+				B855485A2C47EEBB00EC67F6 /* UserProfileInfoModel.swift in Sources */,
 				2D4EE38B2C3D9FD900E3E95B /* CustomDatePicker.swift in Sources */,
 				2D4EE3942C3DD5B700E3E95B /* WelcomeView.swift in Sources */,
 				71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */,

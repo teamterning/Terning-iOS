@@ -72,7 +72,9 @@ extension IsScrapInfoViewCell {
     
     private func setLayout() {
         scrapAndDeadlineCard.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.verticalEdges.equalToSuperview()
+            $0.trailing.equalToSuperview()
+            $0.leading.equalToSuperview().offset(8)
         }
         
         colorMark.snp.makeConstraints {

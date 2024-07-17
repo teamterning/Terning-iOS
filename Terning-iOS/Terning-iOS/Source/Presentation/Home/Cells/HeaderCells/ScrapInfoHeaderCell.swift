@@ -12,6 +12,8 @@ import Then
 
 final class ScrapInfoHeaderCell: UICollectionReusableView {
     
+    // MARK: - Propertise
+    
     // MARK: - UIComponents
     
     private let titleLabel = LabelFactory.build(
@@ -47,5 +49,22 @@ extension ScrapInfoHeaderCell {
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview().offset(20)
         }
+    }
+    
+    // MARK: - Methods
+    
+    private func setTitleLabel(name: String) {
+        if name.count >= 7 {
+            titleLabel.text = "오늘 마감되는 \n\(name)님의 관심공고"
+            titleLabel.numberOfLines = 2
+            titleLabel.textAlignment = .left
+        } else if name.count < 7 {
+            titleLabel.text = "오늘 마감되는 \(name)님의 관심공고"
+            titleLabel.textAlignment = .left
+        }
+    }
+    
+    func bind(model: UserProfileInfoModel) {
+        setTitleLabel(name: model.name)
     }
 }

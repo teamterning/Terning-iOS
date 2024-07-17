@@ -75,7 +75,7 @@ extension CheckDeadlineCell {
         
         checkDeadlineCardLabel.snp.makeConstraints {
             $0.centerX.equalTo(checkDeadlineCard)
-            $0.top.equalTo(checkDeadlineCard.snp.top).offset(35)
+            $0.top.equalTo(checkDeadlineCard.snp.top).offset(40)
         }
         
         checkDeadlineButton.snp.makeConstraints {

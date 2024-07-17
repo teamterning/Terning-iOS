@@ -26,6 +26,8 @@ final class MainHomeView: UIView {
     lazy var layoutForCheckDeadlineCell: Bool = hasAnyScrap && !hasDueToday
     lazy var layoutForIsScrapInfoCell: Bool = hasAnyScrap && hasDueToday
     
+    private var UserProfileInfomModelItems: [UserProfileInfoModel] = UserProfileInfoModel.getUserProfileInfo()
+    
     // MARK: - UIComponents
     
     lazy var collectionView: UICollectionView = {
@@ -89,7 +91,7 @@ extension MainHomeView {
         }
         
         gradientView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(268)
+            $0.top.equalToSuperview().offset(245)
             $0.horizontalEdges.equalToSuperview()
         }
     }
@@ -114,12 +116,10 @@ extension MainHomeView {
                     
                     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                     
-                    group.contentInsets.top = 11
-                    
                     // Section
                     let section = NSCollectionLayoutSection(group: group)
                     
-                    section.contentInsets.top = 40
+                    section.contentInsets.top = 19
                     section.contentInsets.bottom = 25
                     
                     section.boundarySupplementaryItems = [
@@ -128,6 +128,27 @@ extension MainHomeView {
                             elementKind: UICollectionView.elementKindSectionHeader,
                             alignment: .none)
                     ]
+                    
+                    let model = self.UserProfileInfomModelItems[0]
+                        
+                    if model.name.count >= 7 {
+                        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(48))
+                        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                            layoutSize: headerSize,
+                            elementKind: UICollectionView.elementKindSectionHeader,
+                            alignment: .top
+                        )
+                        section.boundarySupplementaryItems = [sectionHeader]
+                        
+                    } else if model.name.count < 7 {
+                        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(24))
+                        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                            layoutSize: headerSize,
+                            elementKind: UICollectionView.elementKindSectionHeader,
+                            alignment: .top
+                        )
+                        section.boundarySupplementaryItems = [sectionHeader]
+                    }
                     
                     return section
                 } else if self.layoutForIsScrapInfoCell {
@@ -142,16 +163,15 @@ extension MainHomeView {
                     // Group
                     let groupSize = NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(0.8),
-                        heightDimension: .absolute(131))
+                        heightDimension: .absolute(139))
                     
                     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                    
-                    group.contentInsets.top = 11
                     
                     // Section
                     let section = NSCollectionLayoutSection(group: group)
                     section.orthogonalScrollingBehavior = .continuous
-                    section.contentInsets.top = 23
+                    
+                    section.contentInsets.top = 19
                     section.contentInsets.bottom = 25
                     
                     section.boundarySupplementaryItems = [
@@ -161,7 +181,28 @@ extension MainHomeView {
                             alignment: .none)
                     ]
                     
-                    section.contentInsets.leading = 8
+                    let model = self.UserProfileInfomModelItems[0]
+                    
+                    if model.name.count >= 7 {
+                        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(48))
+                        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                            layoutSize: headerSize,
+                            elementKind: UICollectionView.elementKindSectionHeader,
+                            alignment: .top
+                        )
+                        
+                        section.boundarySupplementaryItems = [sectionHeader]
+                        
+                    } else if model.name.count < 7 {
+                        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(24))
+                        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                            layoutSize: headerSize,
+                            elementKind: UICollectionView.elementKindSectionHeader,
+                            alignment: .top
+                        )
+                        
+                        section.boundarySupplementaryItems = [sectionHeader]
+                    }
                     
                     return section
                 }

@@ -27,6 +27,7 @@ final class MainHomeViewController: UIViewController {
     private var cardModelItems: [JobCardModel] = JobCardModel.getJobCardData()
     private var scrapedAndDeadlineItems: [ScrapedAndDeadlineModel] = ScrapedAndDeadlineModel.getScrapedData()
     private var UserFilteringInfoModelItems: [UserFilteringInfoModel] = UserFilteringInfoModel.getUserFilteringInfo()
+    private var UserProfileInfomModelItems: [UserProfileInfoModel] = UserProfileInfoModel.getUserProfileInfo()
     
     var deadlineTodayCardIndex: Int = 0
     var scrapedCardIndex: Int = 0
@@ -73,6 +74,14 @@ extension MainHomeViewController: UICollectionViewDataSource {
                 
                 return UICollectionReusableView()
             }
+            
+            let model = UserProfileInfomModelItems[indexPath.row]
+            headerView.bind(
+                model: UserProfileInfoModel(
+                    name: model.name,
+                    authType: model.authType
+                )
+            )
             
             return headerView
             

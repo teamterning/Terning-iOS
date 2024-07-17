@@ -75,9 +75,9 @@ extension ProfileViewController {
 extension ProfileViewController {
     public func setUserData(userName: String, snsType: String) {
         profileView.getNameTextField().text = userName
-        if snsType == "apple" {
+        if snsType == "APPLE" {
             profileView.getSnsTypeLabel().text = "Apple 로그인"
-        } else if snsType == "kakao" {
+        } else if snsType == "KAKAO" {
             profileView.getSnsTypeLabel().text = "Kakao 로그인"
         } else {
             profileView.getSnsTypeLabel().text = "정보 없음"
@@ -142,3 +142,10 @@ extension ProfileViewController {
         // TODO: 커스텀 모달 화면으로 이동
     }
 }
+
+//extension ProfileViewController { 
+//    private func login() {
+//        authProvider.request(.signUp(name: self.profileView., profileImage: <#T##Int#>), completion: <#T##Completion##Completion##(_ result: Result<Response, MoyaError>) -> Void#>)
+//    }
+//}
+

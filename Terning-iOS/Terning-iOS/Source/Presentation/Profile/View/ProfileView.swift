@@ -111,7 +111,7 @@ final class ProfileView: UIView {
         characterSpacing: 0.002
     )
     
-    private let saveButton = CustomButton(title: "저장하기")
+    let saveButton = CustomButton(title: "저장하기")
     
     // MARK: - Init
     

@@ -21,7 +21,8 @@ final class UserManager {
     
     @UserDefaultWrapper<String>(key: "accessToken") public var accessToken
     @UserDefaultWrapper<String>(key: "refreshToken") public var refreshToken
-    @UserDefaultWrapper<String>(key: "userId") public var userId
+    @UserDefaultWrapper<Int>(key: "userId") public var userId
+    @UserDefaultWrapper<String>(key: "authId") public var authId
     @UserDefaultWrapper<String>(key: "authType") public var authType
     var hasAccessToken: Bool { return self.accessToken != nil }
     
@@ -46,9 +47,10 @@ final class UserManager {
                         self.accessToken = data.accessToken
                         self.refreshToken = data.refreshToken
                         self.userId = data.userId
+                        self.authId = data.authId
                         self.authType = data.authType
                         
-                        completion(.success(data.authType))
+                        completion(.success(data.authId))
                     } catch {
                         print(error.localizedDescription)
                         completion(.failure(.networkFail))

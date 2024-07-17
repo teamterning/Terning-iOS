@@ -39,11 +39,8 @@ final class MainHomeView: UIView {
         return collectionView
     }()
     
-    private let homeLogo = UILabel().then {
-        $0.text = "LOGO"
-        $0.textAlignment = .center
-        $0.layer.borderColor = UIColor.black.cgColor
-        $0.layer.borderWidth = 1
+    private let homeLogo = UIImageView().then {
+        $0.image = UIImage(resource: .homeLogo)
     }
     
     let gradientView = UIImageView().then {
@@ -79,12 +76,12 @@ extension MainHomeView {
     
     private func setLayout() {
         homeLogo.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(70)
-            $0.leading.equalToSuperview().offset(23)
-            $0.height.equalTo(45)
-            $0.width.equalTo(160)
+            $0.top.equalToSuperview().offset(65)
+            $0.leading.equalToSuperview().offset(21)
+            $0.width.equalTo(113)
+            $0.height.equalTo(27.12)
         }
-        
+
         collectionView.snp.makeConstraints {
             $0.top.equalTo(homeLogo.snp.bottom).offset(23)
             $0.horizontalEdges.equalToSuperview()

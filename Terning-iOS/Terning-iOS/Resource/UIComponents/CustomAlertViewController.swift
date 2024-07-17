@@ -91,9 +91,9 @@ final class CustomAlertViewController: UIViewController {
         textColor: .terningMain
     )
     
-    private let deadlineInfoView = JobDetailInfoView(title: "서류 마감", description: "123")
-    private let workPeriodInfoView = JobDetailInfoView(title: "근무 기간", description: "123")
-    private let workStartInfoView = JobDetailInfoView(title: "근무 시작", description: "123")
+    private var deadlineInfoView = JobDetailInfoView(title: "서류 마감", description: "123")
+    private var workPeriodInfoView = JobDetailInfoView(title: "근무 기간", description: "123")
+    private var workStartInfoView = JobDetailInfoView(title: "근무 시작", description: "123")
     
     private lazy var detailsVStackView = UIStackView(
         arrangedSubviews: [
@@ -217,15 +217,27 @@ extension CustomAlertViewController {
     
     /// 알림창에 들어갈 String 값을 커스텀 해주는 메서드 입니다.
     /// - Parameters:
+    ///   - JobImage: 이미지
     ///   - mainLabel: 메인 text
     ///   - subLabel: 서브 text
     ///   - buttonLabel: 중앙 버튼 text
-    public func setComponentDatas(mainLabel: String, subLabel: String, buttonLabel: String) {
-        guard alertType == .normal else { return } // normal 타입 일때만 사용 가능한 메서드
+    ///   - deadLineInfo: 마감 기한 text
+    ///   - workPeriodInfo: 근무 기한 text
+    ///   - workStartInfo: 근무 시작 text
+    ///   - color: colorButton 배경색
+    public func setComponentDatas(jobImgae: UIImage, mainLabel: String, subLabel: String, buttonLabel: String, dDayLabel: String, deadLineInfo: String, workPeriodInfo: String, workStartInfo: String, color: String) {
         
+        self.JobImageView.image = jobImgae
         self.mainLabel.text = mainLabel
         self.subLabel.text = subLabel
         self.centerButton.setTitle(title: buttonLabel)
+        self.dDayLabel.text = dDayLabel
+        self.deadlineInfoView = JobDetailInfoView(title: "서류 마감", description: deadLineInfo)
+        self.workPeriodInfoView = JobDetailInfoView(title: "근무 기간", description: workPeriodInfo)
+        self.workStartInfoView = JobDetailInfoView(title: "근무 시작", description: workStartInfo)
+        DispatchQueue.main.async {
+            self.colorButton.setBackgroundColor(UIColor(hex: color), for: .normal)
+        }
     }
     
     private func bindViews(_ type: AlertType) {

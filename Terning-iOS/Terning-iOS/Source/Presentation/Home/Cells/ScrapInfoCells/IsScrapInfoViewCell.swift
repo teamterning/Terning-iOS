@@ -10,6 +10,10 @@ import UIKit
 import SnapKit
 import Then
 
+//protocol cardLabelDidTapProtocol {
+//    func presentTodayDeadlineDetialView()
+//}
+
 final class IsScrapInfoViewCell: UICollectionViewCell {
     
     // MARK: - Properties
@@ -42,6 +46,7 @@ final class IsScrapInfoViewCell: UICollectionViewCell {
         textAlignment: .left
     ).then {
         $0.numberOfLines = 3
+        $0.isUserInteractionEnabled = true
     }
     
     // MARK: - LifeCycles
@@ -51,6 +56,7 @@ final class IsScrapInfoViewCell: UICollectionViewCell {
         
         setHierarchy()
         setLayout()
+//        setTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -100,4 +106,16 @@ extension IsScrapInfoViewCell {
         self.startYearMonth = model.startYearMonth
         self.colorMark.backgroundColor = UIColor(hex: model.color)
     }
+    
+//    private func setTapGesture() {
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cardLabelDidTap))
+//        cardLabel.addGestureRecognizer(tapGesture)
+//    }
+    
+    // MARK: objc Functions
+    
+//    @objc
+//    func cardLabelDidTap() {
+//        cardLabelDelegate?.presentTodayDeadlineDetialView()
+//    }
 }

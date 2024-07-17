@@ -22,6 +22,10 @@ enum JobDetailInfoType: Int, CaseIterable {
 
 final class JobDetailViewController: UIViewController {
     
+    // MARK: Properties
+    
+    var internshipAnnouncementId: Int = 0
+    
     // MARK: - UI Components
     
     private let jobDetailView = JobDetailView()

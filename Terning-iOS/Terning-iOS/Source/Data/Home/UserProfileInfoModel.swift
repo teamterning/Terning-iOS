@@ -16,7 +16,7 @@ extension UserProfileInfoModel {
     static func getUserProfileInfo() -> [UserProfileInfoModel] {
         return [
             UserProfileInfoModel(
-                name: "이게아요야이게아요야",
+                name: "레전드상황발생",
                 authType: "kakao"
             )
         ]

@@ -19,6 +19,7 @@ final class TNCalendarViewController: UIViewController {
     
     // MARK: - Properties
     
+    private let calendarProvider = Providers.calendarProvider
     private var isListViewVisible = false
     
     private let dateFormatter = DateFormatter().then {
@@ -43,7 +44,7 @@ final class TNCalendarViewController: UIViewController {
         bindNavigation()
         bindViewModel()
         updateNaviBarTitle(for: rootView.calendarView.currentPage)
-        loadDummyData() // 더미 데이터 로드
+        fetchMonthData(for: rootView.calendarView.currentPage)
     }
     
     override func loadView() {
@@ -104,6 +105,8 @@ extension TNCalendarViewController {
         let newDate = Calendar.current.date(byAdding: .month, value: months, to: currentPage) ?? currentPage
         rootView.calendarView.setCurrentPage(newDate, animated: true)
         updateNaviBarTitle(for: newDate)
+        
+        fetchMonthData(for: newDate)
     }
     
     private func updateNaviBarTitle(for date: Date) {
@@ -156,6 +159,7 @@ extension TNCalendarViewController: FSCalendarDelegate {
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         updateNaviBarTitle(for: calendar.currentPage)
+        fetchMonthData(for: calendar.currentPage)
         calendar.reloadData()
     }
     
@@ -348,6 +352,49 @@ extension TNCalendarViewController: UICollectionViewDataSource {
                 
             default:
                 return UICollectionReusableView()
+            }
+        }
+    }
+}
+
+
+extension TNCalendarViewController {
+    private func fetchMonthData(for date: Date) {
+        
+        let year = Calendar.current.component(.year, from: date)
+        let month = Calendar.current.component(.month, from: date)
+        
+        calendarProvider.request(.getMonthlyDefault(year: year, month: month)) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let result):
+                let status = result.statusCode
+                if 200..<300 ~= status {
+                    do {
+                        let responseDto = try result.map(BaseResponse<ScrapsByDeadlineModel>.self)
+                        guard let data = responseDto.result else { return }
+
+                        self.scraps = [:]
+                        
+                        for item in data.scrapsByDeadline {
+                            if let date = self.dateFormatter.date(from: item.deadline) {
+                                self.scraps[date] = item.scraps
+                            }
+                        }
+                        
+                        self.rootView.calendarView.reloadData()
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+                if status >= 400 {
+                    print("400 error")
+                    self.showNetworkFailureToast()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showNetworkFailureToast()
             }
         }
     }

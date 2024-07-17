@@ -37,12 +37,13 @@ extension SplashVC {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             if UserManager.shared.hasAccessToken {
                 UserManager.shared.getNewToken { [weak self] result in
+                    print("❤️ \(result) ❤️❤️")
                     switch result {
                     case .success:
                         print("SplashVC-토큰 재발급 성공")
                         self?.pushToTabBarController()
                     case .failure(let error):
-                        print(error)
+                        print(error.localizedDescription)
                         self?.pushToSignInView()
                     }
                 }

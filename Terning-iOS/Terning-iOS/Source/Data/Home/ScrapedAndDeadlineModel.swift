@@ -32,13 +32,13 @@ extension ScrapedAndDeadlineModel {
                 deadLine: "2024년 7월 14일",
                 workingPeriod: "2개월",
                 startYearMonth: "2024년 8월",
-                color: "#ED4E54"
+                color: "#45D0CC"
             ),
             
             ScrapedAndDeadlineModel(
                 scrapId: 2,
                 internshipAnnouncementId: 2,
-                companyImage: UIImage(resource: .icHomeFill),
+                companyImage: UIImage(resource: .icHome),
                 title: "[번개장터] Data Analyst",
                 dDay: "D-DAY",
                 deadLine: "2024년 7월 14일",

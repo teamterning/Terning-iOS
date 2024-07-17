@@ -19,7 +19,7 @@ protocol bindFilterSettingDataProtocol {
     func bindFilterSettingData(grade: String?, period: String?, month: String?)
 }
 
-final class MainHomeViewController: UIViewController, UICollectionViewDelegate {
+final class MainHomeViewController: UIViewController {
     
     private let scrollView = UIScrollView()
     
@@ -29,6 +29,10 @@ final class MainHomeViewController: UIViewController, UICollectionViewDelegate {
     private var cardModelItems: [JobCardModel] = JobCardModel.getJobCardData()
     private var scrapedAndDeadlineItems: [ScrapedAndDeadlineModel] = ScrapedAndDeadlineModel.getScrapedData()
     private var UserFilteringInfoModelItems: [UserFilteringInfoModel] = UserFilteringInfoModel.getUserFilteringInfo()
+    private var UserProfileInfomModelItems: [UserProfileInfoModel] = UserProfileInfoModel.getUserProfileInfo()
+    
+    var deadlineTodayCardIndex: Int = 0
+    var scrapedCardIndex: Int = 0
     
     // MARK: - UIComponents
     
@@ -45,8 +49,6 @@ final class MainHomeViewController: UIViewController, UICollectionViewDelegate {
         
         setDelegate()
         setRegister()
-        
-        print(UserManager.shared.accessToken)
         
         navigationItem.hidesBackButton = true
     }
@@ -74,6 +76,14 @@ extension MainHomeViewController: UICollectionViewDataSource {
                 
                 return UICollectionReusableView()
             }
+            
+            let model = UserProfileInfomModelItems[indexPath.row]
+            headerView.bind(
+                model: UserProfileInfoModel(
+                    name: model.name,
+                    authType: model.authType
+                )
+            )
             
             return headerView
             
@@ -156,6 +166,7 @@ extension MainHomeViewController: UICollectionViewDataSource {
         }
     }
     
+    // 셀 설정하는 부분
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let section = HomeSection(rawValue: indexPath.section)
         
@@ -352,6 +363,59 @@ extension MainHomeViewController: FilteringButtonDidTapProtocol {
             }
         }
     }
+    
+    func presentTodayDeadlineDetialView(index: Int) {
+        let alertVC = CustomAlertViewController(alertType: .custom)
+        let model = scrapedAndDeadlineItems[index]
+        
+        alertVC.setData(
+            model: ScrapedAndDeadlineModel(
+                scrapId: model.scrapId,
+                internshipAnnouncementId: model.internshipAnnouncementId,
+                companyImage: model.companyImage,
+                title: model.title,
+                dDay: model.dDay,
+                deadLine: model.deadLine,
+                workingPeriod: model.workingPeriod,
+                startYearMonth: model.startYearMonth,
+                color: model.color
+            )
+        )
+        
+        alertVC.centerButtonTapAction = {
+            alertVC.dismiss(animated: false)
+        }
+        
+        alertVC.modalPresentationStyle = .overFullScreen
+        alertVC.modalTransitionStyle = .crossDissolve
+        self.present(alertVC, animated: true, completion: nil)
+    }
+    
+    func presentJobCardDetailView(index: Int) {
+        let JobDetailView = JobDetailViewController()
+        JobDetailView.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(JobDetailView, animated: true)
+    }
+}
+
+extension MainHomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let section = indexPath.section
+        
+        switch section {
+        case 0:
+            self.deadlineTodayCardIndex = indexPath.row
+            presentTodayDeadlineDetialView(index: deadlineTodayCardIndex)
+            print(scrapedAndDeadlineItems[deadlineTodayCardIndex].color)
+        case 1:
+            self.scrapedCardIndex = indexPath.row
+            presentJobCardDetailView(index: scrapedCardIndex)
+            
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - Methods
@@ -383,6 +447,7 @@ extension MainHomeViewController: ScrapDidTapDelegate {
             }
         } else if alertType == .normal {
             customAlertVC.setComponentDatas(mainLabel: "관심 공고가 캘린더에서 사라져요!", subLabel: "스크랩을 취소하시겠어요?", buttonLabel: "스크랩 취소하기")
+            
             customAlertVC.centerButtonTapAction = { [weak self] in
                 guard let self = self else { return }
                 self.cancelScrapAnnouncement(internshipAnnouncementId: id, cell: cell)

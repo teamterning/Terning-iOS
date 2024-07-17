@@ -91,9 +91,9 @@ final class CustomAlertViewController: UIViewController {
         textColor: .terningMain
     )
     
-    private let deadlineInfoView = JobDetailInfoView(title: "서류 마감", description: "123")
-    private let workPeriodInfoView = JobDetailInfoView(title: "근무 기간", description: "123")
-    private let workStartInfoView = JobDetailInfoView(title: "근무 시작", description: "123")
+    private var deadlineInfoView = JobDetailInfoView(title: "서류 마감", description: "123")
+    private var workPeriodInfoView = JobDetailInfoView(title: "근무 기간", description: "123")
+    private var workStartInfoView = JobDetailInfoView(title: "근무 시작", description: "123")
     
     private lazy var detailsVStackView = UIStackView(
         arrangedSubviews: [
@@ -203,15 +203,22 @@ extension CustomAlertViewController {
 // MARK: - Methods
 
 extension CustomAlertViewController {
-    public func setData(model: JobDetailModel) {
+    public func setData(model: ScrapedAndDeadlineModel) {
         guard alertType == .custom else { return } // custom 타입 일때만 사용 가능한 메서드
         
-        self.JobImageView.setImage(with: model.companyImage)
+        self.JobImageView.image = model.companyImage
         self.mainLabel.text = model.title
         self.dDayLabel.text = model.dDay
-        self.deadlineInfoView.setDescriptionText(description: model.deadline)
+        self.deadlineInfoView.setDescriptionText(description: model.deadLine)
         self.workPeriodInfoView.setDescriptionText(description: model.workingPeriod)
-        self.workStartInfoView.setDescriptionText(description: model.startDate)
+        self.workStartInfoView.setDescriptionText(description: model.startYearMonth)
+        DispatchQueue.main.async {
+            self.colorButton.setBackgroundColor(UIColor(hex: model.color), for: .normal)
+        }
+        self.subLabel.text = "오늘 지원이 마감되는 공고예요!"
+        self.centerButton.setTitle(title: "공고 상세 정보 보러가기")
+        
+        
     }
     
     
@@ -221,7 +228,7 @@ extension CustomAlertViewController {
     ///   - subLabel: 서브 text
     ///   - buttonLabel: 중앙 버튼 text
     public func setComponentDatas(mainLabel: String, subLabel: String, buttonLabel: String) {
-        guard alertType == .normal else { return } // normal 타입 일때만 사용 가능한 메서드
+        guard alertType == .normal else { return }
         
         self.mainLabel.text = mainLabel
         self.subLabel.text = subLabel

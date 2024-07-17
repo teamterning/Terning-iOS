@@ -14,11 +14,9 @@ class CheckDeadlineCell: UICollectionViewCell {
 
     // MARK: - UIComponents
     private let checkDeadlineCard = UIView().then {
-        $0.makeBorder(width: 1, color: .grey150, cornerRadius: 5
-        )
+        $0.makeBorder(width: 1, color: .grey150, cornerRadius: 5)
         $0.backgroundColor =  .white
-        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0
-        )
+        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
     }
     
     private let checkDeadlineCardLabel = LabelFactory.build(
@@ -75,7 +73,7 @@ extension CheckDeadlineCell {
         
         checkDeadlineCardLabel.snp.makeConstraints {
             $0.centerX.equalTo(checkDeadlineCard)
-            $0.top.equalTo(checkDeadlineCard.snp.top).offset(35)
+            $0.top.equalTo(checkDeadlineCard.snp.top).offset(28)
         }
         
         checkDeadlineButton.snp.makeConstraints {

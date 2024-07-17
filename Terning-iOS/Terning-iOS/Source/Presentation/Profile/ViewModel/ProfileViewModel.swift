@@ -22,17 +22,19 @@ final class ProfileViewModel: ViewModelType {
     // MARK: - Output
     
     struct Output {
+        let text: Observable<String>
         let nameCountText: Observable<String>
         let isNameValid: Observable<Bool>
         let nameValidationMessage: Observable<ValidationMessage>
+
     }
     
     // MARK: - Transform
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
-        input.name
-            .bind(to: nameRelay)
-            .disposed(by: disposeBag)
+        let text = input.name
+            .map { $0 }
+            .share(replay: 1, scope: .whileConnected)
 
         let isNameValid = nameRelay
             .map { [weak self] name -> Bool in
@@ -49,6 +51,7 @@ final class ProfileViewModel: ViewModelType {
         let nameValidationMessage = nameValidationMessageRelay.asObservable()
         
         return Output(
+            text: text,
             nameCountText: nameCountText,
             isNameValid: isNameValid,
             nameValidationMessage: nameValidationMessage

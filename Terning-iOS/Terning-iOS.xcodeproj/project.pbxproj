@@ -120,6 +120,7 @@
 		71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C40E2C243B510026C4DD /* UIView+.swift */; };
 		71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E3C4112C243BDD0026C4DD /* getClassName.swift */; };
 		71FFB2B22C47DD8000C60697 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 716E08AB2C44349A00469E3B /* Config.xcconfig */; };
+		71FFB2B52C47ECF200C60697 /* CustomBottmSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2B42C47ECF200C60697 /* CustomBottmSheetViewController.swift */; };
 		B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86A67572C41166800CB90E5 /* FilterButton.swift */; };
 		B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7222C3E8835008D78C2 /* JobCardModel.swift */; };
 		B871D7252C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7242C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift */; };
@@ -246,6 +247,7 @@
 		71E3C40C2C2423280026C4DD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		71E3C40E2C243B510026C4DD /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		71E3C4112C243BDD0026C4DD /* getClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getClassName.swift; sourceTree = "<group>"; };
+		71FFB2B42C47ECF200C60697 /* CustomBottmSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBottmSheetViewController.swift; sourceTree = "<group>"; };
 		B86A67572C41166800CB90E5 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		B871D7222C3E8835008D78C2 /* JobCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardModel.swift; sourceTree = "<group>"; };
 		B871D7242C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapInfoHeaderCell.swift; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 				7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */,
 				7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */,
 				2DC61F022C4087B4009F991F /* JobSummaryInfoView.swift */,
+				71FFB2B42C47ECF200C60697 /* CustomBottmSheetViewController.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -1068,6 +1071,7 @@
 				7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */,
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
 				2D4EE3A42C3E789200E3E95B /* ProfileView.swift in Sources */,
+				71FFB2B52C47ECF200C60697 /* CustomBottmSheetViewController.swift in Sources */,
 				71E3C3D12C22BAF40026C4DD /* ViewController.swift in Sources */,
 				B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */,
 				2DC9860B2C46056300D46729 /* RecommendAnnouncementModel.swift in Sources */,

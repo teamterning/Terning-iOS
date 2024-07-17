@@ -8,10 +8,10 @@
 import Foundation
 
 // MARK: - SignInResponseDto
-
 struct SignInResponseModel: Codable {
-    let accessToken, refreshToken: String
-    let userId: Int
+    let accessToken: String?
+    let refreshToken: String?
+    let userId: Int?
     let authId: String
     let authType: String
 }

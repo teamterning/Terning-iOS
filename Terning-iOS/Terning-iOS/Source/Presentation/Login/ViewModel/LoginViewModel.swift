@@ -60,9 +60,25 @@ extension LoginViewModel {
                     if let error = error {
                         print("🍎 errer: \(error)")
                         observer.onNext(false)
+                        observer.onCompleted()
                     } else {
                         // 토큰 저장
-                        observer.onNext(true)
+                        guard let oauthToken = oauthToken else { return }
+                        
+                        UserManager.shared.signIn(authType: "KAKAO") { result in
+                            switch result {
+                            case .success(let type):
+                                print(type)
+                                observer.onNext(type)
+                                observer.onCompleted()
+                                
+                            case .failure(let error):
+                                print(error)
+                                observer.onNext(false)
+                                observer.onCompleted()
+                            }
+                        }
+                        
                     }
                     observer.onCompleted()
                 }
@@ -70,10 +86,29 @@ extension LoginViewModel {
                 UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
                     if let error = error {
                         print(error)
+                        
                         observer.onNext(false)
                     } else {
                         // 토큰 저장
-                        observer.onNext(true)
+                        
+                        guard let oauthToken = oauthToken else { return }
+                        
+                        print("🍎 \(oauthToken.accessToken)")
+                        
+                        UserManager.shared.accessToken = oauthToken.accessToken
+                        
+                        UserManager.shared.signIn(authType: "KAKAO") { [weak self] result in
+                            switch result {
+                            case .success(let type):
+                                print(type)
+                                observer.onNext(type)
+                                observer.onCompleted()
+                            case .failure(let error):
+                                print(error)
+                                observer.onNext(false)
+                                observer.onCompleted()
+                            }
+                        }
                     }
                     observer.onCompleted()
                 }
@@ -157,6 +192,5 @@ extension LoginViewModel: ASAuthorizationControllerDelegate {
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("[🍎] Apple Login error - \(error.localizedDescription)")
-        self.userInfoRelay.accept(false)
     }
 }

@@ -40,31 +40,19 @@ class FilteringSettingView: UIView {
     }
     
     lazy var gradeButton1 = UIButton().then {
-        $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 10)
-        $0.setTitle("1학년", for: .normal)
-        $0.setTitleColor(.grey400, for: .normal)
-        $0.titleLabel?.font = .button3
+        $0.configureGradeButton(grade: "1학년")
     }
     
     lazy var gradeButton2 = UIButton().then {
-        $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 10)
-        $0.setTitle("2학년", for: .normal)
-        $0.setTitleColor(.grey400, for: .normal)
-        $0.titleLabel?.font = .button3
+        $0.configureGradeButton(grade: "2학년")
     }
     
     lazy var gradeButton3 = UIButton().then {
-        $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 10)
-        $0.setTitle("3학년", for: .normal)
-        $0.setTitleColor(.grey400, for: .normal)
-        $0.titleLabel?.font = .button3
+        $0.configureGradeButton(grade: "3학년")
     }
     
     lazy var gradeButton4 = UIButton().then {
-        $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 10)
-        $0.setTitle("4학년", for: .normal)
-        $0.setTitleColor(.grey400, for: .normal)
-        $0.titleLabel?.font = .button3
+        $0.configureGradeButton(grade: "4학년")
     }
     
     lazy var gradeButtonStack = UIStackView(
@@ -105,24 +93,15 @@ class FilteringSettingView: UIView {
     }
     
     lazy var periodButton1 = UIButton().then {
-        $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 10)
-        $0.setTitle("1개월 ~ 3개월", for: .normal)
-        $0.setTitleColor(.grey400, for: .normal)
-        $0.titleLabel?.font = .button3
+        $0.configurePeriodButton(period: "1개월 ~ 3개월")
     }
     
     lazy var periodButton2 = UIButton().then {
-        $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 10)
-        $0.setTitle("4개월 ~ 6개월", for: .normal)
-        $0.setTitleColor(.grey400, for: .normal)
-        $0.titleLabel?.font = .button3
+        $0.configurePeriodButton(period: "4개월 ~ 6개월")
     }
     
     lazy var periodButton3 = UIButton().then {
-        $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 10)
-        $0.setTitle("7개월 이상", for: .normal)
-        $0.setTitleColor(.grey400, for: .normal)
-        $0.titleLabel?.font = .button3
+        $0.configurePeriodButton(period: "7개월 이상")
     }
     
     lazy var periodButtonStack = UIStackView(
@@ -278,5 +257,23 @@ extension FilteringSettingView {
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(62)
         }
+    }
+}
+
+// MARK: - Methods
+
+extension UIButton {
+    func configurePeriodButton(period: String) {
+        self.makeBorder(width: 1, color: .terningMain, cornerRadius: 10)
+        self.setTitle(period, for: .normal)
+        self.setTitleColor(.grey400, for: .normal)
+        self.titleLabel?.font = .button3
+    }
+    
+    func configureGradeButton(grade: String) {
+        self.makeBorder(width: 1, color: .terningMain, cornerRadius: 10)
+        self.setTitle(grade, for: .normal)
+        self.setTitleColor(.grey400, for: .normal)
+        self.titleLabel?.font = .button3
     }
 }

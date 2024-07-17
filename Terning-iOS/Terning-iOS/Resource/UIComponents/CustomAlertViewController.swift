@@ -212,6 +212,9 @@ extension CustomAlertViewController {
         self.deadlineInfoView.setDescriptionText(description: model.deadLine)
         self.workPeriodInfoView.setDescriptionText(description: model.workingPeriod)
         self.workStartInfoView.setDescriptionText(description: model.startYearMonth)
+        DispatchQueue.main.async {
+            self.colorButton.setBackgroundColor(UIColor(hex: model.color), for: .normal)
+        }
     }
     
     
@@ -220,14 +223,10 @@ extension CustomAlertViewController {
     ///   - mainLabel: 메인 text
     ///   - subLabel: 서브 text
     ///   - buttonLabel: 중앙 버튼 text
-    ///   - color: colorButton 배경색
-    public func setComponentDatas( subLabel: String, buttonLabel: String, dDayLabel: String, color: String) {
+    public func setComponentDatas( subLabel: String, buttonLabel: String, dDayLabel: String) {
         self.subLabel.text = subLabel
         self.centerButton.setTitle(title: buttonLabel)
         self.dDayLabel.text = dDayLabel
-        DispatchQueue.main.async {
-            self.colorButton.setBackgroundColor(UIColor(hex: color), for: .normal)
-        }
     }
     
     private func bindViews(_ type: AlertType) {

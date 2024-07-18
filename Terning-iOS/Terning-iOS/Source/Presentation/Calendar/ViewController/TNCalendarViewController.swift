@@ -32,7 +32,10 @@ final class TNCalendarViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var selectedDate: Date?
     private var scraps: [Date: [DailyScrapModel]] = [:] // 스크랩 데이터를 저장할 딕셔너리
-    private var calendarDaily = generateDummyData2()
+    private var scrapLists: [Date: [DailyScrapModel]] = [:] // 리스트 데이터를 저장할 딕셔너리
+    
+    private var isListData: Bool = false
+    private var calendarDaily: [DailyScrapModel] = [] // 일간 캘린더 데이터를 저장할 딕셔너리
     
     // MARK: - Life Cycles
     
@@ -42,7 +45,7 @@ final class TNCalendarViewController: UIViewController {
         setDelegate()
         setRegister()
         bindNavigation()
-        bindViewModel()
+        //        bindViewModel()
         updateNaviBarTitle(for: rootView.calendarView.currentPage)
         fetchMonthData(for: rootView.calendarView.currentPage)
     }
@@ -60,10 +63,8 @@ extension TNCalendarViewController {
         rootView.calendarView.delegate = self
         rootView.calendarView.dataSource = self
         
-        rootView.calenderBottomCollectionView.delegate = self
         rootView.calenderBottomCollectionView.dataSource = self
         
-        rootView.calenderListCollectionView.delegate = self
         rootView.calenderListCollectionView.dataSource = self
     }
     
@@ -116,16 +117,6 @@ extension TNCalendarViewController {
         rootView.naviBar.setTitle(dateString)
     }
     
-    private func loadDummyData() {
-        let dummyData = generateDummyData3()
-        for item in dummyData {
-            if let date = dateFormatter.date(from: item.deadline) {
-                scraps[date] = item.scraps
-            }
-        }
-        rootView.calendarView.reloadData()
-    }
-    
     private func toggleListView() {
         if isListViewVisible {
             // 리스트 뷰를 감추고 기존 뷰를 보이게 함
@@ -137,6 +128,11 @@ extension TNCalendarViewController {
             rootView.separatorView.isHidden = true
             rootView.calendarViewContainer.isHidden = true
             rootView.calenderListCollectionView.isHidden = false
+            //            if !isListData {
+            //                getMonthlyList() // 리스트 뷰를 처음 표시할 때 서버 통신 한번으로 제한
+            //                isListData = true
+            //            }
+            getMonthlyList()
         }
         isListViewVisible.toggle()
     }
@@ -171,6 +167,8 @@ extension TNCalendarViewController: FSCalendarDelegate {
         } else {
             selectedDate = date
             calendar.setScope(.week, animated: true)
+            updateBottomCollectionViewHeader(for: date) // 선택된 날짜로 헤더 업데이트
+            fetchDailyData(for: date)
         }
         calendar.reloadData()
     }
@@ -212,6 +210,17 @@ extension TNCalendarViewController: FSCalendarDelegate {
     }
 }
 
+extension TNCalendarViewController {
+    private func updateBottomCollectionViewHeader(for date: Date) {
+        // 선택된 날짜를 헤더에 표시하기 위한 코드
+        let headerIndexPath = IndexPath(item: 0, section: 0)
+        if let header = rootView.calenderBottomCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: headerIndexPath) as? CalendarDateHeaderView {
+            let formattedDate = dateFormatter.string(from: date)
+            header.bind(title: formattedDate)
+        }
+    }
+}
+
 // MARK: - FSCalendarDataSource
 
 extension TNCalendarViewController: FSCalendarDataSource {
@@ -232,8 +241,9 @@ extension TNCalendarViewController: FSCalendarDataSource {
         }()
         
         let eventCount = scraps[date]?.count ?? 0
+        let dotColors = scraps[date]?.map { $0.color } ?? []
         
-        cell.bind(date: date, textColor: isCurrentMonth ? .black : .grey200, state: dateStatus, eventCount: eventCount)
+        cell.bind(date: date, textColor: isCurrentMonth ? .black : .grey200, state: dateStatus, eventCount: eventCount, dotColors: dotColors)
         
         return cell
     }
@@ -271,14 +281,6 @@ extension TNCalendarViewController: FSCalendarDelegateAppearance {
     }
 }
 
-// MARK: - UICollectionViewDelegate
-
-extension TNCalendarViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
-    }
-}
-
 // MARK: - UICollectionViewDataSource
 
 extension TNCalendarViewController: UICollectionViewDataSource {
@@ -286,7 +288,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
         if collectionView == rootView.calenderBottomCollectionView {
             return 1
         } else {
-            return scraps.count
+            return scrapLists.count
         }
     }
     
@@ -294,13 +296,12 @@ extension TNCalendarViewController: UICollectionViewDataSource {
         if collectionView == rootView.calenderBottomCollectionView {
             return calendarDaily.count
         } else {
-            let scrapSection = Array(scraps.values)[section]
+            let scrapSection = Array(scrapLists.values)[section]
             return scrapSection.count
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         if collectionView == rootView.calenderBottomCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else { return UICollectionViewCell() }
             
@@ -311,7 +312,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
-            let scrapSection = Array(scraps.values)[indexPath.section]
+            let scrapSection = Array(scrapLists.values)[indexPath.section]
             let scrapItem = scrapSection[indexPath.row]
             
             cell.bind(model: scrapItem)
@@ -320,7 +321,6 @@ extension TNCalendarViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
         if collectionView == rootView.calenderBottomCollectionView {
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CalendarDateHeaderView.className, for: indexPath) as? CalendarDateHeaderView else { return UICollectionReusableView() }
             
@@ -332,7 +332,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
                     return UICollectionReusableView()
                 }
                 
-                let scrapSection = Array(scraps.keys)[indexPath.section]
+                let scrapSection = Array(scrapLists.keys)[indexPath.section]
                 let formattedDate = dateFormatter.string(from: scrapSection)
                 headerView.bind(title: formattedDate)
                 
@@ -357,10 +357,8 @@ extension TNCalendarViewController: UICollectionViewDataSource {
     }
 }
 
-
 extension TNCalendarViewController {
     private func fetchMonthData(for date: Date) {
-        
         let year = Calendar.current.component(.year, from: date)
         let month = Calendar.current.component(.month, from: date)
         
@@ -372,29 +370,103 @@ extension TNCalendarViewController {
                 let status = result.statusCode
                 if 200..<300 ~= status {
                     do {
-                        let responseDto = try result.map(BaseResponse<ScrapsByDeadlineModel>.self)
+                        let responseDto = try result.map(BaseResponse<[ScrapsByDeadlineModel]>.self)
                         guard let data = responseDto.result else { return }
-
+                        
                         self.scraps = [:]
                         
-                        for item in data.scrapsByDeadline {
+                        for item in data {
                             if let date = self.dateFormatter.date(from: item.deadline) {
                                 self.scraps[date] = item.scraps
                             }
                         }
                         
                         self.rootView.calendarView.reloadData()
+                        
                     } catch {
-                        print(error.localizedDescription)
+                        print("Error: \(error.localizedDescription)")
+                        self.showToast(message: "데이터를 불러오는 중 오류가 발생했습니다.")
                     }
-                }
-                if status >= 400 {
-                    print("400 error")
-                    self.showNetworkFailureToast()
+                } else {
+                    self.showToast(message: "서버 오류: \(status)")
                 }
             case .failure(let error):
-                print(error.localizedDescription)
-                self.showNetworkFailureToast()
+                print("Error: \(error.localizedDescription)")
+                self.showToast(message: "네트워크 오류가 발생했습니다.")
+            }
+        }
+    }
+    
+    private func getMonthlyList() {
+        let currentPage = rootView.calendarView.currentPage
+        let year = Calendar.current.component(.year, from: currentPage)
+        let month = Calendar.current.component(.month, from: currentPage)
+        
+        calendarProvider.request(.getMonthlyList(year: year, month: month)) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let result):
+                let status = result.statusCode
+                if 200..<300 ~= status {
+                    do {
+                        let responseDto = try result.map(BaseResponse<[ScrapsByDeadlineModel]>.self)
+                        guard let data = responseDto.result else { return }
+                        
+                        self.scrapLists = [:]
+                        
+                        for item in data {
+                            if let date = self.dateFormatter.date(from: item.deadline) {
+                                self.scrapLists[date] = item.scraps
+                            }
+                        }
+                        
+                        self.rootView.calenderListCollectionView.reloadData()
+                        
+                    } catch {
+                        print("Error: \(error.localizedDescription)")
+                        self.showToast(message: "데이터를 불러오는 중 오류가 발생했습니다.")
+                    }
+                } else {
+                    self.showToast(message: "서버 오류: \(status)")
+                }
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+                self.showToast(message: "네트워크 오류가 발생했습니다.")
+            }
+        }
+    }
+    
+    private func fetchDailyData(for date: Date) {
+        let dateString = dateFormatter.string(from: date)
+        print(date)
+        print(dateString)
+        
+        calendarProvider.request(.getDaily(date: dateString)) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let result):
+                let status = result.statusCode
+                if 200..<300 ~= status {
+                    do {
+                        let responseDto = try result.map(BaseResponse<[DailyScrapModel]>.self)
+                        guard let data = responseDto.result else { return }
+                        
+                        self.calendarDaily = data
+                        
+                        self.rootView.calenderBottomCollectionView.reloadData()
+                        
+                    } catch {
+                        print("Error: \(error.localizedDescription)")
+                        self.showToast(message: "데이터를 불러오는 중 오류가 발생했습니다.")
+                    }
+                } else {
+                    self.showToast(message: "서버 오류: \(status)")
+                }
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+                self.showToast(message: "네트워크 오류가 발생했습니다.")
             }
         }
     }

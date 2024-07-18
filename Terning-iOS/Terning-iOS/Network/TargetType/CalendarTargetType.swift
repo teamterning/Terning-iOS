@@ -45,12 +45,12 @@ extension CalendarTargerType: TargetType {
         case .getMonthlyDefault(let year, let month), .getMonthlyList(let year, let month):
             return .requestParameters(parameters: ["year": year, "month": month], encoding: URLEncoding.default)
         case .getDaily(let date):
-            return .requestParameters(parameters: ["data": date], encoding: URLEncoding.default)
+            return .requestParameters(parameters: ["date": date], encoding: URLEncoding.default)
         }
     }
     
     var headers: [String: String]? {
-        return Config.testRefreshToken
+        return Config.headerWithAccessToken
     }
     
     var validationType: ValidationType {

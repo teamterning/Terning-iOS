@@ -218,11 +218,11 @@ extension ProfileViewController {
                             self.pushToOnboarding()
                             
                         } else {
-                            self.showToast(message: "에러")
+                            self.showToast(message: "status 가 201이 아님")
                         }
                         
-                    }  catch {
-                        self.showToast(message: "에러")
+                    } catch {
+                        self.showToast(message: "에러 발생")
                     }
                     
                 }

@@ -102,12 +102,11 @@ extension TNCalendarDateCell {
         }
     }
 }
-
 extension TNCalendarDateCell {
     
     // MARK: - bind
     
-    func bind(date: Date, textColor: UIColor, state: CalendarState, eventCount: Int) {
+    func bind(date: Date, textColor: UIColor, state: CalendarState, eventCount: Int, dotColors: [String]) {
         
         switch state {
         case .today:
@@ -130,7 +129,12 @@ extension TNCalendarDateCell {
         dateLabel.textColor = textColor
         
         for (index, dotView) in dotViews.enumerated() {
-            dotView.isHidden = index >= eventCount
+            if index < eventCount {
+                dotView.isHidden = false
+                dotView.backgroundColor = UIColor(hex: dotColors[index])
+            } else {
+                dotView.isHidden = true
+            }
         }
     }
 }

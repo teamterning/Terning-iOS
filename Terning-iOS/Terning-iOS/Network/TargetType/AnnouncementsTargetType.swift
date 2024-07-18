@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum AnnouncementsTargetType {
-    case getAnnouncements(internshipAnnouncementId: Double)
+    case getAnnouncements(internshipAnnouncementId: Int)
 }
 
 extension AnnouncementsTargetType: TargetType {

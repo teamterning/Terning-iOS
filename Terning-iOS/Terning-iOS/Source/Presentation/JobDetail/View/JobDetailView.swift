@@ -21,6 +21,8 @@ final class JobDetailView: UIView {
     
     // MARK: - UI Components
     
+    let navigationBar = CustomNavigationBar(type: .centerTitleWithLeftButton)
+    
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.separatorStyle = .none
@@ -37,16 +39,8 @@ final class JobDetailView: UIView {
         $0.layer.masksToBounds = false
     }
     
-    private let companyImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
-        $0.layer.cornerRadius = 30
-        $0.layer.borderColor = UIColor.terningMain.cgColor
-        $0.layer.borderWidth = 1
-        $0.backgroundColor = .red
-    }
-    
     private var scrapLabel = LabelFactory.build(
-        text: "512회",
+        text: "1004회",
         font: .detail3,
         textColor: .grey400,
         lineSpacing: 1.2,
@@ -76,6 +70,8 @@ final class JobDetailView: UIView {
 
 extension JobDetailView {
     private func setUI() {
+        navigationBar.setTitle("공고 정보")
+        
         tableView.register(MainInfoTableViewCell.self, forCellReuseIdentifier: MainInfoTableViewCell.className)
         tableView.register(CompanyInfoTableViewCell.self, forCellReuseIdentifier: CompanyInfoTableViewCell.className)
         tableView.register(SummaryInfoTableViewCell.self, forCellReuseIdentifier: SummaryInfoTableViewCell.className)
@@ -85,12 +81,18 @@ extension JobDetailView {
     }
     
     private func setLayout() {
-        self.addSubviews(tableView, bottomView)
+        self.addSubviews(navigationBar, tableView, bottomView)
+        
+        navigationBar.snp.makeConstraints {
+            $0.top.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(68)
+        }
         
         bottomView.addSubviews(scrapLabel, scrapButton, goSiteButton)
         
         tableView.snp.makeConstraints {
-            $0.top.horizontalEdges.equalToSuperview()
+            $0.top.equalTo(navigationBar.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalToSuperview().inset(68)
         }
         
@@ -133,8 +135,12 @@ extension JobDetailView {
         self.url = url
     }
     
-    func setScrapped(_ isScrap: Bool) {
-        scrapButton.isSelected = isScrap
+    func setScrapped(_ scrapId: Int?) {
+        if scrapId == nil {
+            scrapButton.isSelected = false
+        } else {
+            scrapButton.isSelected = true
+        }
         scrapButton.updateImage()
     }
     

@@ -22,16 +22,13 @@ enum JobDetailInfoType: Int, CaseIterable {
 
 final class JobDetailViewController: UIViewController {
     
-    // MARK: Properties
-    
-    var internshipAnnouncementId: Int = 0
-    
     // MARK: - UI Components
     
-    private let jobDetailView = JobDetailView()
+    private let rootView = JobDetailView()
     private let viewModel = JobDetailViewModel()
     private let disposeBag = DisposeBag()
     private var jobDetail: JobDetailModel?
+    let internshipAnnouncementId = BehaviorSubject<Int>(value: 0)
     
     // MARK: - View Life Cycle
     
@@ -50,13 +47,12 @@ final class JobDetailViewController: UIViewController {
 
 extension JobDetailViewController {
     private func setUI() {
-        view.addSubview(jobDetailView)
+        view.addSubview(rootView)
     }
     
     private func setLayout() {
-        jobDetailView.snp.makeConstraints {
-            $0.top.horizontalEdges.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        rootView.snp.makeConstraints {
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
@@ -65,8 +61,13 @@ extension JobDetailViewController {
 
 extension JobDetailViewController {
     private func setDelegate() {
-        jobDetailView.tableView.dataSource = self
-        jobDetailView.tableView.delegate = self
+        rootView.tableView.dataSource = self
+        rootView.tableView.delegate = self
+        
+        rootView.navigationBar.leftButtonAction = { [weak self] in
+            guard let self = self else { return }
+            self.popOrDismissViewController(animated: true)
+        }
     }
 }
 
@@ -74,39 +75,42 @@ extension JobDetailViewController {
 
 extension JobDetailViewController {
     private func bindViewModel() {
-        let input = JobDetailViewModel.Input(fetchJobDetail: Observable.just(()))
+        let fetchJobDetail = internshipAnnouncementId
+            .flatMapLatest { _ in Observable.just(()) }
         
-        let output = viewModel.transform(input)
+        let input = JobDetailViewModel.Input(internshipAnnouncementId: internshipAnnouncementId, fetchJobDetail: fetchJobDetail)
+        
+        let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
         output.mainInfo
             .drive(onNext: { [weak self] mainInfo in
-                self?.jobDetailView.mainInfo = mainInfo
+                self?.rootView.mainInfo = mainInfo
             })
             .disposed(by: disposeBag)
         
         output.companyInfo
             .drive(onNext: { [weak self] companyInfo in
-                self?.jobDetailView.companyInfo = companyInfo
+                self?.rootView.companyInfo = companyInfo
             })
             .disposed(by: disposeBag)
         
         output.summaryInfo
             .drive(onNext: { [weak self] summaryInfo in
-                self?.jobDetailView.summaryInfo = summaryInfo
+                self?.rootView.summaryInfo = summaryInfo
             })
             .disposed(by: disposeBag)
         
         output.detailInfo
             .drive(onNext: { [weak self] detailInfo in
-                self?.jobDetailView.detailInfo = detailInfo
+                self?.rootView.detailInfo = detailInfo
             })
             .disposed(by: disposeBag)
         
         output.bottomInfo
             .drive(onNext: { [weak self] bottomInfo in
-                self?.jobDetailView.setUrl(bottomInfo.url)
-                self?.jobDetailView.setScrapped(bottomInfo.isScrap)
-                self?.jobDetailView.setScrapCount(bottomInfo.scrapCount)
+                self?.rootView.setUrl(bottomInfo.url)
+                self?.rootView.setScrapped(bottomInfo.scrapId)
+                self?.rootView.setScrapCount(bottomInfo.scrapCount)
             })
             .disposed(by: disposeBag)
         
@@ -116,7 +120,7 @@ extension JobDetailViewController {
             output.summaryInfo.asObservable(),
             output.detailInfo.asObservable()
         ).subscribe(onNext: { [weak self] _, _, _, _ in
-            self?.jobDetailView.tableView.reloadData()
+            self?.rootView.tableView.reloadData()
         }).disposed(by: disposeBag)
     }
 }
@@ -140,7 +144,7 @@ extension JobDetailViewController: UITableViewDataSource {
         switch sectionType {
         case .mainInfo:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MainInfoTableViewCell.className, for: indexPath) as? MainInfoTableViewCell,
-                  let mainInfo = jobDetailView.mainInfo else {
+                  let mainInfo = rootView.mainInfo else {
                 return UITableViewCell()
             }
             cell.bind(with: mainInfo)
@@ -148,7 +152,7 @@ extension JobDetailViewController: UITableViewDataSource {
             return cell
         case .companyInfo:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CompanyInfoTableViewCell.className, for: indexPath) as? CompanyInfoTableViewCell,
-                  let companyInfo = jobDetailView.companyInfo else {
+                  let companyInfo = rootView.companyInfo else {
                 return UITableViewCell()
             }
             cell.bind(with: companyInfo)
@@ -156,7 +160,7 @@ extension JobDetailViewController: UITableViewDataSource {
             return cell
         case .summaryInfo:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SummaryInfoTableViewCell.className, for: indexPath) as? SummaryInfoTableViewCell,
-                  let summaryInfo = jobDetailView.summaryInfo else {
+                  let summaryInfo = rootView.summaryInfo else {
                 return UITableViewCell()
             }
             cell.bind(with: summaryInfo)
@@ -164,7 +168,7 @@ extension JobDetailViewController: UITableViewDataSource {
             return cell
         case .detailInfo:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailInfoTableViewCell.className, for: indexPath) as? DetailInfoTableViewCell,
-                  let detailInfo = jobDetailView.detailInfo else {
+                  let detailInfo = rootView.detailInfo else {
                 return UITableViewCell()
             }
             cell.bind(with: detailInfo)

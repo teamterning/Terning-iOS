@@ -13,6 +13,7 @@ struct JobDetailModel: Codable {
     let deadline: String
     let workingPeriod: String
     let startDate: String
+    let scrapCount: Int
     let viewCount: Int
     let company: String
     let companyCategory: String
@@ -21,8 +22,7 @@ struct JobDetailModel: Codable {
     let jobType: String
     let detail: String
     let url: String
-    let isScrap: Bool
-    let scrapCount: Int
+    let scrapId: Int?
 }
 
 struct MainInfoModel {
@@ -51,6 +51,6 @@ struct DetailInfoModel {
 
 struct BottomInfoModel {
     let url: String?
-    let isScrap: Bool
+    let scrapId: Int?
     let scrapCount: Int
 }

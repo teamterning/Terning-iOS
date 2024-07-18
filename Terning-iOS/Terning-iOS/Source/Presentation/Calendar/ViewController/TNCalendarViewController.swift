@@ -35,7 +35,7 @@ final class TNCalendarViewController: UIViewController {
     private var scrapLists: [Date: [DailyScrapModel]] = [:] // 리스트 데이터를 저장할 딕셔너리
     
     private var isListData: Bool = false
-    private var calendarDaily = generateDummyData2()
+    private var calendarDaily: [DailyScrapModel] = []
     
     // MARK: - Life Cycles
     
@@ -170,7 +170,7 @@ extension TNCalendarViewController: FSCalendarDelegate {
             selectedDate = date
             calendar.setScope(.week, animated: true)
             updateBottomCollectionViewHeader(for: date) // 선택된 날짜로 헤더 업데이트
-//            fetchDailyData(for: date)
+            fetchDailyData(for: date)
         }
         calendar.reloadData()
     }
@@ -450,6 +450,8 @@ extension TNCalendarViewController {
     
     private func fetchDailyData(for date: Date) {
         let dateString = dateFormatter.string(from: date)
+        print(date)
+        print(dateString)
         
         calendarProvider.request(.getDaily(date: dateString)) { [weak self] result in
             guard let self = self else { return }
@@ -462,9 +464,7 @@ extension TNCalendarViewController {
                         let responseDto = try result.map(BaseResponse<[DailyScrapModel]>.self)
                         guard let data = responseDto.result else { return }
                         
-                        
-
-                        print(data)
+                        self.calendarDaily = data
                         
                         self.rootView.calenderBottomCollectionView.reloadData()
                         

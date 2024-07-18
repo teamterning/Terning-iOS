@@ -88,8 +88,8 @@ extension RecommendCollectionViewCell {
 // MARK: - Bind
 
 extension RecommendCollectionViewCell {
-    func bind(with data: RecommendAnnouncementModel) {
-        recommendImageView.setImage(with: data.image, placeholder: "placeholder_image")
+    func bind(with data: RecommendAnnouncement) {
+        recommendImageView.setImage(with: data.companyImage, placeholder: "placeholder_image")
         descriptionLabel.text = data.title
     }
 }

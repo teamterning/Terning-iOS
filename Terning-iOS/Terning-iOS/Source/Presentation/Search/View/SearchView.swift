@@ -13,15 +13,15 @@ final class SearchView: UIView {
     // MARK: - UIProperty
     
     var advertisement: AdvertisementsModel?
-    var viewsNum: [RecommendAnnouncementModel]?
-    var scrapsNum: [RecommendAnnouncementModel]?
+    var viewsNum: [RecommendAnnouncement]?
+    var scrapsNum: [RecommendAnnouncement]?
     
     // MARK: - UI Components
     
     private let navigationView = UIView()
     
     private let logoImageView = UIImageView().then {
-        $0.image = .icHomeFill
+        $0.image = .homeLogo
         $0.contentMode = .scaleAspectFill
         $0.layer.masksToBounds = true
     }
@@ -104,8 +104,7 @@ extension SearchView {
         }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(searchView.snp.bottom).offset(16)
-            $0.horizontalEdges.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(50)
+            $0.horizontalEdges.bottom.equalToSuperview()
         }
         pageControl.snp.makeConstraints {
             $0.top.equalTo(collectionView.snp.top).offset(78)

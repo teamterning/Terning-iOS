@@ -95,6 +95,11 @@ extension SearchViewController {
         timer?.invalidate()
         timer = nil
     }
+    
+    private func pushToSearchResultView() {
+        let searchResultVC = SearchResultViewController(viewModel: SearchResultViewModel())
+        self.navigationController?.pushViewController(searchResultVC, animated: true)
+    }
 }
 
 // MARK: - @objc func
@@ -125,7 +130,7 @@ extension SearchViewController {
             pageControlTapped: pageControlTappedSubject.asObservable()
         )
         
-        let output = viewModel.transform(input)
+        let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
         output.announcements
             .drive(onNext: { [weak self] advertisements in
@@ -151,8 +156,7 @@ extension SearchViewController {
         
         output.searchTapped
             .drive(onNext: { [weak self] in
-                let vc = ViewController()
-                self?.navigationController?.pushViewController(vc, animated: true)
+                self?.pushToSearchResultView()
             })
             .disposed(by: disposeBag)
         

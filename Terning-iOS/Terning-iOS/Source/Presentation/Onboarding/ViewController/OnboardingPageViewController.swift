@@ -176,7 +176,7 @@ extension OnboardingPageViewController {
                     let status = result.statusCode
                     if 200..<300 ~= status {
                         do {
-                            let responseDto = try result.map(BaseResponse<[String]>.self)
+                            let responseDto = try result.map(BaseResponse<BlankData>.self)
                             completion(true)
                         } catch {
                             print(error.localizedDescription)

@@ -138,7 +138,6 @@ extension SearchResultViewController {
         
         rootView.navigationBar.leftButtonAction = { [weak self] in
             guard let self = self else { return }
-            print("asdas")
             self.dismiss(animated: true)
         }
         
@@ -197,7 +196,6 @@ extension SearchResultViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch SearchResultType(rawValue: indexPath.section) {
         case .search:
-            print("zz")
             guard let SearchResult = rootView.SearchResult else { return }
             let selectedItem = SearchResult[indexPath.item].internshipAnnouncementId
     

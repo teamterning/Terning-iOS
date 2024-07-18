@@ -34,7 +34,8 @@ final class ProfileView: UIView {
         characterSpacing: 0.002
     )
     
-    private let profileImageView = UIImageView().then {
+    let profileImageView = UIImageView().then {
+        $0.image = .profile0
         $0.contentMode = .scaleAspectFit
         $0.layer.cornerRadius = 40
         $0.clipsToBounds = true

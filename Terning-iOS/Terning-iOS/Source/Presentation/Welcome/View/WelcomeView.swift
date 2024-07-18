@@ -62,7 +62,7 @@ extension WelcomeView {
         case .first:
             welcomeLabel.text = "터치 3번으로\n원하는 대학생 인턴 공고를 띄워드릴게요"
             welcomeGuideLabel.isHidden = true
-            logoImageView.image = .icHome
+            logoImageView.image = .imgOnbording
             startButton.setTitle(title: "시작하기")
         case .second:
             welcomeLabel.text = "나에게 딱 맞는 대학생 인턴 공고를\n찾을 준비가 완료되었어요!"

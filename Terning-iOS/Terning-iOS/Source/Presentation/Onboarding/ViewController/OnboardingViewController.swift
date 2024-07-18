@@ -56,14 +56,16 @@ final class OnboardingViewController: UIViewController {
 
 extension OnboardingViewController {
     private func setUI() {
+        navigationController?.isNavigationBarHidden = true
         view.addSubview(onboardingView)
         
         onboardingView.updateProgress(step: step)
         
     }
+    
     private func setLayout() {
         onboardingView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }

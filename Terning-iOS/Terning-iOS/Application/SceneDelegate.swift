@@ -18,8 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
 //        let vc = LoginViewController(viewModel: LoginViewModel())
-        let vc = TNTabBarController()
-        vc.selectedIndex = 1
+        let vc = UINavigationController(rootViewController: ProfileViewController(viewType: .setting, viewModel: ProfileViewModel()))
+//        vc.selectedIndex = 1
         window.rootViewController = vc
         self.window = window
         window.makeKeyAndVisible()

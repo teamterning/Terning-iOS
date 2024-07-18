@@ -120,6 +120,7 @@ extension CustomDatePicker {
            let initialMonthIndex = months.firstIndex(of: currentMonth) {
             self.selectRow(initialYearIndex, inComponent: 0, animated: false)
             self.selectRow(initialMonthIndex, inComponent: 1, animated: false)
+            onDateSelected?(currentYear, currentMonth)
         }
     }
 }

@@ -422,7 +422,7 @@ extension MainHomeViewController: UICollectionViewDelegate {
 
 extension MainHomeViewController: ScrapDidTapDelegate {
     
-    func scrapButtonDidTap(id: Double) {
+    func scrapButtonDidTap(id: Int) {
         guard let indexPath = self.indexPath(forInternshipAnnouncementId: id),
               let cell = self.rootView.collectionView.cellForItem(at: indexPath) as? JobCardScrapedCell else {
             return
@@ -435,7 +435,7 @@ extension MainHomeViewController: ScrapDidTapDelegate {
         }
     }
     
-    private func showScrapAlert(id: Double, alertType: AlertType, cell: JobCardScrapedCell) {
+    private func showScrapAlert(id: Int, alertType: AlertType, cell: JobCardScrapedCell) {
         let customAlertVC = CustomAlertViewController(alertType: alertType)
         
         if alertType == .custom {
@@ -461,7 +461,7 @@ extension MainHomeViewController: ScrapDidTapDelegate {
         self.present(customAlertVC, animated: false)
     }
     
-    private func scrapAnnouncement(internshipAnnouncementId: Double, color: Int, cell: JobCardScrapedCell) {
+    private func scrapAnnouncement(internshipAnnouncementId: Int, color: Int, cell: JobCardScrapedCell) {
         providers.request(.addScrap(internshipAnnouncementId: internshipAnnouncementId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
@@ -482,7 +482,7 @@ extension MainHomeViewController: ScrapDidTapDelegate {
         }
     }
     
-    private func cancelScrapAnnouncement(internshipAnnouncementId: Double, cell: JobCardScrapedCell) {
+    private func cancelScrapAnnouncement(internshipAnnouncementId: Int, cell: JobCardScrapedCell) {
         providers.request(.removeScrap(scrapId: internshipAnnouncementId)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
@@ -503,7 +503,7 @@ extension MainHomeViewController: ScrapDidTapDelegate {
         }
     }
     
-    private func indexPath(forInternshipAnnouncementId id: Double) -> IndexPath? {
+    private func indexPath(forInternshipAnnouncementId id: Int) -> IndexPath? {
         for (index, model) in cardModelItems.enumerated() where model.internshipAnnouncementId == id {
             return IndexPath(row: index, section: HomeSection.jobCard.rawValue)
         }

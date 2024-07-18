@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 protocol ScrapDidTapDelegate: AnyObject {
-    func scrapButtonDidTap(id: Double)
+    func scrapButtonDidTap(id: Int)
 }
 
 final class JobCardScrapedCell: UICollectionViewCell {
@@ -22,7 +22,7 @@ final class JobCardScrapedCell: UICollectionViewCell {
     
     private var isScrapButtonSelected: Bool = false
     
-    private var internshipAnnouncementId: Double? = 0
+    private var internshipAnnouncementId: Int? = 0
     
     // MARK: - UIComponents
     
@@ -150,8 +150,7 @@ extension JobCardScrapedCell {
     
     func bindData(model: JobCardModel) {
         self.internshipAnnouncementId = model.internshipAnnouncementId
-        //      self.jobCardCoverImage.setImage(with: model.companyImage) URL로 이미지 받아올 때 사용예시라 남겨놨습니다.
-        self.jobCardCoverImage.image = model.companyImage
+        self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.daysRemaining.text = model.dDay
         self.jobLabel.text = model.title
         self.period.text = model.workingPeriod

@@ -138,7 +138,7 @@ extension SearchResultViewController {
         
         rootView.navigationBar.leftButtonAction = { [weak self] in
             guard let self = self else { return }
-            self.dismiss(animated: true)
+            self.popOrDismissViewController(animated: true)
         }
         
     }
@@ -200,6 +200,7 @@ extension SearchResultViewController: UICollectionViewDelegate {
             let selectedItem = SearchResult[indexPath.item].internshipAnnouncementId
     
             let jobDetailVC = JobDetailViewController()
+            jobDetailVC.internshipAnnouncementId.onNext(selectedItem)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         default:
             break

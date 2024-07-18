@@ -14,10 +14,13 @@ final class CompanyInfoTableViewCell: UITableViewCell {
     // MARK: - UI Components
     
     private let companyImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
-        $0.layer.cornerRadius = 30
-        $0.layer.masksToBounds = true 
-        $0.makeBorder(width: 2, color: .terningMain)
+        $0.contentMode = .scaleAspectFit
+        $0.makeBorder(
+            width: 1,
+            color: .terningMain,
+            cornerRadius: 30
+        )
+        $0.layer.masksToBounds = true
     }
     
     private let companyNameLabel = LabelFactory.build(

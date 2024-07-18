@@ -98,6 +98,8 @@ extension SearchViewController {
     
     private func pushToSearchResultView() {
         let searchResultVC = SearchResultViewController(viewModel: SearchResultViewModel())
+        
+        searchResultVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(searchResultVC, animated: true)
     }
 }
@@ -248,6 +250,32 @@ extension SearchViewController: UICollectionViewDelegate {
         
         return headerView
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch RecomandType(rawValue: indexPath.section) {
+        case .viewsNum:
+            guard let viewsNum = searchView.viewsNum else { return }
+            
+            let selectedItem = viewsNum[indexPath.item].internshipAnnouncementId
+    
+            let jobDetailVC = JobDetailViewController()
+            jobDetailVC.hidesBottomBarWhenPushed = true
+            jobDetailVC.internshipAnnouncementId.onNext(selectedItem)
+            self.navigationController?.pushViewController(jobDetailVC, animated: true)
+        case .scrapsNum:
+            guard let scrapsNum = searchView.scrapsNum else { return }
+            
+            let selectedItem = scrapsNum[indexPath.item].internshipAnnouncementId
+    
+            let jobDetailVC = JobDetailViewController()
+            jobDetailVC.hidesBottomBarWhenPushed = true
+            jobDetailVC.internshipAnnouncementId.onNext(selectedItem)
+            self.navigationController?.pushViewController(jobDetailVC, animated: true)
+        default:
+            break
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         guard let sectionType = RecomandType(rawValue: indexPath.section) else { return }

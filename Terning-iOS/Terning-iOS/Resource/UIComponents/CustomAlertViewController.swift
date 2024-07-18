@@ -32,7 +32,7 @@ final class CustomAlertViewController: UIViewController {
     var centerButtonTapAction: (() -> Void)?
     
     private var disposeBag = DisposeBag()
-    private var currentMode: AlertMode = .info
+    var currentMode: AlertMode = .info
     
     private var alertType: AlertType!
     
@@ -221,6 +221,22 @@ extension CustomAlertViewController {
         
     }
     
+    public func setData2(model: DailyScrapModel, deadline: String) {
+        guard alertType == .custom else { return } // custom 타입 일때만 사용 가능한 메서드
+        
+        self.JobImageView.setImage(with: model.companyImage ?? "")
+        self.mainLabel.text = model.title
+        self.dDayLabel.text = model.dDay
+        self.deadlineInfoView.setDescriptionText(description: deadline)
+        self.workPeriodInfoView.setDescriptionText(description: model.workingPeriod ?? "")
+        self.workStartInfoView.setDescriptionText(description: "\(model.startYear ?? 0) 년 \(model.startMonth ?? 0) 월 ")
+        DispatchQueue.main.async {
+            self.colorButton.setBackgroundColor(UIColor(hex: model.color), for: .normal)
+        }
+        self.subLabel.text = "오늘 지원이 마감되는 공고예요!"
+        self.centerButton.setTitle(title: "공고 상세 정보 보러가기")
+    }
+    
     
     /// 알림창에 들어갈 String 값을 커스텀 해주는 메서드 입니다.
     /// - Parameters:
@@ -259,6 +275,8 @@ extension CustomAlertViewController {
         self.detailsVStackView.isHidden = !isInfoMode
         self.dDayLabel.isHidden = !isInfoMode
         self.palettecollectionView.isHidden = isInfoMode
+        let buttonName = isInfoMode ? "공고 상세 정보 보러가기" : "색상 저장하기"
+        self.centerButton.setTitle(title: buttonName)
     }
     
     private func handleColorSelection(at index: Int) {

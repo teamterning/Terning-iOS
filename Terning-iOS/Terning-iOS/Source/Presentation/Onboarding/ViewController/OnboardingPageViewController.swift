@@ -153,7 +153,7 @@ extension OnboardingPageViewController {
     
     private func completeOnboarding() {
         let welcomeVC = WelcomeViewController(viewType: .second)
-        self.navigationController?.pushViewxzontroller(welcomeVC, animated: true)
+        self.navigationController?.pushViewController(welcomeVC, animated: true)
     }
 }
 

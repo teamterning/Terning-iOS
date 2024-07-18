@@ -235,6 +235,19 @@ extension ProfileView {
 // MARK: - Methods
 
 extension ProfileView {
+    func bind(index: Int) {
+        let profileImages: [UIImage] = [
+            .profile0,
+            .profile1,
+            .profile2,
+            .profile3,
+            .profile4,
+            .profile5
+        ]
+        
+        profileImageView.image = profileImages[index]
+    }
+    
     func updateValidationUI(message: ValidationMessage) {
         nameValidationLabel.text = message.rawValue
         nameValidationLabel.textColor = message.textColor
@@ -269,6 +282,8 @@ extension ProfileView {
 extension ProfileView {
     public func setAddTarget(target: Any, action: Selector) {
         profileImageAddButton.addTarget(target, action: action, for: .touchUpInside)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: action)
+        profileImageView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     public func getNameTextField() -> UITextField {

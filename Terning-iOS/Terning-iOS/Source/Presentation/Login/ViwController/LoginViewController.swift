@@ -79,8 +79,6 @@ extension LoginViewController {
                 if success {
                     self?.navigateToNextScreen()
                 }
-                // TODO: 지우기
-                self?.navigateToNextScreen()
             })
             .disposed(by: disposeBag)
     }

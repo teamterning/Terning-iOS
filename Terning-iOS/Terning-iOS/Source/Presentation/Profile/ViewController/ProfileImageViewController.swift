@@ -14,15 +14,13 @@ import SnapKit
 final class ProfileImageViewController: UIViewController {
     
     // MARK: - Properties
-    
     private let viewModel: ProfileImageViewModel
     private let disposeBag = DisposeBag()
     var selectedIndex = BehaviorSubject<Int>(value: 0)
+    private var initialSelectedIndex: Int
     
     // MARK: - UI Components
-    
     let profileImageView = ProfileImageView()
-    
     let profileImages: [UIImage] = [
         .profile0,
         .profile1,
@@ -33,9 +31,9 @@ final class ProfileImageViewController: UIViewController {
     ]
     
     // MARK: - Init
-    
-    init(viewModel: ProfileImageViewModel) {
+    init(viewModel: ProfileImageViewModel, initialSelectedIndex: Int) {
         self.viewModel = viewModel
+        self.initialSelectedIndex = initialSelectedIndex
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -44,7 +42,6 @@ final class ProfileImageViewController: UIViewController {
     }
     
     // MARK: - View Life Cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -54,20 +51,17 @@ final class ProfileImageViewController: UIViewController {
         setLayout()
         setDelegate()
         bindViewModel()
-        
     }
 }
 
 // MARK: - UI & Layout
-
 extension ProfileImageViewController {
     private func setUI() {
         DispatchQueue.main.async {
-            let initialIndexPath = IndexPath(item: 0, section: 0)
+            let initialIndexPath = IndexPath(item: self.initialSelectedIndex, section: 0)
             self.collectionView(self.profileImageView.collectionView, didSelectItemAt: initialIndexPath)
             self.profileImageView.collectionView.selectItem(at: initialIndexPath, animated: false, scrollPosition: [])
         }
-
         profileImageView.collectionView.register(ProfileImageCell.self, forCellWithReuseIdentifier: ProfileImageCell.className)
     }
     
@@ -83,7 +77,6 @@ extension ProfileImageViewController {
 }
 
 // MARK: - Bind
-
 extension ProfileImageViewController {
     private func bindViewModel() {
         let saveButtonTapped = profileImageView.saveButton.rx.tap.asObservable()
@@ -94,33 +87,27 @@ extension ProfileImageViewController {
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
-
+        
         output.savedIndex
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
                 print("Selected index: \(index)")
-                selectedIndex.onNext(index)
+                self.selectedIndex.onNext(index)
+                self.dismiss(animated: false)
             })
             .disposed(by: disposeBag)
     }
 }
 
 // MARK: - Methods
-
 extension ProfileImageViewController {
     private func setDelegate() {
         profileImageView.collectionView.delegate = self
         profileImageView.collectionView.dataSource = self
     }
-    
-    private func navigateToNextViewController(with index: Int) {
-        let nextViewController = ViewController()
-        navigationController?.pushViewController(nextViewController, animated: true)
-    }
 }
 
 // MARK: - UICollectionViewDataSource
-
 extension ProfileImageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return profileImages.count
@@ -136,7 +123,6 @@ extension ProfileImageViewController: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegate
-
 extension ProfileImageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let previousIndex = try? selectedIndex.value() {
@@ -162,7 +148,6 @@ extension ProfileImageViewController: UICollectionViewDelegate {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-
 extension ProfileImageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (collectionView.bounds.width - (18.66 * 2)) / 3

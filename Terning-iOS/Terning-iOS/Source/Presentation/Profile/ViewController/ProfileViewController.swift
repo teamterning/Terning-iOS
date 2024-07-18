@@ -20,15 +20,12 @@ enum ProfileViewType {
 final class ProfileViewController: UIViewController {
     
     // MARK: - Properties
-    
     private let authProvider = Providers.authProvider
-    
     private let viewType: ProfileViewType
     private let viewModel: ProfileViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: - UI Components
-    
     private lazy var profileView = ProfileView(viewType: viewType)
     
     private var userName: String = ""
@@ -36,12 +33,9 @@ final class ProfileViewController: UIViewController {
     private var authType: String = UserManager.shared.authType ?? ""
     
     // MARK: - Init
-    
     init(viewType: ProfileViewType, viewModel: ProfileViewModel) {
-        
         self.viewType = viewType
         self.viewModel = viewModel
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -50,7 +44,6 @@ final class ProfileViewController: UIViewController {
     }
     
     // MARK: - View Life Cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -59,6 +52,11 @@ final class ProfileViewController: UIViewController {
         setLayout()
         bindViewModel()
         setDelegate()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        profileView.bind(index: imageIndex)
     }
 }
 
@@ -77,7 +75,6 @@ extension ProfileViewController {
 }
 
 // MARK: - Public Methods
-
 extension ProfileViewController {
     public func setUserData(userName: String, snsType: String) {
         profileView.getNameTextField().text = userName
@@ -92,7 +89,6 @@ extension ProfileViewController {
 }
 
 // MARK: - Methods
-
 extension ProfileViewController {
     private func setDelegate() {
         profileView.getNameTextField().delegate = self
@@ -104,7 +100,6 @@ extension ProfileViewController {
 }
 
 // MARK: - Bind
-
 extension ProfileViewController {
     private func bindViewModel() {
         let input = ProfileViewModel.Input(
@@ -149,17 +144,30 @@ extension ProfileViewController: UITextFieldDelegate {
         viewModel.nameRelay.accept(newText)
         return true
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
 
 // MARK: - @objc func
-
 extension ProfileViewController {
     @objc
     private func profileAddButtonTapped() {
+        let contentViewController = ProfileImageViewController(viewModel: ProfileImageViewModel(), initialSelectedIndex: imageIndex)
         
-        let contentViewController =  ProfileImageViewController(
-            viewModel: ProfileImageViewModel()
-        )
+        contentViewController.selectedIndex
+            .subscribe(onNext: { [weak self] index in
+                self?.imageIndex = index
+            })
+            .disposed(by: disposeBag)
+        
+        contentViewController.profileImageView.saveButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.profileView.bind(index: self?.imageIndex ?? 0)
+            })
+            .disposed(by: disposeBag)
         
         let bottomSheetVC = CustomBottomSheetViewController(
             bottomType: .low,
@@ -167,12 +175,7 @@ extension ProfileViewController {
             upScroll: false
         )
         
-        contentViewController.selectedIndex.subscribe { [weak self] imageIndex in
-            self?.imageIndex = imageIndex
-        }.disposed(by: disposeBag)
-        
         bottomSheetVC.modalPresentationStyle = .overFullScreen
-        
         self.present(bottomSheetVC, animated: false)
     }
     
@@ -187,8 +190,7 @@ extension ProfileViewController {
     }
 }
 
-// MARK: - @objc func
-
+// MARK: - Network Calls
 extension ProfileViewController {
     private func signUp(name: String, profileImage: Int, authType: String) {
         LoadingIndicator.showLoading()
@@ -199,30 +201,23 @@ extension ProfileViewController {
             switch result {
             case .success(let result):
                 let status = result.statusCode
-                
                 if 200..<300 ~= status {
                     do {
                         let responseDto = try result.map(BaseResponse<SignInResponseModel>.self)
-                        
                         let model = responseDto.result
-                        
                         if responseDto.status == 201 {
                             UserManager.shared.accessToken = model?.accessToken
                             UserManager.shared.refreshToken = model?.refreshToken
                             UserManager.shared.userId = model?.userId
                             UserManager.shared.authId = model?.authId
                             UserManager.shared.authType = model?.authType
-                            
                             self.pushToWelcome()
-                            
                         } else {
                             self.showToast(message: "status 가 201이 아님")
                         }
-                        
                     } catch {
                         self.showToast(message: "에러 발생")
                     }
-                    
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -233,7 +228,6 @@ extension ProfileViewController {
     
     private func pushToWelcome() {
         let welcomeViewController = WelcomeViewController(viewType: .first)
-        
         self.navigationController?.pushViewController(welcomeViewController, animated: true)
     }
 }

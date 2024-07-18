@@ -88,6 +88,16 @@ extension OnboardingPageViewController {
         [gradeViewController, workingPeriodViewController, graduationDateViewController].forEach {
             pages.append($0)
         }
+        
+        gradeViewController.onboardingView.navigationBar.leftButtonAction = { [weak self] in
+            self?.moveToPreviousPage()
+        }
+        workingPeriodViewController.onboardingView.navigationBar.leftButtonAction = { [weak self] in
+            self?.moveToPreviousPage()
+        }
+        graduationDateViewController.onboardingView.navigationBar.leftButtonAction = { [weak self] in
+            self?.moveToPreviousPage()
+        }
     }
     
     private func setUI() {
@@ -97,6 +107,7 @@ extension OnboardingPageViewController {
             self.setViewControllers([firstPage], direction: .forward, animated: true, completion: nil)
         }
     }
+    
 }
 
 // MARK: - Methods
@@ -128,9 +139,21 @@ extension OnboardingPageViewController {
         }
     }
     
+    private func moveToPreviousPage() {
+        guard let currentVC = viewControllers?.first,
+              let currentIndex = pages.firstIndex(of: currentVC) else { return }
+        
+        if currentIndex > 0 {
+            let previousVC = pages[currentIndex - 1]
+            setViewControllers([previousVC], direction: .reverse, animated: true, completion: nil)
+        } else {
+            self.popOrDismissViewController(animated: true)
+        }
+    }
+    
     private func completeOnboarding() {
         let welcomeVC = WelcomeViewController(viewType: .second)
-        self.navigationController?.pushViewController(welcomeVC, animated: true)
+        self.navigationController?.pushViewxzontroller(welcomeVC, animated: true)
     }
 }
 

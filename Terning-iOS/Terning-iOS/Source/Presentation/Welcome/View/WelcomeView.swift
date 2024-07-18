@@ -23,15 +23,6 @@ final class WelcomeView: UIView {
         $0.numberOfLines = 0
     }
     
-    private let welcomeGuideLabel = LabelFactory.build(
-        text: "마음에 드는 공고를 스크랩하며\n나만의 인턴 캘린더를 채워보세요",
-        font: .body2,
-        textColor: .grey300,
-        lineSpacing: 1.2
-    ).then {
-        $0.numberOfLines = 2
-    }
-    
     private let logoImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
     }
@@ -61,13 +52,10 @@ extension WelcomeView {
         switch viewType {
         case .first:
             welcomeLabel.text = "터치 3번으로\n원하는 대학생 인턴 공고를 띄워드릴게요"
-            welcomeGuideLabel.isHidden = true
             logoImageView.image = .imgOnbording
             startButton.setTitle(title: "시작하기")
         case .second:
-            welcomeLabel.text = "나에게 딱 맞는 대학생 인턴 공고를\n찾을 준비가 완료되었어요!"
-            welcomeGuideLabel.text = "마음에 드는 공고를 스크랩하며\n나만의 인턴 캘린더를 채워보세요"
-            welcomeGuideLabel.isHidden = false
+            welcomeLabel.text = "이제 딱 맞는 공고와 함께\n터닝을 시작해 볼까요?"
             logoImageView.image = .icHomeFill
             startButton.setTitle(title: "내 맞춤 공고 바로 보러가기")
         }
@@ -82,18 +70,12 @@ extension WelcomeView {
     private func setLayout(viewType: WelcomeViewType) {
         addSubviews(
             welcomeLabel,
-            welcomeGuideLabel,
             logoImageView,
             startButton
         )
         
         welcomeLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(152)
-            $0.centerX.equalToSuperview()
-        }
-        
-        welcomeGuideLabel.snp.makeConstraints {
-            $0.top.equalTo(welcomeLabel.snp.bottom).offset(11)
             $0.centerX.equalToSuperview()
         }
         
@@ -106,7 +88,7 @@ extension WelcomeView {
             }
         case .second:
             logoImageView.snp.makeConstraints {
-                $0.top.equalTo(welcomeGuideLabel.snp.bottom).offset(33)
+                $0.top.equalTo(welcomeLabel.snp.bottom).offset(56)
                 $0.horizontalEdges.equalToSuperview().inset(20)
                 $0.height.equalTo(340)
             }

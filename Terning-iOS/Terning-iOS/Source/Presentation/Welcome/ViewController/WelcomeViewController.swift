@@ -53,6 +53,7 @@ final class WelcomeViewController: UIViewController {
 
 extension WelcomeViewController {
     private func setUI() {
+        self.navigationController?.isNavigationBarHidden = true
         self.view.backgroundColor = .white
     }
     

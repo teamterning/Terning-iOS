@@ -167,7 +167,6 @@ extension ProfileViewController {
             upScroll: false
         )
         
-        
         contentViewController.selectedIndex.subscribe { [weak self] imageIndex in
             self?.imageIndex = imageIndex
         }.disposed(by: disposeBag)
@@ -184,10 +183,9 @@ extension ProfileViewController {
             profileImage: imageIndex,
             authType: authType
         )
+        self.pushToWelcome()
     }
 }
-
-
 
 // MARK: - @objc func
 
@@ -215,7 +213,7 @@ extension ProfileViewController {
                             UserManager.shared.authId = model?.authId
                             UserManager.shared.authType = model?.authType
                             
-                            self.pushToOnboarding()
+                            self.pushToWelcome()
                             
                         } else {
                             self.showToast(message: "status 가 201이 아님")
@@ -233,7 +231,7 @@ extension ProfileViewController {
         }
     }
     
-    private func pushToOnboarding() {
+    private func pushToWelcome() {
         let welcomeViewController = WelcomeViewController(viewType: .first)
         
         self.navigationController?.pushViewController(welcomeViewController, animated: true)

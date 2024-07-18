@@ -43,7 +43,7 @@ final class OnboardingView: UIView {
     
     // MARK: - UI Components
     
-    private let navigationBar = CustomNavigationBar(type: .leftButton)
+    let navigationBar = CustomNavigationBar(type: .leftButton)
     
     private let progressView = CustomProgressView(
         currentStep: 0,
@@ -133,6 +133,7 @@ extension OnboardingView {
     private func setLayout(viewType: OnboardingViewType) {
         navigationBar.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(68)
         }
         progressView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(92)
@@ -272,9 +273,6 @@ extension OnboardingView {
         case .graduationDate:
             break
         }
-    }
-    private func leftButtonDidtapped() {
-      
     }
 }
 

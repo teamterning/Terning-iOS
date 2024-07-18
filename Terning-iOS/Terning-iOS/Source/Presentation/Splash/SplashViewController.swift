@@ -38,7 +38,7 @@ extension SplashVC {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             if UserManager.shared.hasAccessToken {
                 UserManager.shared.getNewToken { [weak self] result in
-                    print("❤️ \(result) ❤️❤️")
+                    print("❤️❤️ 자동 로그인 성공 전 이다 \(result) ❤️❤️")
                     switch result {
                     case .success:
                         print("SplashVC-토큰 재발급 성공")

@@ -16,9 +16,7 @@ import Then
 import FSCalendar
 
 final class TNCalendarViewController: UIViewController {
-    
     // MARK: - Properties
-    
     private let calendarProvider = Providers.calendarProvider
     private var isListViewVisible = false
     
@@ -26,8 +24,24 @@ final class TNCalendarViewController: UIViewController {
         $0.dateFormat = "yyyy-MM-dd"
     }
     
-    // MARK: - UIComponents
+    private let dateFormmatter2 = DateFormatter().then {
+        $0.dateFormat = "yyyy년 MM월 dd일"
+    }
     
+    private let colorIndexMapping: [Int: Int] = [
+        0: 0,  // calRed
+        1: 2,  // calOrange2
+        2: 4,  // calGreen1
+        3: 6,  // calBlue1
+        4: 8,  // calPurple
+        5: 1,  // calOrange
+        6: 3,  // calYellow
+        7: 5,  // calGreen2
+        8: 7,  // calBlue2
+        9: 9   // calPink
+    ]
+    
+    // MARK: - UIComponents
     private let rootView = TNCalendarView()
     private let disposeBag = DisposeBag()
     private var selectedDate: Date?
@@ -38,7 +52,6 @@ final class TNCalendarViewController: UIViewController {
     private var calendarDaily: [DailyScrapModel] = [] // 일간 캘린더 데이터를 저장할 딕셔너리
     
     // MARK: - Life Cycles
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,15 +69,15 @@ final class TNCalendarViewController: UIViewController {
 }
 
 // MARK: - Method
-
 extension TNCalendarViewController {
-    
     private func setDelegate() {
         rootView.calendarView.delegate = self
         rootView.calendarView.dataSource = self
         
+        rootView.calenderBottomCollectionView.delegate = self
         rootView.calenderBottomCollectionView.dataSource = self
         
+        rootView.calenderListCollectionView.delegate = self
         rootView.calenderListCollectionView.dataSource = self
     }
     
@@ -97,7 +110,7 @@ extension TNCalendarViewController {
     }
     
     private func bindViewModel() {
-        
+        // Bind the view model here if needed
     }
     
     private func moveCalendar(by months: Int) {
@@ -128,10 +141,6 @@ extension TNCalendarViewController {
             rootView.separatorView.isHidden = true
             rootView.calendarViewContainer.isHidden = true
             rootView.calenderListCollectionView.isHidden = false
-            //            if !isListData {
-            //                getMonthlyList() // 리스트 뷰를 처음 표시할 때 서버 통신 한번으로 제한
-            //                isListData = true
-            //            }
             getMonthlyList()
         }
         isListViewVisible.toggle()
@@ -146,9 +155,7 @@ extension TNCalendarViewController {
 }
 
 // MARK: - FSCalendarDelegate
-
 extension TNCalendarViewController: FSCalendarDelegate {
-    
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         return monthPosition == .current // 현재 월이 아닌 날짜는 선택되지 않도록 설정
     }
@@ -176,7 +183,6 @@ extension TNCalendarViewController: FSCalendarDelegate {
     // 주간일때 그림자와 라운드 넣어주는 함수
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         if calendar.scope == .week {
-            
             rootView.calenderBottomCollectionView.backgroundColor = .back
             rootView.roundCalendarViewCorners(radius: 20) // 라운드 처리 해주기
             rootView.layer.applyShadow(alpha: 0.1, y: 2, blur: 4)
@@ -185,7 +191,6 @@ extension TNCalendarViewController: FSCalendarDelegate {
                 make.height.equalTo(90 + 20) // 주간 뷰 높이 설정
             }
             rootView.calenderBottomCollectionView.isHidden = false
-            
         } else {
             rootView.roundCalendarViewCorners(radius: 0)  // 라운드 처리 풀어 주기
             rootView.layer.shadowOpacity = 0
@@ -222,7 +227,6 @@ extension TNCalendarViewController {
 }
 
 // MARK: - FSCalendarDataSource
-
 extension TNCalendarViewController: FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         guard let cell = calendar.dequeueReusableCell(withIdentifier: TNCalendarDateCell.className, for: date, at: position) as? TNCalendarDateCell else { return FSCalendarCell() }
@@ -254,7 +258,6 @@ extension TNCalendarViewController: FSCalendarDataSource {
 }
 
 // MARK: - FSCalendarAppearance
-
 extension TNCalendarViewController: FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         return .clear // 기본 title 숨김
@@ -281,8 +284,89 @@ extension TNCalendarViewController: FSCalendarDelegateAppearance {
     }
 }
 
-// MARK: - UICollectionViewDataSource
+extension TNCalendarViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let jobDetailViewController = JobDetailViewController()
+        
+        if collectionView == rootView.calenderBottomCollectionView {
+            let model = calendarDaily[indexPath.row]
+            let alertSheet = CustomAlertViewController(alertType: .custom)
+            
+            let colorIndex = alertSheet.selectedColorIndexRelay
+            
+            let deadLine = dateFormmatter2.string(from: selectedDate ?? Date())
+            alertSheet.setData2(model: model, deadline: deadLine)
+            
+            guard let index = model.internshipAnnouncementId else { return }
+            
+            alertSheet.modalTransitionStyle = .crossDissolve
+            alertSheet.modalPresentationStyle = .overFullScreen
+            
+            alertSheet.centerButtonTapAction = {
+                if alertSheet.currentMode == .info {
+                    self.dismiss(animated: true)
+                    self.navigationController?.pushViewController(jobDetailViewController, animated: true)
+                } else if alertSheet.currentMode == .color {
+                    self.patchScrapAnnouncement(scrapId: model.scrapId, color: self.colorIndexMapping[colorIndex.value] ?? 0)
+                    self.dismiss(animated: true)
+                }
+            }
+            
+            self.present(alertSheet, animated: false)
+            
+            jobDetailViewController.internshipAnnouncementId.onNext(index)
+        } else {
+            let sortedKeys = scrapLists.keys.sorted()
+            let date = sortedKeys[indexPath.section]
+            guard let scrapSection = scrapLists[date] else { return }
+            guard let index = scrapSection[indexPath.row].internshipAnnouncementId else { return }
+            jobDetailViewController.internshipAnnouncementId.onNext(index)
+            
+            let model = scrapSection[indexPath.row]
+            let alertSheet = CustomAlertViewController(alertType: .custom)
+            
+            let colorIndex = alertSheet.selectedColorIndexRelay
+            
+            let deadLine = dateFormmatter2.string(from: selectedDate ?? Date())
+            alertSheet.setData2(model: model, deadline: deadLine)
+            
+            guard let index = model.internshipAnnouncementId else { return }
+            
+            alertSheet.modalTransitionStyle = .crossDissolve
+            alertSheet.modalPresentationStyle = .overFullScreen
+            
+            alertSheet.centerButtonTapAction = {
+                if alertSheet.currentMode == .info {
+                    self.dismiss(animated: true)
+                    self.navigationController?.pushViewController(jobDetailViewController, animated: true)
+                } else if alertSheet.currentMode == .color {
+                    self.patchScrapAnnouncement(scrapId: model.scrapId, color: self.colorIndexMapping[colorIndex.value] ?? 0)
+                    self.dismiss(animated: true)
+                }
+            }
+            
+            self.present(alertSheet, animated: false)
+        }
+    }
+    
+    private func refetchDataAndReloadViews() {
+        let currentPage = rootView.calendarView.currentPage
+        fetchMonthData(for: currentPage)
+        
+        // Fetch the daily data for the selected date if available
+        if let selectedDate = selectedDate {
+            fetchDailyData(for: selectedDate)
+        }
+        getMonthlyList()
+        
+        // Reload the calendar and collection views
+        rootView.calendarView.reloadData()
+        rootView.calenderBottomCollectionView.reloadData()
+        rootView.calenderListCollectionView.reloadData()
+    }
+}
 
+// MARK: - UICollectionViewDataSource
 extension TNCalendarViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         if collectionView == rootView.calenderBottomCollectionView {
@@ -296,7 +380,8 @@ extension TNCalendarViewController: UICollectionViewDataSource {
         if collectionView == rootView.calenderBottomCollectionView {
             return calendarDaily.count
         } else {
-            let scrapSection = Array(scrapLists.values)[section]
+            let sortedKeys = scrapLists.keys.sorted()
+            let scrapSection = scrapLists[sortedKeys[section]] ?? []
             return scrapSection.count
         }
     }
@@ -312,7 +397,8 @@ extension TNCalendarViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
-            let scrapSection = Array(scrapLists.values)[indexPath.section]
+            let sortedKeys = scrapLists.keys.sorted()
+            let scrapSection = scrapLists[sortedKeys[indexPath.section]] ?? []
             let scrapItem = scrapSection[indexPath.row]
             
             cell.bind(model: scrapItem)
@@ -332,7 +418,8 @@ extension TNCalendarViewController: UICollectionViewDataSource {
                     return UICollectionReusableView()
                 }
                 
-                let scrapSection = Array(scrapLists.keys)[indexPath.section]
+                let sortedKeys = scrapLists.keys.sorted()
+                let scrapSection = sortedKeys[indexPath.section]
                 let formattedDate = dateFormatter.string(from: scrapSection)
                 headerView.bind(title: formattedDate)
                 
@@ -415,11 +502,23 @@ extension TNCalendarViewController {
                         
                         self.scrapLists = [:]
                         
+                        var unsortedScrapLists: [Date: [DailyScrapModel]] = [:]
+                        
                         for item in data {
                             if let date = self.dateFormatter.date(from: item.deadline) {
-                                self.scrapLists[date] = item.scraps
+                                unsortedScrapLists[date] = item.scraps
                             }
                         }
+                        
+                        // Sort the keys and create a sorted dictionary
+                        let sortedKeys = unsortedScrapLists.keys.sorted()
+                        var sortedScrapLists: [Date: [DailyScrapModel]] = [:]
+                        
+                        for key in sortedKeys {
+                            sortedScrapLists[key] = unsortedScrapLists[key]
+                        }
+                        
+                        self.scrapLists = sortedScrapLists
                         
                         self.rootView.calenderListCollectionView.reloadData()
                         
@@ -467,6 +566,28 @@ extension TNCalendarViewController {
             case .failure(let error):
                 print("Error: \(error.localizedDescription)")
                 self.showToast(message: "네트워크 오류가 발생했습니다.")
+            }
+        }
+    }
+    
+    private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
+        guard let scrapId = scrapId else { return }
+        Providers.scrapsProvider.request(.patchScrap(scrapId: scrapId, color: color)) { [weak self] result in
+            LoadingIndicator.hideLoading()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                if 200..<300 ~= status {
+                    print("스크랩 수정 성공")
+                    self.refetchDataAndReloadViews()
+                } else {
+                    print("400 error")
+                    self.showToast(message: "네트워크 오류")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showToast(message: "네트워크 오류")
             }
         }
     }

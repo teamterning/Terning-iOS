@@ -63,8 +63,10 @@ extension TNCalendarViewController {
         rootView.calendarView.delegate = self
         rootView.calendarView.dataSource = self
         
+        rootView.calenderBottomCollectionView.delegate = self
         rootView.calenderBottomCollectionView.dataSource = self
         
+        rootView.calenderListCollectionView.delegate = self
         rootView.calenderListCollectionView.dataSource = self
     }
     
@@ -280,6 +282,26 @@ extension TNCalendarViewController: FSCalendarDelegateAppearance {
         return .clear // 기본 배경색 숨김
     }
 }
+
+
+extension TNCalendarViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let jobDetailViewController = JobDetailViewController()
+        
+        if collectionView == rootView.calenderBottomCollectionView {
+            guard let index = calendarDaily[indexPath.row].internshipAnnouncementId else { return }
+            jobDetailViewController.internshipAnnouncementId.onNext(index)
+        } else {
+            let date = Array(scrapLists.keys)[indexPath.section]
+            guard let scrapSection = scrapLists[date] else { return }
+            guard let index = scrapSection[indexPath.row].internshipAnnouncementId else { return }
+            jobDetailViewController.internshipAnnouncementId.onNext(index)
+        }
+        
+        self.navigationController?.pushViewController(jobDetailViewController, animated: true)
+    }
+}
+
 
 // MARK: - UICollectionViewDataSource
 

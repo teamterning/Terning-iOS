@@ -50,7 +50,7 @@ extension CalendarTargerType: TargetType {
     }
     
     var headers: [String: String]? {
-        return Config.testRefreshToken
+        return Config.headerWithAccessToken
     }
     
     var validationType: ValidationType {

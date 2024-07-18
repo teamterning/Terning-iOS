@@ -116,15 +116,15 @@ extension TNCalendarViewController {
         rootView.naviBar.setTitle(dateString)
     }
     
-    private func loadDummyData() {
-        let dummyData = generateDummyData3()
-        for item in dummyData {
-            if let date = dateFormatter.date(from: item.deadline) {
-                scraps[date] = item.scraps
-            }
-        }
-        rootView.calendarView.reloadData()
-    }
+//    private func loadDummyData() {
+//        let dummyData = generateDummyData3()
+//        for item in dummyData {
+//            if let date = dateFormatter.date(from: item.deadline) {
+//                scraps[date] = item.scraps
+//            }
+//        }
+//        rootView.calendarView.reloadData()
+//    }
     
     private func toggleListView() {
         if isListViewVisible {
@@ -357,10 +357,8 @@ extension TNCalendarViewController: UICollectionViewDataSource {
     }
 }
 
-
 extension TNCalendarViewController {
     private func fetchMonthData(for date: Date) {
-        
         let year = Calendar.current.component(.year, from: date)
         let month = Calendar.current.component(.month, from: date)
         
@@ -372,29 +370,29 @@ extension TNCalendarViewController {
                 let status = result.statusCode
                 if 200..<300 ~= status {
                     do {
-                        let responseDto = try result.map(BaseResponse<ScrapsByDeadlineModel>.self)
+                        let responseDto = try result.map(BaseResponse<[ScrapsByDeadlineModel]>.self)
                         guard let data = responseDto.result else { return }
-
+                        
                         self.scraps = [:]
                         
-                        for item in data.scrapsByDeadline {
+                        for item in data {
                             if let date = self.dateFormatter.date(from: item.deadline) {
                                 self.scraps[date] = item.scraps
                             }
                         }
                         
                         self.rootView.calendarView.reloadData()
+                        
                     } catch {
-                        print(error.localizedDescription)
+                        print("Error: \(error.localizedDescription)")
+                        self.showToast(message: "데이터를 불러오는 중 오류가 발생했습니다.")
                     }
-                }
-                if status >= 400 {
-                    print("400 error")
-                    self.showNetworkFailureToast()
+                } else {
+                    self.showToast(message: "서버 오류: \(status)")
                 }
             case .failure(let error):
-                print(error.localizedDescription)
-                self.showNetworkFailureToast()
+                print("Error: \(error.localizedDescription)")
+                self.showToast(message: "네트워크 오류가 발생했습니다.")
             }
         }
     }

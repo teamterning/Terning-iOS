@@ -15,12 +15,12 @@ final class SearchResultView: UIView {
     
     // MARK: - Properties
     
-    var jobCardModel: [JobCardModel]?
+    var SearchResult: [SearchResult]?
     var sortBySubject = PublishSubject<String>()
     
     // MARK: - UI Components
     
-    private let navigationBar = CustomNavigationBar(type: .centerTitleWithLeftButton)
+    let navigationBar = CustomNavigationBar(type: .centerTitleWithLeftButton)
     
     let searchView = CustomSearchView()
     
@@ -154,13 +154,13 @@ extension SearchResultView {
     private static func createGraphicSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(247)
+            heightDimension: .fractionalHeight(1.0)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(247)
+            heightDimension: .fractionalHeight(1.0)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         

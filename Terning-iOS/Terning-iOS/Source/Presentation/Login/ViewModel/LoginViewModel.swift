@@ -177,6 +177,8 @@ extension LoginViewModel: ASAuthorizationControllerDelegate {
             print("User ID : \(String(describing: userIdentifier))")
             print("token : \(String(describing: tokenStr))")
             
+            UserManager.shared.accessToken = tokenStr
+            
             UserManager.shared.signIn(authType: "APPLE") { result in
                 switch result {
                 case .success(let type):

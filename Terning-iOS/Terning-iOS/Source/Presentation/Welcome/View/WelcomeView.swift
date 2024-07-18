@@ -15,7 +15,7 @@ final class WelcomeView: UIView {
     // MARK: - UI Components
     
     private let welcomeLabel = LabelFactory.build(
-        text: "터치 3번으로\n원하는 대학생 인턴 공고를 띄워드릴게요",
+        text: "터닝에서 내 계획에 딱 맞는\n대학생 인턴 찾기를 도와드릴게요",
         font: .title1,
         textColor: .terningBlack,
         lineSpacing: 1.2
@@ -51,7 +51,7 @@ extension WelcomeView {
     private func setUI(viewType: WelcomeViewType) {
         switch viewType {
         case .first:
-            welcomeLabel.text = "터치 3번으로\n원하는 대학생 인턴 공고를 띄워드릴게요"
+            welcomeLabel.text = "터닝에서 내 계획에 딱 맞는\n대학생 인턴 찾기를 도와드릴게요"
             logoImageView.image = .imgOnbording
             startButton.setTitle(title: "시작하기")
         case .second:
@@ -60,7 +60,7 @@ extension WelcomeView {
             startButton.setTitle(title: "내 맞춤 공고 바로 보러가기")
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             UIView.animate(withDuration: 0.5) {
                 self.startButton.alpha = 1.0
             }

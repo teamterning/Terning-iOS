@@ -171,7 +171,16 @@ extension OnboardingView {
 
 extension OnboardingView {
     private func setGradeUI() {
-        titleLabel.text = "재학 상태를 선택해주세요"
+        let userName = OnboardingData.shared.userName
+        
+        if userName == "" {
+            titleLabel.text = "재학 상태를 선택해주세요"
+        } else if userName.count > 6 {
+            titleLabel.text = "\(userName)님의\n재학 상태를 선택해주세요"
+        } else {
+            titleLabel.text = "\(userName)님의 재학 상태를 선택해주세요"
+        }
+        
         subTitleLabel.text = "휴학중이라면, 휴학 전 마지막 수료 학년을 선택해주세요"
         
         addSubviews(
@@ -209,8 +218,8 @@ extension OnboardingView {
     }
     
     private func setGraduationDateUI() {
-        titleLabel.text = "입사를 계획중인 달을 선택해주세요"
-        subTitleLabel.text = "선택한 달부터 근무를 시작할 수 있는 공고를 찾아드릴게요"
+        titleLabel.text = "언제부터 인턴 근무가 가능한지 알려주세요"
+        subTitleLabel.text = "원하는 근무 시작 시기에 맞는 인턴 공고를 찾아드려요"
         
         addSubview(customDatePicker)
         

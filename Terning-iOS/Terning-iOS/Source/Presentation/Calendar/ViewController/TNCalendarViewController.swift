@@ -35,7 +35,7 @@ final class TNCalendarViewController: UIViewController {
     private var scrapLists: [Date: [DailyScrapModel]] = [:] // 리스트 데이터를 저장할 딕셔너리
     
     private var isListData: Bool = false
-    private var calendarDaily: [DailyScrapModel] = []
+    private var calendarDaily: [DailyScrapModel] = [] // 일간 캘린더 데이터를 저장할 딕셔너리
     
     // MARK: - Life Cycles
     
@@ -45,7 +45,7 @@ final class TNCalendarViewController: UIViewController {
         setDelegate()
         setRegister()
         bindNavigation()
-        bindViewModel()
+        //        bindViewModel()
         updateNaviBarTitle(for: rootView.calendarView.currentPage)
         fetchMonthData(for: rootView.calendarView.currentPage)
     }
@@ -63,10 +63,8 @@ extension TNCalendarViewController {
         rootView.calendarView.delegate = self
         rootView.calendarView.dataSource = self
         
-        rootView.calenderBottomCollectionView.delegate = self
         rootView.calenderBottomCollectionView.dataSource = self
         
-        rootView.calenderListCollectionView.delegate = self
         rootView.calenderListCollectionView.dataSource = self
     }
     
@@ -212,7 +210,6 @@ extension TNCalendarViewController: FSCalendarDelegate {
     }
 }
 
-// 추가된 메서드
 extension TNCalendarViewController {
     private func updateBottomCollectionViewHeader(for date: Date) {
         // 선택된 날짜를 헤더에 표시하기 위한 코드
@@ -281,14 +278,6 @@ extension TNCalendarViewController: FSCalendarDelegateAppearance {
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
         return .clear // 기본 배경색 숨김
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension TNCalendarViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
     }
 }
 

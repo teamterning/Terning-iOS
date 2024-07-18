@@ -9,9 +9,9 @@ import Foundation
 import Moya
 
 enum ScrapsTargetType {
-    case addScrap(internshipAnnouncementId: Double, color: Int)
-    case removeScrap(scrapId: Double)
-    case patchScrap(scrapId: Double, color: Int)
+    case addScrap(internshipAnnouncementId: Int, color: Int)
+    case removeScrap(scrapId: Int)
+    case patchScrap(scrapId: Int, color: Int)
 }
 
 extension ScrapsTargetType: TargetType {

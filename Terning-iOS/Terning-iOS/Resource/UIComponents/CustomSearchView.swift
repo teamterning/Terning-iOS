@@ -55,6 +55,8 @@ final class CustomSearchView: UIView, UITextFieldDelegate {
     // MARK: - UI & Layout
     
     private func setUI() {
+        self.backgroundColor = .clear
+        
         addSubviews(
             iconImageView,
             textField,

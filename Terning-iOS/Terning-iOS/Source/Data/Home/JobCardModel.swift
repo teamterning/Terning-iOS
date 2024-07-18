@@ -8,11 +8,11 @@
 import UIKit
 
 struct JobCardModel {
-    let internshipAnnouncementId: Double
+    let internshipAnnouncementId: Int
     let title: String
     let dDay: String
     let workingPeriod: String
-    let companyImage: UIImage
+    let companyImage: String
     let isScraped: Bool
 }
 
@@ -25,7 +25,7 @@ extension JobCardModel {
                 title: "[번개장터] Content Marketer",
                 dDay: "D-DAY",
                 workingPeriod: "1개월",
-                companyImage: UIImage(resource: .icHome),
+                companyImage: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 isScraped: false
             ),
             
@@ -34,7 +34,7 @@ extension JobCardModel {
                 title: "[보더엑스] 글로벌 마케팅 AE (채용연계형 인턴십)",
                 dDay: "D-8",
                 workingPeriod: "3개월",
-                companyImage: UIImage(resource: .icHome),
+                companyImage: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 isScraped: false
             ),
             
@@ -43,7 +43,7 @@ extension JobCardModel {
                 title: "[카카오페이] 카카오페이 보험 운영 어시스턴트 채용",
                 dDay: "D-17",
                 workingPeriod: "2개월",
-                companyImage: UIImage(resource: .icHome),
+                companyImage: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 isScraped: true
             ),
             
@@ -52,7 +52,7 @@ extension JobCardModel {
                 title: "[번개장터] Data Analyst",
                 dDay: "지원 마감",
                 workingPeriod: "3개월",
-                companyImage: UIImage(resource: .icHome),
+                companyImage: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 isScraped: false
             ),
             
@@ -61,7 +61,7 @@ extension JobCardModel {
                 title: "[번개장터] Data Analyst",
                 dDay: "지원 마감",
                 workingPeriod: "3개월",
-                companyImage: UIImage(resource: .icHome),
+                companyImage: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 isScraped: false
             ),
             
@@ -70,7 +70,7 @@ extension JobCardModel {
                 title: "[카카오페이] 카카오페이 보험 운영 어시스턴트 채용",
                 dDay: "D-17",
                 workingPeriod: "2개월",
-                companyImage: UIImage(resource: .icHome),
+                companyImage: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 isScraped: true
             ),
             
@@ -79,7 +79,7 @@ extension JobCardModel {
                 title: "[번개장터] Content Marketer",
                 dDay: "D-DAY",
                 workingPeriod: "1개월",
-                companyImage: UIImage(resource: .icHome),
+                companyImage: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 isScraped: false
             ),
             
@@ -88,7 +88,7 @@ extension JobCardModel {
                 title: "[카카오페이] 카카오페이 보험 운영 어시스턴트 채용",
                 dDay: "D-17",
                 workingPeriod: "2개월",
-                companyImage: UIImage(resource: .icHome),
+                companyImage: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 isScraped: true
             ),
             
@@ -97,7 +97,7 @@ extension JobCardModel {
                 title: "[보더엑스] 글로벌 마케팅 AE (채용연계형 인턴십)",
                 dDay: "D-8",
                 workingPeriod: "3개월",
-                companyImage: UIImage(resource: .icHome),
+                companyImage: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 isScraped: false
             ),
             
@@ -106,7 +106,7 @@ extension JobCardModel {
                 title: "[번개장터] Content Marketer",
                 dDay: "D-DAY",
                 workingPeriod: "1개월",
-                companyImage: UIImage(resource: .icHome),
+                companyImage: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 isScraped: false
             )
         ]

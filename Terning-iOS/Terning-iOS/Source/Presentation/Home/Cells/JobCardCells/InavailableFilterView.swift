@@ -69,3 +69,32 @@ extension InavailableFilterView {
         }
     }
 }
+
+// MARK: - Bind
+
+extension InavailableFilterView {
+    public func bind(title: String) {
+        let fullText: String
+        let finalTitle: String
+        
+        if title.count > 16 {
+            finalTitle = "\(title.prefix(16))..."
+            fullText = "\(finalTitle)에\n해당하는 검색 결과가 없어요"
+        } else {
+            finalTitle = title
+            fullText = "\(finalTitle)에 해당하는 검색 결과가 없어요"
+        }
+        
+        let attributedString = NSMutableAttributedString(string: fullText)
+        
+        let titleRange = (fullText as NSString).range(of: finalTitle)
+        attributedString.addAttribute(.foregroundColor, value: UIColor.terningMain, range: titleRange)
+        
+        inavailableLabel.attributedText = attributedString
+        
+        inavailableLabel.snp.updateConstraints {
+            $0.top.equalTo(inavailableIcon.snp.bottom).offset(16)
+            $0.centerX.equalToSuperview()
+        }
+    }
+}

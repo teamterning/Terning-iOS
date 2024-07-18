@@ -14,6 +14,7 @@ import SnapKit
 final class OnboardingData {
     static let shared = OnboardingData()
     
+    var userName: String = ""
     var grade: Int = -1
     var workingPeriod: Int = -1
     var startYear: Int = 2024

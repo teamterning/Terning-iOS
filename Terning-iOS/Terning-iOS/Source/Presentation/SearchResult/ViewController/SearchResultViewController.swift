@@ -31,7 +31,7 @@ final class SearchResultViewController: UIViewController {
     
     // MARK: - UI Components
     
-    let searchResultView = SearchResultView()
+    let rootView = SearchResultView()
     
     // MARK: - Init
     
@@ -50,6 +50,7 @@ final class SearchResultViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        setUI()
         setHierarchy()
         setLayout()
         setDelegate()
@@ -60,13 +61,18 @@ final class SearchResultViewController: UIViewController {
 // MARK: - UI & Layout
 
 extension SearchResultViewController {
+    private func setUI() {
+        navigationController?.isNavigationBarHidden = true
+    }
+    
     private func setHierarchy() {
-        view.addSubview(searchResultView)
+        view.addSubview(rootView)
     }
     
     private func setLayout() {
-        searchResultView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
+        rootView.snp.makeConstraints {
+            $0.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview()
         }
     }
 }
@@ -77,9 +83,9 @@ extension SearchResultViewController {
     private func bindViewModel() {
         var firstSearch = true
         
-        let keyword = searchResultView.searchView.textField.rx.text.orEmpty.asObservable()
+        let keyword = rootView.searchView.textField.rx.text.orEmpty.asObservable()
         
-        let searchTrigger = searchResultView.searchView.textField.rx.controlEvent(.editingDidEndOnExit)
+        let searchTrigger = rootView.searchView.textField.rx.controlEvent(.editingDidEndOnExit)
             .withLatestFrom(keyword)
             .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
             .map { _ in () }
@@ -90,8 +96,8 @@ extension SearchResultViewController {
                 print("텍스트 필드 값: \(keyword)")
                 if firstSearch {
                     firstSearch = false
-                    self.searchResultView.searchTitleLabel.isHidden = true
-                    self.searchResultView.updateLayout()
+                    self.rootView.searchTitleLabel.isHidden = true
+                    self.rootView.updateLayout()
                 }
             })
             .disposed(by: disposeBag)
@@ -106,10 +112,10 @@ extension SearchResultViewController {
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
-        output.jobCards
-            .drive(onNext: { [weak self] jobCardModel in
-                self?.searchResultView.jobCardModel = jobCardModel
-                self?.searchResultView.collectionView.reloadData()
+        output.SearchResult
+            .drive(onNext: { [weak self] SearchResult in
+                self?.rootView.SearchResult = SearchResult
+                self?.rootView.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
@@ -125,16 +131,23 @@ extension SearchResultViewController {
 
 extension SearchResultViewController {
     private func setDelegate() {
-        searchResultView.collectionView.delegate = self
-        searchResultView.collectionView.dataSource = self
+        rootView.collectionView.delegate = self
+        rootView.collectionView.dataSource = self
         
         self.hideKeyboardWhenTappedAround()
+        
+        rootView.navigationBar.leftButtonAction = { [weak self] in
+            guard let self = self else { return }
+            print("asdas")
+            self.dismiss(animated: true)
+        }
+        
     }
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 
-extension SearchResultViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension SearchResultViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return SearchResultType.allCases.count
     }
@@ -142,11 +155,11 @@ extension SearchResultViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch SearchResultType(rawValue: section) {
         case .graphic:
-            return searchResultView.jobCardModel == nil ? 1 : 0
+            return rootView.SearchResult == nil ? 1 : 0
         case .search:
-            return searchResultView.jobCardModel?.isEmpty == false ? (searchResultView.jobCardModel?.count ?? 0) : 0
+            return rootView.SearchResult?.isEmpty == false ? (rootView.SearchResult?.count ?? 0) : 0
         case .noSearch:
-            return searchResultView.jobCardModel?.isEmpty == true ? 1 : 0
+            return rootView.SearchResult?.isEmpty == true ? 1 : 0
         default:
             return 0
         }
@@ -161,10 +174,10 @@ extension SearchResultViewController: UICollectionViewDataSource, UICollectionVi
             return cell
             
         case .search:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as? JobCardScrapedCell, let jobCards = searchResultView.jobCardModel else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as? JobCardScrapedCell, let SearchResult = rootView.SearchResult else {
                 return UICollectionViewCell()
             }
-            cell.bindData(model: jobCards[indexPath.item])
+            cell.bind(model: SearchResult[indexPath.item])
             return cell
             
         case .noSearch:
@@ -176,6 +189,22 @@ extension SearchResultViewController: UICollectionViewDataSource, UICollectionVi
             
         default:
             return UICollectionViewCell()
+        }
+    }
+}
+
+extension SearchResultViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch SearchResultType(rawValue: indexPath.section) {
+        case .search:
+            print("zz")
+            guard let SearchResult = rootView.SearchResult else { return }
+            let selectedItem = SearchResult[indexPath.item].internshipAnnouncementId
+    
+            let jobDetailVC = JobDetailViewController()
+            self.navigationController?.pushViewController(jobDetailVC, animated: true)
+        default:
+            break
         }
     }
 }

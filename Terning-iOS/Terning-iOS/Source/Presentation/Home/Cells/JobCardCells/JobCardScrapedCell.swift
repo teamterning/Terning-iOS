@@ -24,6 +24,8 @@ final class JobCardScrapedCell: UICollectionViewCell {
     
     private var internshipAnnouncementId: Int? = 0
     
+    private var scrapId: Int?
+    
     // MARK: - UIComponents
     
     private let jobCard = UIView().then {
@@ -155,6 +157,20 @@ extension JobCardScrapedCell {
         self.jobLabel.text = model.title
         self.period.text = model.workingPeriod
         self.scrapButton.isSelected = model.isScraped
+    }
+    
+    func bind(model: SearchResult) {
+        self.internshipAnnouncementId = model.internshipAnnouncementId
+        self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "placeholder_image")
+        self.daysRemaining.text = model.dDay
+        self.jobLabel.text = model.title
+        self.period.text = model.workingPeriod
+        if model.scrapId == nil {
+            self.scrapButton.isSelected = false
+        } else {
+            self.scrapButton.isSelected = true
+            self.scrapId = model.scrapId
+        }
     }
     
     // MARK: - objc Functions

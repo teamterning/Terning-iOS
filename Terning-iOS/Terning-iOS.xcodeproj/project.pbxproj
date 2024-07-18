@@ -31,6 +31,7 @@
 		2D89C7632C486E20002B035F /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C7622C486E20002B035F /* SearchResultViewController.swift */; };
 		2D89C7652C486E2E002B035F /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C7642C486E2E002B035F /* SearchResultView.swift */; };
 		2D89C7672C486E53002B035F /* CustomSortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C7662C486E53002B035F /* CustomSortButton.swift */; };
+		2D8D0D412C492B8C00ECB36F /* SearchResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8D0D402C492B8C00ECB36F /* SearchResultModel.swift */; };
 		2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */; };
 		2DC61EF52C4075EB009F991F /* MainInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF42C4075EB009F991F /* MainInfoTableViewCell.swift */; };
 		2DC61EF72C4075F3009F991F /* JobDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF62C4075F3009F991F /* JobDetailViewModel.swift */; };
@@ -176,6 +177,7 @@
 		2D89C7622C486E20002B035F /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		2D89C7642C486E2E002B035F /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		2D89C7662C486E53002B035F /* CustomSortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSortButton.swift; sourceTree = "<group>"; };
+		2D8D0D402C492B8C00ECB36F /* SearchResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultModel.swift; sourceTree = "<group>"; };
 		2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailViewController.swift; sourceTree = "<group>"; };
 		2DC61EF42C4075EB009F991F /* MainInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInfoTableViewCell.swift; sourceTree = "<group>"; };
 		2DC61EF62C4075F3009F991F /* JobDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailViewModel.swift; sourceTree = "<group>"; };
@@ -592,6 +594,7 @@
 			children = (
 				2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */,
 				2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */,
+				2D8D0D402C492B8C00ECB36F /* SearchResultModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1187,6 +1190,7 @@
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
 				B8BE0E102C465AAD00B3D298 /* Config.swift in Sources */,
 				71CCC0792C3FDABF00789A9B /* TNCalendarViewModel.swift in Sources */,
+				2D8D0D412C492B8C00ECB36F /* SearchResultModel.swift in Sources */,
 				71CCC0732C3F36EA00789A9B /* TNCalendarView.swift in Sources */,
 				2DC986082C45FAC200D46729 /* CustomPageControl.swift in Sources */,
 				71CCC07C2C3FDB0400789A9B /* ViewModelType.swift in Sources */,

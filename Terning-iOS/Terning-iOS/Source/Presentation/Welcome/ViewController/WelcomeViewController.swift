@@ -53,6 +53,7 @@ final class WelcomeViewController: UIViewController {
 
 extension WelcomeViewController {
     private func setUI() {
+        self.navigationController?.isNavigationBarHidden = true
         self.view.backgroundColor = .white
     }
     
@@ -79,11 +80,12 @@ extension WelcomeViewController {
     @objc private func startButtonDidTap() {
         switch viewType {
         case .first:
-            // TODO: 프로필 설정 화면으로 이동
-            break
+            let onboardingVC = OnboardingPageViewController()
+            self.navigationController?.pushViewController(onboardingVC, animated: true)
         case .second:
-            // TODO: 온보딩 화면으로 이동
-            break
+            let tabBarController = TNTabBarController()
+            guard let window = self.view.window else { return }
+            ViewControllerUtils.setRootViewController(window: window, viewController: tabBarController, withAnimation: true)
         }
     }
 }

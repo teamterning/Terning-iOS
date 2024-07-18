@@ -26,7 +26,6 @@ final class ProfileViewModel: ViewModelType {
         let nameCountText: Observable<String>
         let isNameValid: Observable<Bool>
         let nameValidationMessage: Observable<ValidationMessage>
-
     }
     
     // MARK: - Transform

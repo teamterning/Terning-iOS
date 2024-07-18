@@ -14,7 +14,7 @@ final class LoginView: UIView {
     // MARK: - UI Components
     
     private let logoImageView = UIImageView().then {
-        $0.image = .icHome
+        $0.image = .imgLogin
         $0.contentMode = .scaleAspectFit
         $0.layer.masksToBounds = true
     }

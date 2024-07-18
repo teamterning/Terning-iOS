@@ -14,9 +14,11 @@ import SnapKit
 final class OnboardingData {
     static let shared = OnboardingData()
     
+    var userName: String = ""
     var grade: Int = -1
-    var jobPeriod: Int = -1
-    var graduationDate: Date?
+    var workingPeriod: Int = -1
+    var startYear: Int = 2024
+    var startMonth: Int = 1
     
     private init() {}
 }
@@ -25,6 +27,7 @@ final class OnboardingPageViewController: UIPageViewController {
     
     // MARK: - Properties
     
+    private let authProvider = Providers.authProvider
     private var pages = [UIViewController]()
     private var initialPage = 0
     private let disposeBag = DisposeBag()
@@ -60,8 +63,8 @@ extension OnboardingPageViewController {
             viewModel: OnboardingViewModel(),
             step: 1
         )
-        let jobPeriodViewController = OnboardingViewController(
-            viewType: .jobPeriod,
+        let workingPeriodViewController = OnboardingViewController(
+            viewType: .workingPeriod,
             viewModel: OnboardingViewModel(),
             step: 2
         )
@@ -75,7 +78,7 @@ extension OnboardingPageViewController {
             owner.moveToNextPage()
         }.disposed(by: disposeBag)
         
-        jobPeriodViewController.onboardingView.nextButton.rx.tap.subscribe(with: self) { owner, _ in
+        workingPeriodViewController.onboardingView.nextButton.rx.tap.subscribe(with: self) { owner, _ in
             owner.moveToNextPage()
         }.disposed(by: disposeBag)
         
@@ -83,16 +86,29 @@ extension OnboardingPageViewController {
             owner.moveToNextPage()
         }.disposed(by: disposeBag)
         
-        [gradeViewController, jobPeriodViewController, graduationDateViewController].forEach {
+        [gradeViewController, workingPeriodViewController, graduationDateViewController].forEach {
             pages.append($0)
+        }
+        
+        gradeViewController.onboardingView.navigationBar.leftButtonAction = { [weak self] in
+            self?.moveToPreviousPage()
+        }
+        workingPeriodViewController.onboardingView.navigationBar.leftButtonAction = { [weak self] in
+            self?.moveToPreviousPage()
+        }
+        graduationDateViewController.onboardingView.navigationBar.leftButtonAction = { [weak self] in
+            self?.moveToPreviousPage()
         }
     }
     
     private func setUI() {
+        navigationController?.isNavigationBarHidden = true
+        
         if let firstPage = pages.first {
             self.setViewControllers([firstPage], direction: .forward, animated: true, completion: nil)
         }
     }
+    
 }
 
 // MARK: - Methods
@@ -114,12 +130,69 @@ extension OnboardingPageViewController {
             let nextVC = pages[currentIndex + 1]
             setViewControllers([nextVC], direction: .forward, animated: true, completion: nil)
         } else {
-            _ = OnboardingData.shared
+            postUserFilter { [weak self] success in
+                if success {
+                    self?.completeOnboarding()
+                } else {
+                    self?.showNetworkFailureToast()
+                }
+            }
         }
     }
     
-    private func setDelegate() {
-        self.dataSource = self
+    private func moveToPreviousPage() {
+        guard let currentVC = viewControllers?.first,
+              let currentIndex = pages.firstIndex(of: currentVC) else { return }
+        
+        if currentIndex > 0 {
+            let previousVC = pages[currentIndex - 1]
+            setViewControllers([previousVC], direction: .reverse, animated: true, completion: nil)
+        } else {
+            self.popOrDismissViewController(animated: true)
+        }
+    }
+    
+    private func completeOnboarding() {
+        let welcomeVC = WelcomeViewController(viewType: .second)
+        self.navigationController?.pushViewController(welcomeVC, animated: true)
+    }
+}
+
+// MARK: - API Methods
+
+extension OnboardingPageViewController {
+    private func postUserFilter(completion: @escaping (Bool) -> Void) {
+        authProvider.request(
+            .postOnboarding(
+                grade: OnboardingData.shared.grade,
+                workingPeriod: OnboardingData.shared.workingPeriod,
+                startYear: OnboardingData.shared.startYear,
+                startMonth: OnboardingData.shared.startMonth
+            )) { [weak self] result in
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let result):
+                    let status = result.statusCode
+                    if 200..<300 ~= status {
+                        do {
+                            let responseDto = try result.map(BaseResponse<BlankData>.self)
+                            completion(true)
+                        } catch {
+                            print(error.localizedDescription)
+                            completion(false)
+                        }
+                    } else {
+                        print("400 error")
+                        self.showNetworkFailureToast()
+                        completion(false)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self.showNetworkFailureToast()
+                    completion(false)
+                }
+            }
     }
 }
 

@@ -13,15 +13,18 @@ import RxCocoa
 final class JobDetailViewModel: ViewModelType {
     
     // MARK: - Properties
+    
     private let announcementsProvider = Providers.announcementsProvider
     
     // MARK: - Input
+    
     struct Input {
         let internshipAnnouncementId: Observable<Int>
         let fetchJobDetail: Observable<Void>
     }
     
     // MARK: - Output
+    
     struct Output {
         let mainInfo: Driver<MainInfoModel>
         let companyInfo: Driver<CompanyInfoModel>
@@ -31,6 +34,7 @@ final class JobDetailViewModel: ViewModelType {
     }
     
     // MARK: - Transform
+    
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let jobDetail = input.internshipAnnouncementId
             .flatMapLatest { id in
@@ -141,12 +145,10 @@ final class JobDetailViewModel: ViewModelType {
 // MARK: - Methods
 extension JobDetailViewModel {
     private func fetchJobDetailFromServer(internshipAnnouncementId: Int) -> Observable<JobDetailModel> {
-        print("🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟")
         return Observable.create { observer in
             let request = self.announcementsProvider.request(.getAnnouncements(internshipAnnouncementId: internshipAnnouncementId)) { result in
                 switch result {
                 case .success(let response):
-                    print("🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎")
                     let status = response.statusCode
                     if 200..<300 ~= status {
                         do {
@@ -167,7 +169,6 @@ extension JobDetailViewModel {
                         observer.onError(NSError(domain: "", code: status, userInfo: [NSLocalizedDescriptionKey: "Error with status code: \(status)"]))
                     }
                 case .failure(let error):
-                    print("😇😇😇😇😇😇😇😇😇😇")
                     print(error.localizedDescription)
                     observer.onError(error)
                 }

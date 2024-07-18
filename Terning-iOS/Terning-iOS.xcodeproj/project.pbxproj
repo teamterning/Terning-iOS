@@ -361,8 +361,8 @@
 		2D4EE3A82C3E78B800E3E95B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2D4EE3A32C3E789200E3E95B /* ProfileView.swift */,
 				2D89C7502C47E99B002B035F /* ProfileImageView.swift */,
+				2D4EE3A32C3E789200E3E95B /* ProfileView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

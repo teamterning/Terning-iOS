@@ -83,8 +83,10 @@ extension AuthTargetType: TargetType {
             }
         case .getNewToken:
             headers["Authorization"] = Config.refreshToken
-        case .signUp, .postOnboarding:
+        case .signUp:
             headers["authId"] = Config.authId
+        case .postOnboarding:
+            headers["User-Id"] = String(Config.userId)
         }
         return headers
     }

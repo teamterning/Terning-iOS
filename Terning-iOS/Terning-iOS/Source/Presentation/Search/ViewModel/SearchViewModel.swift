@@ -79,9 +79,9 @@ final class SearchViewModel: ViewModelType {
 extension SearchViewModel {
     private func fetchAdvertisement() -> Observable<AdvertisementsModel> {
         let data = AdvertisementsModel(advertisements: [
-            UIImage(named: "home_logo")!,
-            UIImage(named: "home_logo")!,
-            UIImage(named: "home_logo")!
+            UIImage(named: "img_ad_1")!,
+            UIImage(named: "img_ad_2")!,
+            UIImage(named: "img_ad_3")!
         ])
         return Observable.just(data)
     }

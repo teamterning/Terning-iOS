@@ -17,7 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        let vc = UINavigationController(rootViewController: SplashVC())
+//        let vc = LoginViewController(viewModel: LoginViewModel())
+        let vc = TNTabBarController()
+        vc.selectedIndex = 1
         window.rootViewController = vc
         self.window = window
         window.makeKeyAndVisible()

@@ -32,7 +32,6 @@ final class JobListingCell: UICollectionViewCell {
     }
     
     private let deadlineLabel = LabelFactory.build(
-        text: "지원 마감",
         font: .detail0,
         textColor: .terningMain,
         lineSpacing: 1.0,
@@ -172,7 +171,9 @@ extension JobListingCell {
     func bind(model: DailyScrapModel) {
         guard let day = model.dDay else { return print("JobListingCell Error dDay") }
         guard let workingPeriod = model.workingPeriod else { return print("JobListingCell Error workingPeriod") }
+        guard let companyImage = model.companyImage else { return print("JobListingCell Error companyImage") }
         
+        self.mainImageView.setImage(with: companyImage)
         self.deadlineLabel.text = day
         self.monthLabel.text = workingPeriod
         

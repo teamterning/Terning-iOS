@@ -5,11 +5,16 @@
 //  Created by 정민지 on 7/15/24.
 //
 
+import UIKit
+
 import RxSwift
 import RxCocoa
 
-final class SearchViewModel {
-    private let disposeBag = DisposeBag()
+final class SearchViewModel: ViewModelType {
+    
+    // MARK: - Properties
+    
+    private let searchProvider = Providers.searchProvider
     
     // MARK: - Input
     
@@ -23,15 +28,15 @@ final class SearchViewModel {
     
     struct Output {
         let announcements: Driver<AdvertisementsModel>
-        let recommendedByViews: Driver<[RecommendAnnouncementModel]>
-        let recommendedByScraps: Driver<[RecommendAnnouncementModel]>
+        let recommendedByViews: Driver<[RecommendAnnouncement]>
+        let recommendedByScraps: Driver<[RecommendAnnouncement]>
         let searchTapped: Driver<Void>
         let pageChanged: Driver<Int>
     }
     
     // MARK: - Transform
     
-    func transform(_ input: Input) -> Output {
+    func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let announcements = input.viewDidLoad
             .flatMapLatest { _ in
                 self.fetchAdvertisement()
@@ -74,28 +79,84 @@ final class SearchViewModel {
 extension SearchViewModel {
     private func fetchAdvertisement() -> Observable<AdvertisementsModel> {
         let data = AdvertisementsModel(advertisements: [
-            "https://helpx.adobe.com/content/dam/help/en/photoshop/using/quick-actions/remove-background-before-qa1.png",
-            "https://helpx.adobe.com/content/dam/help/en/photoshop/using/quick-actions/remove-background-before-qa1.png",
-            "https://helpx.adobe.com/content/dam/help/en/photoshop/using/quick-actions/remove-background-before-qa1.png"
+            UIImage(named: "home_logo")!,
+            UIImage(named: "home_logo")!,
+            UIImage(named: "home_logo")!
         ])
         return Observable.just(data)
     }
     
-    private func fetchRecommendedByViews() -> Observable<[RecommendAnnouncementModel]> {
-        let data = [
-            RecommendAnnouncementModel(id: 1, image: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/quick-actions/remove-background-before-qa1.png", title: "[유한킴벌리] 허걱 대박이다"),
-            RecommendAnnouncementModel(id: 2, image: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/quick-actions/remove-background-before-qa1.png", title: "[Someone] 레전드 사건 발생"),
-            RecommendAnnouncementModel(id: 3, image: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/quick-actions/remove-background-before-qa1.png", title: "[Someone] 레전드 사건 발생"),
-            RecommendAnnouncementModel(id: 4, image: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/quick-actions/remove-background-before-qa1.png", title: "[Someone] 레전드 사건 발생"), RecommendAnnouncementModel(id: 5, image: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/quick-actions/remove-background-before-qa1.png", title: "[Someone] 레전드 사건 발생")
-        ]
-        return Observable.just(data)
+    private func fetchRecommendedByViews() -> Observable<[RecommendAnnouncement]> {
+        return Observable.create { observer in
+            let request = self.searchProvider.request(.getMostViewDatas) { result in
+                switch result {
+                case .success(let response):
+                    let status = response.statusCode
+                    if 200..<300 ~= status {
+                        do {
+                            let responseDto = try response.map(BaseResponse<RecommendAnnouncementModel>.self)
+                            if let data = responseDto.result?.announcements {
+                                observer.onNext(data)
+                                observer.onCompleted()
+                            } else {
+                                print("no data")
+                                observer.onError(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data available"]))
+                            }
+                        } catch {
+                            print(error.localizedDescription)
+                            observer.onError(error)
+                        }
+                    }
+                    if status >= 400 {
+                        print("400 error")
+                        observer.onError(NSError(domain: "", code: status, userInfo: [NSLocalizedDescriptionKey: "Error with status code: \(status)"]))
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    observer.onError(error)
+                }
+            }
+
+            return Disposables.create {
+                request.cancel()
+            }
+        }
     }
     
-    private func fetchRecommendedByScraps() -> Observable<[RecommendAnnouncementModel]> {
-        let data = [
-            RecommendAnnouncementModel(id: 3, image: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/quick-actions/remove-background-before-qa1.png", title: "[유한킴벌리] 안녕하세요 저는"),
-            RecommendAnnouncementModel(id: 4, image: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/quick-actions/remove-background-before-qa1.png", title: "[Someone] 터닝 입니다.ㅇㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹ")
-        ]
-        return Observable.just(data)
+    private func fetchRecommendedByScraps() -> Observable<[RecommendAnnouncement]> {
+        return Observable.create { observer in
+            let request = self.searchProvider.request(.getMostScrapDatas) { result in
+                switch result {
+                case .success(let response):
+                    let status = response.statusCode
+                    if 200..<300 ~= status {
+                        do {
+                            let responseDto = try response.map(BaseResponse<RecommendAnnouncementModel>.self)
+                            if let data = responseDto.result?.announcements {
+                                observer.onNext(data)
+                                observer.onCompleted()
+                            } else {
+                                print("no data")
+                                observer.onError(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data available"]))
+                            }
+                        } catch {
+                            print(error.localizedDescription)
+                            observer.onError(error)
+                        }
+                    }
+                    if status >= 400 {
+                        print("400 error")
+                        observer.onError(NSError(domain: "", code: status, userInfo: [NSLocalizedDescriptionKey: "Error with status code: \(status)"]))
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    observer.onError(error)
+                }
+            }
+
+            return Disposables.create {
+                request.cancel()
+            }
+        }
     }
 }

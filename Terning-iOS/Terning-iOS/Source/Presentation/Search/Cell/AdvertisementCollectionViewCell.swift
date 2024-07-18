@@ -56,7 +56,7 @@ extension AdvertisementCollectionViewCell {
 // MARK: - Bind
 
 extension AdvertisementCollectionViewCell {
-    func bind(with advertisement: String) {
-            advertisementImageView.setImage(with: advertisement, placeholder: "placeholder_image")
+    func bind(with advertisement: UIImage) {
+            advertisementImageView.image = advertisement
     }
 }

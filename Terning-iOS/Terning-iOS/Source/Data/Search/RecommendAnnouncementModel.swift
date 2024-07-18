@@ -9,8 +9,12 @@ import Foundation
 
 // MARK: - RecommendAnnouncementModel
 
-struct RecommendAnnouncementModel {
-    let id: Int
-    let image: String
+struct RecommendAnnouncementModel: Codable {
+    let announcements: [RecommendAnnouncement]?
+}
+
+struct RecommendAnnouncement: Codable {
+    let internshipAnnouncementId: Int
+    let companyImage: String
     let title: String
 }

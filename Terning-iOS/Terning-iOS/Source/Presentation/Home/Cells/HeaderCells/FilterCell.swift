@@ -18,7 +18,7 @@ protocol SortButtonDidTapProtocol {
     func sortButtonTapped()
 }
 
-final class FilterHeaderCell: UICollectionReusableView {
+final class FilterCell: UICollectionViewCell {
     
     // MARK: - Properties
     
@@ -138,7 +138,7 @@ final class FilterHeaderCell: UICollectionReusableView {
 
 // MARK: - UI & Layout
 
-extension FilterHeaderCell {
+extension FilterCell {
     func setHierarchy() {
         addSubviews(titleStack, FilteringStack, decorationView, sortButtonStack)
     }
@@ -203,8 +203,7 @@ extension FilterHeaderCell {
     }
 }
 
-
-extension FilterHeaderCell {
+extension FilterCell {
     private func gradeText(for grade: Int) -> String {
         switch grade {
         case 0: return "1학년"

@@ -209,7 +209,7 @@ extension CustomAlertViewController {
         self.JobImageView.setImage(with: model.companyImage)
         self.mainLabel.text = model.title
         self.dDayLabel.text = model.dDay
-        self.deadlineInfoView.setDescriptionText(description: model.deadLine)
+        self.deadlineInfoView.setDescriptionText(description: model.deadline)
         self.workPeriodInfoView.setDescriptionText(description: model.workingPeriod)
         self.workStartInfoView.setDescriptionText(description: model.startYearMonth)
         DispatchQueue.main.async {

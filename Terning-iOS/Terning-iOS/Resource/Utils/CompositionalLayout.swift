@@ -130,24 +130,52 @@ struct CompositionalLayout {
             } else if sectionNumber == 1 {
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
+                        widthDimension: .fractionalWidth(0.5),
                         heightDimension: .fractionalHeight(1)
                     )
                 )
                 
+                item.contentInsets.leading = 12
+                
                 let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(132)),
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(0.8),
+                        heightDimension: .absolute(132)
+                    ),
+                    subitems: [item]
+                )
+                
+                group.interItemSpacing = .fixed(-5)
+                
+                let section = NSCollectionLayoutSection(group: group)
+                
+                section.orthogonalScrollingBehavior = .continuous
+                
+                return section
+                
+            } else if sectionNumber == 2 {
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1.0),
+                        heightDimension: .fractionalHeight(1.0)
+                    )
+                )
+                
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .estimated(68)
+                    ),
                     subitems: [item]
                 )
                 
                 let section = NSCollectionLayoutSection(group: group)
                 
                 return section
-                
             } else {
                 return nil
             }
         }
     }
-
+    
 }

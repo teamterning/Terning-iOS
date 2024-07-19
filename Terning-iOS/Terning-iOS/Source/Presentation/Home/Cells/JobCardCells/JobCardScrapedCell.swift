@@ -151,12 +151,12 @@ extension JobCardScrapedCell {
     // MARK: - Methods
     
     func bindData(model: JobCardModel) {
-        self.internshipAnnouncementId = model.internshipAnnouncementId
+        self.internshipAnnouncementId = model.intershipAnnouncementId
         self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.daysRemaining.text = model.dDay
         self.jobLabel.text = model.title
         self.period.text = model.workingPeriod
-        self.scrapButton.isSelected = model.isScraped
+        self.scrapButton.isSelected = model.isScrapped
     }
     
     func bind(model: SearchResult) {

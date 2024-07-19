@@ -9,13 +9,12 @@ import UIKit
 
 struct JobCardModel: Codable {
     let scrapId: Int?
-    let internshipAnnouncementId: Int
+    let intershipAnnouncementId: Int
     let title: String
     let dDay: String
     let workingPeriod: String
     let companyImage: String
-    let isScraped: Bool
+    let isScrapped: Bool
     let deadline: String
     let startYearMonth: String
-    let color: String?
 }

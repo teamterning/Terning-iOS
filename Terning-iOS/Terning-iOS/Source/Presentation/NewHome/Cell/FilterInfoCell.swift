@@ -10,12 +10,18 @@ import UIKit
 import SnapKit
 import Then
 
+protocol FilterButtonProtocol {
+    func filterButtonDidTap()
+}
+
 final class FilterInfoCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     
     // 필터링 버튼 및 필터링 상태 표시 바
     private lazy var filterButton = FilterButton()
+    
+    var delegate: FilterButtonProtocol?
     
     var gradeLabel = LabelFactory.build(
         text: "3학년",
@@ -74,6 +80,7 @@ final class FilterInfoCell: UICollectionViewCell {
         
         setHierarchy()
         setLayout()
+        setAddTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -119,6 +126,14 @@ extension FilterInfoCell {
             $0.height.equalTo(4)
         }
     }
+    
+    func setAddTarget() {
+        filterButton.addTarget(self, action: #selector(filterButtonDidTap), for: .touchUpInside)
+    }
+    
+    @objc func filterButtonDidTap() {
+        delegate?.filterButtonDidTap()
+    }
 }
 
 extension FilterInfoCell {
@@ -145,8 +160,8 @@ extension FilterInfoCell {
     
     private func periodText(for period: Int) -> String {
         switch period {
-        case 0: return "1개월 ~ 3개월"
-        case 1: return "4개월 ~ 6개월"
+        case 0: return "1~3개월"
+        case 1: return "4~6개월"
         case 2: return "7개월 이상"
         default: return "-"
         }

@@ -51,7 +51,4 @@ extension ScrapInfoHeaderCell {
             $0.leading.equalToSuperview().offset(20.adjusted)
         }
     }
-    
-    // MARK: - Methods
-    
 }

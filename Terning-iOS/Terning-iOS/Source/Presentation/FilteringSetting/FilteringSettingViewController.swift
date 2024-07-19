@@ -14,6 +14,8 @@ class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UI
     
     // MARK: - Properties
     
+    private let filterProvider = Providers.filtersProvider
+    
     var data: UserFilteringInfoModel
     
     private var gradeButtons_dict: [UIButton: Int] {
@@ -87,10 +89,8 @@ extension FilteringSettingViewController {
             $0.addTarget(self, action: #selector(periodButtonDidTap), for: .touchUpInside)
         }
         
-        // 입사 계획 달 설정 버튼
-//        rootView.saveButton.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
+        rootView.saveButton.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
         
-        // 날짜 선택 피커
     }
     
     func setNavigationBind() {
@@ -104,8 +104,8 @@ extension FilteringSettingViewController {
     func bindData(model: UserFilteringInfoModel) {
         print(model)
         updateButtonSelection(for: gradeButtons_dict, selectedValue: grade ?? 0)
-            updateButtonSelection(for: periodButtons_dict, selectedValue: workingPeriod ?? 0)
-        }
+        updateButtonSelection(for: periodButtons_dict, selectedValue: workingPeriod ?? 0)
+    }
     
     func updateButtonSelection(for buttonsDict: [UIButton: Int], selectedValue: Int) {
         for (button, value) in buttonsDict {
@@ -118,88 +118,99 @@ extension FilteringSettingViewController {
     }
     
     // MARK: - UIPickerViewDataSource
-
-        func numberOfComponents(in pickerView: UIPickerView) -> Int {
-            return 2
-        }
-
-        func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-            switch component {
-            case 0: return 3 // Year component (2023 to 2025)
-            case 1: return 12 // Month component (1 to 12)
-            default: return 0
-            }
-        }
-
-        // MARK: - UIPickerViewDelegate
-
-        func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-            switch component {
-            case 0:
-                return String(2023 + row)
-            case 1:
-                return String(row + 1)
-            default:
-                return nil
-            }
-        }
-
-        func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            switch component {
-            case 0:
-                startYear = 2023 + row
-            case 1:
-                startMonth = row + 1
-            default:
-                break
-            }
-        }
     
-//    func putUserFilterSettingInfo() {
-//        mainHomeVC.filtersProvider.request(.setFilterDatas(grade: grade, workingPeriod: grade, startYear: startYear, startMonth: startMonth)){ [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success(let response):
-//                let status = response.statusCode
-//                let message = response.description
-//                if 200..<300 ~= status {
-//                    print(message)
-//                    print("👍👍👍👍👍👍👍👍👍👍👍")
-////                    mainHomeVC.getHomeJobCardInfo()
-//                    
-//                } else {
-//                    print("400 error")
-//                }
-//                
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//                print("👎👎👎👎👎👎👎👎👎👎👎")
-//                
-//            }
-//        }
-//    }
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        switch component {
+        case 0: return 3 // Year component (2023 to 2025)
+        case 1: return 12 // Month component (1 to 12)
+        default: return 0
+        }
+    }
+    
+    // MARK: - UIPickerViewDelegate
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch component {
+        case 0:
+            return String(2023 + row)
+        case 1:
+            return String(row + 3)
+        default:
+            return nil
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch component {
+        case 0:
+            startYear = 2023 + row
+        case 1:
+            startMonth = row + 2
+            print(startMonth)
+        default:
+            break
+        }
+    }
+    
+    func setUserFilterInfo() {
+        filterProvider.request(
+            .setFilterDatas(
+                grade: grade,
+                workingPeriod: workingPeriod,
+                startYear: startYear ?? 0,
+                startMonth: startMonth ?? 0
+            )
+        ) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let result):
+                let status = result.statusCode
+                if 200..<300 ~= status {
+                    do {
+                        let responseDto = try result.map(BaseResponse<BlankData>.self)
+                        
+                        print("필터링 섧정 성공")
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+                if status >= 400 {
+                    print("400 error")
+                    self.showNetworkFailureToast()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showNetworkFailureToast()
+            }
+        }
+    }
     
     // MARK: - @objc Function
     
     @objc
-        func gradeButtonDidTap(_ sender: UIButton) {
-            updateButtonSelection(for: gradeButtons_dict, selectedValue: gradeButtons_dict[sender]!)
-            grade = gradeButtons_dict[sender]!
-            print("\(grade)로 업데이트 되었습니다.")
-        }
+    func gradeButtonDidTap(_ sender: UIButton) {
+        updateButtonSelection(for: gradeButtons_dict, selectedValue: gradeButtons_dict[sender]!)
+        grade = gradeButtons_dict[sender]!
+    }
     
     @objc
-        func periodButtonDidTap(_ sender: UIButton) {
-            updateButtonSelection(for: periodButtons_dict, selectedValue: periodButtons_dict[sender]!)
-            workingPeriod = periodButtons_dict[sender]!
-            print("\(workingPeriod)로 업데이트 되었습니다.")
-        }
+    func periodButtonDidTap(_ sender: UIButton) {
+        updateButtonSelection(for: periodButtons_dict, selectedValue: periodButtons_dict[sender]!)
+        workingPeriod = periodButtons_dict[sender]!
+    }
     
-//    @objc
-//    func saveButtonDidTap() {
-//        print(startYear, startMonth)
-//        putUserFilterSettingInfo()
-//        HomeView.collectionView.reloadData()
-//        self.popOrDismissViewController(animated: true)
-//    }
+    @objc
+    func saveButtonDidTap() {
+        self.setUserFilterInfo()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.showToast(message: "스크랩 설정이 완료 되었어요 !")
+            self.popOrDismissViewController()
+        }
+
+    }
 }

@@ -42,15 +42,11 @@ final class NewHomeViewController: UIViewController {
     }
     
     var filterInfos: UserFilteringInfoModel = UserFilteringInfoModel(
-        grade: nil,
-        workingPeriod: nil,
-        startYear: nil,
-        startMonth: nil
-    ) {
-        didSet {
-            rootView.collectionView.reloadData()
-        }
-    }
+        grade: 0, // 기본값 설정
+        workingPeriod: 0, // 기본값 설정
+        startYear: 2020, // 기본값 설정
+        startMonth: 1 // 기본값 설정
+    )
     
     var jobCardLists: [JobCardModel] = [] {
         didSet {
@@ -58,7 +54,7 @@ final class NewHomeViewController: UIViewController {
         }
     }
     
-    var isNoneData: Bool { // true 면 데이터가 없다는 뜻 입니다.
+    var isNoneData: Bool {
         return filterInfos.grade == nil || filterInfos.workingPeriod == nil ||
         filterInfos.startYear == nil || filterInfos.startMonth == nil
     }
@@ -77,7 +73,13 @@ final class NewHomeViewController: UIViewController {
         setRegister()
         fetchTodayDeadlineDatas()
         fetchFilterInfos()
-        fetchJobCardDatas()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        fetchTodayDeadlineDatas()
+        fetchFilterInfos()
     }
     
     override func loadView() {
@@ -158,7 +160,7 @@ extension NewHomeViewController: UICollectionViewDataSource {
             return cell
         case .filterInfo:
             guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: FilterInfoCell.className, for: indexPath) as? FilterInfoCell else { return UICollectionViewCell() }
-            
+            cell.delegate = self
             cell.bind(model: self.filterInfos)
             
             return cell
@@ -168,17 +170,14 @@ extension NewHomeViewController: UICollectionViewDataSource {
             return cell
             
         case .jobCard:
-            if isNoneData && jobCardLists.isEmpty {
-                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonJobCardCell.className, for: indexPath) as? NonJobCardCell else { return UICollectionViewCell() }
-                
-                return cell
-            } else if !isNoneData && jobCardLists.isEmpty {
+            if isNoneData {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: InavailableFilterView.className, for: indexPath) as? InavailableFilterView else { return UICollectionViewCell() }
-                
                 return cell
-            } else if !isNoneData && !jobCardLists.isEmpty {
+            } else if jobCardLists.isEmpty {
+                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonJobCardCell.className, for: indexPath) as? NonJobCardCell else { return UICollectionViewCell() }
+                return cell
+            } else {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as? JobCardScrapedCell else { return UICollectionViewCell() }
-                
                 cell.bindData(model: jobCardLists[indexPath.row])
                 return cell
             }
@@ -200,6 +199,7 @@ extension NewHomeViewController {
                         guard let data = responseDto.result else { return }
                         
                         self.todayDeadlineLists = data
+                        rootView.collectionView.reloadData()
                         
                     } catch {
                         print(error.localizedDescription)
@@ -228,6 +228,7 @@ extension NewHomeViewController {
                         guard let data = responseDto.result else { return }
                         
                         self.filterInfos = data
+                        self.fetchJobCardDatas()
                         
                     } catch {
                         print(error.localizedDescription)
@@ -256,6 +257,7 @@ extension NewHomeViewController {
                         guard let data = responseDto.result else { return }
                         
                         self.jobCardLists = data
+                        rootView.collectionView.reloadData()
                         
                     } catch {
                         print(error.localizedDescription)
@@ -270,5 +272,14 @@ extension NewHomeViewController {
                 self.showNetworkFailureToast()
             }
         }
+    }
+}
+
+extension NewHomeViewController: FilterButtonProtocol {
+    func filterButtonDidTap() {
+        let filterSettingVC = FilteringSettingViewController(data: filterInfos)
+        
+        filterSettingVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(filterSettingVC, animated: true)
     }
 }

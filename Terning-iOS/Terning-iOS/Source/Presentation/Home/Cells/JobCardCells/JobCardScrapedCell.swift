@@ -1,4 +1,3 @@
-//
 //  JobCardScrapedCell.swift
 //  Terning-iOS
 //
@@ -6,7 +5,6 @@
 //
 
 import UIKit
-
 import SnapKit
 import Then
 
@@ -14,17 +12,21 @@ protocol ScrapDidTapDelegate: AnyObject {
     func scrapButtonDidTap(id: Int)
 }
 
+protocol JobCardScrapedCellProtocol: AnyObject {
+    func scrapButtonDidTap(scrapId: Int, index: Int)
+}
+
 final class JobCardScrapedCell: UICollectionViewCell {
     
     // MARK: - Properties
     
     weak var delegate: ScrapDidTapDelegate?
+    weak var delegate2: JobCardScrapedCellProtocol?
     
     private var isScrapButtonSelected: Bool = false
-    
     private var internshipAnnouncementId: Int? = 0
-    
     private var scrapId: Int?
+    private var indexPath: Int?
     
     // MARK: - UIComponents
     
@@ -71,6 +73,7 @@ final class JobCardScrapedCell: UICollectionViewCell {
     lazy var scrapButton = UIButton().then {
         $0.setImage(.icScrapFill, for: .selected)
         $0.setImage(.icScrap, for: .normal)
+        $0.addTarget(self, action: #selector(scrapButtonDidTap), for: .touchUpInside)
     }
     
     // MARK: - LifeCycles
@@ -80,7 +83,6 @@ final class JobCardScrapedCell: UICollectionViewCell {
         
         setHierarchy()
         setLayout()
-        setAddTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -104,7 +106,6 @@ extension JobCardScrapedCell {
     }
     
     func setLayout() {
-        
         jobCard.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(20)
@@ -144,10 +145,6 @@ extension JobCardScrapedCell {
         }
     }
     
-    private func setAddTarget() {
-        scrapButton.addTarget(self, action: #selector(scrapButtonDidTap), for: .touchUpInside)
-    }
-    
     // MARK: - Methods
     
     func bindData(model: JobCardModel) {
@@ -159,12 +156,13 @@ extension JobCardScrapedCell {
         self.scrapButton.isSelected = model.isScraped
     }
     
-    func bind(model: SearchResult) {
+    func bind(model: SearchResult, indexPath: IndexPath) {
         self.internshipAnnouncementId = model.internshipAnnouncementId
         self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.daysRemaining.text = model.dDay
         self.jobLabel.text = model.title
         self.period.text = model.workingPeriod
+        self.indexPath = indexPath.item
         if model.scrapId == nil {
             self.scrapButton.isSelected = false
         } else {
@@ -178,8 +176,13 @@ extension JobCardScrapedCell {
     @objc
     func scrapButtonDidTap(_ sender: UIButton) {
         guard let internshipAnnouncementId = self.internshipAnnouncementId else { return }
+        guard let scrapId = self.scrapId else { return }
+        guard let indexPath = self.indexPath else { return }
+        
         self.isScrapButtonSelected = sender.isSelected
         delegate?.scrapButtonDidTap(id: internshipAnnouncementId)
+        delegate2?.scrapButtonDidTap(scrapId: scrapId, index: indexPath)
+
     }
     
     func updateScrapButton(isSelected: Bool) {

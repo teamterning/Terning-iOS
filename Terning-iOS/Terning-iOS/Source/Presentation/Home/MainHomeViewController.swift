@@ -406,6 +406,9 @@ extension MainHomeViewController: UICollectionViewDelegate {
 // MARK: - Methods
 
 extension MainHomeViewController: ScrapDidTapDelegate {
+    func scrapButtonDidTap(isScrap: Bool, index: Int) {
+       print("")
+    }
     
     func handleGetHomeResponseStatus(testDataForNonJobCard: Bool, testDataForInavailable: Bool) {
         rootView.testDataForNonJobCard = testDataForNonJobCard

@@ -86,7 +86,7 @@ extension AuthTargetType: TargetType {
         case .signUp:
             headers["authId"] = Config.authId
         case .postOnboarding:
-            headers["User-Id"] = String(Config.userId)
+            return Config.userIdHeader
         }
         return headers
     }

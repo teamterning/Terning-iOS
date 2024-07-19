@@ -103,6 +103,11 @@ extension JobDetailViewController {
         
         return (year, month)
     }
+    
+    private func scrapAnnouncementWithCompletion(internshipAnnouncementId: Int, color: Int, completion: @escaping (Bool) -> Void) {
+        self.scrapAnnouncement(internshipAnnouncementId: internshipAnnouncementId, color: color)
+        completion(true)
+    }
 }
 
 // MARK: - @objc func
@@ -130,15 +135,8 @@ extension JobDetailViewController {
                         startMonth: startDateComponents.month
                     )
                     
-                    let alertSheet = CustomAlertViewController(alertType: .custom)
-                    
+                    let alertSheet = CustomAlertViewController(alertType: .custom, customType: .scrap)
                     alertSheet.setData2(model: dailyScrapModel, deadline: jobDetail.deadline)
-                    alertSheet.setComponentDatas(
-                        mainLabel: jobDetail.title,
-                        subLabel: "공고를 캘린더에 스크랩하시겠어요?",
-                        buttonLabel: "내 캘린더에 스크랩하기"
-                    )
-                    alertSheet.setComponenCustomtDatas(buttonLabel: "내 캘린더에 스크랩하기")
                     
                     alertSheet.modalTransitionStyle = .crossDissolve
                     alertSheet.modalPresentationStyle = .overFullScreen
@@ -148,11 +146,17 @@ extension JobDetailViewController {
                         
                         let colorIndex = alertSheet.selectedColorIndexRelay
                         
-                        self.scrapAnnouncement(
+                        self.scrapAnnouncementWithCompletion(
                             internshipAnnouncementId: currentId,
                             color: self.colorIndexMapping[colorIndex.value] ?? 0
-                        )
-                        self.dismiss(animated: false)
+                        ) { success in
+                            if success {
+                                self.bindViewModel()
+                                JobDetailView().tableView.reloadData()
+                                self.showToast(message: "관심 공고가 캘린더에 스크랩되었어요!")
+                            }
+                            self.dismiss(animated: false)
+                        }
                     }
                     
                     self.present(alertSheet, animated: false)
@@ -173,6 +177,7 @@ extension JobDetailViewController {
                         guard let self = self else { return }
                         self.cancelScrapAnnouncement(scrapId: jobDetail.scrapId ?? -1)
                         self.dismiss(animated: false)
+                        self.showToast(message: "관심 공고가 캘린더에서 사라졌어요!")
                     }
                     
                     self.present(alertSheet, animated: false)
@@ -186,7 +191,6 @@ extension JobDetailViewController {
     }
 }
 
-    
     // MARK: - Bind
     
 extension JobDetailViewController {
@@ -347,6 +351,8 @@ extension JobDetailViewController: UITableViewDelegate {
         return UIView(frame: CGRect.zero)
     }
 }
+
+// MARK: - API
     
 extension JobDetailViewController {
     private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
@@ -359,6 +365,7 @@ extension JobDetailViewController {
                 let status = response.statusCode
                 if 200..<300 ~= status {
                     print("스크랩 수정 성공")
+                    bindViewModel()
                     JobDetailView().tableView.reloadData()
                 } else {
                     print("400 error")
@@ -381,6 +388,7 @@ extension JobDetailViewController {
                 let status = response.statusCode
                 if 200..<300 ~= status {
                     print("스크랩 취소 성공")
+                    bindViewModel()
                     JobDetailView().tableView.reloadData()
                 } else {
                     print("400 error")

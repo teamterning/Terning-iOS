@@ -57,8 +57,6 @@ extension CustomScrapButton {
 extension CustomScrapButton {
     @objc
     private func buttonTapped() {
-        print("클릭~")
-        self.isSelected.toggle()
         self.updateImage()
     }
 }

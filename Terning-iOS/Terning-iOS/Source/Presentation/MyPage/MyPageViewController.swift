@@ -20,6 +20,8 @@ class MyPageViewController: UIViewController {
     
     var appVersion: String?
     
+    private let myPageProvider = Providers.myPageProvider
+    
     // MARK: - UIComponents
     
     var rootView = MyPageView()
@@ -99,5 +101,35 @@ extension MyPageViewController {
     @objc
     func profileEditButtonDidTap() {
         print("navigate to profile edit view")
+    }
+    
+    // MARK: - Network
+    
+    func getMyPageInfo() {
+        myPageProvider.request(.getProfileInfo) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+            
+                if 200..<300 ~= status {
+                    do {
+                        let responseDto = try response.map(BaseResponse<[UserProfileInfoModel]>.self)
+                        guard let data = responseDto.result else { return }
+                        
+                        rootView.userNameLabel.text = "\(data[0])님"
+                    } catch {
+                        print("사용자 정보를 불러올 수 없어요.")
+                        print(error.localizedDescription)
+                    }
+                    
+                } else {
+                    print("404 error")
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }

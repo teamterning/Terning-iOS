@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct UserProfileInfoModel {
+struct UserProfileInfoModel: Codable {
     var name: String
     var authType: String
 }

@@ -30,6 +30,7 @@ final class ProfileImageView: UIView {
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
         $0.backgroundColor = .white
+        $0.isScrollEnabled = false
     }
     
     let saveButton = CustomButton(
@@ -71,14 +72,13 @@ extension ProfileImageView {
     private func setLayout() {
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(28)
+            $0.horizontalEdges.equalToSuperview().inset(24)
         }
         
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(21.33)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(15)
             $0.horizontalEdges.equalToSuperview().inset(44)
-            $0.bottom.equalTo(saveButton.snp.top).offset(21.33)
-            
+            $0.bottom.equalTo(saveButton.snp.top).offset(-15)
         }
         
         saveButton.snp.makeConstraints {

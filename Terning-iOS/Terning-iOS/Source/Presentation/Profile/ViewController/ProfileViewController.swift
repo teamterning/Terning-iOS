@@ -191,12 +191,12 @@ extension ProfileViewController {
 }
 
 // MARK: - Network Calls
+
 extension ProfileViewController {
     private func signUp(name: String, profileImage: Int, authType: String) {
         LoadingIndicator.showLoading()
         
-        authProvider.request(.signUp(name: name, profileImage: profileImage, authType: authType)) { [weak self] result in
-            guard let self = self else { return }
+        authProvider.request(.signUp(name: name, profileImage: profileImage, authType: authType)) { result in
             LoadingIndicator.hideLoading()
             
             switch result {
@@ -205,14 +205,13 @@ extension ProfileViewController {
                 if 200..<300 ~= status {
                     do {
                         let responseDto = try result.map(BaseResponse<SignInResponseModel>.self)
-                        let model = responseDto.result
+                        guard let model = responseDto.result else { return }
+                        
                         if responseDto.status == 201 {
-                            UserManager.shared.accessToken = model?.accessToken
-                            UserManager.shared.refreshToken = model?.refreshToken
-                            UserManager.shared.userId = model?.userId
-                            UserManager.shared.authId = model?.authId
-                            UserManager.shared.authType = model?.authType
-                            self.pushToWelcome()
+                            UserManager.shared.accessToken = model.accessToken
+                            UserManager.shared.refreshToken = model.refreshToken
+                            UserManager.shared.userId = model.userId
+                            UserManager.shared.authType = model.authType
                         } else {
                             self.showToast(message: "status 가 201이 아님")
                         }
@@ -229,6 +228,7 @@ extension ProfileViewController {
     
     private func pushToWelcome() {
         let welcomeViewController = WelcomeViewController(viewType: .first)
+        OnboardingData.shared.userName = self.userName
         self.navigationController?.pushViewController(welcomeViewController, animated: true)
     }
 }

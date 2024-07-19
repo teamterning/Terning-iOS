@@ -32,19 +32,21 @@ final class ProfileViewModel: ViewModelType {
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let text = input.name
-            .map { $0 }
+            .do(onNext: { [weak self] name in
+                self?.nameRelay.accept(name)
+            })
             .share(replay: 1, scope: .whileConnected)
 
         let isNameValid = nameRelay
             .map { [weak self] name -> Bool in
                 guard let self = self else { return false }
-                let isValid = !name.isEmpty && name.count <= 12 && !self.containsSpecialCharacters(name) && !self.containsSymbols(name)
+                let isValid = !name.isEmpty && self.characterCount(of: name) <= 12 && !self.containsSpecialCharacters(name) && !self.containsSymbols(name)
                 return isValid
             }
             .share(replay: 1, scope: .whileConnected)
         
         let nameCountText = nameRelay
-            .map { "\($0.count)/12" }
+            .map { "\(self.characterCount(of: $0))/12" }
             .share(replay: 1, scope: .whileConnected)
         
         let nameValidationMessage = nameValidationMessageRelay.asObservable()
@@ -57,20 +59,24 @@ final class ProfileViewModel: ViewModelType {
         )
     }
     
+    private func characterCount(of string: String) -> Int {
+        return string.count
+    }
+
     private func containsSpecialCharacters(_ string: String) -> Bool {
         let regex = "[\\p{S}\\p{C}]"
         return string.range(of: regex, options: .regularExpression) != nil
     }
     
     private func containsSymbols(_ string: String) -> Bool {
-        let regex = "[!@#$%^&*(),.?\":;'/{}\\[\\]|<>+=\\-_\\\\\\ \\—]"
+        let regex = "[!@#$%^&*(),.?\":;'/{}\\[\\]|<>+=\\-_\\\\\\ \\—…’‘’]"
         return string.range(of: regex, options: .regularExpression) != nil
     }
     
     func validateInput(newText: String) -> Bool {
         if newText.isEmpty {
             nameValidationMessageRelay.accept(.defaultMessage)
-        } else if newText.count > 12 {
+        } else if characterCount(of: newText) > 12 {
             nameValidationMessageRelay.accept(.tooLong)
             return false
         } else if containsSpecialCharacters(newText) {

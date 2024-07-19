@@ -40,6 +40,7 @@ final class ProfileView: UIView {
         $0.layer.cornerRadius = 40
         $0.clipsToBounds = true
         $0.backgroundColor = .grey300
+        $0.isUserInteractionEnabled = true
     }
     
     private let profileImageAddButton = UIButton().then {
@@ -202,7 +203,7 @@ extension ProfileView {
         
         if viewType == .setting {
             welcomeLabel.snp.makeConstraints {
-                $0.top.equalToSuperview().inset(79)
+                $0.top.equalToSuperview().inset(70)
                 $0.leading.equalToSuperview().inset(24)
             }
             profileImageLabel.snp.makeConstraints {
@@ -282,7 +283,7 @@ extension ProfileView {
 extension ProfileView {
     public func setAddTarget(target: Any, action: Selector) {
         profileImageAddButton.addTarget(target, action: action, for: .touchUpInside)
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: action)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: target, action: action)
         profileImageView.addGestureRecognizer(tapGestureRecognizer)
     }
     

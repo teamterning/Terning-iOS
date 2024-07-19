@@ -88,12 +88,12 @@ extension LoginViewController {
 
 extension LoginViewController {
     private func navigateToNextScreen() {
-        let tabBarController = ProfileViewController(viewType: .setting, viewModel: ProfileViewModel())
+        let profileViewVC = UINavigationController(rootViewController: ProfileViewController(viewType: .setting, viewModel: ProfileViewModel()))
         
         guard let window = self.view.window else {
             print("Window is nil")
             return
         }
-        ViewControllerUtils.setRootViewController(window: window, viewController: tabBarController, withAnimation: true)
+        ViewControllerUtils.setRootViewController(window: window, viewController: profileViewVC, withAnimation: true)
     }
 }

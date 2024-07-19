@@ -128,30 +128,56 @@ struct CompositionalLayout {
                 return section
                 
             } else if sectionNumber == 1 {
-                let item = NSCollectionLayoutItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(0.5),
-                        heightDimension: .fractionalHeight(1)
+                if NewHomeViewController().todayDeadlineLists.isEmpty {
+                    let item = NSCollectionLayoutItem(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .fractionalHeight(1)
+                        )
                     )
-                )
+                    
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .absolute(132)
+                        ),
+                        subitems: [item]
+                    )
+                    
+                    let section = NSCollectionLayoutSection(group: group)
+                    
+                    section.orthogonalScrollingBehavior = .continuous
+                    
+                    return section
+                    
+                } else if !NewHomeViewController().todayDeadlineLists.isEmpty {
+                    let item = NSCollectionLayoutItem(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(0.5),
+                            heightDimension: .fractionalHeight(1)
+                        )
+                    )
+                    
+                    item.contentInsets.leading = 12
+                    
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(0.8),
+                            heightDimension: .absolute(132)
+                        ),
+                        subitems: [item]
+                    )
+                    
+                    group.interItemSpacing = .fixed(-5)
+                    
+                    let section = NSCollectionLayoutSection(group: group)
+                    
+                    section.orthogonalScrollingBehavior = .continuous
+                    
+                    return section
+                }
                 
-                item.contentInsets.leading = 12
-                
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(0.8),
-                        heightDimension: .absolute(132)
-                    ),
-                    subitems: [item]
-                )
-                
-                group.interItemSpacing = .fixed(-5)
-                
-                let section = NSCollectionLayoutSection(group: group)
-                
-                section.orthogonalScrollingBehavior = .continuous
-                
-                return section
+                return nil
                 
             } else if sectionNumber == 2 {
                 let item = NSCollectionLayoutItem(

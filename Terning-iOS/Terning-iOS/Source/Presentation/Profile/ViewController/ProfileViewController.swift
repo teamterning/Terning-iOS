@@ -191,6 +191,7 @@ extension ProfileViewController {
 }
 
 // MARK: - Network Calls
+
 extension ProfileViewController {
     private func signUp(name: String, profileImage: Int, authType: String) {
         LoadingIndicator.showLoading()
@@ -229,6 +230,7 @@ extension ProfileViewController {
     
     private func pushToWelcome() {
         let welcomeViewController = WelcomeViewController(viewType: .first)
+        OnboardingData.shared.userName = self.userName
         self.navigationController?.pushViewController(welcomeViewController, animated: true)
     }
 }

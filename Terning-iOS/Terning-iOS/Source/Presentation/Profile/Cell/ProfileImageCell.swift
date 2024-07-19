@@ -53,7 +53,7 @@ extension ProfileImageCell {
     
     private func setLayout() {
         imageView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(2.67)
+            $0.edges.equalToSuperview().inset(4.67)
         }
     }
 }

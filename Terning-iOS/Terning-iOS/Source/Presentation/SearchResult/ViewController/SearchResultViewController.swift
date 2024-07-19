@@ -219,7 +219,7 @@ extension SearchResultViewController: UICollectionViewDelegate {
 }
 
 extension SearchResultViewController: JobCardScrapedCellProtocol {
-    func scrapButtonDidTap(scrapId: Int, index: Int) {
+    func scrapButtonDidTap(index: Int) {
         guard let searchResults = rootView.SearchResult, !searchResults.isEmpty else {
             print("검색 결과가 비어 있습니다. 요청을 실행하지 않습니다.")
             return
@@ -233,7 +233,6 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
         print("index", index)
        
         let model = searchResults[index]
-        print(scrapId)
         print("model", model)
         let scrapId = model.scrapId
         
@@ -320,7 +319,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
 // MARK: - API
     
 extension SearchResultViewController {
-    private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
+    private func patchScrapAnnouncement(scrapId: Int?, color: Int, cell: JobCardScrapedCell) {
         guard let scrapId = scrapId else { return }
         Providers.scrapsProvider.request(.patchScrap(scrapId: scrapId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
@@ -330,6 +329,7 @@ extension SearchResultViewController {
                 let status = response.statusCode
                 if 200..<300 ~= status {
                     print("스크랩 수정 성공")
+                    cell.updateScrapButton(isSelected: true)
                     self.bindViewModel()
                     self.rootView.collectionView.reloadData()
                 } else {

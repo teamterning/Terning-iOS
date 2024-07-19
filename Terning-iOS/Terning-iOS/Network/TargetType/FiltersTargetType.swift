@@ -10,7 +10,7 @@ import Moya
 
 enum FiltersTargetType {
     case getFilterDatas
-    case setFilterDatas(grade: Int, workingPeriod: Int, startYear: Int, startMonth: Int)
+    case setFilterDatas(grade: Int?, workingPeriod: Int?, startYear: Int?, startMonth: Int?)
 }
 
 extension FiltersTargetType: TargetType {
@@ -32,7 +32,7 @@ extension FiltersTargetType: TargetType {
     var method: Moya.Method {
         switch self {
         case .getFilterDatas:
-            return .post
+            return .get
         case .setFilterDatas:
             return .put
         }

@@ -14,9 +14,8 @@ class NonJobCardCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     
-    private let emptyJobCard = UIView().then {
-        $0.backgroundColor = .white
-        $0.makeBorder(width: 1, color: .terningBlack, cornerRadius: 0)
+    private let InfoImage = UIImageView().then {
+        $0.image = .imgNonCardViewInfo
     }
     
     private let descriptionLabel = LabelFactory.build(
@@ -29,7 +28,7 @@ class NonJobCardCell: UICollectionViewCell {
     
     lazy var emptyStackView = UIStackView(
         arrangedSubviews: [
-            emptyJobCard,
+            InfoImage,
             descriptionLabel
         ]
     ).then {
@@ -57,20 +56,20 @@ class NonJobCardCell: UICollectionViewCell {
 extension NonJobCardCell {
     private func setHierarchy() {
         contentView.addSubviews(
-            emptyJobCard,
+            InfoImage,
             descriptionLabel
         )
     }
     
     private func setLayout() {
-        emptyJobCard.snp.makeConstraints {
+        InfoImage.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.height.equalTo(222)
+            $0.height.equalTo(222.adjustedH)
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(emptyJobCard.snp.bottom).offset(20)
+            $0.top.equalTo(InfoImage.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
         }
     }

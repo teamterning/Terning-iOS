@@ -1,8 +1,8 @@
 //
-//  NonJobCardHeaderCell.swift
+//  FilterInfoCell.swift
 //  Terning-iOS
 //
-//  Created by 김민성 on 7/16/24.
+//  Created by 이명진 on 7/19/24.
 //
 
 import UIKit
@@ -10,57 +10,38 @@ import UIKit
 import SnapKit
 import Then
 
-final class NonJobCardHeaderCell: UICollectionReusableView {
-    
-    // MARK: - Properties
-    
-    var filtetButtonDelegate: FilteringButtonDidTapProtocol?
+protocol FilterButtonProtocol {
+    func filterButtonDidTap()
+}
+
+final class FilterInfoCell: UICollectionViewCell {
     
     // MARK: - UIComponents
-    
-    // 상단 타이틀
-    private let subTitleLabel = LabelFactory.build(
-        text: "마음에 드는 공고를 스크랩하고 캘린더에서 모아보세요",
-        font: .detail2,
-        textColor: .terningBlack
-    )
-    
-    private let titleLabel = LabelFactory.build(
-        text: "내 계획에 딱 맞는 대학생 인턴 공고",
-        font: .title1,
-        textColor: .terningBlack
-    )
-    
-    private lazy var titleStack = UIStackView(
-        arrangedSubviews: [
-            subTitleLabel,
-            titleLabel
-        ]
-    ).then {
-        $0.axis = .vertical
-        $0.spacing = 5
-        $0.alignment = .leading
-    }
     
     // 필터링 버튼 및 필터링 상태 표시 바
     private lazy var filterButton = FilterButton()
     
-    private let grade = LabelFactory.build(
-        text: "-",
+    var delegate: FilterButtonProtocol?
+    
+    var gradeLabel = LabelFactory.build(
+        text: "3학년",
         font: .detail2,
         textColor: .black
     )
     
-    private let period = LabelFactory.build(
-        text: "-",
+    var periodLabel = LabelFactory.build(
+        text: "1~3개월",
         font: .detail2,
         textColor: .black
     )
     
-    private let month = LabelFactory.build(
-        text: "-",
+    var monthLabel = LabelFactory.build(
+        text: "2024년 1월",
         font: .detail2,
-        textColor: .black
+        textColor: .black,
+        textAlignment: .left,
+        lineSpacing: 1.2,
+        characterSpacing: 0.002
     )
     
     private let verticalBar1 = UIImageView().then {
@@ -74,15 +55,15 @@ final class NonJobCardHeaderCell: UICollectionReusableView {
     private lazy var FilteringStack = UIStackView(
         arrangedSubviews: [
             filterButton,
-            grade,
+            gradeLabel,
             verticalBar1,
-            period,
+            periodLabel,
             verticalBar2,
-            month
+            monthLabel
         ]
     ).then {
         $0.axis = .horizontal
-        $0.spacing = 45
+        $0.spacing = 20
         $0.distribution = .fillProportionally
         $0.alignment = .center
     }
@@ -109,26 +90,19 @@ final class NonJobCardHeaderCell: UICollectionReusableView {
 
 // MARK: - UI & Layout
 
-extension NonJobCardHeaderCell {
-    private func setHierarchy() {
+extension FilterInfoCell {
+    func setHierarchy() {
         addSubviews(
-            titleStack,
             FilteringStack,
             decorationView
         )
     }
     
-    private func setLayout() {
-        titleStack.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.equalToSuperview().offset(20)
-            $0.height.equalTo(42)
-        }
-        
+    func setLayout() {
         FilteringStack.snp.makeConstraints {
-            $0.top.equalTo(titleStack.snp.bottom).offset(9)
+            $0.top.equalToSuperview().offset(9)
             $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(35)
+            $0.trailing.equalToSuperview().inset(26.adjusted)
         }
         
         filterButton.snp.makeConstraints {
@@ -153,17 +127,43 @@ extension NonJobCardHeaderCell {
         }
     }
     
-    // MARK: - Methods
-    
-    private func setAddTarget() {
-        filterButton.addTarget(self, action: #selector(filteringButtonDidTap), for: .touchUpInside)
+    func setAddTarget() {
+        filterButton.addTarget(self, action: #selector(filterButtonDidTap), for: .touchUpInside)
     }
     
-    // objc Functions
+    @objc func filterButtonDidTap() {
+        delegate?.filterButtonDidTap()
+    }
+}
+
+extension FilterInfoCell {
+    func bind(model: UserFilteringInfoModel) {
+        guard let grade = model.grade,
+                let workingPeriod = model.workingPeriod,
+              let startYear = model.startYear,
+              let startMonth = model.startMonth else { return }
+        
+        gradeLabel.text = gradeText(for: grade)
+        periodLabel.text = periodText(for: workingPeriod)
+        monthLabel.text = "\(startYear)년 \(startMonth)월"
+    }
     
-    @objc
-    private func filteringButtonDidTap() {
-        print("tap")
-        filtetButtonDelegate?.filteringButtonTapped()
+    private func gradeText(for grade: Int) -> String {
+        switch grade {
+        case 0: return "1학년"
+        case 1: return "2학년"
+        case 2: return "3학년"
+        case 3: return "4학년"
+        default: return "-"
+        }
+    }
+    
+    private func periodText(for period: Int) -> String {
+        switch period {
+        case 0: return "1~3개월"
+        case 1: return "4~6개월"
+        case 2: return "7개월 이상"
+        default: return "-"
+        }
     }
 }

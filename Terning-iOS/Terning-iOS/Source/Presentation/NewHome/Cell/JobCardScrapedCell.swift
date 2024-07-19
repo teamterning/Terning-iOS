@@ -13,7 +13,7 @@ protocol ScrapDidTapDelegate: AnyObject {
 }
 
 protocol JobCardScrapedCellProtocol: AnyObject {
-    func scrapButtonDidTap(scrapId: Int, index: Int)
+    func scrapButtonDidTap(index: Int)
 }
 
 final class JobCardScrapedCell: UICollectionViewCell {
@@ -153,12 +153,12 @@ extension JobCardScrapedCell {
     }
     
     func bindData(model: JobCardModel) {
-        self.internshipAnnouncementId = model.internshipAnnouncementId
+        self.internshipAnnouncementId = model.intershipAnnouncementId
         self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.daysRemaining.text = model.dDay
         self.jobLabel.text = model.title
         self.period.text = model.workingPeriod
-        self.scrapButton.isSelected = model.isScraped
+        self.scrapButton.isSelected = model.isScrapped
     }
     
     func bind(model: SearchResult, indexPath: IndexPath) {
@@ -181,15 +181,18 @@ extension JobCardScrapedCell {
     @objc
     func scrapButtonDidTap(_ sender: UIButton) {
         guard let internshipAnnouncementId = self.internshipAnnouncementId else { return }
-        guard let scrapId = self.scrapId else { return }
+        
+        if self.scrapId == nil {
+            updateScrapButton(isSelected: false)
+        } else {
+            updateScrapButton(isSelected: true)
+        }
+        
         guard let indexPath = self.indexPath else { return }
-        
-        
-        print("zzzzzzz")
+
         self.isScrapButtonSelected = sender.isSelected
         delegate?.scrapButtonDidTap(id: internshipAnnouncementId)
-        delegate2?.scrapButtonDidTap(scrapId: scrapId, index: indexPath)
-
+        delegate2?.scrapButtonDidTap(index: indexPath)
     }
     
     func updateScrapButton(isSelected: Bool) {

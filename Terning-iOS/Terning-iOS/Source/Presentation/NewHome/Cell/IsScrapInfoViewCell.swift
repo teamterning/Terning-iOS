@@ -98,7 +98,7 @@ extension IsScrapInfoViewCell {
         self.companyImage = model.companyImage
         self.cardLabel.text = model.title
         self.dDay = model.dDay
-        self.deadline = model.deadLine
+        self.deadline = model.deadline
         self.workingPeriod = model.workingPeriod
         self.startYearMonth = model.startYearMonth
         self.colorMark.backgroundColor = UIColor(hex: model.color)

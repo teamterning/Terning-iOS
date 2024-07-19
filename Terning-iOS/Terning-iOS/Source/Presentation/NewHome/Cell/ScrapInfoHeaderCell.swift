@@ -10,15 +10,18 @@ import UIKit
 import SnapKit
 import Then
 
-final class ScrapInfoHeaderCell: UICollectionReusableView {
+final class ScrapInfoHeaderCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     
     private let titleLabel = LabelFactory.build(
         text: "오늘 마감되는 남지우님의 관심공고",
         font: .title1,
-        textColor: .terningBlack
-    )
+        textColor: .terningBlack,
+        textAlignment: .left
+    ).then {
+        $0.numberOfLines = 0
+    }
     
     // MARK: - LifeCycles
     
@@ -45,24 +48,7 @@ extension ScrapInfoHeaderCell {
     private func setLayout() {
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.leading.equalToSuperview().offset(20)
+            $0.leading.equalToSuperview().offset(20.adjusted)
         }
-    }
-    
-    // MARK: - Methods
-    
-    private func setTitleLabel(name: String) {
-        if name.count >= 7 {
-            titleLabel.text = "오늘 마감되는 \n\(name)님의 관심공고"
-            titleLabel.numberOfLines = 2
-            titleLabel.textAlignment = .left
-        } else if name.count < 7 {
-            titleLabel.text = "오늘 마감되는 \(name)님의 관심공고"
-            titleLabel.textAlignment = .left
-        }
-    }
-    
-    func bind(model: UserProfileInfoModel) {
-        setTitleLabel(name: model.name)
     }
 }

@@ -188,7 +188,6 @@ extension NewHomeViewController: UICollectionViewDataSource {
                 return cell
             }
         }
-        return UICollectionViewCell()
     }
 }
 

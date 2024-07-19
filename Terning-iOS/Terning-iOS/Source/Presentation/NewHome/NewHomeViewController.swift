@@ -281,5 +281,6 @@ extension NewHomeViewController: FilterButtonProtocol {
         
         filterSettingVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(filterSettingVC, animated: true)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 }

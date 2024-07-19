@@ -390,7 +390,8 @@ extension TNCalendarViewController: UICollectionViewDataSource {
         if collectionView == rootView.calenderBottomCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else { return UICollectionViewCell() }
             
-            cell.bind(model: calendarDaily[indexPath.row])
+            cell.bind(model: calendarDaily[indexPath.row], indexPath: indexPath.row)
+            cell.delegate = self
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else {
@@ -401,7 +402,8 @@ extension TNCalendarViewController: UICollectionViewDataSource {
             let scrapSection = scrapLists[sortedKeys[indexPath.section]] ?? []
             let scrapItem = scrapSection[indexPath.row]
             
-            cell.bind(model: scrapItem)
+            cell.bind(model: scrapItem, indexPath: indexPath.row)
+            cell.delegate = self
             return cell
         }
     }
@@ -441,6 +443,32 @@ extension TNCalendarViewController: UICollectionViewDataSource {
                 return UICollectionReusableView()
             }
         }
+    }
+}
+
+extension TNCalendarViewController: JobListCellProtocol {
+    func scrapButtonDidTap(isScrap: Bool, index: Int) {
+        
+        let alertSheet = CustomAlertViewController(alertType: .normal)
+        let model = calendarDaily[index]
+        let scrapId = model.scrapId
+        
+        alertSheet.setComponentDatas(
+            mainLabel: "관심 공고가 캘린더에서 사라져요!",
+            subLabel: "스크랩을 취소하시겠어요?",
+            buttonLabel: "스크랩 취소하기"
+        )
+        
+        alertSheet.centerButtonTapAction = {
+            self.cancelScrapAnnouncement(scrapId: scrapId)
+            self.dismiss(animated: false)
+        }
+        
+        alertSheet.modalTransitionStyle = .crossDissolve
+        alertSheet.modalPresentationStyle = .overFullScreen
+        
+        self.present(alertSheet, animated: false)
+        
     }
 }
 
@@ -580,6 +608,29 @@ extension TNCalendarViewController {
                 let status = response.statusCode
                 if 200..<300 ~= status {
                     print("스크랩 수정 성공")
+                    self.refetchDataAndReloadViews()
+                } else {
+                    print("400 error")
+                    self.showToast(message: "네트워크 오류")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showToast(message: "네트워크 오류")
+            }
+        }
+    }
+    
+    private func cancelScrapAnnouncement(scrapId: Int?) {
+        
+        guard let scrapId = scrapId else { return }
+        Providers.scrapsProvider.request(.removeScrap(scrapId: scrapId)) { [weak self] result in
+            LoadingIndicator.hideLoading()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                if 200..<300 ~= status {
+                    print("스크랩 취소 성공")
                     self.refetchDataAndReloadViews()
                 } else {
                     print("400 error")

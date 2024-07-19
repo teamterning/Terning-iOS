@@ -103,26 +103,4 @@ extension UIViewController {
             }
         }
     }
-    
-    func cancelScrapAnnouncement(scrapId: Int?) {
-        
-        guard let scrapId = scrapId else { return }
-        Providers.scrapsProvider.request(.removeScrap(scrapId: scrapId)) { [weak self] result in
-            LoadingIndicator.hideLoading()
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                let status = response.statusCode
-                if 200..<300 ~= status {
-                    print("스크랩 취소 성공")
-                } else {
-                    print("400 error")
-                    self.showToast(message: "네트워크 오류")
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-                self.showToast(message: "네트워크 오류")
-            }
-        }
-    }
 }

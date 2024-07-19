@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 protocol JobListCellProtocol: AnyObject {
-    func scrapButtonDidTap(wantsTolike: Bool)
+    func scrapButtonDidTap(isScrap: Bool, index: Int)
 }
 
 final class JobListingCell: UICollectionViewCell {
@@ -18,6 +18,8 @@ final class JobListingCell: UICollectionViewCell {
     // MARK: - Properties
     
     weak var delegate: JobListCellProtocol?
+    
+    private var indexPath: Int?
     
     // MARK: - UIComponents
     
@@ -85,6 +87,7 @@ final class JobListingCell: UICollectionViewCell {
         setUI()
         setHierarchy()
         setLayout()
+        setAddTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -168,10 +171,12 @@ extension JobListingCell {
     
     // MARK: - Methods
     
-    func bind(model: DailyScrapModel) {
+    func bind(model: DailyScrapModel, indexPath: Int? = nil) {
         guard let day = model.dDay else { return print("JobListingCell Error dDay") }
         guard let workingPeriod = model.workingPeriod else { return print("JobListingCell Error workingPeriod") }
         guard let companyImage = model.companyImage else { return print("JobListingCell Error companyImage") }
+        
+        self.indexPath = indexPath
         
         self.mainImageView.setImage(with: companyImage)
         self.deadlineLabel.text = day
@@ -179,6 +184,8 @@ extension JobListingCell {
         
         self.mainTitleLabel.text = model.title
         self.colorMark.backgroundColor = UIColor(hex: model.color)
+        
+        self.scrapButton.isSelected = true
     }
     
     private func setAddTarget() {
@@ -192,7 +199,9 @@ extension JobListingCell {
     
     @objc
     func scrapButtonDidTap(_ sender: UIButton) {
-        delegate?.scrapButtonDidTap(wantsTolike: (sender.isSelected == true))
+        guard let indexPath = self.indexPath else { return }
+        
+        delegate?.scrapButtonDidTap(isScrap: (sender.isSelected == true), index: indexPath)
     }
 }
                                   

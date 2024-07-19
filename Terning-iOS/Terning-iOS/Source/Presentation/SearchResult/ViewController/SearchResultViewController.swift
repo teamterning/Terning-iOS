@@ -1,10 +1,7 @@
-//
 //  SearchResultViewController.swift
 //  Terning-iOS
 //
 //  Created by 정민지 on 7/17/24.
-//
-//
 //
 
 import UIKit
@@ -22,6 +19,19 @@ enum SearchResultType: Int, CaseIterable {
 final class SearchResultViewController: UIViewController {
     
     // MARK: - Properties
+    
+    private let colorIndexMapping: [Int: Int] = [
+        0: 0,  // calRed
+        1: 2,  // calOrange2
+        2: 4,  // calGreen1
+        3: 6,  // calBlue1
+        4: 8,  // calPurple
+        5: 1,  // calOrange
+        6: 3,  // calYellow
+        7: 5,  // calGreen2
+        8: 7,  // calBlue2
+        9: 9   // calPink
+    ]
     
     private let viewModel: SearchResultViewModel
     private let disposeBag = DisposeBag()
@@ -140,7 +150,6 @@ extension SearchResultViewController {
             guard let self = self else { return }
             self.popOrDismissViewController(animated: true)
         }
-        
     }
 }
 
@@ -176,7 +185,8 @@ extension SearchResultViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as? JobCardScrapedCell, let SearchResult = rootView.SearchResult else {
                 return UICollectionViewCell()
             }
-            cell.bind(model: SearchResult[indexPath.item])
+            cell.bind(model: SearchResult[indexPath.item], indexPath: indexPath)
+            cell.delegate2 = self
             return cell
             
         case .noSearch:
@@ -204,6 +214,155 @@ extension SearchResultViewController: UICollectionViewDelegate {
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         default:
             break
+        }
+    }
+}
+
+extension SearchResultViewController: JobCardScrapedCellProtocol {
+    func scrapButtonDidTap(scrapId: Int, index: Int) {
+        guard let searchResults = rootView.SearchResult, !searchResults.isEmpty else {
+            print("검색 결과가 비어 있습니다. 요청을 실행하지 않습니다.")
+            return
+        }
+        
+        guard index >= 0 && index < searchResults.count else {
+            print("잘못된 인덱스입니다.")
+            return
+        }
+        
+        print("index", index)
+       
+        let model = searchResults[index]
+        print(scrapId)
+        print("model", model)
+        let scrapId = model.scrapId
+        
+        if scrapId == nil {
+            let startDateComponents = parseStartDate(model.startYearMonth)
+            
+            let dailyScrapModel = DailyScrapModel(
+                scrapId: model.scrapId ?? 0,
+                title: model.title,
+                color: "#ED4E54",
+                internshipAnnouncementId: model.internshipAnnouncementId,
+                dDay: model.dDay,
+                workingPeriod: model.workingPeriod,
+                companyImage: model.companyImage,
+                startYear: startDateComponents.year,
+                startMonth: startDateComponents.month
+            )
+            let alertSheet = CustomAlertViewController(alertType: .custom, customType: .scrap)
+            alertSheet.setData2(model: dailyScrapModel, deadline: model.deadline)
+            
+            alertSheet.modalTransitionStyle = .crossDissolve
+            alertSheet.modalPresentationStyle = .overFullScreen
+            
+            alertSheet.centerButtonTapAction = { [weak self] in
+                guard let self = self else { return }
+                
+                let colorIndex = alertSheet.selectedColorIndexRelay
+                
+                self.scrapAnnouncementWithCompletion(
+                    internshipAnnouncementId: model.internshipAnnouncementId,
+                    color: self.colorIndexMapping[colorIndex.value] ?? 0
+                ) { success in
+                    if success {
+                        self.bindViewModel()
+                        self.rootView.collectionView.reloadData()
+                        self.showToast(message: "관심 공고가 캘린더에 스크랩되었어요!")
+                    }
+                    self.dismiss(animated: false)
+                }
+            }
+            self.present(alertSheet, animated: false)
+        } else {
+            let alertSheet = CustomAlertViewController(alertType: .normal)
+            alertSheet.setComponentDatas(
+                mainLabel: "관심 공고가 캘린더에서 사라져요!",
+                subLabel: "스크랩을 취소하시겠어요?",
+                buttonLabel: "스크랩 취소하기"
+            )
+            
+            alertSheet.centerButtonTapAction = {
+                self.cancelScrapAnnouncement(scrapId: scrapId)
+                self.dismiss(animated: false)
+             
+                self.showToast(message: "관심 공고가 캘린더에서 사라졌어요!")
+            }
+            
+            alertSheet.modalTransitionStyle = .crossDissolve
+            alertSheet.modalPresentationStyle = .overFullScreen
+            
+            self.present(alertSheet, animated: false)
+        }
+        
+    }
+    
+    private func scrapAnnouncementWithCompletion(internshipAnnouncementId: Int, color: Int, completion: @escaping (Bool) -> Void) {
+        self.scrapAnnouncement(internshipAnnouncementId: internshipAnnouncementId, color: color)
+        completion(true)
+    }
+    
+    private func parseStartDate(_ startDate: String) -> (year: Int?, month: Int?)  {
+        let dateComponents = startDate.components(separatedBy: "년 ")
+        guard dateComponents.count == 2 else { return (nil, nil) }
+        
+        let yearString = dateComponents[0]
+        let monthString = dateComponents[1].replacingOccurrences(of: "월", with: "")
+        
+        let year = Int(yearString.trimmingCharacters(in: .whitespaces))
+        let month = Int(monthString.trimmingCharacters(in: .whitespaces))
+        
+        return (year, month)
+    }
+}
+
+// MARK: - API
+    
+extension SearchResultViewController {
+    private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
+        guard let scrapId = scrapId else { return }
+        Providers.scrapsProvider.request(.patchScrap(scrapId: scrapId, color: color)) { [weak self] result in
+            LoadingIndicator.hideLoading()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                if 200..<300 ~= status {
+                    print("스크랩 수정 성공")
+                    self.bindViewModel()
+                    self.rootView.collectionView.reloadData()
+                } else {
+                    print("400 error")
+                    self.showToast(message: "네트워크 오류")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showToast(message: "네트워크 오류")
+            }
+        }
+    }
+    
+    private func cancelScrapAnnouncement(scrapId: Int?) {
+        guard let scrapId = scrapId else { return }
+        Providers.scrapsProvider.request(.removeScrap(scrapId: scrapId)) { [weak self] result in
+            LoadingIndicator.hideLoading()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                if 200..<300 ~= status {
+                    print("스크랩 취소 성공")
+                    self.bindViewModel()
+                    self.rootView.collectionView.reloadData()
+                } else {
+                    print("400 error")
+                    self.showToast(message: "네트워크 오류")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showToast(message: "네트워크 오류")
+            }
         }
     }
 }

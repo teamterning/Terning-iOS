@@ -17,6 +17,7 @@ struct JobCardModel: Codable {
     let isScraped: Bool
 }
 
+
 // dummy data
 extension JobCardModel {
     static func getJobCardData() -> [JobCardModel] {

@@ -194,10 +194,11 @@ extension ProfileViewController {
 extension ProfileViewController {
     private func signUp(name: String, profileImage: Int, authType: String) {
         LoadingIndicator.showLoading()
-        defer { LoadingIndicator.hideLoading() }
         
         authProvider.request(.signUp(name: name, profileImage: profileImage, authType: authType)) { [weak self] result in
             guard let self = self else { return }
+            LoadingIndicator.hideLoading()
+            
             switch result {
             case .success(let result):
                 let status = result.statusCode

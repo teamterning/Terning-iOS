@@ -25,6 +25,11 @@ enum AlertMode {
     case color
 }
 
+enum CustomType {
+    case scrap
+    case goDetail
+}
+
 final class CustomAlertViewController: UIViewController {
     
     // MARK: - Properties
@@ -35,6 +40,7 @@ final class CustomAlertViewController: UIViewController {
     var currentMode: AlertMode = .info
     
     private var alertType: AlertType!
+    private var customType: CustomType? = .goDetail
     
     let selectedColorIndexRelay = BehaviorRelay<Int>(value: 0)
     
@@ -166,13 +172,18 @@ final class CustomAlertViewController: UIViewController {
         self.setLayout(alertType)
         self.bindViews(alertType)
         if alertType == .custom {
-            switchMode(to: .info)
+            if customType == .scrap {
+                switchMode(to: .info, type: .scrap)
+            } else {
+                switchMode(to: .info, type: .goDetail)
+            }
         }
     }
     
-    init(alertType: AlertType) {
+    init(alertType: AlertType, customType: CustomType? = .goDetail) {
         
         self.alertType = alertType
+        self.customType = customType
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -229,7 +240,7 @@ extension CustomAlertViewController {
         self.dDayLabel.text = model.dDay
         self.deadlineInfoView.setDescriptionText(description: deadline)
         self.workPeriodInfoView.setDescriptionText(description: model.workingPeriod ?? "")
-        self.workStartInfoView.setDescriptionText(description: "\(model.startYear ?? 0) 년 \(model.startMonth ?? 0) 월 ")
+        self.workStartInfoView.setDescriptionText(description: "\(model.startYear ?? 0)년 \(model.startMonth ?? 0)월 ")
         DispatchQueue.main.async {
             self.colorButton.setBackgroundColor(UIColor(hex: model.color), for: .normal)
         }
@@ -237,14 +248,12 @@ extension CustomAlertViewController {
         self.centerButton.setTitle(title: "공고 상세 정보 보러가기")
     }
     
-    
     /// 알림창에 들어갈 String 값을 커스텀 해주는 메서드 입니다.
     /// - Parameters:
     ///   - mainLabel: 메인 text
     ///   - subLabel: 서브 text
     ///   - buttonLabel: 중앙 버튼 text
     public func setComponentDatas(mainLabel: String, subLabel: String, buttonLabel: String) {
-        guard alertType == .normal else { return }
         
         self.mainLabel.text = mainLabel
         self.subLabel.text = subLabel
@@ -268,15 +277,22 @@ extension CustomAlertViewController {
         }
     }
     
-    private func switchMode(to mode: AlertMode) {
+    private func switchMode(to mode: AlertMode, type: CustomType? = .goDetail) {
         self.currentMode = mode
         let isInfoMode = mode == .info
         
         self.detailsVStackView.isHidden = !isInfoMode
         self.dDayLabel.isHidden = !isInfoMode
         self.palettecollectionView.isHidden = isInfoMode
-        let buttonName = isInfoMode ? "공고 상세 정보 보러가기" : "색상 저장하기"
-        self.centerButton.setTitle(title: buttonName)
+        if type == .scrap {
+            self.subLabel.text = "공고를 캘린더에 스크랩하시겠어요?"
+            let buttonName = isInfoMode ? "내 캘린더에 스크랩하기" : "내 캘린더에 스크랩하기"
+            self.centerButton.setTitle(title: buttonName)
+        } else {
+            self.subLabel.text = "공고를 캘린더에 스크랩하시겠어요?"
+            let buttonName = isInfoMode ? "공고 상세 정보 보러가기" : "색상 저장하기"
+            self.centerButton.setTitle(title: buttonName)
+        }
     }
     
     private func handleColorSelection(at index: Int) {

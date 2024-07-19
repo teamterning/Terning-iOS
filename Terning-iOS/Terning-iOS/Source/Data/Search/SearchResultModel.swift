@@ -19,7 +19,10 @@ struct SearchResult: Codable {
     let internshipAnnouncementId: Int
     let scrapId: Int?
     let dDay: String
+    let deadline: String
     let companyImage: String
     let title: String
     let workingPeriod: String
+    let startYearMonth: String
+    let color: String?
 }

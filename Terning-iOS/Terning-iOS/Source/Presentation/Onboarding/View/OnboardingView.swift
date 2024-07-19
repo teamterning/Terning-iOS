@@ -25,16 +25,16 @@ final class OnboardingView: UIView {
     private let viewType: OnboardingViewType
     
     private let gradeButtonOptions = [
-        ("1학년", "대학생의 첫 인턴, 어린 나이에 미리 도전해볼래요!"),
-        ("2학년", "미리 대학생 인턴 경험하고, 사회 생활을 해 보고 싶어요"),
-        ("3학년", "4학년이 되기 전, 인턴으로 유의미한 스펙을 쌓고 싶어요"),
-        ("4학년", "사회인으로의 첫 발걸음, 인턴으로 채우고 싶어요")
+        ("1학년", "대학생 인턴, 누구보다 빠르게 시작해 보세요!"),
+        ("2학년", "인턴이라는 좋은 기회로 단숨에 스펙업하세요! "),
+        ("3학년", "지금까지 준비한 역량을 인턴으로 발휘해 보세요!"),
+        ("4학년", "사회초년생으로 도약하기 위한 마지막 단계를 경험하세요!")
     ]
     
     private let workingPeriodButtonOptions = [
-        ("1개월 ~ 3개월", "짧은 기간 안에 스펙을 쌓고 싶은\n‘인턴 초년생'에게 추천해요!"),
-        ("4개월 ~ 6개월", "좀 더 오랜 시간동안의 회사 경험을 원하는\n‘성숙 인턴러'에게 추천해요!"),
-        ("7개월 이상", "산업에 오랜 기간 딥다이브 하고 싶은\n‘예비 사회인'에게 추천해요!")
+        ("1개월 ~ 3개월", "짧은 기간 안에 유의미한 스펙을 쌓을 수 있어요!"),
+        ("4개월 ~ 6개월", "회사와 직무에 대해 이해하기 적당한 기간이에요!"),
+        ("7개월 이상", "오랜 기간 내 커리어에 맞는 직무경험을 만들 수 있어요!")
     ]
     private var selectedButton: CustomOnboardingButton?
     
@@ -172,7 +172,7 @@ extension OnboardingView {
 extension OnboardingView {
     private func setGradeUI() {
         let userName = OnboardingData.shared.userName
-        
+        print("userName", userName)
         if userName == "" {
             titleLabel.text = "재학 상태를 선택해주세요"
         } else if userName.count > 6 {

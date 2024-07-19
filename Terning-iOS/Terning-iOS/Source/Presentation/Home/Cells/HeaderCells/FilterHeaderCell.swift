@@ -129,7 +129,6 @@ final class FilterHeaderCell: UICollectionReusableView {
         setHierarchy()
         setLayout()
         setAddTarget()
-        setTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -189,48 +188,12 @@ extension FilterHeaderCell {
         filterButton.addTarget(self, action: #selector(filteringButtonDidTap), for: .touchUpInside)
     }
     
-    private func setTapGesture() {
-           let tapGesture = UITapGestureRecognizer(target: self, action: #selector(sortButtonDidTap))
-           sortButtonStack.addGestureRecognizer(tapGesture)
-       }
-    
-    func bindData(model: UserFilteringInfoModel?) {
-        print("🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀ㅍ", model)
-            guard let data = model else{ return }
-        print("🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀ㅍ", data)
-            switch data.grade {
-            case 0:
-                grade.text = "1학년"
-
-            case 1:
-                grade.text = "2학년"
-
-            case 2:
-                grade.text = "3학년"
-
-            case 3:
-                grade.text = "4학년"
-
-            default:
-                grade.text = "-"
-            }
-
-            switch data.workingPeriod {
-            case 0:
-                period.text = "1개월 ~ 3개월"
-
-            case 1:
-                period.text = "4개월 ~ 6개월"
-
-            case 2:
-                period.text = "7개월 이상"
-
-            default:
-                period.text = "-"
-            }
-
-            month.text = "\(data.startYear)년 \(data.startMonth)월"
-        }
+    func bindData(model: UserFilteringInfoModel) {
+        
+        grade.text = gradeText(for: model.grade)
+        period.text = periodText(for: model.workingPeriod)
+        month.text = "\(model.startYear)년 \(model.startMonth)월"
+    }
     // objc Functions
     
     @objc
@@ -238,9 +201,26 @@ extension FilterHeaderCell {
         print("tap")
         filtetButtonDelegate?.filteringButtonTapped()
     }
-    
-    @objc
-    func sortButtonDidTap() {
-        print("tap")
+}
+
+
+extension FilterHeaderCell {
+    private func gradeText(for grade: Int) -> String {
+        switch grade {
+        case 0: return "1학년"
+        case 1: return "2학년"
+        case 2: return "3학년"
+        case 3: return "4학년"
+        default: return "-"
+        }
+    }
+
+    private func periodText(for period: Int) -> String {
+        switch period {
+        case 0: return "1개월 ~ 3개월"
+        case 1: return "4개월 ~ 6개월"
+        case 2: return "7개월 이상"
+        default: return "-"
+        }
     }
 }

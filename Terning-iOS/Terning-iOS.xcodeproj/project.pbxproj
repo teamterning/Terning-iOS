@@ -129,6 +129,8 @@
 		71FFB2B22C47DD8000C60697 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 716E08AB2C44349A00469E3B /* Config.xcconfig */; };
 		71FFB2B52C47ECF200C60697 /* CustomBottmSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2B42C47ECF200C60697 /* CustomBottmSheetViewController.swift */; };
 		71FFB2B82C48286300C60697 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2B72C48286300C60697 /* SplashViewController.swift */; };
+		71FFB2BD2C4A186900C60697 /* NewHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2BC2C4A186900C60697 /* NewHomeViewController.swift */; };
+		71FFB2BF2C4A188A00C60697 /* NewHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2BE2C4A188A00C60697 /* NewHomeView.swift */; };
 		B855485A2C47EEBB00EC67F6 /* UserProfileInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85548592C47EEBB00EC67F6 /* UserProfileInfoModel.swift */; };
 		B855485D2C48026B00EC67F6 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B855485C2C48026B00EC67F6 /* MyPageView.swift */; };
 		B855485F2C48027500EC67F6 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B855485E2C48027500EC67F6 /* MyPageViewController.swift */; };
@@ -146,9 +148,7 @@
 		B8C5DB6E2C3F353D00865B1A /* InavailableFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */; };
 		B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */; };
 		B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */; };
-		B8D549392C450C9600553BB5 /* MainHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D549382C450C9600553BB5 /* MainHomeView.swift */; };
 		B8D5493B2C450E9600553BB5 /* FilterHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D5493A2C450E9600553BB5 /* FilterHeaderCell.swift */; };
-		B8D5493D2C455A2100553BB5 /* MainHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D5493C2C455A2100553BB5 /* MainHomeViewController.swift */; };
 		B8D5493F2C45B46D00553BB5 /* NonJobCardHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D5493E2C45B46D00553BB5 /* NonJobCardHeaderCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -267,6 +267,8 @@
 		71E3C4112C243BDD0026C4DD /* getClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getClassName.swift; sourceTree = "<group>"; };
 		71FFB2B42C47ECF200C60697 /* CustomBottmSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBottmSheetViewController.swift; sourceTree = "<group>"; };
 		71FFB2B72C48286300C60697 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		71FFB2BC2C4A186900C60697 /* NewHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHomeViewController.swift; sourceTree = "<group>"; };
+		71FFB2BE2C4A188A00C60697 /* NewHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHomeView.swift; sourceTree = "<group>"; };
 		B85548592C47EEBB00EC67F6 /* UserProfileInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileInfoModel.swift; sourceTree = "<group>"; };
 		B855485C2C48026B00EC67F6 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		B855485E2C48027500EC67F6 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -284,9 +286,7 @@
 		B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InavailableFilterView.swift; sourceTree = "<group>"; };
 		B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSettingView.swift; sourceTree = "<group>"; };
 		B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSettingViewController.swift; sourceTree = "<group>"; };
-		B8D549382C450C9600553BB5 /* MainHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeView.swift; sourceTree = "<group>"; };
 		B8D5493A2C450E9600553BB5 /* FilterHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterHeaderCell.swift; sourceTree = "<group>"; };
-		B8D5493C2C455A2100553BB5 /* MainHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeViewController.swift; sourceTree = "<group>"; };
 		B8D5493E2C45B46D00553BB5 /* NonJobCardHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonJobCardHeaderCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -867,6 +867,7 @@
 		71E3C3E82C241C020026C4DD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				71FFB2BB2C4A179000C60697 /* NewHome */,
 				71FFB2B62C48284A00C60697 /* Splash */,
 				2DC985F42C456ED800D46729 /* Search */,
 				2D89C7572C486DD2002B035F /* SearchResult */,
@@ -950,6 +951,15 @@
 			path = Splash;
 			sourceTree = "<group>";
 		};
+		71FFB2BB2C4A179000C60697 /* NewHome */ = {
+			isa = PBXGroup;
+			children = (
+				71FFB2BC2C4A186900C60697 /* NewHomeViewController.swift */,
+				71FFB2BE2C4A188A00C60697 /* NewHomeView.swift */,
+			);
+			path = NewHome;
+			sourceTree = "<group>";
+		};
 		B855485B2C48025600EC67F6 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -962,8 +972,6 @@
 		B871D7142C3E8498008D78C2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				B8D5493C2C455A2100553BB5 /* MainHomeViewController.swift */,
-				B8D549382C450C9600553BB5 /* MainHomeView.swift */,
 				B871D7152C3E84A1008D78C2 /* Cells */,
 			);
 			path = Home;
@@ -1171,6 +1179,7 @@
 				2D89C74F2C47E98B002B035F /* ProfileImageViewController.swift in Sources */,
 				2DC61EFD2C40823C009F991F /* CompanyInfoTableViewCell.swift in Sources */,
 				B855485D2C48026B00EC67F6 /* MyPageView.swift in Sources */,
+				71FFB2BF2C4A188A00C60697 /* NewHomeView.swift in Sources */,
 				7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */,
 				71780C562C45A81E0073B731 /* AuthInterceptor.swift in Sources */,
 				71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */,
@@ -1186,7 +1195,6 @@
 				2D4EE38B2C3D9FD900E3E95B /* CustomDatePicker.swift in Sources */,
 				2D4EE3942C3DD5B700E3E95B /* WelcomeView.swift in Sources */,
 				71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */,
-				B8D5493D2C455A2100553BB5 /* MainHomeViewController.swift in Sources */,
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
 				B8BE0E102C465AAD00B3D298 /* Config.swift in Sources */,
 				71CCC0792C3FDABF00789A9B /* TNCalendarViewModel.swift in Sources */,
@@ -1232,6 +1240,7 @@
 				B871D7292C3E8E46008D78C2 /* JobCardScrapedCell.swift in Sources */,
 				2D89C74D2C47E8EA002B035F /* ProfileImageViewModel.swift in Sources */,
 				2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */,
+				71FFB2BD2C4A186900C60697 /* NewHomeViewController.swift in Sources */,
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
 				2DC61EF92C407E65009F991F /* JobDetailTableViewHeaderCell.swift in Sources */,
 				71780C352C45725E0073B731 /* Providers.swift in Sources */,
@@ -1263,7 +1272,6 @@
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
 				2D89C7612C486E12002B035F /* SearchResultViewModel.swift in Sources */,
 				2DC61F152C41AB54009F991F /* LoginViewController.swift in Sources */,
-				B8D549392C450C9600553BB5 /* MainHomeView.swift in Sources */,
 				2DC61F052C40926D009F991F /* JobDetailView.swift in Sources */,
 				7121A1492C3B08360056DB8B /* JobDetailModel.swift in Sources */,
 				2D4EE3ED2C4020DC00E3E95B /* OnboardingViewModel.swift in Sources */,

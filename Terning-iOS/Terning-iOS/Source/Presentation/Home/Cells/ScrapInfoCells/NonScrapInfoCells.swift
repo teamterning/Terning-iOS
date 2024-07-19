@@ -14,20 +14,9 @@ final class NonScrapInfoCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     
-    private let internshipScrapedStatus = UIView().then {
-        $0.makeBorder(width: 1, color: .grey150, cornerRadius: 5)
-        $0.backgroundColor =  .white
-        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
+    private let notScrapInfoImageView = UIImageView().then {
+        $0.image = .imgNotAnouncement
     }
-    
-    private let internshipScrapedStatusLabel = LabelFactory.build(
-        text: "아직 스크랩된 인턴 공고가 없어요! \n 관심 공고를 스크랩하면 마감 당일에 알려드릴게요",
-        font: .detail2,
-        textColor: .grey400
-    ).then {
-        $0.numberOfLines = 2
-    }
-    
     // MARK: - LifeCycles
     
     override init(frame: CGRect) {
@@ -46,21 +35,13 @@ final class NonScrapInfoCell: UICollectionViewCell {
 
 extension NonScrapInfoCell {
     private func setHierarchy() {
-        contentView.addSubviews(
-            internshipScrapedStatus,
-            internshipScrapedStatusLabel
-        )
+        contentView.addSubview(notScrapInfoImageView)
     }
     
     private func setLayout() {
-        internshipScrapedStatus.snp.makeConstraints {
-            $0.verticalEdges.equalToSuperview()
+        notScrapInfoImageView.snp.makeConstraints {
+            $0.top.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(20)
-        }
-        
-        internshipScrapedStatusLabel.snp.makeConstraints {
-            $0.centerY.equalTo(internshipScrapedStatus)
-            $0.centerX.equalTo(internshipScrapedStatus)
         }
     }
 }

@@ -14,8 +14,6 @@ class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UI
     
     // MARK: - Properties
     
-    let mainHomeVC = MainHomeViewController()
-    let HomeView = MainHomeView()
     var data: UserFilteringInfoModel
     
     private var gradeButtons_dict: [UIButton: Int] {
@@ -90,7 +88,7 @@ extension FilteringSettingViewController {
         }
         
         // 입사 계획 달 설정 버튼
-        rootView.saveButton.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
+//        rootView.saveButton.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
         
         // 날짜 선택 피커
     }
@@ -157,29 +155,29 @@ extension FilteringSettingViewController {
             }
         }
     
-    func putUserFilterSettingInfo() {
-        mainHomeVC.filtersProvider.request(.setFilterDatas(grade: grade, workingPeriod: grade, startYear: startYear, startMonth: startMonth)){ [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                let status = response.statusCode
-                let message = response.description
-                if 200..<300 ~= status {
-                    print(message)
-                    print("👍👍👍👍👍👍👍👍👍👍👍")
-//                    mainHomeVC.getHomeJobCardInfo()
-                    
-                } else {
-                    print("400 error")
-                }
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-                print("👎👎👎👎👎👎👎👎👎👎👎")
-                
-            }
-        }
-    }
+//    func putUserFilterSettingInfo() {
+//        mainHomeVC.filtersProvider.request(.setFilterDatas(grade: grade, workingPeriod: grade, startYear: startYear, startMonth: startMonth)){ [weak self] result in
+//            guard let self = self else { return }
+//            switch result {
+//            case .success(let response):
+//                let status = response.statusCode
+//                let message = response.description
+//                if 200..<300 ~= status {
+//                    print(message)
+//                    print("👍👍👍👍👍👍👍👍👍👍👍")
+////                    mainHomeVC.getHomeJobCardInfo()
+//                    
+//                } else {
+//                    print("400 error")
+//                }
+//                
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//                print("👎👎👎👎👎👎👎👎👎👎👎")
+//                
+//            }
+//        }
+//    }
     
     // MARK: - @objc Function
     
@@ -197,11 +195,11 @@ extension FilteringSettingViewController {
             print("\(workingPeriod)로 업데이트 되었습니다.")
         }
     
-    @objc
-    func saveButtonDidTap() {
-        print(startYear, startMonth)
-        putUserFilterSettingInfo()
-        HomeView.collectionView.reloadData()
-        self.popOrDismissViewController(animated: true)
-    }
+//    @objc
+//    func saveButtonDidTap() {
+//        print(startYear, startMonth)
+//        putUserFilterSettingInfo()
+//        HomeView.collectionView.reloadData()
+//        self.popOrDismissViewController(animated: true)
+//    }
 }

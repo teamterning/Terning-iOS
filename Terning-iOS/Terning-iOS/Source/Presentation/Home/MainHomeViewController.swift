@@ -21,18 +21,24 @@ protocol bindFilterSettingDataProtocol {
 
 final class MainHomeViewController: UIViewController {
     
+    // MARK: - Properties
+    
     private let scrollView = UIScrollView()
     
-    private let providers = Providers.scrapsProvider
+    private let scrapsProviders = Providers.scrapsProvider
+    private let homeProvider = Providers.homeProvider
+    let filtersProvider = Providers.filtersProvider
     
     private let numberOfSections: Int = 2
     private var cardModelItems: [JobCardModel] = JobCardModel.getJobCardData()
     private var scrapedAndDeadlineItems: [ScrapedAndDeadlineModel] = ScrapedAndDeadlineModel.getScrapedData()
-    private var UserFilteringInfoModelItems: [UserFilteringInfoModel] = UserFilteringInfoModel.getUserFilteringInfo()
     private var UserProfileInfomModelItems: [UserProfileInfoModel] = UserProfileInfoModel.getUserProfileInfo()
     
     var deadlineTodayCardIndex: Int = 0
     var scrapedCardIndex: Int = 0
+    
+    var filterInfo: UserFilteringInfoModel?
+    var jobCardInfo: JobCardModel?
     
     // MARK: - UIComponents
     
@@ -46,6 +52,11 @@ final class MainHomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getUserFilterInfo()
+        getHomeJobCardInfo()
+        getHomeTodayJobCard()
+        updateUserFilterInfo()
         
         setDelegate()
         setRegister()
@@ -119,16 +130,8 @@ extension MainHomeViewController: UICollectionViewDataSource {
                     for: indexPath) as? FilterHeaderCell else {
                     return UICollectionReusableView()
                 }
-                let model = UserFilteringInfoModelItems[indexPath.row]
-                headerView.bindData(
-                    model: UserFilteringInfoModel(
-                        grade: model.grade,
-                        workingPeriod: model.workingPeriod,
-                        startYear: model.startYear,
-                        startMonth: model.startMonth
-                    )
-                )
-                
+                headerView.bindData(model: filterInfo)
+
                 headerView.backgroundColor = .white
                 headerView.filtetButtonDelegate = self
                 
@@ -142,16 +145,15 @@ extension MainHomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         if section == 0 {
             if rootView.layoutForCheckDeadlineCell || rootView.layoutForNonScrapCell {
                 return 1
                 
             } else if rootView.hasDueToday {
                 return 4
-            }
-            
-            return 0
+            } else {
+                
+                return 0}
             
         } else if section == 1 {
             if rootView.testDataForNonJobCard || rootView.testDataForInavailable {
@@ -172,7 +174,7 @@ extension MainHomeViewController: UICollectionViewDataSource {
         
         switch section {
         case .scrap:
-            if !rootView.hasAnyScrap && !rootView.hasDueToday {
+            if (!rootView.hasAnyScrap) && (!rootView.hasDueToday) {
                 guard let cell = rootView.collectionView.dequeueReusableCell(
                     withReuseIdentifier: NonScrapInfoCell.className,
                     for: indexPath
@@ -202,6 +204,7 @@ extension MainHomeViewController: UICollectionViewDataSource {
                         startYearMonth: model.startYearMonth,
                         color: model.color
                     )
+                
                 )
                 
                 return cell
@@ -244,18 +247,7 @@ extension MainHomeViewController: UICollectionViewDataSource {
                 }
                 
                 cell.delegate = self
-                
-                let model = cardModelItems[indexPath.row]
-                cell.bindData(
-                    model: JobCardModel(
-                        internshipAnnouncementId: model.internshipAnnouncementId,
-                        title: model.title,
-                        dDay: model.dDay,
-                        workingPeriod: model.workingPeriod,
-                        companyImage: model.companyImage,
-                        isScraped: model.isScraped
-                    )
-                )
+                cell.bindData(model: cardModelItems[indexPath.row])
                 
                 return cell
             }
@@ -275,63 +267,55 @@ extension MainHomeViewController: UICollectionViewDataSource {
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: ScrapInfoHeaderCell.className
         )
+        rootView.collectionView.register(
+            NonJobCardHeaderCell.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: NonJobCardHeaderCell.className
+        )
         
-        if rootView.testDataForNonJobCard {
-            rootView.collectionView.register(
-                NonJobCardHeaderCell.self,
-                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: NonJobCardHeaderCell.className
-            )
-        } else if rootView.testDataForInavailable {
-            rootView.collectionView.register(
-                NonJobCardHeaderCell.self,
-                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: NonJobCardHeaderCell.className
-            )
-        } else {
-            rootView.collectionView.register(
-                FilterHeaderCell.self,
-                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: FilterHeaderCell.className
-            )
-        }
+        rootView.collectionView.register(
+            NonJobCardHeaderCell.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: NonJobCardHeaderCell.className
+        )
+        
+        rootView.collectionView.register(
+            FilterHeaderCell.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: FilterHeaderCell.className
+        )
         
         // Cells
-        if !rootView.hasAnyScrap {
-            rootView.collectionView.register(
-                NonScrapInfoCell.self,
-                forCellWithReuseIdentifier: NonScrapInfoCell.className
-            )
-            
-        } else if rootView.hasDueToday {
-            rootView.collectionView.register(
-                IsScrapInfoViewCell.self,
-                forCellWithReuseIdentifier: IsScrapInfoViewCell.className
-            )
-            
-        } else if rootView.hasAnyScrap && !rootView.hasDueToday {
-            rootView.collectionView.register(
-                CheckDeadlineCell.self,
-                forCellWithReuseIdentifier: CheckDeadlineCell.className
-            )
-        }
         
-        if rootView.testDataForNonJobCard {
-            rootView.collectionView.register(
-                NonJobCardCell.self,
-                forCellWithReuseIdentifier: NonJobCardCell.className
-            )
-        } else if rootView.testDataForInavailable {
-            rootView.collectionView.register(
-                InavailableFilterView.self,
-                forCellWithReuseIdentifier: InavailableFilterView.className
-            )
-        } else {
-            rootView.collectionView.register(
-                JobCardScrapedCell.self,
-                forCellWithReuseIdentifier: JobCardScrapedCell.className
-            )
-        }
+        rootView.collectionView.register(
+            NonScrapInfoCell.self,
+            forCellWithReuseIdentifier: NonScrapInfoCell.className
+        )
+        
+        rootView.collectionView.register(
+            IsScrapInfoViewCell.self,
+            forCellWithReuseIdentifier: IsScrapInfoViewCell.className
+        )
+        
+        rootView.collectionView.register(
+            CheckDeadlineCell.self,
+            forCellWithReuseIdentifier: CheckDeadlineCell.className
+        )
+        
+        rootView.collectionView.register(
+            NonJobCardCell.self,
+            forCellWithReuseIdentifier: NonJobCardCell.className
+        )
+        
+        rootView.collectionView.register(
+            InavailableFilterView.self,
+            forCellWithReuseIdentifier: InavailableFilterView.className
+        )
+        
+        rootView.collectionView.register(
+            JobCardScrapedCell.self,
+            forCellWithReuseIdentifier: JobCardScrapedCell.className
+        )
     }
     
     // MARK: - setDelegate()
@@ -346,7 +330,8 @@ extension MainHomeViewController: UICollectionViewDataSource {
 
 extension MainHomeViewController: FilteringButtonDidTapProtocol {
     func filteringButtonTapped() {
-        let filteringSettingView = FilteringSettingViewController()
+        guard let filterInfo else { return }
+        let filteringSettingView = FilteringSettingViewController(data: filterInfo)
         filteringSettingView.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(filteringSettingView, animated: true)
     }
@@ -422,6 +407,21 @@ extension MainHomeViewController: UICollectionViewDelegate {
 
 extension MainHomeViewController: ScrapDidTapDelegate {
     
+    func handleGetHomeResponseStatus(testDataForNonJobCard: Bool, testDataForInavailable: Bool) {
+        rootView.testDataForNonJobCard = testDataForNonJobCard
+        rootView.testDataForInavailable = testDataForInavailable
+        rootView.collectionView.reloadData()
+    }
+    
+    func handleGetHomeTodayResponseStatus(hasDueToday: Bool, hasAnyScrap: Bool) {
+        rootView.hasDueToday = hasDueToday
+        rootView.hasAnyScrap = hasAnyScrap
+        rootView.layoutForNonScrapCell = !rootView.hasAnyScrap && !rootView.hasDueToday
+        rootView.layoutForCheckDeadlineCell = rootView.hasAnyScrap && !rootView.hasDueToday
+        rootView.layoutForIsScrapInfoCell = rootView.hasAnyScrap && rootView.hasDueToday
+        rootView.collectionView.reloadData()
+    }
+    
     func scrapButtonDidTap(id: Int) {
         guard let indexPath = self.indexPath(forInternshipAnnouncementId: id),
               let cell = self.rootView.collectionView.cellForItem(at: indexPath) as? JobCardScrapedCell else {
@@ -462,7 +462,7 @@ extension MainHomeViewController: ScrapDidTapDelegate {
     }
     
     private func scrapAnnouncement(internshipAnnouncementId: Int, color: Int, cell: JobCardScrapedCell) {
-        providers.request(.addScrap(internshipAnnouncementId: internshipAnnouncementId, color: color)) { [weak self] result in
+        scrapsProviders.request(.addScrap(internshipAnnouncementId: internshipAnnouncementId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
             switch result {
@@ -483,7 +483,7 @@ extension MainHomeViewController: ScrapDidTapDelegate {
     }
     
     private func cancelScrapAnnouncement(internshipAnnouncementId: Int, cell: JobCardScrapedCell) {
-        providers.request(.removeScrap(scrapId: internshipAnnouncementId)) { [weak self] result in
+        scrapsProviders.request(.removeScrap(scrapId: internshipAnnouncementId)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
             switch result {
@@ -508,5 +508,148 @@ extension MainHomeViewController: ScrapDidTapDelegate {
             return IndexPath(row: index, section: HomeSection.jobCard.rawValue)
         }
         return nil
+    }
+    
+    func getHomeJobCardInfo() {
+        homeProvider.request(.getHome(sortBy: "deadlineSoon", startYear: 2024, startMonth: 8)) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                if 200..<300 ~= status {
+                    print("🏡🏡🏡🏡🏡🏡🏡🏡🏡🏡🏡🏡🏡🏡")
+                    do {
+                        let responseDto = try response.map(BaseResponse<JobCardModel>.self)
+                        guard let data = responseDto.result else { return }
+                            
+                        if data == nil {
+                            print("🌷🌷🌷🌷🌷🌷🌷🌷🌷🌷🌷🌷🌷")
+                            handleGetHomeResponseStatus(testDataForNonJobCard: false, testDataForInavailable: true)
+                        } else {
+                            self.jobCardInfo = data
+                            handleGetHomeResponseStatus(testDataForNonJobCard: false, testDataForInavailable: false)
+                        }
+                        
+                    } catch {
+                        print(error.localizedDescription)
+                        print("🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳")
+                        handleGetHomeResponseStatus(testDataForNonJobCard: true, testDataForInavailable: false)
+                    }
+                } else {
+                    print("400 error")
+                }
+                
+            case .failure(let error):
+                print("❌❌❌❌❌❌❌❌❌❌")
+                handleGetHomeResponseStatus(testDataForNonJobCard: true, testDataForInavailable: false)
+                print(error.localizedDescription)
+            }
+        }
+    }
+     
+    func getHomeTodayJobCard() {
+        homeProvider.request(.getHomeToday){ [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                
+                if 200..<300 ~= status {
+                    print("🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀")
+                    do {
+                        let responseDto = try response.map(BaseResponse<[ScrapedAndDeadlineModel]>.self)
+                        guard let data = responseDto.result else { return }
+                        
+                        if data.isEmpty {
+                            handleGetHomeTodayResponseStatus(hasDueToday: false, hasAnyScrap: false)
+                        } else {
+                            self.scrapedAndDeadlineItems = data
+                            handleGetHomeTodayResponseStatus(hasDueToday: true, hasAnyScrap: true)
+                        }
+                        
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                } else {
+                    print("400 error")
+                }
+                
+            case .failure(let error):
+                handleGetHomeTodayResponseStatus(hasDueToday: false, hasAnyScrap: false)
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func getUserFilterInfo() {
+        filtersProvider.request(.getFilterDatas) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                
+                if 200..<300 ~= status {
+                    print("☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️")
+                    do {
+                        let responseDto = try response.map(BaseResponse<UserFilteringInfoModel?>.self)
+                        guard let data = responseDto.result else { return }
+                        
+                        if data == nil {
+                            print("유저 필터링 정보가 없습니다.")
+                            handleGetHomeResponseStatus(testDataForNonJobCard: true, testDataForInavailable: false)
+                        } else {
+                            print("유저 정보: \(data)")
+                            self.filterInfo = data
+                            print("유저 filterInfo: \(filterInfo)")
+                            rootView.collectionView.reloadData()
+                        }
+                        
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                } else {
+                    print("400 error")
+                }
+                
+            case .failure(let error):
+                print("🥺🥺🥺🥺🥺🥺🥺🥺🥺🥺🥺🥺🥺🥺")
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func updateUserFilterInfo() {
+        filtersProvider.request(.getFilterDatas) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                
+                if  200..<300 ~= status {
+                    do {
+                        let responseDto = try response.map(BaseResponse<UserFilteringInfoModel>.self)
+                        print(responseDto)
+                        if let data = responseDto.result {
+                            print("🔥🔥🔥🔥🔥🔥🔥🔥🔥", data)
+                            self.filterInfo = data
+
+                        } else {
+                            print("no data")
+                        }
+                        
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                
+                } else {
+                    print("400 error")
+
+                }
+                
+            case .failure(let error):
+                print("😡😡😡😡😡😡😡😡😡😡😡😡😡😡")
+                print(error.localizedDescription)
+            }
+        }
     }
 }

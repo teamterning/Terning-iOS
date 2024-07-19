@@ -10,9 +10,13 @@ import UIKit
 import SnapKit
 import Then
 
-class FilteringSettingViewController: UIViewController {
+class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     // MARK: - Properties
+    
+    let mainHomeVC = MainHomeViewController()
+    let HomeView = MainHomeView()
+    var data: UserFilteringInfoModel
     
     private var gradeButtons_dict: [UIButton: Int] {
         return [
@@ -31,19 +35,28 @@ class FilteringSettingViewController: UIViewController {
         ]
     }
     
-    private var UserFilteringInfoModelItems: [UserFilteringInfoModel] = UserFilteringInfoModel.getUserFilteringInfo()
-    lazy var model = UserFilteringInfoModelItems[0]
+    lazy var grade: Int = data.grade
+    lazy var workingPeriod: Int = data.workingPeriod
+    lazy var startYear: Int = data.startYear
+    lazy var startMonth: Int = data.startMonth
     
-    lazy var grade: Int = model.grade
-    lazy var workingPeriod: Int = model.workingPeriod
-    lazy var startYear: Int = model.startYear
-    lazy var startMonth: Int = model.startMonth
+    private let filtersProvider = Providers.filtersProvider
     
     // MARK: - UIComponents
     
     var rootView = FilteringSettingView()
     
     // MARK: - LifeCycles
+    
+    init(data: UserFilteringInfoModel) {
+        self.data = data
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = rootView
@@ -54,7 +67,10 @@ class FilteringSettingViewController: UIViewController {
         
         setNavigationBind()
         setAddTarget()
-        bindData(model: model)
+        bindData(model: data)
+        
+        rootView.monthPickerView.delegate = self
+        rootView.monthPickerView.dataSource = self
     }
 }
 
@@ -75,6 +91,8 @@ extension FilteringSettingViewController {
         
         // 입사 계획 달 설정 버튼
         rootView.saveButton.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
+        
+        // 날짜 선택 피커
     }
     
     func setNavigationBind() {
@@ -86,8 +104,9 @@ extension FilteringSettingViewController {
     // MARK: - Methods
     
     func bindData(model: UserFilteringInfoModel) {
-            updateButtonSelection(for: gradeButtons_dict, selectedValue: model.grade)
-            updateButtonSelection(for: periodButtons_dict, selectedValue: model.workingPeriod)
+        print(model)
+        updateButtonSelection(for: gradeButtons_dict, selectedValue: grade)
+            updateButtonSelection(for: periodButtons_dict, selectedValue: workingPeriod)
         }
     
     func updateButtonSelection(for buttonsDict: [UIButton: Int], selectedValue: Int) {
@@ -97,6 +116,69 @@ extension FilteringSettingViewController {
             button.setBackgroundColor(isSelected ? .terningMain : .clear, for: .normal)
             button.setTitleColor(isSelected ? .white : .grey400, for: .normal)
         }
+        
+    }
+    
+    // MARK: - UIPickerViewDataSource
+
+        func numberOfComponents(in pickerView: UIPickerView) -> Int {
+            return 2
+        }
+
+        func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+            switch component {
+            case 0: return 3 // Year component (2023 to 2025)
+            case 1: return 12 // Month component (1 to 12)
+            default: return 0
+            }
+        }
+
+        // MARK: - UIPickerViewDelegate
+
+        func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+            switch component {
+            case 0:
+                return String(2023 + row)
+            case 1:
+                return String(row + 1)
+            default:
+                return nil
+            }
+        }
+
+        func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+            switch component {
+            case 0:
+                startYear = 2023 + row
+            case 1:
+                startMonth = row + 1
+            default:
+                break
+            }
+        }
+    
+    func putUserFilterSettingInfo() {
+        mainHomeVC.filtersProvider.request(.setFilterDatas(grade: grade, workingPeriod: grade, startYear: startYear, startMonth: startMonth)){ [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                let message = response.description
+                if 200..<300 ~= status {
+                    print(message)
+                    print("👍👍👍👍👍👍👍👍👍👍👍")
+//                    mainHomeVC.getHomeJobCardInfo()
+                    
+                } else {
+                    print("400 error")
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+                print("👎👎👎👎👎👎👎👎👎👎👎")
+                
+            }
+        }
     }
     
     // MARK: - @objc Function
@@ -105,33 +187,21 @@ extension FilteringSettingViewController {
         func gradeButtonDidTap(_ sender: UIButton) {
             updateButtonSelection(for: gradeButtons_dict, selectedValue: gradeButtons_dict[sender]!)
             grade = gradeButtons_dict[sender]!
-            print("\(grade + 1)학년 선택되었습니다.")
+            print("\(grade)로 업데이트 되었습니다.")
         }
     
     @objc
         func periodButtonDidTap(_ sender: UIButton) {
             updateButtonSelection(for: periodButtons_dict, selectedValue: periodButtons_dict[sender]!)
             workingPeriod = periodButtons_dict[sender]!
-            switch workingPeriod {
-            case 0:
-                print("1개월 ~ 3개월 선택되었습니다.")
-            case 1:
-                print("4개월 ~ 6개월 이상 선택되었습니다.")
-            case 2:
-                print("7개월 이상 선택되었습니다.")
-            default:
-                break
-            }
+            print("\(workingPeriod)로 업데이트 되었습니다.")
         }
     
     @objc
     func saveButtonDidTap() {
-        rootView.monthPickerView.onDateSelected = { [weak self] year, month in
-            self?.startYear = year
-            self?.startMonth = month
-        }
-        
-        print(grade, workingPeriod, startYear, startMonth)
+        print(startYear, startMonth)
+        putUserFilterSettingInfo()
+        HomeView.collectionView.reloadData()
         self.popOrDismissViewController(animated: true)
     }
 }

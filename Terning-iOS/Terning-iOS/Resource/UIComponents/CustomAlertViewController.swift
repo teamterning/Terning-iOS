@@ -58,7 +58,7 @@ final class CustomAlertViewController: UIViewController {
     }()
     
     private let JobImageView = UIImageView().then {
-        $0.image = UIImage(resource: .icHome)
+        $0.setImage(with: "https://res.cloudinary.com/linkareer/image/fetch/f_auto,q_50/https://api.linkareer.com/attachments/397824")
         $0.contentMode = .scaleAspectFit
         $0.layer.cornerRadius = 15
         $0.clipsToBounds = true
@@ -206,7 +206,7 @@ extension CustomAlertViewController {
     public func setData(model: ScrapedAndDeadlineModel) {
         guard alertType == .custom else { return } // custom 타입 일때만 사용 가능한 메서드
         
-        self.JobImageView.image = model.companyImage
+        self.JobImageView.setImage(with: model.companyImage)
         self.mainLabel.text = model.title
         self.dDayLabel.text = model.dDay
         self.deadlineInfoView.setDescriptionText(description: model.deadLine)

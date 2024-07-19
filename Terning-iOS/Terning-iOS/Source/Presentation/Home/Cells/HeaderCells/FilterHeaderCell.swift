@@ -54,19 +54,19 @@ final class FilterHeaderCell: UICollectionReusableView {
     // 필터링 버튼 및 필터링 상태 표시 바
     private lazy var filterButton = FilterButton()
     
-    private let grade = LabelFactory.build(
+    var grade = LabelFactory.build(
         text: "3학년",
         font: .detail2,
         textColor: .black
     )
         
-    private let period = LabelFactory.build(
+    var period = LabelFactory.build(
         text: "1~3개월",
         font: .detail2,
         textColor: .black
     )
     
-    private let month = LabelFactory.build(
+    var month = LabelFactory.build(
         text: "2024년 1월",
         font: .detail2,
         textColor: .black
@@ -194,41 +194,43 @@ extension FilterHeaderCell {
            sortButtonStack.addGestureRecognizer(tapGesture)
        }
     
-    func bindData(model: UserFilteringInfoModel) {
-        switch model.grade {
-        case 0: 
-            grade.text = "1학년"
-            
-        case 1:
-            grade.text = "2학년"
-            
-        case 2:
-            grade.text = "3학년"
-            
-        case 3:
-            grade.text = "4학년"
-            
-        default:
-            grade.text = "-"
-        }
-        
-        switch model.workingPeriod {
-        case 0:
-            period.text = "1개월 ~ 3개월"
-            
-        case 1:
-            period.text = "4개월 ~ 6개월"
-            
-        case 2:
-            period.text = "7개월 이상"
-        
-        default:
-            period.text = "-"
-        }
+    func bindData(model: UserFilteringInfoModel?) {
+        print("🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀ㅍ", model)
+            guard let data = model else{ return }
+        print("🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀ㅍ", data)
+            switch data.grade {
+            case 0:
+                grade.text = "1학년"
 
-        month.text = "\(model.startYear)년 \(model.startMonth)월"
-    }
-    
+            case 1:
+                grade.text = "2학년"
+
+            case 2:
+                grade.text = "3학년"
+
+            case 3:
+                grade.text = "4학년"
+
+            default:
+                grade.text = "-"
+            }
+
+            switch data.workingPeriod {
+            case 0:
+                period.text = "1개월 ~ 3개월"
+
+            case 1:
+                period.text = "4개월 ~ 6개월"
+
+            case 2:
+                period.text = "7개월 이상"
+
+            default:
+                period.text = "-"
+            }
+
+            month.text = "\(data.startYear)년 \(data.startMonth)월"
+        }
     // objc Functions
     
     @objc

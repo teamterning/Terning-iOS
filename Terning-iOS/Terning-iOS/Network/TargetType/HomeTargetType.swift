@@ -10,7 +10,7 @@ import Moya
 
 enum HomeTargertType {
     case getHomeToday
-    case getHome
+    case getHome(sortBy: String, startYear: Int, startMonth: Int)
 }
 
 extension HomeTargertType: TargetType {
@@ -40,13 +40,21 @@ extension HomeTargertType: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getHomeToday, .getHome:
+        case .getHomeToday:
             return .requestPlain
+            
+        case .getHome(let sortBy, let startYear, let startMonth):
+            let parameters: [String: Any] = [
+                "sortBy": sortBy,
+                "startYear": startYear,
+                "startMonth": startMonth
+            ]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         }
     }
     
     var headers: [String: String]? {
-        return Config.headerWithAccessToken
+        return ["Content-Type": "application/json", "Authorization": "Bearer \(Config.refreshToken)"]
     }
     
     var validationType: ValidationType {

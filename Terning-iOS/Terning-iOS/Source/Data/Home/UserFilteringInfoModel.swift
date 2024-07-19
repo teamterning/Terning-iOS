@@ -7,22 +7,9 @@
 
 import UIKit
 
-struct UserFilteringInfoModel {
+struct UserFilteringInfoModel: Codable {
     let grade: Int
     let workingPeriod: Int
     let startYear: Int
     let startMonth: Int
-}
-
-extension UserFilteringInfoModel {
-    static func getUserFilteringInfo() -> [UserFilteringInfoModel] {
-        return [
-            UserFilteringInfoModel(
-                grade: 1,
-                workingPeriod: 2,
-                startYear: 2024,
-                startMonth: 5
-            )
-        ]
-    }
 }

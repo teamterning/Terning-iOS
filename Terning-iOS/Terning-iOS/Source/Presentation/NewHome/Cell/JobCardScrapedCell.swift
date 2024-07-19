@@ -14,6 +14,10 @@ protocol ScrapDidTapDelegate: AnyObject {
     func scrapButtonDidTap(id: Int)
 }
 
+protocol JobCardScrapedCellProtocol: AnyObject {
+    func scrapButtonDidTap(index: Int)
+}
+
 final class JobCardScrapedCell: UICollectionViewCell {
     
     // MARK: - Properties
@@ -178,8 +182,18 @@ extension JobCardScrapedCell {
     @objc
     func scrapButtonDidTap(_ sender: UIButton) {
         guard let internshipAnnouncementId = self.internshipAnnouncementId else { return }
+        
+        if self.scrapId == nil {
+            updateScrapButton(isSelected: false)
+        } else {
+            updateScrapButton(isSelected: true)
+        }
+        
+        guard let indexPath = self.indexPath else { return }
+
         self.isScrapButtonSelected = sender.isSelected
         delegate?.scrapButtonDidTap(id: internshipAnnouncementId)
+        delegate2?.scrapButtonDidTap(index: indexPath)
     }
     
     func updateScrapButton(isSelected: Bool) {

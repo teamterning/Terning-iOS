@@ -163,7 +163,7 @@ final class CustomBottomSheetViewController: UIViewController {
             $0.top.equalToSuperview().inset(screenHeight - bottomHeight)
         }
         
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn) {
+        UIView.animate(withDuration: 0.25, delay: 0, options: .transitionCurlUp) {
             self.dimmedView.alpha = 0.7
             self.view.layoutIfNeeded()
         }

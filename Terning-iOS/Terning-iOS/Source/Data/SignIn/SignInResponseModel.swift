@@ -12,6 +12,6 @@ struct SignInResponseModel: Codable {
     let accessToken: String?
     let refreshToken: String?
     let userId: Int?
-    let authId: String
+    let authId: String?
     let authType: String
 }

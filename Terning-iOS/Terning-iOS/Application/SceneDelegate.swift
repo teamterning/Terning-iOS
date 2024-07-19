@@ -17,8 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-//        let vc = UINavigationController(rootViewController: SplashVC())
-        let vc = TNTabBarController()
+        let vc = UINavigationController(rootViewController: SplashVC())
         window.rootViewController = vc
         self.window = window
         window.makeKeyAndVisible()
@@ -61,13 +60,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     
-}
-
-extension SceneDelegate {
-    func changeRootVC(_ vc:UIViewController, animated: Bool) {
-        guard let window = self.window else { return }
-        window.rootViewController = vc
-        
-        UIView.transition(with: window, duration: 0.2, options: [.transitionCrossDissolve], animations: nil, completion: nil)
-    }
 }

@@ -72,7 +72,7 @@ final class CustomAlertViewController: UIViewController {
     }
     
     private let alertImageView = UIImageView().then {
-        $0.image = UIImage(resource: .icHome)
+        $0.image = .iosScrapCancel
     }
     
     private let mainLabel = LabelFactory.build(

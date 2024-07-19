@@ -244,12 +244,17 @@ extension CustomAlertViewController {
     ///   - subLabel: 서브 text
     ///   - buttonLabel: 중앙 버튼 text
     public func setComponentDatas(mainLabel: String, subLabel: String, buttonLabel: String) {
-        guard alertType == .normal else { return }
         
         self.mainLabel.text = mainLabel
         self.subLabel.text = subLabel
         self.centerButton.setTitle(title: buttonLabel)
     }
+    
+    public func setComponenCustomtDatas(buttonLabel: String) {
+        let buttonName = "내 캘린더에 스크랩하기"
+        self.centerButton.setTitle(title: buttonName)
+    }
+    
     
     private func bindViews(_ type: AlertType) {
         

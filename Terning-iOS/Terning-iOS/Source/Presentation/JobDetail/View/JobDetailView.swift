@@ -47,7 +47,7 @@ final class JobDetailView: UIView {
         characterSpacing: 0.002
     )
     
-    private var scrapButton = CustomScrapButton()
+    var scrapButton = CustomScrapButton()
     
     private var goSiteButton = CustomButton(title: "지원 사이트로 이동하기")
     

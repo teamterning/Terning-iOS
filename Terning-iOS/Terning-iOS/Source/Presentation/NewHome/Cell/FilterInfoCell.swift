@@ -14,28 +14,57 @@ final class FilterInfoCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     
-    // 상단 타이틀
-    private let subTitleLabel = LabelFactory.build(
-        text: "마음에 드는 공고를 스크랩하고 캘린더에서 모아보세요",
+    // 필터링 버튼 및 필터링 상태 표시 바
+    private lazy var filterButton = FilterButton()
+    
+    var grade = LabelFactory.build(
+        text: "3학년",
         font: .detail2,
-        textColor: .terningBlack
+        textColor: .black
     )
     
-    private let titleLabel = LabelFactory.build(
-        text: "내 계획에 딱 맞는 대학생 인턴 공고",
-        font: .title1,
-        textColor: .terningBlack
+    var period = LabelFactory.build(
+        text: "1~3개월",
+        font: .detail2,
+        textColor: .black
     )
     
-    private lazy var titleStack = UIStackView(
+    var month = LabelFactory.build(
+        text: "2024년 1월",
+        font: .detail2,
+        textColor: .black,
+        textAlignment: .left,
+        lineSpacing: 1.2,
+        characterSpacing: 0.002
+    )
+    
+    private let verticalBar1 = UIImageView().then {
+        $0.image = UIImage(resource: .icVerticalBar)
+    }
+    
+    private let verticalBar2 = UIImageView().then {
+        $0.image = UIImage(resource: .icVerticalBar)
+    }
+    
+    private lazy var FilteringStack = UIStackView(
         arrangedSubviews: [
-            subTitleLabel,
-            titleLabel
+            filterButton,
+            grade,
+            verticalBar1,
+            period,
+            verticalBar2,
+            month
         ]
     ).then {
-        $0.axis = .vertical
-        $0.spacing = 5
-        $0.alignment = .leading
+        $0.axis = .horizontal
+        $0.spacing = 20
+        $0.distribution = .fillProportionally
+        $0.alignment = .center
+    }
+    
+    // 구분선
+    private let decorationView = UIView().then {
+        $0.backgroundColor = .grey150
     }
     
     // MARK: - LifeCycles
@@ -56,14 +85,65 @@ final class FilterInfoCell: UICollectionViewCell {
 
 extension FilterInfoCell {
     func setHierarchy() {
-        contentView.addSubview(titleStack)
+        addSubviews(
+            FilteringStack,
+            decorationView
+        )
     }
     
     func setLayout() {
-        titleStack.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(28)
+        FilteringStack.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(9)
             $0.leading.equalToSuperview().offset(20)
-            $0.height.equalTo(40)
+            $0.trailing.equalToSuperview().inset(26.adjusted)
+        }
+        
+        filterButton.snp.makeConstraints {
+            $0.height.equalTo(28)
+            $0.width.equalTo(75)
+        }
+        
+        verticalBar1.snp.makeConstraints {
+            $0.height.equalTo(20)
+            $0.width.equalTo(2)
+        }
+        
+        verticalBar2.snp.makeConstraints {
+            $0.height.equalTo(20)
+            $0.width.equalTo(2)
+        }
+        
+        decorationView.snp.makeConstraints {
+            $0.top.equalTo(FilteringStack.snp.bottom).offset(11)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(4)
+        }
+    }
+}
+
+extension FilterInfoCell {
+    func bind(model: UserFilteringInfoModel) {
+        grade.text = gradeText(for: model.grade)
+        period.text = periodText(for: model.workingPeriod)
+        month.text = "\(model.startYear)년 \(model.startMonth)월"
+    }
+    
+    private func gradeText(for grade: Int) -> String {
+        switch grade {
+        case 0: return "1학년"
+        case 1: return "2학년"
+        case 2: return "3학년"
+        case 3: return "4학년"
+        default: return "-"
+        }
+    }
+    
+    private func periodText(for period: Int) -> String {
+        switch period {
+        case 0: return "1개월 ~ 3개월"
+        case 1: return "4개월 ~ 6개월"
+        case 2: return "7개월 이상"
+        default: return "-"
         }
     }
 }

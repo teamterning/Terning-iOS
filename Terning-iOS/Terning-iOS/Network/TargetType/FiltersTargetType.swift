@@ -32,7 +32,7 @@ extension FiltersTargetType: TargetType {
     var method: Moya.Method {
         switch self {
         case .getFilterDatas:
-            return .post
+            return .get
         case .setFilterDatas:
             return .put
         }

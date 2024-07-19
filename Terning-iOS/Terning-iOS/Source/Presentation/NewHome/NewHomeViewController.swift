@@ -13,11 +13,12 @@ import Then
 enum HomaMainSection: Int, CaseIterable {
     case TodayDeadlineUserInfo
     case TodayDeadline
-    case FilterInfo
+    case homeHeader
+    case filterInfo
     
     var numberOfItemsInSection: Int {
         switch self {
-        case .TodayDeadlineUserInfo, .FilterInfo:
+        case .TodayDeadlineUserInfo, .homeHeader, .filterInfo:
             return 1
         case .TodayDeadline:
             return 0
@@ -29,9 +30,21 @@ final class NewHomeViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let providers = Providers.homeProvider
+    private let homeProviders = Providers.homeProvider
+    private let filterProviders = Providers.filtersProvider
     
-    var TodayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
+    var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
+        didSet {
+            rootView.collectionView.reloadData()
+        }
+    }
+    
+    var filterInfos: UserFilteringInfoModel = UserFilteringInfoModel(
+        grade: 0,
+        workingPeriod: 0,
+        startYear: 0,
+        startMonth: 0
+    ) {
         didSet {
             rootView.collectionView.reloadData()
         }
@@ -50,6 +63,7 @@ final class NewHomeViewController: UIViewController {
         setDelegate()
         setRegister()
         fetchTodayDeadlineDatas()
+        fetchFilterInfos()
     }
     
     override func loadView() {
@@ -71,6 +85,7 @@ final class NewHomeViewController: UIViewController {
         rootView.collectionView.register(ScrapInfoHeaderCell.self, forCellWithReuseIdentifier: ScrapInfoHeaderCell.className)
         rootView.collectionView.register(NonScrapInfoCell.self, forCellWithReuseIdentifier: NonScrapInfoCell.className)
         rootView.collectionView.register(IsScrapInfoViewCell.self, forCellWithReuseIdentifier: IsScrapInfoViewCell.className)
+        rootView.collectionView.register(HomeInfoCell.self, forCellWithReuseIdentifier: HomeInfoCell.className)
         rootView.collectionView.register(FilterInfoCell.self, forCellWithReuseIdentifier: FilterInfoCell.className)
     }
     
@@ -91,10 +106,10 @@ extension NewHomeViewController: UICollectionViewDataSource {
         }
         
         switch section {
-        case .TodayDeadlineUserInfo, .FilterInfo:
+        case .TodayDeadlineUserInfo, .homeHeader, .filterInfo:
             return section.numberOfItemsInSection
         case .TodayDeadline:
-            return TodayDeadlineLists.isEmpty ? 1 : TodayDeadlineLists.count
+            return todayDeadlineLists.isEmpty ? 1 : todayDeadlineLists.count
         }
     }
     
@@ -109,16 +124,22 @@ extension NewHomeViewController: UICollectionViewDataSource {
             return cell
             
         case .TodayDeadline:
-            if TodayDeadlineLists.isEmpty {
+            if todayDeadlineLists.isEmpty {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonScrapInfoCell.className, for: indexPath) as? NonScrapInfoCell else { return UICollectionViewCell() }
                 return cell
             } else {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: IsScrapInfoViewCell.className, for: indexPath) as? IsScrapInfoViewCell else { return UICollectionViewCell() }
-                cell.bindData(model: TodayDeadlineLists[indexPath.item])
+                cell.bindData(model: todayDeadlineLists[indexPath.item])
                 return cell
             }
-        case .FilterInfo:
+        case .homeHeader:
+            guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: HomeInfoCell.className, for: indexPath) as? HomeInfoCell else { return UICollectionViewCell() }
+            
+            return cell
+        case .filterInfo:
             guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: FilterInfoCell.className, for: indexPath) as? FilterInfoCell else { return UICollectionViewCell() }
+            
+            cell.bind(model: self.filterInfos)
             return cell
         }
     }
@@ -126,7 +147,7 @@ extension NewHomeViewController: UICollectionViewDataSource {
 
 extension NewHomeViewController {
     private func fetchTodayDeadlineDatas() {
-        providers.request(.getHomeToday) { [weak self] response in
+        homeProviders.request(.getHomeToday) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):
@@ -136,7 +157,7 @@ extension NewHomeViewController {
                         let responseDto = try result.map(BaseResponse<[ScrapedAndDeadlineModel]>.self)
                         guard let data = responseDto.result else { return }
                         
-                        self.TodayDeadlineLists = data
+                        self.todayDeadlineLists = data
                         
                     } catch {
                         print(error.localizedDescription)
@@ -152,4 +173,33 @@ extension NewHomeViewController {
             }
         }
     }
+    
+    private func fetchFilterInfos() {
+        filterProviders.request(.getFilterDatas) { [weak self] response in
+            guard let self = self else { return }
+            switch response {
+            case .success(let result):
+                let status = result.statusCode
+                if 200..<300 ~= status {
+                    do {
+                        let responseDto = try result.map(BaseResponse<UserFilteringInfoModel>.self)
+                        guard let data = responseDto.result else { return }
+                        
+                        self.filterInfos = data
+                        
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+                if status >= 400 {
+                    print("400 error")
+                    self.showNetworkFailureToast()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showNetworkFailureToast()
+            }
+        }
+    }
+    
 }

@@ -172,6 +172,25 @@ struct CompositionalLayout {
                 let section = NSCollectionLayoutSection(group: group)
                 
                 return section
+            } else if sectionNumber == 3 {
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1.0),
+                        heightDimension: .fractionalHeight(1.0)
+                    )
+                )
+                
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .estimated(9 + 28 + 11 + 4)
+                    ),
+                    subitems: [item]
+                )
+                
+                let section = NSCollectionLayoutSection(group: group)
+                
+                return section
             } else {
                 return nil
             }

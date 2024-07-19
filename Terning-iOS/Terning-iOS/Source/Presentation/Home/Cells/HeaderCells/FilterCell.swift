@@ -69,7 +69,10 @@ final class FilterCell: UICollectionViewCell {
     var month = LabelFactory.build(
         text: "2024년 1월",
         font: .detail2,
-        textColor: .black
+        textColor: .black,
+        textAlignment: .left,
+        lineSpacing: 1.2,
+        characterSpacing: 0.002
     )
     
     private let verticalBar1 = UIImageView().then {

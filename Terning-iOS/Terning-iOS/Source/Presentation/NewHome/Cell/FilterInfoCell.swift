@@ -17,19 +17,19 @@ final class FilterInfoCell: UICollectionViewCell {
     // 필터링 버튼 및 필터링 상태 표시 바
     private lazy var filterButton = FilterButton()
     
-    var grade = LabelFactory.build(
+    var gradeLabel = LabelFactory.build(
         text: "3학년",
         font: .detail2,
         textColor: .black
     )
     
-    var period = LabelFactory.build(
+    var periodLabel = LabelFactory.build(
         text: "1~3개월",
         font: .detail2,
         textColor: .black
     )
     
-    var month = LabelFactory.build(
+    var monthLabel = LabelFactory.build(
         text: "2024년 1월",
         font: .detail2,
         textColor: .black,
@@ -49,11 +49,11 @@ final class FilterInfoCell: UICollectionViewCell {
     private lazy var FilteringStack = UIStackView(
         arrangedSubviews: [
             filterButton,
-            grade,
+            gradeLabel,
             verticalBar1,
-            period,
+            periodLabel,
             verticalBar2,
-            month
+            monthLabel
         ]
     ).then {
         $0.axis = .horizontal
@@ -123,9 +123,14 @@ extension FilterInfoCell {
 
 extension FilterInfoCell {
     func bind(model: UserFilteringInfoModel) {
-        grade.text = gradeText(for: model.grade)
-        period.text = periodText(for: model.workingPeriod)
-        month.text = "\(model.startYear)년 \(model.startMonth)월"
+        guard let grade = model.grade,
+                let workingPeriod = model.workingPeriod,
+              let startYear = model.startYear,
+              let startMonth = model.startMonth else { return }
+        
+        gradeLabel.text = gradeText(for: grade)
+        periodLabel.text = periodText(for: workingPeriod)
+        monthLabel.text = "\(startYear)년 \(startMonth)월"
     }
     
     private func gradeText(for grade: Int) -> String {

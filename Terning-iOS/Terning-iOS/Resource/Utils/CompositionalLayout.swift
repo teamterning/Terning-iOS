@@ -191,10 +191,59 @@ struct CompositionalLayout {
                 let section = NSCollectionLayoutSection(group: group)
                 
                 return section
+            } else if sectionNumber == 4 {
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1.0),
+                        heightDimension: .fractionalHeight(1.0)
+                    )
+                )
+                
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .estimated(9 + 17 + 10)
+                    ),
+                    subitems: [item]
+                )
+                
+                let section = NSCollectionLayoutSection(group: group)
+                
+                return section
+            } else if sectionNumber == 5 {
+                let itemSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .absolute(100))
+                
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                
+                // Group
+                let groupSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .absolute(100)) // 헤더가 포함된 사이즈여야함.
+                
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                
+                // Section
+                let section = NSCollectionLayoutSection(group: group)
+                
+                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(10))
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: headerSize,
+                    elementKind: UICollectionView.elementKindSectionHeader,
+                    alignment: .top
+                )
+                
+                sectionHeader.pinToVisibleBounds = true
+                section.boundarySupplementaryItems = [sectionHeader]
+                section.interGroupSpacing = 12
+                section.contentInsets = .init(top: 10, leading: 0, bottom: 0, trailing: 0)
+                
+                return section
             } else {
-                return nil
-            }
+            return nil
         }
     }
-    
+}
+
 }

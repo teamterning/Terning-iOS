@@ -8,8 +8,8 @@
 import UIKit
 
 struct UserFilteringInfoModel: Codable {
-    let grade: Int
-    let workingPeriod: Int
-    let startYear: Int
-    let startMonth: Int
+    let grade: Int?
+    let workingPeriod: Int?
+    let startYear: Int?
+    let startMonth: Int? 
 }

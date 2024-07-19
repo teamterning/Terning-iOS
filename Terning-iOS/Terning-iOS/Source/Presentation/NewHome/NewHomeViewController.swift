@@ -15,12 +15,14 @@ enum HomaMainSection: Int, CaseIterable {
     case TodayDeadline
     case homeHeader
     case filterInfo
+    case sortButton
+    case jobCard
     
     var numberOfItemsInSection: Int {
         switch self {
-        case .TodayDeadlineUserInfo, .homeHeader, .filterInfo:
+        case .TodayDeadlineUserInfo, .homeHeader, .filterInfo, .sortButton:
             return 1
-        case .TodayDeadline:
+        case .TodayDeadline, .jobCard:
             return 0
         }
     }
@@ -40,14 +42,25 @@ final class NewHomeViewController: UIViewController {
     }
     
     var filterInfos: UserFilteringInfoModel = UserFilteringInfoModel(
-        grade: 0,
-        workingPeriod: 0,
-        startYear: 0,
-        startMonth: 0
+        grade: nil,
+        workingPeriod: nil,
+        startYear: nil,
+        startMonth: nil
     ) {
         didSet {
             rootView.collectionView.reloadData()
         }
+    }
+    
+    var jobCardLists: [JobCardModel] = [] {
+        didSet {
+            rootView.collectionView.reloadData()
+        }
+    }
+    
+    var isNoneData: Bool { // true 면 데이터가 없다는 뜻 입니다.
+        return filterInfos.grade == nil || filterInfos.workingPeriod == nil ||
+        filterInfos.startYear == nil || filterInfos.startMonth == nil
     }
     
     // MARK: - UIComponents
@@ -64,6 +77,7 @@ final class NewHomeViewController: UIViewController {
         setRegister()
         fetchTodayDeadlineDatas()
         fetchFilterInfos()
+        fetchJobCardDatas()
     }
     
     override func loadView() {
@@ -87,6 +101,10 @@ final class NewHomeViewController: UIViewController {
         rootView.collectionView.register(IsScrapInfoViewCell.self, forCellWithReuseIdentifier: IsScrapInfoViewCell.className)
         rootView.collectionView.register(HomeInfoCell.self, forCellWithReuseIdentifier: HomeInfoCell.className)
         rootView.collectionView.register(FilterInfoCell.self, forCellWithReuseIdentifier: FilterInfoCell.className)
+        rootView.collectionView.register(SortInfoCell.self, forCellWithReuseIdentifier: SortInfoCell.className)
+        rootView.collectionView.register(JobCardScrapedCell.self, forCellWithReuseIdentifier: JobCardScrapedCell.className)
+        rootView.collectionView.register(NonJobCardCell.self, forCellWithReuseIdentifier: NonJobCardCell.className)
+        rootView.collectionView.register(InavailableFilterView.self, forCellWithReuseIdentifier: InavailableFilterView.className)
     }
     
 }
@@ -106,10 +124,12 @@ extension NewHomeViewController: UICollectionViewDataSource {
         }
         
         switch section {
-        case .TodayDeadlineUserInfo, .homeHeader, .filterInfo:
+        case .TodayDeadlineUserInfo, .homeHeader, .filterInfo, .sortButton:
             return section.numberOfItemsInSection
         case .TodayDeadline:
             return todayDeadlineLists.isEmpty ? 1 : todayDeadlineLists.count
+        case .jobCard:
+            return (isNoneData || jobCardLists.isEmpty) ? 1 : jobCardLists.count
         }
     }
     
@@ -140,8 +160,30 @@ extension NewHomeViewController: UICollectionViewDataSource {
             guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: FilterInfoCell.className, for: indexPath) as? FilterInfoCell else { return UICollectionViewCell() }
             
             cell.bind(model: self.filterInfos)
+            
             return cell
+        case .sortButton:
+            guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: SortInfoCell.className, for: indexPath) as? SortInfoCell else { return UICollectionViewCell() }
+            
+            return cell
+            
+        case .jobCard:
+            if isNoneData && jobCardLists.isEmpty {
+                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonJobCardCell.className, for: indexPath) as? NonJobCardCell else { return UICollectionViewCell() }
+                
+                return cell
+            } else if !isNoneData && jobCardLists.isEmpty {
+                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: InavailableFilterView.className, for: indexPath) as? InavailableFilterView else { return UICollectionViewCell() }
+                
+                return cell
+            } else if !isNoneData && !jobCardLists.isEmpty {
+                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as? JobCardScrapedCell else { return UICollectionViewCell() }
+                
+                cell.bindData(model: jobCardLists[indexPath.row])
+                return cell
+            }
         }
+        return UICollectionViewCell()
     }
 }
 
@@ -202,4 +244,31 @@ extension NewHomeViewController {
         }
     }
     
+    private func fetchJobCardDatas() {
+        homeProviders.request(.getHome(sortBy: "", startYear: filterInfos.startYear ?? 0, startMonth: filterInfos.startMonth ?? 0)) { [weak self] response in
+            guard let self = self else { return }
+            switch response {
+            case .success(let result):
+                let status = result.statusCode
+                if 200..<300 ~= status {
+                    do {
+                        let responseDto = try result.map(BaseResponse<[JobCardModel]>.self)
+                        guard let data = responseDto.result else { return }
+                        
+                        self.jobCardLists = data
+                        
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+                if status >= 400 {
+                    print("400 error")
+                    self.showNetworkFailureToast()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showNetworkFailureToast()
+            }
+        }
+    }
 }

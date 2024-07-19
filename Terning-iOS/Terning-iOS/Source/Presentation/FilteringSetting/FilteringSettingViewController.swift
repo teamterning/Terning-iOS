@@ -33,10 +33,10 @@ class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UI
         ]
     }
     
-    lazy var grade: Int = data.grade
-    lazy var workingPeriod: Int = data.workingPeriod
-    lazy var startYear: Int = data.startYear
-    lazy var startMonth: Int = data.startMonth
+    lazy var grade: Int? = data.grade
+    lazy var workingPeriod: Int? = data.workingPeriod
+    lazy var startYear: Int? = data.startYear
+    lazy var startMonth: Int? = data.startMonth
     
     private let filtersProvider = Providers.filtersProvider
     
@@ -103,8 +103,8 @@ extension FilteringSettingViewController {
     
     func bindData(model: UserFilteringInfoModel) {
         print(model)
-        updateButtonSelection(for: gradeButtons_dict, selectedValue: grade)
-            updateButtonSelection(for: periodButtons_dict, selectedValue: workingPeriod)
+        updateButtonSelection(for: gradeButtons_dict, selectedValue: grade ?? 0)
+            updateButtonSelection(for: periodButtons_dict, selectedValue: workingPeriod ?? 0)
         }
     
     func updateButtonSelection(for buttonsDict: [UIButton: Int], selectedValue: Int) {

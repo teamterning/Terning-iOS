@@ -190,13 +190,13 @@ extension FilterCell {
     private func setAddTarget() {
         filterButton.addTarget(self, action: #selector(filteringButtonDidTap), for: .touchUpInside)
     }
-    
-    func bindData(model: UserFilteringInfoModel) {
-        
-        grade.text = gradeText(for: model.grade)
-        period.text = periodText(for: model.workingPeriod)
-        month.text = "\(model.startYear)년 \(model.startMonth)월"
-    }
+//    
+//    func bindData(model: UserFilteringInfoModel) {
+//        
+//        grade.text = gradeText(for: model.grade)
+//        period.text = periodText(for: model.workingPeriod)
+//        month.text = "\(model.startYear)년 \(model.startMonth)월"
+//    }
     // objc Functions
     
     @objc

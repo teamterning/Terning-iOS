@@ -25,7 +25,7 @@ struct ViewControllerUtils {
         
         if let snapshot = window.snapshotView(afterScreenUpdates: true) {
             viewController.view.addSubview(snapshot)
-            window.rootViewController = UINavigationController(rootViewController: viewController)
+            window.rootViewController = viewController
             window.makeKeyAndVisible()
             
             UIView.animate(withDuration: 0.4, animations: {

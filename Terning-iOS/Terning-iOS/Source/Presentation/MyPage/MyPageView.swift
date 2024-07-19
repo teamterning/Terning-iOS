@@ -22,8 +22,9 @@ class MyPageView: UIView {
     )
     
     let profileImage = UIImageView().then {
-        $0.image = UIImage(resource: .icHome)
-        $0.makeBorder(width: 1, color: .calBlue1)
+        $0.image = .imgMypage
+        $0.contentMode = .scaleAspectFit
+        
     }
     
     let profileEditLabel = LabelFactory.build(
@@ -201,6 +202,9 @@ extension MyPageView {
     
     func setUI() {
         backgroundColor = .white
+        
+        self.noticeButton.addTarget(self, action: #selector(noticeButtonDidTapped), for: .touchUpInside)
+        self.sendOpinionButton.addTarget(self, action: #selector(sendOpinionButtonDidTapped), for: .touchUpInside)
     }
     
     func setHierarchy() {
@@ -227,9 +231,7 @@ extension MyPageView {
         }
         
         profileImage.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).inset(57)
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(363)
+            $0.edges.equalTo(safeAreaLayoutGuide)
         }
         
         profileEditImage.snp.makeConstraints {
@@ -308,8 +310,17 @@ extension MyPageView {
 // MARK: - Methods
 
 extension MyPageView {
+    @objc private func noticeButtonDidTapped() {
+        let urlString = "https://abundant-quiver-13f.notion.site/69109213e7db4873be6b9600f2f5163a?pvs=4"
+        guard let url = URL(string: urlString) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
     
-    // MARK: - Methods
+    @objc private func sendOpinionButtonDidTapped() {
+        let urlString = "https://forms.gle/AaLpVptfg6cATYWa7"
+        guard let url = URL(string: urlString) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
 
     func bind(model: UserProfileInfoModel) {
         userNameLabel.text = "\(model.name)님"

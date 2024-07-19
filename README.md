@@ -1,21 +1,56 @@
-# **TerningPoint**
-<br>
+<img src="https://github.com/user-attachments/assets/0a16569c-2480-4af8-bf3b-37b3f8ef58a0" width=120 />
 
+# 👔 terning
+<p align="center"><img src="https://github.com/user-attachments/assets/984e7795-3746-4e7a-ad6c-cb1cb376c481"></p>
+
+**내 계획에 딱 맞는 대학생 인턴의 시작, 터닝**
+
+취업을 위한 필수 관문이자 대학생으로서 쌓을 수 있는 *최고의 스펙, 인턴.*
+
+학점 관리부터 대외활동까지, 바쁜 일상 속에서 대학생들은 인턴이라는 스펙을 위해 자신만의 계획을 수립합니다.
+
+희망하는 근무 기간과 그 기간 동안 일할 수 있는 기업은 무엇이 있는지, 내가 지원할 공고의 지원 마감일은 언제인지.
+
+팀 터닝포인트는 대학생이 세운 계획에 딱 맞는 인턴 공고를 추천해주고, 인턴 지원 일정을 효율적으로 관리하는 방안에 대해 고민합니다.
+
+터닝에서  **나만의 인턴 계획을 등록**하고, **딱 맞는 인턴 공고를 추천** 받아보세요!
+
+<br> 
+
+## About TerningPoint
+#### 지금이 우리의 터닝포인트
 > 서비스 한 줄 소개
 : 맞춤형 인턴 추천 및 일정 관리를 통해, 
   사회인을 향한 대학생의 마지막 터닝포인트를 함께합니다.
+<br>
 
-## **1. Member**
+## 🟢 **Problem**
+1. 인턴 일정을 관리하기가 어려움
+2. 대기업은 채용공고를 수시로 홈페이지에 들어가야 해서 피로함.
+3. 인턴 후기에 대한 객관적인 판단의 어려움 존재.(긍정적인 리뷰가 대부분)
+4. 서류제출기한, 면접제출 기한을 한번에 파악하기 힘듦.
+5. 홈페이지에 들어갔을 때 직무가 무슨 직무인지, 나랑 잘 맞는 직무인지 직관적으로 알기 어려움
+홈페이지에서 공고를 확인할 시, 직무의 정보 결핍, 적합성을 파악하기 어렵다는 점이 존재.
+<br>
+
+## 🟢 **Solution**
+1. 간단한 세가지 문답만으로 나만의 대학생 인턴 계획을 입력 -> 이에 맞는 공고를 추천
+2. 내 계획에 딱 맞는 인턴 공고를 나만의 커스텀 캘린더로 스크랩하고 관리해보세요.
+3. 내가 관심 있는 공고 중 오늘 마감되는 공고를 리마인드 받아보세요.
+<br>
+
+## **🧑‍💻 Member**
 | 이명진<br/>([@thingineeer](https://github.com/thingineeer)) | 정민지<br/>([@wjdalswl](https://github.com/wjdalswl)) | 김민성<br/>([@mminny](https://github.com/mminny)) |
 | :---: | :---: | :---: |
 | <img width="540" src="https://github.com/teamterning/Terning-iOS/assets/88179341/5ce47573-b805-4be0-9b6f-ac03d9fd4163"/> | <img width="540" src="https://github.com/teamterning/Terning-iOS/assets/88179341/ed6c378e-f17d-4dd6-8081-8b69da816d51"/> | <img width="540" src="https://github.com/teamterning/Terning-iOS/assets/88179341/f6420a14-2ca9-4463-a075-e0594e50e107"/> |
+|`캘린더` `로그인` `회원가입` `회원탈퇴 및 로그아웃` `마이페이지` `스크랩`|`온보딩` `로그인` `탐색` `공고 상세화면`|`홈` `필터링`|
 <br>
 
-## [2. Project Design](https://www.figma.com/board/h597MCTAjj8PawsF1nbHMC/iOS-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%84%A4%EA%B3%84?node-id=0-1&t=elsfeNTTSrKMhUfx-1)
+## [🏠 Project Design](https://www.figma.com/board/h597MCTAjj8PawsF1nbHMC/iOS-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%84%A4%EA%B3%84?node-id=0-1&t=elsfeNTTSrKMhUfx-1)
 <img width="941" alt="image" src="https://github.com/teamterning/Terning-iOS/assets/88179341/8e4c42ce-4bef-4c02-87b8-b7adfb5ced1f">
 
 
-## **3. Commit Message Rule**
+## **⭐️ Commit Message Rule**
 
 `[prefix] #이슈번호 - 이슈 내용`
 
@@ -38,37 +73,37 @@
 ```
 > ex) [Feat] #5 - 서버 연결 구현
 
----
 
-## **4. Code Convention**
+
+## **📑 Code Convention**
 
 [터닝 코드 컨벤션](https://abundant-quiver-13f.notion.site/Code-Convention-a0949dcd93184be4be1f6456c48ab80c)
 
----
 
-## **5. Code Review Rule**
 
-코드 리뷰를 최대한 빨리 달고 반영하자!
+## **📌 Code Review Rule**
 
----
+**코드 리뷰를 최대한 빨리 달고 반영하자!**
 
-## **6. Issue Naming Rule**
+
+
+## **📌 Issue Naming Rule**
 
 `[Prefix] - 이슈내용`
 
 > ex) [Feat] - TerningPoint 홈 화면 구현
 
----
 
-## **7. PR Naming Rule**
+
+## **📌 PR Naming Rule**
 
 `[Prefix] #이슈번호- 작업내용`
 
 > ex) [Feat] #1 - TerningPoint 홈 화면 구현
 
----
 
-## **8. Git Flow**
+
+## **📌 Git Flow**
 
 1. 이슈 생성
 2. 브랜치 생성
@@ -77,21 +112,21 @@
 5. 머지후 ( 해당 브랜치 바로 제거 )
 6. pull 받아서 다음 이슈 진행
 
----
 
-## **9.Git**
+
+## **📌 Git**
 
 충돌 안나게 같은 파일 최대한 작업하지 않기
 
----
 
-## 10. **Development Environment and Using Library**
+
+## *📖 Development Environment and Using Library**
 
 - Development Environment
 <p align="left">
 <img src ="https://img.shields.io/badge/Swift-5.9-orange?logo=swift">
 <img src ="https://img.shields.io/badge/Xcode-15.0-blue?logo=xcode">
-<img src ="https://img.shields.io/badge/iOS-17.0-green.svg">
+<img src ="https://img.shields.io/badge/iOS-15.0-green.svg">
 
 <br>
 <br>
@@ -105,7 +140,8 @@
  Then | UI 선언 | 3.0.0 | SPM
  Kingfisher | 이미지 처리 | 7.10.1| SPM
  RxSwift | 비동기 처리 | 6.7.1| SPM
- 
+ FSCalendar | 캘린더 구현 | 2.8.3 | SPM
+ KakaoSDK | 카카오 소셜 로그인 구현 | 2.22.4 | SPM
  <br>
 
  - 🧱 framework
@@ -116,9 +152,9 @@
 
 <br>
 
----
 
-## 11. **Foldering**
+
+## **📂 Foldering**
 
 ```
 ├── 📂 Terning-iOS
@@ -127,14 +163,41 @@
 │   │   └── SceneDelegate.swift
 │   ├── Info.plist
 │   ├── 📂 Network
+│   │   ├── 📂 Base
+│   │   ├── 📂 Service
+│   │   ├── 📂 TargetType
+│   │   └── 📂 User
 │   ├── 📂 Resource
 │   │   ├── Assets.xcassets
-│   │   ├── 📂 Constants
-│   │   ├── 📂 Extension
-│   │   ├── 📂 Fonts
+│   │   ├── 📂 Extension
+│   │   ├── 📂 Fonts
+│   │   ├── 📂 Literal
+│   │   ├── 📂 Protocols
+│   │   ├── 📂 UIComponents
 │   │   └── 📂 Utils
 │   └── 📂 Source
 │       ├── 📂 Data
-│       └── 📂 Presentation
-
+│       │   ├── 📂 Announcement
+│       │   ├── 📂 Calender
+│       │   ├── 📂 Home
+│       │   ├── 📂 Search
+│       │   └── 📂 SignIn
+│       ├── 📂 Presentation
+│       │   ├── 📂 Calendar
+│       │   ├── 📂 FilteringSetting
+│       │   ├── 📂 Home
+│       │   ├── 📂 JobDetail
+│       │   ├── 📂 Login
+│       │   ├── 📂 MyPage
+│       │   ├── 📂 Onboarding
+│       │   ├── 📂 Profile
+│       │   ├── 📂 Search
+│       │   ├── 📂 SearchResult
+│       │   ├── 📂 Splash
+│       │   ├── 📂 TabBar
+│       │   ├── 📂 Welcome
+│       │   └── .gitkeep
 ```
+
+## **🎨 Design**
+<img src ="https://github.com/user-attachments/assets/02afcc51-e476-45f9-bb57-9ac997eef127">

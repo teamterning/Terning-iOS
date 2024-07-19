@@ -26,6 +26,7 @@ final class JobDetailViewModel: ViewModelType {
     // MARK: - Output
     
     struct Output {
+        let jobDetailInfo: Driver<JobDetailModel>
         let mainInfo: Driver<MainInfoModel>
         let companyInfo: Driver<CompanyInfoModel>
         let summaryInfo: Driver<SummaryInfoModel>
@@ -61,6 +62,44 @@ final class JobDetailViewModel: ViewModelType {
                     }
             }
             .share(replay: 1)
+        
+        let jobDetailInfo = jobDetail.map  {
+            JobDetailModel (
+                dDay: $0.dDay,
+                title: $0.title,
+                deadline: $0.deadline,
+                workingPeriod: $0.workingPeriod,
+                startDate: $0.startDate,
+                scrapCount:$0.scrapCount,
+                viewCount: $0.viewCount,
+                company: $0.company,
+                companyCategory: $0.companyCategory,
+                companyImage: $0.companyImage,
+                qualification: $0.qualification,
+                jobType: $0.jobType,
+                detail: $0.detail,
+                url: $0.url,
+                scrapId: $0.scrapId
+            )
+        }.asDriver(
+            onErrorJustReturn: JobDetailModel(
+                dDay:  "",
+                title:  "",
+                deadline:  "",
+                workingPeriod:  "",
+                startDate: "",
+                scrapCount: 0,
+                viewCount: 0,
+                company:  "",
+                companyCategory:  "",
+                companyImage:  "",
+                qualification: "",
+                jobType:  "",
+                detail:  "",
+                url:  "",
+                scrapId: nil
+            )
+        )
         
         let mainInfo = jobDetail.map {
             MainInfoModel(
@@ -133,6 +172,7 @@ final class JobDetailViewModel: ViewModelType {
         )
         
         return Output(
+            jobDetailInfo: jobDetailInfo,
             mainInfo: mainInfo,
             companyInfo: companyInfo,
             summaryInfo: summaryInfo,

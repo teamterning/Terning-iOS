@@ -60,7 +60,6 @@ extension OnboardingViewController {
         view.addSubview(onboardingView)
         
         onboardingView.updateProgress(step: step)
-        
     }
     
     private func setLayout() {

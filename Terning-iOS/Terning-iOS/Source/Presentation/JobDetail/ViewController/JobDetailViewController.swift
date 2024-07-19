@@ -22,6 +22,21 @@ enum JobDetailInfoType: Int, CaseIterable {
 
 final class JobDetailViewController: UIViewController {
     
+    // MARK: - Properties
+    
+    private let colorIndexMapping: [Int: Int] = [
+        0: 0,  // calRed
+        1: 2,  // calOrange2
+        2: 4,  // calGreen1
+        3: 6,  // calBlue1
+        4: 8,  // calPurple
+        5: 1,  // calOrange
+        6: 3,  // calYellow
+        7: 5,  // calGreen2
+        8: 7,  // calBlue2
+        9: 9   // calPink
+    ]
+    
     // MARK: - UI Components
     
     private let rootView = JobDetailView()
@@ -39,6 +54,7 @@ final class JobDetailViewController: UIViewController {
         setUI()
         setLayout()
         setDelegate()
+        setButtonAction()
         bindViewModel()
     }
 }
@@ -47,6 +63,7 @@ final class JobDetailViewController: UIViewController {
 
 extension JobDetailViewController {
     private func setUI() {
+        navigationController?.isNavigationBarHidden = true
         view.addSubview(rootView)
     }
     
@@ -69,10 +86,113 @@ extension JobDetailViewController {
             self.popOrDismissViewController(animated: true)
         }
     }
+    
+    private func setButtonAction() {
+        self.rootView.scrapButton.addTarget(self, action: #selector(scrapButtonDidTapped), for: .touchUpInside)
+    }
+    
+    private func parseStartDate(_ startDate: String) -> (year: Int?, month: Int?)  {
+        let dateComponents = startDate.components(separatedBy: "년 ")
+        guard dateComponents.count == 2 else { return (nil, nil) }
+        
+        let yearString = dateComponents[0]
+        let monthString = dateComponents[1].replacingOccurrences(of: "월", with: "")
+        
+        let year = Int(yearString.trimmingCharacters(in: .whitespaces))
+        let month = Int(monthString.trimmingCharacters(in: .whitespaces))
+        
+        return (year, month)
+    }
+    
+    private func scrapAnnouncementWithCompletion(internshipAnnouncementId: Int, color: Int, completion: @escaping (Bool) -> Void) {
+        self.scrapAnnouncement(internshipAnnouncementId: internshipAnnouncementId, color: color)
+        completion(true)
+    }
 }
 
-// MARK: - Bind
+// MARK: - @objc func
 
+extension JobDetailViewController {
+    @objc
+    private func scrapButtonDidTapped() {
+        do {
+            let currentId = try internshipAnnouncementId.value()
+            print(currentId)
+            
+            if let jobDetail = jobDetail {
+                let startDateComponents = parseStartDate(jobDetail.startDate)
+                
+                if jobDetail.scrapId == nil {
+                    let dailyScrapModel = DailyScrapModel(
+                        scrapId: jobDetail.scrapId ?? 0,
+                        title: jobDetail.title,
+                        color: "#ED4E54",
+                        internshipAnnouncementId: currentId,
+                        dDay: jobDetail.dDay,
+                        workingPeriod: jobDetail.workingPeriod,
+                        companyImage: jobDetail.companyImage,
+                        startYear: startDateComponents.year,
+                        startMonth: startDateComponents.month
+                    )
+                    
+                    let alertSheet = CustomAlertViewController(alertType: .custom, customType: .scrap)
+                    alertSheet.setData2(model: dailyScrapModel, deadline: jobDetail.deadline)
+                    
+                    alertSheet.modalTransitionStyle = .crossDissolve
+                    alertSheet.modalPresentationStyle = .overFullScreen
+                    
+                    alertSheet.centerButtonTapAction = { [weak self] in
+                        guard let self = self else { return }
+                        
+                        let colorIndex = alertSheet.selectedColorIndexRelay
+                        
+                        self.scrapAnnouncementWithCompletion(
+                            internshipAnnouncementId: currentId,
+                            color: self.colorIndexMapping[colorIndex.value] ?? 0
+                        ) { success in
+                            if success {
+                                self.bindViewModel()
+                                JobDetailView().tableView.reloadData()
+                                self.showToast(message: "관심 공고가 캘린더에 스크랩되었어요!")
+                            }
+                            self.dismiss(animated: false)
+                        }
+                    }
+                    
+                    self.present(alertSheet, animated: false)
+                } else {
+                    // 스크랩 취소
+                    let alertSheet = CustomAlertViewController(alertType: .normal)
+                    
+                    alertSheet.setComponentDatas(
+                        mainLabel: "관심 공고가 캘린더에서 사라져요!",
+                        subLabel: "스크랩을 취소하시겠어요?",
+                        buttonLabel: "스크랩 취소하기"
+                    )
+                    
+                    alertSheet.modalTransitionStyle = .crossDissolve
+                    alertSheet.modalPresentationStyle = .overFullScreen
+                    
+                    alertSheet.centerButtonTapAction = { [weak self] in
+                        guard let self = self else { return }
+                        self.cancelScrapAnnouncement(scrapId: jobDetail.scrapId ?? -1)
+                        self.dismiss(animated: false)
+                        self.showToast(message: "관심 공고가 캘린더에서 사라졌어요!")
+                    }
+                    
+                    self.present(alertSheet, animated: false)
+                }
+            } else {
+                print("jobDetail 없음")
+            }
+        } catch {
+            print("Error retrieving currentId: \(error.localizedDescription)")
+        }
+    }
+}
+
+    // MARK: - Bind
+    
 extension JobDetailViewController {
     private func bindViewModel() {
         let fetchJobDetail = internshipAnnouncementId
@@ -81,6 +201,12 @@ extension JobDetailViewController {
         let input = JobDetailViewModel.Input(internshipAnnouncementId: internshipAnnouncementId, fetchJobDetail: fetchJobDetail)
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
+        
+        output.jobDetailInfo
+            .drive(onNext: { [weak self] jobDetailInfo in
+                self?.jobDetail = jobDetailInfo
+            })
+            .disposed(by: disposeBag)
         
         output.mainInfo
             .drive(onNext: { [weak self] mainInfo in
@@ -103,6 +229,7 @@ extension JobDetailViewController {
         output.detailInfo
             .drive(onNext: { [weak self] detailInfo in
                 self?.rootView.detailInfo = detailInfo
+                self?.rootView.scrapButton.isEnabled = true
             })
             .disposed(by: disposeBag)
         
@@ -124,9 +251,9 @@ extension JobDetailViewController {
         }).disposed(by: disposeBag)
     }
 }
-
-// MARK: - UITableViewDataSource
-
+    
+    // MARK: - UITableViewDataSource
+    
 extension JobDetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return JobDetailInfoType.allCases.count
@@ -177,9 +304,9 @@ extension JobDetailViewController: UITableViewDataSource {
         }
     }
 }
-
-// MARK: - UITableViewDelegate
-
+    
+    // MARK: - UITableViewDelegate
+    
 extension JobDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let sectionType = JobDetailInfoType(rawValue: section) else { return nil }
@@ -222,5 +349,55 @@ extension JobDetailViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView(frame: CGRect.zero)
+    }
+}
+
+// MARK: - API
+    
+extension JobDetailViewController {
+    private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
+        guard let scrapId = scrapId else { return }
+        Providers.scrapsProvider.request(.patchScrap(scrapId: scrapId, color: color)) { [weak self] result in
+            LoadingIndicator.hideLoading()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                if 200..<300 ~= status {
+                    print("스크랩 수정 성공")
+                    bindViewModel()
+                    JobDetailView().tableView.reloadData()
+                } else {
+                    print("400 error")
+                    self.showToast(message: "네트워크 오류")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showToast(message: "네트워크 오류")
+            }
+        }
+    }
+    
+    private func cancelScrapAnnouncement(scrapId: Int?) {
+        guard let scrapId = scrapId else { return }
+        Providers.scrapsProvider.request(.removeScrap(scrapId: scrapId)) { [weak self] result in
+            LoadingIndicator.hideLoading()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                if 200..<300 ~= status {
+                    print("스크랩 취소 성공")
+                    bindViewModel()
+                    JobDetailView().tableView.reloadData()
+                } else {
+                    print("400 error")
+                    self.showToast(message: "네트워크 오류")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showToast(message: "네트워크 오류")
+            }
+        }
     }
 }

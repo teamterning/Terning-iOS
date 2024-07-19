@@ -1,4 +1,3 @@
-//
 //  JobCardScrapedCell.swift
 //  Terning-iOS
 //
@@ -6,7 +5,6 @@
 //
 
 import UIKit
-
 import SnapKit
 import Then
 
@@ -23,12 +21,12 @@ final class JobCardScrapedCell: UICollectionViewCell {
     // MARK: - Properties
     
     weak var delegate: ScrapDidTapDelegate?
+    weak var delegate2: JobCardScrapedCellProtocol?
     
     private var isScrapButtonSelected: Bool = false
-    
     private var internshipAnnouncementId: Int? = 0
-    
     private var scrapId: Int?
+    private var indexPath: Int?
     
     // MARK: - UIComponents
     
@@ -75,6 +73,7 @@ final class JobCardScrapedCell: UICollectionViewCell {
     lazy var scrapButton = UIButton().then {
         $0.setImage(.icScrapFill, for: .selected)
         $0.setImage(.icScrap, for: .normal)
+        $0.addTarget(self, action: #selector(scrapButtonDidTap), for: .touchUpInside)
     }
     
     // MARK: - LifeCycles
@@ -108,7 +107,6 @@ extension JobCardScrapedCell {
     }
     
     func setLayout() {
-        
         jobCard.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(20)
@@ -148,11 +146,11 @@ extension JobCardScrapedCell {
         }
     }
     
+    // MARK: - Methods
+    
     private func setAddTarget() {
         scrapButton.addTarget(self, action: #selector(scrapButtonDidTap), for: .touchUpInside)
     }
-    
-    // MARK: - Methods
     
     func bindData(model: JobCardModel) {
         self.internshipAnnouncementId = model.intershipAnnouncementId
@@ -163,12 +161,13 @@ extension JobCardScrapedCell {
         self.scrapButton.isSelected = model.isScrapped
     }
     
-    func bind(model: SearchResult) {
+    func bind(model: SearchResult, indexPath: IndexPath) {
         self.internshipAnnouncementId = model.internshipAnnouncementId
         self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.daysRemaining.text = model.dDay
         self.jobLabel.text = model.title
         self.period.text = model.workingPeriod
+        self.indexPath = indexPath.item
         if model.scrapId == nil {
             self.scrapButton.isSelected = false
         } else {

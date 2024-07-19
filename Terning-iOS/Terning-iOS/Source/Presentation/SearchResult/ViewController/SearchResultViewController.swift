@@ -1,10 +1,7 @@
-//
 //  SearchResultViewController.swift
 //  Terning-iOS
 //
 //  Created by 정민지 on 7/17/24.
-//
-//
 //
 
 import UIKit
@@ -22,6 +19,19 @@ enum SearchResultType: Int, CaseIterable {
 final class SearchResultViewController: UIViewController {
     
     // MARK: - Properties
+    
+    private let colorIndexMapping: [Int: Int] = [
+        0: 0,  // calRed
+        1: 2,  // calOrange2
+        2: 4,  // calGreen1
+        3: 6,  // calBlue1
+        4: 8,  // calPurple
+        5: 1,  // calOrange
+        6: 3,  // calYellow
+        7: 5,  // calGreen2
+        8: 7,  // calBlue2
+        9: 9   // calPink
+    ]
     
     private let viewModel: SearchResultViewModel
     private let disposeBag = DisposeBag()
@@ -140,7 +150,6 @@ extension SearchResultViewController {
             guard let self = self else { return }
             self.popOrDismissViewController(animated: true)
         }
-        
     }
 }
 
@@ -176,7 +185,8 @@ extension SearchResultViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as? JobCardScrapedCell, let SearchResult = rootView.SearchResult else {
                 return UICollectionViewCell()
             }
-            cell.bind(model: SearchResult[indexPath.item])
+            cell.bind(model: SearchResult[indexPath.item], indexPath: indexPath)
+            cell.delegate2 = self
             return cell
             
         case .noSearch:

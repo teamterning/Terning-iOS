@@ -18,6 +18,7 @@ final class NonScrapInfoCell: UICollectionViewCell {
         $0.makeBorder(width: 1, color: .grey150, cornerRadius: 5)
         $0.backgroundColor =  .white
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
+        $0.clipsToBounds = true
     }
     
     private let internshipScrapedStatusLabel = LabelFactory.build(
@@ -29,7 +30,7 @@ final class NonScrapInfoCell: UICollectionViewCell {
     }
     
     private let nonTodayDeadlineImage = UIImageView().then {
-        $0.image = UIImage(resource: .imgNonDeadline)
+        $0.image = .imgNonDeadline
     }
     
     // MARK: - LifeCycles
@@ -59,17 +60,16 @@ extension NonScrapInfoCell {
     
     private func setLayout() {
         internshipScrapedStatus.snp.makeConstraints {
-            $0.verticalEdges.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(20)
-            
+            $0.top.leading.bottom.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(215)
         }
         
         nonTodayDeadlineImage.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
             $0.top.equalTo(internshipScrapedStatus.snp.top).offset(30)
+            $0.trailing.equalToSuperview().offset(60)
             $0.height.width.equalTo(44)
         }
-
+        
         internshipScrapedStatusLabel.snp.makeConstraints {
             $0.top.equalTo(nonTodayDeadlineImage.snp.bottom).offset(8)
             $0.centerX.equalTo(internshipScrapedStatus)

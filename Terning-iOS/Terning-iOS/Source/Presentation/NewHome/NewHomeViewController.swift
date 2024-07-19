@@ -11,8 +11,8 @@ import UIKit
 import Then
 
 enum HomeMainSection: Int, CaseIterable {
-    case TodayDeadlineUserInfo
-    case TodayDeadline
+    case todayDeadlineUserInfo
+    case todayDeadline
     case homeHeader
     case filterInfo
     case sortButton
@@ -20,9 +20,9 @@ enum HomeMainSection: Int, CaseIterable {
     
     var numberOfItemsInSection: Int {
         switch self {
-        case .TodayDeadlineUserInfo, .homeHeader, .filterInfo, .sortButton:
+        case .todayDeadlineUserInfo, .homeHeader, .filterInfo, .sortButton:
             return 1
-        case .TodayDeadline, .jobCard:
+        case .todayDeadline, .jobCard:
             return 0
         }
     }
@@ -34,6 +34,7 @@ final class NewHomeViewController: UIViewController {
     
     private let homeProviders = Providers.homeProvider
     private let filterProviders = Providers.filtersProvider
+    private let scrapProviders = Providers.scrapsProvider
     
     var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
         didSet {
@@ -78,7 +79,6 @@ final class NewHomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        fetchTodayDeadlineDatas()
         fetchFilterInfos()
     }
     
@@ -117,7 +117,21 @@ final class NewHomeViewController: UIViewController {
 }
 
 extension NewHomeViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let section = HomeMainSection(rawValue: indexPath.section) else {
+            return
+        }
+        
+        switch section {
+        case .jobCard:
+            print(indexPath)
+            let jobDetailVC = JobDetailViewController()
+            self.navigationController?.pushViewController(jobDetailVC, animated: true)
+        default:
+            return
+        }
+        
+    }
 }
 
 extension NewHomeViewController: UICollectionViewDataSource {
@@ -131,9 +145,9 @@ extension NewHomeViewController: UICollectionViewDataSource {
         }
         
         switch section {
-        case .TodayDeadlineUserInfo, .homeHeader, .filterInfo, .sortButton:
+        case .todayDeadlineUserInfo, .homeHeader, .filterInfo, .sortButton:
             return section.numberOfItemsInSection
-        case .TodayDeadline:
+        case .todayDeadline:
             return todayDeadlineLists.isEmpty ? 1 : todayDeadlineLists.count
         case .jobCard:
             return (isNoneData || jobCardLists.isEmpty) ? 1 : jobCardLists.count
@@ -146,11 +160,11 @@ extension NewHomeViewController: UICollectionViewDataSource {
         }
         
         switch section {
-        case .TodayDeadlineUserInfo:
-            guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: ScrapInfoHeaderCell.className, for: indexPath) as? ScrapInfoHeaderCell else { return UICollectionViewCell() } // 오늘 마감되는 남지우님의 마감공고
+        case .todayDeadlineUserInfo:
+            guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: ScrapInfoHeaderCell.className, for: indexPath) as? ScrapInfoHeaderCell else { return UICollectionViewCell() }
             return cell
             
-        case .TodayDeadline:
+        case .todayDeadline:
             if todayDeadlineLists.isEmpty {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonScrapInfoCell.className, for: indexPath) as? NonScrapInfoCell else { return UICollectionViewCell() } // 오늘 마감인 공고가 없어요
                 return cell
@@ -176,14 +190,17 @@ extension NewHomeViewController: UICollectionViewDataSource {
             return cell
             
         case .jobCard:
-            if isNoneData {
-                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: InavailableFilterView.className, for: indexPath) as? InavailableFilterView else { return UICollectionViewCell() }
-                return cell
-            } else if jobCardLists.isEmpty {
+            if isNoneData && jobCardLists.isEmpty {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonJobCardCell.className, for: indexPath) as? NonJobCardCell else { return UICollectionViewCell() }
+                
                 return cell
-            } else {
+            } else if !isNoneData && jobCardLists.isEmpty {
+                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: InavailableFilterView.className, for: indexPath) as? InavailableFilterView else { return UICollectionViewCell() }
+                
+                return cell
+            } else if !isNoneData && !jobCardLists.isEmpty {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as? JobCardScrapedCell else { return UICollectionViewCell() }
+                cell.delegate = self
                 cell.bindData(model: jobCardLists[indexPath.row])
                 return cell
             }
@@ -234,7 +251,12 @@ extension NewHomeViewController {
                         guard let data = responseDto.result else { return }
                         
                         self.filterInfos = data
-                        self.fetchJobCardDatas()
+                        
+                        // 0.5초 뒤에 fetchJobCardDatas 호출
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.fetchJobCardDatas()
+                            self.fetchTodayDeadlineDatas()
+                        }
                         
                     } catch {
                         print(error.localizedDescription)
@@ -288,5 +310,74 @@ extension NewHomeViewController: FilterButtonProtocol {
         filterSettingVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(filterSettingVC, animated: true)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+}
+
+extension NewHomeViewController: ScrapDidTapDelegate {
+    func scrapButtonDidTap(id index: Int) {
+        let model = jobCardLists[index]
+        let alertSheet = CustomAlertViewController(alertType: .custom)
+        
+        alertSheet.setData3(model: model, deadline: model.deadline)
+        
+        
+        alertSheet.modalTransitionStyle = .crossDissolve
+        alertSheet.modalPresentationStyle = .overFullScreen
+        
+        alertSheet.centerButtonTapAction = { [weak self] in
+            guard let self = self else { return }
+            let colorIndex = alertSheet.selectedColorIndexRelay
+            
+            self.addScrapAnnouncement(scrapId: model.intershipAnnouncementId, color: colorIndex.value)
+            self.dismiss(animated: false)
+            
+        }
+        
+        self.present(alertSheet, animated: false)
+    }
+    
+    
+    private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
+        guard let scrapId = scrapId else { return }
+        Providers.scrapsProvider.request(.patchScrap(scrapId: scrapId, color: color)) { [weak self] result in
+            LoadingIndicator.hideLoading()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                if 200..<300 ~= status {
+                    print("스크랩 수정 성공")
+                    self.rootView.collectionView.reloadData()
+                } else {
+                    print("400 error")
+                    self.showToast(message: "네트워크 오류")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showToast(message: "네트워크 오류")
+            }
+        }
+    }
+    
+    
+    private func addScrapAnnouncement(scrapId: Int, color: Int) {
+        Providers.scrapsProvider.request(.addScrap(internshipAnnouncementId: scrapId, color: color)) { [weak self] result in
+            LoadingIndicator.hideLoading()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                if 200..<300 ~= status {
+                    print("스크랩 수정 성공")
+                    self.rootView.collectionView.reloadData()
+                } else {
+                    print("400 error")
+                    self.showToast(message: "네트워크 오류")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showToast(message: "네트워크 오류")
+            }
+        }
     }
 }

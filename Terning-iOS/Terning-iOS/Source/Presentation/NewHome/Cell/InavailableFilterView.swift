@@ -12,7 +12,6 @@ import Then
 
 class InavailableFilterView: UICollectionViewCell {
     
-    var filtetButtonDelegate: FilteringButtonDidTapProtocol?
     
     // MARK: - UIComponents
     

@@ -57,10 +57,6 @@ final class SearchViewController: UIViewController {
         
         startTimer()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        bindViewModel()
-    }
 }
     
 // MARK: - UI & Layout

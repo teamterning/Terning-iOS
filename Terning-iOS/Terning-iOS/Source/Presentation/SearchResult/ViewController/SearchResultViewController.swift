@@ -66,10 +66,6 @@ final class SearchResultViewController: UIViewController {
         setDelegate()
         bindViewModel()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        bindViewModel()
-    }
 }
 
 // MARK: - UI & Layout
@@ -234,8 +230,11 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
             return
         }
         
+        print("index", index)
+       
         let model = searchResults[index]
         print(scrapId)
+        print("model", model)
         let scrapId = model.scrapId
         
         if scrapId == nil {
@@ -287,6 +286,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
             alertSheet.centerButtonTapAction = {
                 self.cancelScrapAnnouncement(scrapId: scrapId)
                 self.dismiss(animated: false)
+             
                 self.showToast(message: "관심 공고가 캘린더에서 사라졌어요!")
             }
             
@@ -295,6 +295,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
             
             self.present(alertSheet, animated: false)
         }
+        
     }
     
     private func scrapAnnouncementWithCompletion(internshipAnnouncementId: Int, color: Int, completion: @escaping (Bool) -> Void) {

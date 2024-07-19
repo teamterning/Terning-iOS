@@ -24,5 +24,5 @@ struct SearchResult: Codable {
     let title: String
     let workingPeriod: String
     let startYearMonth: String
-    let color: String
+    let color: String?
 }

@@ -83,6 +83,7 @@ final class JobCardScrapedCell: UICollectionViewCell {
         
         setHierarchy()
         setLayout()
+        setAddTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -147,6 +148,10 @@ extension JobCardScrapedCell {
     
     // MARK: - Methods
     
+    private func setAddTarget() {
+        scrapButton.addTarget(self, action: #selector(scrapButtonDidTap), for: .touchUpInside)
+    }
+    
     func bindData(model: JobCardModel) {
         self.internshipAnnouncementId = model.internshipAnnouncementId
         self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "placeholder_image")
@@ -179,6 +184,8 @@ extension JobCardScrapedCell {
         guard let scrapId = self.scrapId else { return }
         guard let indexPath = self.indexPath else { return }
         
+        
+        print("zzzzzzz")
         self.isScrapButtonSelected = sender.isSelected
         delegate?.scrapButtonDidTap(id: internshipAnnouncementId)
         delegate2?.scrapButtonDidTap(scrapId: scrapId, index: indexPath)

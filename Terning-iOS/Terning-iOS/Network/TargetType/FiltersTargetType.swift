@@ -45,10 +45,10 @@ extension FiltersTargetType: TargetType {
         case .setFilterDatas(let grade, let workingPeriod, let startYear, let startMonth):
             return .requestParameters(
                 parameters: [
-                    "grade": grade,
-                    "workingPeriod": workingPeriod,
-                    "startYear": startYear,
-                    "startMonth": startMonth
+                    "grade": grade ?? 0,
+                    "workingPeriod": workingPeriod ?? 0,
+                    "startYear": startYear ?? 2024,
+                    "startMonth": startMonth ?? 8
                 ],
                 encoding: JSONEncoding.default
             )

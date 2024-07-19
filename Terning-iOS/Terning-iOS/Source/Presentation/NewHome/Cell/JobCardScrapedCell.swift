@@ -182,20 +182,12 @@ extension JobCardScrapedCell {
     func scrapButtonDidTap(_ sender: UIButton) {
         guard let internshipAnnouncementId = self.internshipAnnouncementId else { return }
         
-        if self.scrapId == nil {
-            updateScrapButton(isSelected: false)
-        } else {
-            updateScrapButton(isSelected: true)
-        }
+        self.scrapButton.isSelected.toggle()
         
         guard let indexPath = self.indexPath else { return }
 
         self.isScrapButtonSelected = sender.isSelected
         delegate?.scrapButtonDidTap(id: internshipAnnouncementId)
         delegate2?.scrapButtonDidTap(index: indexPath)
-    }
-    
-    func updateScrapButton(isSelected: Bool) {
-        self.scrapButton.isSelected = isSelected
     }
 }

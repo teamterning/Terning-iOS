@@ -141,7 +141,6 @@ extension JobDetailView {
         } else {
             scrapButton.isSelected = true
         }
-        scrapButton.updateImage()
     }
     
     func setScrapCount(_ count: Int) {

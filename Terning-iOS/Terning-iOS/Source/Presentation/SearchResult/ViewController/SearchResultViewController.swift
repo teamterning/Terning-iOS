@@ -329,7 +329,6 @@ extension SearchResultViewController {
                 let status = response.statusCode
                 if 200..<300 ~= status {
                     print("스크랩 수정 성공")
-                    cell.updateScrapButton(isSelected: true)
                     self.bindViewModel()
                     self.rootView.collectionView.reloadData()
                 } else {

@@ -126,6 +126,8 @@ extension NewHomeViewController: UICollectionViewDelegate {
         case .jobCard:
             print(indexPath)
             let jobDetailVC = JobDetailViewController()
+            let index = jobCardLists[indexPath.row].intershipAnnouncementId
+            jobDetailVC.internshipAnnouncementId.onNext(index)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         default:
             return
@@ -319,7 +321,6 @@ extension NewHomeViewController: ScrapDidTapDelegate {
         let alertSheet = CustomAlertViewController(alertType: .custom)
         
         alertSheet.setData3(model: model, deadline: model.deadline)
-        
         
         alertSheet.modalTransitionStyle = .crossDissolve
         alertSheet.modalPresentationStyle = .overFullScreen

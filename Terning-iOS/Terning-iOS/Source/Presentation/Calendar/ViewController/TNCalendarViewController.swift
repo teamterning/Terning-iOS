@@ -330,8 +330,6 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             let deadLine = dateFormmatter2.string(from: selectedDate ?? Date())
             alertSheet.setData2(model: model, deadline: deadLine)
             
-            guard let index = model.internshipAnnouncementId else { return }
-            
             alertSheet.modalTransitionStyle = .crossDissolve
             alertSheet.modalPresentationStyle = .overFullScreen
             

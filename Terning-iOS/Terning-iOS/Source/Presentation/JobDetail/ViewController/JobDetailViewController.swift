@@ -153,9 +153,9 @@ extension JobDetailViewController {
                             color: self.colorIndexMapping[colorIndex.value] ?? 0
                         ) { success in
                             if success {
-                                JobDetailView().scrapButton.isSelected = true
-                                JobDetailView().scrapButton.updateImage()
-                                JobDetailView().scrapLabel.text = "\(self.scarpNum + 1)"
+                                self.rootView.scrapButton.isSelected = true
+                                self.rootView.scrapButton.updateImage()
+                                self.rootView.scrapLabel.text = "\(self.scarpNum + 1)"
                                 self.showToast(message: "관심 공고가 캘린더에 스크랩되었어요!")
                             }
                             self.dismiss(animated: false)
@@ -181,9 +181,9 @@ extension JobDetailViewController {
                         self.cancelScrapAnnouncement(scrapId: jobDetail.scrapId ?? -1)
                         self.dismiss(animated: false)
                        
-                        JobDetailView().scrapButton.isSelected = false
-                        JobDetailView().scrapButton.updateImage()
-                        JobDetailView().scrapLabel.text = "\(scarpNum - 1)"
+                        self.rootView.scrapButton.isSelected = false
+                        self.rootView.scrapButton.updateImage()
+                        self.rootView.scrapLabel.text = "\(scarpNum - 1)"
                         
                         self.showToast(message: "관심 공고가 캘린더에서 사라졌어요!")
                     }

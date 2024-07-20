@@ -38,17 +38,18 @@ extension SplashVC {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             if UserManager.shared.hasAccessToken {
                 UserManager.shared.getNewToken { [weak self] result in
-                    print("❤️❤️ 자동 로그인 성공 전 이다 \(result) ❤️❤️")
+                    print("❤️❤️ 자동 로그인 시도 중 ❤️❤️")
                     switch result {
                     case .success:
                         print("SplashVC-토큰 재발급 성공")
                         self?.pushToTabBarController()
                     case .failure(let error):
-                        print(error.localizedDescription)
+                        print("토큰 재발급 실패: \(error.localizedDescription)")
                         self?.pushToSignInView()
                     }
                 }
             } else {
+                print("토큰 없음, 로그인 페이지로 이동")
                 self.pushToSignInView()
             }
         }

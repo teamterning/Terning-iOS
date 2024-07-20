@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 import Then
 
-enum HomaMainSection: Int, CaseIterable {
-    case TodayDeadlineUserInfo
-    case TodayDeadline
+enum HomeMainSection: Int, CaseIterable {
+    case todayDeadlineUserInfo
+    case todayDeadline
     case homeHeader
     case filterInfo
     case sortButton
@@ -20,9 +20,9 @@ enum HomaMainSection: Int, CaseIterable {
     
     var numberOfItemsInSection: Int {
         switch self {
-        case .TodayDeadlineUserInfo, .homeHeader, .filterInfo, .sortButton:
+        case .todayDeadlineUserInfo, .homeHeader, .filterInfo, .sortButton:
             return 1
-        case .TodayDeadline, .jobCard:
+        case .todayDeadline, .jobCard:
             return 0
         }
     }
@@ -35,6 +35,7 @@ final class NewHomeViewController: UIViewController {
     
     private let homeProviders = Providers.homeProvider
     private let filterProviders = Providers.filtersProvider
+    private let scrapProviders = Providers.scrapsProvider
     
     private var userName: String = ""
     
@@ -103,12 +104,17 @@ final class NewHomeViewController: UIViewController {
     
     private func setRegister() {
         rootView.collectionView.register(ScrapInfoHeaderCell.self, forCellWithReuseIdentifier: ScrapInfoHeaderCell.className)
+        
         rootView.collectionView.register(NonScrapInfoCell.self, forCellWithReuseIdentifier: NonScrapInfoCell.className)
         rootView.collectionView.register(IsScrapInfoViewCell.self, forCellWithReuseIdentifier: IsScrapInfoViewCell.className)
+        
         rootView.collectionView.register(HomeInfoCell.self, forCellWithReuseIdentifier: HomeInfoCell.className)
+        
         rootView.collectionView.register(FilterInfoCell.self, forCellWithReuseIdentifier: FilterInfoCell.className)
+        
         rootView.collectionView.register(SortInfoCell.self, forCellWithReuseIdentifier: SortInfoCell.className)
-        rootView.collectionView.register(JobCardScrapedCell.self, forCellWithReuseIdentifier: JobCardScrapedCell.className)
+        
+        rootView.collectionView.register(JobCardScrapedCell.self, forCellWithReuseIdentifier: JobCardScrapedCell.className) // 맞춤 공고가 있는 경우
         rootView.collectionView.register(NonJobCardCell.self, forCellWithReuseIdentifier: NonJobCardCell.className)
         rootView.collectionView.register(InavailableFilterView.self, forCellWithReuseIdentifier: InavailableFilterView.className)
     }
@@ -116,23 +122,39 @@ final class NewHomeViewController: UIViewController {
 }
 
 extension NewHomeViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let section = HomeMainSection(rawValue: indexPath.section) else {
+            return
+        }
+        
+        switch section {
+        case .jobCard:
+            print(indexPath)
+            let jobDetailVC = JobDetailViewController()
+            let index = jobCardLists[indexPath.row].intershipAnnouncementId
+            jobDetailVC.internshipAnnouncementId.onNext(index)
+            self.navigationController?.pushViewController(jobDetailVC, animated: true)
+        default:
+            return
+        }
+        
+    }
 }
 
 extension NewHomeViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return HomaMainSection.allCases.count
+        return HomeMainSection.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let section = HomaMainSection(rawValue: section) else {
+        guard let section = HomeMainSection(rawValue: section) else {
             return 0
         }
         
         switch section {
-        case .TodayDeadlineUserInfo, .homeHeader, .filterInfo, .sortButton:
+        case .todayDeadlineUserInfo, .homeHeader, .filterInfo, .sortButton:
             return section.numberOfItemsInSection
-        case .TodayDeadline:
+        case .todayDeadline:
             return todayDeadlineLists.isEmpty ? 1 : todayDeadlineLists.count
         case .jobCard:
             return (isNoneData || jobCardLists.isEmpty) ? 1 : jobCardLists.count
@@ -140,25 +162,26 @@ extension NewHomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let section = HomaMainSection(rawValue: indexPath.section) else {
+        guard let section = HomeMainSection(rawValue: indexPath.section) else {
             fatalError("Section 오류")
         }
         
         switch section {
-        case .TodayDeadlineUserInfo:
+        case .todayDeadlineUserInfo:
             guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: ScrapInfoHeaderCell.className, for: indexPath) as? ScrapInfoHeaderCell else { return UICollectionViewCell() }
             cell.bind(name: userName)
             return cell
             
-        case .TodayDeadline:
+        case .todayDeadline:
             if todayDeadlineLists.isEmpty {
-                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonScrapInfoCell.className, for: indexPath) as? NonScrapInfoCell else { return UICollectionViewCell() }
+                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonScrapInfoCell.className, for: indexPath) as? NonScrapInfoCell else { return UICollectionViewCell() } // 오늘 마감인 공고가 없어요
                 return cell
             } else {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: IsScrapInfoViewCell.className, for: indexPath) as? IsScrapInfoViewCell else { return UICollectionViewCell() }
                 cell.bindData(model: todayDeadlineLists[indexPath.item])
                 return cell
             }
+            
         case .homeHeader:
             guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: HomeInfoCell.className, for: indexPath) as? HomeInfoCell else { return UICollectionViewCell() }
             
@@ -175,14 +198,17 @@ extension NewHomeViewController: UICollectionViewDataSource {
             return cell
             
         case .jobCard:
-            if isNoneData {
-                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: InavailableFilterView.className, for: indexPath) as? InavailableFilterView else { return UICollectionViewCell() }
-                return cell
-            } else if jobCardLists.isEmpty {
+            if isNoneData && jobCardLists.isEmpty {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonJobCardCell.className, for: indexPath) as? NonJobCardCell else { return UICollectionViewCell() }
+                
                 return cell
-            } else {
+            } else if !isNoneData && jobCardLists.isEmpty {
+                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: InavailableFilterView.className, for: indexPath) as? InavailableFilterView else { return UICollectionViewCell() }
+                
+                return cell
+            } else if !isNoneData && !jobCardLists.isEmpty {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as? JobCardScrapedCell else { return UICollectionViewCell() }
+                cell.delegate = self
                 cell.bindData(model: jobCardLists[indexPath.row])
                 return cell
             }
@@ -233,7 +259,12 @@ extension NewHomeViewController {
                         guard let data = responseDto.result else { return }
                         
                         self.filterInfos = data
-                        self.fetchJobCardDatas()
+                        
+                        // 0.5초 뒤에 fetchJobCardDatas 호출
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.fetchJobCardDatas()
+                            self.fetchTodayDeadlineDatas()
+                        }
                         
                     } catch {
                         print(error.localizedDescription)
@@ -286,6 +317,75 @@ extension NewHomeViewController: FilterButtonProtocol {
         
         filterSettingVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(filterSettingVC, animated: true)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+}
+
+extension NewHomeViewController: ScrapDidTapDelegate {
+    func scrapButtonDidTap(id index: Int) {
+        let model = jobCardLists[index]
+        let alertSheet = CustomAlertViewController(alertType: .custom)
+        
+        alertSheet.setData3(model: model, deadline: model.deadline)
+        
+        alertSheet.modalTransitionStyle = .crossDissolve
+        alertSheet.modalPresentationStyle = .overFullScreen
+        
+        alertSheet.centerButtonTapAction = { [weak self] in
+            guard let self = self else { return }
+            let colorIndex = alertSheet.selectedColorIndexRelay
+            
+            self.addScrapAnnouncement(scrapId: model.intershipAnnouncementId, color: colorIndex.value)
+            self.dismiss(animated: false)
+            
+        }
+        
+        self.present(alertSheet, animated: false)
+    }
+    
+    
+    private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
+        guard let scrapId = scrapId else { return }
+        Providers.scrapsProvider.request(.patchScrap(scrapId: scrapId, color: color)) { [weak self] result in
+            LoadingIndicator.hideLoading()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                if 200..<300 ~= status {
+                    print("스크랩 수정 성공")
+                    self.rootView.collectionView.reloadData()
+                } else {
+                    print("400 error")
+                    self.showToast(message: "네트워크 오류")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showToast(message: "네트워크 오류")
+            }
+        }
+    }
+    
+    
+    private func addScrapAnnouncement(scrapId: Int, color: Int) {
+        Providers.scrapsProvider.request(.addScrap(internshipAnnouncementId: scrapId, color: color)) { [weak self] result in
+            LoadingIndicator.hideLoading()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                if 200..<300 ~= status {
+                    print("스크랩 수정 성공")
+                    self.rootView.collectionView.reloadData()
+                } else {
+                    print("400 error")
+                    self.showToast(message: "네트워크 오류")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showToast(message: "네트워크 오류")
+            }
+        }
     }
 }
 

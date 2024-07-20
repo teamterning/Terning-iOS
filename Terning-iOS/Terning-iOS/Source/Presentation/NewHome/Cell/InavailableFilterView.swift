@@ -12,7 +12,6 @@ import Then
 
 class InavailableFilterView: UICollectionViewCell {
     
-    
     // MARK: - UIComponents
     
     private let inavailableIcon = UIImageView().then {

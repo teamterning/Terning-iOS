@@ -138,7 +138,7 @@ extension FilteringSettingViewController {
         case 0:
             return String(2023 + row)
         case 1:
-            return String(row + 3)
+            return String(row+1)
         default:
             return nil
         }
@@ -148,8 +148,9 @@ extension FilteringSettingViewController {
         switch component {
         case 0:
             startYear = 2023 + row
+            print(startYear)
         case 1:
-            startMonth = row + 2
+            startMonth = row + 1
             print(startMonth)
         default:
             break

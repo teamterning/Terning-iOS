@@ -16,6 +16,10 @@ final class CustomScrapButton: UIButton {
     private let selectedImage = UIImage(named: "ic_scrap_fill")
     private let deselectedImage = UIImage(named: "ic_scrap")
     
+    private let scrapImage = UIButton(type: .custom).then {
+        $0.setImage(.icScrap, for: .normal)
+        $0.setImage(.icScrapFill, for: .selected)
+    }
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -60,6 +64,6 @@ extension CustomScrapButton {
 extension CustomScrapButton {
     @objc
     private func buttonTapped() {
-        self.updateImage()
+        
     }
 }

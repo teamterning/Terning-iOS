@@ -24,6 +24,8 @@ final class JobDetailViewController: UIViewController {
     
     // MARK: - Properties
     
+    private var scarpNum: Int = 0
+    
     private let colorIndexMapping: [Int: Int] = [
         0: 0,  // calRed
         1: 2,  // calOrange2
@@ -151,8 +153,9 @@ extension JobDetailViewController {
                             color: self.colorIndexMapping[colorIndex.value] ?? 0
                         ) { success in
                             if success {
-                                self.bindViewModel()
-                                JobDetailView().tableView.reloadData()
+                                self.rootView.scrapButton.isSelected = true
+                                self.rootView.scrapButton.updateImage()
+                                self.rootView.scrapLabel.text = "\(self.scarpNum + 1)"
                                 self.showToast(message: "관심 공고가 캘린더에 스크랩되었어요!")
                             }
                             self.dismiss(animated: false)
@@ -177,6 +180,11 @@ extension JobDetailViewController {
                         guard let self = self else { return }
                         self.cancelScrapAnnouncement(scrapId: jobDetail.scrapId ?? -1)
                         self.dismiss(animated: false)
+                       
+                        self.rootView.scrapButton.isSelected = false
+                        self.rootView.scrapButton.updateImage()
+                        self.rootView.scrapLabel.text = "\(scarpNum - 1)"
+                        
                         self.showToast(message: "관심 공고가 캘린더에서 사라졌어요!")
                     }
                     
@@ -237,6 +245,7 @@ extension JobDetailViewController {
             .drive(onNext: { [weak self] bottomInfo in
                 self?.rootView.setUrl(bottomInfo.url)
                 self?.rootView.setScrapped(bottomInfo.scrapId)
+                self?.scarpNum = bottomInfo.scrapCount
                 self?.rootView.setScrapCount(bottomInfo.scrapCount)
             })
             .disposed(by: disposeBag)

@@ -336,7 +336,9 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             alertSheet.centerButtonTapAction = {
                 if alertSheet.currentMode == .info {
                     self.dismiss(animated: true)
-                    self.navigationController?.pushViewController(jobDetailViewController, animated: true)
+                    let jobDetailVC = JobDetailViewController()
+                    jobDetailVC.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(jobDetailVC, animated: true)
                 } else if alertSheet.currentMode == .color {
                     self.patchScrapAnnouncement(scrapId: model.scrapId, color: self.colorIndexMapping[colorIndex.value] ?? 0)
                     self.dismiss(animated: true)

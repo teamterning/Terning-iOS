@@ -60,7 +60,7 @@ extension WelcomeView {
             startButton.setTitle(title: "내 맞춤 공고 바로 보러가기")
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             UIView.animate(withDuration: 0.5) {
                 self.startButton.alpha = 1.0
             }

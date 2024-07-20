@@ -27,29 +27,6 @@ class MyPageView: UIView {
         
     }
     
-    let profileEditLabel = LabelFactory.build(
-        text: "프로필 수정",
-        font: .button3,
-        textColor: .grey400
-    )
-    
-    let profileEditImage = UIImageView().then {
-        $0.image = UIImage(resource: .icFrontArrow)
-    }
-    
-    lazy var profileEditStack = UIStackView(
-        arrangedSubviews: [
-            profileEditLabel,
-            profileEditImage
-        ]
-    ).then {
-        $0.axis = .horizontal
-        $0.spacing = 0
-        $0.alignment = .center
-        $0.distribution = .fillProportionally
-        $0.isUserInteractionEnabled = true
-    }
-    
     let bottomView = UIView().then {
         $0.backgroundColor = UIColor(hex: "F8F8F8")
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -211,7 +188,6 @@ extension MyPageView {
         addSubviews(
             profileImage,
             userNameLabel,
-            profileEditStack,
             bottomView,
             bottomSubView,
             noticeStack,
@@ -234,16 +210,6 @@ extension MyPageView {
             $0.edges.equalTo(safeAreaLayoutGuide)
         }
         
-        profileEditImage.snp.makeConstraints {
-            $0.height.width.equalTo(20)
-        }
-
-        profileEditStack.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).offset(25)
-            $0.trailing.equalToSuperview().inset(12)
-            $0.width.equalTo(85)
-        }
-
         bottomView.snp.makeConstraints {
             $0.bottom.equalTo(safeAreaLayoutGuide)
             $0.horizontalEdges.equalToSuperview()

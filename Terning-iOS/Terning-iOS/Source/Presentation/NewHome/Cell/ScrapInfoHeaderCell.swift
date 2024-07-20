@@ -15,7 +15,7 @@ final class ScrapInfoHeaderCell: UICollectionViewCell {
     // MARK: - UIComponents
     
     private let titleLabel = LabelFactory.build(
-        text: "오늘 마감되는 남지우님의 관심공고",
+        text: "오늘 마감되는 회원님의 관심공고",
         font: .title1,
         textColor: .terningBlack,
         textAlignment: .left
@@ -52,3 +52,18 @@ extension ScrapInfoHeaderCell {
         }
     }
 }
+
+// MARK: - Methods
+
+extension ScrapInfoHeaderCell {
+    func bind(name: String) {
+        if name == "" {
+            titleLabel.text = "오늘 마감되는 회원님의 관심공고"
+        } else if name.count > 6 {
+            titleLabel.text = "오늘 마감되는\n\(name)님의 관심공고"
+        } else {
+            titleLabel.text = "오늘 마감되는 \(name)님의 관심공고"
+        }
+    }
+}
+

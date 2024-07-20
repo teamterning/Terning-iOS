@@ -35,6 +35,7 @@ class MyPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getMyPageInfo()
         rootView.bind(
             model: UserProfileInfoModel(
                 name: model.name,
@@ -58,9 +59,6 @@ extension MyPageViewController {
         
         let leaveTapGesture = UITapGestureRecognizer(target: self, action: #selector(leaveButtonDidTap))
         rootView.leaveButton.addGestureRecognizer(leaveTapGesture)
-        
-        let profileEditTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileEditButtonDidTap))
-        rootView.profileEditStack.addGestureRecognizer(profileEditTapGesture)
     }
     
     private func setAddTarget() {
@@ -78,14 +76,32 @@ extension MyPageViewController {
     
     @objc
     func logoutButtonDidTap() {
-        print("로그아웃")
-        print(model.name, model.authType)
+        let contentViewController = LogoutViewContoller(viewType: .logout)
+        
+        let bottomSheetVC = CustomBottomSheetViewController(
+            bottomType: .low,
+            contentViewController: contentViewController,
+            upScroll: false,
+            isNotch: false
+        )
+        
+        bottomSheetVC.modalPresentationStyle = .overFullScreen
+        self.present(bottomSheetVC, animated: false)
     }
     
     @objc
     func leaveButtonDidTap() {
-        print("탈퇴하기")
-        print(model.name, model.authType)
+        let contentViewController = LogoutViewContoller(viewType: .withdraw)
+        
+        let bottomSheetVC = CustomBottomSheetViewController(
+            bottomType: .low,
+            contentViewController: contentViewController,
+            upScroll: false,
+            isNotch: false
+        )
+        
+        bottomSheetVC.modalPresentationStyle = .overFullScreen
+        self.present(bottomSheetVC, animated: false)
     }
     
     @objc
@@ -103,8 +119,19 @@ extension MyPageViewController {
         print("navigate to profile edit view")
     }
     
-    // MARK: - Network
-    
+   
+}
+
+extension MyPageViewController {
+    private func showBottomView() {
+      
+    }
+}
+
+
+// MARK: - API
+
+extension MyPageViewController {
     func getMyPageInfo() {
         myPageProvider.request(.getProfileInfo) { [weak self] result in
             guard let self = self else { return }
@@ -114,10 +141,10 @@ extension MyPageViewController {
             
                 if 200..<300 ~= status {
                     do {
-                        let responseDto = try response.map(BaseResponse<[UserProfileInfoModel]>.self)
+                        let responseDto = try response.map(BaseResponse<UserProfileInfoModel>.self)
                         guard let data = responseDto.result else { return }
                         
-                        rootView.userNameLabel.text = "\(data[0])님"
+                        rootView.userNameLabel.text = "\(data.name)님"
                     } catch {
                         print("사용자 정보를 불러올 수 없어요.")
                         print(error.localizedDescription)

@@ -18,7 +18,7 @@ final class MainInfoTableViewCell: UITableViewCell {
         $0.makeBorder(
             width: 1,
             color: .terningMain,
-            cornerRadius: 10
+            cornerRadius: 12
         )
     }
     

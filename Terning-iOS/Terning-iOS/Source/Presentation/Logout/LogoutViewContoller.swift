@@ -123,15 +123,15 @@ extension LogoutViewContoller {
 extension LogoutViewContoller {
     @objc
     private func yesButtonDidTap() {
-        UserManager.shared.logout()
         postLogout()
+        UserManager.shared.logout()
         navigateToSplashVC()
     }
     
     @objc
     private func noButtonDidTap() {
-        UserManager.shared.logout()
         deleteWithdraw()
+        UserManager.shared.logout()
         navigateToSplashVC()
     }
     

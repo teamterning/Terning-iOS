@@ -58,6 +58,7 @@
 		2DC986082C45FAC200D46729 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC986072C45FAC200D46729 /* CustomPageControl.swift */; };
 		2DC9860B2C46056300D46729 /* RecommendAnnouncementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */; };
 		2DC9860D2C4605FC00D46729 /* AdvertisementsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */; };
+		2DD483802C4B37A0000541E3 /* LogoutViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD4837F2C4B37A0000541E3 /* LogoutViewContoller.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
 		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
@@ -201,6 +202,7 @@
 		2DC986072C45FAC200D46729 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendAnnouncementModel.swift; sourceTree = "<group>"; };
 		2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementsModel.swift; sourceTree = "<group>"; };
+		2DD4837F2C4B37A0000541E3 /* LogoutViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewContoller.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
@@ -599,6 +601,14 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		2DD4837E2C4B3782000541E3 /* Logout */ = {
+			isa = PBXGroup;
+			children = (
+				2DD4837F2C4B37A0000541E3 /* LogoutViewContoller.swift */,
+			);
+			path = Logout;
+			sourceTree = "<group>";
+		};
 		7121A1312C396F980056DB8B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -873,6 +883,7 @@
 				2D89C7572C486DD2002B035F /* SearchResult */,
 				71CCC06D2C3F369A00789A9B /* Calendar */,
 				2DC61F132C41A52E009F991F /* Login */,
+				2DD4837E2C4B3782000541E3 /* Logout */,
 				2DC61EEE2C40759F009F991F /* JobDetail */,
 				2D4EE3D82C3F520000E3E95B /* Onboarding */,
 				2D4EE3A02C3E787200E3E95B /* Profile */,
@@ -1247,6 +1258,7 @@
 				2D89C7512C47E99B002B035F /* ProfileImageView.swift in Sources */,
 				71B509252C41D027006D8E56 /* CalendarDateHeaderView.swift in Sources */,
 				2DC61F192C41B261009F991F /* LoginView.swift in Sources */,
+				2DD483802C4B37A0000541E3 /* LogoutViewContoller.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
 				2D89C7652C486E2E002B035F /* SearchResultView.swift in Sources */,
 				2D89C7672C486E53002B035F /* CustomSortButton.swift in Sources */,

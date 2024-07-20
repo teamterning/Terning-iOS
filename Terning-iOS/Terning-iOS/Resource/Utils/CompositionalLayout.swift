@@ -241,9 +241,8 @@ struct CompositionalLayout {
                 
                 return section
             } else {
-            return nil
+                return nil
+            }
         }
     }
-}
-
 }

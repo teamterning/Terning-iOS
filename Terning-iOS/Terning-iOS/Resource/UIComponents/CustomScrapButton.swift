@@ -43,6 +43,7 @@ extension CustomScrapButton {
         self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
+    @discardableResult
     func updateImage() {
         if self.isSelected {
             self.setImage(selectedImage, for: .normal)

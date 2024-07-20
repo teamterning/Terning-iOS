@@ -89,14 +89,13 @@ extension SearchView {
     private func setLayout() {
         navigationView.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(94)
+            $0.height.equalTo(52)
         }
-        
         logoImageView.snp.makeConstraints {
-            $0.centerY.equalTo(navigationView.snp.centerY)
+            $0.top.equalToSuperview().inset(15)
             $0.leading.equalToSuperview().inset(21)
-            $0.height.equalTo(36)
-            $0.width.equalTo(156)
+            $0.height.equalTo(27)
+            $0.width.equalTo(113)
         }
         searchView.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom).offset(6)

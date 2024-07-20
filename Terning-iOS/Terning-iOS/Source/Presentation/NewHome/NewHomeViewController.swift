@@ -31,9 +31,12 @@ enum HomaMainSection: Int, CaseIterable {
 final class NewHomeViewController: UIViewController {
     
     // MARK: - Properties
+    private let myPageProvider = Providers.myPageProvider
     
     private let homeProviders = Providers.homeProvider
     private let filterProviders = Providers.filtersProvider
+    
+    private var userName: String = ""
     
     var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
         didSet {
@@ -78,6 +81,7 @@ final class NewHomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
+        getMyPageInfo()
         fetchTodayDeadlineDatas()
         fetchFilterInfos()
     }
@@ -143,6 +147,7 @@ extension NewHomeViewController: UICollectionViewDataSource {
         switch section {
         case .TodayDeadlineUserInfo:
             guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: ScrapInfoHeaderCell.className, for: indexPath) as? ScrapInfoHeaderCell else { return UICollectionViewCell() }
+            cell.bind(name: userName)
             return cell
             
         case .TodayDeadline:
@@ -281,5 +286,37 @@ extension NewHomeViewController: FilterButtonProtocol {
         
         filterSettingVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(filterSettingVC, animated: true)
+    }
+}
+
+// MARK: - Network
+
+extension NewHomeViewController {
+    func getMyPageInfo() {
+        myPageProvider.request(.getProfileInfo) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+            
+                if 200..<300 ~= status {
+                    do {
+                        let responseDto = try response.map(BaseResponse<UserProfileInfoModel>.self)
+                        guard let data = responseDto.result else { return }
+                        self.userName = data.name
+                       
+                    } catch {
+                        print("사용자 정보를 불러올 수 없어요.")
+                        print(error.localizedDescription)
+                    }
+                    
+                } else {
+                    print("404 error")
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }

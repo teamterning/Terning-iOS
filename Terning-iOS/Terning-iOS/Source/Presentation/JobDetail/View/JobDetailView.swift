@@ -39,7 +39,7 @@ final class JobDetailView: UIView {
         $0.layer.masksToBounds = false
     }
     
-    private var scrapLabel = LabelFactory.build(
+    var scrapLabel = LabelFactory.build(
         text: "1004회",
         font: .detail3,
         textColor: .grey400,

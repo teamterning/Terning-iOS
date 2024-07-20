@@ -21,6 +21,10 @@ final class RecommendCollectionViewCell: UICollectionViewCell {
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
     
+    private let underLineView = UIView().then {
+        $0.backgroundColor = .grey100
+    }
+    
     private let descriptionLabel = LabelFactory.build(
         font: .button3,
         textColor: .terningBlack,
@@ -67,7 +71,11 @@ extension RecommendCollectionViewCell {
     }
     
     private func setHierarchy() {
-        self.addSubviews(recommendImageView, descriptionLabel)
+        self.addSubviews(
+            recommendImageView,
+            underLineView,
+            descriptionLabel
+        )
     }
     
     private func setLayout() {
@@ -76,8 +84,14 @@ extension RecommendCollectionViewCell {
             $0.height.equalTo(70)
         }
         
+        underLineView.snp.makeConstraints {
+            $0.top.equalTo(recommendImageView.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(2)
+        }
+        
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(recommendImageView.snp.bottom).offset(8)
+            $0.top.equalTo(underLineView.snp.bottom).offset(8)
             $0.horizontalEdges.equalToSuperview().inset(8)
             $0.bottom.equalToSuperview().inset(7)
             $0.height.equalTo(51)

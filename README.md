@@ -42,9 +42,10 @@
 ## **🧑‍💻 Member**
 | 이명진<br/>([@thingineeer](https://github.com/thingineeer)) | 정민지<br/>([@wjdalswl](https://github.com/wjdalswl)) | 김민성<br/>([@mminny](https://github.com/mminny)) |
 | :---: | :---: | :---: |
-| <img width="540" src="https://github.com/teamterning/Terning-iOS/assets/88179341/5ce47573-b805-4be0-9b6f-ac03d9fd4163"/> | <img width="540" src="https://github.com/teamterning/Terning-iOS/assets/88179341/ed6c378e-f17d-4dd6-8081-8b69da816d51"/> | <img width="540" src="https://github.com/teamterning/Terning-iOS/assets/88179341/f6420a14-2ca9-4463-a075-e0594e50e107"/> |
-|`캘린더` `로그인` `회원가입` `회원탈퇴 및 로그아웃` `마이페이지` `스크랩`|`온보딩` `로그인` `탐색` `공고 상세화면`|`홈` `필터링`|
+| <img width="544" alt="IMG_6676 2" src="https://github.com/user-attachments/assets/96a2e12c-ff29-42eb-b5ae-622d73c2b62b"> | <img width="544" alt="IMG_6678" src="https://github.com/user-attachments/assets/1e645a4e-e85e-4c7f-b082-6eb5a2d2dee4"> | <img width="544" alt="IMG_6677" src="https://github.com/user-attachments/assets/02f5e8cd-649d-4bd5-811b-c6e580886782"> |
+|`홈` `캘린더` `로그인` `회원가입` `회원탈퇴 및 로그아웃` `스크랩`|`온보딩` `로그인` `탐색` `공고 상세화면` `마이페이지` |`홈` `필터링`|
 <br>
+
 
 ## [🏠 Project Design](https://www.figma.com/board/h597MCTAjj8PawsF1nbHMC/iOS-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%84%A4%EA%B3%84?node-id=0-1&t=elsfeNTTSrKMhUfx-1)
 <img width="941" alt="image" src="https://github.com/teamterning/Terning-iOS/assets/88179341/8e4c42ce-4bef-4c02-87b8-b7adfb5ced1f">

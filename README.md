@@ -43,7 +43,7 @@
 | 이명진<br/>([@thingineeer](https://github.com/thingineeer)) | 정민지<br/>([@wjdalswl](https://github.com/wjdalswl)) | 김민성<br/>([@mminny](https://github.com/mminny)) |
 | :---: | :---: | :---: |
 | <img width="544" alt="IMG_6676 2" src="https://github.com/user-attachments/assets/96a2e12c-ff29-42eb-b5ae-622d73c2b62b"> | <img width="544" alt="IMG_6678" src="https://github.com/user-attachments/assets/1e645a4e-e85e-4c7f-b082-6eb5a2d2dee4"> | <img width="544" alt="IMG_6677" src="https://github.com/user-attachments/assets/02f5e8cd-649d-4bd5-811b-c6e580886782"> |
-|`홈` `캘린더` `로그인` `회원가입` `회원탈퇴 및 로그아웃` `스크랩`|`온보딩` `로그인` `탐색` `공고 상세화면` `마이페이지` |`홈` `필터링`|
+|`홈` `캘린더` `소셜 로그인` `스크랩`|`온보딩` `로그인` `탐색` `공고 상세화면` `마이페이지` |`홈` `필터링`|
 <br>
 
 

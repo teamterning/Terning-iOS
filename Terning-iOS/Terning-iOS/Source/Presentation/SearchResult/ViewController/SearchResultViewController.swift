@@ -267,7 +267,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
                 ) { success in
                     if success {
                         self.bindViewModel()
-                        self.rootView.reloadData()
+                        self.rootView.collectionView.reloadData()
                         self.showToast(message: "관심 공고가 캘린더에 스크랩되었어요!")
                     }
                     self.dismiss(animated: false)

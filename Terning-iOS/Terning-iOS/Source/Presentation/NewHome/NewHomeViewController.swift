@@ -313,11 +313,20 @@ extension NewHomeViewController {
 
 extension NewHomeViewController: FilterButtonProtocol {
     func filterButtonDidTap() {
+        
         let filterSettingVC = FilteringSettingViewController(data: filterInfos)
         
-        filterSettingVC.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(filterSettingVC, animated: true)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * 0.8 }
+        
+        if let sheet = filterSettingVC.sheetPresentationController {
+            sheet.detents = [fraction, .large()]
+        }
+        
+        self.present(filterSettingVC, animated: true)
+        
+        //        filterSettingVC.hidesBottomBarWhenPushed = true
+        //        self.navigationController?.pushViewController(filterSettingVC, animated: true)
+        //        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 }
 
@@ -343,7 +352,6 @@ extension NewHomeViewController: ScrapDidTapDelegate {
         self.present(alertSheet, animated: false)
     }
     
-    
     private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
         guard let scrapId = scrapId else { return }
         Providers.scrapsProvider.request(.patchScrap(scrapId: scrapId, color: color)) { [weak self] result in
@@ -365,7 +373,6 @@ extension NewHomeViewController: ScrapDidTapDelegate {
             }
         }
     }
-    
     
     private func addScrapAnnouncement(scrapId: Int, color: Int) {
         Providers.scrapsProvider.request(.addScrap(internshipAnnouncementId: scrapId, color: color)) { [weak self] result in
@@ -398,13 +405,13 @@ extension NewHomeViewController {
             switch result {
             case .success(let response):
                 let status = response.statusCode
-            
+                
                 if 200..<300 ~= status {
                     do {
                         let responseDto = try response.map(BaseResponse<UserProfileInfoModel>.self)
                         guard let data = responseDto.result else { return }
                         self.userName = data.name
-                       
+                        
                     } catch {
                         print("사용자 정보를 불러올 수 없어요.")
                         print(error.localizedDescription)

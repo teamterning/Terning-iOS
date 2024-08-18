@@ -65,7 +65,6 @@ class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setNavigationBind()
         setAddTarget()
         bindData(model: data)
         
@@ -91,12 +90,6 @@ extension FilteringSettingViewController {
         
         rootView.saveButton.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
         
-    }
-    
-    func setNavigationBind() {
-        rootView.navi.leftButtonAction = { [weak self] in
-            self?.popOrDismissViewController()
-        }
     }
     
     // MARK: - Methods
@@ -172,7 +165,7 @@ extension FilteringSettingViewController {
                 let status = result.statusCode
                 if 200..<300 ~= status {
                     do {
-                        let responseDto = try result.map(BaseResponse<BlankData>.self)
+                        let _ = try result.map(BaseResponse<BlankData>.self)
                         
                         print("필터링 섧정 성공")
                     } catch {
@@ -212,6 +205,5 @@ extension FilteringSettingViewController {
             self.showToast(message: "스크랩 설정이 완료 되었어요 !")
             self.popOrDismissViewController()
         }
-
     }
 }

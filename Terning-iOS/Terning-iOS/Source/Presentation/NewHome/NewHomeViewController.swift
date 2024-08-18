@@ -217,6 +217,53 @@ extension NewHomeViewController: UICollectionViewDataSource {
     }
 }
 
+
+// MARK: - FilterButtonProtocol
+
+extension NewHomeViewController: FilterButtonProtocol {
+    func filterButtonDidTap() {
+        let filterSettingVC = FilteringSettingViewController(data: filterInfos)
+        
+        let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * (658/812) }
+        
+        if let sheet = filterSettingVC.sheetPresentationController {
+            sheet.detents = [fraction, .large()]
+            sheet.largestUndimmedDetentIdentifier = nil
+            filterSettingVC.modalPresentationStyle = .overFullScreen
+        }
+        
+        self.present(filterSettingVC, animated: true)
+    }
+}
+
+
+// MARK: - ScrapDidTapDelegate
+
+extension NewHomeViewController: ScrapDidTapDelegate {
+    func scrapButtonDidTap(id index: Int) {
+        let model = jobCardLists[index]
+        let alertSheet = CustomAlertViewController(alertType: .custom)
+        
+        alertSheet.setData3(model: model, deadline: model.deadline)
+        
+        alertSheet.modalTransitionStyle = .crossDissolve
+        alertSheet.modalPresentationStyle = .overFullScreen
+        
+        alertSheet.centerButtonTapAction = { [weak self] in
+            guard let self = self else { return }
+            let colorIndex = alertSheet.selectedColorIndexRelay
+            
+            self.addScrapAnnouncement(scrapId: model.intershipAnnouncementId, color: colorIndex.value)
+            self.dismiss(animated: false)
+            
+        }
+        
+        self.present(alertSheet, animated: false)
+    }
+}
+
+// MARK: - Network
+
 extension NewHomeViewController {
     private func fetchTodayDeadlineDatas() {
         homeProviders.request(.getHomeToday) { [weak self] response in
@@ -309,45 +356,6 @@ extension NewHomeViewController {
             }
         }
     }
-}
-
-extension NewHomeViewController: FilterButtonProtocol {
-    func filterButtonDidTap() {
-        let filterSettingVC = FilteringSettingViewController(data: filterInfos)
-        
-        let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * (658/812) }
-        
-        if let sheet = filterSettingVC.sheetPresentationController {
-            sheet.detents = [fraction, .large()]
-            sheet.largestUndimmedDetentIdentifier = nil
-            filterSettingVC.modalPresentationStyle = .overFullScreen
-        }
-        
-        self.present(filterSettingVC, animated: true)
-    }
-}
-
-extension NewHomeViewController: ScrapDidTapDelegate {
-    func scrapButtonDidTap(id index: Int) {
-        let model = jobCardLists[index]
-        let alertSheet = CustomAlertViewController(alertType: .custom)
-        
-        alertSheet.setData3(model: model, deadline: model.deadline)
-        
-        alertSheet.modalTransitionStyle = .crossDissolve
-        alertSheet.modalPresentationStyle = .overFullScreen
-        
-        alertSheet.centerButtonTapAction = { [weak self] in
-            guard let self = self else { return }
-            let colorIndex = alertSheet.selectedColorIndexRelay
-            
-            self.addScrapAnnouncement(scrapId: model.intershipAnnouncementId, color: colorIndex.value)
-            self.dismiss(animated: false)
-            
-        }
-        
-        self.present(alertSheet, animated: false)
-    }
     
     private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
         guard let scrapId = scrapId else { return }
@@ -391,12 +399,8 @@ extension NewHomeViewController: ScrapDidTapDelegate {
             }
         }
     }
-}
-
-// MARK: - Network
-
-extension NewHomeViewController {
-    func getMyPageInfo() {
+    
+    private func getMyPageInfo() {
         myPageProvider.request(.getProfileInfo) { [weak self] result in
             guard let self = self else { return }
             switch result {

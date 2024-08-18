@@ -313,20 +313,17 @@ extension NewHomeViewController {
 
 extension NewHomeViewController: FilterButtonProtocol {
     func filterButtonDidTap() {
-        
         let filterSettingVC = FilteringSettingViewController(data: filterInfos)
         
-        let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * 0.8 }
+        let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * (658/812) }
         
         if let sheet = filterSettingVC.sheetPresentationController {
             sheet.detents = [fraction, .large()]
+            sheet.largestUndimmedDetentIdentifier = nil
+            filterSettingVC.modalPresentationStyle = .overFullScreen
         }
         
         self.present(filterSettingVC, animated: true)
-        
-        //        filterSettingVC.hidesBottomBarWhenPushed = true
-        //        self.navigationController?.pushViewController(filterSettingVC, animated: true)
-        //        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 }
 

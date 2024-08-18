@@ -302,7 +302,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
         completion(true)
     }
     
-    private func parseStartDate(_ startDate: String) -> (year: Int?, month: Int?)  {
+    private func parseStartDate(_ startDate: String) -> (year: Int?, month: Int?) {
         let dateComponents = startDate.components(separatedBy: "년 ")
         guard dateComponents.count == 2 else { return (nil, nil) }
         

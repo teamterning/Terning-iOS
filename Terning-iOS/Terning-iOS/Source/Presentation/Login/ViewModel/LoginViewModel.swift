@@ -127,7 +127,7 @@ extension LoginViewModel {
                 .subscribe(onNext: { success in
                     observer.onNext(success)
                     observer.onCompleted()
-                }, onError: { error in
+                }, onError: { _ in
                     observer.onNext(false)
                     observer.onCompleted()
                 })

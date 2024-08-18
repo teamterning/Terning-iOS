@@ -11,8 +11,6 @@ final class CustomScrapButton: UIButton {
     
     // MARK: - Properties
     
-    
-
     private let selectedImage = UIImage(named: "ic_scrap_fill")
     private let deselectedImage = UIImage(named: "ic_scrap")
     
@@ -48,7 +46,6 @@ extension CustomScrapButton {
     private func setButtonAction() {
         self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
-    
     
     func updateImage() {
         if self.isSelected {

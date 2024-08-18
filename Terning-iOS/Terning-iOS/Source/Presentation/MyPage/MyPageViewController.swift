@@ -118,8 +118,6 @@ extension MyPageViewController {
     func profileEditButtonDidTap() {
         print("navigate to profile edit view")
     }
-    
-   
 }
 
 extension MyPageViewController {
@@ -127,7 +125,6 @@ extension MyPageViewController {
       
     }
 }
-
 
 // MARK: - API
 

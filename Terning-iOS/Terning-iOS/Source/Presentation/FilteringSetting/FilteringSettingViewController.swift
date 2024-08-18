@@ -141,10 +141,10 @@ extension FilteringSettingViewController {
         switch component {
         case 0:
             startYear = 2023 + row
-            print(startYear)
+            print(startYear ?? 0)
         case 1:
             startMonth = row + 1
-            print(startMonth)
+            print(startMonth ?? 0)
         default:
             break
         }
@@ -165,7 +165,7 @@ extension FilteringSettingViewController {
                 let status = result.statusCode
                 if 200..<300 ~= status {
                     do {
-                        let _ = try result.map(BaseResponse<BlankData>.self)
+                        _ = try result.map(BaseResponse<BlankData>.self)
                         
                         print("필터링 섧정 성공")
                     } catch {

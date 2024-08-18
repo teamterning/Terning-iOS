@@ -173,7 +173,7 @@ extension OnboardingView {
     private func setGradeUI() {
         let userName = OnboardingData.shared.userName
         print("userName", userName)
-        if userName == "" {
+        if userName.isEmpty {
             titleLabel.text = "재학 상태를 선택해주세요"
         } else if userName.count > 6 {
             titleLabel.text = "\(userName)님의\n재학 상태를 선택해주세요"

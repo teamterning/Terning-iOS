@@ -42,7 +42,7 @@ final class LogoutViewContoller: UIViewController {
         $0.addTarget(self, action: #selector(yesButtonDidTap), for: .touchUpInside)
     }
     
-    private lazy var noButton = CustomButton(title: "취소").then{
+    private lazy var noButton = CustomButton(title: "취소").then {
         $0.setColor(bgColor: .clear, disableColor: .clear)
         $0.addTarget(self, action: #selector(noButtonDidTap), for: .touchUpInside)
     }
@@ -68,7 +68,7 @@ final class LogoutViewContoller: UIViewController {
         setUI()
         setHierarchy()
         setLayout()
-      
+        
     }
 }
 
@@ -115,7 +115,7 @@ extension LogoutViewContoller {
             $0.bottom.equalToSuperview().inset(32)
         }
     }
-
+    
 }
 
 // MARK: - Methods
@@ -124,7 +124,7 @@ extension LogoutViewContoller {
     @objc
     private func yesButtonDidTap() {
         postLogout()
-        UserManager.shared.logout()
+        //        UserManager.shared.logout()
         navigateToSplashVC()
     }
     
@@ -150,16 +150,16 @@ extension LogoutViewContoller {
 
 extension LogoutViewContoller {
     func postLogout() {
-        myPageProvider.request(.logout) { [weak self] result in
-            guard let self = self else { return }
+        myPageProvider.request(.logout) { result in
+            
             switch result {
             case .success(let response):
                 let status = response.statusCode
-            
+                
                 if 200..<300 ~= status {
                     do {
-                        let responseDto = try response.map(BaseResponse<BlankData>.self)
-
+                        _ = try response.map(BaseResponse<BlankData>.self)
+                        
                     } catch {
                         print("네트워크 에러")
                         print(error.localizedDescription)
@@ -175,16 +175,15 @@ extension LogoutViewContoller {
     }
     
     func deleteWithdraw() {
-        myPageProvider.request(.withdraw) { [weak self] result in
-            guard let self = self else { return }
+        myPageProvider.request(.withdraw) { result in
             switch result {
             case .success(let response):
                 let status = response.statusCode
-            
+                
                 if 200..<300 ~= status {
                     do {
-                        let responseDto = try response.map(BaseResponse<BlankData>.self)
-
+                        _ = try response.map(BaseResponse<BlankData>.self)
+                        
                     } catch {
                         print("네트워크 에러")
                         print(error.localizedDescription)

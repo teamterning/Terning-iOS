@@ -228,10 +228,37 @@ extension NewHomeViewController: FilterButtonProtocol {
         if let sheet = filterSettingVC.sheetPresentationController {
             sheet.detents = [fraction, .large()]
             sheet.largestUndimmedDetentIdentifier = nil
-            filterSettingVC.modalPresentationStyle = .overFullScreen
+            filterSettingVC.modalPresentationStyle = .custom
+            
+            // 바텀시트 뒷 배경 색을 설정
+            if let presentingView = self.view {
+                let dimmedBackgroundView = UIView(frame: presentingView.bounds)
+                dimmedBackgroundView.backgroundColor = UIColor(white: 0, alpha: 0.3)
+                dimmedBackgroundView.tag = 999 // 나중에 쉽게 찾기 위해 태그 설정
+                presentingView.addSubview(dimmedBackgroundView)
+                presentingView.bringSubviewToFront(filterSettingVC.view)
+            }
+            
+            // 바텀시트가 사라질 때 배경을 제거하는 코드 추가
+            filterSettingVC.presentationController?.delegate = self
         }
         
         self.present(filterSettingVC, animated: true)
+    }
+}
+
+// UIAdaptivePresentationControllerDelegate를 구현하여 바텀시트가 사라질 때 호출되는 메서드 추가
+extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        if let presentingView = self.view,
+           let dimmedBackgroundView = presentingView.viewWithTag(999) {
+            UIView.animate(withDuration: 0.3) {
+                dimmedBackgroundView.alpha = 0
+            } completion: { _ in
+                dimmedBackgroundView.removeFromSuperview()
+            }
+            
+        }
     }
 }
 

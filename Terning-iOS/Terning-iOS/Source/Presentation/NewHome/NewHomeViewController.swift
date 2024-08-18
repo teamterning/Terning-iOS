@@ -217,7 +217,6 @@ extension NewHomeViewController: UICollectionViewDataSource {
     }
 }
 
-
 // MARK: - FilterButtonProtocol
 
 extension NewHomeViewController: FilterButtonProtocol {
@@ -235,7 +234,6 @@ extension NewHomeViewController: FilterButtonProtocol {
         self.present(filterSettingVC, animated: true)
     }
 }
-
 
 // MARK: - ScrapDidTapDelegate
 

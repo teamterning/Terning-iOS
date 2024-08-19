@@ -217,6 +217,78 @@ extension NewHomeViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - FilterButtonProtocol
+
+extension NewHomeViewController: FilterButtonProtocol {
+    func filterButtonDidTap() {
+        let filterSettingVC = FilteringSettingViewController(data: filterInfos)
+        
+        let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * (658/812) }
+        
+        if let sheet = filterSettingVC.sheetPresentationController {
+            sheet.detents = [fraction, .large()]
+            sheet.largestUndimmedDetentIdentifier = nil
+            filterSettingVC.modalPresentationStyle = .custom
+            
+            // 바텀시트 뒷 배경 색을 설정
+            if let presentingView = self.view {
+                let dimmedBackgroundView = UIView(frame: presentingView.bounds)
+                dimmedBackgroundView.backgroundColor = UIColor(white: 0, alpha: 0.3)
+                dimmedBackgroundView.tag = 999 // 나중에 쉽게 찾기 위해 태그 설정
+                presentingView.addSubview(dimmedBackgroundView)
+                presentingView.bringSubviewToFront(filterSettingVC.view)
+            }
+            
+            // 바텀시트가 사라질 때 배경을 제거하는 코드 추가
+            filterSettingVC.presentationController?.delegate = self
+        }
+        
+        self.present(filterSettingVC, animated: true)
+    }
+}
+
+// UIAdaptivePresentationControllerDelegate를 구현하여 바텀시트가 사라질 때 호출되는 메서드 추가
+extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        if let presentingView = self.view,
+           let dimmedBackgroundView = presentingView.viewWithTag(999) {
+            UIView.animate(withDuration: 0.3) {
+                dimmedBackgroundView.alpha = 0
+            } completion: { _ in
+                dimmedBackgroundView.removeFromSuperview()
+            }
+            
+        }
+    }
+}
+
+// MARK: - ScrapDidTapDelegate
+
+extension NewHomeViewController: ScrapDidTapDelegate {
+    func scrapButtonDidTap(id index: Int) {
+        let model = jobCardLists[index]
+        let alertSheet = CustomAlertViewController(alertType: .custom)
+        
+        alertSheet.setData3(model: model, deadline: model.deadline)
+        
+        alertSheet.modalTransitionStyle = .crossDissolve
+        alertSheet.modalPresentationStyle = .overFullScreen
+        
+        alertSheet.centerButtonTapAction = { [weak self] in
+            guard let self = self else { return }
+            let colorIndex = alertSheet.selectedColorIndexRelay
+            
+            self.addScrapAnnouncement(scrapId: model.intershipAnnouncementId, color: colorIndex.value)
+            self.dismiss(animated: false)
+            
+        }
+        
+        self.present(alertSheet, animated: false)
+    }
+}
+
+// MARK: - Network
+
 extension NewHomeViewController {
     private func fetchTodayDeadlineDatas() {
         homeProviders.request(.getHomeToday) { [weak self] response in
@@ -309,40 +381,6 @@ extension NewHomeViewController {
             }
         }
     }
-}
-
-extension NewHomeViewController: FilterButtonProtocol {
-    func filterButtonDidTap() {
-        let filterSettingVC = FilteringSettingViewController(data: filterInfos)
-        
-        filterSettingVC.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(filterSettingVC, animated: true)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-}
-
-extension NewHomeViewController: ScrapDidTapDelegate {
-    func scrapButtonDidTap(id index: Int) {
-        let model = jobCardLists[index]
-        let alertSheet = CustomAlertViewController(alertType: .custom)
-        
-        alertSheet.setData3(model: model, deadline: model.deadline)
-        
-        alertSheet.modalTransitionStyle = .crossDissolve
-        alertSheet.modalPresentationStyle = .overFullScreen
-        
-        alertSheet.centerButtonTapAction = { [weak self] in
-            guard let self = self else { return }
-            let colorIndex = alertSheet.selectedColorIndexRelay
-            
-            self.addScrapAnnouncement(scrapId: model.intershipAnnouncementId, color: colorIndex.value)
-            self.dismiss(animated: false)
-            
-        }
-        
-        self.present(alertSheet, animated: false)
-    }
-    
     
     private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
         guard let scrapId = scrapId else { return }
@@ -366,7 +404,6 @@ extension NewHomeViewController: ScrapDidTapDelegate {
         }
     }
     
-    
     private func addScrapAnnouncement(scrapId: Int, color: Int) {
         Providers.scrapsProvider.request(.addScrap(internshipAnnouncementId: scrapId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
@@ -387,24 +424,20 @@ extension NewHomeViewController: ScrapDidTapDelegate {
             }
         }
     }
-}
-
-// MARK: - Network
-
-extension NewHomeViewController {
-    func getMyPageInfo() {
+    
+    private func getMyPageInfo() {
         myPageProvider.request(.getProfileInfo) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
                 let status = response.statusCode
-            
+                
                 if 200..<300 ~= status {
                     do {
                         let responseDto = try response.map(BaseResponse<UserProfileInfoModel>.self)
                         guard let data = responseDto.result else { return }
                         self.userName = data.name
-                       
+                        
                     } catch {
                         print("사용자 정보를 불러올 수 없어요.")
                         print(error.localizedDescription)

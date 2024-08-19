@@ -176,7 +176,7 @@ extension OnboardingPageViewController {
                     let status = result.statusCode
                     if 200..<300 ~= status {
                         do {
-                            let responseDto = try result.map(BaseResponse<BlankData>.self)
+                            _ = try result.map(BaseResponse<BlankData>.self)
                             completion(true)
                         } catch {
                             print(error.localizedDescription)
@@ -207,7 +207,7 @@ extension OnboardingPageViewController: UIPageViewControllerDataSource {
         }
         return pages[previousIndex]
     }
-
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let index = pages.firstIndex(of: viewController) else { return nil }
         let nextIndex = index + 1

@@ -63,14 +63,14 @@ final class JobDetailViewModel: ViewModelType {
             }
             .share(replay: 1)
         
-        let jobDetailInfo = jobDetail.map  {
-            JobDetailModel (
+        let jobDetailInfo = jobDetail.map {
+            JobDetailModel(
                 dDay: $0.dDay,
                 title: $0.title,
                 deadline: $0.deadline,
                 workingPeriod: $0.workingPeriod,
                 startDate: $0.startDate,
-                scrapCount:$0.scrapCount,
+                scrapCount: $0.scrapCount,
                 viewCount: $0.viewCount,
                 company: $0.company,
                 companyCategory: $0.companyCategory,
@@ -83,20 +83,20 @@ final class JobDetailViewModel: ViewModelType {
             )
         }.asDriver(
             onErrorJustReturn: JobDetailModel(
-                dDay:  "",
-                title:  "",
-                deadline:  "",
-                workingPeriod:  "",
+                dDay: "",
+                title: "",
+                deadline: "",
+                workingPeriod: "",
                 startDate: "",
                 scrapCount: 0,
                 viewCount: 0,
-                company:  "",
-                companyCategory:  "",
-                companyImage:  "",
+                company: "",
+                companyCategory: "",
+                companyImage: "",
                 qualification: "",
-                jobType:  "",
-                detail:  "",
-                url:  "",
+                jobType: "",
+                detail: "",
+                url: "",
                 scrapId: nil
             )
         )

@@ -10,34 +10,31 @@ import UIKit
 import SnapKit
 import Then
 
-class FilteringSettingView: UIView {
+final class FilteringSettingView: UIView {
     
     // MARK: - UIComponents
     
-    lazy var navi = CustomNavigationBar(type: .centerTitleWithLeftButton, isShadow: true).setTitle("필터링 재설정")
+    private let notchView = UIView().then {
+        $0.backgroundColor = .grey300
+        $0.layer.cornerRadius = 2
+        $0.isUserInteractionEnabled = true
+    }
     
-    let gradeSelectionTitle = LabelFactory.build(
-        text: "재학 상태를 선택해주세요",
-        font: .title3,
+    private let mainTitleLabel = LabelFactory.build(
+        text: "필터링 재설정",
+        font: .title2,
         textColor: .terningBlack
     )
     
-    let gradeSelectionSubTitle = LabelFactory.build(
-        text: "휴학중이라면, 휴학 전 마지막 수료 학년을 선택해주세요",
-        font: .body3,
-        textColor: .grey375
-    )
-
-    lazy var titleStack1 = UIStackView(
-        arrangedSubviews: [
-            gradeSelectionTitle,
-            gradeSelectionSubTitle
-        ]
-    ).then {
-        $0.axis = .vertical
-        $0.spacing = 0
-        $0.alignment = .leading
+    private let splitView = UIView().then {
+        $0.backgroundColor = .grey200
     }
+    
+    private let schoolStatusLabel = LabelFactory.build(
+        text: "재학 상태",
+        font: .title4,
+        textColor: .terningBlack
+    )
     
     lazy var gradeButton1 = UIButton().then {
         $0.configureGradeButton(grade: "1학년")
@@ -69,28 +66,11 @@ class FilteringSettingView: UIView {
         $0.distribution = .fillEqually
     }
     
-    let periodSelectionTitle = LabelFactory.build(
-        text: "희망하는 인턴 근무 기간을 선택해주세요",
-        font: .title3,
+    private let workingPeriodLabel = LabelFactory.build(
+        text: "희망 근무 기간",
+        font: .title4,
         textColor: .terningBlack
     )
-    
-    let periodSelectionSubTitle = LabelFactory.build(
-        text: "선택한 기간동안 근무할 수 있는 인턴 공고를 찾아드릴게요",
-        font: .body3,
-        textColor: .grey375
-    )
-    
-    lazy var titleStack2 = UIStackView(
-        arrangedSubviews: [
-            periodSelectionTitle,
-            periodSelectionSubTitle
-        ]
-    ).then {
-        $0.axis = .vertical
-        $0.spacing = 0
-        $0.alignment = .leading
-    }
     
     lazy var periodButton1 = UIButton().then {
         $0.configurePeriodButton(period: "1개월 ~ 3개월")
@@ -117,39 +97,23 @@ class FilteringSettingView: UIView {
         $0.distribution = .fillEqually
     }
     
-    var monthPickerView = CustomDatePicker()
-    
-    let monthSelectionTitle = LabelFactory.build(
-        text: "입사를 계획중인 달을 선택해주세요",
-        font: .title3,
+    private let workStartTimeLabel = LabelFactory.build(
+        text: "근무 시작 시기",
+        font: .title4,
         textColor: .terningBlack
     )
     
-    let monthSelectionSubTitle = LabelFactory.build(
-        text: "선택한 달부터 근무를 시작할 수 있는 공고를 찾아드릴게요",
-        font: .body3,
-        textColor: UIColor(red: 137/255, green: 137/255, blue: 137/255, alpha: 1.0)
-    )
-
-    lazy var titleStack3 = UIStackView(
-        arrangedSubviews: [
-            monthSelectionTitle,
-            monthSelectionSubTitle
-        ]
-    ).then {
-        $0.axis = .vertical
-        $0.spacing = 0
-        $0.alignment = .leading
-    }
+    var monthPickerView = CustomDatePicker()
     
     lazy var saveButton = UIButton().then {
         $0.setTitle("저장하기", for: .normal)
         $0.titleLabel?.font = .button0
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = .terningMain
+        $0.layer.cornerRadius = 10
     }
     
-    // MARK: LifeCycles
+    // MARK: - LifeCycles
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -164,98 +128,96 @@ class FilteringSettingView: UIView {
     }
 }
 
-// MARK: UI & Layout
+// MARK: - UI & Layout
 
 extension FilteringSettingView {
-    
-    func setUI() {
+    private func setUI() {
         backgroundColor = .white
+        self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        self.layer.cornerRadius = 30
+        self.layer.masksToBounds = true
     }
     
-    func setHierarchy() {
+    private func setHierarchy() {
         addSubviews(
-            navi,
-            titleStack1,
+            notchView,
+            mainTitleLabel,
+            splitView,
+            schoolStatusLabel,
             gradeButtonStack,
-            titleStack2,
+            workingPeriodLabel,
             periodButtonStack,
-            titleStack3,
+            workStartTimeLabel,
             monthPickerView,
             saveButton
         )
     }
     
-    func setLayout() {
-        navi.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide)
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(68)
+    private func setLayout() {
+        notchView.snp.makeConstraints {
+            $0.top.equalTo(self.snp.top).offset(12)
+            $0.centerX.equalTo(self.snp.centerX)
+            $0.width.equalTo(60)
+            $0.height.equalTo(4)
         }
         
-        titleStack1.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(143)
-            $0.leading.equalToSuperview().offset(20)
+        mainTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(notchView.snp.bottom).offset(24)
+            $0.leading.equalToSuperview().offset(29)
         }
         
-        gradeButton1.snp.makeConstraints {
-            $0.height.equalTo(36)
+        splitView.snp.makeConstraints {
+            $0.top.equalTo(mainTitleLabel.snp.bottom).offset(15)
+            $0.horizontalEdges.equalToSuperview().inset(25.adjusted)
+            $0.height.equalTo(1)
         }
         
-        gradeButton2.snp.makeConstraints {
-            $0.height.equalTo(36)
+        schoolStatusLabel.snp.makeConstraints {
+            $0.top.equalTo(splitView.snp.bottom).offset(12)
+            $0.leading.equalToSuperview().offset(25)
         }
         
-        gradeButton3.snp.makeConstraints {
-            $0.height.equalTo(36)
-        }
-        
-        gradeButton4.snp.makeConstraints {
-            $0.height.equalTo(36)
+        [gradeButton1, gradeButton2, gradeButton3, gradeButton4].forEach {
+            $0.snp.makeConstraints {
+                $0.height.equalTo(36)
+            }
         }
         
         gradeButtonStack.snp.makeConstraints {
-            $0.top.equalTo(titleStack1.snp.bottom).offset(12)
-            $0.horizontalEdges.equalToSuperview().inset(22)
-            $0.height.equalTo(36)
+            $0.top.equalTo(schoolStatusLabel.snp.bottom).offset(12)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
         }
         
-        titleStack2.snp.makeConstraints {
-            $0.top.equalTo(gradeButtonStack.snp.bottom).offset(35)
-            $0.leading.equalToSuperview().offset(20)
+        workingPeriodLabel.snp.makeConstraints {
+            $0.top.equalTo(gradeButtonStack.snp.bottom).offset(32)
+            $0.leading.equalToSuperview().offset(25)
         }
         
-        periodButton1.snp.makeConstraints {
-            $0.height.equalTo(36)
-        }
-        
-        periodButton2.snp.makeConstraints {
-            $0.height.equalTo(36)
-        }
-        
-        periodButton3.snp.makeConstraints {
-            $0.height.equalTo(36)
+        [periodButton1, periodButton2, periodButton3].forEach {
+            $0.snp.makeConstraints {
+                $0.height.equalTo(36)
+            }
         }
         
         periodButtonStack.snp.makeConstraints {
-            $0.top.equalTo(titleStack2.snp.bottom).offset(12)
-            $0.horizontalEdges.equalToSuperview().inset(22)
-            $0.height.equalTo(36)
+            $0.top.equalTo(workingPeriodLabel.snp.bottom).offset(12)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
         }
         
-        titleStack3.snp.makeConstraints {
-            $0.top.equalTo(periodButtonStack.snp.bottom).offset(35)
-            $0.leading.equalToSuperview().offset(20)
+        workStartTimeLabel.snp.makeConstraints {
+            $0.top.equalTo(periodButtonStack.snp.bottom).offset(32)
+            $0.leading.equalToSuperview().offset(25)
         }
         
         monthPickerView.snp.makeConstraints {
-            $0.top.equalTo(titleStack3.snp.bottom).offset(20)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.top.equalTo(workStartTimeLabel.snp.bottom).offset(12)
+            $0.horizontalEdges.equalToSuperview().inset(20.adjusted)
         }
         
         saveButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(52)
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(62)
+            $0.bottom.equalToSuperview().inset(40.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
+            $0.height.equalTo(54.adjustedH)
         }
     }
 }

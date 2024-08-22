@@ -15,7 +15,7 @@ final class NewHomeView: UIView {
     // MARK: - UIComponents
     
     lazy var collectionView: UICollectionView = {
-        let layout = CompositionalLayout.createHomeListLayout()
+        let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         collectionView.isScrollEnabled = true

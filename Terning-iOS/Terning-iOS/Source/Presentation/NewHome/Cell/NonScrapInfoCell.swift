@@ -60,19 +60,20 @@ extension NonScrapInfoCell {
     
     private func setLayout() {
         internshipScrapedStatus.snp.makeConstraints {
-            $0.top.leading.bottom.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(215)
+            $0.top.bottom.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
         nonTodayDeadlineImage.snp.makeConstraints {
-            $0.top.equalTo(internshipScrapedStatus.snp.top).offset(30)
-            $0.trailing.equalToSuperview().offset(60)
-            $0.height.width.equalTo(44)
+            $0.top.equalTo(internshipScrapedStatus.snp.top).offset(24.adjusted)
+            $0.centerX.equalToSuperview()
+            $0.height.width.equalTo(44.adjusted)
         }
         
         internshipScrapedStatusLabel.snp.makeConstraints {
-            $0.top.equalTo(nonTodayDeadlineImage.snp.bottom).offset(8)
-            $0.centerX.equalTo(internshipScrapedStatus)
+            $0.top.equalTo(nonTodayDeadlineImage.snp.bottom).offset(8.adjusted)
+            $0.centerX.equalToSuperview()
         }
     }
 }

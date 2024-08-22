@@ -148,7 +148,7 @@ extension FilterInfoCell {
     
     func setLayout() {
         titleStack.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(28)
+            $0.top.equalToSuperview()
             $0.leading.equalToSuperview().offset(20)
         }
 

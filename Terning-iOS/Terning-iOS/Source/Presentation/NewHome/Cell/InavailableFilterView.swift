@@ -20,7 +20,7 @@ class InavailableFilterView: UICollectionViewCell {
     }
     
     private let inavailableLabel = LabelFactory.build(
-        text: "필터링 설정에 일치하는 인턴 공고가 없어요! \n 딱 맞는 인턴 공고가 올라오면 바로 알려드릴게요",
+        text: "필터링 설정에 일치하는 인턴 공고가 없어요!",
         font: .body4,
         textColor: .grey400,
         textAlignment: .center
@@ -55,14 +55,14 @@ extension InavailableFilterView {
     
     private func setLayout() {
         inavailableIcon.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(100)
+            $0.top.equalToSuperview().offset(171.adjusted)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(36)
             $0.width.equalTo(36)
         }
         
         inavailableLabel.snp.makeConstraints {
-            $0.top.equalTo(inavailableIcon.snp.bottom)
+            $0.top.equalTo(inavailableIcon.snp.bottom).offset(9)
             $0.centerX.equalToSuperview()
         }
     }

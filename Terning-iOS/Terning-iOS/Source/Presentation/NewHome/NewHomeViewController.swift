@@ -13,14 +13,12 @@ import Then
 enum HomeMainSection: Int, CaseIterable {
     case todayDeadlineUserInfo
     case todayDeadline
-    case homeHeader
     case filterInfo
-    case sortButton
     case jobCard
     
     var numberOfItemsInSection: Int {
         switch self {
-        case .todayDeadlineUserInfo, .homeHeader, .filterInfo, .sortButton:
+        case .todayDeadlineUserInfo, .filterInfo:
             return 1
         case .todayDeadline, .jobCard:
             return 0
@@ -31,6 +29,7 @@ enum HomeMainSection: Int, CaseIterable {
 final class NewHomeViewController: UIViewController {
     
     // MARK: - Properties
+    
     private let myPageProvider = Providers.myPageProvider
     
     private let homeProviders = Providers.homeProvider
@@ -108,11 +107,7 @@ final class NewHomeViewController: UIViewController {
         rootView.collectionView.register(NonScrapInfoCell.self, forCellWithReuseIdentifier: NonScrapInfoCell.className)
         rootView.collectionView.register(IsScrapInfoViewCell.self, forCellWithReuseIdentifier: IsScrapInfoViewCell.className)
         
-        rootView.collectionView.register(HomeInfoCell.self, forCellWithReuseIdentifier: HomeInfoCell.className)
-        
         rootView.collectionView.register(FilterInfoCell.self, forCellWithReuseIdentifier: FilterInfoCell.className)
-        
-        rootView.collectionView.register(SortInfoCell.self, forCellWithReuseIdentifier: SortInfoCell.className)
         
         rootView.collectionView.register(JobCardScrapedCell.self, forCellWithReuseIdentifier: JobCardScrapedCell.className) // 맞춤 공고가 있는 경우
         rootView.collectionView.register(NonJobCardCell.self, forCellWithReuseIdentifier: NonJobCardCell.className)
@@ -120,6 +115,8 @@ final class NewHomeViewController: UIViewController {
     }
     
 }
+
+// MARK: - Extensions
 
 extension NewHomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -137,7 +134,6 @@ extension NewHomeViewController: UICollectionViewDelegate {
         default:
             return
         }
-        
     }
 }
 
@@ -152,7 +148,7 @@ extension NewHomeViewController: UICollectionViewDataSource {
         }
         
         switch section {
-        case .todayDeadlineUserInfo, .homeHeader, .filterInfo, .sortButton:
+        case .todayDeadlineUserInfo, .filterInfo:
             return section.numberOfItemsInSection
         case .todayDeadline:
             return todayDeadlineLists.isEmpty ? 1 : todayDeadlineLists.count
@@ -176,36 +172,28 @@ extension NewHomeViewController: UICollectionViewDataSource {
             if todayDeadlineLists.isEmpty {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonScrapInfoCell.className, for: indexPath) as? NonScrapInfoCell else { return UICollectionViewCell() } // 오늘 마감인 공고가 없어요
                 return cell
+                
             } else {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: IsScrapInfoViewCell.className, for: indexPath) as? IsScrapInfoViewCell else { return UICollectionViewCell() }
                 cell.bindData(model: todayDeadlineLists[indexPath.item])
                 return cell
             }
             
-        case .homeHeader:
-            guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: HomeInfoCell.className, for: indexPath) as? HomeInfoCell else { return UICollectionViewCell() }
-            
-            return cell
         case .filterInfo:
             guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: FilterInfoCell.className, for: indexPath) as? FilterInfoCell else { return UICollectionViewCell() }
             cell.delegate = self
             cell.bind(model: self.filterInfos)
-            
-            return cell
-        case .sortButton:
-            guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: SortInfoCell.className, for: indexPath) as? SortInfoCell else { return UICollectionViewCell() }
-            
             return cell
             
         case .jobCard:
             if isNoneData && jobCardLists.isEmpty {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonJobCardCell.className, for: indexPath) as? NonJobCardCell else { return UICollectionViewCell() }
-                
                 return cell
+                
             } else if !isNoneData && jobCardLists.isEmpty {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: InavailableFilterView.className, for: indexPath) as? InavailableFilterView else { return UICollectionViewCell() }
-                
                 return cell
+                
             } else if !isNoneData && !jobCardLists.isEmpty {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as? JobCardScrapedCell else { return UICollectionViewCell() }
                 cell.delegate = self

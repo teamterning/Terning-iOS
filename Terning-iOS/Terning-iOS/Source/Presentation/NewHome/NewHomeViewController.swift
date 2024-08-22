@@ -30,12 +30,14 @@ final class NewHomeViewController: UIViewController {
     
     // MARK: - Properties
     
+    // Network Properties
     private let myPageProvider = Providers.myPageProvider
     
     private let homeProviders = Providers.homeProvider
     private let filterProviders = Providers.filtersProvider
     private let scrapProviders = Providers.scrapsProvider
     
+    // Properties
     private var userName: String = ""
     
     var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
@@ -53,6 +55,7 @@ final class NewHomeViewController: UIViewController {
     
     var jobCardLists: [JobCardModel] = [] {
         didSet {
+            setJobCardCellHeight()
             rootView.collectionView.reloadData()
         }
     }
@@ -62,6 +65,19 @@ final class NewHomeViewController: UIViewController {
         filterInfos.startYear == nil || filterInfos.startMonth == nil
     }
     
+    // Flow Layout Properties
+    let stickyIndexPath = IndexPath(row: 0, section: 2)
+    
+    final let headerCellHeight: CGFloat = 24.adjusted
+    
+    final let todayDeadLineCellHeight: CGFloat = 116.adjusted
+    var todayDeadLineCellInset = UIEdgeInsets(top: 19, left: 0, bottom: 0, right: 0)
+    
+    final let filterInfoCellHeight: CGFloat = 140 - 10
+    final let filterInfoCellInset = UIEdgeInsets(top: 28, left: 0, bottom: 0, right: 0)
+    
+    private var jobCardCellHeight: CGFloat = 322
+    
     // MARK: - UIComponents
     
     private let rootView = NewHomeView()
@@ -70,7 +86,7 @@ final class NewHomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setUI()
         setDelegate()
         setRegister()
@@ -102,6 +118,7 @@ final class NewHomeViewController: UIViewController {
     }
     
     private func setRegister() {
+        
         rootView.collectionView.register(ScrapInfoHeaderCell.self, forCellWithReuseIdentifier: ScrapInfoHeaderCell.className)
         
         rootView.collectionView.register(NonScrapInfoCell.self, forCellWithReuseIdentifier: NonScrapInfoCell.className)
@@ -112,6 +129,22 @@ final class NewHomeViewController: UIViewController {
         rootView.collectionView.register(JobCardScrapedCell.self, forCellWithReuseIdentifier: JobCardScrapedCell.className) // 맞춤 공고가 있는 경우
         rootView.collectionView.register(NonJobCardCell.self, forCellWithReuseIdentifier: NonJobCardCell.className)
         rootView.collectionView.register(InavailableFilterView.self, forCellWithReuseIdentifier: InavailableFilterView.className)
+    }
+    
+    // MARK: - Private func
+    
+    private func setJobCardCellHeight() {
+        if jobCardLists.isEmpty {
+            jobCardCellHeight = 322
+            print("height: \(jobCardCellHeight)")
+            
+        } else {
+            let cellItemHeight: CGFloat = 100
+            let cellItemInset: CGFloat = 12
+            
+            jobCardCellHeight = CGFloat(jobCardLists.count) * (cellItemHeight + cellItemInset)
+            print("height: \(jobCardCellHeight)")
+        }
     }
     
 }
@@ -202,6 +235,39 @@ extension NewHomeViewController: UICollectionViewDataSource {
             }
         }
         return UICollectionViewCell()
+    }
+}
+
+// MARK: - Flow Layout
+
+extension NewHomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let section = HomeMainSection(rawValue: indexPath.section) else {
+            fatalError("Section 오류")
+        }
+        
+        switch section {
+        case .todayDeadlineUserInfo:
+            return CGSize(width: rootView.collectionView.bounds.size.width, height: headerCellHeight)
+        case .todayDeadline:
+            return CGSize(width: rootView.collectionView.bounds.size.width, height: todayDeadLineCellHeight)
+        case .filterInfo:
+            return CGSize(width: rootView.collectionView.bounds.size.width, height: filterInfoCellHeight)
+        case.jobCard:
+            return CGSize(width: rootView.collectionView.bounds.size.width, height: jobCardCellHeight)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        switch section {
+        case 1:
+            return todayDeadLineCellInset
+        case 2:
+            return filterInfoCellInset
+        default:
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
     }
 }
 

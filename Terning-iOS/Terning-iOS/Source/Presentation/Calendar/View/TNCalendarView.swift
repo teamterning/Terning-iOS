@@ -34,12 +34,28 @@ final class TNCalendarView: UIView {
         $0.clipsToBounds = false
         $0.appearance.titlePlaceholderColor = .grey200
         $0.appearance.titleDefaultColor = .black
-
+        
         let weekdayTexts = ["일", "월", "화", "수", "목", "금", "토"]
-        $0.calendarWeekdayView.weekdayLabels.enumerated().forEach { (index, label) in
+        let weekdayLabels = $0.calendarWeekdayView.weekdayLabels
+        
+        let insetSpacing = 35.adjusted
+        let interSpacing = 38.adjusted
+        
+        for (index, label) in weekdayLabels.enumerated() {
             label.text = weekdayTexts[index]
             label.textColor = index == 0 ? .calRed : .black
+            label.font = .body7
+            
+            label.snp.makeConstraints { make in
+                if index == 0 {
+                    make.leading.equalToSuperview().offset(insetSpacing)
+                } else {
+                    make.leading.equalTo(weekdayLabels[index - 1].snp.trailing).offset(interSpacing)
+                }
+                make.centerY.equalToSuperview()
+            }
         }
+        
         $0.placeholderType = .fillHeadTail
     }
     
@@ -94,8 +110,8 @@ extension TNCalendarView {
     
     private func setHierarchy() {
         addSubviews(
-            dummyView,
             naviBar,
+            dummyView,
             separatorView,
             calendarViewContainer,
             calenderBottomCollectionView,

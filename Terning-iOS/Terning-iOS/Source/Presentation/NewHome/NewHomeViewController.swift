@@ -134,7 +134,6 @@ extension NewHomeViewController: UICollectionViewDelegate {
         default:
             return
         }
-        
     }
 }
 

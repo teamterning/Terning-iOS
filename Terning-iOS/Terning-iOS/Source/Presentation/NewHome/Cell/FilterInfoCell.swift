@@ -63,7 +63,6 @@ final class FilterInfoCell: UICollectionViewCell {
         text: "2024년 1월",
         font: .detail2,
         textColor: .black,
-        textAlignment: .left,
         lineSpacing: 1.2,
         characterSpacing: 0.002
     )
@@ -100,9 +99,7 @@ final class FilterInfoCell: UICollectionViewCell {
     // 정렬 버튼
     var sortButtonLabel = LabelFactory.build(
         text: "채용 마감 이른 순",
-        font: .button3,
-        textColor: .terningBlack,
-        textAlignment: .center
+        font: .button3
     ).then {
         $0.isUserInteractionEnabled = true
     }

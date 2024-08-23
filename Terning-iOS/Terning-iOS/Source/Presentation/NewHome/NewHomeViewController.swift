@@ -13,12 +13,11 @@ import Then
 enum HomeMainSection: Int, CaseIterable {
     case todayDeadlineUserInfo
     case todayDeadline
-    case filterInfo
     case jobCard
     
     var numberOfItemsInSection: Int {
         switch self {
-        case .todayDeadlineUserInfo, .filterInfo:
+        case .todayDeadlineUserInfo:
             return 1
         case .todayDeadline, .jobCard:
             return 0
@@ -37,6 +36,8 @@ final class NewHomeViewController: UIViewController {
     private let scrapProviders = Providers.scrapsProvider
     
     private var userName: String = ""
+    
+    let stickyIndexPath = IndexPath(row: 0, section: 2)
     
     var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
         didSet {
@@ -107,18 +108,29 @@ final class NewHomeViewController: UIViewController {
         rootView.collectionView.register(NonScrapInfoCell.self, forCellWithReuseIdentifier: NonScrapInfoCell.className)
         rootView.collectionView.register(IsScrapInfoViewCell.self, forCellWithReuseIdentifier: IsScrapInfoViewCell.className)
         
-        rootView.collectionView.register(FilterInfoCell.self, forCellWithReuseIdentifier: FilterInfoCell.className)
+        rootView.collectionView.register(FilterInfoCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FilterInfoCell.className)
         
         rootView.collectionView.register(JobCardScrapedCell.self, forCellWithReuseIdentifier: JobCardScrapedCell.className) // 맞춤 공고가 있는 경우
         rootView.collectionView.register(NonJobCardCell.self, forCellWithReuseIdentifier: NonJobCardCell.className)
         rootView.collectionView.register(InavailableFilterView.self, forCellWithReuseIdentifier: InavailableFilterView.className)
     }
-    
 }
 
 // MARK: - Extensions
 
 extension NewHomeViewController: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = rootView.collectionView.contentOffset.y
+        let stickyAttributes = 220.6
+        
+        
+        if offsetY >= stickyAttributes {
+            rootView.gradientLayerView.isHidden = false
+        } else {
+            rootView.gradientLayerView.isHidden = true
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let section = HomeMainSection(rawValue: indexPath.section) else {
             return
@@ -142,13 +154,37 @@ extension NewHomeViewController: UICollectionViewDataSource {
         return HomeMainSection.allCases.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let section = HomeMainSection(rawValue: indexPath.section)
+        
+        switch section {
+        case .jobCard:
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: FilterInfoCell.className,
+                for: indexPath
+            ) as? FilterInfoCell else {
+                return UICollectionReusableView()
+            }
+            
+            headerView.backgroundColor = .white
+            headerView.filterDelegate = self
+            
+            return headerView
+            
+        default: 
+            return UICollectionReusableView()
+            
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let section = HomeMainSection(rawValue: section) else {
             return 0
         }
         
         switch section {
-        case .todayDeadlineUserInfo, .filterInfo:
+        case .todayDeadlineUserInfo:
             return section.numberOfItemsInSection
         case .todayDeadline:
             return todayDeadlineLists.isEmpty ? 1 : todayDeadlineLists.count
@@ -178,12 +214,6 @@ extension NewHomeViewController: UICollectionViewDataSource {
                 cell.bindData(model: todayDeadlineLists[indexPath.item])
                 return cell
             }
-            
-        case .filterInfo:
-            guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: FilterInfoCell.className, for: indexPath) as? FilterInfoCell else { return UICollectionViewCell() }
-            cell.delegate = self
-            cell.bind(model: self.filterInfos)
-            return cell
             
         case .jobCard:
             if isNoneData && jobCardLists.isEmpty {
@@ -225,6 +255,7 @@ extension NewHomeViewController: FilterButtonProtocol {
                 dimmedBackgroundView.tag = 999 // 나중에 쉽게 찾기 위해 태그 설정
                 presentingView.addSubview(dimmedBackgroundView)
                 presentingView.bringSubviewToFront(filterSettingVC.view)
+                dimmedBackgroundView.removeFromSuperview()
             }
             
             // 바텀시트가 사라질 때 배경을 제거하는 코드 추가

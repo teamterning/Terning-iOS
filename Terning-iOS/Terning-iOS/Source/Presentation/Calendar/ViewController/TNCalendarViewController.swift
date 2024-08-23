@@ -79,6 +79,8 @@ extension TNCalendarViewController {
         
         rootView.calenderListCollectionView.delegate = self
         rootView.calenderListCollectionView.dataSource = self
+        
+        rootView.calenderBottomCollectionView.backgroundColor = .white
     }
     
     private func setRegister() {
@@ -188,7 +190,7 @@ extension TNCalendarViewController: FSCalendarDelegate {
             rootView.layer.applyShadow(alpha: 0.1, y: 2, blur: 4)
             
             rootView.calendarView.snp.updateConstraints { make in
-                make.height.equalTo(90 + 20) // 주간 뷰 높이 설정
+                make.height.equalTo(90 + 10) // 주간 뷰 높이 설정
             }
             rootView.calenderBottomCollectionView.isHidden = false
         } else {
@@ -348,6 +350,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             self.present(alertSheet, animated: false)
         }
     }
+    
     
     private func refetchDataAndReloadViews() {
         let currentPage = rootView.calendarView.currentPage

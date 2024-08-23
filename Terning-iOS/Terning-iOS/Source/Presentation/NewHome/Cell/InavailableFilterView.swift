@@ -55,7 +55,7 @@ extension InavailableFilterView {
     
     private func setLayout() {
         inavailableIcon.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(171.adjusted)
+            $0.top.equalToSuperview().offset(80.adjusted)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(36)
             $0.width.equalTo(36)

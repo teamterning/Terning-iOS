@@ -123,7 +123,6 @@ extension NewHomeViewController: UICollectionViewDelegate {
         let offsetY = rootView.collectionView.contentOffset.y
         let stickyAttributes = 220.6
         
-        
         if offsetY >= stickyAttributes {
             rootView.gradientLayerView.isHidden = false
         } else {

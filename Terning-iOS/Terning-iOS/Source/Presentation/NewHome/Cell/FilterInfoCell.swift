@@ -10,11 +10,11 @@ import UIKit
 import SnapKit
 import Then
 
-protocol FilterButtonProtocol {
+protocol FilterButtonProtocol: AnyObject {
     func filterButtonDidTap()
 }
 
-protocol sortButtonProtocol {
+protocol sortButtonProtocol: AnyObject {
     func sortButtonDidTap()
 }
 
@@ -49,8 +49,8 @@ final class FilterInfoCell: UICollectionViewCell {
     // 필터링 버튼 및 필터링 상태 표시 바
     private lazy var filterButton = FilterButton()
     
-    var filterDelegate: FilterButtonProtocol?
-    var sortDelegate: sortButtonProtocol?
+    weak var filterDelegate: FilterButtonProtocol?
+    weak var sortDelegate: sortButtonProtocol?
     
     var gradeLabel = LabelFactory.build(
         text: "3학년",

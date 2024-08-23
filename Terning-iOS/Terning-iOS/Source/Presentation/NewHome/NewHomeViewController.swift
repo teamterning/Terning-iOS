@@ -37,8 +37,6 @@ final class NewHomeViewController: UIViewController {
     
     private var userName: String = ""
     
-    let stickyIndexPath = IndexPath(row: 0, section: 2)
-    
     var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
         didSet {
             rootView.collectionView.reloadData()

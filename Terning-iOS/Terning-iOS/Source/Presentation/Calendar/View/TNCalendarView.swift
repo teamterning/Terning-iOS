@@ -38,8 +38,8 @@ final class TNCalendarView: UIView {
         let weekdayTexts = ["일", "월", "화", "수", "목", "금", "토"]
         let weekdayLabels = $0.calendarWeekdayView.weekdayLabels
         
-        let insetSpacing = 35.adjusted
-        let interSpacing = 38.adjusted
+        let insetSpacing = (35-18).adjusted
+        let interSpacing = 38.2.adjusted
         
         for (index, label) in weekdayLabels.enumerated() {
             label.text = weekdayTexts[index]
@@ -137,8 +137,9 @@ extension TNCalendarView {
         }
         
         calendarView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
             $0.height.equalTo(90 * 6 + 48 + 28) // 기본 높이 설정
+            $0.horizontalEdges.equalToSuperview().inset(18.adjusted)
         }
         
         separatorView.snp.makeConstraints {

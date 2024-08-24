@@ -70,8 +70,6 @@ extension NewHomeView {
         homeLogo.snp.makeConstraints {
             $0.top.equalToSuperview().offset(65)
             $0.leading.equalToSuperview().offset(21)
-            $0.width.equalTo(113)
-            $0.height.equalTo(27.12)
         }
         
         collectionView.snp.makeConstraints {

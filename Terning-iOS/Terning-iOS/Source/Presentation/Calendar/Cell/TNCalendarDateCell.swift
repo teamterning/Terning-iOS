@@ -48,7 +48,7 @@ final class TNCalendarDateCell: FSCalendarCell {
             $0.backgroundColor = .red
             $0.layer.cornerRadius = 2.5
             $0.snp.makeConstraints {
-                $0.width.height.equalTo(5)
+                $0.width.height.equalTo(6)
             }
         }
     }
@@ -97,18 +97,18 @@ extension TNCalendarDateCell {
         
         selectView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(3)
+            $0.top.equalToSuperview().offset(7)
             $0.width.height.equalTo(24)
         }
         
         dateLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(4)
+            $0.top.equalToSuperview().offset(8)
             $0.centerX.equalTo(selectView)
         }
         
         dotStackView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(selectView.snp.bottom).offset(4)
+            $0.top.equalTo(selectView.snp.bottom).offset(3)
             $0.height.equalTo(5)
         }
     }

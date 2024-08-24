@@ -254,7 +254,6 @@ extension NewHomeViewController: FilterButtonProtocol {
                 dimmedBackgroundView.tag = 999 // 나중에 쉽게 찾기 위해 태그 설정
                 presentingView.addSubview(dimmedBackgroundView)
                 presentingView.bringSubviewToFront(filterSettingVC.view)
-//                dimmedBackgroundView.removeFromSuperview()
             }
             
             // 바텀시트가 사라질 때 배경을 제거하는 코드 추가
@@ -277,6 +276,7 @@ extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
             }
         }
     }
+    
     func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
         removeDimmedBackgroundView()
     }

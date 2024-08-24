@@ -238,12 +238,14 @@ extension NewHomeViewController: FilterButtonProtocol {
     func filterButtonDidTap() {
         let filterSettingVC = FilteringSettingViewController(data: filterInfos)
         
+        filterSettingVC.saveButtonDelegate = self
+        
         let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * (658/812) }
         
         if let sheet = filterSettingVC.sheetPresentationController {
             sheet.detents = [fraction, .large()]
             sheet.largestUndimmedDetentIdentifier = nil
-            filterSettingVC.modalPresentationStyle = .overCurrentContext
+            filterSettingVC.modalPresentationStyle = .custom
             
             // 바텀시트 뒷 배경 색을 설정
             if let presentingView = self.view {
@@ -252,6 +254,7 @@ extension NewHomeViewController: FilterButtonProtocol {
                 dimmedBackgroundView.tag = 999 // 나중에 쉽게 찾기 위해 태그 설정
                 presentingView.addSubview(dimmedBackgroundView)
                 presentingView.bringSubviewToFront(filterSettingVC.view)
+//                dimmedBackgroundView.removeFromSuperview()
             }
             
             // 바텀시트가 사라질 때 배경을 제거하는 코드 추가
@@ -264,8 +267,7 @@ extension NewHomeViewController: FilterButtonProtocol {
 
 // UIAdaptivePresentationControllerDelegate를 구현하여 바텀시트가 사라질 때 호출되는 메서드 추가
 extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
-    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
-        print("⚡️⚡️⚡️⚡️⚡️⚡️")
+    func removeDimmedBackgroundView() {
         if let presentingView = self.view,
            let dimmedBackgroundView = presentingView.viewWithTag(999) {
             UIView.animate(withDuration: 0.3) {
@@ -274,6 +276,17 @@ extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
                 dimmedBackgroundView.removeFromSuperview()
             }
         }
+    }
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        removeDimmedBackgroundView()
+    }
+}
+
+// MARK: - SaveButtonDelegate
+
+extension NewHomeViewController: SaveButtonDelegate {
+    func didSaveSetting() {
+        removeDimmedBackgroundView()
     }
 }
 

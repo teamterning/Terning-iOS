@@ -14,7 +14,7 @@ final class GradientLayerView: UIView {
     
     // MARK: - Properties
     
-    let colors: [CGColor] = [
+    private let colors: [CGColor] = [
         .init(red: 255, green: 255, blue: 255, alpha: 1),
         .init(red: 255, green: 255, blue: 255, alpha: 0)
         
@@ -22,7 +22,7 @@ final class GradientLayerView: UIView {
     
     // MARK: - UIComponents
     
-    let gradientLayer = CAGradientLayer()
+    private let gradientLayer = CAGradientLayer()
     
     // MARK: - Life Cycles
     

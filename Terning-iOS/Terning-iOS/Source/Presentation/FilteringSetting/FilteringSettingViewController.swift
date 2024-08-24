@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIAdaptivePresentationControllerDelegate {
     
     // MARK: - Properties
     
@@ -78,7 +78,7 @@ class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UI
 extension FilteringSettingViewController {
     
     func setAddTarget() {
-        // 제학 상태 설정 버튼
+        // 재학 상태 설정 버튼
         gradeButtons_dict.keys.forEach {
             $0.addTarget(self, action: #selector(gradeButtonDidTap), for: .touchUpInside)
         }

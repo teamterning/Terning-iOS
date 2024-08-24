@@ -143,6 +143,7 @@
 		B871D7332C3EC148008D78C2 /* IsScrapInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */; };
 		B871D7352C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */; };
 		B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */; };
+		B8A5A5AE2C78780B007C33C5 /* GradientLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A5A5AD2C78780B007C33C5 /* GradientLayerView.swift */; };
 		B8BE0E142C46D38700B3D298 /* UserFilteringInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE0E132C46D38700B3D298 /* UserFilteringInfoModel.swift */; };
 		B8C5DB6E2C3F353D00865B1A /* InavailableFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */; };
 		B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */; };
@@ -280,6 +281,7 @@
 		B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsScrapInfoViewCell.swift; sourceTree = "<group>"; };
 		B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapedAndDeadlineModel.swift; sourceTree = "<group>"; };
 		B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonJobCardCell.swift; sourceTree = "<group>"; };
+		B8A5A5AD2C78780B007C33C5 /* GradientLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLayerView.swift; sourceTree = "<group>"; };
 		B8BE0E132C46D38700B3D298 /* UserFilteringInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFilteringInfoModel.swift; sourceTree = "<group>"; };
 		B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InavailableFilterView.swift; sourceTree = "<group>"; };
 		B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSettingView.swift; sourceTree = "<group>"; };
@@ -963,6 +965,7 @@
 				71FFB2C02C4A7B4000C60697 /* Cell */,
 				71FFB2BC2C4A186900C60697 /* NewHomeViewController.swift */,
 				71FFB2BE2C4A188A00C60697 /* NewHomeView.swift */,
+				B8A5A5AD2C78780B007C33C5 /* GradientLayerView.swift */,
 			);
 			path = NewHome;
 			sourceTree = "<group>";
@@ -1137,6 +1140,7 @@
 				2DC986062C45704600D46729 /* CustomSearchView.swift in Sources */,
 				71780C4C2C4598590073B731 /* ScrapsTargetType.swift in Sources */,
 				B871D7332C3EC148008D78C2 /* IsScrapInfoViewCell.swift in Sources */,
+				B8A5A5AE2C78780B007C33C5 /* GradientLayerView.swift in Sources */,
 				2D4EE3962C3DD5CB00E3E95B /* WelcomeViewController.swift in Sources */,
 				7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */,
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,

@@ -13,12 +13,11 @@ import Then
 enum HomeMainSection: Int, CaseIterable {
     case todayDeadlineUserInfo
     case todayDeadline
-    case filterInfo
     case jobCard
     
     var numberOfItemsInSection: Int {
         switch self {
-        case .todayDeadlineUserInfo, .filterInfo:
+        case .todayDeadlineUserInfo:
             return 1
         case .todayDeadline, .jobCard:
             return 0
@@ -107,18 +106,28 @@ final class NewHomeViewController: UIViewController {
         rootView.collectionView.register(NonScrapInfoCell.self, forCellWithReuseIdentifier: NonScrapInfoCell.className)
         rootView.collectionView.register(IsScrapInfoViewCell.self, forCellWithReuseIdentifier: IsScrapInfoViewCell.className)
         
-        rootView.collectionView.register(FilterInfoCell.self, forCellWithReuseIdentifier: FilterInfoCell.className)
+        rootView.collectionView.register(FilterInfoCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FilterInfoCell.className)
         
         rootView.collectionView.register(JobCardScrapedCell.self, forCellWithReuseIdentifier: JobCardScrapedCell.className) // 맞춤 공고가 있는 경우
         rootView.collectionView.register(NonJobCardCell.self, forCellWithReuseIdentifier: NonJobCardCell.className)
         rootView.collectionView.register(InavailableFilterView.self, forCellWithReuseIdentifier: InavailableFilterView.className)
     }
-    
 }
 
 // MARK: - Extensions
 
 extension NewHomeViewController: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = rootView.collectionView.contentOffset.y
+        let stickyAttributes = 220.6
+        
+        if offsetY >= stickyAttributes {
+            rootView.gradientLayerView.isHidden = false
+        } else {
+            rootView.gradientLayerView.isHidden = true
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let section = HomeMainSection(rawValue: indexPath.section) else {
             return
@@ -142,13 +151,37 @@ extension NewHomeViewController: UICollectionViewDataSource {
         return HomeMainSection.allCases.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let section = HomeMainSection(rawValue: indexPath.section)
+        
+        switch section {
+        case .jobCard:
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: FilterInfoCell.className,
+                for: indexPath
+            ) as? FilterInfoCell else {
+                return UICollectionReusableView()
+            }
+            
+            headerView.backgroundColor = .white
+            headerView.filterDelegate = self
+            
+            return headerView
+            
+        default: 
+            return UICollectionReusableView()
+            
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let section = HomeMainSection(rawValue: section) else {
             return 0
         }
         
         switch section {
-        case .todayDeadlineUserInfo, .filterInfo:
+        case .todayDeadlineUserInfo:
             return section.numberOfItemsInSection
         case .todayDeadline:
             return todayDeadlineLists.isEmpty ? 1 : todayDeadlineLists.count
@@ -179,12 +212,6 @@ extension NewHomeViewController: UICollectionViewDataSource {
                 return cell
             }
             
-        case .filterInfo:
-            guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: FilterInfoCell.className, for: indexPath) as? FilterInfoCell else { return UICollectionViewCell() }
-            cell.delegate = self
-            cell.bind(model: self.filterInfos)
-            return cell
-            
         case .jobCard:
             if isNoneData && jobCardLists.isEmpty {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonJobCardCell.className, for: indexPath) as? NonJobCardCell else { return UICollectionViewCell() }
@@ -210,6 +237,8 @@ extension NewHomeViewController: UICollectionViewDataSource {
 extension NewHomeViewController: FilterButtonProtocol {
     func filterButtonDidTap() {
         let filterSettingVC = FilteringSettingViewController(data: filterInfos)
+        
+        filterSettingVC.saveButtonDelegate = self
         
         let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * (658/812) }
         
@@ -237,7 +266,7 @@ extension NewHomeViewController: FilterButtonProtocol {
 
 // UIAdaptivePresentationControllerDelegate를 구현하여 바텀시트가 사라질 때 호출되는 메서드 추가
 extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
-    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+    func removeDimmedBackgroundView() {
         if let presentingView = self.view,
            let dimmedBackgroundView = presentingView.viewWithTag(999) {
             UIView.animate(withDuration: 0.3) {
@@ -245,8 +274,19 @@ extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
             } completion: { _ in
                 dimmedBackgroundView.removeFromSuperview()
             }
-            
         }
+    }
+    
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        removeDimmedBackgroundView()
+    }
+}
+
+// MARK: - SaveButtonDelegate
+
+extension NewHomeViewController: SaveButtonDelegate {
+    func didSaveSetting() {
+        removeDimmedBackgroundView()
     }
 }
 

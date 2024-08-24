@@ -29,9 +29,7 @@ final class NewHomeView: UIView {
         $0.image = UIImage(resource: .homeLogo)
     }
     
-    let gradientView = UIImageView().then {
-        $0.image = UIImage(resource: .gradationBar)
-    }
+    let gradientLayerView = GradientLayerView()
     
     // MARK: - Life Cycles
     
@@ -55,14 +53,14 @@ final class NewHomeView: UIView {
 extension NewHomeView {
     private func setUI() {
         backgroundColor = .white
-        gradientView.isHidden = true
+        gradientLayerView.isHidden = true
     }
     
     private func setHierarchy() {
         addSubviews(
             homeLogo,
             collectionView,
-            gradientView
+            gradientLayerView
         )
     }
     
@@ -80,9 +78,10 @@ extension NewHomeView {
             $0.bottom.equalTo(safeAreaLayoutGuide)
         }
         
-        gradientView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(245)
+        gradientLayerView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(243)
             $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(43)
         }
     }
 }

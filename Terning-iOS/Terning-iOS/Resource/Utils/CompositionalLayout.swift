@@ -150,67 +150,11 @@ struct CompositionalLayout {
                 let section = NSCollectionLayoutSection(group: group)
                 
                 section.orthogonalScrollingBehavior = .continuous
+                section.contentInsets = .init(top: 0, leading: 0, bottom: 28, trailing: 0)
                 
                 return section
-                
+            
             } else if sectionNumber == 2 {
-                let item = NSCollectionLayoutItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .fractionalHeight(1.0)
-                    )
-                )
-                
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .estimated(68)
-                    ),
-                    subitems: [item]
-                )
-                
-                let section = NSCollectionLayoutSection(group: group)
-                
-                return section
-            } else if sectionNumber == 3 {
-                let item = NSCollectionLayoutItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .fractionalHeight(1.0)
-                    )
-                )
-                
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .estimated(9 + 28 + 11 + 4)
-                    ),
-                    subitems: [item]
-                )
-                
-                let section = NSCollectionLayoutSection(group: group)
-                
-                return section
-            } else if sectionNumber == 4 {
-                let item = NSCollectionLayoutItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .fractionalHeight(1.0)
-                    )
-                )
-                
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .estimated(9 + 17 + 10)
-                    ),
-                    subitems: [item]
-                )
-                
-                let section = NSCollectionLayoutSection(group: group)
-                
-                return section
-            } else if sectionNumber == 5 {
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
                     heightDimension: .absolute(100))
@@ -227,7 +171,7 @@ struct CompositionalLayout {
                 // Section
                 let section = NSCollectionLayoutSection(group: group)
                 
-                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(10))
+                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(128))
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: headerSize,
                     elementKind: UICollectionView.elementKindSectionHeader,

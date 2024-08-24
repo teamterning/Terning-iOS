@@ -10,8 +10,12 @@ import UIKit
 import SnapKit
 import Then
 
-protocol FilterButtonProtocol {
+protocol FilterButtonProtocol: AnyObject {
     func filterButtonDidTap()
+}
+
+protocol sortButtonProtocol: AnyObject {
+    func sortButtonDidTap()
 }
 
 final class FilterInfoCell: UICollectionViewCell {
@@ -45,7 +49,8 @@ final class FilterInfoCell: UICollectionViewCell {
     // 필터링 버튼 및 필터링 상태 표시 바
     private lazy var filterButton = FilterButton()
     
-    var delegate: FilterButtonProtocol?
+    weak var filterDelegate: FilterButtonProtocol?
+    weak var sortDelegate: sortButtonProtocol?
     
     var gradeLabel = LabelFactory.build(
         text: "3학년",
@@ -117,6 +122,7 @@ final class FilterInfoCell: UICollectionViewCell {
         $0.axis = .horizontal
         $0.spacing = 4
         $0.alignment = .center
+        $0.isUserInteractionEnabled = true
     }
     
     // MARK: - LifeCycles
@@ -127,6 +133,7 @@ final class FilterInfoCell: UICollectionViewCell {
         setHierarchy()
         setLayout()
         setAddTarget()
+        setTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -148,7 +155,7 @@ extension FilterInfoCell {
     
     func setLayout() {
         titleStack.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(28)
+            $0.top.equalToSuperview()
             $0.leading.equalToSuperview().offset(20)
         }
 
@@ -189,9 +196,19 @@ extension FilterInfoCell {
         filterButton.addTarget(self, action: #selector(filterButtonDidTap), for: .touchUpInside)
     }
     
+    func setTapGesture() {
+        let sortTapGesture = UITapGestureRecognizer(target: self, action: #selector(sortButtonDidTap))
+        sortButtonStack.addGestureRecognizer(sortTapGesture)
+    }
+    
     @objc func filterButtonDidTap() {
-        print("button is clicked")
-        delegate?.filterButtonDidTap()
+        print("filterButton is clicked")
+        filterDelegate?.filterButtonDidTap()
+    }
+    
+    @objc func sortButtonDidTap() {
+        print("sortButton is clicked")
+        sortDelegate?.sortButtonDidTap()
     }
 }
 

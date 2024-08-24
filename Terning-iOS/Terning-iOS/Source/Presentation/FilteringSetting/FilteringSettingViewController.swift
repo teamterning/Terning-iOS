@@ -10,9 +10,15 @@ import UIKit
 import SnapKit
 import Then
 
-class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+protocol SaveButtonDelegate: AnyObject {
+    func didSaveSetting()
+}
+
+class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIAdaptivePresentationControllerDelegate {
     
     // MARK: - Properties
+    
+    weak var saveButtonDelegate: SaveButtonDelegate?
     
     private let filterProvider = Providers.filtersProvider
     
@@ -78,7 +84,7 @@ class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UI
 extension FilteringSettingViewController {
     
     func setAddTarget() {
-        // 제학 상태 설정 버튼
+        // 재학 상태 설정 버튼
         gradeButtons_dict.keys.forEach {
             $0.addTarget(self, action: #selector(gradeButtonDidTap), for: .touchUpInside)
         }
@@ -200,9 +206,10 @@ extension FilteringSettingViewController {
     @objc
     func saveButtonDidTap() {
         self.setUserFilterInfo()
-        
+    
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.showToast(message: "스크랩 설정이 완료 되었어요 !")
+            self.saveButtonDelegate?.didSaveSetting()
             self.popOrDismissViewController()
         }
     }

@@ -50,8 +50,8 @@ final class CustomAlertViewController: UIViewController {
     
     private lazy var palettecollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 14
-        layout.minimumLineSpacing = 6
+        layout.minimumInteritemSpacing = 14.adjusted
+        layout.minimumLineSpacing = 6.adjusted
         layout.itemSize = CGSize(width: 40, height: 40)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -352,13 +352,13 @@ extension CustomAlertViewController {
         
         alertView.snp.makeConstraints {
             $0.centerX.centerY.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(30)
-            $0.height.equalTo(421)
+            $0.horizontalEdges.equalToSuperview().inset(30.adjusted)
+            $0.height.equalTo(421.adjustedH)
         }
         
         palettecollectionView.snp.makeConstraints {
             $0.top.equalTo(sepeartorView.snp.bottom).offset(19)
-            $0.horizontalEdges.equalToSuperview().inset(35)
+            $0.horizontalEdges.equalToSuperview().inset(28.adjusted)
             $0.height.greaterThanOrEqualTo(88)
         }
         

@@ -184,10 +184,11 @@ extension TNCalendarViewController: FSCalendarDelegate {
     
     // 주간일때 그림자와 라운드 넣어주는 함수
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
+        
         if calendar.scope == .week {
             rootView.calenderBottomCollectionView.backgroundColor = .back
             rootView.roundCalendarViewCorners(radius: 20) // 라운드 처리 해주기
-            rootView.layer.applyShadow(alpha: 0.1, y: 2, blur: 4)
+            rootView.calendarViewContainer.layer.applyShadow(alpha: 0.1, y: 4, blur: 4)
             
             rootView.calendarView.snp.updateConstraints { make in
                 make.height.equalTo(99) // 주간 뷰 높이 설정
@@ -215,6 +216,8 @@ extension TNCalendarViewController: FSCalendarDelegate {
         view.setNeedsLayout()
         view.layoutIfNeeded()
     }
+
+
 }
 
 extension TNCalendarViewController {

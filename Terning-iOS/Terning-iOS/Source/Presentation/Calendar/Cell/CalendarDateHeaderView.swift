@@ -50,7 +50,8 @@ extension CalendarDateHeaderView {
     
     private func setLayout() {
         titleLabel.snp.makeConstraints {
-            $0.leading.centerY.equalToSuperview()
+            $0.top.equalTo(self.snp.top).offset(5)
+            $0.leading.equalToSuperview()
         }
     }
 }
@@ -59,6 +60,29 @@ extension CalendarDateHeaderView {
 
 extension CalendarDateHeaderView {
     func bind(title: String) {
-        self.titleLabel.text = title
+        self.titleLabel.text = convertToDayOfWeek(from: title)
+    }
+}
+
+// MARK: - Methods
+
+extension CalendarDateHeaderView {
+    private func convertToDayOfWeek(from dateString: String) -> String? {
+        // DateFormatter를 이용해 입력된 문자열을 Date 객체로 변환
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "yyyy-M-d"
+        
+        // 문자열을 Date 객체로 변환
+        guard let date = dateFormatter.date(from: dateString) else {
+            return nil
+        }
+        
+        // 요일을 얻기 위한 DateFormatter 설정
+        let dayFormatter = DateFormatter()
+        dayFormatter.locale = Locale(identifier: "ko_KR")
+        dayFormatter.dateFormat = "M월 d일 EEEE"
+        
+        return dayFormatter.string(from: date)
     }
 }

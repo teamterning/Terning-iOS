@@ -42,11 +42,11 @@ final class TNCalendarDateCell: FSCalendarCell {
         $0.alignment = .center
         $0.spacing = 2
     }
-    
+
     private let dotViews: [UIView] = (0..<3).map { _ in
         UIView().then {
             $0.backgroundColor = .red
-            $0.layer.cornerRadius = 2.5
+            $0.layer.cornerRadius = 3
             $0.snp.makeConstraints {
                 $0.width.height.equalTo(6)
             }
@@ -109,7 +109,7 @@ extension TNCalendarDateCell {
         dotStackView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(selectView.snp.bottom).offset(3)
-            $0.height.equalTo(5)
+            $0.height.equalTo(6)
         }
     }
 }

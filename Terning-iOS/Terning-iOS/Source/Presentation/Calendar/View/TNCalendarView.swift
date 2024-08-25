@@ -151,7 +151,7 @@ extension TNCalendarView {
         self.bringSubviewToFront(separatorView)
         
         calenderBottomCollectionView.snp.makeConstraints {
-            $0.top.equalTo(calendarView.snp.bottom)
+            $0.top.equalTo(calendarView.snp.bottom).offset(10)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }

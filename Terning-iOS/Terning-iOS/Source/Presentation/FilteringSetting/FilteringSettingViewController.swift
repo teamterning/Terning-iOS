@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-protocol SaveButtonDelegate: AnyObject {
+protocol SaveButtonProtocol: AnyObject {
     func didSaveSetting()
 }
 
@@ -18,7 +18,7 @@ class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UI
     
     // MARK: - Properties
     
-    weak var saveButtonDelegate: SaveButtonDelegate?
+    weak var saveButtonDelegate: SaveButtonProtocol?
     
     private let filterProvider = Providers.filtersProvider
     
@@ -113,7 +113,6 @@ extension FilteringSettingViewController {
             button.setBackgroundColor(isSelected ? .terningMain : .clear, for: .normal)
             button.setTitleColor(isSelected ? .white : .grey400, for: .normal)
         }
-        
     }
     
     // MARK: - UIPickerViewDataSource
@@ -156,6 +155,8 @@ extension FilteringSettingViewController {
         }
     }
     
+    // MARK: - Network
+    
     func setUserFilterInfo() {
         filterProvider.request(
             .setFilterDatas(
@@ -174,6 +175,7 @@ extension FilteringSettingViewController {
                         _ = try result.map(BaseResponse<BlankData>.self)
                         
                         print("필터링 섧정 성공")
+                        
                     } catch {
                         print(error.localizedDescription)
                     }

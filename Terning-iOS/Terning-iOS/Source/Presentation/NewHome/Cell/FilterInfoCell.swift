@@ -14,7 +14,7 @@ protocol FilterButtonProtocol: AnyObject {
     func filterButtonDidTap()
 }
 
-protocol sortButtonProtocol: AnyObject {
+protocol SortButtonProtocol: AnyObject {
     func sortButtonDidTap()
 }
 
@@ -50,7 +50,7 @@ final class FilterInfoCell: UICollectionViewCell {
     private lazy var filterButton = FilterButton()
     
     weak var filterDelegate: FilterButtonProtocol?
-    weak var sortDelegate: sortButtonProtocol?
+    weak var sortDelegate: SortButtonProtocol?
     
     var gradeLabel = LabelFactory.build(
         text: "3학년",
@@ -215,7 +215,7 @@ extension FilterInfoCell {
 extension FilterInfoCell {
     func bind(model: UserFilteringInfoModel) {
         guard let grade = model.grade,
-                let workingPeriod = model.workingPeriod,
+              let workingPeriod = model.workingPeriod,
               let startYear = model.startYear,
               let startMonth = model.startMonth else { return }
         

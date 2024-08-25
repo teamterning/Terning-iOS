@@ -46,7 +46,7 @@ final class NewHomeViewController: UIViewController {
     var filterInfos: UserFilteringInfoModel = UserFilteringInfoModel(
         grade: 0, // 기본값 설정
         workingPeriod: 0, // 기본값 설정
-        startYear: 2020, // 기본값 설정
+        startYear: 2023, // 기본값 설정
         startMonth: 1 // 기본값 설정
     )
     
@@ -166,6 +166,8 @@ extension NewHomeViewController: UICollectionViewDataSource {
             
             headerView.backgroundColor = .white
             headerView.filterDelegate = self
+            headerView.bind(model: filterInfos)
+            
             
             return headerView
             
@@ -284,9 +286,17 @@ extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
 
 // MARK: - SaveButtonDelegate
 
-extension NewHomeViewController: SaveButtonDelegate {
+extension NewHomeViewController: SaveButtonProtocol {
     func didSaveSetting() {
         removeDimmedBackgroundView()
+    }
+}
+
+// MARK: - SortButtonDelegate
+
+extension NewHomeViewController: SortButtonProtocol {
+    func sortButtonDidTap() {
+        <#code#>
     }
 }
 
@@ -358,6 +368,7 @@ extension NewHomeViewController {
                         let responseDto = try result.map(BaseResponse<UserFilteringInfoModel>.self)
                         guard let data = responseDto.result else { return }
                         
+                        print("🔥🔥🔥🔥🔥🔥🔥🔥🔥\(data)")
                         self.filterInfos = data
                         
                         // 0.5초 뒤에 fetchJobCardDatas 호출

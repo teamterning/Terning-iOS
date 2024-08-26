@@ -101,7 +101,6 @@ extension JobListingCell {
     
     private func setUI() {
         contentView.layer.cornerRadius = 10
-        contentView.layer.applyShadow(y: 0, blur: 4)
         contentView.backgroundColor = .white
         contentView.clipsToBounds = true
     }
@@ -129,7 +128,9 @@ extension JobListingCell {
         }
         
         containerView.snp.makeConstraints {
-            $0.top.bottom.trailing.equalToSuperview().inset(12)
+            $0.top.equalToSuperview().inset(12)
+            $0.trailing.equalToSuperview().inset(5)
+            $0.bottom.equalToSuperview().inset(8)
             $0.leading.equalTo(colorMark.snp.trailing).offset(12)
         }
         
@@ -144,7 +145,7 @@ extension JobListingCell {
         }
         
         mainTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(containerView.snp.top).offset(16)
+            $0.top.equalTo(containerView.snp.top).offset(18)
             $0.leading.equalTo(mainImageView.snp.trailing).offset(8)
             $0.trailing.equalToSuperview()
         }
@@ -160,9 +161,9 @@ extension JobListingCell {
         }
         
         scrapButton.snp.makeConstraints {
-            $0.trailing.equalTo(contentView.snp.trailing).inset(17)
+            $0.trailing.equalTo(containerView.snp.trailing)
             $0.height.width.equalTo(24)
-            $0.bottom.equalToSuperview().inset(12)
+            $0.bottom.equalToSuperview()
         }
     }
 }

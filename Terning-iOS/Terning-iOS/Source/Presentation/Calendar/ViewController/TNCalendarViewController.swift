@@ -19,7 +19,6 @@ final class TNCalendarViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let calendarProvider = Providers.calendarProvider
     private let viewModel: TNCalendarViewModel
     
     private lazy var pageRelay: BehaviorRelay<Date> = {
@@ -36,13 +35,16 @@ final class TNCalendarViewController: UIViewController {
         return relay
     }()
     
+    private let patchScrapSubject = PublishSubject<(Int, Int)>()
+    private let cancelScrapSubject = PublishSubject<Int>()
+    
     private var isListViewVisible = false
     
-    private let dateFormatter = DateFormatter().then {
+    private let isoDateFormatter = DateFormatter().then {
         $0.dateFormat = "yyyy-MM-dd"
     }
     
-    private let dateFormmatter2 = DateFormatter().then {
+    private let koreanDateFormmatter = DateFormatter().then {
         $0.dateFormat = "yyyy년 MM월 dd일"
     }
     
@@ -146,7 +148,9 @@ extension TNCalendarViewController {
         let input = TNCalendarViewModel.Input(
             fetchMonthDataTrigger: pageRelay.asObservable(),
             fetchMonthlyListTrigger: pageRelay.asObservable(),
-            fetchDailyDataTrigger: pageRelay.asObservable()
+            fetchDailyDataTrigger: pageRelay.asObservable(),
+            patchScrapTrigger: patchScrapSubject.asObservable(),
+            cancelScrapTrigger: cancelScrapSubject.asObservable()
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
@@ -154,6 +158,7 @@ extension TNCalendarViewController {
         output.monthData
             .drive(onNext: { [weak self] scraps in
                 guard let self = self else { return }
+                
                 self.scraps = scraps
                 self.rootView.calendarView.reloadData()
             })
@@ -162,6 +167,7 @@ extension TNCalendarViewController {
         output.monthlyList
             .drive(onNext: { [weak self] scrapLists in
                 guard let self = self else { return }
+                
                 self.scrapLists = scrapLists
                 self.rootView.calenderListCollectionView.reloadData()
             })
@@ -170,18 +176,59 @@ extension TNCalendarViewController {
         output.dailyData
             .drive(onNext: { [weak self] dailyData in
                 guard let self = self else { return }
+                
                 self.calendarDaily = dailyData
                 self.rootView.calenderBottomCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
+        output.patchScrapResult
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                
+                self.refetchDataAndReloadViews()
+            })
+            .disposed(by: disposeBag)
+
+        output.cancelScrapResult
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                
+                self.refetchDataAndReloadViews()
+            })
+            .disposed(by: disposeBag)
+
+        
         output.error
             .drive(onNext: { [weak self] errorMessage in
                 guard let self = self else { return }
+                
                 self.showToast(message: errorMessage)
             })
             .disposed(by: disposeBag)
+        
+        output.successMessage
+            .drive(onNext: { [weak self] successMessage in
+                guard let self = self else { return }
+                
+                self.showToast(message: successMessage, heightOffset: 12)
+                self.refetchDataAndReloadViews()
+            })
+            .disposed(by: disposeBag)
     }
+
+    // 스크랩 수정 호출
+    private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
+        guard let scrapId = scrapId else { return }
+        patchScrapSubject.onNext((scrapId, color))
+    }
+
+    // 스크랩 취소 호출
+    private func cancelScrapAnnouncement(scrapId: Int?) {
+        guard let scrapId = scrapId else { return }
+        cancelScrapSubject.onNext(scrapId)
+    }
+
     
     private func moveCalendar(by months: Int) {
         let currentPage = rootView.calendarView.currentPage
@@ -189,7 +236,6 @@ extension TNCalendarViewController {
         let newDate = Calendar.current.date(byAdding: .month, value: months, to: currentPage) ?? currentPage
         rootView.calendarView.setCurrentPage(newDate, animated: true)
         updateNaviBarTitle(for: newDate)
-        
         
         pageRelay.accept(newDate)
     }
@@ -296,7 +342,7 @@ extension TNCalendarViewController {
         // 선택된 날짜를 헤더에 표시하기 위한 코드
         let headerIndexPath = IndexPath(item: 0, section: 0)
         if let header = rootView.calenderBottomCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: headerIndexPath) as? CalendarDateHeaderView {
-            let formattedDate = dateFormatter.string(from: date)
+            let formattedDate = isoDateFormatter.string(from: date)
             header.bind(title: formattedDate)
         }
     }
@@ -375,7 +421,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             
             let colorIndex = alertSheet.selectedColorIndexRelay
             
-            let deadLine = dateFormmatter2.string(from: selectedDate ?? Date())
+            let deadLine = koreanDateFormmatter.string(from: selectedDate ?? Date())
             alertSheet.setData2(model: model, deadline: deadLine)
             
             guard let index = model.internshipAnnouncementId else { return }
@@ -408,7 +454,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             
             let colorIndex = alertSheet.selectedColorIndexRelay
             
-            let deadLine = dateFormmatter2.string(from: selectedDate ?? Date())
+            let deadLine = koreanDateFormmatter.string(from: selectedDate ?? Date())
             alertSheet.setData2(model: model, deadline: deadLine)
             
             alertSheet.modalTransitionStyle = .crossDissolve
@@ -501,7 +547,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
                 
                 let sortedKeys = scrapLists.keys.sorted()
                 let scrapSection = sortedKeys[indexPath.section]
-                let formattedDate = dateFormatter.string(from: scrapSection)
+                let formattedDate = isoDateFormatter.string(from: scrapSection)
                 headerView.bind(title: formattedDate)
                 
                 return headerView
@@ -565,55 +611,5 @@ extension TNCalendarViewController: JobListCellProtocol {
         alertSheet.modalPresentationStyle = .overFullScreen
         
         self.present(alertSheet, animated: false)
-    }
-}
-
-
-// MARK: - Network
-
-extension TNCalendarViewController {
-    private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
-        guard let scrapId = scrapId else { return }
-        Providers.scrapsProvider.request(.patchScrap(scrapId: scrapId, color: color)) { [weak self] result in
-            LoadingIndicator.hideLoading()
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                let status = response.statusCode
-                if 200..<300 ~= status {
-                    print("스크랩 수정 성공")
-                    self.refetchDataAndReloadViews()
-                } else {
-                    print("400 error")
-                    self.showToast(message: "네트워크 오류")
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-                self.showToast(message: "네트워크 오류")
-            }
-        }
-    }
-    
-    private func cancelScrapAnnouncement(scrapId: Int?) {
-        
-        guard let scrapId = scrapId else { return }
-        Providers.scrapsProvider.request(.removeScrap(scrapId: scrapId)) { [weak self] result in
-            LoadingIndicator.hideLoading()
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                let status = response.statusCode
-                if 200..<300 ~= status {
-                    print("스크랩 취소 성공")
-                    self.refetchDataAndReloadViews()
-                } else {
-                    print("400 error")
-                    self.showToast(message: "네트워크 오류")
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-                self.showToast(message: "네트워크 오류")
-            }
-        }
     }
 }

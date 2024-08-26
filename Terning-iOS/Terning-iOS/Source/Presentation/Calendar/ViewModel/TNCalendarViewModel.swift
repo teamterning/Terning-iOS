@@ -17,6 +17,8 @@ final class TNCalendarViewModel: ViewModelType {
         let fetchMonthDataTrigger: Observable<Date>
         let fetchMonthlyListTrigger: Observable<Date>
         let fetchDailyDataTrigger: Observable<Date>
+        let patchScrapTrigger: Observable<(Int, Int)>
+        let cancelScrapTrigger: Observable<Int>
     }
     
     // MARK: - Output
@@ -26,6 +28,9 @@ final class TNCalendarViewModel: ViewModelType {
         let monthlyList: Driver<[Date: [DailyScrapModel]]>
         let dailyData: Driver<[DailyScrapModel]>
         let error: Driver<String>
+        let successMessage: Driver<String>
+        let patchScrapResult: Driver<Void>
+        let cancelScrapResult: Driver<Void>
     }
     
     private let calendarRepository: TNCalendarRepositoryProtocol
@@ -44,6 +49,7 @@ final class TNCalendarViewModel: ViewModelType {
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let errorTracker = PublishSubject<String>()
+        let successMessageTracker = PublishSubject<String>()
         
         let monthData = input.fetchMonthDataTrigger
             .flatMapLatest { date -> Observable<[ScrapsByDeadlineModel]> in
@@ -104,8 +110,44 @@ final class TNCalendarViewModel: ViewModelType {
             }
             .asDriver(onErrorJustReturn: [])
         
-        let error = errorTracker.asDriver(onErrorJustReturn: "알 수 없는 오류가 발생했습니다.")
+        let patchScrap = input.patchScrapTrigger
+            .flatMapLatest { (scrapId, color) in
+                self.scrapRepository.patchScrap(scrapId: scrapId, color: color)
+                    .do(onNext: {
+                        successMessageTracker.onNext("스크랩 수정 완료!")
+                    })
+                    .catch { error in
+                        errorTracker.onNext("스크랩 수정 오류: \(error.localizedDescription)")
+                        return .empty()
+                    }
+            }
+            .asDriver(onErrorDriveWith: .empty())
         
-        return Output(monthData: monthData, monthlyList: monthlyList, dailyData: dailyData, error: error)
+        let cancelScrap = input.cancelScrapTrigger
+            .flatMapLatest { scrapId in
+                self.scrapRepository.cancelScrap(scrapId: scrapId)
+                    .do(onNext: {
+                        successMessageTracker.onNext("관심 공고가 캘린더에서 사라졌어요!")
+                    })
+                    .catch { error in
+                        errorTracker.onNext("스크랩 취소 오류: \(error.localizedDescription)")
+                        return .empty()
+                    }
+            }
+            .asDriver(onErrorDriveWith: .empty())
+        
+        let error = errorTracker.asDriver(onErrorJustReturn: "알 수 없는 오류가 발생했습니다.")
+        let successMessage = successMessageTracker.asDriver(onErrorJustReturn: "")
+        
+        return Output(
+            monthData: monthData,
+            monthlyList: monthlyList,
+            dailyData: dailyData,
+            error: error,
+            successMessage: successMessage,
+            patchScrapResult: patchScrap,
+            cancelScrapResult: cancelScrap
+        )
+        
     }
 }

@@ -36,8 +36,6 @@ final class TNCalendarViewController: UIViewController {
         return relay
     }()
     
-    
-    
     private var isListViewVisible = false
     
     private let dateFormatter = DateFormatter().then {
@@ -88,6 +86,7 @@ final class TNCalendarViewController: UIViewController {
         bindNavigation()
         updateNaviBarTitle(for: rootView.calendarView.currentPage)
         bindViewModel()
+        fetchDailyData(for: rootView.calendarView.currentPage)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -146,7 +145,8 @@ extension TNCalendarViewController {
     
     private func bindViewModel() {
         let input = TNCalendarViewModel.Input(
-            fetchMonthDataTrigger: pageRelay.asObservable()
+            fetchMonthDataTrigger: pageRelay.asObservable(),
+            fetchMonthlyListTrigger: pageRelay.asObservable()
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
@@ -157,6 +157,15 @@ extension TNCalendarViewController {
                 
                 self.scraps = scraps
                 self.rootView.calendarView.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
+        output.monthlyList
+            .drive(onNext: { [weak self] scrapLists in
+                guard let self = self else { return }
+                
+                self.scrapLists = scrapLists
+                self.rootView.calenderListCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
@@ -197,7 +206,8 @@ extension TNCalendarViewController {
             rootView.separatorView.isHidden = true
             rootView.calendarViewContainer.isHidden = true
             rootView.calenderListCollectionView.isHidden = false
-            getMonthlyList()
+            
+            pageRelay.accept(rootView.calendarView.currentPage)
         }
         isListViewVisible.toggle()
     }
@@ -385,7 +395,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             let date = sortedKeys[indexPath.section]
             guard let scrapSection = scrapLists[date] else { return }
             guard let index = scrapSection[indexPath.row].internshipAnnouncementId else { return }
-            jobDetailViewController.internshipAnnouncementId.onNext(index)
+            //            jobDetailViewController.internshipAnnouncementId.onNext(index)
             
             let model = scrapSection[indexPath.row]
             let alertSheet = CustomAlertViewController(alertType: .custom)
@@ -402,6 +412,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
                 if alertSheet.currentMode == .info {
                     self.dismiss(animated: true)
                     let jobDetailVC = JobDetailViewController()
+                    jobDetailVC.internshipAnnouncementId.onNext(index)
                     jobDetailVC.hidesBottomBarWhenPushed = true
                     self.navigationController?.pushViewController(jobDetailVC, animated: true)
                 } else if alertSheet.currentMode == .color {
@@ -422,7 +433,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
         if let selectedDate = selectedDate {
             fetchDailyData(for: selectedDate)
         }
-        getMonthlyList()
+        //        getMonthlyList()
         
         // Reload the calendar and collection views
         rootView.calendarView.reloadData()
@@ -455,7 +466,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
         if collectionView == rootView.calenderBottomCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else { return UICollectionViewCell() }
             
-            cell.bind(model: calendarDaily[indexPath.row], indexPath: indexPath.row)
+            cell.bind(model: calendarDaily[indexPath.row], indexPath: indexPath, in: collectionView)
             cell.delegate = self
             return cell
         } else {
@@ -467,7 +478,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
             let scrapSection = scrapLists[sortedKeys[indexPath.section]] ?? []
             let scrapItem = scrapSection[indexPath.row]
             
-            cell.bind(model: scrapItem, indexPath: indexPath.row)
+            cell.bind(model: scrapItem, indexPath: indexPath, in: collectionView)
             cell.delegate = self
             return cell
         }
@@ -512,11 +523,29 @@ extension TNCalendarViewController: UICollectionViewDataSource {
 }
 
 extension TNCalendarViewController: JobListCellProtocol {
-    func scrapButtonDidTap(isScrap: Bool, index: Int) {
-        
+    func scrapButtonDidTapInCalendar(in collectionView: UICollectionView, isScrap: Bool, indexPath: IndexPath) {
         let alertSheet = CustomAlertViewController(alertType: .normal)
-        let model = calendarDaily[index]
+        
+        let model: DailyScrapModel
+        
+        if collectionView == rootView.calenderBottomCollectionView {
+            model = calendarDaily[indexPath.row]
+            
+        } else if collectionView == rootView.calenderListCollectionView {
+            
+            let sortedKeys = scrapLists.keys.sorted()
+            let date = sortedKeys[indexPath.section]
+            guard let scrapSection = scrapLists[date] else { return }
+            
+            model = scrapSection[indexPath.row]
+            
+        } else {
+            return
+        }
+        
         let scrapId = model.scrapId
+        
+        print(scrapId)
         
         alertSheet.setComponentDatas(
             mainLabel: "관심 공고가 캘린더에서 사라져요!",
@@ -533,9 +562,9 @@ extension TNCalendarViewController: JobListCellProtocol {
         alertSheet.modalPresentationStyle = .overFullScreen
         
         self.present(alertSheet, animated: false)
-        
     }
 }
+
 
 // MARK: - Network
 

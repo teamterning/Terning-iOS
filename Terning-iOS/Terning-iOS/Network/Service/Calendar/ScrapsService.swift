@@ -36,4 +36,3 @@ final class ScrapsService: ScrapsServiceProtocol {
             .asObservable()
     }
 }
-

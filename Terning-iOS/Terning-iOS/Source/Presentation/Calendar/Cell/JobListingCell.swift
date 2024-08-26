@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 protocol JobListCellProtocol: AnyObject {
-    func scrapButtonDidTap(isScrap: Bool, index: Int)
+    func scrapButtonDidTapInCalendar(in collectionView: UICollectionView, isScrap: Bool, indexPath: IndexPath)
 }
 
 final class JobListingCell: UICollectionViewCell {
@@ -18,8 +18,8 @@ final class JobListingCell: UICollectionViewCell {
     // MARK: - Properties
     
     weak var delegate: JobListCellProtocol?
-    
-    private var indexPath: Int?
+    private var indexPath: IndexPath?
+    private weak var collectionView: UICollectionView?
     
     // MARK: - UIComponents
     
@@ -171,20 +171,19 @@ extension JobListingCell {
     
     // MARK: - Methods
     
-    func bind(model: DailyScrapModel, indexPath: Int? = nil) {
+    func bind(model: DailyScrapModel, indexPath: IndexPath? = nil, in collectionView: UICollectionView? = nil) {
         guard let day = model.dDay else { return print("JobListingCell Error dDay") }
         guard let workingPeriod = model.workingPeriod else { return print("JobListingCell Error workingPeriod") }
         guard let companyImage = model.companyImage else { return print("JobListingCell Error companyImage") }
         
         self.indexPath = indexPath
+        self.collectionView = collectionView
         
         self.mainImageView.setImage(with: companyImage)
         self.deadlineLabel.text = day
         self.monthLabel.text = workingPeriod
-        
         self.mainTitleLabel.text = model.title
         self.colorMark.backgroundColor = UIColor(hex: model.color)
-        
         self.scrapButton.isSelected = true
     }
     
@@ -200,25 +199,26 @@ extension JobListingCell {
     @objc
     func scrapButtonDidTap(_ sender: UIButton) {
         guard let indexPath = self.indexPath else { return }
+        guard let collectionView = self.collectionView else { return print("쫑") }
         
-        delegate?.scrapButtonDidTap(isScrap: (sender.isSelected == true), index: indexPath)
+        delegate?.scrapButtonDidTapInCalendar(in: collectionView, isScrap: sender.isSelected, indexPath: indexPath)
     }
 }
-                                  
+
 extension UIColor {
-  convenience init(hex: String, alpha: CGFloat = 1.0) {
-      var hexFormatted: String = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
-      
-      if hexFormatted.hasPrefix("#") {
-          hexFormatted = String(hexFormatted.dropFirst())
-      }
-      
-      assert(hexFormatted.count == 6, "Invalid hex code used.")
-      var rgbValue: UInt64 = 0
-      Scanner(string: hexFormatted).scanHexInt64(&rgbValue)
-      
-      self.init(red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-                green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-                blue: CGFloat(rgbValue & 0x0000FF) / 255.0, alpha: alpha)
-  }
+    convenience init(hex: String, alpha: CGFloat = 1.0) {
+        var hexFormatted: String = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
+        
+        if hexFormatted.hasPrefix("#") {
+            hexFormatted = String(hexFormatted.dropFirst())
+        }
+        
+        assert(hexFormatted.count == 6, "Invalid hex code used.")
+        var rgbValue: UInt64 = 0
+        Scanner(string: hexFormatted).scanHexInt64(&rgbValue)
+        
+        self.init(red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+                  green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+                  blue: CGFloat(rgbValue & 0x0000FF) / 255.0, alpha: alpha)
+    }
 }

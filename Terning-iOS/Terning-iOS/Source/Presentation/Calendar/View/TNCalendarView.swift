@@ -34,12 +34,28 @@ final class TNCalendarView: UIView {
         $0.clipsToBounds = false
         $0.appearance.titlePlaceholderColor = .grey200
         $0.appearance.titleDefaultColor = .black
-
+        
         let weekdayTexts = ["일", "월", "화", "수", "목", "금", "토"]
-        $0.calendarWeekdayView.weekdayLabels.enumerated().forEach { (index, label) in
+        let weekdayLabels = $0.calendarWeekdayView.weekdayLabels
+        
+        let insetSpacing = (35-18).adjusted
+        let interSpacing = 38.2.adjusted
+        
+        for (index, label) in weekdayLabels.enumerated() {
             label.text = weekdayTexts[index]
             label.textColor = index == 0 ? .calRed : .black
+            label.font = .body7
+            
+            label.snp.makeConstraints { make in
+                if index == 0 {
+                    make.leading.equalToSuperview().offset(insetSpacing)
+                } else {
+                    make.leading.equalTo(weekdayLabels[index - 1].snp.trailing).offset(interSpacing)
+                }
+                make.centerY.equalToSuperview()
+            }
         }
+        
         $0.placeholderType = .fillHeadTail
     }
     
@@ -94,8 +110,8 @@ extension TNCalendarView {
     
     private func setHierarchy() {
         addSubviews(
-            dummyView,
             naviBar,
+            dummyView,
             separatorView,
             calendarViewContainer,
             calenderBottomCollectionView,
@@ -121,8 +137,9 @@ extension TNCalendarView {
         }
         
         calendarView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
             $0.height.equalTo(90 * 6 + 48 + 28) // 기본 높이 설정
+            $0.horizontalEdges.equalToSuperview().inset(18.adjusted)
         }
         
         separatorView.snp.makeConstraints {
@@ -134,7 +151,7 @@ extension TNCalendarView {
         self.bringSubviewToFront(separatorView)
         
         calenderBottomCollectionView.snp.makeConstraints {
-            $0.top.equalTo(calendarView.snp.bottom)
+            $0.top.equalTo(calendarView.snp.bottom).offset(10)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }

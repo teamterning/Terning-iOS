@@ -42,16 +42,18 @@ final class TNCalendarDateCell: FSCalendarCell {
         $0.alignment = .center
         $0.spacing = 2
     }
-    
+
     private let dotViews: [UIView] = (0..<3).map { _ in
         UIView().then {
             $0.backgroundColor = .red
-            $0.layer.cornerRadius = 2.5
+            $0.layer.cornerRadius = 3
             $0.snp.makeConstraints {
-                $0.width.height.equalTo(5)
+                $0.width.height.equalTo(6)
             }
         }
     }
+    
+    private let separatorView = UIView().then { $0.backgroundColor = .grey200 }
     
     // MARK: - Life Cycles
     
@@ -79,26 +81,35 @@ extension TNCalendarDateCell {
         contentView.addSubviews(
             selectView,
             dateLabel,
-            dotStackView
+            dotStackView,
+            separatorView
         )
         dotViews.forEach { dotStackView.addArrangedSubview($0) }
     }
     
     private func setLayout() {
+        
+        separatorView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(-15)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(1)
+        }
+        
         selectView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(19)
+            $0.top.equalToSuperview().offset(7)
             $0.width.height.equalTo(24)
         }
         
         dateLabel.snp.makeConstraints {
-            $0.center.equalTo(selectView)
+            $0.top.equalToSuperview().offset(8)
+            $0.centerX.equalTo(selectView)
         }
         
         dotStackView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(selectView.snp.bottom).offset(4)
-            $0.height.equalTo(5)
+            $0.top.equalTo(selectView.snp.bottom).offset(3)
+            $0.height.equalTo(6)
         }
     }
 }

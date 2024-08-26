@@ -15,7 +15,7 @@ final class EventView: UIView {
     // MARK: - Properties
     
     private let titleLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 10)
+        $0.font = .button6
         $0.textColor = .white
         $0.textAlignment = .center
     }
@@ -46,7 +46,7 @@ final class EventView: UIView {
     
     private func setLayout() {
         titleLabel.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(2)
+            $0.edges.equalToSuperview()
         }
     }
     

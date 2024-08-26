@@ -140,5 +140,11 @@ final class CalendarDateCellView: UIView {
             eventStackView.addArrangedSubview(eventView)
             eventViews.append(eventView)
         }
+        
+        eventViews.forEach {
+            $0.snp.makeConstraints { make in
+                make.height.equalTo(12)
+            }
+        }
     }
 }

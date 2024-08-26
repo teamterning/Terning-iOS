@@ -16,8 +16,28 @@ import Then
 import FSCalendar
 
 final class TNCalendarViewController: UIViewController {
+    
     // MARK: - Properties
+    
     private let calendarProvider = Providers.calendarProvider
+    private let viewModel: TNCalendarViewModel
+    
+    private lazy var pageRelay: BehaviorRelay<Date> = {
+        let initialPage = rootView.calendarView.currentPage
+        let relay = BehaviorRelay<Date>(value: initialPage)
+        
+        rootView.calendarView.rx
+            .observe(Date.self, "currentPage")
+            .compactMap { $0 }
+            .distinctUntilChanged()
+            .bind(to: relay)
+            .disposed(by: disposeBag)
+        
+        return relay
+    }()
+    
+    
+    
     private var isListViewVisible = false
     
     private let dateFormatter = DateFormatter().then {
@@ -47,20 +67,33 @@ final class TNCalendarViewController: UIViewController {
     private var selectedDate: Date?
     private var scraps: [Date: [DailyScrapModel]] = [:] // 스크랩 데이터를 저장할 딕셔너리
     private var scrapLists: [Date: [DailyScrapModel]] = [:] // 리스트 데이터를 저장할 딕셔너리
-    
-    private var isListData: Bool = false
     private var calendarDaily: [DailyScrapModel] = [] // 일간 캘린더 데이터를 저장할 딕셔너리
     
     // MARK: - Life Cycles
+    
+    init(viewModel: TNCalendarViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setDelegate()
         setRegister()
         bindNavigation()
-        //        bindViewModel()
         updateNaviBarTitle(for: rootView.calendarView.currentPage)
-        fetchMonthData(for: rootView.calendarView.currentPage)
+        bindViewModel()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        pageRelay.accept(rootView.calendarView.currentPage)
     }
     
     override func loadView() {
@@ -112,7 +145,27 @@ extension TNCalendarViewController {
     }
     
     private func bindViewModel() {
-        // Bind the view model here if needed
+        let input = TNCalendarViewModel.Input(
+            fetchMonthDataTrigger: pageRelay.asObservable()
+        )
+        
+        let output = viewModel.transform(input: input, disposeBag: disposeBag)
+        
+        output.monthData
+            .drive(onNext: { [weak self] scraps in
+                guard let self = self else { return }
+                
+                self.scraps = scraps
+                self.rootView.calendarView.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
+        output.error
+            .drive(onNext: { [weak self] errorMessage in
+                guard let self = self else { return }
+                self.showToast(message: errorMessage)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func moveCalendar(by months: Int) {
@@ -122,7 +175,8 @@ extension TNCalendarViewController {
         rootView.calendarView.setCurrentPage(newDate, animated: true)
         updateNaviBarTitle(for: newDate)
         
-        fetchMonthData(for: newDate)
+        
+        pageRelay.accept(newDate)
     }
     
     private func updateNaviBarTitle(for date: Date) {
@@ -163,8 +217,11 @@ extension TNCalendarViewController: FSCalendarDelegate {
     }
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        updateNaviBarTitle(for: calendar.currentPage)
-        fetchMonthData(for: calendar.currentPage)
+        let newDate = calendar.currentPage
+        updateNaviBarTitle(for: newDate)
+        
+        pageRelay.accept(newDate)
+        
         calendar.reloadData()
     }
     
@@ -359,8 +416,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
     
     
     private func refetchDataAndReloadViews() {
-        let currentPage = rootView.calendarView.currentPage
-        fetchMonthData(for: currentPage)
+        pageRelay.accept(rootView.calendarView.currentPage)
         
         // Fetch the daily data for the selected date if available
         if let selectedDate = selectedDate {
@@ -481,46 +537,9 @@ extension TNCalendarViewController: JobListCellProtocol {
     }
 }
 
+// MARK: - Network
+
 extension TNCalendarViewController {
-    private func fetchMonthData(for date: Date) {
-        let year = Calendar.current.component(.year, from: date)
-        let month = Calendar.current.component(.month, from: date)
-        
-        calendarProvider.request(.getMonthlyDefault(year: year, month: month)) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let result):
-                let status = result.statusCode
-                if 200..<300 ~= status {
-                    do {
-                        let responseDto = try result.map(BaseResponse<[ScrapsByDeadlineModel]>.self)
-                        guard let data = responseDto.result else { return }
-                        
-                        self.scraps = [:]
-                        
-                        for item in data {
-                            if let date = self.dateFormatter.date(from: item.deadline) {
-                                self.scraps[date] = item.scraps
-                            }
-                        }
-                        
-                        self.rootView.calendarView.reloadData()
-                        
-                    } catch {
-                        print("Error: \(error.localizedDescription)")
-                        self.showToast(message: "데이터를 불러오는 중 오류가 발생했습니다.")
-                    }
-                } else {
-                    self.showToast(message: "서버 오류: \(status)")
-                }
-            case .failure(let error):
-                print("Error: \(error.localizedDescription)")
-                self.showToast(message: "네트워크 오류가 발생했습니다.")
-            }
-        }
-    }
-    
     private func getMonthlyList() {
         let currentPage = rootView.calendarView.currentPage
         let year = Calendar.current.component(.year, from: currentPage)

@@ -16,6 +16,7 @@ final class TNCalendarViewModel: ViewModelType {
     struct Input {
         let fetchMonthDataTrigger: Observable<Date>
         let fetchMonthlyListTrigger: Observable<Date>
+        let fetchDailyDataTrigger: Observable<Date>
     }
     
     // MARK: - Output
@@ -23,6 +24,7 @@ final class TNCalendarViewModel: ViewModelType {
     struct Output {
         let monthData: Driver<[Date: [DailyScrapModel]]>
         let monthlyList: Driver<[Date: [DailyScrapModel]]>
+        let dailyData: Driver<[DailyScrapModel]>
         let error: Driver<String>
     }
     
@@ -48,7 +50,7 @@ final class TNCalendarViewModel: ViewModelType {
                 
                 return self.repository.fetchMonthData(for: year, month: month)
                     .catch { error in
-                        errorTracker.onNext("데이터를 불러오는 중 오류가 발생했습니다. \(error.localizedDescription)")
+                        errorTracker.onNext("monthData 오류: \(error.localizedDescription)")
                         return .empty()
                     }
             }
@@ -72,7 +74,7 @@ final class TNCalendarViewModel: ViewModelType {
                 
                 return self.repository.getMonthlyList(for: year, month: month)
                     .catch { error in
-                        errorTracker.onNext("데이터를 불러오는 중 오류가 발생했습니다. \(error.localizedDescription)")
+                        errorTracker.onNext("monthlyList 오류: \(error.localizedDescription)")
                         return .empty()
                     }
             }
@@ -89,8 +91,19 @@ final class TNCalendarViewModel: ViewModelType {
             }
             .asDriver(onErrorJustReturn: [:])
         
+        let dailyData = input.fetchDailyDataTrigger
+            .flatMapLatest { date -> Observable<[DailyScrapModel]> in
+                let dateString = self.dateFormatter.string(from: date)
+                return self.repository.fetchDailyData(for: dateString)
+                    .catch { error in
+                        errorTracker.onNext("dailyData 오류: \(error.localizedDescription)")
+                        return .empty()
+                    }
+            }
+            .asDriver(onErrorJustReturn: [])
+        
         let error = errorTracker.asDriver(onErrorJustReturn: "알 수 없는 오류가 발생했습니다.")
         
-        return Output(monthData: monthData, monthlyList: monthlyList, error: error)
+        return Output(monthData: monthData, monthlyList: monthlyList, dailyData: dailyData, error: error)
     }
 }

@@ -33,4 +33,3 @@ final class TNCalendarRepository: TNCalendarRepositoryProtocol {
         return service.getMonthlyList(for: year, month: month)
     }
 }
-

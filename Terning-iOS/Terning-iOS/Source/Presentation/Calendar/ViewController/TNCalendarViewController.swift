@@ -86,7 +86,6 @@ final class TNCalendarViewController: UIViewController {
         bindNavigation()
         updateNaviBarTitle(for: rootView.calendarView.currentPage)
         bindViewModel()
-        fetchDailyData(for: rootView.calendarView.currentPage)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -146,7 +145,8 @@ extension TNCalendarViewController {
     private func bindViewModel() {
         let input = TNCalendarViewModel.Input(
             fetchMonthDataTrigger: pageRelay.asObservable(),
-            fetchMonthlyListTrigger: pageRelay.asObservable()
+            fetchMonthlyListTrigger: pageRelay.asObservable(),
+            fetchDailyDataTrigger: pageRelay.asObservable()
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
@@ -154,7 +154,6 @@ extension TNCalendarViewController {
         output.monthData
             .drive(onNext: { [weak self] scraps in
                 guard let self = self else { return }
-                
                 self.scraps = scraps
                 self.rootView.calendarView.reloadData()
             })
@@ -163,9 +162,16 @@ extension TNCalendarViewController {
         output.monthlyList
             .drive(onNext: { [weak self] scrapLists in
                 guard let self = self else { return }
-                
                 self.scrapLists = scrapLists
                 self.rootView.calenderListCollectionView.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
+        output.dailyData
+            .drive(onNext: { [weak self] dailyData in
+                guard let self = self else { return }
+                self.calendarDaily = dailyData
+                self.rootView.calenderBottomCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
@@ -244,7 +250,8 @@ extension TNCalendarViewController: FSCalendarDelegate {
             selectedDate = date
             calendar.setScope(.week, animated: true)
             updateBottomCollectionViewHeader(for: date) // 선택된 날짜로 헤더 업데이트
-            fetchDailyData(for: date)
+            
+            pageRelay.accept(date)
         }
         calendar.reloadData()
     }
@@ -429,13 +436,6 @@ extension TNCalendarViewController: UICollectionViewDelegate {
     private func refetchDataAndReloadViews() {
         pageRelay.accept(rootView.calendarView.currentPage)
         
-        // Fetch the daily data for the selected date if available
-        if let selectedDate = selectedDate {
-            fetchDailyData(for: selectedDate)
-        }
-        //        getMonthlyList()
-        
-        // Reload the calendar and collection views
         rootView.calendarView.reloadData()
         rootView.calenderBottomCollectionView.reloadData()
         rootView.calenderListCollectionView.reloadData()
@@ -569,92 +569,6 @@ extension TNCalendarViewController: JobListCellProtocol {
 // MARK: - Network
 
 extension TNCalendarViewController {
-    private func getMonthlyList() {
-        let currentPage = rootView.calendarView.currentPage
-        let year = Calendar.current.component(.year, from: currentPage)
-        let month = Calendar.current.component(.month, from: currentPage)
-        
-        calendarProvider.request(.getMonthlyList(year: year, month: month)) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let result):
-                let status = result.statusCode
-                if 200..<300 ~= status {
-                    do {
-                        let responseDto = try result.map(BaseResponse<[ScrapsByDeadlineModel]>.self)
-                        guard let data = responseDto.result else { return }
-                        
-                        self.scrapLists = [:]
-                        
-                        var unsortedScrapLists: [Date: [DailyScrapModel]] = [:]
-                        
-                        for item in data {
-                            if let date = self.dateFormatter.date(from: item.deadline) {
-                                unsortedScrapLists[date] = item.scraps
-                            }
-                        }
-                        
-                        // Sort the keys and create a sorted dictionary
-                        let sortedKeys = unsortedScrapLists.keys.sorted()
-                        var sortedScrapLists: [Date: [DailyScrapModel]] = [:]
-                        
-                        for key in sortedKeys {
-                            sortedScrapLists[key] = unsortedScrapLists[key]
-                        }
-                        
-                        self.scrapLists = sortedScrapLists
-                        
-                        self.rootView.calenderListCollectionView.reloadData()
-                        
-                    } catch {
-                        print("Error: \(error.localizedDescription)")
-                        self.showToast(message: "데이터를 불러오는 중 오류가 발생했습니다.")
-                    }
-                } else {
-                    self.showToast(message: "서버 오류: \(status)")
-                }
-            case .failure(let error):
-                print("Error: \(error.localizedDescription)")
-                self.showToast(message: "네트워크 오류가 발생했습니다.")
-            }
-        }
-    }
-    
-    private func fetchDailyData(for date: Date) {
-        let dateString = dateFormatter.string(from: date)
-        print(date)
-        print(dateString)
-        
-        calendarProvider.request(.getDaily(date: dateString)) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let result):
-                let status = result.statusCode
-                if 200..<300 ~= status {
-                    do {
-                        let responseDto = try result.map(BaseResponse<[DailyScrapModel]>.self)
-                        guard let data = responseDto.result else { return }
-                        
-                        self.calendarDaily = data
-                        
-                        self.rootView.calenderBottomCollectionView.reloadData()
-                        
-                    } catch {
-                        print("Error: \(error.localizedDescription)")
-                        self.showToast(message: "데이터를 불러오는 중 오류가 발생했습니다.")
-                    }
-                } else {
-                    self.showToast(message: "서버 오류: \(status)")
-                }
-            case .failure(let error):
-                print("Error: \(error.localizedDescription)")
-                self.showToast(message: "네트워크 오류가 발생했습니다.")
-            }
-        }
-    }
-    
     private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
         guard let scrapId = scrapId else { return }
         Providers.scrapsProvider.request(.patchScrap(scrapId: scrapId, color: color)) { [weak self] result in

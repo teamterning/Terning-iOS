@@ -57,7 +57,15 @@ enum TNTabBarItem {
         case .home:
             return NewHomeViewController()
         case .calendar:
-            return TNCalendarViewController()
+            return TNCalendarViewController(
+                viewModel: TNCalendarViewModel(
+                    repository: TNCalendarRepository(
+                        service: TNCalendarService(
+                            provider: Providers.calendarProvider
+                        )
+                    )
+                )
+            )
         case .search:
             return SearchViewController(viewModel: SearchViewModel())
         case .myPage:

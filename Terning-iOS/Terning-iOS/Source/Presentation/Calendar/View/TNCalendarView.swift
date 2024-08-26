@@ -27,12 +27,13 @@ final class TNCalendarView: UIView {
         $0.scope = .month
         $0.backgroundColor = .white
         $0.headerHeight = 0
-        $0.appearance.weekdayFont = .body7
-        $0.appearance.titleFont = .body7
         $0.scrollEnabled = true
         $0.scrollDirection = .horizontal
         $0.weekdayHeight = 48
         $0.clipsToBounds = false
+        
+        $0.appearance.weekdayFont = .body7
+        $0.appearance.titleFont = .body7
         $0.appearance.titlePlaceholderColor = .grey200
         $0.appearance.titleDefaultColor = .black
         

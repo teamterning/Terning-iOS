@@ -28,7 +28,8 @@ final class TNCalendarViewModel: ViewModelType {
         let error: Driver<String>
     }
     
-    private let repository: TNCalendarRepositoryProtocol
+    private let calendarRepository: TNCalendarRepositoryProtocol
+    private let scrapRepository: ScrapsRepositoryProtocol
     
     private let dateFormatter = DateFormatter().then {
         $0.dateFormat = "yyyy-MM-dd"
@@ -36,8 +37,9 @@ final class TNCalendarViewModel: ViewModelType {
     
     // MARK: - Init
     
-    init(repository: TNCalendarRepositoryProtocol) {
-        self.repository = repository
+    init(calendarRepository: TNCalendarRepositoryProtocol, scrapRepository: ScrapsRepositoryProtocol) {
+        self.calendarRepository = calendarRepository
+        self.scrapRepository = scrapRepository
     }
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
@@ -48,7 +50,7 @@ final class TNCalendarViewModel: ViewModelType {
                 let year = Calendar.current.component(.year, from: date)
                 let month = Calendar.current.component(.month, from: date)
                 
-                return self.repository.fetchMonthData(for: year, month: month)
+                return self.calendarRepository.fetchMonthData(for: year, month: month)
                     .catch { error in
                         errorTracker.onNext("monthData 오류: \(error.localizedDescription)")
                         return .empty()
@@ -72,7 +74,7 @@ final class TNCalendarViewModel: ViewModelType {
                 let year = Calendar.current.component(.year, from: date)
                 let month = Calendar.current.component(.month, from: date)
                 
-                return self.repository.getMonthlyList(for: year, month: month)
+                return self.calendarRepository.getMonthlyList(for: year, month: month)
                     .catch { error in
                         errorTracker.onNext("monthlyList 오류: \(error.localizedDescription)")
                         return .empty()
@@ -94,7 +96,7 @@ final class TNCalendarViewModel: ViewModelType {
         let dailyData = input.fetchDailyDataTrigger
             .flatMapLatest { date -> Observable<[DailyScrapModel]> in
                 let dateString = self.dateFormatter.string(from: date)
-                return self.repository.fetchDailyData(for: dateString)
+                return self.calendarRepository.fetchDailyData(for: dateString)
                     .catch { error in
                         errorTracker.onNext("dailyData 오류: \(error.localizedDescription)")
                         return .empty()

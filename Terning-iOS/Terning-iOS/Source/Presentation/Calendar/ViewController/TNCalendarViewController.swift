@@ -250,7 +250,6 @@ extension TNCalendarViewController: FSCalendarDelegate {
             selectedDate = date
             calendar.setScope(.week, animated: true)
             updateBottomCollectionViewHeader(for: date) // 선택된 날짜로 헤더 업데이트
-            
             pageRelay.accept(date)
         }
         calendar.reloadData()
@@ -435,6 +434,10 @@ extension TNCalendarViewController: UICollectionViewDelegate {
     
     private func refetchDataAndReloadViews() {
         pageRelay.accept(rootView.calendarView.currentPage)
+        
+        if let selectedDate = selectedDate {
+            pageRelay.accept(selectedDate)
+        }
         
         rootView.calendarView.reloadData()
         rootView.calenderBottomCollectionView.reloadData()

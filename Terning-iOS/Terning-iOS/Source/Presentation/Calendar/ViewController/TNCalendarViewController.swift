@@ -216,8 +216,6 @@ extension TNCalendarViewController: FSCalendarDelegate {
         view.setNeedsLayout()
         view.layoutIfNeeded()
     }
-
-
 }
 
 extension TNCalendarViewController {
@@ -249,13 +247,18 @@ extension TNCalendarViewController: FSCalendarDataSource {
             }
         }()
         
-        let eventCount = scraps[date]?.count ?? 0
-        let dotColors = scraps[date]?.map { $0.color } ?? []
+        let events: [CalendarEvent] = scraps[date]?.map { CalendarEvent(color: UIColor(hex: $0.color), title: $0.title) } ?? []
         
-        cell.bind(date: date, textColor: isCurrentMonth ? .black : .grey200, state: dateStatus, eventCount: eventCount, dotColors: dotColors)
+        cell.bind(
+            with: date,
+            textColor: isCurrentMonth ? .black : .grey200,
+            state: dateStatus,
+            events: events
+        )
         
         return cell
     }
+    
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         return 0 // Dot 반환하지 않음 (셀에서 처리!)

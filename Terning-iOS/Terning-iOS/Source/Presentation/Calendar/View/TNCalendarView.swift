@@ -6,9 +6,10 @@
 //
 
 import UIKit
+
+import FSCalendar
 import SnapKit
 import Then
-import FSCalendar
 
 final class TNCalendarView: UIView {
     

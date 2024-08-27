@@ -37,6 +37,8 @@ final class NewHomeViewController: UIViewController {
     
     private var userName: String = ""
     
+    private var selectedOption: String = ""
+    
     var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
         didSet {
             rootView.collectionView.reloadData()
@@ -166,8 +168,8 @@ extension NewHomeViewController: UICollectionViewDataSource {
             
             headerView.backgroundColor = .white
             headerView.filterDelegate = self
+            headerView.sortDelegate = self
             headerView.bind(model: filterInfos)
-            
             
             return headerView
             
@@ -242,7 +244,7 @@ extension NewHomeViewController: FilterButtonProtocol {
         
         filterSettingVC.saveButtonDelegate = self
         
-        let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * (658/812) }
+        let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * ((658-32)/812) }
         
         if let sheet = filterSettingVC.sheetPresentationController {
             sheet.detents = [fraction, .large()]
@@ -295,8 +297,49 @@ extension NewHomeViewController: SaveButtonProtocol {
 // MARK: - SortButtonDelegate
 
 extension NewHomeViewController: SortButtonProtocol {
-    func sortButtonDidTap() {
-        <#code#>
+    func sortButtonTap() {
+        print("delegate func")
+        let sortSettingVC = SortSettingViewController()
+        sortSettingVC.sortSettingDelegate = self
+        
+        let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * ((380-32)/812) }
+        
+        if let sheet = sortSettingVC.sheetPresentationController {
+            sheet.detents = [fraction, .large()]
+            sheet.largestUndimmedDetentIdentifier = nil
+            sortSettingVC.modalPresentationStyle = .custom
+            
+            // 바텀시트 뒷 배경 색을 설정
+            if let presentingView = self.view {
+                let dimmedBackgroundView = UIView(frame: presentingView.bounds)
+                dimmedBackgroundView.backgroundColor = UIColor(white: 0, alpha: 0.3)
+                dimmedBackgroundView.tag = 999 // 나중에 쉽게 찾기 위해 태그 설정
+                presentingView.addSubview(dimmedBackgroundView)
+                presentingView.bringSubviewToFront(sortSettingVC.view)
+            }
+            
+            // 바텀시트가 사라질 때 배경을 제거하는 코드 추가
+            sortSettingVC.presentationController?.delegate = self
+        }
+        
+        self.present(sortSettingVC, animated: true)
+    }
+}
+
+// MARK: - SortSettingButtonDelegate
+
+extension NewHomeViewController: SortSettingButtonProtocol {
+    func didSelectSortingOption(_ option: SortingOptions) {
+        print("dfdfdfd")
+        guard let headerView = rootView.collectionView.supplementaryView(
+            forElementKind: UICollectionView.elementKindSectionHeader,
+            at: IndexPath(row: 0, section: HomeMainSection.jobCard.rawValue)
+        ) as? FilterInfoCell else { return }
+        headerView.sortButtonLabel.text = option.title
+        rootView.collectionView.reloadData()
+        
+        // Fetch job card data with the selected option
+        fetchJobCardDatas(option.rawValue)
     }
 }
 
@@ -373,7 +416,7 @@ extension NewHomeViewController {
                         
                         // 0.5초 뒤에 fetchJobCardDatas 호출
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            self.fetchJobCardDatas()
+                            self.fetchJobCardDatas(self.selectedOption)
                             self.fetchTodayDeadlineDatas()
                         }
                         
@@ -392,8 +435,24 @@ extension NewHomeViewController {
         }
     }
     
-    private func fetchJobCardDatas() {
-        homeProviders.request(.getHome(sortBy: "", startYear: filterInfos.startYear ?? 0, startMonth: filterInfos.startMonth ?? 0)) { [weak self] response in
+    private func fetchJobCardDatas(_ option: String) {
+        print("🔥🔥🔥Fetching job card data with sortBy: \(option)🔥🔥🔥")
+        
+        var sortingOption: String = ""
+        
+        if option == "채용 마감 이른순" {
+            sortingOption = "deadlineSoon"
+        } else if option == "짧은 근무 기간 순" {
+            sortingOption = "shortestDuration"
+        } else if option == "긴 근무 기간 순" {
+            sortingOption = "longestDuration"
+        } else if option == "스크랩 많은 순" {
+            sortingOption = "mostScrapped"
+        } else if option == "조회수 많은 순" {
+            sortingOption = "mostViewed"
+        }
+         
+        homeProviders.request(.getHome(sortBy: sortingOption, startYear: filterInfos.startYear ?? 0, startMonth: filterInfos.startMonth ?? 0)) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):

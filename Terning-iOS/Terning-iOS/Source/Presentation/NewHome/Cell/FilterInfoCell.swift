@@ -15,10 +15,14 @@ protocol FilterButtonProtocol: AnyObject {
 }
 
 protocol SortButtonProtocol: AnyObject {
-    func sortButtonDidTap()
+    func sortButtonTap()
 }
 
 final class FilterInfoCell: UICollectionViewCell {
+    
+    // MARK: - Properties
+    
+    private let sortSettingVC = SortSettingViewController()
     
     // MARK: - UIComponents
     
@@ -208,7 +212,7 @@ extension FilterInfoCell {
     
     @objc func sortButtonDidTap() {
         print("sortButton is clicked")
-        sortDelegate?.sortButtonDidTap()
+        sortDelegate?.sortButtonTap()
     }
 }
 

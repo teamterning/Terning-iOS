@@ -30,13 +30,11 @@ final class NewHomeViewController: UIViewController {
     // MARK: - Properties
     
     private let myPageProvider = Providers.myPageProvider
-    
     private let homeProviders = Providers.homeProvider
     private let filterProviders = Providers.filtersProvider
     private let scrapProviders = Providers.scrapsProvider
     
     private var userName: String = ""
-    
     private var selectedOption: String = ""
     
     var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
@@ -175,7 +173,6 @@ extension NewHomeViewController: UICollectionViewDataSource {
             
         default: 
             return UICollectionReusableView()
-            
         }
     }
     
@@ -363,7 +360,6 @@ extension NewHomeViewController: ScrapDidTapDelegate {
             self.dismiss(animated: false)
             
         }
-        
         self.present(alertSheet, animated: false)
     }
 }

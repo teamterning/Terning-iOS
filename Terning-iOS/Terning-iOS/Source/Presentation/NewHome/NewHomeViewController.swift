@@ -295,7 +295,6 @@ extension NewHomeViewController: SaveButtonProtocol {
 
 extension NewHomeViewController: SortButtonProtocol {
     func sortButtonTap() {
-        print("delegate func")
         let sortSettingVC = SortSettingViewController()
         sortSettingVC.sortSettingDelegate = self
         
@@ -434,21 +433,23 @@ extension NewHomeViewController {
     private func fetchJobCardDatas(_ option: String) {
         print("🔥🔥🔥Fetching job card data with sortBy: \(option)🔥🔥🔥")
         
-        var sortingOption: String = ""
-        
         if option == "채용 마감 이른순" {
-            sortingOption = "deadlineSoon"
+            selectedOption = "deadlineSoon"
+            
         } else if option == "짧은 근무 기간 순" {
-            sortingOption = "shortestDuration"
+            selectedOption = "shortestDuration"
+            
         } else if option == "긴 근무 기간 순" {
-            sortingOption = "longestDuration"
+            selectedOption = "longestDuration"
+            
         } else if option == "스크랩 많은 순" {
-            sortingOption = "mostScrapped"
+            selectedOption = "mostScrapped"
+            
         } else if option == "조회수 많은 순" {
-            sortingOption = "mostViewed"
+            selectedOption = "mostViewed"
         }
          
-        homeProviders.request(.getHome(sortBy: sortingOption, startYear: filterInfos.startYear ?? 0, startMonth: filterInfos.startMonth ?? 0)) { [weak self] response in
+        homeProviders.request(.getHome(sortBy: selectedOption, startYear: filterInfos.startYear ?? 0, startMonth: filterInfos.startMonth ?? 0)) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):

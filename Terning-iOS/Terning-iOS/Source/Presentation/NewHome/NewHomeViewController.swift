@@ -35,7 +35,7 @@ final class NewHomeViewController: UIViewController {
     private let scrapProviders = Providers.scrapsProvider
     
     private var userName: String = ""
-    private var selectedOption: String = ""
+    private var apiParameter: String = "deadlineSoon"
     
     var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
         didSet {
@@ -83,6 +83,7 @@ final class NewHomeViewController: UIViewController {
         getMyPageInfo()
         fetchTodayDeadlineDatas()
         fetchFilterInfos()
+        resetSortOption()
     }
     
     override func loadView() {
@@ -111,6 +112,13 @@ final class NewHomeViewController: UIViewController {
         rootView.collectionView.register(JobCardScrapedCell.self, forCellWithReuseIdentifier: JobCardScrapedCell.className) // 맞춤 공고가 있는 경우
         rootView.collectionView.register(NonJobCardCell.self, forCellWithReuseIdentifier: NonJobCardCell.className)
         rootView.collectionView.register(InavailableFilterView.self, forCellWithReuseIdentifier: InavailableFilterView.className)
+    }
+    
+    // MARK: - private func
+    
+    private func resetSortOption() {
+        UserDefaults.standard.removeObject(forKey: "SelectedSortOption")
+        UserDefaults.standard.set(SortingOptions.deadlineSoon.rawValue, forKey: "SelectedSortOption")
     }
 }
 
@@ -326,16 +334,28 @@ extension NewHomeViewController: SortButtonProtocol {
 
 extension NewHomeViewController: SortSettingButtonProtocol {
     func didSelectSortingOption(_ option: SortingOptions) {
-        print("dfdfdfd")
         guard let headerView = rootView.collectionView.supplementaryView(
             forElementKind: UICollectionView.elementKindSectionHeader,
             at: IndexPath(row: 0, section: HomeMainSection.jobCard.rawValue)
         ) as? FilterInfoCell else { return }
         headerView.sortButtonLabel.text = option.title
         rootView.collectionView.reloadData()
+    
+        switch option {
+        case .deadlineSoon:
+            apiParameter =  "deadlineSoon"
+        case .shortestDuration:
+            apiParameter =  "shortestDuration"
+        case .longestDuration:
+            apiParameter = "longestDuration"
+        case .mostScrapped:
+            apiParameter = "mostScrapped"
+        case .mostViewed:
+            apiParameter = "mostViewed"
+        }
         
-        // Fetch job card data with the selected option
-        fetchJobCardDatas(option.rawValue)
+        fetchJobCardDatas(apiParameter)
+        removeDimmedBackgroundView()
     }
 }
 
@@ -411,7 +431,7 @@ extension NewHomeViewController {
                         
                         // 0.5초 뒤에 fetchJobCardDatas 호출
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            self.fetchJobCardDatas(self.selectedOption)
+                            self.fetchJobCardDatas(self.apiParameter)
                             self.fetchTodayDeadlineDatas()
                         }
                         
@@ -430,26 +450,10 @@ extension NewHomeViewController {
         }
     }
     
-    private func fetchJobCardDatas(_ option: String) {
-        print("🔥🔥🔥Fetching job card data with sortBy: \(option)🔥🔥🔥")
-        
-        if option == "채용 마감 이른순" {
-            selectedOption = "deadlineSoon"
-            
-        } else if option == "짧은 근무 기간 순" {
-            selectedOption = "shortestDuration"
-            
-        } else if option == "긴 근무 기간 순" {
-            selectedOption = "longestDuration"
-            
-        } else if option == "스크랩 많은 순" {
-            selectedOption = "mostScrapped"
-            
-        } else if option == "조회수 많은 순" {
-            selectedOption = "mostViewed"
-        }
+    private func fetchJobCardDatas(_ apiParameter: String) {
+        print("🔥🔥🔥Fetching job card data with sortBy: \(apiParameter)🔥🔥🔥")
          
-        homeProviders.request(.getHome(sortBy: selectedOption, startYear: filterInfos.startYear ?? 0, startMonth: filterInfos.startMonth ?? 0)) { [weak self] response in
+        homeProviders.request(.getHome(sortBy: apiParameter, startYear: filterInfos.startYear ?? 0, startMonth: filterInfos.startMonth ?? 0)) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):

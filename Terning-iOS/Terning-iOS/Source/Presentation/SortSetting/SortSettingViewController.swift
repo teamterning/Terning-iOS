@@ -10,12 +10,13 @@ import UIKit
 import SnapKit
 import Then
 
+@frozen
 enum SortingOptions: String, CaseIterable {
-    case earlyDeadLine = "채용 마감 이른순" // api 명세서에 맞게 수정
-    case shortTerm = "짧은 근무 기간 순"
-    case longTerm = "긴 근무 기간 순"
-    case scraps = "스크랩 많은 순"
-    case views = "조회수 많은 순"
+    case deadlineSoon = "채용 마감 이른 순" // api 명세서에 맞게 수정
+    case shortestDuration = "짧은 근무 기간 순"
+    case longestDuration = "긴 근무 기간 순"
+    case mostScrapped = "스크랩 많은 순"
+    case mostViewed = "조회수 많은 순"
     
     var title: String {
         return self.rawValue // default
@@ -41,6 +42,7 @@ class SortSettingViewController: UIViewController {
     var selectedOption: SortingOptions? {
         didSet {
             updateButtonColors()
+            saveSelectedOption()
         }
     }
     
@@ -74,10 +76,17 @@ class SortSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setUI()
         setButtonUI()
         setHierarchy()
         setLayout()
+        loadSelectedOption()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadSelectedOption()
     }
     
     // MARK: - Private func
@@ -103,6 +112,19 @@ class SortSettingViewController: UIViewController {
         }
     }
     
+    private func saveSelectedOption() {
+        if let selectedOption = selectedOption {
+            UserDefaults.standard.set(selectedOption.rawValue, forKey: "SelectedSortOption")
+        }
+    }
+    
+    private func loadSelectedOption() {
+        if let savedOption = UserDefaults.standard.string(forKey: "SelectedSortOption"),
+           let option = SortingOptions(rawValue: savedOption) {
+            selectedOption = option
+        }
+    }
+    
     // MARK: - objc func
     
     @objc
@@ -110,6 +132,8 @@ class SortSettingViewController: UIViewController {
         guard let option = SortingOptions.allCases.first(where: { $0.hashValue == sender.tag }) else { return }
         selectedOption = option
         sortSettingDelegate?.didSelectSortingOption(option)
+        
+        dismiss(animated: true, completion: nil)
     }
 }
 

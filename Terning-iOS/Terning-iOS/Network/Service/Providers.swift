@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 struct Providers {
-    static let calendarProvider = MoyaProvider<CalendarTargerType>(withAuth: true)
+    static let calendarProvider = MoyaProvider<CalendarTargetType>(withAuth: true)
     static let authProvider = MoyaProvider<AuthTargetType>(withAuth: true)
     static let homeProvider = MoyaProvider<HomeTargertType>(withAuth: true)
     static let myPageProvider = MoyaProvider<MyPageTargetType>(withAuth: true)

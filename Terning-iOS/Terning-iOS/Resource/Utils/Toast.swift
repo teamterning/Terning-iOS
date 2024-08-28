@@ -34,7 +34,7 @@ public class Toast {
         
         let toastLabel = LabelFactory.build(
             text: message,
-            font: .button3,
+            font: .body5,
             textColor: .white,
             textAlignment: .center,
             lineSpacing: 1.2,

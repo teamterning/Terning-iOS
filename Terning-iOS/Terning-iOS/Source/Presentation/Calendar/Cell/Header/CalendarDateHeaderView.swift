@@ -16,7 +16,7 @@ final class CalendarDateHeaderView: UICollectionReusableView {
     
     private let titleLabel = LabelFactory.build(
         text: "7월 26일 금요일",
-        font: .title5,
+        font: .body2,
         textColor: .black,
         lineSpacing: 1.2,
         characterSpacing: 0.02
@@ -50,7 +50,7 @@ extension CalendarDateHeaderView {
     
     private func setLayout() {
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(self.snp.top).offset(5)
+            $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview()
         }
     }

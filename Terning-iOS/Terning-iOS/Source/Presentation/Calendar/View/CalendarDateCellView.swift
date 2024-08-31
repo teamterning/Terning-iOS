@@ -147,4 +147,8 @@ final class CalendarDateCellView: UIView {
             }
         }
     }
+    
+    func setViewMode(isWeekView: Bool) {
+        eventStackView.isHidden = isWeekView
+    }
 }

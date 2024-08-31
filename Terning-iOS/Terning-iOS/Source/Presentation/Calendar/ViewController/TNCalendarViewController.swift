@@ -85,6 +85,7 @@ final class TNCalendarViewController: UIViewController {
         
         setDelegate()
         setRegister()
+        setAddTarget()
         bindNavigation()
         updateNaviBarTitle(for: rootView.calendarView.currentPage)
         bindViewModel()
@@ -125,6 +126,11 @@ extension TNCalendarViewController {
         rootView.calenderListCollectionView.register(JobListingCell.self, forCellWithReuseIdentifier: JobListingCell.className)
         rootView.calenderListCollectionView.register(CalendarDateHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CalendarDateHeaderView.className)
         rootView.calenderListCollectionView.register(CalendarDateFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CalendarDateFooterView.className)
+    }
+    
+    private func setAddTarget() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        rootView.calendarView.addGestureRecognizer(panGesture)
     }
     
     private func bindNavigation() {
@@ -189,7 +195,7 @@ extension TNCalendarViewController {
                 self.refetchDataAndReloadViews()
             })
             .disposed(by: disposeBag)
-
+        
         output.cancelScrapResult
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
@@ -197,7 +203,7 @@ extension TNCalendarViewController {
                 self.refetchDataAndReloadViews()
             })
             .disposed(by: disposeBag)
-
+        
         
         output.error
             .drive(onNext: { [weak self] errorMessage in
@@ -216,19 +222,19 @@ extension TNCalendarViewController {
             })
             .disposed(by: disposeBag)
     }
-
+    
     // 스크랩 수정 호출
     private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
         guard let scrapId = scrapId else { return }
         patchScrapSubject.onNext((scrapId, color))
     }
-
+    
     // 스크랩 취소 호출
     private func cancelScrapAnnouncement(scrapId: Int?) {
         guard let scrapId = scrapId else { return }
         cancelScrapSubject.onNext(scrapId)
     }
-
+    
     
     private func moveCalendar(by months: Int) {
         let currentPage = rootView.calendarView.currentPage
@@ -269,6 +275,31 @@ extension TNCalendarViewController {
         let calendar = Calendar.current
         let range = calendar.range(of: .weekOfMonth, in: .month, for: date)!
         return range.count
+    }
+}
+
+// MARK: - @objc
+
+extension TNCalendarViewController {
+    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        let velocity = gesture.velocity(in: rootView.calendarView)
+        
+        switch gesture.state {
+        case .ended:
+            // 세로 방향의 속도가 특정 값을 넘는지 확인
+            
+            if velocity.y > 500 && rootView.calendarView.scope == .week {
+                rootView.calendarView.setScope(.month, animated: true)
+            }
+            //            } else if velocity.y > 500 {
+            //                if rootView.calendarView.scope == .week {
+            //                    rootView.calendarView.setScope(.month, animated: true)
+            //                }
+            //            }
+            // Comment: 캘린더에서 위로 스와이프하는 로직이 필요하다면 추가 작성 하기
+        default:
+            break
+        }
     }
 }
 

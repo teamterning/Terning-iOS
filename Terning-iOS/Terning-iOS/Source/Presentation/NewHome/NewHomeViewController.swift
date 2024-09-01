@@ -30,12 +30,12 @@ final class NewHomeViewController: UIViewController {
     // MARK: - Properties
     
     private let myPageProvider = Providers.myPageProvider
-    
     private let homeProviders = Providers.homeProvider
     private let filterProviders = Providers.filtersProvider
     private let scrapProviders = Providers.scrapsProvider
     
     private var userName: String = ""
+    private var apiParameter: String = "deadlineSoon"
     
     var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
         didSet {
@@ -46,7 +46,7 @@ final class NewHomeViewController: UIViewController {
     var filterInfos: UserFilteringInfoModel = UserFilteringInfoModel(
         grade: 0, // 기본값 설정
         workingPeriod: 0, // 기본값 설정
-        startYear: 2020, // 기본값 설정
+        startYear: 2023, // 기본값 설정
         startMonth: 1 // 기본값 설정
     )
     
@@ -83,6 +83,7 @@ final class NewHomeViewController: UIViewController {
         getMyPageInfo()
         fetchTodayDeadlineDatas()
         fetchFilterInfos()
+        resetSortOption()
     }
     
     override func loadView() {
@@ -111,6 +112,13 @@ final class NewHomeViewController: UIViewController {
         rootView.collectionView.register(JobCardScrapedCell.self, forCellWithReuseIdentifier: JobCardScrapedCell.className) // 맞춤 공고가 있는 경우
         rootView.collectionView.register(NonJobCardCell.self, forCellWithReuseIdentifier: NonJobCardCell.className)
         rootView.collectionView.register(InavailableFilterView.self, forCellWithReuseIdentifier: InavailableFilterView.className)
+    }
+    
+    // MARK: - private func
+    
+    private func resetSortOption() {
+        UserDefaults.standard.removeObject(forKey: "SelectedSortOption")
+        UserDefaults.standard.set(SortingOptions.deadlineSoon.rawValue, forKey: "SelectedSortOption")
     }
 }
 
@@ -166,12 +174,13 @@ extension NewHomeViewController: UICollectionViewDataSource {
             
             headerView.backgroundColor = .white
             headerView.filterDelegate = self
+            headerView.sortDelegate = self
+            headerView.bind(model: filterInfos)
             
             return headerView
             
         default: 
             return UICollectionReusableView()
-            
         }
     }
     
@@ -240,7 +249,7 @@ extension NewHomeViewController: FilterButtonProtocol {
         
         filterSettingVC.saveButtonDelegate = self
         
-        let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * (658/812) }
+        let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * ((658-32)/812) }
         
         if let sheet = filterSettingVC.sheetPresentationController {
             sheet.detents = [fraction, .large()]
@@ -284,8 +293,68 @@ extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
 
 // MARK: - SaveButtonDelegate
 
-extension NewHomeViewController: SaveButtonDelegate {
+extension NewHomeViewController: SaveButtonProtocol {
     func didSaveSetting() {
+        removeDimmedBackgroundView()
+    }
+}
+
+// MARK: - SortButtonDelegate
+
+extension NewHomeViewController: SortButtonProtocol {
+    func sortButtonTap() {
+        let sortSettingVC = SortSettingViewController()
+        sortSettingVC.sortSettingDelegate = self
+        
+        let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * ((380-32)/812) }
+        
+        if let sheet = sortSettingVC.sheetPresentationController {
+            sheet.detents = [fraction, .large()]
+            sheet.largestUndimmedDetentIdentifier = nil
+            sortSettingVC.modalPresentationStyle = .custom
+            
+            // 바텀시트 뒷 배경 색을 설정
+            if let presentingView = self.view {
+                let dimmedBackgroundView = UIView(frame: presentingView.bounds)
+                dimmedBackgroundView.backgroundColor = UIColor(white: 0, alpha: 0.3)
+                dimmedBackgroundView.tag = 999 // 나중에 쉽게 찾기 위해 태그 설정
+                presentingView.addSubview(dimmedBackgroundView)
+                presentingView.bringSubviewToFront(sortSettingVC.view)
+            }
+            
+            // 바텀시트가 사라질 때 배경을 제거하는 코드 추가
+            sortSettingVC.presentationController?.delegate = self
+        }
+        
+        self.present(sortSettingVC, animated: true)
+    }
+}
+
+// MARK: - SortSettingButtonDelegate
+
+extension NewHomeViewController: SortSettingButtonProtocol {
+    func didSelectSortingOption(_ option: SortingOptions) {
+        guard let headerView = rootView.collectionView.supplementaryView(
+            forElementKind: UICollectionView.elementKindSectionHeader,
+            at: IndexPath(row: 0, section: HomeMainSection.jobCard.rawValue)
+        ) as? FilterInfoCell else { return }
+        headerView.sortButtonLabel.text = option.title
+        rootView.collectionView.reloadData()
+    
+        switch option {
+        case .deadlineSoon:
+            apiParameter =  "deadlineSoon"
+        case .shortestDuration:
+            apiParameter =  "shortestDuration"
+        case .longestDuration:
+            apiParameter = "longestDuration"
+        case .mostScrapped:
+            apiParameter = "mostScrapped"
+        case .mostViewed:
+            apiParameter = "mostViewed"
+        }
+        
+        fetchJobCardDatas(apiParameter)
         removeDimmedBackgroundView()
     }
 }
@@ -310,7 +379,6 @@ extension NewHomeViewController: ScrapDidTapDelegate {
             self.dismiss(animated: false)
             
         }
-        
         self.present(alertSheet, animated: false)
     }
 }
@@ -358,11 +426,12 @@ extension NewHomeViewController {
                         let responseDto = try result.map(BaseResponse<UserFilteringInfoModel>.self)
                         guard let data = responseDto.result else { return }
                         
+                        print("🔥🔥🔥🔥🔥🔥🔥🔥🔥\(data)")
                         self.filterInfos = data
                         
                         // 0.5초 뒤에 fetchJobCardDatas 호출
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            self.fetchJobCardDatas()
+                            self.fetchJobCardDatas(self.apiParameter)
                             self.fetchTodayDeadlineDatas()
                         }
                         
@@ -381,8 +450,10 @@ extension NewHomeViewController {
         }
     }
     
-    private func fetchJobCardDatas() {
-        homeProviders.request(.getHome(sortBy: "", startYear: filterInfos.startYear ?? 0, startMonth: filterInfos.startMonth ?? 0)) { [weak self] response in
+    private func fetchJobCardDatas(_ apiParameter: String) {
+        print("🔥🔥🔥Fetching job card data with sortBy: \(apiParameter)🔥🔥🔥")
+         
+        homeProviders.request(.getHome(sortBy: apiParameter, startYear: filterInfos.startYear ?? 0, startMonth: filterInfos.startMonth ?? 0)) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):

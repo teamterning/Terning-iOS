@@ -138,6 +138,7 @@
 		71FFB2BD2C4A186900C60697 /* NewHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2BC2C4A186900C60697 /* NewHomeViewController.swift */; };
 		71FFB2BF2C4A188A00C60697 /* NewHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2BE2C4A188A00C60697 /* NewHomeView.swift */; };
 		71FFB2C42C4A81E200C60697 /* FilterInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2C32C4A81E200C60697 /* FilterInfoCell.swift */; };
+		B853C88A2C7B2F6B00AA439C /* SortSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B853C8892C7B2F6B00AA439C /* SortSettingViewController.swift */; };
 		B855485A2C47EEBB00EC67F6 /* UserProfileInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85548592C47EEBB00EC67F6 /* UserProfileInfoModel.swift */; };
 		B855485D2C48026B00EC67F6 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B855485C2C48026B00EC67F6 /* MyPageView.swift */; };
 		B855485F2C48027500EC67F6 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B855485E2C48027500EC67F6 /* MyPageViewController.swift */; };
@@ -282,6 +283,7 @@
 		71FFB2BC2C4A186900C60697 /* NewHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHomeViewController.swift; sourceTree = "<group>"; };
 		71FFB2BE2C4A188A00C60697 /* NewHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHomeView.swift; sourceTree = "<group>"; };
 		71FFB2C32C4A81E200C60697 /* FilterInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInfoCell.swift; sourceTree = "<group>"; };
+		B853C8892C7B2F6B00AA439C /* SortSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortSettingViewController.swift; sourceTree = "<group>"; };
 		B85548592C47EEBB00EC67F6 /* UserProfileInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileInfoModel.swift; sourceTree = "<group>"; };
 		B855485C2C48026B00EC67F6 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		B855485E2C48027500EC67F6 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -929,6 +931,7 @@
 				2D4EE3A02C3E787200E3E95B /* Profile */,
 				2D4EE3922C3DD5A000E3E95B /* Welcome */,
 				B8C5DB6F2C3F39A500865B1A /* FilteringSetting */,
+				B853C8882C7B2F4800AA439C /* SortSetting */,
 				B855485B2C48025600EC67F6 /* MyPage */,
 				71D7E6EB2C2FF41200C54EA7 /* TabBar */,
 				71E3C3F32C241CB00026C4DD /* .gitkeep */,
@@ -1024,6 +1027,14 @@
 				B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		B853C8882C7B2F4800AA439C /* SortSetting */ = {
+			isa = PBXGroup;
+			children = (
+				B853C8892C7B2F6B00AA439C /* SortSettingViewController.swift */,
+			);
+			path = SortSetting;
 			sourceTree = "<group>";
 		};
 		B855485B2C48025600EC67F6 /* MyPage */ = {
@@ -1218,6 +1229,7 @@
 				2D4EE38B2C3D9FD900E3E95B /* CustomDatePicker.swift in Sources */,
 				2D4EE3942C3DD5B700E3E95B /* WelcomeView.swift in Sources */,
 				71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */,
+				B853C88A2C7B2F6B00AA439C /* SortSettingViewController.swift in Sources */,
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
 				71CCC0792C3FDABF00789A9B /* TNCalendarViewModel.swift in Sources */,
 				2D8D0D412C492B8C00ECB36F /* SearchResultModel.swift in Sources */,

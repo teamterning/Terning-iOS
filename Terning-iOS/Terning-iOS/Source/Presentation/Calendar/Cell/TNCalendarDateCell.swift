@@ -31,7 +31,7 @@ final class TNCalendarDateCell: FSCalendarCell {
     
     // MARK: - UIComponents
 
-    private let cellView = CalendarDateCellView()
+    let cellView = CalendarDateCellView()
     
     // MARK: - Init
 

@@ -85,6 +85,7 @@ final class TNCalendarViewController: UIViewController {
         
         setDelegate()
         setRegister()
+        setAddTarget()
         bindNavigation()
         updateNaviBarTitle(for: rootView.calendarView.currentPage)
         bindViewModel()
@@ -125,6 +126,11 @@ extension TNCalendarViewController {
         rootView.calenderListCollectionView.register(JobListingCell.self, forCellWithReuseIdentifier: JobListingCell.className)
         rootView.calenderListCollectionView.register(CalendarDateHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CalendarDateHeaderView.className)
         rootView.calenderListCollectionView.register(CalendarDateFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CalendarDateFooterView.className)
+    }
+    
+    private func setAddTarget() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        rootView.calendarView.addGestureRecognizer(panGesture)
     }
     
     private func bindNavigation() {
@@ -189,7 +195,7 @@ extension TNCalendarViewController {
                 self.refetchDataAndReloadViews()
             })
             .disposed(by: disposeBag)
-
+        
         output.cancelScrapResult
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
@@ -197,7 +203,7 @@ extension TNCalendarViewController {
                 self.refetchDataAndReloadViews()
             })
             .disposed(by: disposeBag)
-
+        
         
         output.error
             .drive(onNext: { [weak self] errorMessage in
@@ -216,19 +222,19 @@ extension TNCalendarViewController {
             })
             .disposed(by: disposeBag)
     }
-
+    
     // 스크랩 수정 호출
     private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
         guard let scrapId = scrapId else { return }
         patchScrapSubject.onNext((scrapId, color))
     }
-
+    
     // 스크랩 취소 호출
     private func cancelScrapAnnouncement(scrapId: Int?) {
         guard let scrapId = scrapId else { return }
         cancelScrapSubject.onNext(scrapId)
     }
-
+    
     
     private func moveCalendar(by months: Int) {
         let currentPage = rootView.calendarView.currentPage
@@ -272,6 +278,31 @@ extension TNCalendarViewController {
     }
 }
 
+// MARK: - @objc
+
+extension TNCalendarViewController {
+    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        let velocity = gesture.velocity(in: rootView.calendarView)
+        
+        switch gesture.state {
+        case .ended:
+            // 세로 방향의 속도가 특정 값을 넘는지 확인
+            
+            if velocity.y > 500 && rootView.calendarView.scope == .week {
+                rootView.calendarView.setScope(.month, animated: true)
+            }
+            //            } else if velocity.y > 500 {
+            //                if rootView.calendarView.scope == .week {
+            //                    rootView.calendarView.setScope(.month, animated: true)
+            //                }
+            //            }
+            // Comment: 캘린더에서 위로 스와이프하는 로직이 필요하다면 추가 작성 하기
+        default:
+            break
+        }
+    }
+}
+
 // MARK: - FSCalendarDelegate
 extension TNCalendarViewController: FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
@@ -304,13 +335,22 @@ extension TNCalendarViewController: FSCalendarDelegate {
     // 주간일때 그림자와 라운드 넣어주는 함수
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         
-        if calendar.scope == .week {
+        let isWeekView = calendar.scope == .week
+        
+        if let visibleCells = calendar.visibleCells() as? [TNCalendarDateCell] {
+            for cell in visibleCells {
+                cell.cellView.setViewMode(isWeekView: isWeekView)
+            }
+        }
+        
+        // 주간 모드일 때 그림자 및 라운딩 처리
+        if isWeekView {
             rootView.calenderBottomCollectionView.backgroundColor = .back
             rootView.roundCalendarViewCorners(radius: 20) // 라운드 처리 해주기
             rootView.calendarViewContainer.layer.applyShadow(alpha: 0.1, y: 4, blur: 4)
             
             rootView.calendarView.snp.updateConstraints { make in
-                make.height.equalTo(99) // 주간 뷰 높이 설정
+                make.height.equalTo(95) // 주간 뷰 높이 설정
             }
             rootView.calenderBottomCollectionView.isHidden = false
         } else {
@@ -335,6 +375,7 @@ extension TNCalendarViewController: FSCalendarDelegate {
         view.setNeedsLayout()
         view.layoutIfNeeded()
     }
+    
 }
 
 extension TNCalendarViewController {
@@ -365,6 +406,9 @@ extension TNCalendarViewController: FSCalendarDataSource {
                 return .normal
             }
         }()
+        
+        let isWeekView = calendar.scope == .week
+        cell.cellView.setViewMode(isWeekView: isWeekView)
         
         let events: [CalendarEvent] = scraps[date]?.map { CalendarEvent(color: UIColor(hex: $0.color), title: $0.title) } ?? []
         

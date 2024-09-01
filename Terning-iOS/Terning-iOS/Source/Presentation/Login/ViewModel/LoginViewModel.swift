@@ -57,6 +57,9 @@ extension LoginViewModel {
         return Observable<Bool>.create { observer in
             if UserApi.isKakaoTalkLoginAvailable() {
                 UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
+                    
+                    print("⭐️ kakao = \(oauthToken)")
+                    
                     if let error = error {
                         print("🍎 error: \(error)")
                         observer.onNext(false)
@@ -74,6 +77,7 @@ extension LoginViewModel {
                             case .success(let type):
                                 print(type)
                                 observer.onNext(true)
+                                observer.onCompleted()
                             case .failure(let error):
                                 print(error)
                                 observer.onNext(false)
@@ -83,7 +87,11 @@ extension LoginViewModel {
                     }
                 }
             } else {
+                
                 UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
+                    
+                    print("⭐️ kakao = \(oauthToken)")
+                    
                     if let error = error {
                         print(error)
                         observer.onNext(false)

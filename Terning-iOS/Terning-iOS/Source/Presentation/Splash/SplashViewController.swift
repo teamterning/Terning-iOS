@@ -56,7 +56,13 @@ extension SplashVC {
     }
     
     private func pushToSignInView() {
-        let signInVC = LoginViewController(viewModel: LoginViewModel())
+        let signInVC = LoginViewController(
+            viewModel: LoginViewModel(
+                loginRepository: LoginRepository(
+                    loginService: LoginService()
+                )
+            )
+        )
         self.navigationController?.pushViewController(signInVC, animated: true)
     }
     

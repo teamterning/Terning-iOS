@@ -67,8 +67,8 @@ extension LoginViewController {
 extension LoginViewController {
     private func bindViewModel() {
         let input = LoginViewModel.Input(
-            kakaoLoginButtonTapped: loginView.kakaoLoginButton.rx.tap.asObservable(),
-            appleLoginButtonTapped: loginView.appleLoginButton.rx.tap.asObservable()
+            kakaoLoginDidTap: loginView.kakaoLoginButton.rx.tap.asObservable(),
+            appleLoginDidTap: loginView.appleLoginButton.rx.tap.asObservable()
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)

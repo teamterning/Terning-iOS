@@ -91,7 +91,6 @@ final class UserManager {
                         guard let data = responseModel.result else { return }
                         
                         self.accessToken = data.accessToken
-                        self.refreshToken = data.refreshToken
                         completion(.success(true))
                     } catch {
                         print(error.localizedDescription)

@@ -81,6 +81,8 @@
 		71461EBD2C3705B6002A6999 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461EBC2C3705B6002A6999 /* FontLiterals.swift */; };
 		71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461ED32C3811E8002A6999 /* ViewController+.swift */; };
 		71461ED62C38150C002A6999 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461ED52C38150C002A6999 /* UILabel+.swift */; };
+		715028672C84A5C600F67472 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715028662C84A5C600F67472 /* LoginService.swift */; };
+		715028692C84AA1600F67472 /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715028682C84AA1600F67472 /* LoginRepository.swift */; };
 		71665AAC2C7C4A94008EB0D7 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAB2C7C4A94008EB0D7 /* EventView.swift */; };
 		71665AAE2C7C4BAA008EB0D7 /* CalendarDateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */; };
 		71665AB12C7C5444008EB0D7 /* TNCalendarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */; };
@@ -229,6 +231,8 @@
 		71461EBC2C3705B6002A6999 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
 		71461ED32C3811E8002A6999 /* ViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+.swift"; sourceTree = "<group>"; };
 		71461ED52C38150C002A6999 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		715028662C84A5C600F67472 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
+		715028682C84AA1600F67472 /* LoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
 		71665AAB2C7C4A94008EB0D7 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCellView.swift; sourceTree = "<group>"; };
 		71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarRepository.swift; sourceTree = "<group>"; };
@@ -689,6 +693,14 @@
 			path = "Foundation+";
 			sourceTree = "<group>";
 		};
+		715028652C84A5AD00F67472 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				715028662C84A5C600F67472 /* LoginService.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		71665AAA2C7C4A4A008EB0D7 /* Header */ = {
 			isa = PBXGroup;
 			children = (
@@ -703,6 +715,7 @@
 			children = (
 				71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */,
 				7170F5E42C7C58C800DFC050 /* ScrapsRepository.swift */,
+				715028682C84AA1600F67472 /* LoginRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -720,6 +733,7 @@
 			isa = PBXGroup;
 			children = (
 				71DE23762C7C67460024ACED /* Calendar */,
+				715028652C84A5AD00F67472 /* Login */,
 				71780C342C45725E0073B731 /* Providers.swift */,
 				71780C552C45A81E0073B731 /* AuthInterceptor.swift */,
 			);
@@ -1216,6 +1230,7 @@
 				7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */,
 				71780C562C45A81E0073B731 /* AuthInterceptor.swift in Sources */,
 				71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */,
+				715028672C84A5C600F67472 /* LoginService.swift in Sources */,
 				2D89C7632C486E20002B035F /* SearchResultViewController.swift in Sources */,
 				2D4EE3AB2C3E854E00E3E95B /* ValidationMessage.swift in Sources */,
 				71780C542C45A7DD0073B731 /* NetworkLoggerPlugin.swift in Sources */,
@@ -1275,6 +1290,7 @@
 				2D89C74D2C47E8EA002B035F /* ProfileImageViewModel.swift in Sources */,
 				2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */,
 				71FFB2BD2C4A186900C60697 /* NewHomeViewController.swift in Sources */,
+				715028692C84AA1600F67472 /* LoginRepository.swift in Sources */,
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
 				2DC61EF92C407E65009F991F /* JobDetailTableViewHeaderCell.swift in Sources */,
 				71780C352C45725E0073B731 /* Providers.swift in Sources */,

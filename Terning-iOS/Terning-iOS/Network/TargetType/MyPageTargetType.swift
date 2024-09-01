@@ -28,9 +28,9 @@ extension MyPageTargetType: TargetType {
         case .getProfileInfo:
             return "/mypage/profile"
         case .logout:
-            return "/mypage/logout"
+            return "/auth/logout"
         case .withdraw:
-            return "/mypage/withdraw"
+            return "/auth/withdraw"
         }
     }
     

@@ -82,7 +82,9 @@ extension AuthTargetType: TargetType {
                 headers["Authorization"] = "Bearer \(accessToken)"
             }
         case .getNewToken:
-            headers["Authorization"] = Config.refreshToken
+            if let refreshToken = UserManager.shared.refreshToken {
+                headers["Authorization"] = "Bearer \(refreshToken)"
+            }
         case .signUp:
             headers["authId"] = Config.authId
         case .postOnboarding:

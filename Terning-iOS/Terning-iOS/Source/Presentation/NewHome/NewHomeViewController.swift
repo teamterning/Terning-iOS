@@ -67,6 +67,10 @@ final class NewHomeViewController: UIViewController {
     
     // MARK: - Life Cycles
     
+    override func loadView() {
+        self.view = rootView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,10 +88,6 @@ final class NewHomeViewController: UIViewController {
         fetchTodayDeadlineDatas()
         fetchFilterInfos()
         resetSortOption()
-    }
-    
-    override func loadView() {
-        self.view = rootView
     }
     
     // MARK: - UI & Layout
@@ -426,7 +426,6 @@ extension NewHomeViewController {
                         let responseDto = try result.map(BaseResponse<UserFilteringInfoModel>.self)
                         guard let data = responseDto.result else { return }
                         
-                        print("🔥🔥🔥🔥🔥🔥🔥🔥🔥\(data)")
                         self.filterInfos = data
                         
                         // 0.5초 뒤에 fetchJobCardDatas 호출

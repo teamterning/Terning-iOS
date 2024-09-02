@@ -14,7 +14,7 @@ protocol SaveButtonProtocol: AnyObject {
     func didSaveSetting()
 }
 
-class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIAdaptivePresentationControllerDelegate {
+class FilteringSettingViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
     
     // MARK: - Properties
     
@@ -72,16 +72,28 @@ class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UI
         super.viewDidLoad()
         
         setAddTarget()
+        setPickerView()
         bindData(model: data)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
-        rootView.monthPickerView.delegate = self
-        rootView.monthPickerView.dataSource = self
+        setUserFilterInfo()
     }
 }
 
 // MARK: - UI & Layout
 
 extension FilteringSettingViewController {
+    
+    func setPickerView() {
+        rootView.monthPickerView.onDateSelected = { [weak self] (year, month) in
+            self?.startYear = year
+            self?.startMonth = month
+            print("Selected Year: \(year), Month: \(month)")
+        }
+    }
     
     func setAddTarget() {
         // 재학 상태 설정 버튼
@@ -101,9 +113,9 @@ extension FilteringSettingViewController {
     // MARK: - Methods
     
     func bindData(model: UserFilteringInfoModel) {
-        print(model)
         updateButtonSelection(for: gradeButtons_dict, selectedValue: grade ?? 0)
         updateButtonSelection(for: periodButtons_dict, selectedValue: workingPeriod ?? 0)
+        // 초기에 데이터 픽커뷰 표시해놓는것
     }
     
     func updateButtonSelection(for buttonsDict: [UIButton: Int], selectedValue: Int) {
@@ -112,46 +124,6 @@ extension FilteringSettingViewController {
             button.isSelected = isSelected
             button.setBackgroundColor(isSelected ? .terningMain : .clear, for: .normal)
             button.setTitleColor(isSelected ? .white : .grey400, for: .normal)
-        }
-    }
-    
-    // MARK: - UIPickerViewDataSource
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        switch component {
-        case 0: return 3 // Year component (2023 to 2025)
-        case 1: return 12 // Month component (1 to 12)
-        default: return 0
-        }
-    }
-    
-    // MARK: - UIPickerViewDelegate
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        switch component {
-        case 0:
-            return String(2023 + row)
-        case 1:
-            return String(row+1)
-        default:
-            return nil
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        switch component {
-        case 0:
-            startYear = 2023 + row
-            print(startYear ?? 0)
-        case 1:
-            startMonth = row + 1
-            print(startMonth ?? 0)
-        default:
-            break
         }
     }
     
@@ -174,7 +146,7 @@ extension FilteringSettingViewController {
                     do {
                         _ = try result.map(BaseResponse<BlankData>.self)
                         
-                        print("필터링 섧정 성공")
+                        print("필터링 설정 성공")
                         
                     } catch {
                         print(error.localizedDescription)

@@ -426,7 +426,6 @@ extension NewHomeViewController {
                         let responseDto = try result.map(BaseResponse<UserFilteringInfoModel>.self)
                         guard let data = responseDto.result else { return }
                         
-                        print("🔥🔥🔥🔥🔥🔥🔥🔥🔥\(data)")
                         self.filterInfos = data
                         
                         // 0.5초 뒤에 fetchJobCardDatas 호출

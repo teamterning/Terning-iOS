@@ -74,6 +74,11 @@ class SortSettingViewController: UIViewController {
     
     // MARK: - Life Cycles
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadSelectedOption()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,10 +89,7 @@ class SortSettingViewController: UIViewController {
         loadSelectedOption()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        loadSelectedOption()
-    }
+    
     
     // MARK: - Private func
     

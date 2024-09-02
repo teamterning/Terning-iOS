@@ -67,6 +67,10 @@ final class NewHomeViewController: UIViewController {
     
     // MARK: - Life Cycles
     
+    override func loadView() {
+        self.view = rootView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,10 +88,6 @@ final class NewHomeViewController: UIViewController {
         fetchTodayDeadlineDatas()
         fetchFilterInfos()
         resetSortOption()
-    }
-    
-    override func loadView() {
-        self.view = rootView
     }
     
     // MARK: - UI & Layout

@@ -89,8 +89,6 @@ class SortSettingViewController: UIViewController {
         loadSelectedOption()
     }
     
-    
-    
     // MARK: - Private func
     
     private func createButton(for option: SortingOptions) -> UIButton {

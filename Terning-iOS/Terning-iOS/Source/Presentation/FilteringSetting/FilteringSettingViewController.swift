@@ -14,7 +14,7 @@ protocol SaveButtonProtocol: AnyObject {
     func didSaveSetting()
 }
 
-class FilteringSettingViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
+class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UIAdaptivePresentationControllerDelegate {
     
     // MARK: - Properties
     
@@ -79,6 +79,7 @@ class FilteringSettingViewController: UIViewController, UIAdaptivePresentationCo
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
+        setDelegate()
         setUserFilterInfo()
     }
 }
@@ -86,6 +87,10 @@ class FilteringSettingViewController: UIViewController, UIAdaptivePresentationCo
 // MARK: - UI & Layout
 
 extension FilteringSettingViewController {
+    
+    func setDelegate() {
+        rootView.monthPickerView.delegate = self
+    }
     
     func setPickerView() {
         rootView.monthPickerView.onDateSelected = { [weak self] (year, month) in
@@ -124,6 +129,32 @@ extension FilteringSettingViewController {
             button.isSelected = isSelected
             button.setBackgroundColor(isSelected ? .terningMain : .clear, for: .normal)
             button.setTitleColor(isSelected ? .white : .grey400, for: .normal)
+        }
+    }
+    
+    // MARK: - UIPickerViewDelegate
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch component {
+        case 0:
+            return String(2023 + row)
+        case 1:
+            return String(row+1)
+        default:
+            return nil
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch component {
+        case 0:
+            startYear = 2023 + row
+            print(startYear ?? 0)
+        case 1:
+            startMonth = row + 1
+            print(startMonth ?? 0)
+        default:
+            break
         }
     }
     

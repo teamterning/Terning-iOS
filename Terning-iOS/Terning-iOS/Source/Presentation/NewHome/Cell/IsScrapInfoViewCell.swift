@@ -93,7 +93,6 @@ extension IsScrapInfoViewCell {
     // MARK: - Methods
     
     func bindData(model: ScrapedAndDeadlineModel) {
-        self.scrapId = model.scrapId
         self.internshipAnnouncementId = model.internshipAnnouncementId
         self.companyImage = model.companyImage
         self.cardLabel.text = model.title

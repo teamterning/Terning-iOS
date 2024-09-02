@@ -25,7 +25,7 @@ extension HomeTargertType: TargetType {
     var path: String {
         switch self {
         case .getHomeToday:
-            return "/home/today"
+            return "/home/upcoming"
         case .getHome:
             return "/home"
         }
@@ -54,7 +54,7 @@ extension HomeTargertType: TargetType {
     }
     
     var headers: [String: String]? {
-        return ["Content-Type": "application/json", "Authorization": "Bearer \(Config.refreshToken)"]
+        return ["Content-Type": "application/json", "Authorization": "Bearer \(Config.accessToken)"]
     }
     
     var validationType: ValidationType {

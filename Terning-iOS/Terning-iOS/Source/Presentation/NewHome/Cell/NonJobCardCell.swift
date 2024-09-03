@@ -65,7 +65,7 @@ extension NonJobCardCell {
         InfoImage.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.height.equalTo(222.adjustedH)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.horizontalEdges.equalToSuperview().inset(24)
         }
         
         descriptionLabel.snp.makeConstraints {

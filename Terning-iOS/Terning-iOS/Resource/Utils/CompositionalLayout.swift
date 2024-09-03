@@ -150,7 +150,7 @@ struct CompositionalLayout {
                 let section = NSCollectionLayoutSection(group: group)
                 
                 section.orthogonalScrollingBehavior = .continuous
-                section.contentInsets = .init(top: 0, leading: 0, bottom: 28, trailing: 0)
+                section.contentInsets = .init(top: 0, leading: 12, bottom: 28, trailing: 0)
                 
                 return section
             

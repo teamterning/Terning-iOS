@@ -13,7 +13,7 @@ struct JobCardModel: Codable {
 }
 
 struct JobCard: Codable {
-    let intershipAnnouncementID: Int
+    let intershipAnnouncementId: Int
     let companyImage: String
     let dDay, title, workingPeriod: String
     let isScrapped: Bool

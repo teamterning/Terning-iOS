@@ -153,7 +153,7 @@ extension NewHomeViewController: UICollectionViewDelegate {
         case .jobCard:
             print(indexPath)
             let jobDetailVC = JobDetailViewController()
-            let index = jobCardLists[indexPath.row].intershipAnnouncementID
+            let index = jobCardLists[indexPath.row].intershipAnnouncementId
             jobDetailVC.internshipAnnouncementId.onNext(Int(index))
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         default:
@@ -386,7 +386,7 @@ extension NewHomeViewController: ScrapDidTapDelegate {
             guard let self = self else { return }
             let colorIndex = alertSheet.selectedColorIndexRelay
             
-            self.addScrapAnnouncement(scrapId: Int(model.intershipAnnouncementID), color: colorIndex.value)
+            self.addScrapAnnouncement(scrapId: Int(model.intershipAnnouncementId), color: colorIndex.value)
             self.dismiss(animated: false)
             
         }
@@ -479,6 +479,7 @@ extension NewHomeViewController {
                         self.jobCardLists = data.result
                         self.jobCardCount = data.totalCount
                         
+                        self.rootView.collectionView.reloadData()
                     } catch {
                         print(error.localizedDescription)
                     }

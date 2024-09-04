@@ -78,7 +78,7 @@ final class NewHomeViewController: UIViewController {
         
         setUI()
         setDelegate()
-        setRegister() // viewForSupplementaryElementOfKind 함수가 호출되는 시점일 것임 -> bind 함수가 호출
+        setRegister() 
         fetchTodayDeadlineDatas()
         fetchFilterInfos()
     }

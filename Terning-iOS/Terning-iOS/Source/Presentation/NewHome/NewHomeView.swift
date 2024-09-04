@@ -52,7 +52,6 @@ final class NewHomeView: UIView {
 
 extension NewHomeView {
     private func setUI() {
-        backgroundColor = .white
         gradientLayerView.isHidden = true
     }
     
@@ -77,7 +76,7 @@ extension NewHomeView {
         }
         
         gradientLayerView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(243)
+            $0.top.equalToSuperview().offset(230)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(43)
         }

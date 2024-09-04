@@ -122,12 +122,6 @@ final class NewHomeViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: "SelectedSortOption")
         UserDefaults.standard.set(SortingOptions.deadlineSoon.rawValue, forKey: "SelectedSortOption")
     }
-    
-    // test func
-    private func reloadView() {
-        print("🌟reload data func executed🌟")
-        rootView.collectionView.reloadData()
-    }
 }
 
 // MARK: - Extensions
@@ -398,7 +392,6 @@ extension NewHomeViewController: ScrapDidTapDelegate {
 
 extension NewHomeViewController {
     func fetchTodayDeadlineDatas() {
-        print("🌟fetchTodayDeadlineDatas🌟")
         homeProviders.request(.getHomeToday) { [weak self] response in
             guard let self = self else { return }
             switch response {
@@ -428,7 +421,6 @@ extension NewHomeViewController {
     }
     
     private func fetchFilterInfos() {
-        print("🌟fetchFilterInfos🌟")
         filterProviders.request(.getFilterDatas) { [weak self] response in
             guard let self = self else { return }
             switch response {
@@ -445,7 +437,7 @@ extension NewHomeViewController {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.fetchJobCardDatas(self.apiParameter)
                             self.fetchTodayDeadlineDatas()
-                            self.reloadView()
+                            self.rootView.collectionView.reloadData()
                         }
                         
                     } catch {
@@ -465,7 +457,6 @@ extension NewHomeViewController {
     
     func fetchJobCardDatas(_ apiParameter: String) {
         print("🔥🔥🔥Fetching job card data with sortBy: \(apiParameter)🔥🔥🔥")
-        print("🌟fetchJobCardDatas🌟")
         homeProviders.request(.getHome(sortBy: apiParameter, startYear: filterInfos.startYear ?? 0, startMonth: filterInfos.startMonth ?? 0)) { [weak self] response in
             guard let self = self else { return }
             switch response {
@@ -496,7 +487,6 @@ extension NewHomeViewController {
     }
     
     private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
-        print("🌟patchScrapAnnouncement🌟")
         guard let scrapId = scrapId else { return }
         Providers.scrapsProvider.request(.patchScrap(scrapId: scrapId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
@@ -519,7 +509,6 @@ extension NewHomeViewController {
     }
     
     private func addScrapAnnouncement(scrapId: Int, color: Int) {
-        print("🌟addScrapAnnouncement🌟")
         Providers.scrapsProvider.request(.addScrap(internshipAnnouncementId: scrapId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
@@ -541,7 +530,6 @@ extension NewHomeViewController {
     }
     
     private func getMyPageInfo() {
-        print("🌟getMyPageInfo🌟")
         myPageProvider.request(.getProfileInfo) { [weak self] result in
             guard let self = self else { return }
             switch result {

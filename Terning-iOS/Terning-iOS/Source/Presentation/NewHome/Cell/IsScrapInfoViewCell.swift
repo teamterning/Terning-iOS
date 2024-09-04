@@ -15,7 +15,7 @@ final class IsScrapInfoViewCell: UICollectionViewCell {
     // MARK: - Properties
     
     private var internshipAnnouncementId: Double = 1
-    private var scrapId: Double = 1
+    private var isScrapped: Bool = false
     private var companyImage: String = "https://res.cloudinary.com/linkareer/image/fetch/f_auto,q_50/https://api.linkareer.com/attachments/397824"
     private var dDay = "D-day"
     private var deadline = "2024년 7월 14일"
@@ -95,11 +95,12 @@ extension IsScrapInfoViewCell {
     func bindData(model: ScrapedAndDeadlineModel) {
         self.internshipAnnouncementId = model.internshipAnnouncementId
         self.companyImage = model.companyImage
-        self.cardLabel.text = model.title
         self.dDay = model.dDay
-        self.deadline = model.deadline
+        self.cardLabel.text = model.title
         self.workingPeriod = model.workingPeriod
-        self.startYearMonth = model.startYearMonth
+        self.isScrapped = model.isScrapped
         self.colorMark.backgroundColor = UIColor(hex: model.color)
+        self.deadline = model.deadline
+        self.startYearMonth = model.startYearMonth
     }
 }

@@ -35,7 +35,7 @@ final class NewHomeViewController: UIViewController {
     private let scrapProviders = Providers.scrapsProvider
     
     private var userName: String = ""
-    private var apiParameter: String = "deadlineSoon"
+    var apiParameter: String = "deadlineSoon"
     
     var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
         didSet {
@@ -50,7 +50,9 @@ final class NewHomeViewController: UIViewController {
         startMonth: 1 // 기본값 설정
     )
     
-    var jobCardLists: [JobCardModel] = [] {
+    var jobCardCount: Int?
+    
+    var jobCardLists: [JobCard] = [] {
         didSet {
             rootView.collectionView.reloadData()
         }
@@ -76,7 +78,7 @@ final class NewHomeViewController: UIViewController {
         
         setUI()
         setDelegate()
-        setRegister()
+        setRegister() // viewForSupplementaryElementOfKind 함수가 호출되는 시점일 것임 -> bind 함수가 호출
         fetchTodayDeadlineDatas()
         fetchFilterInfos()
     }
@@ -120,6 +122,12 @@ final class NewHomeViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: "SelectedSortOption")
         UserDefaults.standard.set(SortingOptions.deadlineSoon.rawValue, forKey: "SelectedSortOption")
     }
+    
+    // test func
+    private func reloadView() {
+        print("🌟reload data func executed🌟")
+        rootView.collectionView.reloadData()
+    }
 }
 
 // MARK: - Extensions
@@ -145,8 +153,8 @@ extension NewHomeViewController: UICollectionViewDelegate {
         case .jobCard:
             print(indexPath)
             let jobDetailVC = JobDetailViewController()
-            let index = jobCardLists[indexPath.row].intershipAnnouncementId
-            jobDetailVC.internshipAnnouncementId.onNext(index)
+            let index = jobCardLists[indexPath.row].intershipAnnouncementID
+            jobDetailVC.internshipAnnouncementId.onNext(Int(index))
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         default:
             return
@@ -176,6 +184,7 @@ extension NewHomeViewController: UICollectionViewDataSource {
             headerView.filterDelegate = self
             headerView.sortDelegate = self
             headerView.bind(model: filterInfos)
+            headerView.countBind(jobCardCount ?? 100)
             
             return headerView
             
@@ -296,6 +305,8 @@ extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
 extension NewHomeViewController: SaveButtonProtocol {
     func didSaveSetting() {
         removeDimmedBackgroundView()
+        fetchFilterInfos()
+        fetchJobCardDatas(self.apiParameter)
     }
 }
 
@@ -375,7 +386,7 @@ extension NewHomeViewController: ScrapDidTapDelegate {
             guard let self = self else { return }
             let colorIndex = alertSheet.selectedColorIndexRelay
             
-            self.addScrapAnnouncement(scrapId: model.intershipAnnouncementId, color: colorIndex.value)
+            self.addScrapAnnouncement(scrapId: Int(model.intershipAnnouncementID), color: colorIndex.value)
             self.dismiss(animated: false)
             
         }
@@ -386,7 +397,8 @@ extension NewHomeViewController: ScrapDidTapDelegate {
 // MARK: - Network
 
 extension NewHomeViewController {
-    private func fetchTodayDeadlineDatas() {
+    func fetchTodayDeadlineDatas() {
+        print("🌟fetchTodayDeadlineDatas🌟")
         homeProviders.request(.getHomeToday) { [weak self] response in
             guard let self = self else { return }
             switch response {
@@ -416,6 +428,7 @@ extension NewHomeViewController {
     }
     
     private func fetchFilterInfos() {
+        print("🌟fetchFilterInfos🌟")
         filterProviders.request(.getFilterDatas) { [weak self] response in
             guard let self = self else { return }
             switch response {
@@ -432,6 +445,7 @@ extension NewHomeViewController {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.fetchJobCardDatas(self.apiParameter)
                             self.fetchTodayDeadlineDatas()
+                            self.reloadView()
                         }
                         
                     } catch {
@@ -449,9 +463,9 @@ extension NewHomeViewController {
         }
     }
     
-    private func fetchJobCardDatas(_ apiParameter: String) {
+    func fetchJobCardDatas(_ apiParameter: String) {
         print("🔥🔥🔥Fetching job card data with sortBy: \(apiParameter)🔥🔥🔥")
-         
+        print("🌟fetchJobCardDatas🌟")
         homeProviders.request(.getHome(sortBy: apiParameter, startYear: filterInfos.startYear ?? 0, startMonth: filterInfos.startMonth ?? 0)) { [weak self] response in
             guard let self = self else { return }
             switch response {
@@ -459,11 +473,11 @@ extension NewHomeViewController {
                 let status = result.statusCode
                 if 200..<300 ~= status {
                     do {
-                        let responseDto = try result.map(BaseResponse<[JobCardModel]>.self)
+                        let responseDto = try result.map(BaseResponse<JobCardModel>.self)
                         guard let data = responseDto.result else { return }
-                        
-                        self.jobCardLists = data
-                        rootView.collectionView.reloadData()
+                        print("jobCardCount: \(data)")
+                        self.jobCardLists = data.result
+                        self.jobCardCount = data.totalCount
                         
                     } catch {
                         print(error.localizedDescription)
@@ -481,6 +495,7 @@ extension NewHomeViewController {
     }
     
     private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
+        print("🌟patchScrapAnnouncement🌟")
         guard let scrapId = scrapId else { return }
         Providers.scrapsProvider.request(.patchScrap(scrapId: scrapId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
@@ -503,6 +518,7 @@ extension NewHomeViewController {
     }
     
     private func addScrapAnnouncement(scrapId: Int, color: Int) {
+        print("🌟addScrapAnnouncement🌟")
         Providers.scrapsProvider.request(.addScrap(internshipAnnouncementId: scrapId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
@@ -524,6 +540,7 @@ extension NewHomeViewController {
     }
     
     private func getMyPageInfo() {
+        print("🌟getMyPageInfo🌟")
         myPageProvider.request(.getProfileInfo) { [weak self] result in
             guard let self = self else { return }
             switch result {

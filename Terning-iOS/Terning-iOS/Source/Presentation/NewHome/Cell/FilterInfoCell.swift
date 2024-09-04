@@ -23,15 +23,9 @@ final class FilterInfoCell: UICollectionViewCell {
     // MARK: - Properties
     
     private let sortSettingVC = SortSettingViewController()
+    var totalCount: Int = 4
     
     // MARK: - UIComponents
-    
-    // 타이틀 라벨
-    private let subTitleLabel = LabelFactory.build(
-        text: "마음에 드는 공고를 스크랩하고 캘린더에서 모아보세요",
-        font: .detail2,
-        textColor: .terningBlack
-    )
     
     private let titleLabel = LabelFactory.build(
         text: "내 계획에 딱 맞는 대학생 인턴 공고",
@@ -39,9 +33,8 @@ final class FilterInfoCell: UICollectionViewCell {
         textColor: .terningBlack
     )
     
-    private lazy var titleStack = UIStackView(
+    private lazy var titleStack = UIStackView( // 나중에 교체
         arrangedSubviews: [
-            subTitleLabel,
             titleLabel
         ]
     ).then {
@@ -58,51 +51,68 @@ final class FilterInfoCell: UICollectionViewCell {
     
     var gradeLabel = LabelFactory.build(
         text: "3학년",
-        font: .detail2,
-        textColor: .black
+        font: .body5,
+        textColor: .grey400,
+        lineSpacing: 1.2,
+        characterSpacing: 0.002
+
     )
     
     var periodLabel = LabelFactory.build(
         text: "1~3개월",
-        font: .detail2,
-        textColor: .black
+        font: .body5,
+        textColor: .grey400,
+        lineSpacing: 1.2,
+        characterSpacing: 0.002
+
     )
     
     var monthLabel = LabelFactory.build(
         text: "2024년 1월",
-        font: .detail2,
-        textColor: .black,
+        font: .body5,
+        textColor: .grey400,
         lineSpacing: 1.2,
         characterSpacing: 0.002
     )
     
-    private let verticalBar1 = UIImageView().then {
-        $0.image = UIImage(resource: .icVerticalBar)
+    private let distinction1 = UIImageView().then {
+        $0.image = UIImage(resource: .icDistinction)
     }
     
-    private let verticalBar2 = UIImageView().then {
-        $0.image = UIImage(resource: .icVerticalBar)
+    private let distinction2 = UIImageView().then {
+        $0.image = UIImage(resource: .icDistinction)
     }
     
+    // 필터링 정보가 존재할 때
     private lazy var filteringStack = UIStackView(
         arrangedSubviews: [
-            filterButton,
             gradeLabel,
-            verticalBar1,
+            distinction1,
             periodLabel,
-            verticalBar2,
+            distinction2,
             monthLabel
         ]
     ).then {
         $0.axis = .horizontal
-        $0.spacing = 20
-        $0.distribution = .fillProportionally
+        $0.spacing = 6
+        $0.distribution = .equalSpacing
         $0.alignment = .center
     }
     
-    // 구분선
-    private let decorationView = UIView().then {
-        $0.backgroundColor = .grey150
+    // 필터링 정보가 없을 때
+    let nonFilteringLabel = LabelFactory.build(
+        text: "설정된 필터링 정보가 없어요",
+        font: .body5,
+        textColor: .grey400
+    )
+    
+    // 공고 개수 알려주는 라벨
+    lazy var totalCountLabel = LabelFactory.build(
+        text: "총 \(totalCount)개의 공고가 있어요",
+        font: .body3,
+        textColor: .grey400
+    ).then {
+        $0.setAttributedText(targetFontList: ["\(totalCount)": .body3], targetColorList: ["\(totalCount)": .terningMain])
     }
     
     // 정렬 버튼
@@ -151,8 +161,9 @@ extension FilterInfoCell {
     func setHierarchy() {
         addSubviews(
             titleStack,
+            filterButton,
             filteringStack,
-            decorationView,
+            totalCountLabel,
             sortButtonStack
         )
     }
@@ -160,39 +171,43 @@ extension FilterInfoCell {
     func setLayout() {
         titleStack.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.leading.equalToSuperview().offset(20)
-        }
-
-        filteringStack.snp.makeConstraints {
-            $0.top.equalTo(titleStack.snp.bottom).offset(9)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(26.adjusted)
+            $0.leading.equalToSuperview().offset(24)
         }
         
         filterButton.snp.makeConstraints {
-            $0.height.equalTo(28)
-            $0.width.equalTo(75)
+            $0.top.equalTo(titleStack.snp.bottom).offset(12)
+            $0.leading.equalToSuperview().offset(24)
+        }
+
+        filteringStack.snp.makeConstraints {
+            $0.top.equalTo(titleStack.snp.bottom).offset(19)
+            $0.trailing.equalToSuperview().inset(24)
+            $0.width.equalTo(196.adjusted)
         }
         
-        verticalBar1.snp.makeConstraints {
-            $0.height.equalTo(20)
-            $0.width.equalTo(2)
+        filterButton.snp.makeConstraints {
+            $0.height.equalTo(28.adjustedH)
+            $0.width.equalTo(75.adjusted)
         }
         
-        verticalBar2.snp.makeConstraints {
-            $0.height.equalTo(20)
-            $0.width.equalTo(2)
+        distinction1.snp.makeConstraints {
+            $0.height.equalTo(4.adjustedH)
+            $0.width.equalTo(4.adjusted)
         }
         
-        decorationView.snp.makeConstraints {
-            $0.top.equalTo(filteringStack.snp.bottom).offset(11)
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(4)
+        distinction2.snp.makeConstraints {
+            $0.height.equalTo(4.adjustedH)
+            $0.width.equalTo(4.adjusted)
+        }
+        
+        totalCountLabel.snp.makeConstraints {
+            $0.top.equalTo(filteringStack.snp.bottom).offset(27)
+            $0.leading.equalToSuperview().offset(26)
         }
         
         sortButtonStack.snp.makeConstraints {
-            $0.top.equalTo(decorationView.snp.bottom).offset(9)
-            $0.trailing.equalToSuperview().inset(16.adjusted)
+            $0.top.equalTo(filteringStack.snp.bottom).offset(27)
+            $0.trailing.equalToSuperview().inset(16)
         }
     }
     
@@ -226,6 +241,12 @@ extension FilterInfoCell {
         gradeLabel.text = gradeText(for: grade)
         periodLabel.text = periodText(for: workingPeriod)
         monthLabel.text = "\(startYear)년 \(startMonth)월"
+    }
+    
+    func countBind(_ num: Int) {
+        print("total: \(num)")
+        totalCountLabel.text = "총 \(num)개의 공고가 있어요"
+        totalCountLabel.setAttributedText(targetFontList: ["\(num)": .body3], targetColorList: ["\(num)": .terningMain])
     }
     
     private func gradeText(for grade: Int) -> String {

@@ -16,7 +16,7 @@ final class IsScrapInfoViewCell: UICollectionViewCell {
     
     private var internshipAnnouncementId: Double = 1
     private var isScrapped: Bool = false
-    private var companyImage: String = "https://res.cloudinary.com/linkareer/image/fetch/f_auto,q_50/https://api.linkareer.com/attachments/397824"
+    private var companyImage: String = ""
     private var dDay = "D-day"
     private var deadline = "2024년 7월 14일"
     private var workingPeriod = "2개월"

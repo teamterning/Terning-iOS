@@ -61,7 +61,7 @@ extension NonScrapInfoCell {
     private func setLayout() {
         internshipScrapedStatus.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(215 - 16)
+            $0.trailing.equalToSuperview().offset(199)
         }
         
         nonTodayDeadlineImage.snp.makeConstraints {

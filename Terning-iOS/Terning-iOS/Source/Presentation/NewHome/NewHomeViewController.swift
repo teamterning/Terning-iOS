@@ -78,8 +78,7 @@ final class NewHomeViewController: UIViewController {
         
         setUI()
         setDelegate()
-        setRegister() 
-        fetchTodayDeadlineDatas()
+        setRegister()
         fetchFilterInfos()
     }
     
@@ -87,7 +86,6 @@ final class NewHomeViewController: UIViewController {
         super.viewWillAppear(true)
         
         getMyPageInfo()
-        fetchTodayDeadlineDatas()
         fetchFilterInfos()
         resetSortOption()
     }
@@ -300,7 +298,6 @@ extension NewHomeViewController: SaveButtonProtocol {
     func didSaveSetting() {
         removeDimmedBackgroundView()
         fetchFilterInfos()
-        fetchJobCardDatas(self.apiParameter)
     }
 }
 
@@ -434,9 +431,8 @@ extension NewHomeViewController {
                         self.filterInfos = data
                         
                         // 0.5초 뒤에 fetchJobCardDatas 호출
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             self.fetchJobCardDatas(self.apiParameter)
-                            self.fetchTodayDeadlineDatas()
                             self.rootView.collectionView.reloadData()
                         }
                         

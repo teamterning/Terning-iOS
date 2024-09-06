@@ -248,7 +248,7 @@ extension CustomAlertViewController {
         self.centerButton.setTitle(title: "공고 상세 정보 보러가기")
     }
     
-    public func setData3(model: JobCardModel, deadline: String) {
+    public func setData3(model: JobCard, deadline: String) {
         guard alertType == .custom else { return } // custom 타입 일때만 사용 가능한 메서드
         
         self.JobImageView.setImage(with: model.companyImage)

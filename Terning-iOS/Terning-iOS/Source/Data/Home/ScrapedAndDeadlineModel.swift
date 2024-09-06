@@ -8,13 +8,13 @@
 import UIKit
 
 struct ScrapedAndDeadlineModel: Codable {
-    let scrapId: Double
     let internshipAnnouncementId: Double
     let companyImage: String
-    let title: String
     let dDay: String
-    let deadline: String
+    let title: String
     let workingPeriod: String
-    let startYearMonth: String
+    let isScrapped: Bool
     let color: String
+    let deadline: String
+    let startYearMonth: String
 }

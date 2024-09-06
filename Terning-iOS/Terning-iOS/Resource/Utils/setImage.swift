@@ -13,7 +13,7 @@ public extension UIImageView {
         let cache = ImageCache.default
         if urlString.isEmpty {
             // URL 빈 이미지로 넘겨 받았을 경우, 아래에 UIImage에 기본 사진을 추가 하면 된다.
-            self.image = UIImage()
+            self.image = UIImage(named: "defaultImage")
         } else {
             cache.retrieveImage(forKey: urlString) { result in
                 result.success { imageCache in

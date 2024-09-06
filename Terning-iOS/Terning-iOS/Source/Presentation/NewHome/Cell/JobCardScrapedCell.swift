@@ -152,7 +152,7 @@ extension JobCardScrapedCell {
         scrapButton.addTarget(self, action: #selector(scrapButtonDidTap), for: .touchUpInside)
     }
     
-    func bindData(model: JobCardModel) {
+    func bindData(model: JobCard) {
         self.internshipAnnouncementId = model.intershipAnnouncementId
         self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.daysRemaining.text = model.dDay

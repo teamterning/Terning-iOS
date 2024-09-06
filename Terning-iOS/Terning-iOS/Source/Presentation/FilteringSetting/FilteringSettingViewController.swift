@@ -176,7 +176,7 @@ extension FilteringSettingViewController {
                 if 200..<300 ~= status {
                     do {
                         _ = try result.map(BaseResponse<BlankData>.self)
-                        
+                
                         print("필터링 설정 성공")
                         
                     } catch {

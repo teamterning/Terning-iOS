@@ -228,7 +228,7 @@ extension UIButton {
     func configurePeriodButton(period: String) {
         self.makeBorder(width: 1, color: .terningMain, cornerRadius: 10)
         self.setTitle(period, for: .normal)
-        self.setTitleColor(.grey400, for: .normal)
+        self.setTitleColor(.terningMain, for: .normal)
         self.titleLabel?.font = .button3
     }
     

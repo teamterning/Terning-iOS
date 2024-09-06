@@ -8,13 +8,15 @@
 import UIKit
 
 struct JobCardModel: Codable {
-    let scrapId: Int?
+    let totalCount: Int
+    let result: [JobCard]
+}
+
+struct JobCard: Codable {
     let intershipAnnouncementId: Int
-    let title: String
-    let dDay: String
-    let workingPeriod: String
     let companyImage: String
+    let dDay, title, workingPeriod: String
     let isScrapped: Bool
-    let deadline: String
-    let startYearMonth: String
+    let color: String?
+    let deadline, startYearMonth: String
 }

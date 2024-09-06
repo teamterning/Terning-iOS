@@ -15,9 +15,15 @@ class FilterButton: UIButton {
         super.init(frame: .zero)
         
         self.configuration = config
-    
-        self.configuration?.attributedTitle = "필터링"
-        self.configuration?.attributedTitle?.font = .button4
+        
+        let title = "필터링"
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.button4,
+            .foregroundColor: UIColor.terningMain
+        ]
+        
+        let attributedTitle = NSAttributedString(string: title, attributes: attributes)
+        self.configuration?.attributedTitle = AttributedString(attributedTitle)
         
         self.configuration?.image = .icFilter
         self.configuration?.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 28)
@@ -27,8 +33,10 @@ class FilterButton: UIButton {
         self.configuration?.contentInsets.trailing = 6 // 버튼을 기준으로 trailing이랑 떨어져있는 정도
         
         self.configuration?.titleAlignment = .center
-        self.configuration?.background.backgroundColor = .terningMain
+        self.configuration?.background.backgroundColor = .white
         self.configuration?.background.cornerRadius = 5
+        self.configuration?.background.strokeColor = .terningMain
+        self.configuration?.background.strokeWidth = 1
     }
     
     required init?(coder: NSCoder) {

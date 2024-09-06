@@ -35,7 +35,7 @@ final class NewHomeViewController: UIViewController {
     private let scrapProviders = Providers.scrapsProvider
     
     private var userName: String = ""
-    private var apiParameter: String = "deadlineSoon"
+    var apiParameter: String = "deadlineSoon"
     
     var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
         didSet {
@@ -50,7 +50,11 @@ final class NewHomeViewController: UIViewController {
         startMonth: 1 // 기본값 설정
     )
     
-    var jobCardLists: [JobCardModel] = [] {
+//    var jobCardCount: Int?
+    
+    var jobCardTotalCount: JobCardModel = JobCardModel(totalCount: 0, result: [])
+    
+    var jobCardLists: [JobCard] = [] {
         didSet {
             rootView.collectionView.reloadData()
         }
@@ -77,7 +81,6 @@ final class NewHomeViewController: UIViewController {
         setUI()
         setDelegate()
         setRegister()
-        fetchTodayDeadlineDatas()
         fetchFilterInfos()
     }
     
@@ -85,7 +88,6 @@ final class NewHomeViewController: UIViewController {
         super.viewWillAppear(true)
         
         getMyPageInfo()
-        fetchTodayDeadlineDatas()
         fetchFilterInfos()
         resetSortOption()
     }
@@ -176,6 +178,7 @@ extension NewHomeViewController: UICollectionViewDataSource {
             headerView.filterDelegate = self
             headerView.sortDelegate = self
             headerView.bind(model: filterInfos)
+            headerView.countBind(model: jobCardTotalCount)
             
             return headerView
             
@@ -296,6 +299,7 @@ extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
 extension NewHomeViewController: SaveButtonProtocol {
     func didSaveSetting() {
         removeDimmedBackgroundView()
+        fetchFilterInfos()
     }
 }
 
@@ -375,7 +379,7 @@ extension NewHomeViewController: ScrapDidTapDelegate {
             guard let self = self else { return }
             let colorIndex = alertSheet.selectedColorIndexRelay
             
-            self.addScrapAnnouncement(scrapId: model.intershipAnnouncementId, color: colorIndex.value)
+            self.addScrapAnnouncement(scrapId: Int(model.intershipAnnouncementId), color: colorIndex.value)
             self.dismiss(animated: false)
             
         }
@@ -386,7 +390,7 @@ extension NewHomeViewController: ScrapDidTapDelegate {
 // MARK: - Network
 
 extension NewHomeViewController {
-    private func fetchTodayDeadlineDatas() {
+    func fetchTodayDeadlineDatas() {
         homeProviders.request(.getHomeToday) { [weak self] response in
             guard let self = self else { return }
             switch response {
@@ -429,9 +433,10 @@ extension NewHomeViewController {
                         self.filterInfos = data
                         
                         // 0.5초 뒤에 fetchJobCardDatas 호출
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             self.fetchJobCardDatas(self.apiParameter)
                             self.fetchTodayDeadlineDatas()
+                            self.rootView.collectionView.reloadData()
                         }
                         
                     } catch {
@@ -451,7 +456,6 @@ extension NewHomeViewController {
     
     private func fetchJobCardDatas(_ apiParameter: String) {
         print("🔥🔥🔥Fetching job card data with sortBy: \(apiParameter)🔥🔥🔥")
-         
         homeProviders.request(.getHome(sortBy: apiParameter, startYear: filterInfos.startYear ?? 0, startMonth: filterInfos.startMonth ?? 0)) { [weak self] response in
             guard let self = self else { return }
             switch response {
@@ -459,12 +463,13 @@ extension NewHomeViewController {
                 let status = result.statusCode
                 if 200..<300 ~= status {
                     do {
-                        let responseDto = try result.map(BaseResponse<[JobCardModel]>.self)
+                        let responseDto = try result.map(BaseResponse<JobCardModel>.self)
                         guard let data = responseDto.result else { return }
+                        print("jobCardCount: \(data)")
+                        self.jobCardLists = data.result
+                        self.jobCardTotalCount = data
                         
-                        self.jobCardLists = data
-                        rootView.collectionView.reloadData()
-                        
+                        self.rootView.collectionView.reloadData()
                     } catch {
                         print(error.localizedDescription)
                     }

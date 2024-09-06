@@ -150,7 +150,7 @@ struct CompositionalLayout {
                 let section = NSCollectionLayoutSection(group: group)
                 
                 section.orthogonalScrollingBehavior = .continuous
-                section.contentInsets = .init(top: 0, leading: 0, bottom: 28, trailing: 0)
+                section.contentInsets = .init(top: 0, leading: 12, bottom: 28, trailing: 0)
                 
                 return section
             
@@ -171,7 +171,7 @@ struct CompositionalLayout {
                 // Section
                 let section = NSCollectionLayoutSection(group: group)
                 
-                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(128))
+                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(114))
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: headerSize,
                     elementKind: UICollectionView.elementKindSectionHeader,
@@ -181,7 +181,7 @@ struct CompositionalLayout {
                 sectionHeader.pinToVisibleBounds = true
                 section.boundarySupplementaryItems = [sectionHeader]
                 section.interGroupSpacing = 12
-                section.contentInsets = .init(top: 10, leading: 0, bottom: 0, trailing: 0)
+                section.contentInsets = .init(top: 10, leading: 0, bottom: 10, trailing: 0)
                 
                 return section
             } else {

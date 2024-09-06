@@ -178,7 +178,6 @@ extension NewHomeViewController: UICollectionViewDataSource {
             headerView.filterDelegate = self
             headerView.sortDelegate = self
             headerView.bind(model: filterInfos)
-//            headerView.countBind(jobCardCount ?? 100)
             headerView.countBind(model: jobCardTotalCount)
             
             return headerView
@@ -436,7 +435,7 @@ extension NewHomeViewController {
                         // 0.5초 뒤에 fetchJobCardDatas 호출
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             self.fetchJobCardDatas(self.apiParameter)
-                            
+                            self.fetchTodayDeadlineDatas()
                             self.rootView.collectionView.reloadData()
                         }
                         

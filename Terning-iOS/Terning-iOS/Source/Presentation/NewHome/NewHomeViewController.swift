@@ -50,7 +50,9 @@ final class NewHomeViewController: UIViewController {
         startMonth: 1 // 기본값 설정
     )
     
-    var jobCardCount: Int?
+//    var jobCardCount: Int?
+    
+    var jobCardTotalCount: JobCardModel = JobCardModel(totalCount: 0, result: [])
     
     var jobCardLists: [JobCard] = [] {
         didSet {
@@ -176,7 +178,8 @@ extension NewHomeViewController: UICollectionViewDataSource {
             headerView.filterDelegate = self
             headerView.sortDelegate = self
             headerView.bind(model: filterInfos)
-            headerView.countBind(jobCardCount ?? 100)
+//            headerView.countBind(jobCardCount ?? 100)
+            headerView.countBind(model: jobCardTotalCount)
             
             return headerView
             
@@ -465,7 +468,7 @@ extension NewHomeViewController {
                         guard let data = responseDto.result else { return }
                         print("jobCardCount: \(data)")
                         self.jobCardLists = data.result
-                        self.jobCardCount = data.totalCount
+                        self.jobCardTotalCount = data
                         
                         self.rootView.collectionView.reloadData()
                     } catch {

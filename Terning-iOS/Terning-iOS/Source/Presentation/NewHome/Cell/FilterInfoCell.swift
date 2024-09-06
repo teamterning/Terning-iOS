@@ -23,7 +23,7 @@ final class FilterInfoCell: UICollectionViewCell {
     // MARK: - Properties
     
     private let sortSettingVC = SortSettingViewController()
-    var totalCount: Int = 4
+    var totalCount: Int = 999999
     
     // MARK: - UIComponents
     
@@ -234,10 +234,10 @@ extension FilterInfoCell {
         monthLabel.text = "\(startYear)년 \(startMonth)월"
     }
     
-func countBind(_ num: Int) {
-        print("total: \(num)")
-        totalCountLabel.text = "총 \(num)개의 공고가 있어요"
-        totalCountLabel.setAttributedText(targetFontList: ["\(num)": .body3], targetColorList: ["\(num)": .terningMain])
+    func countBind(model: JobCardModel) {
+        print("total: \(model.totalCount)")
+        totalCountLabel.text = "총 \(model.totalCount)개의 공고가 있어요"
+        totalCountLabel.setAttributedText(targetFontList: ["\(model.totalCount)": .body3], targetColorList: ["\(model.totalCount)": .terningMain])
     }
     
     private func gradeText(for grade: Int) -> String {

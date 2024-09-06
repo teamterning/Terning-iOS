@@ -41,8 +41,44 @@ final class IsScrapInfoViewCell: UICollectionViewCell {
         font: .button3,
         textAlignment: .left
     ).then {
-        $0.numberOfLines = 3
+        $0.numberOfLines = 2
         $0.isUserInteractionEnabled = true
+    }
+    
+    private let companyImageView = UIImageView().then {
+        $0.image = UIImage(resource: .default)
+        $0.clipsToBounds = true
+        $0.makeBorder(width: 1, color: .grey150, cornerRadius: 32/2)
+    }
+    
+    private var companyName = LabelFactory.build(
+        text: "기업 이름",
+        font: .button5,
+        textColor: .grey400,
+        textAlignment: .left
+    )
+    
+    private lazy var companyLabelStack = UIStackView(
+        arrangedSubviews: [
+            companyImageView,
+            companyName
+        ]
+    ).then {
+        $0.axis = .horizontal
+        $0.spacing = 6
+        $0.distribution = .equalSpacing
+        $0.alignment = .center
+    }
+    
+    private var dDayLabel = LabelFactory.build(
+        text: "D-0",
+        font: .body4,
+        textColor: .terningMain
+    )
+    
+    private var dDayView = UIView().then {
+        $0.backgroundColor = .terningSub3
+        $0.layer.cornerRadius = 5
     }
     
     // MARK: - LifeCycles
@@ -66,7 +102,11 @@ extension IsScrapInfoViewCell {
         contentView.addSubviews(
             scrapAndDeadlineCard,
             colorMark,
-            cardLabel
+            cardLabel,
+            companyLabelStack,
+            dDayView,
+            dDayLabel
+            
         )
     }
     
@@ -74,7 +114,7 @@ extension IsScrapInfoViewCell {
         scrapAndDeadlineCard.snp.makeConstraints {
             $0.verticalEdges.equalToSuperview()
             $0.trailing.equalToSuperview()
-            $0.leading.equalToSuperview().offset(8)
+            $0.leading.equalToSuperview()
         }
         
         colorMark.snp.makeConstraints {
@@ -84,22 +124,52 @@ extension IsScrapInfoViewCell {
         }
         
         cardLabel.snp.makeConstraints {
-            $0.bottom.equalTo(scrapAndDeadlineCard.snp.bottom).inset(8)
-            $0.leading.equalTo(colorMark.snp.trailing).offset(8)
-            $0.width.equalTo(115)
+            $0.top.equalTo(scrapAndDeadlineCard.snp.top).offset(16)
+            $0.leading.equalTo(colorMark.snp.trailing).offset(12)
+            $0.width.equalTo(214)
+        }
+        
+        companyLabelStack.snp.makeConstraints {
+            $0.top.equalTo(cardLabel.snp.bottom).offset(22)
+            $0.leading.equalTo(colorMark.snp.trailing).offset(12)
+        }
+        
+        companyImageView.snp.makeConstraints {
+            $0.height.width.equalTo(32)
+        }
+        
+        dDayView.snp.makeConstraints {
+            $0.top.equalTo(cardLabel.snp.bottom).offset(28)
+            $0.trailing.equalTo(scrapAndDeadlineCard.snp.trailing).inset(12)
+            $0.height.equalTo(20)
+            $0.width.equalTo(43)
+        }
+
+        dDayLabel.snp.makeConstraints {
+            $0.centerX.equalTo(dDayView)
+            $0.centerY.equalTo(dDayView)
         }
     }
     
     // MARK: - Methods
     
     func bindData(model: ScrapedAndDeadlineModel) {
+        if let range = model.title.range(of: "\\[(.*?)\\]", options: .regularExpression) {
+            let extractedCompanyName = String(model.title[range]).replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "")
+            
+            self.companyName.text = extractedCompanyName
+        }
+        
+        self.companyImageView.setImage(with: model.companyImage, placeholder: "placeholder_image")
+        self.dDayLabel.text = model.dDay
+        self.cardLabel.text = model.title
+        self.colorMark.backgroundColor = UIColor(hex: model.color)
+        
         self.internshipAnnouncementId = model.internshipAnnouncementId
         self.companyImage = model.companyImage
         self.dDay = model.dDay
-        self.cardLabel.text = model.title
         self.workingPeriod = model.workingPeriod
         self.isScrapped = model.isScrapped
-        self.colorMark.backgroundColor = UIColor(hex: model.color)
         self.deadline = model.deadline
         self.startYearMonth = model.startYearMonth
     }

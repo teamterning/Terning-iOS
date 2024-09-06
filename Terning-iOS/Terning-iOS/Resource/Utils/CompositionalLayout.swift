@@ -128,19 +128,23 @@ struct CompositionalLayout {
                 return section
                 
             } else if sectionNumber == 1 {
+                let itemWidth: CGFloat = 246/375
+                
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
-                        widthDimension: .fractionalWidth(0.5),
+                        widthDimension: .fractionalWidth(itemWidth),
                         heightDimension: .fractionalHeight(1)
                     )
                 )
                 
                 item.contentInsets.leading = 12
                 
+                let groupHeight: CGFloat = 116
+                
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: .init(
-                        widthDimension: .fractionalWidth(0.8),
-                        heightDimension: .absolute(132)
+                        widthDimension: .fractionalWidth(1.0),
+                        heightDimension: .absolute(groupHeight)
                     ),
                     subitems: [item]
                 )

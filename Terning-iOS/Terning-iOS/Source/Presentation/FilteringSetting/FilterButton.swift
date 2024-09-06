@@ -15,10 +15,15 @@ class FilterButton: UIButton {
         super.init(frame: .zero)
         
         self.configuration = config
-    
-        self.configuration?.attributedTitle = "필터링"
-        self.configuration?.attributedTitle?.font = .button4
-        self.configuration?.attributedTitle?.foregroundColor = UIColor.terningMain
+        
+        let title = "필터링"
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.button4,
+            .foregroundColor: UIColor.terningMain
+        ]
+        
+        let attributedTitle = NSAttributedString(string: title, attributes: attributes)
+        self.configuration?.attributedTitle = AttributedString(attributedTitle)
         
         self.configuration?.image = .icFilter
         self.configuration?.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 28)

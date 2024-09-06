@@ -146,7 +146,7 @@ extension NewHomeViewController: UICollectionViewDelegate {
             print(indexPath)
             let jobDetailVC = JobDetailViewController()
             let index = jobCardLists[indexPath.row].intershipAnnouncementId
-            jobDetailVC.internshipAnnouncementId.onNext(Int(index))
+            jobDetailVC.internshipAnnouncementId.onNext(index)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         default:
             return
@@ -433,6 +433,7 @@ extension NewHomeViewController {
                         // 0.5초 뒤에 fetchJobCardDatas 호출
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             self.fetchJobCardDatas(self.apiParameter)
+                            
                             self.rootView.collectionView.reloadData()
                         }
                         
@@ -451,7 +452,7 @@ extension NewHomeViewController {
         }
     }
     
-    func fetchJobCardDatas(_ apiParameter: String) {
+    private func fetchJobCardDatas(_ apiParameter: String) {
         print("🔥🔥🔥Fetching job card data with sortBy: \(apiParameter)🔥🔥🔥")
         homeProviders.request(.getHome(sortBy: apiParameter, startYear: filterInfos.startYear ?? 0, startMonth: filterInfos.startMonth ?? 0)) { [weak self] response in
             guard let self = self else { return }

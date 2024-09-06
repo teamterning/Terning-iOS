@@ -30,18 +30,9 @@ final class FilterInfoCell: UICollectionViewCell {
     private let titleLabel = LabelFactory.build(
         text: "내 계획에 딱 맞는 대학생 인턴 공고",
         font: .title1,
-        textColor: .terningBlack
+        textColor: .terningBlack,
+        textAlignment: .left
     )
-    
-    private lazy var titleStack = UIStackView( // 나중에 교체
-        arrangedSubviews: [
-            titleLabel
-        ]
-    ).then {
-        $0.axis = .vertical
-        $0.spacing = 5
-        $0.alignment = .leading
-    }
     
     // 필터링 버튼 및 필터링 상태 표시 바
     private lazy var filterButton = FilterButton()
@@ -160,7 +151,7 @@ final class FilterInfoCell: UICollectionViewCell {
 extension FilterInfoCell {
     func setHierarchy() {
         addSubviews(
-            titleStack,
+            titleLabel,
             filterButton,
             filteringStack,
             totalCountLabel,
@@ -169,18 +160,18 @@ extension FilterInfoCell {
     }
     
     func setLayout() {
-        titleStack.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview().offset(24)
         }
         
         filterButton.snp.makeConstraints {
-            $0.top.equalTo(titleStack.snp.bottom).offset(12)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
             $0.leading.equalToSuperview().offset(24)
         }
 
         filteringStack.snp.makeConstraints {
-            $0.top.equalTo(titleStack.snp.bottom).offset(19)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(19)
             $0.trailing.equalToSuperview().inset(24)
             $0.width.equalTo(196.adjusted)
         }
@@ -243,7 +234,7 @@ extension FilterInfoCell {
         monthLabel.text = "\(startYear)년 \(startMonth)월"
     }
     
-    func countBind(_ num: Int) {
+func countBind(_ num: Int) {
         print("total: \(num)")
         totalCountLabel.text = "총 \(num)개의 공고가 있어요"
         totalCountLabel.setAttributedText(targetFontList: ["\(num)": .body3], targetColorList: ["\(num)": .terningMain])

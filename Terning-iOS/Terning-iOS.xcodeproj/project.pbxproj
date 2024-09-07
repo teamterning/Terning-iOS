@@ -63,6 +63,7 @@
 		2DF256F32C8C855700B85843 /* MyPageBasicViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F22C8C855700B85843 /* MyPageBasicViewCell.swift */; };
 		2DF256F52C8C856800B85843 /* MyPageAccountOptionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F42C8C856800B85843 /* MyPageAccountOptionViewCell.swift */; };
 		2DF256FA2C8C85AC00B85843 /* MyPageCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F92C8C85AC00B85843 /* MyPageCellModel.swift */; };
+		2DF256FD2C8C86C400B85843 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256FC2C8C86C400B85843 /* MyPageViewModel.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
 		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
@@ -219,6 +220,7 @@
 		2DF256F22C8C855700B85843 /* MyPageBasicViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageBasicViewCell.swift; sourceTree = "<group>"; };
 		2DF256F42C8C856800B85843 /* MyPageAccountOptionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAccountOptionViewCell.swift; sourceTree = "<group>"; };
 		2DF256F92C8C85AC00B85843 /* MyPageCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCellModel.swift; sourceTree = "<group>"; };
+		2DF256FC2C8C86C400B85843 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
@@ -667,6 +669,14 @@
 			path = MyPage;
 			sourceTree = "<group>";
 		};
+		2DF256FB2C8C86B800B85843 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2DF256FC2C8C86C400B85843 /* MyPageViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		7121A1312C396F980056DB8B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -1097,6 +1107,7 @@
 		B855485B2C48025600EC67F6 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				2DF256FB2C8C86B800B85843 /* ViewModel */,
 				2DF256EF2C8C853300B85843 /* Cell */,
 				2DF256F62C8C857C00B85843 /* View */,
 				2DF256F72C8C858C00B85843 /* ViewController */,
@@ -1269,6 +1280,7 @@
 				71780C4A2C4591B90073B731 /* MyPageTargetType.swift in Sources */,
 				71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */,
 				2D89C74F2C47E98B002B035F /* ProfileImageViewController.swift in Sources */,
+				2DF256FD2C8C86C400B85843 /* MyPageViewModel.swift in Sources */,
 				2DC61EFD2C40823C009F991F /* CompanyInfoTableViewCell.swift in Sources */,
 				B855485D2C48026B00EC67F6 /* MyPageView.swift in Sources */,
 				71FFB2BF2C4A188A00C60697 /* NewHomeView.swift in Sources */,

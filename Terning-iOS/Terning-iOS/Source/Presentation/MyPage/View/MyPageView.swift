@@ -8,287 +8,49 @@
 import UIKit
 
 import SnapKit
-import Then
 
-class MyPageView: UIView {
+final class MyPageView: UIView {
     
-    // MARK: - UICompoenents
+    // MARK: - UI Components
     
-    let userNameLabel = LabelFactory.build(
-        text: "남지우님",
-        font: .heading1,
-        textColor: .terningBlack,
-        textAlignment: .left
-    )
-    
-    let profileImage = UIImageView().then {
-        $0.image = .imgMypage
-        $0.contentMode = .scaleAspectFit
-        
-    }
-    
-    let bottomView = UIView().then {
-        $0.backgroundColor = UIColor(hex: "F8F8F8")
-        $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        $0.makeBorder(width: 0, color: .clear, cornerRadius: 30)
-        $0.clipsToBounds = true
-        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: -2, blur: 4, spread: 0)
-    }
-    
-    let bottomSubView = UIView().then {
-        $0.backgroundColor = .white
-        $0.makeBorder(width: 0, color: .clear, cornerRadius: 10)
-        $0.clipsToBounds = true
-        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
-    }
-    
-    let noticeImage = UIImageView().then {
-        $0.image = UIImage(resource: .icHomeFill)
-    }
-    
-    let noticeLabel = LabelFactory.build(
-        text: "공지사항",
-        font: .body5,
-        textColor: .black,
-        textAlignment: .left
-    )
-    
-    lazy var noticeButton = UIButton().then {
-        $0.setImage(UIImage(resource: .icFrontArrow), for: .normal)
-    }
-    
-    lazy var noticeStack = UIStackView(
-        arrangedSubviews: [
-            noticeImage,
-            noticeLabel
-        ]
-    ).then {
-        $0.axis = .horizontal
-        $0.spacing = 12
-        $0.distribution = .fillProportionally
-    }
-    
-    let sendOpinionImage = UIImageView().then {
-        $0.image = UIImage(resource: .icHomeFill)
-    }
-    
-    let sendOpinionLabel = LabelFactory.build(
-        text: "의견 보내기",
-        font: .body5,
-        textColor: .black,
-        textAlignment: .left
-    )
-    
-    lazy var sendOpinionButton = UIButton().then {
-        $0.setImage(UIImage(resource: .icFrontArrow), for: .normal)
-    }
-    
-    lazy var sendOpinionStack = UIStackView(
-        arrangedSubviews: [
-            sendOpinionImage,
-            sendOpinionLabel
-        ]
-    ).then {
-        $0.axis = .horizontal
-        $0.spacing = 12
-        $0.alignment = .fill
-        $0.distribution = .fillProportionally
-    }
-    
-    let versionInfoImage = UIImageView().then {
-        $0.image = UIImage(resource: .icHomeFill)
-    }
-    
-    let versionInfoLabel = LabelFactory.build(
-        text: "버전정보",
-        font: .body5,
-        textColor: .black,
-        textAlignment: .left
-    )
-    
-    let versionInfo = LabelFactory.build(
-        text: "1.1.0",
-        font: .button4,
-        textColor: .grey400
-    )
-    
-    lazy var versionInfoStack = UIStackView(
-        arrangedSubviews: [
-            versionInfoImage,
-            versionInfoLabel
-        ]
-    ).then {
-        $0.axis = .horizontal
-        $0.spacing = 12
-        $0.alignment = .fill
-        $0.distribution = .fillProportionally
-    }
+    let tableView = UITableView()
 
-    lazy var logoutButton = LabelFactory.build(
-        text: "로그아웃",
-        font: .button4,
-        textColor: .grey350
-    ).then {
-        $0.isUserInteractionEnabled = true
-    }
-    
-    let verticalBar = UIImageView().then {
-        $0.image = UIImage(resource: .myPageVerticalBar)
-    }
-    
-    lazy var leaveButton = LabelFactory.build(
-        text: "탈퇴하기",
-        font: .button4,
-        textColor: .grey350
-    ).then {
-        $0.isUserInteractionEnabled = true
-    }
-    
-    lazy var sessionEndStack = UIStackView(
-        arrangedSubviews: [
-            logoutButton,
-            verticalBar,
-            leaveButton
-        ]
-    ).then {
-        $0.axis = .horizontal
-        $0.spacing = 4
-        $0.alignment = .center
-        $0.distribution = .fillProportionally
-    }
-    
-    // MARK: LifeCycles
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setUI()
-        setHierarchy()
         setLayout()
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
-
-// MARK: - UI & Layout
-
-extension MyPageView {
     
-    func setUI() {
-        backgroundColor = .white
+    // MARK: - UI & Layout
+    
+    private func setUI() {
+        self.backgroundColor = .back
+        self.addSubview(tableView)
         
-        self.noticeButton.addTarget(self, action: #selector(noticeButtonDidTapped), for: .touchUpInside)
-        self.sendOpinionButton.addTarget(self, action: #selector(sendOpinionButtonDidTapped), for: .touchUpInside)
-    }
-    
-    func setHierarchy() {
-        addSubviews(
-            profileImage,
-            userNameLabel,
-            bottomView,
-            bottomSubView,
-            noticeStack,
-            noticeButton,
-            sendOpinionStack,
-            sendOpinionButton,
-            versionInfoStack,
-            versionInfo,
-            sessionEndStack
-        )
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
+        tableView.sectionHeaderTopPadding = 0
+        tableView.delaysContentTouches = false
+
     }
     
-    func setLayout() {
-        userNameLabel.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).offset(77)
-            $0.leading.equalToSuperview().offset(20)
-        }
-        
-        profileImage.snp.makeConstraints {
-            $0.edges.equalTo(safeAreaLayoutGuide)
-        }
-        
-        bottomView.snp.makeConstraints {
-            $0.bottom.equalTo(safeAreaLayoutGuide)
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(224)
-        }
-        
-        bottomSubView.snp.makeConstraints {
-            $0.top.equalTo(bottomView.snp.top).inset(25)
-            $0.bottom.equalTo(bottomView.snp.bottom).inset(46)
-            $0.horizontalEdges.equalTo(bottomView).inset(20)
-        }
-        
-        noticeImage.snp.makeConstraints {
-            $0.width.height.equalTo(28)
-        }
-        
-        noticeStack.snp.makeConstraints {
-            $0.top.equalTo(bottomSubView.snp.top).inset(15)
-            $0.leading.equalTo(bottomSubView).inset(20)
-        }
-        
-        noticeButton.snp.makeConstraints {
-            $0.top.equalTo(bottomSubView.snp.top).inset(19)
-            $0.height.width.equalTo(24)
-            $0.trailing.equalTo(bottomSubView.snp.trailing).inset(20)
-        }
-
-        sendOpinionImage.snp.makeConstraints {
-            $0.width.height.equalTo(28)
-        }
-        
-        sendOpinionStack.snp.makeConstraints {
-            $0.top.equalTo(noticeStack.snp.bottom).offset(20)
-            $0.leading.equalTo(bottomSubView).inset(20)
-        }
-        
-        sendOpinionButton.snp.makeConstraints {
-            $0.top.equalTo(noticeButton.snp.bottom).offset(24)
-            $0.height.width.equalTo(24)
-            $0.trailing.equalTo(bottomSubView.snp.trailing).inset(20)
-        }
-        
-        versionInfoImage.snp.makeConstraints {
-            $0.height.width.equalTo(28)
-        }
-        
-        versionInfoStack.snp.makeConstraints {
-            $0.top.equalTo(sendOpinionStack.snp.bottom).offset(20)
-            $0.leading.equalTo(bottomSubView).inset(20)
-        }
-        
-        versionInfo.snp.makeConstraints {
-            $0.top.equalTo(sendOpinionButton.snp.top).offset(50)
-            $0.trailing.equalTo(bottomSubView.snp.trailing).inset(22)
-        }
-        
-        sessionEndStack.snp.makeConstraints {
-            $0.top.equalTo(bottomView.snp.top).offset(196)
-            $0.centerX.equalTo(bottomView)
+    private func setLayout() {
+        tableView.snp.makeConstraints {
+            $0.verticalEdges.equalTo(self.safeAreaLayoutGuide)
+            $0.horizontalEdges.equalTo(self.safeAreaLayoutGuide).inset(24.adjusted)
         }
     }
-}
 
-// MARK: - Methods
-
-extension MyPageView {
-    @objc private func noticeButtonDidTapped() {
-        let urlString = "https://abundant-quiver-13f.notion.site/69109213e7db4873be6b9600f2f5163a?pvs=4"
-        guard let url = URL(string: urlString) else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-    
-    @objc private func sendOpinionButtonDidTapped() {
-        let urlString = "https://forms.gle/AaLpVptfg6cATYWa7"
-        guard let url = URL(string: urlString) else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-
-    func bind(model: UserProfileInfoModel) {
-        userNameLabel.text = "\(model.name)님"
+    func registerCells() {
+        tableView.register(MyPageProfileViewCell.self, forCellReuseIdentifier: MyPageProfileViewCell.className)
+        tableView.register(MyPageBasicViewCell.self, forCellReuseIdentifier: MyPageBasicViewCell.className)
+        tableView.register(MyPageAccountOptionViewCell.self, forCellReuseIdentifier: MyPageAccountOptionViewCell.className)
     }
 }

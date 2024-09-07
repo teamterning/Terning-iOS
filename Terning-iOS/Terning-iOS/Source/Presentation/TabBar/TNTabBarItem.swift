@@ -74,7 +74,7 @@ enum TNTabBarItem {
         case .search:
             return SearchViewController(viewModel: SearchViewModel())
         case .myPage:
-            return MyPageViewController()
+            return MyPageViewController(viewModel: MyPageViewModel())
         }
     }
 }

@@ -7,153 +7,367 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
+
 import SnapKit
 import Then
 
-class MyPageViewController: UIViewController {
+struct SectionData {
+    let title: String
+    let items: [SectionItem]
+}
+
+@frozen
+enum SectionItem {
+    case userInfoViewModel(MyPageProfileModel)
+    case cellViewModel(MyPageBasicCellModel)
+    case emptyCell
+}
+
+final class MyPageViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var UserProfileInfomModelItems: [UserProfileInfoModel] = UserProfileInfoModel.getUserProfileInfo()
+    private var sections: [SectionData] = []
     
-    lazy var model = UserProfileInfomModelItems[0]
+    private let fixProfileTapObservable = PublishSubject<Void>()
+    private let logoutTapObservable = PublishSubject<Void>()
+    private let withdrawTapObservable = PublishSubject<Void>()
     
-    var appVersion: String?
+    private var viewModel: MyPageViewModel
+    private let disposeBag = DisposeBag()
     
-    private let myPageProvider = Providers.myPageProvider
+    private var myPageView: MyPageView! {
+        return self.view as? MyPageView
+    }
     
-    // MARK: - UIComponents
+    // MARK: - Init
     
-    var rootView = MyPageView()
+    init(viewModel: MyPageViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    // MARK: - LifeCycles
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Life Cycles
     
     override func loadView() {
-        view = rootView
+        self.view = MyPageView()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getMyPageInfo()
-        rootView.bind(
-            model: UserProfileInfoModel(
-                name: model.name,
-                authType: model.authType
-            )
-        )
-        setTapGesture()
-        setAddTarget()
-        getAppVersion()
-        
+        setDelegate()
+        bindViewModel()
+        myPageView.registerCells()
     }
 }
 
+// MARK: - Bind
+
 extension MyPageViewController {
-    
-    // MARK: - Methods
-    
-    private func setTapGesture() {
-        let logoutTapGesture = UITapGestureRecognizer(target: self, action: #selector(logoutButtonDidTap))
-        rootView.logoutButton.addGestureRecognizer(logoutTapGesture)
+    func bindViewModel() {
+        let itemSelected = myPageView.tableView.rx.itemSelected
+            .map { [weak self] indexPath -> SectionItem? in
+                guard let self = self else { return nil }
+                return self.sections[indexPath.section].items[indexPath.row]
+            }
+            .compactMap { $0 }
+            .asObservable()
         
-        let leaveTapGesture = UITapGestureRecognizer(target: self, action: #selector(leaveButtonDidTap))
-        rootView.leaveButton.addGestureRecognizer(leaveTapGesture)
+        let input = MyPageViewModel.Input(
+            fixProfileTap: fixProfileTapObservable.asObservable(),
+            logoutTap: logoutTapObservable.asObserver(),
+            withdrawTap: withdrawTapObservable.asObserver(),
+            itemSelected: itemSelected
+        )
+        
+        let output = viewModel.transform(input: input, disposeBag: disposeBag)
+        
+        output.sections
+            .drive(onNext: { [weak self] sections in
+                guard let self = self else { return }
+                self.sections = sections
+                self.myPageView.tableView.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
+        output.navigateToProfileEdit
+            .drive(onNext: { [weak self] in
+                self?.navigateToProfileEdit()
+            })
+            .disposed(by: disposeBag)
+        
+        output.showLogoutAlert
+            .drive(onNext: { [weak self] in
+                self?.logoutButtonDidTap()
+            })
+            .disposed(by: disposeBag)
+        
+        output.showWithdrawAlert
+            .drive(onNext: { [weak self] in
+                self?.withdrawButtonDidTap()
+            })
+            .disposed(by: disposeBag)
+        
+        output.cellTapped
+            .drive(onNext: { [weak self] action in
+                switch action {
+                case .nonAction:
+                    break
+                case .showNotice:
+                    self?.showNotice()
+                case .sendFeedback:
+                    self?.sendFeedback()
+                case .showTermsOfUse:
+                    self?.showTermsOfUse()
+                case .showPrivacyPolicy:
+                    self?.showPrivacyPolicy()
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Methods
+
+extension MyPageViewController {
+    private func accountOptionBottomSheet(viewType: logoutViewType) {
+        let contentVC = LogoutViewContoller(viewType: viewType)
+        
+        presentCustomBottomSheet(contentVC)
     }
     
-    private func setAddTarget() {
-        rootView.noticeButton.addTarget(self, action: #selector(noticeButtonDidTap), for: .touchUpInside)
-        rootView.sendOpinionButton.addTarget(self, action: #selector(sendOpinionButtonDidTap), for: .touchUpInside)
+    private func showNotice() {
+        let urlString = "https://abundant-quiver-13f.notion.site/69109213e7db4873be6b9600f2f5163a?pvs=4"
+        guard let url = URL(string: urlString) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
-    private func getAppVersion() {
-        appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "알 수 없어요"
-        rootView.versionInfo.text = appVersion
-        print(appVersion ?? "알 수 없어요")
+    private func sendFeedback() {
+        let urlString = "https://forms.gle/AaLpVptfg6cATYWa7"
+        guard let url = URL(string: urlString) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
-    // MARK: - objc Functions
+    private func showTermsOfUse() {
+        print("서비스 이용약관")
+    }
+    
+    private func showPrivacyPolicy() {
+        print("개인정보 처리방침")
+    }
+}
+
+// MARK: - objc Functions
+
+extension MyPageViewController {
+    @objc
+    func navigateToProfileEdit() {
+        let profileVC = ProfileViewController(
+            viewType: .fix,
+            viewModel: ProfileViewModel()
+        )
+        navigationController?.pushViewController(profileVC, animated: true)
+    }
     
     @objc
     func logoutButtonDidTap() {
-        let contentViewController = LogoutViewContoller(viewType: .logout)
-        
-        let bottomSheetVC = CustomBottomSheetViewController(
-            bottomType: .low,
-            contentViewController: contentViewController,
-            upScroll: false,
-            isNotch: false
-        )
-        
-        bottomSheetVC.modalPresentationStyle = .overFullScreen
-        self.present(bottomSheetVC, animated: false)
+        accountOptionBottomSheet(viewType: .logout)
     }
     
     @objc
-    func leaveButtonDidTap() {
-        let contentViewController = LogoutViewContoller(viewType: .withdraw)
-        
-        let bottomSheetVC = CustomBottomSheetViewController(
-            bottomType: .low,
-            contentViewController: contentViewController,
-            upScroll: false,
-            isNotch: false
-        )
-        
-        bottomSheetVC.modalPresentationStyle = .overFullScreen
-        self.present(bottomSheetVC, animated: false)
+    func withdrawButtonDidTap() {
+        accountOptionBottomSheet(viewType: .withdraw)
     }
     
     @objc
-    func noticeButtonDidTap() {
-        print("공지사항")
-    }
-    
-    @objc
-    func sendOpinionButtonDidTap() {
-        print("의견 보내기")
-    }
-    
-    @objc
-    func profileEditButtonDidTap() {
-        print("navigate to profile edit view")
-    }
-}
-
-extension MyPageViewController {
-    private func showBottomView() {
-      
-    }
-}
-
-// MARK: - API
-
-extension MyPageViewController {
-    func getMyPageInfo() {
-        myPageProvider.request(.getProfileInfo) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                let status = response.statusCode
-            
-                if 200..<300 ~= status {
-                    do {
-                        let responseDto = try response.map(BaseResponse<UserProfileInfoModel>.self)
-                        guard let data = responseDto.result else { return }
-                        
-                        rootView.userNameLabel.text = "\(data.name)님"
-                    } catch {
-                        print("사용자 정보를 불러올 수 없어요.")
-                        print(error.localizedDescription)
-                    }
-                    
-                } else {
-                    print("404 error")
-                }
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
+    private func dismissAccountOption() {
+        self.dismiss(animated: true) { [weak self] in
+            self?.removeModalBackgroundView()
         }
+    }
+}
+
+// MARK: - UITableViewDelegate, UITableViewDataSource
+
+extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
+    private func setDelegate() {
+        myPageView.tableView.delegate = self
+        myPageView.tableView.dataSource = self
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sections[section].items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = sections[indexPath.section].items[indexPath.row]
+        
+        switch item {
+        case .userInfoViewModel(let viewModel):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: MyPageProfileViewCell.className,
+                for: indexPath
+            ) as? MyPageProfileViewCell else {
+                return UITableViewCell()
+            }
+            cell.bind(with: viewModel)
+            
+            cell.fixProfileTapSubject
+                .subscribe(onNext: { [weak self] in
+                    self?.fixProfileTapObservable.onNext(())
+                })
+                .disposed(by: cell.disposeBag)
+            
+            return cell
+            
+        case .cellViewModel(let viewModel):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: MyPageBasicViewCell.className,
+                for: indexPath
+            ) as? MyPageBasicViewCell else {
+                return UITableViewCell()
+            }
+            let isLastCellInSection = indexPath.row == sections[indexPath.section].items.count - 1
+            cell.backgroundColor = .white
+            cell.bind(with: viewModel, isLastCellInSection: isLastCellInSection)
+            return cell
+            
+        case .emptyCell:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: MyPageAccountOptionViewCell.className,
+                for: indexPath
+            ) as? MyPageAccountOptionViewCell else {
+                return UITableViewCell()
+            }
+            cell.backgroundColor = .clear
+            
+            cell.logoutTapSubject
+                .subscribe(onNext: { [weak self] in
+                    self?.logoutTapObservable.onNext(())
+                })
+                .disposed(by: cell.disposeBag)
+            
+            cell.withdrawTapSubject
+                .subscribe(onNext: { [weak self] in
+                    self?.withdrawTapObservable.onNext(())
+                })
+                .disposed(by: cell.disposeBag)
+            
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let containsCellViewModel = sections[section].items.contains { item in
+            if case .cellViewModel = item {
+                return true
+            }
+            return false
+        }
+        
+        guard containsCellViewModel else {
+            return nil
+        }
+        
+        let headerView = UIView()
+        headerView.backgroundColor = .white
+        
+        let titleLabel = LabelFactory.build(
+            font: .body6,
+            textColor: .grey400
+        )
+        
+        titleLabel.text = sections[section].title
+        headerView.addSubview(titleLabel)
+        
+        titleLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(16.adjusted)
+            $0.bottom.equalToSuperview()
+        }
+        
+        let cornerRadius: CGFloat = 15.0
+        headerView.layer.cornerRadius = cornerRadius
+        headerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        headerView.layer.masksToBounds = true
+        
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cornerRadius: CGFloat = 15.0
+        let corners: CACornerMask
+        
+        if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+            corners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        } else {
+            corners = []
+        }
+        
+        cell.layer.cornerRadius = cornerRadius
+        cell.layer.maskedCorners = corners
+        cell.layer.masksToBounds = true
+        cell.selectionStyle = .none
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let item = sections[indexPath.section].items[indexPath.row]
+        
+        switch item {
+        case .userInfoViewModel:
+            return 120.adjustedH
+        case .cellViewModel:
+            return 65.adjustedH
+        case .emptyCell:
+            return 12.adjustedH
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let containsCellViewModel = sections[section].items.contains { item in
+            if case .cellViewModel = item {
+                return true
+            }
+            return false
+        }
+        
+        return containsCellViewModel ? 30.adjustedH : 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        
+        switch section {
+        case 0:
+            return 8.0.adjustedH
+        case 1:
+            return 20.0.adjustedH
+        case 2:
+            return 16.0.adjustedH
+        default:
+            return 0.0.adjustedH
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView()
+        return footerView
+    }
+}
+
+// MARK: - UIAdaptivePresentationControllerDelegate
+
+extension MyPageViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        removeModalBackgroundView()
     }
 }

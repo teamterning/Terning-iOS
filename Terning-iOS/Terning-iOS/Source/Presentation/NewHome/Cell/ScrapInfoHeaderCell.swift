@@ -48,7 +48,7 @@ extension ScrapInfoHeaderCell {
     private func setLayout() {
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.leading.equalToSuperview().offset(18.adjusted)
+            $0.leading.equalToSuperview().offset(24)
         }
     }
 }

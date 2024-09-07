@@ -119,7 +119,7 @@ struct CompositionalLayout {
                 )
                 
                 let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(48)),
+                    layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(40)),
                     subitems: [item]
                 )
                 
@@ -137,7 +137,7 @@ struct CompositionalLayout {
                     )
                 )
                 
-                item.contentInsets.leading = 12
+                item.contentInsets.trailing = 12
                 
                 let groupHeight: CGFloat = 116
                 
@@ -154,7 +154,7 @@ struct CompositionalLayout {
                 let section = NSCollectionLayoutSection(group: group)
                 
                 section.orthogonalScrollingBehavior = .continuous
-                section.contentInsets = .init(top: 0, leading: 12, bottom: 28, trailing: 0)
+                section.contentInsets = .init(top: 0, leading: 24, bottom: 20, trailing: 0)
                 
                 return section
             

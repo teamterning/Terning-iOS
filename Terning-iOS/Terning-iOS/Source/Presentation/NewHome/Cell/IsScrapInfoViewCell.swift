@@ -106,7 +106,6 @@ extension IsScrapInfoViewCell {
             companyLabelStack,
             dDayView,
             dDayLabel
-            
         )
     }
     

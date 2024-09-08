@@ -2,7 +2,7 @@
 //  MyPageViewController.swift
 //  Terning-iOS
 //
-//  Created by 김민성 on 7/17/24.
+//  Created by 정민지 on 7/17/24.
 //
 
 import UIKit
@@ -38,9 +38,7 @@ final class MyPageViewController: UIViewController {
     private var viewModel: MyPageViewModel
     private let disposeBag = DisposeBag()
     
-    private var myPageView: MyPageView! {
-        return self.view as? MyPageView
-    }
+    private var myPageView = MyPageView()
     
     // MARK: - Init
     
@@ -99,35 +97,39 @@ extension MyPageViewController {
         
         output.navigateToProfileEdit
             .drive(onNext: { [weak self] in
-                self?.navigateToProfileEdit()
+                guard let self = self else { return }
+                self.navigateToProfileEdit()
             })
             .disposed(by: disposeBag)
         
         output.showLogoutAlert
             .drive(onNext: { [weak self] in
-                self?.logoutButtonDidTap()
+                guard let self = self else { return }
+                self.logoutButtonDidTap()
             })
             .disposed(by: disposeBag)
         
         output.showWithdrawAlert
             .drive(onNext: { [weak self] in
-                self?.withdrawButtonDidTap()
+                guard let self = self else { return }
+                self.withdrawButtonDidTap()
             })
             .disposed(by: disposeBag)
         
         output.cellTapped
             .drive(onNext: { [weak self] action in
+                guard let self = self else { return }
                 switch action {
                 case .nonAction:
                     break
                 case .showNotice:
-                    self?.showNotice()
+                    self.showNotice()
                 case .sendFeedback:
-                    self?.sendFeedback()
+                    self.sendFeedback()
                 case .showTermsOfUse:
-                    self?.showTermsOfUse()
+                    self.showTermsOfUse()
                 case .showPrivacyPolicy:
-                    self?.showPrivacyPolicy()
+                    self.showPrivacyPolicy()
                 }
             })
             .disposed(by: disposeBag)

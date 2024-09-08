@@ -2,7 +2,7 @@
 //  MyPageView.swift
 //  Terning-iOS
 //
-//  Created by 김민성 on 7/17/24.
+//  Created by 정민지 on 7/17/24.
 //
 
 import UIKit

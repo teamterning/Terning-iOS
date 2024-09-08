@@ -9,6 +9,7 @@ import UIKit
 
 struct UserProfileInfoModel: Codable {
     var name: String
+    var profileImage: String
     var authType: String
 }
 
@@ -17,6 +18,7 @@ extension UserProfileInfoModel {
         return [
             UserProfileInfoModel(
                 name: "회원",
+                profileImage: "basic",
                 authType: "kakao"
             )
         ]

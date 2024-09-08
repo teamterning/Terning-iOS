@@ -53,16 +53,30 @@ final class MyPageViewController: UIViewController {
     
     // MARK: - Life Cycles
     
-    override func loadView() {
-        self.view = MyPageView()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUI()
+        setLayout()
         setDelegate()
         bindViewModel()
         myPageView.registerCells()
+    }
+}
+
+// MARK: - UI & Layout
+
+extension MyPageViewController {
+    private func setUI() {
+        view.backgroundColor = .back
+        view.addSubview(myPageView)
+        
+    }
+    
+    private func setLayout() {
+        myPageView.snp.makeConstraints {
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
+        }
     }
 }
 
@@ -139,8 +153,15 @@ extension MyPageViewController {
 // MARK: - Methods
 
 extension MyPageViewController {
-    private func accountOptionBottomSheet(viewType: logoutViewType) {
-        let contentVC = LogoutViewContoller(viewType: viewType)
+    private func accountOptionBottomSheet(viewType: accountOption) {
+        let viewModel: AccountOptionViewModelType
+        if viewType == .logout {
+            viewModel = LogoutViewModel()
+        } else {
+            viewModel = WithdrawViewModel()
+        }
+        
+        let contentVC = AccountOptionViewController(viewModel: viewModel)
         
         presentCustomBottomSheet(contentVC)
     }
@@ -228,6 +249,7 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
             cell.fixProfileTapSubject
                 .subscribe(onNext: { [weak self] in
                     self?.fixProfileTapObservable.onNext(())
+                    print("fixProfileTapObservable 이벤트 전달") 
                 })
                 .disposed(by: cell.disposeBag)
             

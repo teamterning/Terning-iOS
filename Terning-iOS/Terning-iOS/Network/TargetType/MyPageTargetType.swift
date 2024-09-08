@@ -39,7 +39,7 @@ extension MyPageTargetType: TargetType {
         case .getProfileInfo:
             return .get
         case .logout:
-            return .patch
+            return .post
         case .withdraw:
             return .delete
         }

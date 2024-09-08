@@ -58,12 +58,16 @@
 		2DC986082C45FAC200D46729 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC986072C45FAC200D46729 /* CustomPageControl.swift */; };
 		2DC9860B2C46056300D46729 /* RecommendAnnouncementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */; };
 		2DC9860D2C4605FC00D46729 /* AdvertisementsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */; };
-		2DD483802C4B37A0000541E3 /* LogoutViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD4837F2C4B37A0000541E3 /* LogoutViewContoller.swift */; };
+		2DD483802C4B37A0000541E3 /* AccountOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD4837F2C4B37A0000541E3 /* AccountOptionViewController.swift */; };
 		2DF256F12C8C853F00B85843 /* MyPageProfileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F02C8C853F00B85843 /* MyPageProfileViewCell.swift */; };
 		2DF256F32C8C855700B85843 /* MyPageBasicViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F22C8C855700B85843 /* MyPageBasicViewCell.swift */; };
 		2DF256F52C8C856800B85843 /* MyPageAccountOptionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F42C8C856800B85843 /* MyPageAccountOptionViewCell.swift */; };
 		2DF256FA2C8C85AC00B85843 /* MyPageCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F92C8C85AC00B85843 /* MyPageCellModel.swift */; };
 		2DF256FD2C8C86C400B85843 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256FC2C8C86C400B85843 /* MyPageViewModel.swift */; };
+		2DF257182C8DEF3F00B85843 /* WithdrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF257172C8DEF3F00B85843 /* WithdrawViewModel.swift */; };
+		2DF2571A2C8DEF4E00B85843 /* LogoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF257192C8DEF4E00B85843 /* LogoutViewModel.swift */; };
+		2DF2571C2C8DEF5E00B85843 /* AccountOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF2571B2C8DEF5E00B85843 /* AccountOptionView.swift */; };
+		2DF2571E2C8DEF7E00B85843 /* AccountOptionViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF2571D2C8DEF7E00B85843 /* AccountOptionViewModelType.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
 		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
@@ -215,12 +219,16 @@
 		2DC986072C45FAC200D46729 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendAnnouncementModel.swift; sourceTree = "<group>"; };
 		2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementsModel.swift; sourceTree = "<group>"; };
-		2DD4837F2C4B37A0000541E3 /* LogoutViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewContoller.swift; sourceTree = "<group>"; };
+		2DD4837F2C4B37A0000541E3 /* AccountOptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOptionViewController.swift; sourceTree = "<group>"; };
 		2DF256F02C8C853F00B85843 /* MyPageProfileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageProfileViewCell.swift; sourceTree = "<group>"; };
 		2DF256F22C8C855700B85843 /* MyPageBasicViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageBasicViewCell.swift; sourceTree = "<group>"; };
 		2DF256F42C8C856800B85843 /* MyPageAccountOptionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAccountOptionViewCell.swift; sourceTree = "<group>"; };
 		2DF256F92C8C85AC00B85843 /* MyPageCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCellModel.swift; sourceTree = "<group>"; };
 		2DF256FC2C8C86C400B85843 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		2DF257172C8DEF3F00B85843 /* WithdrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewModel.swift; sourceTree = "<group>"; };
+		2DF257192C8DEF4E00B85843 /* LogoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewModel.swift; sourceTree = "<group>"; };
+		2DF2571B2C8DEF5E00B85843 /* AccountOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOptionView.swift; sourceTree = "<group>"; };
+		2DF2571D2C8DEF7E00B85843 /* AccountOptionViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOptionViewModelType.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
@@ -627,12 +635,14 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		2DD4837E2C4B3782000541E3 /* Logout */ = {
+		2DD4837E2C4B3782000541E3 /* AccountOption */ = {
 			isa = PBXGroup;
 			children = (
-				2DD4837F2C4B37A0000541E3 /* LogoutViewContoller.swift */,
+				2DF257162C8DEF2000B85843 /* View */,
+				2DF257132C8DEF0200B85843 /* ViewModel */,
+				2DF257122C8DEEFE00B85843 /* ViewController */,
 			);
-			path = Logout;
+			path = AccountOption;
 			sourceTree = "<group>";
 		};
 		2DF256EF2C8C853300B85843 /* Cell */ = {
@@ -675,6 +685,31 @@
 				2DF256FC2C8C86C400B85843 /* MyPageViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2DF257122C8DEEFE00B85843 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2DD4837F2C4B37A0000541E3 /* AccountOptionViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2DF257132C8DEF0200B85843 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2DF257192C8DEF4E00B85843 /* LogoutViewModel.swift */,
+				2DF257172C8DEF3F00B85843 /* WithdrawViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2DF257162C8DEF2000B85843 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2DF2571B2C8DEF5E00B85843 /* AccountOptionView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		7121A1312C396F980056DB8B /* UIComponents */ = {
@@ -865,6 +900,7 @@
 			isa = PBXGroup;
 			children = (
 				71CCC07B2C3FDB0400789A9B /* ViewModelType.swift */,
+				2DF2571D2C8DEF7E00B85843 /* AccountOptionViewModelType.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -991,7 +1027,7 @@
 				2D89C7572C486DD2002B035F /* SearchResult */,
 				71CCC06D2C3F369A00789A9B /* Calendar */,
 				2DC61F132C41A52E009F991F /* Login */,
-				2DD4837E2C4B3782000541E3 /* Logout */,
+				2DD4837E2C4B3782000541E3 /* AccountOption */,
 				2DC61EEE2C40759F009F991F /* JobDetail */,
 				2D4EE3D82C3F520000E3E95B /* Onboarding */,
 				2D4EE3A02C3E787200E3E95B /* Profile */,
@@ -1327,6 +1363,7 @@
 				7121A1462C3B07AA0056DB8B /* BaseResponse.swift in Sources */,
 				71CCC07F2C40377E00789A9B /* TNCalendarDateCell.swift in Sources */,
 				B8C5DB6E2C3F353D00865B1A /* InavailableFilterView.swift in Sources */,
+				2DF2571E2C8DEF7E00B85843 /* AccountOptionViewModelType.swift in Sources */,
 				7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */,
 				7121A1552C3EA01F0056DB8B /* Toast.swift in Sources */,
 				71665AAE2C7C4BAA008EB0D7 /* CalendarDateCellView.swift in Sources */,
@@ -1337,6 +1374,7 @@
 				2DC61F072C4145CD009F991F /* CustomScrapButton.swift in Sources */,
 				2D4EE3E82C400D6900E3E95B /* OnboardingPageViewController.swift in Sources */,
 				71780C4E2C459F610073B731 /* FiltersTargetType.swift in Sources */,
+				2DF2571C2C8DEF5E00B85843 /* AccountOptionView.swift in Sources */,
 				2D4EE3EA2C400ECB00E3E95B /* OnboardingViewController.swift in Sources */,
 				71780C3A2C4577FF0073B731 /* CalendarTargetType.swift in Sources */,
 				2DC61F032C4087B4009F991F /* JobSummaryInfoView.swift in Sources */,
@@ -1353,6 +1391,7 @@
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
 				2DC61EF92C407E65009F991F /* JobDetailTableViewHeaderCell.swift in Sources */,
 				71780C352C45725E0073B731 /* Providers.swift in Sources */,
+				2DF2571A2C8DEF4E00B85843 /* LogoutViewModel.swift in Sources */,
 				71780C522C45A4950073B731 /* SearchTargetType.swift in Sources */,
 				71DE237A2C7C67890024ACED /* ScrapsService.swift in Sources */,
 				B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */,
@@ -1364,7 +1403,7 @@
 				2D89C7512C47E99B002B035F /* ProfileImageView.swift in Sources */,
 				71B509252C41D027006D8E56 /* CalendarDateHeaderView.swift in Sources */,
 				2DC61F192C41B261009F991F /* LoginView.swift in Sources */,
-				2DD483802C4B37A0000541E3 /* LogoutViewContoller.swift in Sources */,
+				2DD483802C4B37A0000541E3 /* AccountOptionViewController.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
 				2D89C7652C486E2E002B035F /* SearchResultView.swift in Sources */,
 				2D89C7672C486E53002B035F /* CustomSortButton.swift in Sources */,
@@ -1390,6 +1429,7 @@
 				2D4EE3872C3D7CB200E3E95B /* CustomOnboardingButton.swift in Sources */,
 				B855485F2C48027500EC67F6 /* MyPageViewController.swift in Sources */,
 				2DC985FB2C456FA400D46729 /* SearchCollectionViewHeaderCell.swift in Sources */,
+				2DF257182C8DEF3F00B85843 /* WithdrawViewModel.swift in Sources */,
 				2DF256F12C8C853F00B85843 /* MyPageProfileViewCell.swift in Sources */,
 				71461EBD2C3705B6002A6999 /* FontLiterals.swift in Sources */,
 				B871D7252C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift in Sources */,

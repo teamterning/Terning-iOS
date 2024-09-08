@@ -104,3 +104,64 @@ extension UIViewController {
         }
     }
 }
+
+extension UIViewController {
+    
+    /**
+     
+     - Description:
+     
+     Custom bottom sheet을 띄우는 역할을 합니다 .
+     
+     */
+    
+    func presentCustomBottomSheet(_ contentVC: UIViewController, heightFraction: CGFloat = 380, dimmingOpacity: CGFloat = 0.3) {
+        
+        let fraction = UISheetPresentationController.Detent.custom { _ in
+            self.view.frame.height * (heightFraction/812)
+        }
+        
+        if let sheet = contentVC.sheetPresentationController {
+            sheet.detents = [fraction, .large()]
+            sheet.largestUndimmedDetentIdentifier = nil
+            contentVC.modalPresentationStyle = .custom
+            
+            if let presentingView = self.view {
+                let dimmedBackgroundView = UIView(frame: presentingView.bounds)
+                dimmedBackgroundView.backgroundColor = UIColor(white: 0, alpha: dimmingOpacity)
+                dimmedBackgroundView.tag = 999
+                presentingView.addSubview(dimmedBackgroundView)
+                presentingView.bringSubviewToFront(contentVC.view)
+            }
+            
+            contentVC.presentationController?.delegate = self as? UIAdaptivePresentationControllerDelegate
+        }
+        
+        self.present(contentVC, animated: true)
+    }
+}
+
+extension UIViewController {
+    
+    /**
+     
+     - Description:
+     
+     custom모달을 내릴때 BackgroundView를 삭제하는 역할을 합니다 .
+     
+     */
+    
+    func removeModalBackgroundView() {
+        if let presentingView = self.view {
+            presentingView.subviews.forEach { subview in
+                if let dimmedBackgroundView = subview.viewWithTag(999) {
+                    UIView.animate(withDuration: 0.3) {
+                        dimmedBackgroundView.alpha = 0
+                    } completion: { _ in
+                        dimmedBackgroundView.removeFromSuperview()
+                    }
+                }
+            }
+        }
+    }
+}

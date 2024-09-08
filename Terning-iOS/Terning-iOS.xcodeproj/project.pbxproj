@@ -59,6 +59,11 @@
 		2DC9860B2C46056300D46729 /* RecommendAnnouncementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */; };
 		2DC9860D2C4605FC00D46729 /* AdvertisementsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */; };
 		2DD483802C4B37A0000541E3 /* LogoutViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD4837F2C4B37A0000541E3 /* LogoutViewContoller.swift */; };
+		2DF256F12C8C853F00B85843 /* MyPageProfileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F02C8C853F00B85843 /* MyPageProfileViewCell.swift */; };
+		2DF256F32C8C855700B85843 /* MyPageBasicViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F22C8C855700B85843 /* MyPageBasicViewCell.swift */; };
+		2DF256F52C8C856800B85843 /* MyPageAccountOptionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F42C8C856800B85843 /* MyPageAccountOptionViewCell.swift */; };
+		2DF256FA2C8C85AC00B85843 /* MyPageCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F92C8C85AC00B85843 /* MyPageCellModel.swift */; };
+		2DF256FD2C8C86C400B85843 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256FC2C8C86C400B85843 /* MyPageViewModel.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
 		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
@@ -211,6 +216,11 @@
 		2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendAnnouncementModel.swift; sourceTree = "<group>"; };
 		2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementsModel.swift; sourceTree = "<group>"; };
 		2DD4837F2C4B37A0000541E3 /* LogoutViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewContoller.swift; sourceTree = "<group>"; };
+		2DF256F02C8C853F00B85843 /* MyPageProfileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageProfileViewCell.swift; sourceTree = "<group>"; };
+		2DF256F22C8C855700B85843 /* MyPageBasicViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageBasicViewCell.swift; sourceTree = "<group>"; };
+		2DF256F42C8C856800B85843 /* MyPageAccountOptionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAccountOptionViewCell.swift; sourceTree = "<group>"; };
+		2DF256F92C8C85AC00B85843 /* MyPageCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCellModel.swift; sourceTree = "<group>"; };
+		2DF256FC2C8C86C400B85843 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
@@ -625,6 +635,48 @@
 			path = Logout;
 			sourceTree = "<group>";
 		};
+		2DF256EF2C8C853300B85843 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2DF256F02C8C853F00B85843 /* MyPageProfileViewCell.swift */,
+				2DF256F22C8C855700B85843 /* MyPageBasicViewCell.swift */,
+				2DF256F42C8C856800B85843 /* MyPageAccountOptionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		2DF256F62C8C857C00B85843 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B855485C2C48026B00EC67F6 /* MyPageView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2DF256F72C8C858C00B85843 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B855485E2C48027500EC67F6 /* MyPageViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2DF256F82C8C85A100B85843 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				2DF256F92C8C85AC00B85843 /* MyPageCellModel.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		2DF256FB2C8C86B800B85843 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2DF256FC2C8C86C400B85843 /* MyPageViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		7121A1312C396F980056DB8B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -956,6 +1008,7 @@
 		71E3C3E92C241C1B0026C4DD /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2DF256F82C8C85A100B85843 /* MyPage */,
 				2DC986092C46054D00D46729 /* Search */,
 				B8BE0E122C4666BD00B3D298 /* Home */,
 				71780C422C4586000073B731 /* SignIn */,
@@ -1054,8 +1107,10 @@
 		B855485B2C48025600EC67F6 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				B855485C2C48026B00EC67F6 /* MyPageView.swift */,
-				B855485E2C48027500EC67F6 /* MyPageViewController.swift */,
+				2DF256FB2C8C86B800B85843 /* ViewModel */,
+				2DF256EF2C8C853300B85843 /* Cell */,
+				2DF256F62C8C857C00B85843 /* View */,
+				2DF256F72C8C858C00B85843 /* ViewController */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1207,8 +1262,10 @@
 				2DC986062C45704600D46729 /* CustomSearchView.swift in Sources */,
 				71780C4C2C4598590073B731 /* ScrapsTargetType.swift in Sources */,
 				B871D7332C3EC148008D78C2 /* IsScrapInfoViewCell.swift in Sources */,
+				2DF256FA2C8C85AC00B85843 /* MyPageCellModel.swift in Sources */,
 				B8A5A5AE2C78780B007C33C5 /* GradientLayerView.swift in Sources */,
 				2D4EE3962C3DD5CB00E3E95B /* WelcomeViewController.swift in Sources */,
+				2DF256F52C8C856800B85843 /* MyPageAccountOptionViewCell.swift in Sources */,
 				7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */,
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
 				2D4EE3A42C3E789200E3E95B /* ProfileView.swift in Sources */,
@@ -1223,6 +1280,7 @@
 				71780C4A2C4591B90073B731 /* MyPageTargetType.swift in Sources */,
 				71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */,
 				2D89C74F2C47E98B002B035F /* ProfileImageViewController.swift in Sources */,
+				2DF256FD2C8C86C400B85843 /* MyPageViewModel.swift in Sources */,
 				2DC61EFD2C40823C009F991F /* CompanyInfoTableViewCell.swift in Sources */,
 				B855485D2C48026B00EC67F6 /* MyPageView.swift in Sources */,
 				71FFB2BF2C4A188A00C60697 /* NewHomeView.swift in Sources */,
@@ -1265,6 +1323,7 @@
 				71CCC0712C3F36DE00789A9B /* TNCalendarViewController.swift in Sources */,
 				7121A1512C3B09E10056DB8B /* Result+.swift in Sources */,
 				2DC986012C456FE900D46729 /* SearchViewController.swift in Sources */,
+				2DF256F32C8C855700B85843 /* MyPageBasicViewCell.swift in Sources */,
 				7121A1462C3B07AA0056DB8B /* BaseResponse.swift in Sources */,
 				71CCC07F2C40377E00789A9B /* TNCalendarDateCell.swift in Sources */,
 				B8C5DB6E2C3F353D00865B1A /* InavailableFilterView.swift in Sources */,
@@ -1331,6 +1390,7 @@
 				2D4EE3872C3D7CB200E3E95B /* CustomOnboardingButton.swift in Sources */,
 				B855485F2C48027500EC67F6 /* MyPageViewController.swift in Sources */,
 				2DC985FB2C456FA400D46729 /* SearchCollectionViewHeaderCell.swift in Sources */,
+				2DF256F12C8C853F00B85843 /* MyPageProfileViewCell.swift in Sources */,
 				71461EBD2C3705B6002A6999 /* FontLiterals.swift in Sources */,
 				B871D7252C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift in Sources */,
 				7121A1402C3AB9EE0056DB8B /* JobDetailInfoView.swift in Sources */,

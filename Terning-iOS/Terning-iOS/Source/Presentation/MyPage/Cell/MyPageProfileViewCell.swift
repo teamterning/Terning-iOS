@@ -15,7 +15,7 @@ import SnapKit
 final class MyPageProfileViewCell: UITableViewCell {
     
     // MARK: - Properties
-
+    
     let fixProfileTapSubject = PublishSubject<Void>()
     
     var disposeBag = DisposeBag()
@@ -44,7 +44,7 @@ final class MyPageProfileViewCell: UITableViewCell {
         $0.semanticContentAttribute = .forceRightToLeft
         $0.contentHorizontalAlignment = .left
     }
-  
+    
     // MARK: - Life Cycles
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -64,6 +64,12 @@ final class MyPageProfileViewCell: UITableViewCell {
         
         layoutIfNeeded()
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+        bindViewModel()
     }
 }
 
@@ -102,6 +108,9 @@ extension MyPageProfileViewCell {
 extension MyPageProfileViewCell {
     private func bindViewModel() {
         fixProfileButton.rx.tap
+            .do(onNext: {
+                        print("fixProfileButton tapped") // 버튼이 탭될 때 로그 출력
+                    })
             .bind(to: fixProfileTapSubject)
             .disposed(by: disposeBag)
     }

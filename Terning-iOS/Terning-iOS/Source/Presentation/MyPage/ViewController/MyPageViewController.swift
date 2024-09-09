@@ -62,6 +62,12 @@ final class MyPageViewController: UIViewController {
         bindViewModel()
         myPageView.registerCells()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.getMyPageInfo()
+    }
 }
 
 // MARK: - UI & Layout

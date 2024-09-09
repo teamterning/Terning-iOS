@@ -18,10 +18,9 @@ final class ProfileImageViewController: UIViewController {
     private let viewModel: ProfileImageViewModel
     private let disposeBag = DisposeBag()
     
-    var selectedIndex = BehaviorSubject<Int>(value: 0)
     private var initialSelectedImageString: String
     
-    var onImageSelected: ((String) -> Void)?
+    var onImageSelected: ((Int) -> Void)?
     
     let profileImages: [UIImage] = [
         .profileBasic,
@@ -34,7 +33,7 @@ final class ProfileImageViewController: UIViewController {
     
     // MARK: - UI Components
     
-    let profileImageView = ProfileImageView()
+    let rootView = ProfileImageView()
     
     // MARK: - Init
     
@@ -52,7 +51,7 @@ final class ProfileImageViewController: UIViewController {
     // MARK: - Life Cycle
     
     override func loadView() {
-        self.view = profileImageView
+        self.view = rootView
     }
     
     override func viewDidLoad() {
@@ -80,7 +79,6 @@ extension ProfileImageViewController {
 extension ProfileImageViewController {
     private func bindViewModel() {
         let input = ProfileImageViewModel.Input(
-            selectedIndex: selectedIndex.asObservable(),
             initialSelectedImageString: initialSelectedImageString
         )
         
@@ -90,16 +88,8 @@ extension ProfileImageViewController {
             .subscribe(onNext: { [weak self] initialIndex in
                 print("initialIndex:", initialIndex)
                 let initialIndexPath = IndexPath(item: initialIndex, section: 0)
-                self?.profileImageView.collectionView.selectItem(at: initialIndexPath, animated: false, scrollPosition: [])
+                self?.rootView.collectionView.selectItem(at: initialIndexPath, animated: false, scrollPosition: [])
 
-            })
-            .disposed(by: disposeBag)
-        
-        output.selectedImageString
-            .subscribe(onNext: { [weak self] imageString in
-                self?.onImageSelected?(imageString)
-                self?.presentingViewController?.removeModalBackgroundView()
-                self?.dismiss(animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
     }
@@ -109,10 +99,10 @@ extension ProfileImageViewController {
 
 extension ProfileImageViewController {
     private func setDelegate() {
-        profileImageView.collectionView.delegate = self
-        profileImageView.collectionView.dataSource = self
+        rootView.collectionView.delegate = self
+        rootView.collectionView.dataSource = self
         
-        profileImageView.collectionView.register(ProfileImageCell.self, forCellWithReuseIdentifier: ProfileImageCell.className)
+        rootView.collectionView.register(ProfileImageCell.self, forCellWithReuseIdentifier: ProfileImageCell.className)
     }
 }
 
@@ -136,18 +126,19 @@ extension ProfileImageViewController: UICollectionViewDataSource {
 
 extension ProfileImageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let previousIndex = try? selectedIndex.value() {
-            let previousIndexPath = IndexPath(item: previousIndex, section: 0)
-            collectionView.deselectItem(at: previousIndexPath, animated: true)
-            if let previousCell = collectionView.cellForItem(at: previousIndexPath) as? ProfileImageCell {
-                previousCell.isSelected = false
-            }
+        
+        if let previousSelectedCell = collectionView.cellForItem(at: indexPath) as? ProfileImageCell {
+            previousSelectedCell.isSelected = false
         }
-
+        
         if let cell = collectionView.cellForItem(at: indexPath) as? ProfileImageCell {
             cell.isSelected = true
         }
-        selectedIndex.onNext(indexPath.item)
+        
+        onImageSelected?(indexPath.item)
+        
+        self.presentingViewController?.removeModalBackgroundView()
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

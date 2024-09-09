@@ -38,6 +38,7 @@ extension ProfileViewModelType {
 struct ProfileViewModelInput {
     let userInfo: Observable<UserProfileInfoModel>
     let name: Observable<String>
+    let imageStringSubject: Observable<String>
     let saveButtonTap: Observable<Void>
 }
 

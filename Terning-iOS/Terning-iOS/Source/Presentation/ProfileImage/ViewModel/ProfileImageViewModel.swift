@@ -24,7 +24,6 @@ final class ProfileImageViewModel: ViewModelType {
     // MARK: - Input
     
     struct Input {
-        var selectedIndex: Observable<Int>
         var initialSelectedImageString: String
     }
     
@@ -32,7 +31,6 @@ final class ProfileImageViewModel: ViewModelType {
     
     struct Output {
         let initialIndex: Observable<Int>
-        let selectedImageString: Observable<String>
     }
     
     // MARK: - Transform
@@ -43,14 +41,8 @@ final class ProfileImageViewModel: ViewModelType {
                 return self?.profileImageNames.firstIndex(of: imageString) ?? 0
             }
         
-        let selectedImageString = input.selectedIndex
-                   .map { [weak self] index -> String in
-                       return self?.profileImageNames[index] ?? "basic"
-                   }
-        
         return Output(
-            initialIndex: initialIndex,
-            selectedImageString: selectedImageString
+            initialIndex: initialIndex
         )
     }
 }

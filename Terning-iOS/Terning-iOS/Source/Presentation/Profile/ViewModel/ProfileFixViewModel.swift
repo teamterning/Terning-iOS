@@ -52,6 +52,16 @@ final class ProfileFixViewModel: ProfileViewModelType {
             })
             .share(replay: 1, scope: .whileConnected)
         
+        input.imageStringSubject
+            .skip(1)
+            .subscribe(onNext: { [weak self] newImageString in
+                guard let self = self else { return }
+                if newImageString != self.userInfo?.profileImage {
+                    self.isImageChanged.accept(true)
+                }
+            })
+            .disposed(by: disposeBag)
+        
         let isNameValid = nameRelay
             .map { [weak self] name in
                 guard let self = self else { return false }

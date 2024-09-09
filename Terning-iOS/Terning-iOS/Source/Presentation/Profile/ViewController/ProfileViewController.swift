@@ -34,12 +34,14 @@ final class ProfileViewController: UIViewController {
     private let imageStringSubject: BehaviorSubject<String>
     private var authType: String = UserManager.shared.authType ?? ""
     
+    private var imageString = "basic"
+    
     // MARK: - Init
     
     init(viewType: ProfileViewType, viewModel: ProfileViewModelType) {
         self.viewType = viewType
         self.viewModel = viewModel
-        self.imageStringSubject = BehaviorSubject<String>(value: viewModel.userInfo?.profileImage ?? "basic")
+        self.imageStringSubject = BehaviorSubject<String>(value: viewModel.userInfo?.profileImage ?? "lucky")
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -104,7 +106,8 @@ extension ProfileViewController {
     private func bindViewModel() {
         let input = ProfileViewModelInput(
             userInfo: Observable.just(viewModel.userInfo ?? UserProfileInfoModel(name: "", profileImage: "basic", authType: "")),
-            name: rootView.nameTextField.rx.text.orEmpty.asObservable(),
+            name: rootView.nameTextField.rx.text.orEmpty.asObservable(), 
+            imageStringSubject: imageStringSubject.asObservable(),
             saveButtonTap: rootView.saveButton.rx.tap.asObservable()
         )
         
@@ -185,15 +188,14 @@ extension ProfileViewController {
         
         let contentVC = ProfileImageViewController(viewModel: ProfileImageViewModel(), initialSelectedImageString: currentImageString)
         
-        presentCustomBottomSheet(contentVC, heightFraction: 320)
-        
-        contentVC.selectedIndex.subscribe(onNext: { [weak self] index in
-            let selectedImageString = ProfileImageUtils.stringForProfile(index: index)
+        contentVC.onImageSelected = { [weak self] selectedImageIndex in
+            let selectedImageString = ProfileImageUtils.stringForProfile(index: selectedImageIndex)
             self?.rootView.updateProfileImage(imageString: selectedImageString)
             self?.imageStringSubject.onNext(selectedImageString)
             self?.viewModel.imageStringRelay.accept(selectedImageString)
-        }).disposed(by: disposeBag)
-
+        }
+        
+        presentCustomBottomSheet(contentVC, heightFraction: 320)
     }
 }
 

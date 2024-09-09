@@ -119,7 +119,7 @@ struct CompositionalLayout {
                 )
                 
                 let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(48)),
+                    layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(40)),
                     subitems: [item]
                 )
                 
@@ -128,31 +128,63 @@ struct CompositionalLayout {
                 return section
                 
             } else if sectionNumber == 1 {
-                let item = NSCollectionLayoutItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(0.5),
-                        heightDimension: .fractionalHeight(1)
+                
+                let HomeVC = NewHomeViewController()
+                
+                if HomeVC.todayDeadlineLists.isEmpty {
+                    let itemWidth: CGFloat = 327.adjusted
+                    
+                    let item = NSCollectionLayoutItem(
+                        layoutSize: .init(
+                            widthDimension: .absolute(itemWidth),
+                            heightDimension: .fractionalHeight(1)
+                        )
                     )
-                )
-                
-                item.contentInsets.leading = 12
-                
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(0.8),
-                        heightDimension: .absolute(132)
-                    ),
-                    subitems: [item]
-                )
-                
-                group.interItemSpacing = .fixed(-5)
-                
-                let section = NSCollectionLayoutSection(group: group)
-                
-                section.orthogonalScrollingBehavior = .continuous
-                section.contentInsets = .init(top: 0, leading: 12, bottom: 28, trailing: 0)
-                
-                return section
+                    
+                    let groupHeight: CGFloat = 116.adjustedH
+                    
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1.0),
+                            heightDimension: .absolute(groupHeight)
+                        ), subitems: [item]
+                    )
+                    
+                    let section = NSCollectionLayoutSection(group: group)
+                    section.contentInsets = .init(top: 0, leading: 24, bottom: 20, trailing: 0)
+                    
+                    return section
+                    
+                } else {
+                    let itemWidth: CGFloat = 246.adjusted
+                    
+                    let item = NSCollectionLayoutItem(
+                        layoutSize: .init(
+                            widthDimension: .absolute(itemWidth),
+                            heightDimension: .fractionalHeight(1)
+                        )
+                    )
+                    
+                    item.contentInsets.trailing = 12
+                    
+                    let groupHeight: CGFloat = 116.adjustedH
+                    
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1.0),
+                            heightDimension: .absolute(groupHeight)
+                        ),
+                        subitems: [item]
+                    )
+                    
+                    group.interItemSpacing = .fixed(-5)
+                    
+                    let section = NSCollectionLayoutSection(group: group)
+                    
+                    section.orthogonalScrollingBehavior = .continuous
+                    
+                    return section
+                }
             
             } else if sectionNumber == 2 {
                 let itemSize = NSCollectionLayoutSize(

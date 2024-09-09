@@ -28,7 +28,7 @@ final class OnboardingView: UIView {
         ("1학년", "대학생 인턴, 누구보다 빠르게 시작해 보세요!"),
         ("2학년", "인턴이라는 좋은 기회로 단숨에 스펙업하세요! "),
         ("3학년", "지금까지 준비한 역량을 인턴으로 발휘해 보세요!"),
-        ("4학년", "사회초년생으로 도약하기 위한 마지막 단계를 경험하세요!")
+        ("4학년", "사회초년생으로 도약하는 마지막 단계를 경험하세요!")
     ]
     
     private let workingPeriodButtonOptions = [
@@ -133,27 +133,27 @@ extension OnboardingView {
     private func setLayout(viewType: OnboardingViewType) {
         navigationBar.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(68)
+            $0.height.equalTo(68.adjustedH)
         }
         progressView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(92)
-            $0.leading.equalToSuperview().inset(20)
+            $0.top.equalToSuperview().inset(92.adjustedH)
+            $0.leading.equalToSuperview().inset(24.adjusted)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(progressView.snp.bottom).offset(19)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.top.equalTo(progressView.snp.bottom).offset(20.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
         }
         
         subTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
         }
         
         nextButton.snp.makeConstraints {
-            $0.height.equalTo(54)
-            $0.horizontalEdges.equalToSuperview().inset(-5)
-            $0.bottom.equalToSuperview().inset(12)
+            $0.height.equalTo(54.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(-5.adjusted)
+            $0.bottom.equalToSuperview().inset(12.adjustedH)
         }
         
         switch viewType {
@@ -209,7 +209,7 @@ extension OnboardingView {
             let button = CustomOnboardingButton(
                 originalTitle: originalTitle,
                 selectedTitle: selectedTitle,
-                height: 68
+                height: 68.adjustedH
             )
             button.index = index
             button.addTarget(self, action: #selector(optionSelected(_:)), for: .touchUpInside)
@@ -250,27 +250,27 @@ extension OnboardingView {
     
     private func setGradeLayout() {
         buttonStackView.snp.makeConstraints {
-            $0.top.equalTo(subTitleLabel.snp.bottom).offset(24)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.top.equalTo(subTitleLabel.snp.bottom).offset(24.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
         }
         additionalInfoLabel.snp.makeConstraints {
-            $0.top.equalTo(buttonStackView.snp.bottom).offset(9)
-            $0.horizontalEdges.equalToSuperview().inset(22)
+            $0.top.equalTo(buttonStackView.snp.bottom).offset(8.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
         }
     }
     
     private func setworkingPeriodLayout() {
         buttonStackView.snp.makeConstraints {
-            $0.top.equalTo(subTitleLabel.snp.bottom).offset(24)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.top.equalTo(subTitleLabel.snp.bottom).offset(24.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
         }
     }
     
     private func setGraduationDateLayout() {
         customDatePicker.snp.makeConstraints {
-            $0.top.equalTo(subTitleLabel.snp.bottom).offset(24)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(200)
+            $0.top.equalTo(subTitleLabel.snp.bottom).offset(24.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(20.adjusted)
+            $0.height.equalTo(200.adjustedH)
         }
     }
     private func updateOnboardingData(for viewType: OnboardingViewType, with index: Int?) {

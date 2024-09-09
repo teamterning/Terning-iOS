@@ -5,16 +5,16 @@
 //
 
 import UIKit
+
 import RxSwift
-import RxCocoa
+
 import SnapKit
 
 @frozen
 enum SearchResultType: Int, CaseIterable {
     case graphic = 0
-    case sort = 1
-    case search = 2
-    case noSearch = 3
+    case search = 1
+    case noSearch = 2
 }
 
 final class SearchResultViewController: UIViewController {
@@ -34,14 +34,15 @@ final class SearchResultViewController: UIViewController {
         9: 9   // calPink
     ]
     
+    private var searchResultCount: Int = 0
     private let sortButtonTapObservable = PublishSubject<Void>()
     
-    private let viewModel: SearchResultViewModel
-    private let disposeBag = DisposeBag()
     private let sortBySubject = BehaviorSubject<String>(value: "deadlineSoon")
     private let pageSubject = BehaviorSubject<Int>(value: 0)
     private var textFieldKeyword: String?
-    private var searchResultCount: Int = 0
+    
+    private let viewModel: SearchResultViewModel
+    private let disposeBag = DisposeBag()
     
     // MARK: - UI Components
     
@@ -58,7 +59,7 @@ final class SearchResultViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - View Life Cycle
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,10 +114,10 @@ extension SearchResultViewController {
             .withLatestFrom(Observable.combineLatest(keyword, sortBySubject)) { _, combinedValues in
                 return combinedValues
             }
-            .map { (keyword, sortBy) -> String in
+            .map { (keyword, _) -> String in
                 return keyword
             }
-            .do(onNext: { keyword in
+            .do(onNext: { _ in
                 if firstSearch {
                     firstSearch = false
                     self.rootView.searchTitleLabel.isHidden = true
@@ -146,7 +147,7 @@ extension SearchResultViewController {
         
         output.searchResults
             .drive(onNext: { [weak self] searchResult in
-                self?.rootView.SearchResult = searchResult
+                self?.rootView.searchResult = searchResult
                 self?.rootView.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
@@ -185,13 +186,11 @@ extension SearchResultViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch SearchResultType(rawValue: section) {
         case .graphic:
-            return rootView.SearchResult == nil ? 1 : 0
-        case .sort:
-            return 1
+            return rootView.searchResult == nil ? 1 : 0
         case .search:
-            return rootView.SearchResult?.isEmpty == false ? (rootView.SearchResult?.count ?? 0) : 0
+            return rootView.searchResult?.isEmpty == false ? (rootView.searchResult?.count ?? 0) : 0
         case .noSearch:
-            return rootView.SearchResult?.isEmpty == true ? 1 : 0
+            return rootView.searchResult?.isEmpty == true ? 1 : 0
         default:
             return 0
         }
@@ -205,23 +204,8 @@ extension SearchResultViewController: UICollectionViewDataSource {
             }
             return cell
             
-        case .sort:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SortHeaderCell.className, for: indexPath) as? SortHeaderCell else {
-                return UICollectionViewCell()
-            }
-            
-            cell.bind(with: searchResultCount)
-            
-            cell.sortButtonTapSubject
-                .subscribe(onNext: { [weak self] in
-                    self?.sortButtonTapObservable.onNext(())
-                })
-                .disposed(by: cell.disposeBag)
-
-            return cell
-            
         case .search:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as? JobCardScrapedCell, let SearchResult = rootView.SearchResult else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as? JobCardScrapedCell, let SearchResult = rootView.searchResult else {
                 return UICollectionViewCell()
             }
             cell.bind(model: SearchResult[indexPath.item], indexPath: indexPath)
@@ -242,10 +226,39 @@ extension SearchResultViewController: UICollectionViewDataSource {
 }
 
 extension SearchResultViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let sectionType = SearchResultType(rawValue: indexPath.section),
+              let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SortHeaderCell.className, for: indexPath) as? SortHeaderCell else {
+            return UICollectionReusableView()
+        }
+        
+        switch sectionType {
+        case .graphic:
+            break
+        case .search:
+            print("searchResultCount:", searchResultCount)
+            headerView.bind(with: searchResultCount)
+            
+            headerView.sortButtonTapSubject
+                .subscribe(onNext: { [weak self] in
+                    self?.sortButtonTapObservable.onNext(())
+                })
+                .disposed(by: headerView.disposeBag)
+        case .noSearch:
+            headerView.bind(with: 0)
+            
+            headerView.sortButtonTapSubject
+                .subscribe(onNext: { [weak self] in
+                    self?.sortButtonTapObservable.onNext(())
+                })
+                .disposed(by: headerView.disposeBag)
+        }
+        return headerView
+    }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch SearchResultType(rawValue: indexPath.section) {
         case .search:
-            guard let SearchResult = rootView.SearchResult else { return }
+            guard let SearchResult = rootView.searchResult else { return }
             let selectedItem = SearchResult[indexPath.item].internshipAnnouncementId
     
             let jobDetailVC = JobDetailViewController()
@@ -259,7 +272,7 @@ extension SearchResultViewController: UICollectionViewDelegate {
 
 extension SearchResultViewController: JobCardScrapedCellProtocol {
     func scrapButtonDidTap(index: Int) {
-        guard let searchResults = rootView.SearchResult, !searchResults.isEmpty else {
+        guard let searchResults = rootView.searchResult, !searchResults.isEmpty else {
             print("검색 결과가 비어 있습니다. 요청을 실행하지 않습니다.")
             return
         }
@@ -406,17 +419,15 @@ extension SearchResultViewController {
 }
 
 extension SearchResultViewController: SortSettingButtonProtocol {
-    
     func didSelectSortingOption(_ option: SortingOptions) {
-        print("선택된 정렬 옵션: \(option.apiValue)")
         sortBySubject.onNext(option.apiValue)
         
-        let indexPath = IndexPath(item: 0, section: SearchResultType.sort.rawValue)
-        
-        if let sortCell = rootView.collectionView.cellForItem(at: indexPath) as? SortHeaderCell {
-            sortCell.setSortButtonTitle(option.title)
+        if let sortHeader = rootView.collectionView.supplementaryView(
+            forElementKind: UICollectionView.elementKindSectionHeader,
+            at: IndexPath(item: 0, section: 0)
+        ) as? SortHeaderCell {
+            sortHeader.setSortButtonTitle(option.title)
         }
-        
     }
 }
 

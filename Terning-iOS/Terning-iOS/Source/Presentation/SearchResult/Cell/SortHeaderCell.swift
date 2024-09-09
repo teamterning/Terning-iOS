@@ -11,7 +11,7 @@ import RxSwift
 
 import SnapKit
 
-final class SortHeaderCell: UICollectionViewCell {
+final class SortHeaderCell: UICollectionReusableView {
     
     // MARK: - Properties
     
@@ -20,6 +20,7 @@ final class SortHeaderCell: UICollectionViewCell {
     var disposeBag = DisposeBag()
     
     // MARK: - UIComponents
+    private let gradientView = GradientLayerView()
     
     private let searchResultCountLabel = LabelFactory.build(
         text: "총 0개의 공고가 있어요",
@@ -58,12 +59,17 @@ final class SortHeaderCell: UICollectionViewCell {
 extension SortHeaderCell {
     func setHierarchy() {
         addSubviews(
+            gradientView,
             searchResultCountLabel,
             sortButton
         )
     }
     
     func setLayout() {
+        gradientView.snp.makeConstraints {
+            $0.top.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(28.adjustedH)
+        }
         searchResultCountLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(24.adjusted)
             $0.top.equalToSuperview().inset(5.adjustedH)

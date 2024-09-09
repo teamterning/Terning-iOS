@@ -54,7 +54,6 @@ final class SearchResultViewModel: ViewModelType {
             })
             .share(replay: 1)
 
-
         let searchResults = searchResponse
             .map { $0.announcements }
             .asDriver(onErrorJustReturn: [])

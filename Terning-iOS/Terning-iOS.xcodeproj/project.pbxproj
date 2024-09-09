@@ -377,7 +377,6 @@
 		2D4EE3A02C3E787200E3E95B /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				2D89C7522C47E9A3002B035F /* Cell */,
 				2D4EE3A82C3E78B800E3E95B /* View */,
 				2D4EE3A72C3E78B400E3E95B /* ViewController */,
 				2D4EE3A92C3E78BE00E3E95B /* ViewModel */,
@@ -389,7 +388,6 @@
 			isa = PBXGroup;
 			children = (
 				2D4EE3A52C3E78A200E3E95B /* ProfileViewController.swift */,
-				2D89C74E2C47E98B002B035F /* ProfileImageViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -397,7 +395,6 @@
 		2D4EE3A82C3E78B800E3E95B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2D89C7502C47E99B002B035F /* ProfileImageView.swift */,
 				2D4EE3A32C3E789200E3E95B /* ProfileView.swift */,
 			);
 			path = View;
@@ -407,7 +404,6 @@
 			isa = PBXGroup;
 			children = (
 				2D4EE3A12C3E788200E3E95B /* ProfileViewModel.swift */,
-				2D89C74C2C47E8EA002B035F /* ProfileImageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -445,14 +441,6 @@
 				2D4EE3E72C400D6900E3E95B /* OnboardingPageViewController.swift */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		2D89C7522C47E9A3002B035F /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				2D89C7532C47E9AE002B035F /* ProfileImageCell.swift */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		2D89C7572C486DD2002B035F /* SearchResult */ = {
@@ -710,6 +698,49 @@
 				2DF2571B2C8DEF5E00B85843 /* AccountOptionView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		2DF2571F2C8F684800B85843 /* ProfileImage */ = {
+			isa = PBXGroup;
+			children = (
+				2DF257232C8F686B00B85843 /* Cell */,
+				2DF257222C8F686400B85843 /* View */,
+				2DF257212C8F685C00B85843 /* ViewController */,
+				2DF257202C8F685300B85843 /* ViewModel */,
+			);
+			path = ProfileImage;
+			sourceTree = "<group>";
+		};
+		2DF257202C8F685300B85843 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2D89C74C2C47E8EA002B035F /* ProfileImageViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2DF257212C8F685C00B85843 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2D89C74E2C47E98B002B035F /* ProfileImageViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2DF257222C8F686400B85843 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2D89C7502C47E99B002B035F /* ProfileImageView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2DF257232C8F686B00B85843 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2D89C7532C47E9AE002B035F /* ProfileImageCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		7121A1312C396F980056DB8B /* UIComponents */ = {
@@ -1031,6 +1062,7 @@
 				2DC61EEE2C40759F009F991F /* JobDetail */,
 				2D4EE3D82C3F520000E3E95B /* Onboarding */,
 				2D4EE3A02C3E787200E3E95B /* Profile */,
+				2DF2571F2C8F684800B85843 /* ProfileImage */,
 				2D4EE3922C3DD5A000E3E95B /* Welcome */,
 				B8C5DB6F2C3F39A500865B1A /* FilteringSetting */,
 				B853C8882C7B2F4800AA439C /* SortSetting */,

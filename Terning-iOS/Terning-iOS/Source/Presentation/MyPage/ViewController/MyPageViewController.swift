@@ -152,7 +152,7 @@ extension MyPageViewController {
 // MARK: - Methods
 
 extension MyPageViewController {
-    private func accountOptionBottomSheet(viewType: accountOption) {
+    private func accountOptionBottomSheet(viewType: AccountOption) {
         let viewModel: AccountOptionViewModelType
         if viewType == .logout {
             viewModel = LogoutViewModel()

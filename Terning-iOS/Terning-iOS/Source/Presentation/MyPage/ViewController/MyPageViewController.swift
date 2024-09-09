@@ -120,7 +120,6 @@ extension MyPageViewController {
             })
             .disposed(by: disposeBag)
 
-        
         output.showLogoutAlert
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
@@ -171,6 +170,15 @@ extension MyPageViewController {
         presentCustomBottomSheet(contentVC)
     }
     
+    private func navigateToProfileEdit(userInfo: UserProfileInfoModel) {
+        let profileVC = ProfileViewController(
+            viewType: .fix,
+            viewModel: ProfileFixViewModel(userInfo: userInfo)
+        )
+        profileVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
     private func showNotice() {
         let urlString = "https://abundant-quiver-13f.notion.site/69109213e7db4873be6b9600f2f5163a?pvs=4"
         guard let url = URL(string: urlString) else { return }
@@ -195,15 +203,6 @@ extension MyPageViewController {
 // MARK: - objc Functions
 
 extension MyPageViewController {
-    func navigateToProfileEdit(userInfo: UserProfileInfoModel) {
-        let profileVC = ProfileViewController(
-            viewType: .fix,
-            viewModel: ProfileFixViewModel(userInfo: userInfo)
-        )
-        profileVC.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(profileVC, animated: true)
-    }
-    
     @objc
     func logoutButtonDidTap() {
         accountOptionBottomSheet(viewType: .logout)

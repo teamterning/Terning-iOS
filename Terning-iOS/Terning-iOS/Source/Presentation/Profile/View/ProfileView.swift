@@ -18,6 +18,8 @@ final class ProfileView: UIView {
     
     // MARK: - UI Components
     
+    let navigationBar = CustomNavigationBar(type: .centerTitleWithLeftButton)
+    
     private let welcomeLabel = LabelFactory.build(
         text: "반가워요!\n이름을 알려주세요",
         font: .heading2,
@@ -137,6 +139,7 @@ final class ProfileView: UIView {
 extension ProfileView {
     private func setUI() {
         addSubviews(
+            profileImageLabel,
             profileImageView,
             profileImageAddButton,
             nameLabel,
@@ -150,84 +153,93 @@ extension ProfileView {
         
         if viewType == .setting {
             addSubviews(
-                welcomeLabel,
-                profileImageLabel
+                welcomeLabel
             )
         } else {
             addSubviews(
+                navigationBar,
                 snsAccountLabel,
                 snsTypeLabel
             )
+            navigationBar.setTitle("프로필 수정")
         }
     }
     
     private func setLayout() {
         profileImageAddButton.snp.makeConstraints {
-            $0.width.height.equalTo(28)
-            $0.trailing.equalTo(profileImageView.snp.trailing).offset(3)
-            $0.bottom.equalTo(profileImageView.snp.bottom).offset(2)
+            $0.width.height.equalTo(28.adjusted)
+            $0.trailing.equalTo(profileImageView.snp.trailing).offset(3.adjusted)
+            $0.bottom.equalTo(profileImageView.snp.bottom).offset(2.adjustedH)
         }
         nameLabel.snp.makeConstraints {
-            $0.top.equalTo(profileImageView.snp.bottom).offset(52)
-            $0.leading.equalToSuperview().inset(24)
+            $0.top.equalTo(profileImageView.snp.bottom).offset(52.adjustedH)
+            $0.leading.equalToSuperview().inset(24.adjusted)
         }
         nameTextField.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(25)
-            $0.leading.equalToSuperview().inset(24)
-            $0.trailing.equalTo(nameCountLabel.snp.leading).offset(-5)
+            $0.top.equalTo(nameLabel.snp.bottom).offset(25.adjustedH)
+            $0.leading.equalToSuperview().inset(24.adjusted)
+            $0.trailing.equalTo(nameCountLabel.snp.leading).offset(-5.adjusted)
         }
         nameCountLabel.snp.makeConstraints {
             $0.centerY.equalTo(nameTextField.snp.centerY)
-            $0.trailing.equalToSuperview().inset(38)
+            $0.trailing.equalToSuperview().inset(38.adjusted)
         }
         underLineView.snp.makeConstraints {
-            $0.top.equalTo(nameTextField.snp.bottom).offset(7)
-            $0.horizontalEdges.equalToSuperview().inset(24)
-            $0.height.equalTo(1)
+            $0.top.equalTo(nameTextField.snp.bottom).offset(7.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
+            $0.height.equalTo(1.adjustedH)
         }
         nameValidationIconImageView.snp.makeConstraints {
-            $0.top.equalTo(underLineView.snp.bottom).offset(6)
-            $0.leading.equalToSuperview().inset(24)
-            $0.width.height.equalTo(12)
+            $0.top.equalTo(underLineView.snp.bottom).offset(6.adjustedH)
+            $0.leading.equalToSuperview().inset(24.adjusted)
+            $0.width.height.equalTo(12.adjusted)
         }
         nameValidationLabel.snp.makeConstraints {
-            $0.top.equalTo(underLineView.snp.bottom).offset(5)
-            $0.leading.equalTo(nameValidationIconImageView.snp.trailing).offset(4)
-            $0.trailing.equalToSuperview().inset(24)
+            $0.top.equalTo(underLineView.snp.bottom).offset(5.adjustedH)
+            $0.leading.equalTo(nameValidationIconImageView.snp.trailing).offset(4.adjusted)
+            $0.trailing.equalToSuperview().inset(24.adjusted)
         }
         saveButton.snp.makeConstraints {
-            $0.height.equalTo(54)
-            $0.horizontalEdges.equalToSuperview().inset(-5)
-            $0.bottom.equalToSuperview().inset(44)
+            $0.height.equalTo(54.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(-5.adjusted)
+            $0.bottom.equalToSuperview().inset(44.adjustedH)
         }
         
         if viewType == .setting {
             welcomeLabel.snp.makeConstraints {
-                $0.top.equalToSuperview().inset(70)
-                $0.leading.equalToSuperview().inset(24)
+                $0.top.equalToSuperview().inset(70.adjustedH)
+                $0.leading.equalToSuperview().inset(24.adjusted)
             }
             profileImageLabel.snp.makeConstraints {
-                $0.top.equalTo(welcomeLabel.snp.bottom).offset(46)
-                $0.leading.equalToSuperview().inset(24)
+                $0.top.equalTo(welcomeLabel.snp.bottom).offset(46.adjustedH)
+                $0.leading.equalToSuperview().inset(24.adjusted)
             }
             profileImageView.snp.makeConstraints {
-                $0.top.equalTo(profileImageLabel.snp.bottom).offset(15)
+                $0.top.equalTo(profileImageLabel.snp.bottom).offset(15.adjustedH)
                 $0.centerX.equalToSuperview()
                 $0.width.height.equalTo(80.adjusted)
             }
         } else {
+            navigationBar.snp.makeConstraints {
+                $0.top.horizontalEdges.equalToSuperview()
+                $0.height.equalTo(68.adjustedH)
+            }
+            profileImageLabel.snp.makeConstraints {
+                $0.top.equalTo(navigationBar.snp.bottom).offset(24.adjustedH)
+                $0.leading.equalToSuperview().inset(24.adjusted)
+            }
             profileImageView.snp.makeConstraints {
-                $0.top.equalToSuperview().inset(44)
+                $0.top.equalTo(profileImageLabel.snp.bottom).offset(20.adjustedH)
                 $0.centerX.equalToSuperview()
-                $0.width.height.equalTo(80)
+                $0.width.height.equalTo(80.adjusted)
             }
             snsAccountLabel.snp.makeConstraints {
-                $0.top.equalTo(nameValidationLabel.snp.bottom).offset(36)
-                $0.leading.equalToSuperview().inset(24)
+                $0.top.equalTo(nameValidationLabel.snp.bottom).offset(36.adjustedH)
+                $0.leading.equalToSuperview().inset(24.adjusted)
             }
             snsTypeLabel.snp.makeConstraints {
-                $0.top.equalTo(snsAccountLabel.snp.bottom).offset(10)
-                $0.leading.equalToSuperview().inset(24)
+                $0.top.equalTo(snsAccountLabel.snp.bottom).offset(10.adjustedH)
+                $0.leading.equalToSuperview().inset(24.adjusted)
             }
         }
     }

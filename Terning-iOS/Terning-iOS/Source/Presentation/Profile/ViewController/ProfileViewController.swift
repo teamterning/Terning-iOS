@@ -28,7 +28,7 @@ final class ProfileViewController: UIViewController {
     
     // MARK: - UI Components
     
-    private lazy var profileView = ProfileView(viewType: viewType)
+    private lazy var rootView = ProfileView(viewType: viewType)
     
     private var userName: String = ""
     private let imageStringSubject: BehaviorSubject<String>
@@ -52,7 +52,7 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setUI()
         setLayout()
         bindViewModel()
@@ -65,11 +65,11 @@ final class ProfileViewController: UIViewController {
 extension ProfileViewController {
     private func setUI() {
         view.backgroundColor = .white
-        view.addSubview(profileView)
+        view.addSubview(rootView)
     }
     
     private func setLayout() {
-        profileView.snp.makeConstraints {
+        rootView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.horizontalEdges.bottom.equalToSuperview()
         }
@@ -80,10 +80,15 @@ extension ProfileViewController {
 
 extension ProfileViewController {
     private func setDelegate() {
-        profileView.nameTextField.delegate = self
-        profileView.setAddTarget(target: self, action: #selector(profileAddButtonTapped))
+        rootView.nameTextField.delegate = self
+        rootView.setAddTarget(target: self, action: #selector(profileAddButtonTapped))
         
         self.hideKeyboardWhenTappedAround()
+        
+        rootView.navigationBar.leftButtonAction = { [weak self] in
+            guard let self = self else { return }
+            self.popOrDismissViewController(animated: true)
+        }
     }
     
     private func pushToWelcome() {
@@ -99,26 +104,26 @@ extension ProfileViewController {
     private func bindViewModel() {
         let input = ProfileViewModelInput(
             userInfo: Observable.just(viewModel.userInfo ?? UserProfileInfoModel(name: "", profileImage: "basic", authType: "")),
-            name: profileView.nameTextField.rx.text.orEmpty.asObservable(),
-            saveButtonTap: profileView.saveButton.rx.tap.asObservable()
+            name: rootView.nameTextField.rx.text.orEmpty.asObservable(),
+            saveButtonTap: rootView.saveButton.rx.tap.asObservable()
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
         output.userInfo
             .drive(onNext: { [weak self] userInfo in
-                self?.profileView.bind(userInfo: userInfo)
+                self?.rootView.bind(userInfo: userInfo)
             })
             .disposed(by: disposeBag)
         
         output.nameCountText
             .observe(on: MainScheduler.asyncInstance)
-            .bind(to: profileView.nameCountLabel.rx.text)
+            .bind(to: rootView.nameCountLabel.rx.text)
             .disposed(by: disposeBag)
         
         output.nameValidationMessage
             .subscribe(onNext: { [weak self] message in
-                self?.profileView.updateValidationUI(message: message)
+                self?.rootView.updateValidationUI(message: message)
             })
             .disposed(by: disposeBag)
         
@@ -130,7 +135,7 @@ extension ProfileViewController {
         
         output.isSaveButtonEnabled
             .subscribe(onNext: { [weak self] isEnabled in
-                self?.profileView.saveButton.setEnabled(isEnabled)
+                self?.rootView.saveButton.setEnabled(isEnabled)
             })
             .disposed(by: disposeBag)
         
@@ -177,7 +182,7 @@ extension ProfileViewController {
         
         contentVC.selectedIndex.subscribe(onNext: { [weak self] index in
             let selectedImageString = ProfileImageUtils.stringForProfile(index: index)
-            self?.profileView.updateProfileImage(imageString: selectedImageString)
+            self?.rootView.updateProfileImage(imageString: selectedImageString)
             self?.imageStringSubject.onNext(selectedImageString)
             self?.viewModel.imageStringRelay.accept(selectedImageString)
         }).disposed(by: disposeBag)

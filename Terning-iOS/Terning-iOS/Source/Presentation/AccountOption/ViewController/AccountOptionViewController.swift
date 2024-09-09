@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 @frozen
-enum accountOption {
+enum AccountOption {
     case logout
     case withdraw
 }
@@ -22,7 +22,7 @@ final class AccountOptionViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     private let viewModel: AccountOptionViewModelType
-    private let accountOptionView = AccountOptionView()
+    private let rootView = AccountOptionView()
     
     // MARK: - Init
     
@@ -38,7 +38,7 @@ final class AccountOptionViewController: UIViewController {
     // MARK: - Life Cycle
     
     override func loadView() {
-        self.view = accountOptionView
+        self.view = rootView
     }
     
     override func viewDidLoad() {
@@ -65,17 +65,13 @@ extension AccountOptionViewController {
 
 extension AccountOptionViewController {
     private func bindViewType() {
-        if viewModel is LogoutViewModel {
-            accountOptionView.bind(for: .logout)
-        } else if viewModel is WithdrawViewModel {
-            accountOptionView.bind(for: .withdraw)
-        }
+        rootView.bind(for: viewModel.accountOption)
     }
-
+    
     private func bindViewModel() {
         let input = AccountOptionViewModelInput(
-            yesButtonTap: accountOptionView.yesButton.rx.tap.asObservable(),
-            noButtonTap: accountOptionView.noButton.rx.tap.asObservable()
+            yesButtonTap: rootView.yesButton.rx.tap.asObservable(),
+            noButtonTap: rootView.noButton.rx.tap.asObservable()
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)

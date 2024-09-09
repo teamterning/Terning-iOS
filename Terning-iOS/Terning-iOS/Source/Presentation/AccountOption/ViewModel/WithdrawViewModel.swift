@@ -8,13 +8,16 @@
 import UIKit
 
 import RxSwift
-import RxCocoa
 
 final class WithdrawViewModel: AccountOptionViewModelType {
     
     // MARK: - Properties
     
     private let myPageProvider = Providers.myPageProvider
+    
+    var accountOption: AccountOption {
+        return .withdraw
+    }
     
     // MARK: - Transform
     

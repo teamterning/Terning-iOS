@@ -70,7 +70,6 @@ extension MyPageViewController {
     private func setUI() {
         view.backgroundColor = .back
         view.addSubview(myPageView)
-        
     }
     
     private func setLayout() {

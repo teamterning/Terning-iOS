@@ -8,9 +8,9 @@
 import UIKit
 
 import RxSwift
-import RxCocoa
 
 import SnapKit
+import Then
 
 final class AccountOptionView: UIView {
     
@@ -88,7 +88,6 @@ extension AccountOptionView {
             $0.centerX.equalToSuperview()
         }
         subTitleLabel.snp.makeConstraints {
-
             $0.top.lessThanOrEqualTo(titleLabel.snp.bottom).offset(28.adjustedH)
             $0.bottom.greaterThanOrEqualTo(yesButton.snp.top).offset(-31.adjustedH)
             $0.centerX.equalToSuperview()
@@ -109,14 +108,13 @@ extension AccountOptionView {
 // MARK: - Bind
 
 extension AccountOptionView {
-    func bind(for viewType: accountOption) {
+    func bind(for viewType: AccountOption) {
         if viewType == .logout {
             subTitleLabel.text = "정말 로그아웃 하시겠어요?"
             yesButton.setTitle(title: "로그아웃하기")
         } else {
             subTitleLabel.text = "탈퇴 시 계정 및 이용 기록은 모두 삭제되며,\n삭제된 데이터는 복구가 불가능합니다.\n\n탈퇴를 진행할까요?"
             yesButton.setTitle(title: "탈퇴하기")
-            noButton.setColor(bgColor: .grey150, disableColor: .grey150, textColor: .grey400)
         }
     }
 }

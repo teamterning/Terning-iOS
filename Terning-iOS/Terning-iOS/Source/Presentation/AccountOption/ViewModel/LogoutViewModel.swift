@@ -8,13 +8,16 @@
 import UIKit
 
 import RxSwift
-import RxCocoa
 
 final class LogoutViewModel: AccountOptionViewModelType {
     
     // MARK: - Properties
     
     private let myPageProvider = Providers.myPageProvider
+    
+    var accountOption: AccountOption {
+        return .logout
+    }
     
     // MARK: - Transform
     

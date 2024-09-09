@@ -9,6 +9,8 @@ import RxSwift
 import RxCocoa
 
 protocol AccountOptionViewModelType {
+    var accountOption: AccountOption { get }
+    
     func transform(input: AccountOptionViewModelInput, disposeBag: DisposeBag) -> AccountOptionViewModelOutput
 }
 

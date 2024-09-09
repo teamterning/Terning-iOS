@@ -19,14 +19,27 @@ final class UserManager {
     
     private var authProvider = Providers.authProvider
     
-    @UserDefaultWrapper<String>(key: "accessToken") public var accessToken
+    @UserDefaultWrapper<String>(key: "kakaoAccessToken") public var kakaoAccessToken // 카카오 토큰
+    @UserDefaultWrapper<String>(key: "appleAccessToken") public var appleAccessToken // 애플 토큰
+    @UserDefaultWrapper<String>(key: "accessToken") public var accessToken // 서버 토큰
     @UserDefaultWrapper<String>(key: "refreshToken") public var refreshToken
     @UserDefaultWrapper<Int>(key: "userId") public var userId
     @UserDefaultWrapper<String>(key: "authId") public var authId
     @UserDefaultWrapper<String>(key: "authType") public var authType
+    
     var hasAccessToken: Bool { return self.accessToken != nil }
+    var hasKakaoToken: Bool { return self.kakaoAccessToken != nil }
+    var hasAppleToken: Bool { return self.appleAccessToken != nil }
     
     private init() {}
+    
+    func updateKakaoToken(token: String) {
+        self.kakaoAccessToken = token
+    }
+    
+    func updateAppleToken(token: String) {
+        self.appleAccessToken = token
+    }
     
     func updateToken(accessToken: String, refreshToken: String) {
         self.accessToken = accessToken
@@ -117,5 +130,7 @@ final class UserManager {
         self.refreshToken = nil
         self.userId = nil
         self.authType = nil
+        self.kakaoAccessToken = nil
+        self.appleAccessToken = nil
     }
 }

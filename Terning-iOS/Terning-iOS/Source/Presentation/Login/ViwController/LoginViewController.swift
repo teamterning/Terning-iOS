@@ -88,12 +88,22 @@ extension LoginViewController {
 
 extension LoginViewController {
     private func navigateToNextScreen() {
-        let profileViewVC = UINavigationController(rootViewController: ProfileViewController(viewType: .setting, viewModel: ProfileViewModel()))
-        
-        guard let window = self.view.window else {
-            print("Window is nil")
-            return
+        if let userId = UserManager.shared.userId, !String(userId).isEmpty {
+            print("🏠 홈 화면으로 이동")
+            let tabBarController = TNTabBarController()
+            guard let window = self.view.window else {
+                return
+            }
+            
+            ViewControllerUtils.setRootViewController(window: window, viewController: tabBarController, withAnimation: true)
+        } else {
+            print("🤦 프로필 설정 화면으로 이동")
+            let profileViewVC = UINavigationController(rootViewController: ProfileViewController(viewType: .setting, viewModel: ProfileViewModel()))// 온보딩 화면으로 이동
+            guard let window = self.view.window else {
+                return
+            }
+            
+            ViewControllerUtils.setRootViewController(window: window, viewController: profileViewVC, withAnimation: true)
         }
-        ViewControllerUtils.setRootViewController(window: window, viewController: profileViewVC, withAnimation: true)
     }
 }

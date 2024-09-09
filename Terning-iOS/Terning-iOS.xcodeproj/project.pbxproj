@@ -113,6 +113,7 @@
 		71780C542C45A7DD0073B731 /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C532C45A7DD0073B731 /* NetworkLoggerPlugin.swift */; };
 		71780C562C45A81E0073B731 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C552C45A81E0073B731 /* AuthInterceptor.swift */; };
 		717D37EA2C32FA2F00A857DB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 717D37E92C32FA2F00A857DB /* SnapKit */; };
+		719C6DEC2C8F220D006AF9C9 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 719C6DEB2C8F220D006AF9C9 /* Inject */; };
 		71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509202C41AD35006D8E56 /* JobListingCell.swift */; };
 		71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509222C41BD90006D8E56 /* CompositionalLayout.swift */; };
 		71B509252C41D027006D8E56 /* CalendarDateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509242C41D027006D8E56 /* CalendarDateHeaderView.swift */; };
@@ -331,6 +332,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				719C6DEC2C8F220D006AF9C9 /* Inject in Frameworks */,
 				71E3C3F92C241D900026C4DD /* Kingfisher in Frameworks */,
 				2DC61F302C4213C7009F991F /* KakaoSDKCommon in Frameworks */,
 				71E3C4042C241DD40026C4DD /* Moya in Frameworks */,
@@ -1202,6 +1204,7 @@
 				2DC61F2D2C4213C7009F991F /* KakaoSDKAuth */,
 				2DC61F2F2C4213C7009F991F /* KakaoSDKCommon */,
 				71CCC0752C3F373400789A9B /* FSCalendar */,
+				719C6DEB2C8F220D006AF9C9 /* Inject */,
 			);
 			productName = "Terning-iOS";
 			productReference = 71E3C3C92C22BAF40026C4DD /* Terning-iOS.app */;
@@ -1239,6 +1242,7 @@
 				7121A1382C3A6CEB0056DB8B /* XCRemoteSwiftPackageReference "RxSwift" */,
 				2DC61F2A2C4213C7009F991F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				71CCC0742C3F373400789A9B /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				719C6DEA2C8F220D006AF9C9 /* XCRemoteSwiftPackageReference "Inject" */,
 			);
 			productRefGroup = 71E3C3CA2C22BAF40026C4DD /* Products */;
 			projectDirPath = "";
@@ -1594,6 +1598,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1683,6 +1691,14 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		719C6DEA2C8F220D006AF9C9 /* XCRemoteSwiftPackageReference "Inject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzysztofzablocki/Inject?ref=merowing.info";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.2;
+			};
+		};
 		71CCC0742C3F373400789A9B /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
@@ -1747,6 +1763,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 717D37E82C32FA2F00A857DB /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		719C6DEB2C8F220D006AF9C9 /* Inject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 719C6DEA2C8F220D006AF9C9 /* XCRemoteSwiftPackageReference "Inject" */;
+			productName = Inject;
 		};
 		71CCC0752C3F373400789A9B /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -14,7 +14,6 @@ final class GraphicCollectionViewCell: UICollectionViewCell {
     // MARK: - UI Components
     
     private let imageView = UIImageView().then {
-        $0.image = .imgSearch
         $0.contentMode = .scaleAspectFill
         $0.layer.masksToBounds = true
     }

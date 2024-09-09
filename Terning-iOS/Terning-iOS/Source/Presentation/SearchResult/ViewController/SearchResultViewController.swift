@@ -12,8 +12,9 @@ import SnapKit
 @frozen
 enum SearchResultType: Int, CaseIterable {
     case graphic = 0
-    case search = 1
-    case noSearch = 2
+    case sort = 1
+    case search = 2
+    case noSearch = 3
 }
 
 final class SearchResultViewController: UIViewController {
@@ -33,11 +34,14 @@ final class SearchResultViewController: UIViewController {
         9: 9   // calPink
     ]
     
+    private let sortButtonTapObservable = PublishSubject<Void>()
+    
     private let viewModel: SearchResultViewModel
     private let disposeBag = DisposeBag()
     private let sortBySubject = BehaviorSubject<String>(value: "deadlineSoon")
     private let pageSubject = BehaviorSubject<Int>(value: 0)
     private var textFieldKeyword: String?
+    private var searchResultCount: Int = 0
     
     // MARK: - UI Components
     
@@ -95,36 +99,54 @@ extension SearchResultViewController {
         
         let keyword = rootView.searchView.textField.rx.text.orEmpty.asObservable()
         
-        let searchTrigger = rootView.searchView.textField.rx.controlEvent(.editingDidEndOnExit)
+        let searchChanged = rootView.searchView.textField.rx.controlEvent(.editingDidEndOnExit)
             .withLatestFrom(keyword)
             .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
             .map { _ in () }
         
-        searchTrigger
+        let sortChanged = sortBySubject
             .withLatestFrom(keyword)
-            .subscribe(onNext: { keyword in
-                print("텍스트 필드 값: \(keyword)")
+            .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
+            .map { _ in () }
+        
+        let searchTrigger = Observable.merge(searchChanged, sortChanged)
+            .withLatestFrom(Observable.combineLatest(keyword, sortBySubject)) { _, combinedValues in
+                return combinedValues
+            }
+            .map { (keyword, sortBy) -> String in
+                return keyword
+            }
+            .do(onNext: { keyword in
                 if firstSearch {
                     firstSearch = false
                     self.rootView.searchTitleLabel.isHidden = true
                     self.rootView.updateLayout()
                 }
             })
-            .disposed(by: disposeBag)
         
         let input = SearchResultViewModel.Input(
-            keyword: searchTrigger.withLatestFrom(keyword),
+            keyword: searchTrigger,
+            sortTap: sortButtonTapObservable.asObservable(),
             sortBy: sortBySubject.asObservable(),
             page: pageSubject.asObservable(),
             size: Observable.just(10),
-            searchTrigger: searchTrigger
+            searchTrigger: searchTrigger.map { _ in () }
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
-        output.SearchResult
-            .drive(onNext: { [weak self] SearchResult in
-                self?.rootView.SearchResult = SearchResult
+        output.showSortBottom
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                let contentVC = SortSettingViewController()
+                contentVC.sortSettingDelegate = self
+                presentCustomBottomSheet(contentVC)
+            })
+            .disposed(by: disposeBag)
+        
+        output.searchResults
+            .drive(onNext: { [weak self] searchResult in
+                self?.rootView.SearchResult = searchResult
                 self?.rootView.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
@@ -164,6 +186,8 @@ extension SearchResultViewController: UICollectionViewDataSource {
         switch SearchResultType(rawValue: section) {
         case .graphic:
             return rootView.SearchResult == nil ? 1 : 0
+        case .sort:
+            return 1
         case .search:
             return rootView.SearchResult?.isEmpty == false ? (rootView.SearchResult?.count ?? 0) : 0
         case .noSearch:
@@ -179,6 +203,21 @@ extension SearchResultViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GraphicCollectionViewCell.className, for: indexPath) as? GraphicCollectionViewCell else {
                 return UICollectionViewCell()
             }
+            return cell
+            
+        case .sort:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SortHeaderCell.className, for: indexPath) as? SortHeaderCell else {
+                return UICollectionViewCell()
+            }
+            
+            cell.bind(with: searchResultCount)
+            
+            cell.sortButtonTapSubject
+                .subscribe(onNext: { [weak self] in
+                    self?.sortButtonTapObservable.onNext(())
+                })
+                .disposed(by: cell.disposeBag)
+
             return cell
             
         case .search:
@@ -363,5 +402,28 @@ extension SearchResultViewController {
                 self.showToast(message: "네트워크 오류")
             }
         }
+    }
+}
+
+extension SearchResultViewController: SortSettingButtonProtocol {
+    
+    func didSelectSortingOption(_ option: SortingOptions) {
+        print("선택된 정렬 옵션: \(option.apiValue)")
+        sortBySubject.onNext(option.apiValue)
+        
+        let indexPath = IndexPath(item: 0, section: SearchResultType.sort.rawValue)
+        
+        if let sortCell = rootView.collectionView.cellForItem(at: indexPath) as? SortHeaderCell {
+            sortCell.setSortButtonTitle(option.title)
+        }
+        
+    }
+}
+
+// MARK: - UIAdaptivePresentationControllerDelegate
+
+extension SearchResultViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        removeModalBackgroundView()
     }
 }

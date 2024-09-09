@@ -38,6 +38,8 @@ final class SearchResultView: UIView {
         switch section {
         case .graphic:
             return SearchResultView.createGraphicSection()
+        case .sort:
+            return SearchResultView.createSortSection()
         case .search:
             return SearchResultView.createSearchSection()
         case .noSearch:
@@ -81,8 +83,7 @@ extension SearchResultView {
         )
         collectionView.register(
             SortHeaderCell.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: SortHeaderCell.className
+            forCellWithReuseIdentifier: SortHeaderCell.className
         )
         
         collectionView.backgroundColor = .white
@@ -169,6 +170,24 @@ extension SearchResultView {
         return section
     }
     
+    private static func createSortSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(28.adjustedH)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(28.adjustedH)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+      
+        let section = NSCollectionLayoutSection(group: group)
+        
+        return section
+    }
+    
     private static func createSearchSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
@@ -191,13 +210,13 @@ extension SearchResultView {
     private static func createNoSearchSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(100)
+            heightDimension: .absolute(266.adjustedH)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(100)
+            heightDimension: .absolute(266.adjustedH)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         

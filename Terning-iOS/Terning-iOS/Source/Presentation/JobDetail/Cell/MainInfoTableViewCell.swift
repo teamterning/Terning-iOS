@@ -36,9 +36,8 @@ final class MainInfoTableViewCell: UITableViewCell {
     }
 
     private let viewsImage = UIImageView().then {
-        $0.image = .profile0
+        $0.image = .icView
         $0.contentMode = .scaleAspectFit
-        
     }
     
     private let viewsLabel = LabelFactory.build(
@@ -117,6 +116,13 @@ extension MainInfoTableViewCell {
         }
         
         titleLabel.text = mainInfo.title
-        viewsLabel.text = "\(mainInfo.viewCount)회"
+        let formattedViewCount = formatNumber(mainInfo.viewCount)
+        viewsLabel.text = "\(formattedViewCount)회"
+    }
+    
+    private func formatNumber(_ number: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        return numberFormatter.string(from: NSNumber(value: number)) ?? "\(number)"
     }
 }

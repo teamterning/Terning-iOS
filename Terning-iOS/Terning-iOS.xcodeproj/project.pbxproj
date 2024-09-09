@@ -39,7 +39,6 @@
 		2DC61EFD2C40823C009F991F /* CompanyInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EFC2C40823C009F991F /* CompanyInfoTableViewCell.swift */; };
 		2DC61EFF2C40824A009F991F /* SummaryInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EFE2C40824A009F991F /* SummaryInfoTableViewCell.swift */; };
 		2DC61F012C40825D009F991F /* DetailInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F002C40825D009F991F /* DetailInfoTableViewCell.swift */; };
-		2DC61F032C4087B4009F991F /* JobSummaryInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F022C4087B4009F991F /* JobSummaryInfoView.swift */; };
 		2DC61F052C40926D009F991F /* JobDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F042C40926D009F991F /* JobDetailView.swift */; };
 		2DC61F072C4145CD009F991F /* CustomScrapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F062C4145CD009F991F /* CustomScrapButton.swift */; };
 		2DC61F152C41AB54009F991F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F142C41AB54009F991F /* LoginViewController.swift */; };
@@ -203,7 +202,6 @@
 		2DC61EFC2C40823C009F991F /* CompanyInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyInfoTableViewCell.swift; sourceTree = "<group>"; };
 		2DC61EFE2C40824A009F991F /* SummaryInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInfoTableViewCell.swift; sourceTree = "<group>"; };
 		2DC61F002C40825D009F991F /* DetailInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoTableViewCell.swift; sourceTree = "<group>"; };
-		2DC61F022C4087B4009F991F /* JobSummaryInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobSummaryInfoView.swift; sourceTree = "<group>"; };
 		2DC61F042C40926D009F991F /* JobDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailView.swift; sourceTree = "<group>"; };
 		2DC61F062C4145CD009F991F /* CustomScrapButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScrapButton.swift; sourceTree = "<group>"; };
 		2DC61F142C41AB54009F991F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -727,7 +725,6 @@
 				2D4EE38A2C3D9FD900E3E95B /* CustomDatePicker.swift */,
 				7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */,
 				7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */,
-				2DC61F022C4087B4009F991F /* JobSummaryInfoView.swift */,
 				71FFB2B42C47ECF200C60697 /* CustomBottmSheetViewController.swift */,
 			);
 			path = UIComponents;
@@ -1377,7 +1374,6 @@
 				2DF2571C2C8DEF5E00B85843 /* AccountOptionView.swift in Sources */,
 				2D4EE3EA2C400ECB00E3E95B /* OnboardingViewController.swift in Sources */,
 				71780C3A2C4577FF0073B731 /* CalendarTargetType.swift in Sources */,
-				2DC61F032C4087B4009F991F /* JobSummaryInfoView.swift in Sources */,
 				71780C462C4589400073B731 /* NewTokenModel.swift in Sources */,
 				B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */,
 				71780C482C458FF80073B731 /* HomeTargetType.swift in Sources */,

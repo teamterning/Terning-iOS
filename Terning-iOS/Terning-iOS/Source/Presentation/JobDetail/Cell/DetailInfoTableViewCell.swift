@@ -46,8 +46,9 @@ extension DetailInfoTableViewCell {
     }
     private func setLayout() {
         datailDescriptionLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(16)
-            $0.horizontalEdges.bottom.equalToSuperview().inset(20)
+            $0.top.equalToSuperview().inset(4.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(34.adjusted)
+            $0.bottom.equalToSuperview().inset(20.adjustedH)
         }
     }
 }

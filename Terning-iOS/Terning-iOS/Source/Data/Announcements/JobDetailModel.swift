@@ -25,24 +25,29 @@ struct JobDetailModel: Codable {
     let scrapId: Int?
 }
 
+struct CompanyInfoModel {
+    let companyImage: String?
+    let company: String
+    let companyCategory: String
+}
+
 struct MainInfoModel {
     let dDay: String
     let title: String
-    let deadline: String
-    let workingPeriod: String
-    let startDate: String
     let viewCount: Int
 }
 
-struct CompanyInfoModel {
-    let company: String
-    let companyCategory: String
-    let companyImage: String?
+struct InfoItem {
+    let title: String
+    let description: String
 }
 
 struct SummaryInfoModel {
-    let qualification: [String]
-    let jobType: [String]
+    let items: [InfoItem]
+}
+
+struct ConditionInfoModel {
+    let items: [InfoItem]
 }
 
 struct DetailInfoModel {

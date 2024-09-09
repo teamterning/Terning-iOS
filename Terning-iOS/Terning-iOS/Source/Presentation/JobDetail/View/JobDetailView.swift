@@ -16,6 +16,7 @@ final class JobDetailView: UIView {
     var mainInfo: MainInfoModel?
     var companyInfo: CompanyInfoModel?
     var summaryInfo: SummaryInfoModel?
+    var conditionInfo: ConditionInfoModel?
     var detailInfo: DetailInfoModel?
     private var url: String?
     
@@ -70,10 +71,10 @@ final class JobDetailView: UIView {
 
 extension JobDetailView {
     private func setUI() {
-        navigationBar.setTitle("공고 정보")
+        navigationBar.setTitle("공고 상세 정보")
         
-        tableView.register(MainInfoTableViewCell.self, forCellReuseIdentifier: MainInfoTableViewCell.className)
         tableView.register(CompanyInfoTableViewCell.self, forCellReuseIdentifier: CompanyInfoTableViewCell.className)
+        tableView.register(MainInfoTableViewCell.self, forCellReuseIdentifier: MainInfoTableViewCell.className)
         tableView.register(SummaryInfoTableViewCell.self, forCellReuseIdentifier: SummaryInfoTableViewCell.className)
         tableView.register(DetailInfoTableViewCell.self, forCellReuseIdentifier: DetailInfoTableViewCell.className)
         tableView.register(JobDetailTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: JobDetailTableViewHeaderView.className)

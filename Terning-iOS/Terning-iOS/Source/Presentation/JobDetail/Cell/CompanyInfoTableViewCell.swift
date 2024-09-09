@@ -17,16 +17,15 @@ final class CompanyInfoTableViewCell: UITableViewCell {
         $0.contentMode = .scaleAspectFit
         $0.makeBorder(
             width: 1,
-            color: .terningMain,
-            cornerRadius: 30
+            color: .grey150,
+            cornerRadius: 20.adjusted
         )
         $0.layer.masksToBounds = true
     }
     
     private let companyNameLabel = LabelFactory.build(
         text: "회사명",
-        font: .title4,
-        textAlignment: .left
+        font: .title4
     ).then {
         $0.numberOfLines = 2
     }
@@ -35,7 +34,6 @@ final class CompanyInfoTableViewCell: UITableViewCell {
         text: "스타트업",
         font: .body4,
         textColor: .grey300,
-        textAlignment: .left,
         lineSpacing: 1.5,
         characterSpacing: 0.002
     )
@@ -63,21 +61,20 @@ extension CompanyInfoTableViewCell {
     
     private func setLayout() {
         companyImageView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(16)
-            $0.leading.bottom.equalToSuperview().inset(20)
-            $0.height.width.equalTo(60)
+            $0.top.equalToSuperview().inset(12.adjustedH)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(128.adjusted)
         }
         
         companyNameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(27)
-            $0.leading.equalTo(companyImageView.snp.trailing).offset(12)
-            $0.trailing.equalToSuperview().inset(20)
+            $0.top.equalTo(companyImageView.snp.bottom).offset(20.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(110.adjusted)
         }
         
         companyTypeLabel.snp.makeConstraints {
-            $0.top.equalTo(companyNameLabel.snp.bottom).offset(1)
-            $0.leading.equalTo(companyImageView.snp.trailing).offset(12)
-            $0.trailing.equalToSuperview().inset(20)
+            $0.top.equalTo(companyNameLabel.snp.bottom).offset(8.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(12.adjusted)
+            $0.bottom.equalToSuperview().inset(12.adjustedH)
         }
     }
 }

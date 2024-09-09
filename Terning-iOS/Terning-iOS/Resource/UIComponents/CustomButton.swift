@@ -93,6 +93,21 @@ extension CustomButton {
             for: .disabled
         )
         
+        let buttonStateHandler: UIButton.ConfigurationUpdateHandler = { button in
+            var updatedConfiguration = button.configuration
+            switch button.state {
+            case .normal:
+                updatedConfiguration?.background.backgroundColor = bgColor
+            case .disabled:
+                updatedConfiguration?.background.backgroundColor = disableColor
+            default:
+                break
+            }
+            button.configuration = updatedConfiguration
+        }
+        
+        self.configurationUpdateHandler = buttonStateHandler
+        
         return self
     }
 }

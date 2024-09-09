@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 
 import SnapKit
+import RxRelay
 
 @frozen
 enum ProfileViewType {
@@ -20,22 +21,26 @@ enum ProfileViewType {
 final class ProfileViewController: UIViewController {
     
     // MARK: - Properties
-    private let authProvider = Providers.authProvider
+    
     private let viewType: ProfileViewType
-    private let viewModel: ProfileViewModel
+    private let viewModel: ProfileViewModelType
     private let disposeBag = DisposeBag()
     
     // MARK: - UI Components
+    
     private lazy var profileView = ProfileView(viewType: viewType)
     
     private var userName: String = ""
-    private var imageIndex: Int = 0
+    private let imageStringSubject: BehaviorSubject<String>
     private var authType: String = UserManager.shared.authType ?? ""
     
     // MARK: - Init
-    init(viewType: ProfileViewType, viewModel: ProfileViewModel) {
+    
+    init(viewType: ProfileViewType, viewModel: ProfileViewModelType) {
         self.viewType = viewType
         self.viewModel = viewModel
+        self.imageStringSubject = BehaviorSubject<String>(value: viewModel.userInfo?.profileImage ?? "basic")
+
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -43,26 +48,23 @@ final class ProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - View Life Cycle
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
         setUI()
         setLayout()
         bindViewModel()
         setDelegate()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        profileView.bind(index: imageIndex)
-    }
 }
 
 // MARK: - UI & Layout
+
 extension ProfileViewController {
     private func setUI() {
+        view.backgroundColor = .white
         view.addSubview(profileView)
     }
     
@@ -74,47 +76,44 @@ extension ProfileViewController {
     }
 }
 
-// MARK: - Public Methods
-extension ProfileViewController {
-    public func setUserData(userName: String, snsType: String) {
-        profileView.getNameTextField().text = userName
-        if snsType == "APPLE" {
-            profileView.getSnsTypeLabel().text = "Apple 로그인"
-        } else if snsType == "KAKAO" {
-            profileView.getSnsTypeLabel().text = "Kakao 로그인"
-        } else {
-            profileView.getSnsTypeLabel().text = "정보 없음"
-        }
-    }
-}
-
 // MARK: - Methods
+
 extension ProfileViewController {
     private func setDelegate() {
-        profileView.getNameTextField().delegate = self
+        profileView.nameTextField.delegate = self
         profileView.setAddTarget(target: self, action: #selector(profileAddButtonTapped))
-        profileView.saveButton.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
         
         self.hideKeyboardWhenTappedAround()
+    }
+    
+    private func pushToWelcome() {
+        let welcomeViewController = WelcomeViewController(viewType: .first)
+        OnboardingData.shared.userName = self.userName
+        self.navigationController?.pushViewController(welcomeViewController, animated: true)
     }
 }
 
 // MARK: - Bind
+
 extension ProfileViewController {
     private func bindViewModel() {
-        let input = ProfileViewModel.Input(
-            name: profileView.getNameTextField().rx.text.orEmpty.asObservable()
+        let input = ProfileViewModelInput(
+            userInfo: Observable.just(viewModel.userInfo ?? UserProfileInfoModel(name: "", profileImage: "basic", authType: "")),
+            name: profileView.nameTextField.rx.text.orEmpty.asObservable(),
+            saveButtonTap: profileView.saveButton.rx.tap.asObservable()
         )
+        
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
-        output.nameCountText
-            .bind(to: profileView.getNameCountLabel().rx.text)
+        output.userInfo
+            .drive(onNext: { [weak self] userInfo in
+                self?.profileView.bind(userInfo: userInfo)
+            })
             .disposed(by: disposeBag)
         
-        output.isNameValid
-            .subscribe(onNext: { [weak self] isValid in
-                self?.profileView.getSaveButton().setEnabled(isValid)
-            })
+        output.nameCountText
+            .observe(on: MainScheduler.asyncInstance)
+            .bind(to: profileView.nameCountLabel.rx.text)
             .disposed(by: disposeBag)
         
         output.nameValidationMessage
@@ -128,10 +127,23 @@ extension ProfileViewController {
                 self?.userName = text
             })
             .disposed(by: disposeBag)
+        
+        output.isSaveButtonEnabled
+            .subscribe(onNext: { [weak self] isEnabled in
+                self?.profileView.saveButton.setEnabled(isEnabled)
+            })
+            .disposed(by: disposeBag)
+        
+        output.saveAlert
+            .drive(onNext: { [weak self] in
+                self?.pushToWelcome()
+            })
+            .disposed(by: disposeBag)
     }
 }
 
 // MARK: - UITextFieldDelegate
+
 extension ProfileViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let currentText = textField.text else { return true }
@@ -152,83 +164,31 @@ extension ProfileViewController: UITextFieldDelegate {
 }
 
 // MARK: - @objc func
+
 extension ProfileViewController {
     @objc
     private func profileAddButtonTapped() {
-        let contentViewController = ProfileImageViewController(viewModel: ProfileImageViewModel(), initialSelectedIndex: imageIndex)
+        guard let currentImageString = try? imageStringSubject.value() else {
+            return }
         
-        contentViewController.selectedIndex
-            .subscribe(onNext: { [weak self] index in
-                self?.imageIndex = index
-            })
-            .disposed(by: disposeBag)
+        let contentVC = ProfileImageViewController(viewModel: ProfileImageViewModel(), initialSelectedImageString: currentImageString)
         
-        contentViewController.profileImageView.saveButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                self?.profileView.bind(index: self?.imageIndex ?? 0)
-            })
-            .disposed(by: disposeBag)
+        presentCustomBottomSheet(contentVC, heightFraction: 320)
         
-        let bottomSheetVC = CustomBottomSheetViewController(
-            bottomType: .low,
-            contentViewController: contentViewController,
-            upScroll: false
-        )
-        
-        bottomSheetVC.modalPresentationStyle = .overFullScreen
-        self.present(bottomSheetVC, animated: false)
-    }
-    
-    @objc
-    private func saveButtonDidTap() {
-        self.signUp(
-            name: userName,
-            profileImage: imageIndex,
-            authType: authType
-        )
-        self.pushToWelcome()
+        contentVC.selectedIndex.subscribe(onNext: { [weak self] index in
+            let selectedImageString = ProfileImageUtils.stringForProfile(index: index)
+            self?.profileView.updateProfileImage(imageString: selectedImageString)
+            self?.imageStringSubject.onNext(selectedImageString)
+            self?.viewModel.imageStringRelay.accept(selectedImageString)
+        }).disposed(by: disposeBag)
+
     }
 }
 
-// MARK: - Network Calls
+// MARK: - UIAdaptivePresentationControllerDelegate
 
-extension ProfileViewController {
-    private func signUp(name: String, profileImage: Int, authType: String) {
-        LoadingIndicator.showLoading()
-        
-        authProvider.request(.signUp(name: name, profileImage: profileImage, authType: authType)) { result in
-            LoadingIndicator.hideLoading()
-            
-            switch result {
-            case .success(let result):
-                let status = result.statusCode
-                if 200..<300 ~= status {
-                    do {
-                        let responseDto = try result.map(BaseResponse<SignInResponseModel>.self)
-                        guard let model = responseDto.result else { return }
-                        
-                        if responseDto.status == 201 {
-                            UserManager.shared.accessToken = model.accessToken
-                            UserManager.shared.refreshToken = model.refreshToken
-                            UserManager.shared.userId = model.userId
-                            UserManager.shared.authType = model.authType
-                        } else {
-                            self.showToast(message: "status 가 201이 아님")
-                        }
-                    } catch {
-                        self.showToast(message: "에러 발생")
-                    }
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-                self.showToast(message: "사용자 등록 에러")
-            }
-        }
-    }
-    
-    private func pushToWelcome() {
-        let welcomeViewController = WelcomeViewController(viewType: .first)
-        OnboardingData.shared.userName = self.userName
-        self.navigationController?.pushViewController(welcomeViewController, animated: true)
+extension ProfileViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        removeModalBackgroundView()
     }
 }

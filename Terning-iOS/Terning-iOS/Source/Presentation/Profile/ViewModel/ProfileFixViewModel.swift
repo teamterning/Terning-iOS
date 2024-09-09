@@ -1,8 +1,8 @@
 //
-//  ProfileViewModel.swift
+//  ProfileFixViewModel.swift
 //  Terning-iOS
 //
-//  Created by 정민지 on 7/10/24.
+//  Created by 정민지 on 9/7/24.
 //
 
 import UIKit
@@ -10,17 +10,20 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-final class ProfileViewModel: ProfileViewModelType {
-
+final class ProfileFixViewModel: ProfileViewModelType {
+    
     // MARK: - Properties
     
-    private let authProvider = Providers.authProvider
+    private let myPageProvider = Providers.myPageProvider
     
     var userInfo: UserProfileInfoModel?
     let nameRelay = BehaviorRelay<String>(value: "")
     let imageStringRelay = BehaviorRelay<String>(value: "")
     
-    private let nameValidationMessageRelay = BehaviorRelay<ValidationMessage>(value: .defaultMessage)
+    private let nameValidationMessageRelay = BehaviorRelay<ValidationMessage>(value: .nullMessage)
+    
+    private let isNameChanged = BehaviorRelay<Bool>(value: false)
+    private let isImageChanged = BehaviorRelay<Bool>(value: false)
     
     // MARK: - Init
     
@@ -38,9 +41,14 @@ final class ProfileViewModel: ProfileViewModelType {
         let userInfo = input.userInfo.asDriver(onErrorJustReturn: UserProfileInfoModel(name: "", profileImage: "basic", authType: ""))
         
         let text = input.name
+            .skip(1)
             .do(onNext: { [weak self] name in
                 guard let self = self else { return }
                 self.nameRelay.accept(name)
+                
+                if name != self.userInfo?.name {
+                    self.isNameChanged.accept(true)
+                }
             })
             .share(replay: 1, scope: .whileConnected)
         
@@ -58,16 +66,22 @@ final class ProfileViewModel: ProfileViewModelType {
         
         let nameValidationMessage = nameValidationMessageRelay.asObservable()
         
-        let isSaveButtonEnabled = isNameValid
+        let isSaveButtonEnabled = Observable
+            .combineLatest(isNameChanged, isImageChanged, isNameValid)
+            .map { nameChanged, imageChanged, nameValid in
+                return (nameChanged || imageChanged) && nameValid
+            }
+            .startWith(false)
             .share(replay: 1, scope: .whileConnected)
         
         let saveAlert = input.saveButtonTap
+            .withLatestFrom(isSaveButtonEnabled)
+            .filter { $0 }
             .flatMapLatest { [weak self] _ -> Observable<Void> in
                 guard let self = self else { return Observable.empty() }
-                return self.signUp(
+                return self.patchProfileInfo(
                     name: self.nameRelay.value,
-                    profileImage: self.imageStringRelay.value,
-                    authType: self.userInfo?.authType ?? "KAKAO"
+                    profileImage: self.imageStringRelay.value
                 )
             }
             .asDriver(onErrorJustReturn: ())
@@ -83,7 +97,8 @@ final class ProfileViewModel: ProfileViewModelType {
         )
     }
 }
-extension ProfileViewModel {
+
+extension ProfileFixViewModel {
     func validateInput(newText: String) -> Bool {
         if newText.isEmpty {
             nameValidationMessageRelay.accept(.defaultMessage)
@@ -103,30 +118,16 @@ extension ProfileViewModel {
 
 // MARK: - API
 
-extension ProfileViewModel {
-    private func signUp(name: String, profileImage: String, authType: String) -> Observable<Void> {
+extension ProfileFixViewModel {
+    private func patchProfileInfo(name: String, profileImage: String) -> Observable<Void> {
         return Observable.create { observer in
-            self.authProvider.request(.signUp(name: name, profileImage: profileImage, authType: authType)) { result in
+            self.myPageProvider.request(.patchProfileInfo(name: name, profileImage: profileImage)) { result in
                 LoadingIndicator.hideLoading()
                 switch result {
                 case .success(let response):
-                    let status = response.statusCode
-                    if 200..<300 ~= status {
-                        do {
-                            let responseDto = try response.map(BaseResponse<SignInResponseModel>.self)
-                            if let model = responseDto.result {
-                                UserManager.shared.accessToken = model.accessToken
-                                UserManager.shared.refreshToken = model.refreshToken
-                                UserManager.shared.userId = model.userId
-                                UserManager.shared.authType = model.authType
-                                observer.onNext(())
-                                observer.onCompleted()
-                            } else {
-                                observer.onError(NSError(domain: "가입 오류", code: status))
-                            }
-                        } catch {
-                            observer.onError(NSError(domain: "가입 오류", code: status))
-                        }
+                    if 200..<300 ~= response.statusCode {
+                        observer.onNext(())
+                        observer.onCompleted()
                     }
                 case .failure(let error):
                     observer.onError(error)

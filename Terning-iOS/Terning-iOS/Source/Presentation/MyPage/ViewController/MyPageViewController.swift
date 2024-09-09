@@ -20,7 +20,7 @@ struct SectionData {
 
 @frozen
 enum SectionItem {
-    case userInfoViewModel(MyPageProfileModel)
+    case userInfoViewModel(UserProfileInfoModel)
     case cellViewModel(MyPageBasicCellModel)
     case emptyCell
 }
@@ -109,11 +109,17 @@ extension MyPageViewController {
             .disposed(by: disposeBag)
         
         output.navigateToProfileEdit
-            .drive(onNext: { [weak self] in
+            .drive(onNext: { [weak self] userInfo in
                 guard let self = self else { return }
-                self.navigateToProfileEdit()
+                let convertedUserInfo = UserProfileInfoModel(
+                    name: userInfo.name,
+                    profileImage: userInfo.profileImage,
+                    authType: userInfo.authType
+                )
+                self.navigateToProfileEdit(userInfo: convertedUserInfo)
             })
             .disposed(by: disposeBag)
+
         
         output.showLogoutAlert
             .drive(onNext: { [weak self] in
@@ -189,13 +195,13 @@ extension MyPageViewController {
 // MARK: - objc Functions
 
 extension MyPageViewController {
-    @objc
-    func navigateToProfileEdit() {
+    func navigateToProfileEdit(userInfo: UserProfileInfoModel) {
         let profileVC = ProfileViewController(
             viewType: .fix,
-            viewModel: ProfileViewModel()
+            viewModel: ProfileFixViewModel(userInfo: userInfo)
         )
-        navigationController?.pushViewController(profileVC, animated: true)
+        profileVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(profileVC, animated: true)
     }
     
     @objc

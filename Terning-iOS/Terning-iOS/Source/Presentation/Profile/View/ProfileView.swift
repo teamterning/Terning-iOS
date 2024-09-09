@@ -35,7 +35,7 @@ final class ProfileView: UIView {
     )
     
     let profileImageView = UIImageView().then {
-        $0.image = .profile0
+        $0.image = .profileBasic
         $0.contentMode = .scaleAspectFit
         $0.layer.cornerRadius = 40
         $0.clipsToBounds = true
@@ -44,7 +44,7 @@ final class ProfileView: UIView {
     }
     
     private let profileImageAddButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
+        $0.setImage(.icPlusCircle, for: .normal)
         $0.tintColor = .grey400
         $0.layer.cornerRadius = 14
         $0.clipsToBounds = true
@@ -58,7 +58,7 @@ final class ProfileView: UIView {
         characterSpacing: 0.002
     )
     
-    private let nameTextField = UITextField().then {
+    let nameTextField = UITextField().then {
         $0.borderStyle = .none
         $0.textColor = .terningBlack
         $0.font = .detail0
@@ -75,7 +75,7 @@ final class ProfileView: UIView {
         $0.backgroundColor = .grey500
     }
     
-    private let nameCountLabel = LabelFactory.build(
+    let nameCountLabel = LabelFactory.build(
         text: "0/12",
         font: .button3,
         textColor: .grey400,
@@ -83,13 +83,13 @@ final class ProfileView: UIView {
         characterSpacing: 0.002
     )
     
-    private let nameValidationIconImageView = UIImageView().then {
+    let nameValidationIconImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
         $0.isHidden = true
     }
     
-    private let nameValidationLabel = LabelFactory.build(
-        text: "12자리 이내, 문자/숫자 가능, 특수문자/기호 입력불가",
+    let nameValidationLabel = LabelFactory.build(
+        text: "",
         font: .detail3,
         textColor: .grey400,
         textAlignment: .left,
@@ -213,7 +213,7 @@ extension ProfileView {
             profileImageView.snp.makeConstraints {
                 $0.top.equalTo(profileImageLabel.snp.bottom).offset(15)
                 $0.centerX.equalToSuperview()
-                $0.width.height.equalTo(80)
+                $0.width.height.equalTo(80.adjusted)
             }
         } else {
             profileImageView.snp.makeConstraints {
@@ -236,17 +236,8 @@ extension ProfileView {
 // MARK: - Methods
 
 extension ProfileView {
-    func bind(index: Int) {
-        let profileImages: [UIImage] = [
-            .profile0,
-            .profile1,
-            .profile2,
-            .profile3,
-            .profile4,
-            .profile5
-        ]
-        
-        profileImageView.image = profileImages[index]
+    func updateProfileImage(imageString: String) {
+        profileImageView.image = ProfileImageUtils.imageForProfile(imageString: imageString)
     }
     
     func updateValidationUI(message: ValidationMessage) {
@@ -287,19 +278,15 @@ extension ProfileView {
         profileImageView.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    public func getNameTextField() -> UITextField {
-        return nameTextField
-    }
-    
-    public func getSaveButton() -> CustomButton {
-        return saveButton
-    }
-    
-    public func getNameCountLabel() -> UILabel {
-        return nameCountLabel
-    }
-    
-    public func getSnsTypeLabel() -> UILabel {
-        return snsTypeLabel
+    func bind(userInfo: UserProfileInfoModel) {
+        nameTextField.text = userInfo.name
+        profileImageView.image = ProfileImageUtils.imageForProfile(imageString: userInfo.profileImage)
+        if userInfo.authType == "APPLE" {
+            snsTypeLabel.text = "Apple 로그인"
+        } else if userInfo.authType == "KAKAO" {
+            snsTypeLabel.text = "Kakao 로그인"
+        } else {
+            snsTypeLabel.text = "정보 없음"
+        }
     }
 }

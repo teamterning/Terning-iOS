@@ -10,31 +10,53 @@ import RxSwift
 
 final class ProfileImageViewModel: ViewModelType {
     
+    // MARK: - Properties
+    
+    private let profileImageNames: [String] = [
+        "basic",
+        "lucky",
+        "smart",
+        "glass",
+        "calendar",
+        "passion"
+    ]
+
     // MARK: - Input
     
     struct Input {
-        let saveButtonTapped: Observable<Void>
-        let selectedIndex: Observable<Int>
+        var selectedIndex: Observable<Int>
+        var initialSelectedImageString: String
     }
     
     // MARK: - Output
     
     struct Output {
-        let savedIndex: Observable<Int>
+        let initialIndex: Observable<Int>
+        let selectedImageString: Observable<String>
+        let dismissModal: Driver<Void>
     }
-    
-    private let savedIndexSubject = PublishSubject<Int>()
     
     // MARK: - Transform
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
-        input.saveButtonTapped
-            .withLatestFrom(input.selectedIndex)
-            .bind(to: savedIndexSubject)
-            .disposed(by: disposeBag)
+        let initialIndex = Observable.just(input.initialSelectedImageString)
+            .map { [weak self] imageString -> Int in
+                return self?.profileImageNames.firstIndex(of: imageString) ?? 0
+            }
         
+        let selectedImageString = input.selectedIndex
+                   .map { [weak self] index -> String in
+                       return self?.profileImageNames[index] ?? "basic"
+                   }
+        
+        let dismissModal = input.selectedIndex
+            .map { _ in () }
+            .asDriver(onErrorDriveWith: .empty())
+
         return Output(
-            savedIndex: savedIndexSubject.asObservable()
+            initialIndex: initialIndex,
+            selectedImageString: selectedImageString,
+            dismissModal: dismissModal
         )
     }
 }

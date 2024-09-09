@@ -14,26 +14,34 @@ import SnapKit
 final class ProfileImageViewController: UIViewController {
     
     // MARK: - Properties
+    
     private let viewModel: ProfileImageViewModel
     private let disposeBag = DisposeBag()
-    var selectedIndex = BehaviorSubject<Int>(value: 0)
-    private var initialSelectedIndex: Int
     
-    // MARK: - UI Components
-    let profileImageView = ProfileImageView()
+    var selectedIndex = BehaviorSubject<Int>(value: 0)
+    private var initialSelectedImageString: String
+    
+    var onImageSelected: ((String) -> Void)?
+    
     let profileImages: [UIImage] = [
-        .profile0,
-        .profile1,
-        .profile2,
-        .profile3,
-        .profile4,
-        .profile5
+        .profileBasic,
+        .profileLucky,
+        .profileSmart,
+        .profileGlass,
+        .profileCalendar,
+        .profilePassion
     ]
     
+    // MARK: - UI Components
+    
+    let profileImageView = ProfileImageView()
+    
     // MARK: - Init
-    init(viewModel: ProfileImageViewModel, initialSelectedIndex: Int) {
+    
+    init(viewModel: ProfileImageViewModel, initialSelectedImageString: String) {
         self.viewModel = viewModel
-        self.initialSelectedIndex = initialSelectedIndex
+        self.initialSelectedImageString = initialSelectedImageString
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,73 +49,80 @@ final class ProfileImageViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - View Life Cycle
+    // MARK: - Life Cycle
+    
+    override func loadView() {
+        self.view = profileImageView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
         setUI()
-        setHierarchy()
-        setLayout()
         setDelegate()
         bindViewModel()
     }
 }
 
 // MARK: - UI & Layout
+
 extension ProfileImageViewController {
     private func setUI() {
-        DispatchQueue.main.async {
-            let initialIndexPath = IndexPath(item: self.initialSelectedIndex, section: 0)
-            self.collectionView(self.profileImageView.collectionView, didSelectItemAt: initialIndexPath)
-            self.profileImageView.collectionView.selectItem(at: initialIndexPath, animated: false, scrollPosition: [])
-        }
-        profileImageView.collectionView.register(ProfileImageCell.self, forCellWithReuseIdentifier: ProfileImageCell.className)
-    }
-    
-    private func setHierarchy() {
-        view.addSubview(profileImageView)
-    }
-    
-    private func setLayout() {
-        profileImageView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
+        view.backgroundColor = .white
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.layer.cornerRadius = 30
+        view.layer.masksToBounds = true
     }
 }
 
 // MARK: - Bind
+
 extension ProfileImageViewController {
     private func bindViewModel() {
-        let saveButtonTapped = profileImageView.saveButton.rx.tap.asObservable()
-        
         let input = ProfileImageViewModel.Input(
-            saveButtonTapped: saveButtonTapped,
-            selectedIndex: selectedIndex.asObservable()
+            selectedIndex: selectedIndex.asObservable(),
+            initialSelectedImageString: initialSelectedImageString
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
-        output.savedIndex
-            .subscribe(onNext: { [weak self] index in
-                guard let self = self else { return }
-                print("Selected index: \(index)")
-                self.selectedIndex.onNext(index)
-                self.dismiss(animated: false)
+        output.initialIndex
+            .subscribe(onNext: { [weak self] initialIndex in
+                print("initialIndex:", initialIndex)
+                let initialIndexPath = IndexPath(item: initialIndex, section: 0)
+                self?.profileImageView.collectionView.selectItem(at: initialIndexPath, animated: false, scrollPosition: [])
+
+            })
+            .disposed(by: disposeBag)
+        
+        output.selectedImageString
+            .subscribe(onNext: { [weak self] imageString in
+                self?.onImageSelected?(imageString)
+            })
+            .disposed(by: disposeBag)
+        
+        output.dismissModal
+            .drive(onNext: { [weak self] in
+                self?.presentingViewController?.removeModalBackgroundView()
+                self?.dismiss(animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
     }
 }
 
 // MARK: - Methods
+
 extension ProfileImageViewController {
     private func setDelegate() {
         profileImageView.collectionView.delegate = self
         profileImageView.collectionView.dataSource = self
+        
+        profileImageView.collectionView.register(ProfileImageCell.self, forCellWithReuseIdentifier: ProfileImageCell.className)
     }
 }
 
 // MARK: - UICollectionViewDataSource
+
 extension ProfileImageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return profileImages.count
@@ -123,6 +138,7 @@ extension ProfileImageViewController: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegate
+
 extension ProfileImageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let previousIndex = try? selectedIndex.value() {
@@ -130,7 +146,6 @@ extension ProfileImageViewController: UICollectionViewDelegate {
             collectionView.deselectItem(at: previousIndexPath, animated: true)
             if let previousCell = collectionView.cellForItem(at: previousIndexPath) as? ProfileImageCell {
                 previousCell.isSelected = false
-                previousCell.setStyle()
             }
         }
 
@@ -139,18 +154,13 @@ extension ProfileImageViewController: UICollectionViewDelegate {
         }
         selectedIndex.onNext(indexPath.item)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? ProfileImageCell {
-            cell.isSelected = false
-        }
-    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
+
 extension ProfileImageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.bounds.width - (20 * 2)) / 3
+        let width = (collectionView.bounds.width - 28) / 3
         return CGSize(width: width, height: width)
     }
 }

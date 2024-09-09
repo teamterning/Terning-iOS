@@ -108,14 +108,13 @@ extension MyPageProfileViewCell {
 extension MyPageProfileViewCell {
     private func bindViewModel() {
         fixProfileButton.rx.tap
-            .do(onNext: {
-                        print("fixProfileButton tapped") // 버튼이 탭될 때 로그 출력
-                    })
             .bind(to: fixProfileTapSubject)
             .disposed(by: disposeBag)
     }
     
-    func bind(with viewModel: MyPageProfileModel) {
+    func bind(with viewModel: UserProfileInfoModel) {
         nameLabel.text = viewModel.name
+        profileImageView.image = ProfileImageUtils.imageForProfile(imageString: viewModel.profileImage)
     }
 }
+

@@ -16,7 +16,7 @@ final class ProfileImageCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            setStyle()
+            setUI()
         }
     }
     
@@ -31,12 +31,11 @@ final class ProfileImageCell: UICollectionViewCell {
     // MARK: - Init
     
     override init(frame: CGRect) {
-        
         super.init(frame: frame)
         
+        setUI()
         setHierarchy()
         setLayout()
-        setStyle()
     }
     
     required init?(coder: NSCoder) {
@@ -61,7 +60,7 @@ extension ProfileImageCell {
 // MARK: - Methods
 
 extension ProfileImageCell {
-    func setStyle() {
+    func setUI() {
         if self.isSelected {
             contentView.makeBorder(
                 width: 2,
@@ -75,15 +74,5 @@ extension ProfileImageCell {
                 cornerRadius: contentView.bounds.width / 2
             )
         }
-    }
-}
-
-// MARK: - @objc func
-
-extension ProfileImageCell {
-    @objc
-    func cellDidTapped() {
-        self.isSelected.toggle()
-        setStyle()
     }
 }

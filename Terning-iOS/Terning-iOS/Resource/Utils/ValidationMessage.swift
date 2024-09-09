@@ -13,6 +13,7 @@ enum ValidationMessage: String {
     case containsSpecialCharacters = "이름에 특수문자는 입력할 수 없어요"
     case containsSymbols = "이름에 기호는 입력할 수 없어요"
     case defaultMessage = "12자리 이내, 문자/숫자 가능, 특수문자/기호 입력불가"
+    case nullMessage = ""
     
     var textColor: UIColor {
         switch self {

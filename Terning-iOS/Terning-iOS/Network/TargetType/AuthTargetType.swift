@@ -11,7 +11,7 @@ import Moya
 enum AuthTargetType {
     case signIn(authType: String)
     case getNewToken
-    case signUp(name: String, profileImage: Int, authType: String)
+    case signUp(name: String, profileImage: String, authType: String)
     case postOnboarding(grade: Int, workingPeriod: Int, startYear: Int, startMonth: Int)
 }
 

@@ -12,9 +12,3 @@ struct MyPageBasicCellModel {
     let title: String
     let accessoryType: AccessoryType
 }
-
-struct MyPageProfileModel {
-    let imageIndex: Int
-    let name: String?
-    let authType: String?
-}

@@ -39,7 +39,7 @@ final class ProfileView: UIView {
     let profileImageView = UIImageView().then {
         $0.image = .profileBasic
         $0.contentMode = .scaleAspectFit
-        $0.layer.cornerRadius = 40
+        $0.layer.cornerRadius = 40.adjusted
         $0.clipsToBounds = true
         $0.backgroundColor = .grey300
         $0.isUserInteractionEnabled = true

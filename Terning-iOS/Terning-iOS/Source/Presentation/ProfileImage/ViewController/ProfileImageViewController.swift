@@ -98,11 +98,6 @@ extension ProfileImageViewController {
         output.selectedImageString
             .subscribe(onNext: { [weak self] imageString in
                 self?.onImageSelected?(imageString)
-            })
-            .disposed(by: disposeBag)
-        
-        output.dismissModal
-            .drive(onNext: { [weak self] in
                 self?.presentingViewController?.removeModalBackgroundView()
                 self?.dismiss(animated: true, completion: nil)
             })

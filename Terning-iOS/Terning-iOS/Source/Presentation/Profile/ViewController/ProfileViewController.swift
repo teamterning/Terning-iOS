@@ -141,7 +141,14 @@ extension ProfileViewController {
         
         output.saveAlert
             .drive(onNext: { [weak self] in
-                self?.pushToWelcome()
+                guard let self = self else { return }
+                
+                switch self.viewType {
+                case .fix:
+                    self.navigationController?.popViewController(animated: true)
+                case .setting:
+                    self.pushToWelcome()
+                }
             })
             .disposed(by: disposeBag)
     }

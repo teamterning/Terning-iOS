@@ -33,7 +33,6 @@ final class ProfileImageViewModel: ViewModelType {
     struct Output {
         let initialIndex: Observable<Int>
         let selectedImageString: Observable<String>
-        let dismissModal: Driver<Void>
     }
     
     // MARK: - Transform
@@ -49,14 +48,9 @@ final class ProfileImageViewModel: ViewModelType {
                        return self?.profileImageNames[index] ?? "basic"
                    }
         
-        let dismissModal = input.selectedIndex
-            .map { _ in () }
-            .asDriver(onErrorDriveWith: .empty())
-
         return Output(
             initialIndex: initialIndex,
-            selectedImageString: selectedImageString,
-            dismissModal: dismissModal
+            selectedImageString: selectedImageString
         )
     }
 }

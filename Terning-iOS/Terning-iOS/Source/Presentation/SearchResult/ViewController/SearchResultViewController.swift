@@ -35,6 +35,8 @@ final class SearchResultViewController: UIViewController {
     ]
     
     private var searchResultCount: Int = 0
+    private var searchHasNext = true
+    private var isFetchingMoreData = false
     private let sortButtonTapObservable = PublishSubject<Void>()
     
     private let sortBySubject = BehaviorSubject<String>(value: "deadlineSoon")
@@ -104,13 +106,25 @@ extension SearchResultViewController {
             .withLatestFrom(keyword)
             .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
             .map { _ in () }
+            .do(onNext: { _ in
+                self.pageSubject.onNext(0)
+            })
         
         let sortChanged = sortBySubject
             .withLatestFrom(keyword)
             .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
             .map { _ in () }
+            .do(onNext: { _ in
+                self.pageSubject.onNext(0)
+            })
         
-        let searchTrigger = Observable.merge(searchChanged, sortChanged)
+        let pageChanged = pageSubject
+            .filter { $0 > 0 }
+            .do(onNext: { page in
+                print("Page changed: \(page)")
+            })
+
+        let searchTrigger = Observable.merge(searchChanged, sortChanged, pageChanged.map { _ in () })
             .withLatestFrom(Observable.combineLatest(keyword, sortBySubject)) { _, combinedValues in
                 return combinedValues
             }
@@ -122,9 +136,10 @@ extension SearchResultViewController {
                     firstSearch = false
                     self.rootView.searchTitleLabel.isHidden = true
                     self.rootView.updateLayout()
+                    self.isFetchingMoreData = false
                 }
             })
-        
+                
         let input = SearchResultViewModel.Input(
             keyword: searchTrigger,
             sortTap: sortButtonTapObservable.asObservable(),
@@ -146,15 +161,40 @@ extension SearchResultViewController {
             .disposed(by: disposeBag)
         
         output.searchResults
-            .drive(onNext: { [weak self] searchResult in
-                self?.rootView.searchResult = searchResult
-                self?.rootView.collectionView.reloadData()
+            .drive(onNext: { [weak self] newSearchResults in
+                guard let self = self else { return }
+                
+                if let currentPage = try? self.pageSubject.value(), currentPage > 1 {
+                    if let currentResults = self.rootView.searchResult {
+                        self.rootView.searchResult = currentResults + newSearchResults
+                    } else {
+                        self.rootView.searchResult = newSearchResults
+                    }
+                } else {
+                    self.rootView.collectionView.setContentOffset(.zero, animated: true)
+                    self.rootView.searchResult = newSearchResults
+                }
+                
+                self.rootView.collectionView.reloadData()
+                self.isFetchingMoreData = false
             })
             .disposed(by: disposeBag)
         
         output.keyword
             .drive(onNext: { [weak self] keyword in
                 self?.textFieldKeyword = keyword
+            })
+            .disposed(by: disposeBag)
+        
+        output.totalCounts
+            .drive(onNext: { [weak self] totalCounts in
+                self?.searchResultCount = totalCounts
+            })
+            .disposed(by: disposeBag)
+        
+        output.hasNextPage
+            .drive(onNext: { [weak self] hasNext in
+                self?.searchHasNext = hasNext
             })
             .disposed(by: disposeBag)
     }
@@ -418,6 +458,8 @@ extension SearchResultViewController {
     }
 }
 
+// MARK: - SortSettingButtonProtocol
+
 extension SearchResultViewController: SortSettingButtonProtocol {
     func didSelectSortingOption(_ option: SortingOptions) {
         sortBySubject.onNext(option.apiValue)
@@ -436,5 +478,26 @@ extension SearchResultViewController: SortSettingButtonProtocol {
 extension SearchResultViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
         removeModalBackgroundView()
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension SearchResultViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+        
+        var isFetchingMoreData = false
+        
+        if offsetY >= contentHeight - height && searchHasNext && !isFetchingMoreData {
+            isFetchingMoreData = true
+
+            if let currentPage = try? pageSubject.value() {
+                pageSubject.onNext(currentPage + 1)
+            }
+            
+        }
     }
 }

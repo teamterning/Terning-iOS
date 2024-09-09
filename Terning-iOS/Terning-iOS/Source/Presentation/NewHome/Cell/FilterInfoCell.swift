@@ -154,6 +154,7 @@ extension FilterInfoCell {
             titleLabel,
             filterButton,
             filteringStack,
+            nonFilteringLabel,
             totalCountLabel,
             sortButtonStack
         )
@@ -174,6 +175,11 @@ extension FilterInfoCell {
             $0.top.equalTo(titleLabel.snp.bottom).offset(19)
             $0.trailing.equalToSuperview().inset(24)
             $0.width.equalTo(196.adjusted)
+        }
+        
+        nonFilteringLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(19)
+            $0.trailing.equalToSuperview().inset(24)
         }
         
         filterButton.snp.makeConstraints {
@@ -224,14 +230,22 @@ extension FilterInfoCell {
 
 extension FilterInfoCell {
     func bind(model: UserFilteringInfoModel) {
-        guard let grade = model.grade,
-              let workingPeriod = model.workingPeriod,
-              let startYear = model.startYear,
-              let startMonth = model.startMonth else { return }
-        
-        gradeLabel.text = gradeText(for: grade)
-        periodLabel.text = periodText(for: workingPeriod)
-        monthLabel.text = "\(startYear)년 \(startMonth)월"
+        if let grade = model.grade,
+           let workingPeriod = model.workingPeriod,
+           let startYear = model.startYear,
+           let startMonth = model.startMonth {
+            
+            gradeLabel.text = gradeText(for: grade)
+            periodLabel.text = periodText(for: workingPeriod)
+            monthLabel.text = "\(startYear)년 \(startMonth)월"
+            
+            filteringStack.isHidden = false
+            nonFilteringLabel.isHidden = true
+            
+        } else {
+            filteringStack.isHidden = true
+            nonFilteringLabel.isHidden = false
+        }
     }
     
     func countBind(model: JobCardModel) {

@@ -110,13 +110,13 @@ extension JobCardScrapedCell {
         jobCard.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(100)
+            $0.height.equalTo(100.adjustedH)
         }
         
         jobCardCoverImage.snp.makeConstraints {
             $0.top.equalTo(jobCard.snp.top).offset(12)
             $0.leading.equalTo(jobCard.snp.leading).offset(12)
-            $0.width.height.equalTo(72)
+            $0.width.height.equalTo(72.adjusted)
         }
         
         daysRemaining.snp.makeConstraints {

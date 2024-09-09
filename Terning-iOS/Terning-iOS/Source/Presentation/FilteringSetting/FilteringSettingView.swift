@@ -157,8 +157,8 @@ extension FilteringSettingView {
         notchView.snp.makeConstraints {
             $0.top.equalTo(self.snp.top).offset(12)
             $0.centerX.equalTo(self.snp.centerX)
-            $0.width.equalTo(60)
-            $0.height.equalTo(4)
+            $0.width.equalTo(60.adjusted)
+            $0.height.equalTo(4.adjustedH)
         }
         
         mainTitleLabel.snp.makeConstraints {
@@ -169,7 +169,7 @@ extension FilteringSettingView {
         splitView.snp.makeConstraints {
             $0.top.equalTo(mainTitleLabel.snp.bottom).offset(15)
             $0.horizontalEdges.equalToSuperview().inset(25.adjusted)
-            $0.height.equalTo(1)
+            $0.height.equalTo(1.adjustedH)
         }
         
         schoolStatusLabel.snp.makeConstraints {
@@ -179,7 +179,7 @@ extension FilteringSettingView {
         
         [gradeButton1, gradeButton2, gradeButton3, gradeButton4].forEach {
             $0.snp.makeConstraints {
-                $0.height.equalTo(36)
+                $0.height.equalTo(36.adjustedH)
             }
         }
         
@@ -195,7 +195,7 @@ extension FilteringSettingView {
         
         [periodButton1, periodButton2, periodButton3].forEach {
             $0.snp.makeConstraints {
-                $0.height.equalTo(36)
+                $0.height.equalTo(36.adjustedH)
             }
         }
         

@@ -67,7 +67,7 @@ extension NonScrapInfoCell {
         nonTodayDeadlineImage.snp.makeConstraints {
             $0.top.equalTo(internshipScrapedStatus.snp.top).offset(30)
             $0.centerX.equalTo(internshipScrapedStatus)
-            $0.height.width.equalTo(44)
+            $0.height.width.equalTo(44.adjustedH)
         }
         
         internshipScrapedStatusLabel.snp.makeConstraints {

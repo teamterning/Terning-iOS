@@ -78,7 +78,7 @@ extension NewHomeView {
         gradientLayerView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(230)
             $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(43)
+            $0.height.equalTo(43.adjustedH)
         }
     }
 }

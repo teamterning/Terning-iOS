@@ -44,23 +44,23 @@ final class NewHomeViewController: UIViewController {
     }
     
     var filterInfos: UserFilteringInfoModel = UserFilteringInfoModel(
-        grade: 0, // 기본값 설정
-        workingPeriod: 0, // 기본값 설정
-        startYear: 2023, // 기본값 설정
-        startMonth: 1 // 기본값 설정
+        grade: nil, // 기본값 설정
+        workingPeriod: nil, // 기본값 설정
+        startYear: nil, // 기본값 설정
+        startMonth: nil // 기본값 설정
     )
     
-//    var jobCardCount: Int?
+    var existIsScrapped: Bool = false
     
-    var jobCardTotalCount: JobCardModel = JobCardModel(totalCount: 0, result: [])
+    private var jobCardTotalCount: JobCardModel = JobCardModel(totalCount: 0, result: [])
     
-    var jobCardLists: [JobCard] = [] {
+    private var jobCardLists: [JobCard] = [] {
         didSet {
             rootView.collectionView.reloadData()
         }
     }
     
-    var isNoneData: Bool {
+    private var isNoneData: Bool {
         return filterInfos.grade == nil || filterInfos.workingPeriod == nil ||
         filterInfos.startYear == nil || filterInfos.startMonth == nil
     }
@@ -104,13 +104,19 @@ final class NewHomeViewController: UIViewController {
     }
     
     private func setRegister() {
+        // 마감 공고 타이틀
         rootView.collectionView.register(ScrapInfoHeaderCell.self, forCellWithReuseIdentifier: ScrapInfoHeaderCell.className)
         
+        // 곧 마감인 공고 카드 셀
         rootView.collectionView.register(NonScrapInfoCell.self, forCellWithReuseIdentifier: NonScrapInfoCell.className)
+        rootView.collectionView.register(CheckDeadlineCell.self, forCellWithReuseIdentifier: CheckDeadlineCell.className)
         rootView.collectionView.register(IsScrapInfoViewCell.self, forCellWithReuseIdentifier: IsScrapInfoViewCell.className)
         
+        
+        // 필터링 셀
         rootView.collectionView.register(FilterInfoCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FilterInfoCell.className)
         
+        // 딱 맞는 대학생 인턴공고 셀
         rootView.collectionView.register(JobCardScrapedCell.self, forCellWithReuseIdentifier: JobCardScrapedCell.className) // 맞춤 공고가 있는 경우
         rootView.collectionView.register(NonJobCardCell.self, forCellWithReuseIdentifier: NonJobCardCell.className)
         rootView.collectionView.register(InavailableFilterView.self, forCellWithReuseIdentifier: InavailableFilterView.className)
@@ -215,8 +221,14 @@ extension NewHomeViewController: UICollectionViewDataSource {
             
         case .todayDeadline:
             if todayDeadlineLists.isEmpty {
-                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonScrapInfoCell.className, for: indexPath) as? NonScrapInfoCell else { return UICollectionViewCell() } // 오늘 마감인 공고가 없어요
-                return cell
+                if !jobCardLists.isEmpty && existIsScrapped {
+                    guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: CheckDeadlineCell.className, for: indexPath) as? CheckDeadlineCell  else { return UICollectionViewCell() }
+                    return cell
+                    
+                } else {
+                    guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonScrapInfoCell.className, for: indexPath) as? NonScrapInfoCell else { return UICollectionViewCell() } // 오늘 마감인 공고가 없어요
+                    return cell
+                }
                 
             } else {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: IsScrapInfoViewCell.className, for: indexPath) as? IsScrapInfoViewCell else { return UICollectionViewCell() }
@@ -465,9 +477,15 @@ extension NewHomeViewController {
                     do {
                         let responseDto = try result.map(BaseResponse<JobCardModel>.self)
                         guard let data = responseDto.result else { return }
-                        print("jobCardCount: \(data)")
+                        
                         self.jobCardLists = data.result
                         self.jobCardTotalCount = data
+                        
+                        if !jobCardLists.isEmpty {
+                            if data.result.contains(where: { $0.isScrapped }) {
+                                self.existIsScrapped = true
+                            }
+                        }
                         
                         self.rootView.collectionView.reloadData()
                     } catch {

@@ -464,10 +464,9 @@ extension SearchResultViewController: SortSettingButtonProtocol {
     func didSelectSortingOption(_ option: SortingOptions) {
         sortBySubject.onNext(option.apiValue)
         
-        if let sortHeader = rootView.collectionView.supplementaryView(
-            forElementKind: UICollectionView.elementKindSectionHeader,
-            at: IndexPath(item: 0, section: 0)
-        ) as? SortHeaderCell {
+        let visibleHeaders = rootView.collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
+
+        if let sortHeader = visibleHeaders.first as? SortHeaderCell {
             sortHeader.setSortButtonTitle(option.title)
         }
     }

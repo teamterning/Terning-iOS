@@ -39,6 +39,7 @@ final class LoginService: NSObject, LoginServiceProtocol {
                         }
                         
                         UserManager.shared.kakaoAccessToken = oauthToken.accessToken
+                        UserManager.shared.authType = "KAKAO"
                         
                         UserManager.shared.signIn(authType: "KAKAO") { result in
                             switch result {
@@ -73,6 +74,8 @@ final class LoginService: NSObject, LoginServiceProtocol {
                         print("🍎 카카오 토큰 \(oauthToken.accessToken)")
                         
                         UserManager.shared.kakaoAccessToken = oauthToken.accessToken
+                        
+                        UserManager.shared.authType = "KAKAO"
                         
                         UserManager.shared.signIn(authType: "KAKAO") { result in
                             switch result {
@@ -135,6 +138,8 @@ extension LoginService: ASAuthorizationControllerDelegate {
             print("Token : \(String(describing: tokenStr))")
             
             UserManager.shared.appleAccessToken = tokenStr
+            
+            UserManager.shared.authType = "APPLE"
             
             UserManager.shared.signIn(authType: "APPLE") { result in
                 switch result {

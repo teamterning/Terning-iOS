@@ -13,10 +13,14 @@ final class JobDetailTableViewHeaderView: UITableViewHeaderFooterView {
     
     // MARK: - UI Components
     
+    private let horizontalStickView = UIView().then {
+        $0.backgroundColor = .terningMain
+    }
+    
     private let titleLabel = LabelFactory.build(
         text: "기업 정보",
         font: .title4,
-        textColor: .terningMain,
+        textColor: .terningBlack,
         textAlignment: .left
     )
     
@@ -38,14 +42,24 @@ final class JobDetailTableViewHeaderView: UITableViewHeaderFooterView {
 
 extension JobDetailTableViewHeaderView {
     private func setUI() {
-        contentView.backgroundColor = .terningSelect
-        contentView.addSubview(titleLabel)
+        contentView.backgroundColor = .clear
+        contentView.addSubviews(
+            horizontalStickView,
+            titleLabel
+        )
     }
     
     private func setLayout() {
+        horizontalStickView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(7.adjustedH)
+            $0.leading.equalToSuperview().inset(24.adjusted)
+            $0.width.equalTo(2.adjusted)
+            $0.bottom.equalToSuperview().inset(6.adjustedH)
+        }
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(6)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.leading.equalTo(horizontalStickView.snp.trailing).offset(8.adjusted)
+            $0.trailing.equalToSuperview().inset(24.adjusted)
             $0.bottom.equalToSuperview().inset(5)
         }
     }

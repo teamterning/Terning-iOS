@@ -27,9 +27,10 @@ final class JobDetailViewModel: ViewModelType {
     
     struct Output {
         let jobDetailInfo: Driver<JobDetailModel>
-        let mainInfo: Driver<MainInfoModel>
         let companyInfo: Driver<CompanyInfoModel>
+        let mainInfo: Driver<MainInfoModel>
         let summaryInfo: Driver<SummaryInfoModel>
+        let conditionInfo: Driver<ConditionInfoModel>
         let detailInfo: Driver<DetailInfoModel>
         let bottomInfo: Driver<BottomInfoModel>
     }
@@ -101,51 +102,48 @@ final class JobDetailViewModel: ViewModelType {
             )
         )
         
+        let companyInfo = jobDetail.map {
+            CompanyInfoModel(
+                companyImage: $0.companyImage,
+                company: $0.company,
+                companyCategory: $0.companyCategory
+            )
+        }.asDriver(
+            onErrorJustReturn: CompanyInfoModel(
+                companyImage: nil,
+                company: "",
+                companyCategory: ""
+            )
+        )
+        
         let mainInfo = jobDetail.map {
             MainInfoModel(
                 dDay: $0.dDay,
                 title: $0.title,
-                deadline: $0.deadline,
-                workingPeriod: $0.workingPeriod,
-                startDate: $0.startDate,
                 viewCount: $0.viewCount
             )
         }.asDriver(
             onErrorJustReturn: MainInfoModel(
                 dDay: "",
                 title: "",
-                deadline: "",
-                workingPeriod: "",
-                startDate: "",
                 viewCount: 0
             )
         )
         
-        let companyInfo = jobDetail.map {
-            CompanyInfoModel(
-                company: $0.company,
-                companyCategory: $0.companyCategory,
-                companyImage: $0.companyImage
-            )
-        }.asDriver(
-            onErrorJustReturn: CompanyInfoModel(
-                company: "",
-                companyCategory: "",
-                companyImage: nil
-            )
-        )
-        
         let summaryInfo = jobDetail.map {
-            SummaryInfoModel(
-                qualification: $0.qualification.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) },
-                jobType: $0.jobType.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
-            )
-        }.asDriver(
-            onErrorJustReturn: SummaryInfoModel(
-                qualification: [],
-                jobType: []
-            )
-        )
+            SummaryInfoModel(items: [
+                InfoItem(title: "서류 마감", description: $0.deadline),
+                InfoItem(title: "근무 기간", description: $0.workingPeriod),
+                InfoItem(title: "근무 시작", description: $0.startDate)
+            ])
+        }.asDriver(onErrorJustReturn: SummaryInfoModel(items: []))
+        
+        let conditionInfo = jobDetail.map {
+            ConditionInfoModel(items: [
+                InfoItem(title: "모집대상", description: $0.qualification),
+                InfoItem(title: "모집직무", description: $0.jobType)
+            ])
+        }.asDriver(onErrorJustReturn: ConditionInfoModel(items: []))
         
         let detailInfo = jobDetail.map {
             DetailInfoModel(
@@ -173,9 +171,10 @@ final class JobDetailViewModel: ViewModelType {
         
         return Output(
             jobDetailInfo: jobDetailInfo,
-            mainInfo: mainInfo,
             companyInfo: companyInfo,
+            mainInfo: mainInfo,
             summaryInfo: summaryInfo,
+            conditionInfo: conditionInfo,
             detailInfo: detailInfo,
             bottomInfo: bottomInfo
         )

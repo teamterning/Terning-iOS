@@ -14,10 +14,11 @@ import SnapKit
 
 @frozen
 enum JobDetailInfoType: Int, CaseIterable {
-    case mainInfo = 0
-    case companyInfo = 1
+    case companyInfo = 0
+    case mainInfo = 1
     case summaryInfo = 2
-    case detailInfo = 3
+    case conditionInfo = 3
+    case detailInfo = 4
 }
 
 final class JobDetailViewController: UIViewController {
@@ -216,21 +217,27 @@ extension JobDetailViewController {
             })
             .disposed(by: disposeBag)
         
-        output.mainInfo
-            .drive(onNext: { [weak self] mainInfo in
-                self?.rootView.mainInfo = mainInfo
-            })
-            .disposed(by: disposeBag)
-        
         output.companyInfo
             .drive(onNext: { [weak self] companyInfo in
                 self?.rootView.companyInfo = companyInfo
             })
             .disposed(by: disposeBag)
         
+        output.mainInfo
+            .drive(onNext: { [weak self] mainInfo in
+                self?.rootView.mainInfo = mainInfo
+            })
+            .disposed(by: disposeBag)
+        
         output.summaryInfo
             .drive(onNext: { [weak self] summaryInfo in
                 self?.rootView.summaryInfo = summaryInfo
+            })
+            .disposed(by: disposeBag)
+        
+        output.conditionInfo
+            .drive(onNext: { [weak self] conditionInfo in
+                self?.rootView.conditionInfo = conditionInfo
             })
             .disposed(by: disposeBag)
         
@@ -278,14 +285,6 @@ extension JobDetailViewController: UITableViewDataSource {
         }
         
         switch sectionType {
-        case .mainInfo:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: MainInfoTableViewCell.className, for: indexPath) as? MainInfoTableViewCell,
-                  let mainInfo = rootView.mainInfo else {
-                return UITableViewCell()
-            }
-            cell.bind(with: mainInfo)
-            cell.selectionStyle = .none
-            return cell
         case .companyInfo:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CompanyInfoTableViewCell.className, for: indexPath) as? CompanyInfoTableViewCell,
                   let companyInfo = rootView.companyInfo else {
@@ -294,12 +293,28 @@ extension JobDetailViewController: UITableViewDataSource {
             cell.bind(with: companyInfo)
             cell.selectionStyle = .none
             return cell
+        case .mainInfo:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MainInfoTableViewCell.className, for: indexPath) as? MainInfoTableViewCell,
+                  let mainInfo = rootView.mainInfo else {
+                return UITableViewCell()
+            }
+            cell.bind(with: mainInfo)
+            cell.selectionStyle = .none
+            return cell
         case .summaryInfo:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SummaryInfoTableViewCell.className, for: indexPath) as? SummaryInfoTableViewCell,
                   let summaryInfo = rootView.summaryInfo else {
                 return UITableViewCell()
             }
-            cell.bind(with: summaryInfo)
+            cell.bind(with: summaryInfo.items)
+            cell.selectionStyle = .none
+            return cell
+        case .conditionInfo:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SummaryInfoTableViewCell.className, for: indexPath) as? SummaryInfoTableViewCell,
+                  let conditionInfo = rootView.conditionInfo else {
+                return UITableViewCell()
+            }
+            cell.bind(with: conditionInfo.items)
             cell.selectionStyle = .none
             return cell
         case .detailInfo:
@@ -321,17 +336,17 @@ extension JobDetailViewController: UITableViewDelegate {
         guard let sectionType = JobDetailInfoType(rawValue: section) else { return nil }
         
         switch sectionType {
-        case .companyInfo, .summaryInfo, .detailInfo:
+        case .summaryInfo, .conditionInfo, .detailInfo:
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: JobDetailTableViewHeaderView.className) as? JobDetailTableViewHeaderView else {
                 return nil
             }
             
             let title: String
             switch sectionType {
-            case .companyInfo:
-                title = "기업 정보"
             case .summaryInfo:
                 title = "공고 요약"
+            case .conditionInfo:
+                title = "자격 요건"
             case .detailInfo:
                 title = "상세 정보"
             default:

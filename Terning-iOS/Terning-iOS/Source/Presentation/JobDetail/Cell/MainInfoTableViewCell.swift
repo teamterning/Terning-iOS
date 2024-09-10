@@ -15,11 +15,8 @@ final class MainInfoTableViewCell: UITableViewCell {
     // MARK: - UI Components
     
     private let dDayDivView = UIView().then {
-        $0.makeBorder(
-            width: 1,
-            color: .terningMain,
-            cornerRadius: 12
-        )
+        $0.backgroundColor = .terningSelectPressed
+        $0.layer.cornerRadius = 5.adjusted
     }
     
     private let dDayLabel = LabelFactory.build(
@@ -37,33 +34,11 @@ final class MainInfoTableViewCell: UITableViewCell {
     ).then {
         $0.numberOfLines = 2
     }
-    
-    private let divView = UIView().then {
-        $0.layer.cornerRadius = 5
-        $0.layer.borderColor = UIColor.terningMain.cgColor
-        $0.layer.borderWidth = 1
-    }
 
-    private let deadlineInfoView = JobDetailInfoView(
-        title: "서류 마감",
-        description: "2024년 7월 23일"
-    )
-    
-    private let workPeriodInfoView = JobDetailInfoView(
-        title: "근무 기간",
-        description: "2개월"
-    )
-    
-    private let workStartInfoView = JobDetailInfoView(
-        title: "근무 시작",
-        description: "2024년 8월"
-    )
-    
-    private let viewsTitleLabel = LabelFactory.build(
-        text: "조회수",
-        font: .detail3,
-        textColor: .grey400
-    )
+    private let viewsImage = UIImageView().then {
+        $0.image = .icView
+        $0.contentMode = .scaleAspectFit
+    }
     
     private let viewsLabel = LabelFactory.build(
         text: "3,219회",
@@ -92,69 +67,40 @@ extension MainInfoTableViewCell {
         self.addSubviews(
             dDayDivView,
             titleLabel,
-            divView,
-            viewsTitleLabel,
+            viewsImage,
             viewsLabel
         )
         
         dDayDivView.addSubview(dDayLabel)
         
-        divView.addSubviews(
-            deadlineInfoView,
-            workPeriodInfoView,
-            workStartInfoView
-        )
     }
     
     private func setLayout() {
         dDayDivView.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().inset(20)
+            $0.top.equalToSuperview().inset(20.adjustedH)
+            $0.leading.equalToSuperview().inset(24.adjusted)
         }
         
         dDayLabel.snp.makeConstraints {
-            $0.verticalEdges.equalToSuperview()
-            $0.leading.equalToSuperview().inset(10)
-            $0.trailing.equalToSuperview().inset(11)
+            $0.verticalEdges.equalToSuperview().inset(2.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(20.5.adjusted)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(dDayDivView.snp.bottom).offset(8)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.top.equalTo(dDayDivView.snp.bottom).offset(8.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
         }
         
-        divView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-        }
-        
-        deadlineInfoView.snp.makeConstraints {
-            $0.top.equalTo(divView.snp.top).inset(16)
-            $0.leading.equalTo(divView.snp.leading).inset(16)
-            $0.height.equalTo(18)
-        }
-        
-        workPeriodInfoView.snp.makeConstraints {
-            $0.top.equalTo(deadlineInfoView.snp.bottom).offset(5)
-            $0.leading.equalTo(divView.snp.leading).inset(16)
-            $0.height.equalTo(18)
-        }
-        
-        workStartInfoView.snp.makeConstraints {
-            $0.top.equalTo(workPeriodInfoView.snp.bottom).offset(5)
-            $0.leading.equalTo(divView.snp.leading).inset(16)
-            $0.height.equalTo(18)
-            $0.bottom.equalTo(divView.snp.bottom).inset(16)
+        viewsImage.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(5.adjustedH)
+            $0.leading.equalToSuperview().inset(24.adjusted)
+            $0.width.height.equalTo(14.adjusted)
+            $0.bottom.equalToSuperview().inset(17.adjustedH)
         }
         
         viewsLabel.snp.makeConstraints {
-            $0.top.equalTo(divView.snp.bottom).offset(8)
-            $0.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview().inset(14)
-        }
-        
-        viewsTitleLabel.snp.makeConstraints {
-            $0.centerY.equalTo(viewsLabel.snp.centerY)
-            $0.trailing.equalTo(viewsLabel.snp.leading).offset(-3)
+            $0.centerY.equalTo(viewsImage.snp.centerY)
+            $0.leading.equalTo(viewsImage.snp.trailing).offset(3.adjusted)
         }
     }
 }
@@ -170,11 +116,13 @@ extension MainInfoTableViewCell {
         }
         
         titleLabel.text = mainInfo.title
-        
-        deadlineInfoView.setDescriptionText(description: mainInfo.deadline)
-        workPeriodInfoView.setDescriptionText(description: mainInfo.workingPeriod)
-        workStartInfoView.setDescriptionText(description: mainInfo.startDate)
-        
-        viewsLabel.text = "\(mainInfo.viewCount)회"
+        let formattedViewCount = formatNumber(mainInfo.viewCount)
+        viewsLabel.text = "\(formattedViewCount)회"
+    }
+    
+    private func formatNumber(_ number: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        return numberFormatter.string(from: NSNumber(value: number)) ?? "\(number)"
     }
 }

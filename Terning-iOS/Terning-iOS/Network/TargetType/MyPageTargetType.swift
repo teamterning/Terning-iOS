@@ -10,6 +10,7 @@ import Moya
 
 enum MyPageTargetType {
     case getProfileInfo
+    case patchProfileInfo(name: String, profileImage: String)
     case logout
     case withdraw
 }
@@ -27,6 +28,8 @@ extension MyPageTargetType: TargetType {
         switch self {
         case .getProfileInfo:
             return "/mypage/profile"
+        case .patchProfileInfo:
+            return "/mypage/profile"
         case .logout:
             return "/auth/logout"
         case .withdraw:
@@ -38,8 +41,8 @@ extension MyPageTargetType: TargetType {
         switch self {
         case .getProfileInfo:
             return .get
-        case .logout:
-            return .post
+        case .patchProfileInfo, .logout:
+            return .patch
         case .withdraw:
             return .delete
         }
@@ -49,6 +52,14 @@ extension MyPageTargetType: TargetType {
         switch self {
         case .getProfileInfo, .logout, .withdraw:
             return .requestPlain
+        case .patchProfileInfo(let name, let profileImage):
+            return .requestParameters(
+                parameters: [
+                    "name": name,
+                    "profileImage": profileImage
+                ],
+                encoding: JSONEncoding.default
+            )
         }
     }
     

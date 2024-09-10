@@ -20,7 +20,7 @@ struct SectionData {
 
 @frozen
 enum SectionItem {
-    case userInfoViewModel(MyPageProfileModel)
+    case userInfoViewModel(UserProfileInfoModel)
     case cellViewModel(MyPageBasicCellModel)
     case emptyCell
 }
@@ -61,6 +61,12 @@ final class MyPageViewController: UIViewController {
         setDelegate()
         bindViewModel()
         myPageView.registerCells()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.getMyPageInfo()
     }
 }
 
@@ -109,12 +115,17 @@ extension MyPageViewController {
             .disposed(by: disposeBag)
         
         output.navigateToProfileEdit
-            .drive(onNext: { [weak self] in
+            .drive(onNext: { [weak self] userInfo in
                 guard let self = self else { return }
-                self.navigateToProfileEdit()
+                let convertedUserInfo = UserProfileInfoModel(
+                    name: userInfo.name,
+                    profileImage: userInfo.profileImage,
+                    authType: userInfo.authType
+                )
+                self.navigateToProfileEdit(userInfo: convertedUserInfo)
             })
             .disposed(by: disposeBag)
-        
+
         output.showLogoutAlert
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
@@ -165,6 +176,15 @@ extension MyPageViewController {
         presentCustomBottomSheet(contentVC)
     }
     
+    private func navigateToProfileEdit(userInfo: UserProfileInfoModel) {
+        let profileVC = ProfileViewController(
+            viewType: .fix,
+            viewModel: ProfileFixViewModel(userInfo: userInfo)
+        )
+        profileVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
     private func showNotice() {
         let urlString = "https://abundant-quiver-13f.notion.site/69109213e7db4873be6b9600f2f5163a?pvs=4"
         guard let url = URL(string: urlString) else { return }
@@ -189,15 +209,6 @@ extension MyPageViewController {
 // MARK: - objc Functions
 
 extension MyPageViewController {
-    @objc
-    func navigateToProfileEdit() {
-        let profileVC = ProfileViewController(
-            viewType: .fix,
-            viewModel: ProfileViewModel()
-        )
-        navigationController?.pushViewController(profileVC, animated: true)
-    }
-    
     @objc
     func logoutButtonDidTap() {
         accountOptionBottomSheet(viewType: .logout)

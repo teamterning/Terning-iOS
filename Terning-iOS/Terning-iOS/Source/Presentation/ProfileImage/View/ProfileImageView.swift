@@ -16,11 +16,16 @@ final class ProfileImageView: UIView {
     
     private let layout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .vertical
-        $0.minimumInteritemSpacing = 18.66
-        $0.minimumLineSpacing = 20
+        $0.minimumInteritemSpacing = 14
+        $0.minimumLineSpacing = 9
     }
     
     // MARK: - UI Components
+    
+    private let notchView = UIView().then {
+        $0.backgroundColor = .grey300
+        $0.layer.cornerRadius = 2.adjustedH
+    }
     
     private let titleLabel = LabelFactory.build(
         text: "프로필 이미지 선택",
@@ -33,19 +38,12 @@ final class ProfileImageView: UIView {
         $0.isScrollEnabled = false
     }
     
-    let saveButton = CustomButton(
-        title: "저장하기"
-    )
-    
     // MARK: - Init
     
     override init(frame: CGRect) {
-        
         super.init(frame: frame)
-        backgroundColor = .white
         
         setUI()
-        setHierarchy()
         setLayout()
     }
     
@@ -58,33 +56,32 @@ final class ProfileImageView: UIView {
     
 extension ProfileImageView {
     private func setUI() {
-
-    }
-    
-    private func setHierarchy() {
+        backgroundColor = .white
         addSubviews(
+            notchView,
             titleLabel,
-            collectionView,
-            saveButton
+            collectionView
         )
     }
                     
     private func setLayout() {
+        notchView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(12.adjustedH)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(4.adjustedH)
+            $0.width.equalTo(60.adjusted)
+        }
+        
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.top.greaterThanOrEqualTo(notchView.snp.bottom).offset(16.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(28.adjusted)
+            $0.bottom.lessThanOrEqualTo(collectionView.snp.top).offset(-19.adjustedH)
         }
         
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(15)
-            $0.horizontalEdges.equalToSuperview().inset(44)
-            $0.bottom.equalTo(saveButton.snp.top).offset(-15)
-        }
-        
-        saveButton.snp.makeConstraints {
-            $0.horizontalEdges.equalToSuperview().inset(24)
-            $0.height.equalTo(54)
-            $0.bottom.equalToSuperview().inset(12)
+            $0.horizontalEdges.equalToSuperview().inset(38.adjusted)
+            $0.height.equalTo(194.adjustedH)
+            $0.bottom.equalToSuperview().inset(57.adjustedH)
         }
     }
 }

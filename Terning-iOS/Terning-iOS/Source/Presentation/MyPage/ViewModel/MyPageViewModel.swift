@@ -24,12 +24,12 @@ final class MyPageViewModel: ViewModelType {
     
     private let myPageProvider = Providers.myPageProvider
     
-    private var defaultUserInfo: MyPageProfileModel {
-        return MyPageProfileModel(imageIndex: 0, name: "", authType: "")
+    private var defaultUserInfo: UserProfileInfoModel {
+        return UserProfileInfoModel(name: "", profileImage: "", authType: "")
     }
     
     private let sectionsRelay = BehaviorRelay<[SectionData]>(value: [])
-    private let userInfoRelay = BehaviorRelay<MyPageProfileModel>(value: MyPageProfileModel(imageIndex: 0, name: "회원", authType: "UNKNOWN"))
+    private let userInfoRelay = BehaviorRelay<UserProfileInfoModel>(value: UserProfileInfoModel(name: "회원", profileImage: "basic", authType: "UNKNOWN"))
     
     // MARK: - Input
     struct Input {
@@ -42,7 +42,7 @@ final class MyPageViewModel: ViewModelType {
     // MARK: - Output
     struct Output {
         let sections: Driver<[SectionData]>
-        let navigateToProfileEdit: Driver<Void>
+        let navigateToProfileEdit: Driver<UserProfileInfoModel>
         let showLogoutAlert: Driver<Void>
         let showWithdrawAlert: Driver<Void>
         let cellTapped: Driver<CellAction>
@@ -51,7 +51,9 @@ final class MyPageViewModel: ViewModelType {
     // MARK: - Transform
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
-        let navigateToProfileEdit = input.fixProfileTap.asDriver(onErrorJustReturn: ())
+        let navigateToProfileEdit = input.fixProfileTap
+                    .withLatestFrom(userInfoRelay.asObservable())
+                    .asDriver(onErrorJustReturn: UserProfileInfoModel(name: "", profileImage: "basic" ,authType: ""))
         let showLogoutAlert = input.logoutTap.asDriver(onErrorJustReturn: ())
         let showWithdrawAlert = input.withdrawTap.asDriver(onErrorJustReturn: ())
         
@@ -136,9 +138,9 @@ extension MyPageViewModel {
                         let responseDto = try response.map(BaseResponse<UserProfileInfoModel>.self)
                         guard let data = responseDto.result else { return }
 
-                        let updatedUserInfo = MyPageProfileModel(
-                            imageIndex: 1,
+                        let updatedUserInfo = UserProfileInfoModel(
                             name: data.name,
+                            profileImage: data.profileImage,
                             authType: data.authType
                         )
                         self.userInfoRelay.accept(updatedUserInfo)

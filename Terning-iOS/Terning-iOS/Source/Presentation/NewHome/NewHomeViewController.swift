@@ -34,7 +34,7 @@ final class NewHomeViewController: UIViewController {
     private let filterProviders = Providers.filtersProvider
     private let scrapProviders = Providers.scrapsProvider
     
-    private var userName: String = ""
+    var userName: String = ""
     var apiParameter: String = "deadlineSoon"
     
     var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {

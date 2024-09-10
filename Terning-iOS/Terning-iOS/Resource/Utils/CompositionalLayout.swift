@@ -118,14 +118,29 @@ struct CompositionalLayout {
                     )
                 )
                 
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(40)),
-                    subitems: [item]
-                )
+                let HomeVC = NewHomeViewController()
                 
-                let section = NSCollectionLayoutSection(group: group)
-                
-                return section
+                if HomeVC.userName.count > 6 {
+                    var group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(48)),
+                        subitems: [item]
+                    )
+                    
+                    let section = NSCollectionLayoutSection(group: group)
+                    section.contentInsets = .init(top: 0, leading: 0, bottom: 16, trailing: 0)
+                    
+                    return section
+                    
+                } else {
+                    var group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(24)),
+                        subitems: [item])
+                    
+                    let section = NSCollectionLayoutSection(group: group)
+                    section.contentInsets = .init(top: 0, leading: 0, bottom: 16, trailing: 0)
+                    
+                    return section
+                }
                 
             } else if sectionNumber == 1 {
                 

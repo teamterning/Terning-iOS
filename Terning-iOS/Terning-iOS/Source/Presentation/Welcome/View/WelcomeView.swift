@@ -82,22 +82,22 @@ extension WelcomeView {
         switch viewType {
         case .first:
             logoImageView.snp.makeConstraints {
-                $0.top.equalTo(welcomeLabel.snp.bottom).offset(39)
-                $0.horizontalEdges.equalToSuperview().inset(20)
-                $0.height.equalTo(388)
+                $0.top.equalTo(welcomeLabel.snp.bottom).offset(39.adjustedH)
+                $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
+                $0.height.equalTo(388.adjustedH)
             }
         case .second:
             logoImageView.snp.makeConstraints {
-                $0.top.equalTo(welcomeLabel.snp.bottom).offset(56)
-                $0.horizontalEdges.equalToSuperview().inset(20)
-                $0.height.equalTo(340)
+                $0.top.equalTo(welcomeLabel.snp.bottom).offset(56.adjustedH)
+                $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
+                $0.height.equalTo(340.adjustedH)
             }
         }
         
         startButton.snp.makeConstraints {
-            $0.height.equalTo(54)
-            $0.horizontalEdges.equalToSuperview().inset(-5)
-            $0.bottom.equalToSuperview().inset(44)
+            $0.height.equalTo(54.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(-5.adjusted)
+            $0.bottom.equalToSuperview().inset(44.adjustedH)
         }
     }
 }

@@ -20,11 +20,13 @@ final class CustomOnboardingButton: UIButton {
     override var isHighlighted: Bool {
         didSet {
             if isSelected {
-                self.layer.borderColor = isHighlighted ? UIColor.terningMain2.cgColor : UIColor.terningMain.cgColor
-                self.backgroundColor = isHighlighted ? .terningSelectPressed : .terningSelect
+                self.layer.borderColor = isHighlighted ? UIColor.grey200.cgColor : UIColor.terningMain.cgColor
+                self.backgroundColor = isHighlighted ? .grey50 : .clear
+                self.setTitleColor(isHighlighted ? .grey375 : .terningMain, for: .normal)
             } else {
-                self.layer.borderColor = isHighlighted ? UIColor.terningMain2.cgColor : UIColor.terningMain.cgColor
-                self.backgroundColor = isHighlighted ? .terningPressed : .clear
+                self.layer.borderColor = isHighlighted ? UIColor.grey200.cgColor : UIColor.grey150.cgColor
+                self.backgroundColor = isHighlighted ? .grey50 : .clear
+                self.setTitleColor(isHighlighted ? .grey375 : .grey375, for: .normal)
             }
         }
     }
@@ -60,9 +62,10 @@ extension CustomOnboardingButton {
     private func setUI(cornerRadius: CGFloat) {
         self.makeBorder(
             width: 1,
-            color: .terningMain,
+            color: .grey150,
             cornerRadius: cornerRadius
         )
+        self.setTitleColor(.grey375, for: .normal)
         self.titleLabel?.numberOfLines = 0
         self.titleLabel?.textAlignment = .center
         self.titleLabel?.font = .button3
@@ -78,10 +81,12 @@ extension CustomOnboardingButton {
         if self.isSelected {
             self.setTitle(selectedTitle, for: .normal)
             self.setTitleColor(.terningMain, for: .normal)
-            self.backgroundColor = .terningSelect
+            self.layer.borderColor = UIColor.terningMain.cgColor
+            self.backgroundColor = .clear
         } else {
             self.setTitle(originalTitle, for: .normal)
-            self.setTitleColor(.grey400, for: .normal)
+            self.setTitleColor(.grey375, for: .normal)
+            self.layer.borderColor = UIColor.grey150.cgColor
             self.backgroundColor = .clear
         }
     }

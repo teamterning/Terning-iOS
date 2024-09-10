@@ -78,8 +78,19 @@ extension AuthTargetType: TargetType {
         var headers: [String: String] = ["Content-Type": "application/json"]
         switch self {
         case .signIn:
-            if let accessToken = UserManager.shared.accessToken {
-                headers["Authorization"] = "Bearer \(accessToken)"
+            if let authType = UserManager.shared.authType {
+                switch authType {
+                case "KAKAO":
+                    if let kakaoToken = UserManager.shared.kakaoAccessToken {
+                        headers["Authorization"] = "Bearer \(kakaoToken)"
+                    }
+                case "APPLE":
+                    if let appleToken = UserManager.shared.appleAccessToken {
+                        headers["Authorization"] = "Bearer \(appleToken)"
+                    }
+                default:
+                    break
+                }
             }
         case .getNewToken:
             if let refreshToken = UserManager.shared.refreshToken {

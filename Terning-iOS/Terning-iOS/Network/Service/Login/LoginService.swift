@@ -38,6 +38,8 @@ final class LoginService: NSObject, LoginServiceProtocol {
                             return
                         }
                         
+                        UserManager.shared.kakaoAccessToken = oauthToken.accessToken
+                        
                         UserManager.shared.signIn(authType: "KAKAO") { result in
                             switch result {
                             case .success(let type):
@@ -69,6 +71,8 @@ final class LoginService: NSObject, LoginServiceProtocol {
                         }
                         
                         print("🍎 카카오 토큰 \(oauthToken.accessToken)")
+                        
+                        UserManager.shared.kakaoAccessToken = oauthToken.accessToken
                         
                         UserManager.shared.signIn(authType: "KAKAO") { result in
                             switch result {
@@ -130,6 +134,8 @@ extension LoginService: ASAuthorizationControllerDelegate {
             print("User ID : \(String(describing: userIdentifier))")
             print("Token : \(String(describing: tokenStr))")
             
+            UserManager.shared.appleAccessToken = tokenStr
+            
             UserManager.shared.signIn(authType: "APPLE") { result in
                 switch result {
                 case .success(let type):
@@ -150,4 +156,3 @@ extension LoginService: ASAuthorizationControllerDelegate {
         print("[🍎] Apple Login error - \(error.localizedDescription)")
     }
 }
-

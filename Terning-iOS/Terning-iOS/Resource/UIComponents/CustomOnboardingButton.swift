@@ -19,11 +19,7 @@ final class CustomOnboardingButton: UIButton {
     
     override var isHighlighted: Bool {
         didSet {
-            if isSelected {
-                self.layer.borderColor = isHighlighted ? UIColor.grey200.cgColor : UIColor.terningMain.cgColor
-                self.backgroundColor = isHighlighted ? .grey50 : .clear
-                self.setTitleColor(isHighlighted ? .grey375 : .terningMain, for: .normal)
-            } else {
+            if !isSelected {
                 self.layer.borderColor = isHighlighted ? UIColor.grey200.cgColor : UIColor.grey150.cgColor
                 self.backgroundColor = isHighlighted ? .grey50 : .clear
                 self.setTitleColor(isHighlighted ? .grey375 : .grey375, for: .normal)

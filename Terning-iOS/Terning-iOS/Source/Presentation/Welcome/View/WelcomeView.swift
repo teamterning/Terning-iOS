@@ -55,7 +55,7 @@ extension WelcomeView {
             logoImageView.image = .imgOnbording
             startButton.setTitle(title: "시작하기")
         case .second:
-            welcomeLabel.text = "이제 딱 맞는 공고와 함께\n터닝을 시작해 볼까요?"
+            welcomeLabel.text = "나에게 딱 맞는 공고가 준비됐어요!\n터닝을 시작해 볼까요?"
             logoImageView.image = .imgwelcomTh1Ngjin
             startButton.setTitle(title: "내 맞춤 공고 바로 보러가기")
         }

@@ -41,7 +41,7 @@ final class ProfileViewController: UIViewController {
     init(viewType: ProfileViewType, viewModel: ProfileViewModelType) {
         self.viewType = viewType
         self.viewModel = viewModel
-        self.imageStringSubject = BehaviorSubject<String>(value: viewModel.userInfo?.profileImage ?? "lucky")
+        self.imageStringSubject = BehaviorSubject<String>(value: viewModel.userInfo?.profileImage ?? "basic")
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -66,6 +66,7 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController {
     private func setUI() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
         view.backgroundColor = .white
         view.addSubview(rootView)
     }
@@ -195,7 +196,7 @@ extension ProfileViewController {
             self?.viewModel.imageStringRelay.accept(selectedImageString)
         }
         
-        presentCustomBottomSheet(contentVC, heightFraction: 320)
+        presentCustomBottomSheet(contentVC, heightFraction: 288)
     }
 }
 

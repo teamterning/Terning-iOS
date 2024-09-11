@@ -8,15 +8,19 @@
 import UIKit
 
 import SnapKit
+import Lottie
 
 final class LoginView: UIView {
 
     // MARK: - UI Components
     
-    private let logoImageView = UIImageView().then {
-        $0.image = .imgLogin
+    private let logoAnimationView = LottieAnimationView().then {
+        let animation = LottieAnimation.named("login")
+        $0.animation = animation
         $0.contentMode = .scaleAspectFit
-        $0.layer.masksToBounds = true
+        $0.loopMode = .autoReverse
+        $0.animationSpeed = 1
+        $0.play()
     }
     
     let kakaoLoginButton = UIButton(type: .custom).then {
@@ -46,26 +50,26 @@ final class LoginView: UIView {
 extension LoginView {
     private func setUI() {
         self.addSubviews(
-            logoImageView,
+            logoAnimationView,
             kakaoLoginButton,
             appleLoginButton
         )
     }
     
     private func setLayout() {
-        logoImageView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(111)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(383)
+        logoAnimationView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(111.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(20.adjusted)
+            $0.height.equalTo(383.adjustedH)
         }
         
         kakaoLoginButton.snp.makeConstraints {
-            $0.top.equalTo(logoImageView.snp.bottom).offset(66)
+            $0.top.equalTo(logoAnimationView.snp.bottom).offset(66.adjustedH)
             $0.centerX.equalToSuperview()
         }
         
         appleLoginButton.snp.makeConstraints {
-            $0.top.equalTo(kakaoLoginButton.snp.bottom).offset(12)
+            $0.top.equalTo(kakaoLoginButton.snp.bottom).offset(12.adjustedH)
             $0.centerX.equalToSuperview()
         }
         

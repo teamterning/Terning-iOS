@@ -195,7 +195,7 @@ extension ProfileView {
             $0.width.height.equalTo(12.adjusted)
         }
         nameValidationLabel.snp.makeConstraints {
-            $0.top.equalTo(underLineView.snp.bottom).offset(5.adjustedH)
+            $0.top.equalTo(underLineView.snp.bottom).offset(6.adjustedH)
             $0.leading.equalTo(nameValidationIconImageView.snp.trailing).offset(4.adjusted)
             $0.trailing.equalToSuperview().inset(24.adjusted)
         }
@@ -207,15 +207,15 @@ extension ProfileView {
         
         if viewType == .setting {
             welcomeLabel.snp.makeConstraints {
-                $0.top.equalToSuperview().inset(70.adjustedH)
+                $0.top.equalToSuperview().inset(36.adjustedH)
                 $0.leading.equalToSuperview().inset(24.adjusted)
             }
             profileImageLabel.snp.makeConstraints {
-                $0.top.equalTo(welcomeLabel.snp.bottom).offset(46.adjustedH)
+                $0.top.equalTo(welcomeLabel.snp.bottom).offset(36.adjustedH)
                 $0.leading.equalToSuperview().inset(24.adjusted)
             }
             profileImageView.snp.makeConstraints {
-                $0.top.equalTo(profileImageLabel.snp.bottom).offset(15.adjustedH)
+                $0.top.equalTo(profileImageLabel.snp.bottom).offset(20.adjustedH)
                 $0.centerX.equalToSuperview()
                 $0.width.height.equalTo(80.adjusted)
             }
@@ -273,7 +273,7 @@ extension ProfileView {
             }
         } else {
             nameValidationLabel.snp.makeConstraints {
-                $0.top.equalTo(underLineView.snp.bottom).offset(5)
+                $0.centerY.equalTo(nameValidationIconImageView.snp.centerY)
                 $0.leading.equalTo(nameValidationIconImageView.snp.trailing).offset(4)
                 $0.trailing.equalToSuperview().inset(24)
             }

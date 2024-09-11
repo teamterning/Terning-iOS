@@ -18,7 +18,7 @@ class FilterButton: UIButton {
         
         let title = "필터링"
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.button4,
+            .font: UIFont.button3,
             .foregroundColor: UIColor.terningMain
         ]
         
@@ -31,6 +31,8 @@ class FilterButton: UIButton {
         
         self.configuration?.contentInsets.leading = 2 // 버튼과 leading에 얼마만큼
         self.configuration?.contentInsets.trailing = 6 // 버튼을 기준으로 trailing이랑 떨어져있는 정도
+        self.configuration?.contentInsets.top = 7
+        self.configuration?.contentInsets.bottom = 6
         
         self.configuration?.titleAlignment = .center
         self.configuration?.background.backgroundColor = .white

@@ -183,8 +183,8 @@ extension FilterInfoCell {
         }
         
         filterButton.snp.makeConstraints {
-            $0.height.equalTo(28.adjustedH)
-            $0.width.equalTo(75.adjusted)
+            $0.height.equalTo(30.adjustedH)
+            $0.width.equalTo(80.adjusted)
         }
         
         distinction1.snp.makeConstraints {

@@ -266,7 +266,7 @@ extension NewHomeViewController: FilterButtonProtocol {
         let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * ((658-32)/812) }
         
         if let sheet = filterSettingVC.sheetPresentationController {
-            sheet.detents = [fraction, .large()]
+            sheet.detents = [fraction]
             sheet.largestUndimmedDetentIdentifier = nil
             filterSettingVC.modalPresentationStyle = .custom
             
@@ -324,7 +324,7 @@ extension NewHomeViewController: SortButtonProtocol {
         let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * ((380-32)/812) }
         
         if let sheet = sortSettingVC.sheetPresentationController {
-            sheet.detents = [fraction, .large()]
+            sheet.detents = [fraction]
             sheet.largestUndimmedDetentIdentifier = nil
             sortSettingVC.modalPresentationStyle = .custom
             

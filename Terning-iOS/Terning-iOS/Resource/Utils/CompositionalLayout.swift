@@ -121,7 +121,7 @@ struct CompositionalLayout {
                 let HomeVC = NewHomeViewController()
                 
                 if HomeVC.userName.count > 6 {
-                    var group = NSCollectionLayoutGroup.horizontal(
+                    let group = NSCollectionLayoutGroup.horizontal(
                         layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(48)),
                         subitems: [item]
                     )
@@ -132,7 +132,7 @@ struct CompositionalLayout {
                     return section
                     
                 } else {
-                    var group = NSCollectionLayoutGroup.horizontal(
+                    let group = NSCollectionLayoutGroup.horizontal(
                         layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(24)),
                         subitems: [item])
                     

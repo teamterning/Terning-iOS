@@ -22,7 +22,7 @@ final class NonScrapInfoCell: UICollectionViewCell {
     }
     
     private let internshipScrapedStatusLabel = LabelFactory.build(
-        text: "오늘 마감인 공고가 없어요",
+        text: "아직 스크랩된 인턴 공고가 없어요!",
         font: .detail2,
         textColor: .grey400
     ).then {

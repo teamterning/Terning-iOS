@@ -44,17 +44,16 @@ final class SearchResultViewModel: ViewModelType {
             .withLatestFrom(Observable.combineLatest(input.keyword, input.sortBy, input.page, input.size))
             .flatMapLatest { keyword, sortBy, page, size in
                 return self.fetchJobCards(keyword: keyword, sortBy: sortBy, page: page, size: size)
-                    .catchAndReturn(SearchResultModel(totalPages: 0, hasNext: false, announcements: []))
+                    .catchAndReturn(SearchResultModel(totalPages: 0, totalCount: 0, hasNext: false, announcements: []))
             }
             .share(replay: 1)
         
         let searchResults = searchResponse
             .map { $0.announcements }
             .asDriver(onErrorJustReturn: [])
-        
-        // TODO: totalPages를 totalCounts로 변경
+
         let totalCounts = searchResponse
-            .map { $0.totalPages }
+            .map { $0.totalCount }
             .asDriver(onErrorJustReturn: 0)
         
         let hasNextPage = searchResponse

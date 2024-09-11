@@ -321,15 +321,14 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
        
         let model = searchResults[index]
         print("model", model)
-        let scrapId = model.scrapId
         
-        if scrapId == nil {
+        if model.isScrapped == false {
             let startDateComponents = parseStartDate(model.startYearMonth)
             
             let dailyScrapModel = DailyScrapModel(
-                scrapId: model.scrapId ?? 0,
+                scrapId: model.internshipAnnouncementId,
                 title: model.title,
-                color: "#ED4E54",
+                color: model.color ?? "#ED4E54",
                 internshipAnnouncementId: model.internshipAnnouncementId,
                 dDay: model.dDay,
                 workingPeriod: model.workingPeriod,
@@ -370,7 +369,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
             )
             
             alertSheet.centerButtonTapAction = {
-                self.cancelScrapAnnouncement(scrapId: scrapId)
+                self.cancelScrapAnnouncement(scrapId: model.internshipAnnouncementId)
                 self.dismiss(animated: false)
              
                 self.showToast(message: "관심 공고가 캘린더에서 사라졌어요!")

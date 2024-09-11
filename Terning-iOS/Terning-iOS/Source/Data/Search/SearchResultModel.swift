@@ -11,18 +11,19 @@ import Foundation
 
 struct SearchResultModel: Codable {
     let totalPages: Int
+    let totalCount: Int
     let hasNext: Bool
     let announcements: [SearchResult]
 }
 
 struct SearchResult: Codable {
     let internshipAnnouncementId: Int
-    let scrapId: Int?
-    let dDay: String
-    let deadline: String
     let companyImage: String
+    let dDay: String
     let title: String
     let workingPeriod: String
-    let startYearMonth: String
+    let isScrapped: Bool
     let color: String?
+    let deadline: String
+    let startYearMonth: String
 }

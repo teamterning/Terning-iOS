@@ -168,11 +168,11 @@ extension JobCardScrapedCell {
         self.jobLabel.text = model.title
         self.period.text = model.workingPeriod
         self.indexPath = indexPath.item
-        if model.scrapId == nil {
+        if model.isScrapped == false {
             self.scrapButton.isSelected = false
         } else {
             self.scrapButton.isSelected = true
-            self.scrapId = model.scrapId
+            self.scrapId = model.internshipAnnouncementId
         }
     }
     

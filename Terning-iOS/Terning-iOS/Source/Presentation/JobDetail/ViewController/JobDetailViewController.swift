@@ -129,7 +129,7 @@ extension JobDetailViewController {
                     let dailyScrapModel = DailyScrapModel(
                         scrapId: currentId,
                         title: jobDetail.title,
-                        color: jobDetail.color ?? "red",
+                        color: jobDetail.color ?? "#ED4E54",
                         internshipAnnouncementId: currentId,
                         dDay: jobDetail.dDay,
                         workingPeriod: jobDetail.workingPeriod,

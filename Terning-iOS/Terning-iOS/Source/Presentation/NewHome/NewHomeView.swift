@@ -12,10 +12,14 @@ import Then
 
 final class NewHomeView: UIView {
     
+    // MARK: - Properties
+    
+    private var homeCaseData: HomeCaseModel
+    
     // MARK: - UIComponents
     
     lazy var collectionView: UICollectionView = {
-        let layout = CompositionalLayout.createHomeListLayout()
+        let layout = CompositionalLayout.createHomeListLayout(with: homeCaseData)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         collectionView.isScrollEnabled = true
@@ -33,7 +37,8 @@ final class NewHomeView: UIView {
     
     // MARK: - Life Cycles
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, homeCaseData: HomeCaseModel) {
+        self.homeCaseData = homeCaseData
         super.init(frame: frame)
         
         setUI()

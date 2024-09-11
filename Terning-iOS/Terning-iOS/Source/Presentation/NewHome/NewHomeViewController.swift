@@ -34,14 +34,23 @@ final class NewHomeViewController: UIViewController {
     private let filterProviders = Providers.filtersProvider
     private let scrapProviders = Providers.scrapsProvider
     
-    var userName: String = ""
     var apiParameter: String = "deadlineSoon"
     
-    var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
+    // 싱글톤 객체로 수정하면 좋을듯
+    private var homeCaseData = HomeCaseModel.init(userName: "ㅁㅁㅁㅁ", todayDeadlineLists: [], existIsScrapped: true) {
         didSet {
             rootView.collectionView.reloadData()
         }
     }
+    
+    // TODO: - 서버 테스트 후에 완전히 삭제하기
+//    var userName: String = ""
+//    var existIsScrapped: Bool = false
+//    var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
+//        didSet {
+//            rootView.collectionView.reloadData()
+//        }
+//    }
     
     var filterInfos: UserFilteringInfoModel = UserFilteringInfoModel(
         grade: nil, // 기본값 설정
@@ -49,8 +58,6 @@ final class NewHomeViewController: UIViewController {
         startYear: nil, // 기본값 설정
         startMonth: nil // 기본값 설정
     )
-    
-    var existIsScrapped: Bool = false
     
     private var jobCardTotalCount: JobCardModel = JobCardModel(totalCount: 0, result: [])
     
@@ -67,9 +74,18 @@ final class NewHomeViewController: UIViewController {
     
     // MARK: - UIComponents
     
-    private let rootView = NewHomeView()
+    private let rootView: NewHomeView
     
     // MARK: - Life Cycles
+    
+    init(homeCaseData: HomeCaseModel) {
+        self.rootView = NewHomeView(frame: .zero, homeCaseData: self.homeCaseData)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         self.view = rootView
@@ -201,7 +217,7 @@ extension NewHomeViewController: UICollectionViewDataSource {
         case .todayDeadlineUserInfo:
             return section.numberOfItemsInSection
         case .todayDeadline:
-            return todayDeadlineLists.isEmpty ? 1 : todayDeadlineLists.count
+            return homeCaseData.todayDeadlineLists.isEmpty ? 1 : homeCaseData.todayDeadlineLists.count
         case .jobCard:
             return (isNoneData || jobCardLists.isEmpty) ? 1 : jobCardLists.count
         }
@@ -215,12 +231,12 @@ extension NewHomeViewController: UICollectionViewDataSource {
         switch section {
         case .todayDeadlineUserInfo:
             guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: ScrapInfoHeaderCell.className, for: indexPath) as? ScrapInfoHeaderCell else { return UICollectionViewCell() }
-            cell.bind(name: userName)
+            cell.bind(name: homeCaseData.userName)
             return cell
             
         case .todayDeadline:
-            if todayDeadlineLists.isEmpty {
-                if !jobCardLists.isEmpty && existIsScrapped {
+            if homeCaseData.todayDeadlineLists.isEmpty {
+                if !jobCardLists.isEmpty && homeCaseData.existIsScrapped {
                     guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: CheckDeadlineCell.className, for: indexPath) as? CheckDeadlineCell  else { return UICollectionViewCell() }
                     return cell
                     
@@ -231,7 +247,7 @@ extension NewHomeViewController: UICollectionViewDataSource {
                 
             } else {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: IsScrapInfoViewCell.className, for: indexPath) as? IsScrapInfoViewCell else { return UICollectionViewCell() }
-                cell.bindData(model: todayDeadlineLists[indexPath.item])
+                cell.bindData(model: homeCaseData.todayDeadlineLists[indexPath.item])
                 return cell
             }
             
@@ -412,7 +428,7 @@ extension NewHomeViewController {
                         let responseDto = try result.map(BaseResponse<[ScrapedAndDeadlineModel]>.self)
                         guard let data = responseDto.result else { return }
                         
-                        self.todayDeadlineLists = data
+                        homeCaseData.todayDeadlineLists = data
                         rootView.collectionView.reloadData()
                         
                     } catch {
@@ -482,7 +498,7 @@ extension NewHomeViewController {
                         
                         if !jobCardLists.isEmpty {
                             if data.result.contains(where: { $0.isScrapped }) {
-                                self.existIsScrapped = true
+                                self.homeCaseData.existIsScrapped = true
                             }
                         }
                         
@@ -556,7 +572,7 @@ extension NewHomeViewController {
                     do {
                         let responseDto = try response.map(BaseResponse<UserProfileInfoModel>.self)
                         guard let data = responseDto.result else { return }
-                        self.userName = data.name
+                        homeCaseData.userName = data.name
                         
                     } catch {
                         print("사용자 정보를 불러올 수 없어요.")

@@ -127,8 +127,8 @@ extension FilteringSettingViewController {
         for (button, value) in buttonsDict {
             let isSelected = (value == selectedValue)
             button.isSelected = isSelected
-            button.setBackgroundColor(isSelected ? .terningMain : .clear, for: .normal)
-            button.setTitleColor(isSelected ? .white : .grey400, for: .normal)
+            button.layer.borderColor = (isSelected ? UIColor.terningMain : UIColor.grey150).cgColor
+            button.setTitleColor(isSelected ? .terningMain : .grey375, for: .normal)
         }
     }
     

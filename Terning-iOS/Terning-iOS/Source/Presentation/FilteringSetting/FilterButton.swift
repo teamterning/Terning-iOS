@@ -35,10 +35,10 @@ class FilterButton: UIButton {
         self.configuration?.contentInsets.bottom = 6
         
         self.configuration?.titleAlignment = .center
-        self.configuration?.background.backgroundColor = .white
         self.configuration?.background.cornerRadius = 5
-        self.configuration?.background.strokeColor = .terningMain
         self.configuration?.background.strokeWidth = 1
+        self.configuration?.background.backgroundColor = .white
+        self.configuration?.background.strokeColor = .terningMain
     }
     
     required init?(coder: NSCoder) {

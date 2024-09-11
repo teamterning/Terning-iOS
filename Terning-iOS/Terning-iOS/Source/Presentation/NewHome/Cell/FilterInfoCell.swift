@@ -25,6 +25,12 @@ final class FilterInfoCell: UICollectionViewCell {
     private let sortSettingVC = SortSettingViewController()
     var totalCount: Int = 999999
     
+    private var isFilterButtonSelected = false
+    private var originalBackgroundColor: UIColor?
+    
+    weak var filterDelegate: FilterButtonProtocol?
+    weak var sortDelegate: SortButtonProtocol?
+    
     // MARK: - UIComponents
     
     private let titleLabel = LabelFactory.build(
@@ -36,9 +42,6 @@ final class FilterInfoCell: UICollectionViewCell {
     
     // 필터링 버튼 및 필터링 상태 표시 바
     private lazy var filterButton = FilterButton()
-    
-    weak var filterDelegate: FilterButtonProtocol?
-    weak var sortDelegate: SortButtonProtocol?
     
     var gradeLabel = LabelFactory.build(
         text: "3학년",
@@ -210,6 +213,9 @@ extension FilterInfoCell {
     
     func setAddTarget() {
         filterButton.addTarget(self, action: #selector(filterButtonDidTap), for: .touchUpInside)
+        filterButton.addTarget(self, action: #selector(filterButtonTouchDown), for: .touchDown)
+        filterButton.addTarget(self, action: #selector(filterButtonTouchUpOutside), for: .touchUpOutside)
+        filterButton.addTarget(self, action: #selector(filterButtonTouchUpInside), for: .touchUpInside)
     }
     
     func setTapGesture() {
@@ -218,9 +224,28 @@ extension FilterInfoCell {
     }
     
     @objc func filterButtonDidTap() {
-        print("filterButton is clicked")
-        filterDelegate?.filterButtonDidTap()
-    }
+            print("filterButton is clicked")
+            filterDelegate?.filterButtonDidTap()
+        }
+        
+        @objc func filterButtonTouchDown() {
+            originalBackgroundColor = filterButton.configuration?.background.backgroundColor
+            filterButton.configuration?.background.backgroundColor = .terningPressed
+        }
+        
+        @objc func filterButtonTouchUpOutside() {
+            revertButtonBackgroundColor()
+        }
+        
+        @objc func filterButtonTouchUpInside() {
+            revertButtonBackgroundColor()
+        }
+        
+        private func revertButtonBackgroundColor() {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.filterButton.configuration?.background.backgroundColor = self.originalBackgroundColor
+            }
+        }
     
     @objc func sortButtonDidTap() {
         print("sortButton is clicked")
@@ -230,22 +255,21 @@ extension FilterInfoCell {
 
 extension FilterInfoCell {
     func bind(model: UserFilteringInfoModel) {
-        if let grade = model.grade,
-           let workingPeriod = model.workingPeriod,
-           let startYear = model.startYear,
-           let startMonth = model.startMonth {
-            
-            gradeLabel.text = gradeText(for: grade)
-            periodLabel.text = periodText(for: workingPeriod)
-            monthLabel.text = "\(startYear)년 \(startMonth)월"
-            
-            filteringStack.isHidden = false
-            nonFilteringLabel.isHidden = true
-            
-        } else {
+        guard let grade = model.grade,
+              let workingPeriod = model.workingPeriod,
+              let startYear = model.startYear,
+              let startMonth = model.startMonth else {
             filteringStack.isHidden = true
             nonFilteringLabel.isHidden = false
+            return
         }
+        
+        gradeLabel.text = gradeText(for: grade)
+        periodLabel.text = periodText(for: workingPeriod)
+        monthLabel.text = "\(startYear)년 \(startMonth)월"
+        
+        filteringStack.isHidden = false
+        nonFilteringLabel.isHidden = true
     }
     
     func countBind(model: JobCardModel) {

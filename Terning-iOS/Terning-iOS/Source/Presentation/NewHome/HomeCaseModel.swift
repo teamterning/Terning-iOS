@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct HomeCaseModel {
+    var userName = "ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ"
+    var todayDeadlineLists: [ScrapedAndDeadlineModel]
+    var existIsScrapped: Bool
+}

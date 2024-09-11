@@ -32,6 +32,8 @@ final class CheckDeadlineCell: UICollectionViewCell {
     private lazy var checkDeadlineButton = UIButton().then {
         $0.setTitle("공고 마감 일정 확인하기", for: .normal)
         $0.setTitleColor(.terningMain, for: .normal)
+        $0.setBackgroundColor(.white, for: .normal)
+        $0.setBackgroundColor(.terningPressed, for: .selected)
         $0.titleLabel?.font = .button4
         $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 14)
     }
@@ -95,6 +97,6 @@ extension CheckDeadlineCell {
 extension CheckDeadlineCell {
     @objc func checkDeadlineButtonDidTap() {
         print("checkDeadlineButton")
-        // 캘린더 화면으로 네비게이션 하는 코드가 들어가야함.
+        // TODO: 캘린더 화면으로 네비게이션 하는 코드가 들어가야함.
     }
 }

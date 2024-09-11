@@ -23,7 +23,7 @@ final class CustomSearchView: UIView, UITextFieldDelegate {
     let textField = UITextField().then {
         $0.borderStyle = .none
         $0.textColor = .grey400
-        $0.font = .body2
+        $0.font = .button3
         $0.attributedPlaceholder = NSAttributedString(
             string: "관심있는 인턴 공고 키워드를 검색해 보세요",
             attributes: [
@@ -91,10 +91,9 @@ final class CustomSearchView: UIView, UITextFieldDelegate {
     
     private func updatePlaceholderFont(isEditing: Bool) {
         let placeholderText = "관심있는 인턴 공고 키워드를 검색해 보세요"
-        let placeholderFont = isEditing ? .detail3: UIFont.detail2
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.grey300,
-            .font: placeholderFont
+            .font: UIFont.detail2
         ]
         textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: attributes)
     }

@@ -41,7 +41,7 @@ final class ProfileViewController: UIViewController {
     init(viewType: ProfileViewType, viewModel: ProfileViewModelType) {
         self.viewType = viewType
         self.viewModel = viewModel
-        self.imageStringSubject = BehaviorSubject<String>(value: viewModel.userInfo?.profileImage ?? "lucky")
+        self.imageStringSubject = BehaviorSubject<String>(value: viewModel.userInfo?.profileImage ?? "basic")
 
         super.init(nibName: nil, bundle: nil)
     }

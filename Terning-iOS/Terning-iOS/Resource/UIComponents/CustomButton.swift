@@ -146,7 +146,18 @@ extension CustomButton {
     }
     
     private func updateBackgroundColor() {
-        let bgColor: UIColor = self.isEnabled ? .terningMain :.grey200
-        self.configuration?.background.backgroundColor = bgColor
+        let buttonStateHandler: UIButton.ConfigurationUpdateHandler = { button in
+            var updatedConfiguration = button.configuration
+            switch button.state {
+            case .normal:
+                updatedConfiguration?.background.backgroundColor = .terningMain
+            case .highlighted:
+                updatedConfiguration?.background.backgroundColor = .terningMain2
+            default:
+                updatedConfiguration?.background.backgroundColor = .grey200
+            }
+            button.configuration = updatedConfiguration
+        }
+        self.configurationUpdateHandler = buttonStateHandler
     }
 }

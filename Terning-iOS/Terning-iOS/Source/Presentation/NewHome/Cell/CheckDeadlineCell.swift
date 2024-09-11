@@ -79,7 +79,6 @@ extension CheckDeadlineCell {
             $0.width.equalTo(133.adjusted)
             $0.height.equalTo(28.adjustedH)
         }
-
     }
 }
 

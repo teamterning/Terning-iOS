@@ -78,7 +78,11 @@ extension AccountOptionViewController {
         
         output.showSplashScreen
             .drive(onNext: { [weak self] in
-                self?.navigateToSplashVC()
+                if self?.viewModel.accountOption == .logout  {
+                    self?.navigateToLoginVC()
+                } else {
+                    self?.navigateToSplashVC()
+                }
             })
             .disposed(by: disposeBag)
         
@@ -94,6 +98,22 @@ extension AccountOptionViewController {
 // MARK: - Methods
 
 extension AccountOptionViewController {
+    private func navigateToLoginVC() {
+        let LoginVC = UINavigationController(
+            rootViewController: LoginViewController(
+                viewModel: LoginViewModel(
+                    loginRepository: LoginRepository(
+                        loginService: LoginService()
+                    )
+                )
+            )
+        )
+        guard let window = self.view.window else {
+            print("Window is nil")
+            return
+        }
+        ViewControllerUtils.setRootViewController(window: window, viewController: LoginVC, withAnimation: true)
+    }
     private func navigateToSplashVC() {
         let splashVC = UINavigationController(rootViewController: SplashVC())
         guard let window = self.view.window else {

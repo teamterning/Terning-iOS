@@ -186,23 +186,27 @@ extension MyPageViewController {
     }
     
     private func showNotice() {
-        let urlString = "https://abundant-quiver-13f.notion.site/69109213e7db4873be6b9600f2f5163a?pvs=4"
+        let urlString = "https://abundant-quiver-13f.notion.site/iOS-2324f4c5ff03441d99ff0157b2f15424?pvs=4"
         guard let url = URL(string: urlString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
     private func sendFeedback() {
-        let urlString = "https://forms.gle/AaLpVptfg6cATYWa7"
+        let urlString = "https://docs.google.com/forms/d/e/1FAIpQLSeYwkK70ThHAZnUum0Qm_coO5ijmqxZaoCJ0k2erXWmtt_eSg/viewform"
         guard let url = URL(string: urlString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
     private func showTermsOfUse() {
-        print("서비스 이용약관")
+        let urlString = "https://abundant-quiver-13f.notion.site/69109213e7db4873be6b9600f2f5163a?pvs=4"
+        guard let url = URL(string: urlString) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
     private func showPrivacyPolicy() {
-        print("개인정보 처리방침")
+        let urlString = "https://abundant-quiver-13f.notion.site/130cf1915fe7471e9aaf29cab306be3b?pvs=4"
+        guard let url = URL(string: urlString) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
 

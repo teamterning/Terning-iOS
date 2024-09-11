@@ -123,13 +123,13 @@ extension JobDetailViewController {
             print(currentId)
             
             if let jobDetail = jobDetail {
-                let startDateComponents = parseStartDate(jobDetail.startDate)
+                let startDateComponents = parseStartDate(jobDetail.startYearMonth)
                 
-                if jobDetail.scrapId == nil {
+                if jobDetail.isScrapped == false {
                     let dailyScrapModel = DailyScrapModel(
-                        scrapId: jobDetail.scrapId ?? 0,
+                        scrapId: currentId,
                         title: jobDetail.title,
-                        color: "#ED4E54",
+                        color: jobDetail.color ?? "red",
                         internshipAnnouncementId: currentId,
                         dDay: jobDetail.dDay,
                         workingPeriod: jobDetail.workingPeriod,
@@ -179,7 +179,7 @@ extension JobDetailViewController {
                     
                     alertSheet.centerButtonTapAction = { [weak self] in
                         guard let self = self else { return }
-                        self.cancelScrapAnnouncement(scrapId: jobDetail.scrapId ?? -1)
+                        self.cancelScrapAnnouncement(scrapId: currentId )
                         self.dismiss(animated: false)
                        
                         self.rootView.scrapButton.isSelected = false
@@ -251,7 +251,7 @@ extension JobDetailViewController {
         output.bottomInfo
             .drive(onNext: { [weak self] bottomInfo in
                 self?.rootView.setUrl(bottomInfo.url)
-                self?.rootView.setScrapped(bottomInfo.scrapId)
+                self?.rootView.setScrapped(bottomInfo.isScrapped)
                 self?.scarpNum = bottomInfo.scrapCount
                 self?.rootView.setScrapCount(bottomInfo.scrapCount)
             })

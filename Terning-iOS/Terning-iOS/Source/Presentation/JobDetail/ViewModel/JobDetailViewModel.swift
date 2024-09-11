@@ -44,21 +44,22 @@ final class JobDetailViewModel: ViewModelType {
                     .flatMapLatest { _ in
                         self.fetchJobDetailFromServer(internshipAnnouncementId: id)
                             .asDriver(onErrorJustReturn: JobDetailModel(
+                                companyImage: "",
                                 dDay: "",
                                 title: "",
-                                deadline: "",
                                 workingPeriod: "",
-                                startDate: "",
+                                isScrapped: false,
+                                color: "red",
+                                deadline: "",
+                                startYearMonth: "",
                                 scrapCount: 0,
                                 viewCount: 0,
                                 company: "",
                                 companyCategory: "",
-                                companyImage: "",
                                 qualification: "",
                                 jobType: "",
                                 detail: "",
-                                url: "",
-                                scrapId: nil
+                                url: ""
                             ))
                     }
             }
@@ -66,39 +67,41 @@ final class JobDetailViewModel: ViewModelType {
         
         let jobDetailInfo = jobDetail.map {
             JobDetailModel(
+                companyImage: $0.companyImage,
                 dDay: $0.dDay,
                 title: $0.title,
-                deadline: $0.deadline,
                 workingPeriod: $0.workingPeriod,
-                startDate: $0.startDate,
+                isScrapped: $0.isScrapped,
+                color: $0.color,
+                deadline: $0.deadline,
+                startYearMonth: $0.startYearMonth,
                 scrapCount: $0.scrapCount,
                 viewCount: $0.viewCount,
                 company: $0.company,
                 companyCategory: $0.companyCategory,
-                companyImage: $0.companyImage,
                 qualification: $0.qualification,
                 jobType: $0.jobType,
                 detail: $0.detail,
-                url: $0.url,
-                scrapId: $0.scrapId
+                url: $0.url
             )
         }.asDriver(
             onErrorJustReturn: JobDetailModel(
+                companyImage: "",
                 dDay: "",
                 title: "",
-                deadline: "",
                 workingPeriod: "",
-                startDate: "",
+                isScrapped: false,
+                color: "red",
+                deadline: "",
+                startYearMonth: "",
                 scrapCount: 0,
                 viewCount: 0,
                 company: "",
                 companyCategory: "",
-                companyImage: "",
                 qualification: "",
                 jobType: "",
                 detail: "",
-                url: "",
-                scrapId: nil
+                url: ""
             )
         )
         
@@ -134,7 +137,7 @@ final class JobDetailViewModel: ViewModelType {
             SummaryInfoModel(items: [
                 InfoItem(title: "서류 마감", description: $0.deadline),
                 InfoItem(title: "근무 기간", description: $0.workingPeriod),
-                InfoItem(title: "근무 시작", description: $0.startDate)
+                InfoItem(title: "근무 시작", description: $0.startYearMonth)
             ])
         }.asDriver(onErrorJustReturn: SummaryInfoModel(items: []))
         
@@ -158,13 +161,13 @@ final class JobDetailViewModel: ViewModelType {
         let bottomInfo = jobDetail.map {
             BottomInfoModel(
                 url: $0.url,
-                scrapId: $0.scrapId,
+                isScrapped: $0.isScrapped,
                 scrapCount: $0.scrapCount
             )
         }.asDriver(
             onErrorJustReturn: BottomInfoModel(
                 url: "",
-                scrapId: nil,
+                isScrapped: false,
                 scrapCount: 0
             )
         )

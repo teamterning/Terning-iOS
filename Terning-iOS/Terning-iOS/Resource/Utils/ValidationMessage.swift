@@ -8,7 +8,7 @@
 import UIKit
 
 enum ValidationMessage: String {
-    case valid = "이용 가능한 이름이에요"
+    case valid = "사용 가능한 이름이에요"
     case tooLong = "이름은 12자리 이내로 설정해 주세요"
     case containsSpecialCharacters = "이름에 특수문자는 입력할 수 없어요"
     case containsSymbols = "이름에 기호는 입력할 수 없어요"

@@ -78,7 +78,7 @@ extension CustomProgressView {
             
             if step < totalSteps {
                 let lineView = UIView().then {
-                    $0.backgroundColor = .grey400
+                    $0.backgroundColor = .grey200
                 }
                 addSubview(lineView)
                 lineViews.append(lineView)
@@ -139,7 +139,7 @@ extension CustomProgressView {
         }
         
         for (index, lineView) in lineViews.enumerated() {
-            lineView.backgroundColor = index < currentStep - 1 ? .terningMain : .grey400
+            lineView.backgroundColor = index < currentStep - 1 ? .terningMain : .grey200
         }
     }
 }

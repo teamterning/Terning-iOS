@@ -15,7 +15,8 @@ final class RecommendCollectionViewCell: UICollectionViewCell {
     // MARK: - UI Components
     
     private let recommendImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
+        $0.contentMode = .scaleAspectFit
+        $0.backgroundColor = .white
         $0.layer.masksToBounds = true
         $0.layer.cornerRadius = 5
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -81,20 +82,20 @@ extension RecommendCollectionViewCell {
     private func setLayout() {
         recommendImageView.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(70)
+            $0.height.equalTo(70.adjustedH)
         }
         
         underLineView.snp.makeConstraints {
-            $0.top.equalTo(recommendImageView.snp.bottom)
+            $0.bottom.equalTo(recommendImageView.snp.bottom)
             $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(2)
+            $0.height.equalTo(2.adjustedH)
         }
         
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(underLineView.snp.bottom).offset(8)
-            $0.horizontalEdges.equalToSuperview().inset(8)
-            $0.bottom.equalToSuperview().inset(7)
-            $0.height.equalTo(51)
+            $0.top.equalTo(underLineView.snp.bottom).offset(8.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(8.adjusted)
+            $0.bottom.greaterThanOrEqualToSuperview().inset(7.adjustedH)
+            $0.height.equalTo(51.adjustedH)
         }
     }
 }

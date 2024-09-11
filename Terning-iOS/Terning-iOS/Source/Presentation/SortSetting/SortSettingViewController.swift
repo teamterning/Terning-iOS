@@ -29,6 +29,21 @@ enum SortingOptions: String, CaseIterable {
     var selectedColor: UIColor {
         return .terningMain
     }
+    
+    var apiValue: String {
+        switch self {
+        case .deadlineSoon:
+            return "deadlineSoon"
+        case .shortestDuration:
+            return "shortestDuration"
+        case .longestDuration:
+            return "longestDuration"
+        case .mostScrapped:
+            return "mostScrapped"
+        case .mostViewed:
+            return "mostViewed"
+        }
+    }
 }
 
 protocol SortSettingButtonProtocol: AnyObject {
@@ -133,6 +148,7 @@ class SortSettingViewController: UIViewController {
         selectedOption = option
         sortSettingDelegate?.didSelectSortingOption(option)
         
+        self.presentingViewController?.removeModalBackgroundView()
         dismiss(animated: true, completion: nil)
     }
 }

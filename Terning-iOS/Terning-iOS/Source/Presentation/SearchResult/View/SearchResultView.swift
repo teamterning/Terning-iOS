@@ -15,7 +15,7 @@ final class SearchResultView: UIView {
     
     // MARK: - Properties
     
-    var SearchResult: [SearchResult]?
+    var searchResult: [SearchResult]?
     var sortBySubject = PublishSubject<String>()
     
     // MARK: - UI Components
@@ -33,18 +33,19 @@ final class SearchResultView: UIView {
         $0.numberOfLines = 2
     }
     
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { (sectionIndex, _) -> NSCollectionLayoutSection? in
-        guard let section = SearchResultType(rawValue: sectionIndex) else { return nil }
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { [weak self] (sectionIndex, _) -> NSCollectionLayoutSection? in
+        guard let section = SearchResultType(rawValue: sectionIndex), let self = self else { return nil }
+        
         switch section {
         case .graphic:
             return SearchResultView.createGraphicSection()
         case .search:
-            return SearchResultView.createSearchSection()
+            return SearchResultView.createSearchSection(hasResults: self.searchResult?.count ?? 0 > 0)
         case .noSearch:
-            return SearchResultView.createNoSearchSection()
+            return SearchResultView.createNoSearchSection(hasResults: self.searchResult?.count ?? 0 == 0)
         }
     })
-    
+
     // MARK: - init
     
     override init(frame: CGRect) {
@@ -84,7 +85,6 @@ extension SearchResultView {
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: SortHeaderCell.className
         )
-        
         collectionView.backgroundColor = .white
     }
     
@@ -169,7 +169,7 @@ extension SearchResultView {
         return section
     }
     
-    private static func createSearchSection() -> NSCollectionLayoutSection {
+    private static func createSearchSection(hasResults: Bool) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .estimated(116)
@@ -185,23 +185,55 @@ extension SearchResultView {
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0)
         
+        if hasResults {
+            let headerSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(28.adjustedH)
+            )
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerSize,
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top
+            )
+            sectionHeader.pinToVisibleBounds = true
+            section.boundarySupplementaryItems = [sectionHeader]
+        } else {
+            section.boundarySupplementaryItems = []
+        }
+        
         return section
     }
 
-    private static func createNoSearchSection() -> NSCollectionLayoutSection {
+    private static func createNoSearchSection(hasResults: Bool) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(100)
+            heightDimension: .absolute(266.adjustedH)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(100)
+            heightDimension: .absolute(266.adjustedH)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
+        
+        if hasResults {
+            let headerSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(28.adjustedH)
+            )
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerSize,
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top
+            )
+            sectionHeader.pinToVisibleBounds = true
+            section.boundarySupplementaryItems = [sectionHeader]
+        } else {
+            section.boundarySupplementaryItems = []
+        }
         
         return section
     }

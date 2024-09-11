@@ -5,8 +5,9 @@
 //
 
 import UIKit
+
 import RxSwift
-import RxCocoa
+
 import SnapKit
 
 @frozen
@@ -33,11 +34,17 @@ final class SearchResultViewController: UIViewController {
         9: 9   // calPink
     ]
     
-    private let viewModel: SearchResultViewModel
-    private let disposeBag = DisposeBag()
+    private var searchResultCount: Int = 0
+    private var searchHasNext = true
+    private var isFetchingMoreData = false
+    private let sortButtonTapObservable = PublishSubject<Void>()
+    
     private let sortBySubject = BehaviorSubject<String>(value: "deadlineSoon")
     private let pageSubject = BehaviorSubject<Int>(value: 0)
     private var textFieldKeyword: String?
+    
+    private let viewModel: SearchResultViewModel
+    private let disposeBag = DisposeBag()
     
     // MARK: - UI Components
     
@@ -54,7 +61,7 @@ final class SearchResultViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - View Life Cycle
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,43 +102,94 @@ extension SearchResultViewController {
         
         let keyword = rootView.searchView.textField.rx.text.orEmpty.asObservable()
         
-        let searchTrigger = rootView.searchView.textField.rx.controlEvent(.editingDidEndOnExit)
+        let searchChanged = rootView.searchView.textField.rx.controlEvent(.editingDidEndOnExit)
             .withLatestFrom(keyword)
             .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
             .map { _ in () }
+            .do(onNext: { _ in
+                self.pageSubject.onNext(0)
+            })
         
-        searchTrigger
+        let sortChanged = sortBySubject
             .withLatestFrom(keyword)
-            .subscribe(onNext: { keyword in
-                print("텍스트 필드 값: \(keyword)")
+            .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
+            .map { _ in () }
+            .do(onNext: { _ in
+                self.pageSubject.onNext(0)
+            })
+        
+        let pageChanged = pageSubject
+            .filter { $0 > 0 }
+            .do(onNext: { page in
+                print("Page changed: \(page)")
+            })
+
+        let searchTrigger = Observable.merge(searchChanged, sortChanged, pageChanged.map { _ in () })
+            .withLatestFrom(keyword)
+            .do(onNext: { _ in
                 if firstSearch {
                     firstSearch = false
                     self.rootView.searchTitleLabel.isHidden = true
                     self.rootView.updateLayout()
+                    self.isFetchingMoreData = false
                 }
             })
-            .disposed(by: disposeBag)
-        
+                
         let input = SearchResultViewModel.Input(
-            keyword: searchTrigger.withLatestFrom(keyword),
+            keyword: searchTrigger,
+            sortTap: sortButtonTapObservable.asObservable(),
             sortBy: sortBySubject.asObservable(),
             page: pageSubject.asObservable(),
             size: Observable.just(10),
-            searchTrigger: searchTrigger
+            searchTrigger: searchTrigger.map { _ in () }
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
-        output.SearchResult
-            .drive(onNext: { [weak self] SearchResult in
-                self?.rootView.SearchResult = SearchResult
-                self?.rootView.collectionView.reloadData()
+        output.showSortBottom
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                let contentVC = SortSettingViewController()
+                contentVC.sortSettingDelegate = self
+                presentCustomBottomSheet(contentVC)
+            })
+            .disposed(by: disposeBag)
+        
+        output.searchResults
+            .drive(onNext: { [weak self] newSearchResults in
+                guard let self = self else { return }
+                
+                if let currentPage = try? self.pageSubject.value(), currentPage > 1 {
+                    if let currentResults = self.rootView.searchResult {
+                        self.rootView.searchResult = currentResults + newSearchResults
+                    } else {
+                        self.rootView.searchResult = newSearchResults
+                    }
+                } else {
+                    self.rootView.collectionView.setContentOffset(.zero, animated: true)
+                    self.rootView.searchResult = newSearchResults
+                }
+                
+                self.rootView.collectionView.reloadData()
+                self.isFetchingMoreData = false
             })
             .disposed(by: disposeBag)
         
         output.keyword
             .drive(onNext: { [weak self] keyword in
                 self?.textFieldKeyword = keyword
+            })
+            .disposed(by: disposeBag)
+        
+        output.totalCounts
+            .drive(onNext: { [weak self] totalCounts in
+                self?.searchResultCount = totalCounts
+            })
+            .disposed(by: disposeBag)
+        
+        output.hasNextPage
+            .drive(onNext: { [weak self] hasNext in
+                self?.searchHasNext = hasNext
             })
             .disposed(by: disposeBag)
     }
@@ -163,11 +221,11 @@ extension SearchResultViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch SearchResultType(rawValue: section) {
         case .graphic:
-            return rootView.SearchResult == nil ? 1 : 0
+            return rootView.searchResult == nil ? 1 : 0
         case .search:
-            return rootView.SearchResult?.isEmpty == false ? (rootView.SearchResult?.count ?? 0) : 0
+            return rootView.searchResult?.isEmpty == false ? (rootView.searchResult?.count ?? 0) : 0
         case .noSearch:
-            return rootView.SearchResult?.isEmpty == true ? 1 : 0
+            return rootView.searchResult?.isEmpty == true ? 1 : 0
         default:
             return 0
         }
@@ -182,7 +240,7 @@ extension SearchResultViewController: UICollectionViewDataSource {
             return cell
             
         case .search:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as? JobCardScrapedCell, let SearchResult = rootView.SearchResult else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as? JobCardScrapedCell, let SearchResult = rootView.searchResult else {
                 return UICollectionViewCell()
             }
             cell.bind(model: SearchResult[indexPath.item], indexPath: indexPath)
@@ -203,10 +261,39 @@ extension SearchResultViewController: UICollectionViewDataSource {
 }
 
 extension SearchResultViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let sectionType = SearchResultType(rawValue: indexPath.section),
+              let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SortHeaderCell.className, for: indexPath) as? SortHeaderCell else {
+            return UICollectionReusableView()
+        }
+        
+        switch sectionType {
+        case .graphic:
+            break
+        case .search:
+            print("searchResultCount:", searchResultCount)
+            headerView.bind(with: searchResultCount)
+            
+            headerView.sortButtonTapSubject
+                .subscribe(onNext: { [weak self] in
+                    self?.sortButtonTapObservable.onNext(())
+                })
+                .disposed(by: headerView.disposeBag)
+        case .noSearch:
+            headerView.bind(with: 0)
+            
+            headerView.sortButtonTapSubject
+                .subscribe(onNext: { [weak self] in
+                    self?.sortButtonTapObservable.onNext(())
+                })
+                .disposed(by: headerView.disposeBag)
+        }
+        return headerView
+    }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch SearchResultType(rawValue: indexPath.section) {
         case .search:
-            guard let SearchResult = rootView.SearchResult else { return }
+            guard let SearchResult = rootView.searchResult else { return }
             let selectedItem = SearchResult[indexPath.item].internshipAnnouncementId
     
             let jobDetailVC = JobDetailViewController()
@@ -220,7 +307,7 @@ extension SearchResultViewController: UICollectionViewDelegate {
 
 extension SearchResultViewController: JobCardScrapedCellProtocol {
     func scrapButtonDidTap(index: Int) {
-        guard let searchResults = rootView.SearchResult, !searchResults.isEmpty else {
+        guard let searchResults = rootView.searchResult, !searchResults.isEmpty else {
             print("검색 결과가 비어 있습니다. 요청을 실행하지 않습니다.")
             return
         }
@@ -362,6 +449,49 @@ extension SearchResultViewController {
                 print(error.localizedDescription)
                 self.showToast(message: "네트워크 오류")
             }
+        }
+    }
+}
+
+// MARK: - SortSettingButtonProtocol
+
+extension SearchResultViewController: SortSettingButtonProtocol {
+    func didSelectSortingOption(_ option: SortingOptions) {
+        sortBySubject.onNext(option.apiValue)
+        
+        let visibleHeaders = rootView.collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
+
+        if let sortHeader = visibleHeaders.first as? SortHeaderCell {
+            sortHeader.setSortButtonTitle(option.title)
+        }
+    }
+}
+
+// MARK: - UIAdaptivePresentationControllerDelegate
+
+extension SearchResultViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        removeModalBackgroundView()
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension SearchResultViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+        
+        var isFetchingMoreData = false
+        
+        if offsetY >= contentHeight - height && searchHasNext && !isFetchingMoreData {
+            isFetchingMoreData = true
+
+            if let currentPage = try? pageSubject.value() {
+                pageSubject.onNext(currentPage + 1)
+            }
+            
         }
     }
 }

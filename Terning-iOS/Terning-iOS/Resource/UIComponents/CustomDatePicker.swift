@@ -11,7 +11,7 @@ public final class CustomDatePicker: UIPickerView {
     
     // MARK: - Properties
     
-    private let years = Array(2023...2025)
+    private let years = Array(2010...2030)
     private let months = Array(1...12)
     
     var onDateSelected: ((Int, Int) -> Void)?
@@ -82,7 +82,7 @@ extension CustomDatePicker: UIPickerViewDelegate {
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .right
-        paragraphStyle.tailIndent = 45
+        paragraphStyle.tailIndent = 60
         
         let text = (component == 0) ? "\(years[row])년" : "\(months[row])월"
         
@@ -121,6 +121,19 @@ extension CustomDatePicker {
             self.selectRow(initialYearIndex, inComponent: 0, animated: false)
             self.selectRow(initialMonthIndex, inComponent: 1, animated: false)
             onDateSelected?(currentYear, currentMonth)
+        }
+    }
+}
+
+// MARK: - Public Methods
+
+extension CustomDatePicker {
+    public func setInitialDate(year: Int, month: Int) {
+        if let initialYearIndex = years.firstIndex(of: year),
+           let initialMonthIndex = months.firstIndex(of: month) {
+            self.selectRow(initialYearIndex, inComponent: 0, animated: false)
+            self.selectRow(initialMonthIndex, inComponent: 1, animated: false)
+            onDateSelected?(year, month)
         }
     }
 }

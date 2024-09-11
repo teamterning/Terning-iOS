@@ -15,7 +15,7 @@ class InavailableFilterView: UICollectionViewCell {
     // MARK: - UIComponents
     
     private let inavailableImageView = UIImageView().then {
-        $0.image = UIImage(resource: .imgNonCardViewInfo)
+        $0.image = .imgNonCardViewInfo
         $0.tintColor = .grey200
     }
     

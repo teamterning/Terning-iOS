@@ -29,7 +29,7 @@ final class CheckDeadlineCell: UICollectionViewCell {
         $0.numberOfLines = 2
     }
     
-    lazy private var checkDeadlineButton = UIButton().then {
+    private lazy var checkDeadlineButton = UIButton().then {
         $0.setTitle("공고 마감 일정 확인하기", for: .normal)
         $0.setTitleColor(.terningMain, for: .normal)
         $0.titleLabel?.font = .button4

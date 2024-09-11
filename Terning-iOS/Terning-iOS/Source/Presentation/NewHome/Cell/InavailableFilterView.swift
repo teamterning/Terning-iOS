@@ -15,7 +15,7 @@ class InavailableFilterView: UICollectionViewCell {
     // MARK: - UIComponents
     
     private let inavailableIcon = UIImageView().then {
-        $0.image = .imgNonCardViewInfo
+        $0.image = UIImage(systemName: "exclamationmark.circle.fill")
         $0.tintColor = .grey200
     }
     
@@ -25,6 +25,7 @@ class InavailableFilterView: UICollectionViewCell {
         textColor: .grey400,
         textAlignment: .center
     ).then {
+        
         $0.numberOfLines = 2
     }
     
@@ -54,14 +55,15 @@ extension InavailableFilterView {
     
     private func setLayout() {
         inavailableIcon.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(46.adjustedH)
-            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
-            $0.height.equalTo(222.adjustedH)
+            $0.top.equalToSuperview().offset(80.adjusted)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(36)
+            $0.width.equalTo(36)
         }
         
         inavailableLabel.snp.makeConstraints {
-            $0.top.equalTo(inavailableIcon.snp.bottom).offset(2.adjustedH)
-            $0.horizontalEdges.equalToSuperview().inset(29.adjusted)
+            $0.top.equalTo(inavailableIcon.snp.bottom).offset(9)
+            $0.centerX.equalToSuperview()
         }
     }
 }
@@ -88,9 +90,9 @@ extension InavailableFilterView {
         
         inavailableLabel.attributedText = attributedString
         
-        inavailableLabel.snp.makeConstraints {
-            $0.top.equalTo(inavailableIcon.snp.bottom).offset(2.adjustedH)
-            $0.horizontalEdges.equalToSuperview().inset(29.adjusted)
+        inavailableLabel.snp.updateConstraints {
+            $0.top.equalTo(inavailableIcon.snp.bottom).offset(16)
+            $0.centerX.equalToSuperview()
         }
     }
 }

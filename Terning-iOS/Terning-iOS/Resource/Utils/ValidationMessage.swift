@@ -40,9 +40,9 @@ enum ValidationMessage: String {
     var iconImage: UIImage? {
         switch self {
         case .valid:
-            return UIImage(systemName: "checkmark.circle")
+            return .icCheckmarkCircle
         case .tooLong, .containsSpecialCharacters, .containsSymbols:
-            return UIImage(systemName: "exclamationmark.circle")
+            return .icExclamationmarkCircle
         default:
             return nil
         }

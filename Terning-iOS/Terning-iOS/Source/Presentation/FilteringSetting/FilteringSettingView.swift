@@ -109,7 +109,8 @@ final class FilteringSettingView: UIView {
         $0.setTitle("저장하기", for: .normal)
         $0.titleLabel?.font = .button0
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .terningMain
+        $0.setBackgroundColor(.terningPressed, for: .selected)
+        $0.setBackgroundColor(.terningMain, for: .normal)
         $0.layer.cornerRadius = 10
     }
     

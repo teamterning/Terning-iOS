@@ -66,6 +66,7 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController {
     private func setUI() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
         view.backgroundColor = .white
         view.addSubview(rootView)
     }
@@ -195,7 +196,7 @@ extension ProfileViewController {
             self?.viewModel.imageStringRelay.accept(selectedImageString)
         }
         
-        presentCustomBottomSheet(contentVC, heightFraction: 320)
+        presentCustomBottomSheet(contentVC, heightFraction: 288)
     }
 }
 

@@ -91,16 +91,16 @@ final class MyPageViewModel: ViewModelType {
             SectionData(
                 title: "터닝 커뮤니티",
                 items: [
-                    .cellViewModel(MyPageBasicCellModel(image: .profile0, title: "공지사항", accessoryType: .disclosureIndicator)),
-                    .cellViewModel(MyPageBasicCellModel(image: .profile1, title: "의견보내기", accessoryType: .disclosureIndicator))
+                    .cellViewModel(MyPageBasicCellModel(image: .icNotice, title: "공지사항", accessoryType: .disclosureIndicator)),
+                    .cellViewModel(MyPageBasicCellModel(image: .icOpinion, title: "의견보내기", accessoryType: .disclosureIndicator))
                 ]
             ),
             SectionData(
                 title: "서비스 정보",
                 items: [
-                    .cellViewModel(MyPageBasicCellModel(image: .profile2, title: "서비스 이용약관", accessoryType: .disclosureIndicator)),
-                    .cellViewModel(MyPageBasicCellModel(image: .profile3, title: "개인정보 처리방침", accessoryType: .disclosureIndicator)),
-                    .cellViewModel(MyPageBasicCellModel(image: .profile4, title: "버전 정보", accessoryType: .label(text: "1.1.0")))
+                    .cellViewModel(MyPageBasicCellModel(image: .icService, title: "서비스 이용약관", accessoryType: .disclosureIndicator)),
+                    .cellViewModel(MyPageBasicCellModel(image: .icPersonal, title: "개인정보 처리방침", accessoryType: .disclosureIndicator)),
+                    .cellViewModel(MyPageBasicCellModel(image: .icVersion, title: "버전 정보", accessoryType: .label(text: "1.1.0")))
                 ]
             ),
             SectionData(

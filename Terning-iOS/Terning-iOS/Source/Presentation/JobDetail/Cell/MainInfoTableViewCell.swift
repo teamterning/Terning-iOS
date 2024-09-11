@@ -21,18 +21,16 @@ final class MainInfoTableViewCell: UITableViewCell {
     
     private let dDayLabel = LabelFactory.build(
         text: "D-3",
-        font: .body0,
-        textColor: .terningMain,
-        lineSpacing: 1.0,
-        characterSpacing: 0.002
+        font: .title4,
+        textColor: .terningMain
     )
     
     private let titleLabel = LabelFactory.build(
         text: "[SomeOne] 콘텐츠 마케터 대학생 인턴 채용",
-        font: .title2,
+        font: .heading2,
         textAlignment: .left
     ).then {
-        $0.numberOfLines = 2
+        $0.numberOfLines = 0
     }
 
     private let viewsImage = UIImageView().then {
@@ -42,8 +40,10 @@ final class MainInfoTableViewCell: UITableViewCell {
     
     private let viewsLabel = LabelFactory.build(
         text: "3,219회",
-        font: .button4,
-        textColor: .grey400
+        font: .detail2,
+        textColor: .grey375,
+        lineSpacing: 1.2,
+        characterSpacing: 0.002
     )
     
     // MARK: - Init
@@ -79,11 +79,12 @@ extension MainInfoTableViewCell {
         dDayDivView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20.adjustedH)
             $0.leading.equalToSuperview().inset(24.adjusted)
+            $0.width.equalTo(70.adjusted)
+            $0.height.equalTo(25.adjustedH)
         }
         
         dDayLabel.snp.makeConstraints {
-            $0.verticalEdges.equalToSuperview().inset(2.adjustedH)
-            $0.horizontalEdges.equalToSuperview().inset(20.5.adjusted)
+            $0.centerX.centerY.equalTo(dDayDivView)
         }
         
         titleLabel.snp.makeConstraints {

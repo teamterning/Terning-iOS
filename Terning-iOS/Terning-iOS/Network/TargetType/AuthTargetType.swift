@@ -12,7 +12,7 @@ enum AuthTargetType {
     case signIn(authType: String)
     case getNewToken
     case signUp(name: String, profileImage: String, authType: String)
-    case postOnboarding(grade: Int, workingPeriod: Int, startYear: Int, startMonth: Int)
+    case postOnboarding(grade: String, workingPeriod: String, startYear: Int, startMonth: Int)
 }
 
 extension AuthTargetType: TargetType {

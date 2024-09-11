@@ -34,6 +34,8 @@
 		2D8D0D412C492B8C00ECB36F /* SearchResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8D0D402C492B8C00ECB36F /* SearchResultModel.swift */; };
 		2D997FAE2C91A6460078DAB0 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2D997FAD2C91A6460078DAB0 /* Lottie */; };
 		2D997FBA2C91ADFE0078DAB0 /* login.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D997FB92C91ADFE0078DAB0 /* login.json */; };
+		2D997FBD2C9228F00078DAB0 /* beforeOnboarding.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D997FBC2C9228F00078DAB0 /* beforeOnboarding.json */; };
+		2D997FBF2C9229760078DAB0 /* afterOnboarding.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D997FBE2C9229760078DAB0 /* afterOnboarding.json */; };
 		2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */; };
 		2DC61EF52C4075EB009F991F /* MainInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF42C4075EB009F991F /* MainInfoTableViewCell.swift */; };
 		2DC61EF72C4075F3009F991F /* JobDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF62C4075F3009F991F /* JobDetailViewModel.swift */; };
@@ -202,6 +204,8 @@
 		2D89C7662C486E53002B035F /* CustomSortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSortButton.swift; sourceTree = "<group>"; };
 		2D8D0D402C492B8C00ECB36F /* SearchResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultModel.swift; sourceTree = "<group>"; };
 		2D997FB92C91ADFE0078DAB0 /* login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login.json; sourceTree = "<group>"; };
+		2D997FBC2C9228F00078DAB0 /* beforeOnboarding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = beforeOnboarding.json; sourceTree = "<group>"; };
+		2D997FBE2C9229760078DAB0 /* afterOnboarding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = afterOnboarding.json; sourceTree = "<group>"; };
 		2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailViewController.swift; sourceTree = "<group>"; };
 		2DC61EF42C4075EB009F991F /* MainInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInfoTableViewCell.swift; sourceTree = "<group>"; };
 		2DC61EF62C4075F3009F991F /* JobDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailViewModel.swift; sourceTree = "<group>"; };
@@ -501,6 +505,8 @@
 		2D997FBB2C91B0A90078DAB0 /* Lotties */ = {
 			isa = PBXGroup;
 			children = (
+				2D997FBC2C9228F00078DAB0 /* beforeOnboarding.json */,
+				2D997FBE2C9229760078DAB0 /* afterOnboarding.json */,
 				2D997FB92C91ADFE0078DAB0 /* login.json */,
 			);
 			path = Lotties;
@@ -1312,11 +1318,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				71E3C40D2C2423280026C4DD /* .swiftlint.yml in Resources */,
+				2D997FBF2C9229760078DAB0 /* afterOnboarding.json in Resources */,
 				71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */,
 				71E3C3D92C22BAF50026C4DD /* LaunchScreen.storyboard in Resources */,
 				71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */,
 				B8F503382C749309000D2A22 /* Config.xcconfig in Resources */,
 				71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */,
+				2D997FBD2C9228F00078DAB0 /* beforeOnboarding.json in Resources */,
 				71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */,
 				71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */,
 				2D997FBA2C91ADFE0078DAB0 /* login.json in Resources */,

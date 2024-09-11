@@ -125,12 +125,7 @@ extension SearchResultViewController {
             })
 
         let searchTrigger = Observable.merge(searchChanged, sortChanged, pageChanged.map { _ in () })
-            .withLatestFrom(Observable.combineLatest(keyword, sortBySubject)) { _, combinedValues in
-                return combinedValues
-            }
-            .map { (keyword, _) -> String in
-                return keyword
-            }
+            .withLatestFrom(keyword)
             .do(onNext: { _ in
                 if firstSearch {
                     firstSearch = false

@@ -58,18 +58,15 @@ final class SortHeaderCell: UICollectionReusableView {
 
 extension SortHeaderCell {
     func setHierarchy() {
+        backgroundColor = .white
         addSubviews(
-            gradientView,
             searchResultCountLabel,
-            sortButton
+            sortButton,
+            gradientView
         )
     }
     
     func setLayout() {
-        gradientView.snp.makeConstraints {
-            $0.top.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(28.adjustedH)
-        }
         searchResultCountLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(24.adjusted)
             $0.top.equalToSuperview().inset(5.adjustedH)
@@ -78,6 +75,11 @@ extension SortHeaderCell {
         sortButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(22.adjusted)
             $0.centerY.equalToSuperview()
+        }
+        gradientView.snp.makeConstraints {
+            $0.top.equalTo(searchResultCountLabel.snp.bottom).offset(3.adjustedH)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(28.adjustedH)
         }
     }
 }

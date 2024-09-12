@@ -66,7 +66,7 @@ final class NewHomeViewController: UIViewController {
     
     // MARK: - UIComponents
     
-    private let rootView: NewHomeView
+    private let rootView = NewHomeView()
     
     // MARK: - Life Cycles
     

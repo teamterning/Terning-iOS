@@ -10,7 +10,7 @@ import Moya
 
 enum FiltersTargetType {
     case getFilterDatas
-    case setFilterDatas(grade: Int?, workingPeriod: Int?, startYear: Int?, startMonth: Int?)
+    case setFilterDatas(grade: String?, workingPeriod: String?, startYear: Int?, startMonth: Int?)
 }
 
 extension FiltersTargetType: TargetType {

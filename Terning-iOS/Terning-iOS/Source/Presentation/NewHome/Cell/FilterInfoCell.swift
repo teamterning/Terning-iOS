@@ -278,21 +278,21 @@ extension FilterInfoCell {
         totalCountLabel.setAttributedText(targetFontList: ["\(model.totalCount)": .body3], targetColorList: ["\(model.totalCount)": .terningMain])
     }
     
-    private func gradeText(for grade: Int) -> String {
+    private func gradeText(for grade: String) -> String {
         switch grade {
-        case 0: return "1학년"
-        case 1: return "2학년"
-        case 2: return "3학년"
-        case 3: return "4학년"
+        case "freshman": return "1학년"
+        case "sophomore": return "2학년"
+        case "junior": return "3학년"
+        case "senior": return "4학년"
         default: return "-"
         }
     }
     
-    private func periodText(for period: Int) -> String {
+    private func periodText(for period: String) -> String {
         switch period {
-        case 0: return "1~3개월"
-        case 1: return "4~6개월"
-        case 2: return "7개월 이상"
+        case "short": return "1~3개월"
+        case "middle": return "4~6개월"
+        case "long": return "7개월 이상"
         default: return "-"
         }
     }

@@ -33,7 +33,7 @@ final class CheckDeadlineCell: UICollectionViewCell {
         $0.setTitle("공고 마감 일정 확인하기", for: .normal)
         $0.setTitleColor(.terningMain, for: .normal)
         $0.setBackgroundColor(.white, for: .normal)
-        $0.setBackgroundColor(.terningPressed, for: .selected)
+        $0.setBackgroundColor(.terningPressed, for: .highlighted)
         $0.titleLabel?.font = .button4
         $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 14)
     }

@@ -55,7 +55,7 @@ enum TNTabBarItem {
     var viewController: UIViewController {
         switch self {
         case .home:
-            return NewHomeViewController(homeCaseData: HomeCaseModel(userName: "", todayDeadlineLists: [], existIsScrapped: false))
+            return NewHomeViewController()
         case .calendar:
             return TNCalendarViewController(
                 viewModel: TNCalendarViewModel(

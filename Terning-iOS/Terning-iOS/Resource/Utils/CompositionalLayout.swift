@@ -107,8 +107,10 @@ struct CompositionalLayout {
         }
     }
     
-    static func createHomeListLayout(with homeCaseData: HomeCaseModel) -> UICollectionViewCompositionalLayout {
+    static func createHomeListLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
+            
+            let HomeVC = NewHomeViewController()
             
             if sectionNumber == 0 {
                 let item = NSCollectionLayoutItem(
@@ -118,7 +120,7 @@ struct CompositionalLayout {
                     )
                 )
                 
-                if homeCaseData.userName.count > 6 {
+                if HomeVC.userName.count > 6 {
                     let group = NSCollectionLayoutGroup.horizontal(
                         layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(48)),
                         subitems: [item]
@@ -142,7 +144,7 @@ struct CompositionalLayout {
                 
             } else if sectionNumber == 1 {
                 
-                if homeCaseData.todayDeadlineLists.isEmpty || homeCaseData.existIsScrapped {
+                if HomeVC.todayDeadlineLists.isEmpty || HomeVC.existIsScrapped {
                     let itemWidth: CGFloat = 327.adjusted
                     
                     let item = NSCollectionLayoutItem(
@@ -214,7 +216,7 @@ struct CompositionalLayout {
                 // Section
                 let section = NSCollectionLayoutSection(group: group)
                 
-                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(114))
+                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(114.adjustedH))
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: headerSize,
                     elementKind: UICollectionView.elementKindSectionHeader,
@@ -223,8 +225,8 @@ struct CompositionalLayout {
                 
                 sectionHeader.pinToVisibleBounds = true
                 section.boundarySupplementaryItems = [sectionHeader]
-                section.interGroupSpacing = 12
-                section.contentInsets = .init(top: 10, leading: 0, bottom: 10, trailing: 0)
+                section.interGroupSpacing = 20
+                section.contentInsets = .init(top: 10, leading: 0, bottom: 28, trailing: 0)
                 
                 return section
             } else {

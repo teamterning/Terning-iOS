@@ -53,7 +53,7 @@ final class MyPageViewModel: ViewModelType {
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let navigateToProfileEdit = input.fixProfileTap
                     .withLatestFrom(userInfoRelay.asObservable())
-                    .asDriver(onErrorJustReturn: UserProfileInfoModel(name: "", profileImage: "basic" ,authType: ""))
+                    .asDriver(onErrorJustReturn: UserProfileInfoModel(name: "", profileImage: "basic", authType: ""))
         let showLogoutAlert = input.logoutTap.asDriver(onErrorJustReturn: ())
         let showWithdrawAlert = input.withdrawTap.asDriver(onErrorJustReturn: ())
         

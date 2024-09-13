@@ -450,7 +450,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             let model = calendarDaily[indexPath.row]
             let alertSheet = CustomAlertViewController(alertType: .custom)
             
-            let colorIndex = alertSheet.selectedColorIndexRelay
+            _ = alertSheet.selectedColorIndexRelay
             
             let deadLine = koreanDateFormmatter.string(from: selectedDate ?? Date())
             alertSheet.setData2(model: model, deadline: deadLine)
@@ -484,7 +484,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             let model = scrapSection[indexPath.row]
             let alertSheet = CustomAlertViewController(alertType: .custom)
             
-            let colorIndex = alertSheet.selectedColorIndexRelay
+            _ = alertSheet.selectedColorIndexRelay
             
             let deadLine = koreanDateFormmatter.string(from: selectedDate ?? Date())
             alertSheet.setData2(model: model, deadline: deadLine)

@@ -29,13 +29,13 @@ enum AlertButtonType {
 final class NewCustomAlertVC: UIViewController {
     
     // MARK: - Properties
+    
     var alertViewType: AlertViewType!
     var alertButtonType: AlertButtonType?
     
-    let selectedColorIndexRelay = BehaviorRelay<Int>(value: 0)
+    let selectedColorNameRelay = BehaviorRelay<String>(value: "red")
     
-    // Optional로 변경하여 메모리 절약
-    private var JobImageView: UIImageView?
+    private var jobImageView: UIImageView?
     private var mainJobLabel: UILabel?
     private var subLabelView: UIView?
     private var subLabel: UILabel?
@@ -43,10 +43,9 @@ final class NewCustomAlertVC: UIViewController {
     
     private var alertImageView: UIImageView?
     
-    // custom 타입에서만 사용되므로 lazy로 선언
     private lazy var paletteCollectionView: UICollectionView? = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 2
+        layout.minimumInteritemSpacing = 1
         layout.itemSize = CGSize(width: 41, height: 41)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -76,11 +75,20 @@ final class NewCustomAlertVC: UIViewController {
     
     private let colors: [UIColor] = [
         .calRed,
-        .calOrange2,
-        .calGreen1,
-        .calBlue1,
+        .calOrange,
+        .calGreen,
+        .calBlue,
         .calPurple,
         .calPink
+    ]
+    
+    private let colorNames: [String] = [
+        "red",
+        "orange",
+        "green",
+        "blue",
+        "purple",
+        "pink"
     ]
     
     private let closeButton = UIButton()
@@ -109,6 +117,10 @@ final class NewCustomAlertVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+}
+
+extension NewCustomAlertVC {
+    
     // MARK: - UI & Layout
     
     private func setUI(_ type: AlertViewType) {
@@ -126,7 +138,7 @@ final class NewCustomAlertVC: UIViewController {
         
         switch type {
         case .custom:
-            JobImageView = UIImageView().then {
+            jobImageView = UIImageView().then {
                 $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 10)
             }
             
@@ -175,7 +187,7 @@ final class NewCustomAlertVC: UIViewController {
         
         switch type {
         case .custom:
-            guard let jobImageView = JobImageView,
+            guard let jobImageView = jobImageView,
                   let mainJobLabel = mainJobLabel,
                   let subLabelView = subLabelView,
                   let subLabel = subLabel,
@@ -211,13 +223,13 @@ final class NewCustomAlertVC: UIViewController {
     }
     
     private func setLayout(_ type: AlertViewType) {
-        alertView.snp.makeConstraints {
+        self.alertView.snp.makeConstraints {
             $0.centerX.centerY.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(30.adjusted)
             $0.height.equalTo(421.adjustedH)
         }
         
-        closeButton.snp.makeConstraints {
+        self.closeButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(18.adjustedH)
             $0.trailing.equalToSuperview().offset(-18.adjusted)
             $0.width.height.equalTo(32)
@@ -231,6 +243,12 @@ final class NewCustomAlertVC: UIViewController {
             setInfoLayout()
         }
     }
+}
+
+
+// MARK: - Methods
+
+extension NewCustomAlertVC {
     
     private func setDelegate() {
         guard let paletteCollectionView = paletteCollectionView else { return }
@@ -246,7 +264,7 @@ final class NewCustomAlertVC: UIViewController {
     }
     
     private func setCommonCustomLayout() {
-        guard let jobImageView = JobImageView,
+        guard let jobImageView = jobImageView,
               let mainJobLabel = mainJobLabel,
               let subLabelView = subLabelView,
               let subLabel = subLabel,
@@ -285,13 +303,13 @@ final class NewCustomAlertVC: UIViewController {
             $0.width.equalTo(256)
         }
         
-        sepeartorView.snp.makeConstraints {
+        self.sepeartorView.snp.makeConstraints {
             $0.top.equalTo(paletteCollectionView.snp.bottom).offset(8)
             $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
             $0.height.equalTo(1)
         }
         
-        detailsVStackView.snp.makeConstraints {
+        self.detailsVStackView.snp.makeConstraints {
             $0.top.equalTo(sepeartorView.snp.bottom).offset(13.adjustedH)
             $0.leading.equalTo(alertView.snp.leading).offset(24.adjusted)
         }
@@ -304,14 +322,14 @@ final class NewCustomAlertVC: UIViewController {
         case .changeColorAndViewJobDetail:
             centerButton.isHidden = true
             
-            changeColorButton.snp.makeConstraints {
+            self.changeColorButton.snp.makeConstraints {
                 $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
                 $0.leading.equalToSuperview().inset(16.adjusted)
                 $0.height.equalTo(40.adjustedH)
                 $0.width.equalTo(140.adjusted)
             }
             
-            viewJobDetailButton.snp.makeConstraints {
+            self.viewJobDetailButton.snp.makeConstraints {
                 $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
                 $0.trailing.equalToSuperview().offset(-16.adjusted)
                 $0.height.equalTo(40.adjustedH)
@@ -322,7 +340,7 @@ final class NewCustomAlertVC: UIViewController {
             changeColorButton.isHidden = true
             viewJobDetailButton.isHidden = true
             
-            centerButton.snp.makeConstraints {
+            self.centerButton.snp.makeConstraints {
                 $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
                 $0.horizontalEdges.equalToSuperview().inset(16)
                 $0.height.equalTo(40)
@@ -350,26 +368,56 @@ final class NewCustomAlertVC: UIViewController {
             $0.centerX.equalToSuperview()
         }
         
-        centerButton.snp.makeConstraints {
+        self.centerButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(16.adjustedH)
             $0.horizontalEdges.equalToSuperview().inset(16)
             $0.height.equalTo(40)
         }
     }
     
-    private func handleColorSelection(at index: Int) {
-        selectedColorIndexRelay.accept(index)
+    private func handleColorSelection(at colorName: String) {
+        selectedColorNameRelay.accept(colorName)
     }
 }
+
+extension NewCustomAlertVC {
+    public func setSearchData(model: SearchResult) {
+        guard alertViewType == .custom else { return }
+        
+        guard let jobImageView = jobImageView,
+              let mainJobLabel = mainJobLabel
+        else { return }
+        
+        jobImageView.setImage(with: model.companyImage)
+        mainJobLabel.text = model.title
+        self.deadlineInfoView.setDescriptionText(description: model.deadline)
+        self.workPeriodInfoView.setDescriptionText(description: model.workingPeriod)
+        self.workStartInfoView.setDescriptionText(description: model.startYearMonth)
+        
+        // 모델에서 받은 색상 설정 (예: "orange")
+        let selectedColor = model.color ?? "red"
+        self.selectedColorNameRelay.accept(selectedColor)
+        
+        // 컬렉션 뷰 리로드하여 선택된 색상 반영
+        self.paletteCollectionView?.reloadData()
+    }
+}
+
+
+// MARK: - UICollectionViewDelegate
 
 extension NewCustomAlertVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let paletteCollectionView = paletteCollectionView else { return }
-        print("\(indexPath.item) 번 터치")
-        self.handleColorSelection(at: indexPath.item)
+        
+        let selectedColorName = colorNames[indexPath.item]
+        print("❤️ \(indexPath.item) 인덱스, 선택된 색상: \(selectedColorName)")
+        self.handleColorSelection(at: selectedColorName)
         paletteCollectionView.reloadData()
     }
 }
+
+// MARK: - UICollectionViewDataSource
 
 extension NewCustomAlertVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -380,7 +428,9 @@ extension NewCustomAlertVC: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PaletteCell.className, for: indexPath) as? PaletteCell else { return UICollectionViewCell() }
         
         let color = colors[indexPath.item]
-        let isSelected = indexPath.item == selectedColorIndexRelay.value
+        let colorName = colorNames[indexPath.item]
+        let isSelected = colorName == selectedColorNameRelay.value
+        
         cell.configure(color: color, isSelected: isSelected)
         return cell
     }

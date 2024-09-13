@@ -17,7 +17,7 @@ final class JobDetailInfoView: UIView {
     private let titleLabel = LabelFactory.build(
         text: " ",
         font: .body2,
-        textColor: .grey350,
+        textColor: .grey400,
         lineSpacing: 1.2,
         characterSpacing: 0.002
     )
@@ -25,7 +25,7 @@ final class JobDetailInfoView: UIView {
     private let descriptionLabel = LabelFactory.build(
         text: " ",
         font: .body3,
-        textColor: .grey500,
+        textColor: .grey375,
         lineSpacing: 1.2,
         characterSpacing: 0.002
     )

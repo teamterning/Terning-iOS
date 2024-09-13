@@ -10,8 +10,8 @@ import Moya
 import RxMoya
 
 protocol ScrapsServiceProtocol {
-    func patchScrap(scrapId: Int, color: Int) -> Observable<Void>
-    func cancelScrap(scrapId: Int) -> Observable<Void>
+    func patchScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void>
+    func cancelScrap(internshipAnnouncementId: Int) -> Observable<Void>
 }
 
 final class ScrapsService: ScrapsServiceProtocol {
@@ -22,15 +22,15 @@ final class ScrapsService: ScrapsServiceProtocol {
         self.provider = provider
     }
     
-    func patchScrap(scrapId: Int, color: Int) -> Observable<Void> {
-        return provider.rx.request(.patchScrap(scrapId: scrapId, color: color))
+    func patchScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void> {
+        return provider.rx.request(.patchScrap(internshipAnnouncementId: internshipAnnouncementId, color: color))
             .filterSuccessfulStatusCodes()
             .map { _ in () }
             .asObservable()
     }
     
-    func cancelScrap(scrapId: Int) -> Observable<Void> {
-        return provider.rx.request(.removeScrap(scrapId: scrapId))
+    func cancelScrap(internshipAnnouncementId: Int) -> Observable<Void> {
+        return provider.rx.request(.removeScrap(internshipAnnouncementId: internshipAnnouncementId))
             .filterSuccessfulStatusCodes()
             .map { _ in () }
             .asObservable()

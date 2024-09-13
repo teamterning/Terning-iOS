@@ -8,8 +8,8 @@
 import RxSwift
 
 protocol ScrapsRepositoryProtocol {
-    func patchScrap(scrapId: Int, color: Int) -> Observable<Void>
-    func cancelScrap(scrapId: Int) -> Observable<Void>
+    func patchScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void>
+    func cancelScrap(internshipAnnouncementId: Int) -> Observable<Void>
 }
 
 final class ScrapsRepository: ScrapsRepositoryProtocol {
@@ -20,11 +20,11 @@ final class ScrapsRepository: ScrapsRepositoryProtocol {
         self.service = service
     }
     
-    func patchScrap(scrapId: Int, color: Int) -> Observable<Void> {
-        return service.patchScrap(scrapId: scrapId, color: color)
+    func patchScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void> {
+        return service.patchScrap(internshipAnnouncementId: internshipAnnouncementId, color: color)
     }
     
-    func cancelScrap(scrapId: Int) -> Observable<Void> {
-        return service.cancelScrap(scrapId: scrapId)
+    func cancelScrap(internshipAnnouncementId: Int) -> Observable<Void> {
+        return service.cancelScrap(internshipAnnouncementId: internshipAnnouncementId)
     }
 }

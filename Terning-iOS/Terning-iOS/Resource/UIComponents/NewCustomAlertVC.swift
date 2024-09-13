@@ -16,25 +16,39 @@ import Then
 
 @frozen
 enum AlertViewType {
-    case custom
-    case info
-}
-
-@frozen
-enum AlertButtonType {
-    case changeColorAndViewJobDetail
     case scrap
+    case changeColorAndPushJobDetail
+    case info
 }
 
 final class NewCustomAlertVC: UIViewController {
     
     // MARK: - Properties
-    
     var alertViewType: AlertViewType!
-    var alertButtonType: AlertButtonType?
     
     let selectedColorNameRelay = BehaviorRelay<String>(value: "red")
+
     
+    private let colors: [UIColor] = [
+        .calRed,
+        .calOrange,
+        .calGreen,
+        .calBlue,
+        .calPurple,
+        .calPink
+    ]
+    
+    private let colorNames: [String] = [
+        "red",
+        "orange",
+        "green",
+        "blue",
+        "purple",
+        "pink"
+    ]
+    
+    // MARK: - UIComponents
+
     private var jobImageView: UIImageView?
     private var mainJobLabel: UILabel?
     private var subLabelView: UIView?
@@ -73,24 +87,6 @@ final class NewCustomAlertVC: UIViewController {
     private let changeColorButton = CustomButton(title: "색상 변경하기", font: .button3)
     private let viewJobDetailButton = CustomButton(title: "공고 상세 정보 보기", font: .button3)
     
-    private let colors: [UIColor] = [
-        .calRed,
-        .calOrange,
-        .calGreen,
-        .calBlue,
-        .calPurple,
-        .calPink
-    ]
-    
-    private let colorNames: [String] = [
-        "red",
-        "orange",
-        "green",
-        "blue",
-        "purple",
-        "pink"
-    ]
-    
     private let closeButton = UIButton()
     
     private let alertView = UIView()
@@ -105,11 +101,11 @@ final class NewCustomAlertVC: UIViewController {
         setLayout(alertViewType)
         setDelegate()
         setRegister()
+        bindViews()
     }
     
-    init(alertViewType: AlertViewType, alertButtonType: AlertButtonType? = nil) {
+    init(alertViewType: AlertViewType) {
         self.alertViewType = alertViewType
-        self.alertButtonType = alertButtonType
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -137,7 +133,7 @@ extension NewCustomAlertVC {
         }
         
         switch type {
-        case .custom:
+        case .scrap, .changeColorAndPushJobDetail:
             jobImageView = UIImageView().then {
                 $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 10)
             }
@@ -186,7 +182,7 @@ extension NewCustomAlertVC {
         view.addSubviews(alertView)
         
         switch type {
-        case .custom:
+        case .scrap, .changeColorAndPushJobDetail:
             guard let jobImageView = jobImageView,
                   let mainJobLabel = mainJobLabel,
                   let subLabelView = subLabelView,
@@ -236,34 +232,76 @@ extension NewCustomAlertVC {
         }
         
         switch type {
-        case .custom:
-            setCommonCustomLayout()
-            setButtonLayout(alertButtonType)
+        case .scrap:
+            setCommonLayout()
+            setScrapLayout()
+            
+        case .changeColorAndPushJobDetail:
+            setCommonLayout()
+            setChangeColorAndPushJobDetailLayout()
+            
         case .info:
             setInfoLayout()
         }
     }
-}
-
-
-// MARK: - Methods
-
-extension NewCustomAlertVC {
     
-    private func setDelegate() {
-        guard let paletteCollectionView = paletteCollectionView else { return }
+    private func setChangeColorAndPushJobDetailLayout() {
+        self.centerButton.isHidden = true
         
-        paletteCollectionView.delegate = self
-        paletteCollectionView.dataSource = self
+        self.changeColorButton.snp.makeConstraints {
+            $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
+            $0.leading.equalToSuperview().inset(16.adjusted)
+            $0.height.equalTo(40.adjustedH)
+            $0.width.equalTo(140.adjusted)
+        }
+        
+        self.viewJobDetailButton.snp.makeConstraints {
+            $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
+            $0.trailing.equalToSuperview().offset(-16.adjusted)
+            $0.height.equalTo(40.adjustedH)
+            $0.width.equalTo(140.adjusted)
+        }
     }
     
-    private func setRegister() {
-        guard let paletteCollectionView = paletteCollectionView else { return }
+    private func setScrapLayout() {
+        self.changeColorButton.isHidden = true
+        self.viewJobDetailButton.isHidden = true
         
-        paletteCollectionView.register(PaletteCell.self, forCellWithReuseIdentifier: PaletteCell.className)
+        self.centerButton.snp.makeConstraints {
+            $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(40)
+        }
     }
     
-    private func setCommonCustomLayout() {
+    private func setInfoLayout() {
+        guard let alertImageView = alertImageView,
+              let mainJobLabel = mainJobLabel,
+              let subInfoLabel = subInfoLabel else { return }
+        
+        alertImageView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(60)
+            $0.centerX.equalToSuperview()
+        }
+        
+        mainJobLabel.snp.makeConstraints {
+            $0.top.equalTo(alertImageView.snp.bottom).offset(20.adjustedH)
+            $0.centerX.equalToSuperview()
+        }
+        
+        subInfoLabel.snp.makeConstraints {
+            $0.top.equalTo(mainJobLabel.snp.bottom).offset(4.adjustedH)
+            $0.centerX.equalToSuperview()
+        }
+        
+        self.centerButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(16.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(40)
+        }
+    }
+    
+    private func setCommonLayout() {
         guard let jobImageView = jobImageView,
               let mainJobLabel = mainJobLabel,
               let subLabelView = subLabelView,
@@ -314,75 +352,37 @@ extension NewCustomAlertVC {
             $0.leading.equalTo(alertView.snp.leading).offset(24.adjusted)
         }
     }
-    
-    private func setButtonLayout(_ type: AlertButtonType?) {
-        guard let type = type else { return }
+}
+
+
+// MARK: - Methods
+
+extension NewCustomAlertVC {
+    private func setDelegate() {
+        guard let paletteCollectionView = paletteCollectionView else { return }
         
-        switch type {
-        case .changeColorAndViewJobDetail:
-            centerButton.isHidden = true
-            
-            self.changeColorButton.snp.makeConstraints {
-                $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
-                $0.leading.equalToSuperview().inset(16.adjusted)
-                $0.height.equalTo(40.adjustedH)
-                $0.width.equalTo(140.adjusted)
-            }
-            
-            self.viewJobDetailButton.snp.makeConstraints {
-                $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
-                $0.trailing.equalToSuperview().offset(-16.adjusted)
-                $0.height.equalTo(40.adjustedH)
-                $0.width.equalTo(140.adjusted)
-            }
-            
-        case .scrap:
-            changeColorButton.isHidden = true
-            viewJobDetailButton.isHidden = true
-            
-            self.centerButton.snp.makeConstraints {
-                $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
-                $0.horizontalEdges.equalToSuperview().inset(16)
-                $0.height.equalTo(40)
-            }
-        }
+        paletteCollectionView.delegate = self
+        paletteCollectionView.dataSource = self
     }
     
-    private func setInfoLayout() {
-        guard let alertImageView = alertImageView,
-              let mainJobLabel = mainJobLabel,
-              let subInfoLabel = subInfoLabel else { return }
+    private func setRegister() {
+        guard let paletteCollectionView = paletteCollectionView else { return }
         
-        alertImageView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(60)
-            $0.centerX.equalToSuperview()
-        }
-        
-        mainJobLabel.snp.makeConstraints {
-            $0.top.equalTo(alertImageView.snp.bottom).offset(20.adjustedH)
-            $0.centerX.equalToSuperview()
-        }
-        
-        subInfoLabel.snp.makeConstraints {
-            $0.top.equalTo(mainJobLabel.snp.bottom).offset(4.adjustedH)
-            $0.centerX.equalToSuperview()
-        }
-        
-        self.centerButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(16.adjustedH)
-            $0.horizontalEdges.equalToSuperview().inset(16)
-            $0.height.equalTo(40)
-        }
+        paletteCollectionView.register(PaletteCell.self, forCellWithReuseIdentifier: PaletteCell.className)
     }
     
     private func handleColorSelection(at colorName: String) {
         selectedColorNameRelay.accept(colorName)
     }
+    
+    private func bindViews() {
+        
+    }
 }
 
 extension NewCustomAlertVC {
     public func setSearchData(model: SearchResult) {
-        guard alertViewType == .custom else { return }
+        guard alertViewType == .scrap else { return }
         
         guard let jobImageView = jobImageView,
               let mainJobLabel = mainJobLabel
@@ -402,7 +402,6 @@ extension NewCustomAlertVC {
         self.paletteCollectionView?.reloadData()
     }
 }
-
 
 // MARK: - UICollectionViewDelegate
 

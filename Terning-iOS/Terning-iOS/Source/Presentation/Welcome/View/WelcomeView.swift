@@ -9,6 +9,7 @@ import UIKit
 
 import SnapKit
 import Then
+import Lottie
 
 final class WelcomeView: UIView {
     
@@ -23,8 +24,10 @@ final class WelcomeView: UIView {
         $0.numberOfLines = 0
     }
     
-    private let logoImageView = UIImageView().then {
+    private let logoAnimationView = LottieAnimationView().then {
         $0.contentMode = .scaleAspectFit
+        $0.loopMode = .loop
+        $0.animationSpeed = 1
     }
 
     private let startButton = CustomButton(title: "시작하기", font: .button0).then {
@@ -52,11 +55,15 @@ extension WelcomeView {
         switch viewType {
         case .first:
             welcomeLabel.text = "터닝에서 내 계획에 딱 맞는\n대학생 인턴 찾기를 도와드릴게요"
-            logoImageView.image = .imgOnbording
+            let animation = LottieAnimation.named("beforeOnboarding")
+            logoAnimationView.animation = animation
+            logoAnimationView.play()
             startButton.setTitle(title: "시작하기")
         case .second:
             welcomeLabel.text = "나에게 딱 맞는 공고가 준비됐어요!\n터닝을 시작해 볼까요?"
-            logoImageView.image = .imgwelcomTh1Ngjin
+            let animation = LottieAnimation.named("afterOnboarding")
+            logoAnimationView.animation = animation
+            logoAnimationView.play()
             startButton.setTitle(title: "내 맞춤 공고 바로 보러가기")
         }
         
@@ -70,7 +77,7 @@ extension WelcomeView {
     private func setLayout(viewType: WelcomeViewType) {
         addSubviews(
             welcomeLabel,
-            logoImageView,
+            logoAnimationView,
             startButton
         )
         
@@ -81,13 +88,13 @@ extension WelcomeView {
         
         switch viewType {
         case .first:
-            logoImageView.snp.makeConstraints {
+            logoAnimationView.snp.makeConstraints {
                 $0.top.equalTo(welcomeLabel.snp.bottom).offset(39.adjustedH)
                 $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
                 $0.height.equalTo(388.adjustedH)
             }
         case .second:
-            logoImageView.snp.makeConstraints {
+            logoAnimationView.snp.makeConstraints {
                 $0.top.equalTo(welcomeLabel.snp.bottom).offset(56.adjustedH)
                 $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
                 $0.height.equalTo(340.adjustedH)

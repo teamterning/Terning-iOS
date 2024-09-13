@@ -33,7 +33,7 @@ final class JobCardScrapedCell: UICollectionViewCell {
     private let jobCard = UIView().then {
         $0.backgroundColor = UIColor.white
         $0.layer.cornerRadius = 10
-        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
+        $0.layer.applyShadow(color: .greyShadow, alpha: 1, x: 0, y: 0, blur: 4, spread: 0)
     }
     
     private let jobCardCoverImage = UIImageView().then {
@@ -110,13 +110,13 @@ extension JobCardScrapedCell {
         jobCard.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(100)
+            $0.height.equalTo(100.adjustedH)
         }
         
         jobCardCoverImage.snp.makeConstraints {
             $0.top.equalTo(jobCard.snp.top).offset(12)
             $0.leading.equalTo(jobCard.snp.leading).offset(12)
-            $0.width.height.equalTo(72)
+            $0.width.height.equalTo(72.adjusted)
         }
         
         daysRemaining.snp.makeConstraints {
@@ -127,7 +127,7 @@ extension JobCardScrapedCell {
         jobLabel.snp.makeConstraints {
             $0.top.equalTo(jobCard.snp.top).offset(29)
             $0.leading.equalTo(jobCardCoverImage.snp.trailing).offset(8)
-            $0.trailing.equalTo(jobCard.snp.trailing).inset(22)
+            $0.trailing.equalTo(jobCard.snp.trailing).inset(50)
         }
         
         periodTitle.snp.makeConstraints {
@@ -153,6 +153,12 @@ extension JobCardScrapedCell {
     }
     
     func bindData(model: JobCard) {
+        if model.dDay == "지원마감" {
+            self.daysRemaining.textColor = .grey300
+        } else {
+            self.daysRemaining.textColor = .terningMain
+        }
+        
         self.internshipAnnouncementId = model.intershipAnnouncementId
         self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.daysRemaining.text = model.dDay

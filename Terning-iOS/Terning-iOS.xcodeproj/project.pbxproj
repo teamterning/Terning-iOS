@@ -156,6 +156,7 @@
 		71FFB2BD2C4A186900C60697 /* NewHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2BC2C4A186900C60697 /* NewHomeViewController.swift */; };
 		71FFB2BF2C4A188A00C60697 /* NewHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2BE2C4A188A00C60697 /* NewHomeView.swift */; };
 		71FFB2C42C4A81E200C60697 /* FilterInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2C32C4A81E200C60697 /* FilterInfoCell.swift */; };
+		B833F7D22C8EC661006AE46E /* CheckDeadlineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833F7D12C8EC661006AE46E /* CheckDeadlineCell.swift */; };
 		B853C88A2C7B2F6B00AA439C /* SortSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B853C8892C7B2F6B00AA439C /* SortSettingViewController.swift */; };
 		B855485A2C47EEBB00EC67F6 /* UserProfileInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85548592C47EEBB00EC67F6 /* UserProfileInfoModel.swift */; };
 		B855485D2C48026B00EC67F6 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B855485C2C48026B00EC67F6 /* MyPageView.swift */; };
@@ -317,6 +318,7 @@
 		71FFB2BC2C4A186900C60697 /* NewHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHomeViewController.swift; sourceTree = "<group>"; };
 		71FFB2BE2C4A188A00C60697 /* NewHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHomeView.swift; sourceTree = "<group>"; };
 		71FFB2C32C4A81E200C60697 /* FilterInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInfoCell.swift; sourceTree = "<group>"; };
+		B833F7D12C8EC661006AE46E /* CheckDeadlineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDeadlineCell.swift; sourceTree = "<group>"; };
 		B853C8892C7B2F6B00AA439C /* SortSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortSettingViewController.swift; sourceTree = "<group>"; };
 		B85548592C47EEBB00EC67F6 /* UserProfileInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileInfoModel.swift; sourceTree = "<group>"; };
 		B855485C2C48026B00EC67F6 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
@@ -1181,6 +1183,7 @@
 			isa = PBXGroup;
 			children = (
 				B871D7242C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift */,
+				B833F7D12C8EC661006AE46E /* CheckDeadlineCell.swift */,
 				B871D7302C3E9118008D78C2 /* NonScrapInfoCell.swift */,
 				B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */,
 				71FFB2C32C4A81E200C60697 /* FilterInfoCell.swift */,
@@ -1486,6 +1489,7 @@
 				71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */,
 				B8BE0E142C46D38700B3D298 /* UserFilteringInfoModel.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
+				B833F7D22C8EC661006AE46E /* CheckDeadlineCell.swift in Sources */,
 				2D89C7612C486E12002B035F /* SearchResultViewModel.swift in Sources */,
 				2DC61F152C41AB54009F991F /* LoginViewController.swift in Sources */,
 				2DC61F052C40926D009F991F /* JobDetailView.swift in Sources */,

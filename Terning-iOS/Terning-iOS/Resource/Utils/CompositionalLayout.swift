@@ -110,6 +110,8 @@ struct CompositionalLayout {
     static func createHomeListLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
             
+            let HomeVC = NewHomeViewController()
+            
             if sectionNumber == 0 {
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
@@ -118,20 +120,31 @@ struct CompositionalLayout {
                     )
                 )
                 
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(40)),
-                    subitems: [item]
-                )
-                
-                let section = NSCollectionLayoutSection(group: group)
-                
-                return section
+                if HomeVC.userName.count > 6 {
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(48)),
+                        subitems: [item]
+                    )
+                    
+                    let section = NSCollectionLayoutSection(group: group)
+                    section.contentInsets = .init(top: 0, leading: 0, bottom: 16, trailing: 0)
+                    
+                    return section
+                    
+                } else {
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(24)),
+                        subitems: [item])
+                    
+                    let section = NSCollectionLayoutSection(group: group)
+                    section.contentInsets = .init(top: 0, leading: 0, bottom: 16, trailing: 0)
+                    
+                    return section
+                }
                 
             } else if sectionNumber == 1 {
                 
-                let HomeVC = NewHomeViewController()
-                
-                if HomeVC.todayDeadlineLists.isEmpty {
+                if HomeVC.todayDeadlineLists.isEmpty || HomeVC.existIsScrapped {
                     let itemWidth: CGFloat = 327.adjusted
                     
                     let item = NSCollectionLayoutItem(
@@ -203,7 +216,7 @@ struct CompositionalLayout {
                 // Section
                 let section = NSCollectionLayoutSection(group: group)
                 
-                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(114))
+                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(114.adjustedH))
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: headerSize,
                     elementKind: UICollectionView.elementKindSectionHeader,
@@ -212,8 +225,8 @@ struct CompositionalLayout {
                 
                 sectionHeader.pinToVisibleBounds = true
                 section.boundarySupplementaryItems = [sectionHeader]
-                section.interGroupSpacing = 12
-                section.contentInsets = .init(top: 10, leading: 0, bottom: 10, trailing: 0)
+                section.interGroupSpacing = 20
+                section.contentInsets = .init(top: 10, leading: 0, bottom: 28, trailing: 0)
                 
                 return section
             } else {

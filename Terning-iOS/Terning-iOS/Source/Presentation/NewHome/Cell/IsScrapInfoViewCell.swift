@@ -163,7 +163,7 @@ extension IsScrapInfoViewCell {
         self.dDayLabel.text = model.dDay
         self.cardLabel.text = model.title
         self.colorMark.backgroundColor = UIColor(hex: model.color)
-        
+//        self.companyName.text = model.companyInfo 스테이징 서버에 변경 확정 후 주석 제거
         self.internshipAnnouncementId = model.internshipAnnouncementId
         self.companyImage = model.companyImage
         self.dDay = model.dDay

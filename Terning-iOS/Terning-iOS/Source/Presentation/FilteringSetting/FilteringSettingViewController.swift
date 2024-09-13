@@ -24,25 +24,25 @@ class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UI
     
     var data: UserFilteringInfoModel
     
-    private var gradeButtons_dict: [UIButton: Int] {
+    private var gradeButtons_dict: [UIButton: String] {
         return [
-            rootView.gradeButton1: 0,
-            rootView.gradeButton2: 1,
-            rootView.gradeButton3: 2,
-            rootView.gradeButton4: 3
+            rootView.gradeButton1: "freshman",
+            rootView.gradeButton2: "sophomore",
+            rootView.gradeButton3: "junior",
+            rootView.gradeButton4: "senior"
         ]
     }
     
-    private var periodButtons_dict: [UIButton: Int] {
+    private var periodButtons_dict: [UIButton: String] {
         return [
-            rootView.periodButton1: 0,
-            rootView.periodButton2: 1,
-            rootView.periodButton3: 2
+            rootView.periodButton1: "short",
+            rootView.periodButton2: "middle",
+            rootView.periodButton3: "long"
         ]
     }
     
-    lazy var grade: Int? = data.grade
-    lazy var workingPeriod: Int? = data.workingPeriod
+    lazy var grade: String? = data.grade
+    lazy var workingPeriod: String? = data.workingPeriod
     lazy var startYear: Int? = data.startYear
     lazy var startMonth: Int? = data.startMonth
     
@@ -118,17 +118,17 @@ extension FilteringSettingViewController {
     // MARK: - Methods
     
     func bindData(model: UserFilteringInfoModel) {
-        updateButtonSelection(for: gradeButtons_dict, selectedValue: grade ?? 0)
-        updateButtonSelection(for: periodButtons_dict, selectedValue: workingPeriod ?? 0)
+        updateButtonSelection(for: gradeButtons_dict, selectedValue: grade ?? "freshman")
+        updateButtonSelection(for: periodButtons_dict, selectedValue: workingPeriod ?? "short")
         // 초기에 데이터 픽커뷰 표시해놓는것
     }
     
-    func updateButtonSelection(for buttonsDict: [UIButton: Int], selectedValue: Int) {
+    func updateButtonSelection(for buttonsDict: [UIButton: String], selectedValue: String) {
         for (button, value) in buttonsDict {
             let isSelected = (value == selectedValue)
             button.isSelected = isSelected
-            button.setBackgroundColor(isSelected ? .terningMain : .clear, for: .normal)
-            button.setTitleColor(isSelected ? .white : .grey400, for: .normal)
+            button.layer.borderColor = (isSelected ? UIColor.terningMain : UIColor.grey150).cgColor
+            button.setTitleColor(isSelected ? .terningMain : .grey375, for: .normal)
         }
     }
     
@@ -149,10 +149,10 @@ extension FilteringSettingViewController {
         switch component {
         case 0:
             startYear = 2023 + row
-            print(startYear ?? 0)
+            print(startYear ?? 2024)
         case 1:
             startMonth = row + 1
-            print(startMonth ?? 0)
+            print(startMonth ?? 9)
         default:
             break
         }
@@ -165,8 +165,8 @@ extension FilteringSettingViewController {
             .setFilterDatas(
                 grade: grade,
                 workingPeriod: workingPeriod,
-                startYear: startYear ?? 0,
-                startMonth: startMonth ?? 0
+                startYear: startYear ?? 2024,
+                startMonth: startMonth ?? 9
             )
         ) { [weak self] result in
             guard let self = self else { return }

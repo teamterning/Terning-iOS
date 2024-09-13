@@ -109,7 +109,8 @@ final class FilteringSettingView: UIView {
         $0.setTitle("저장하기", for: .normal)
         $0.titleLabel?.font = .button0
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .terningMain
+        $0.setBackgroundColor(.terningPressed, for: .selected)
+        $0.setBackgroundColor(.terningMain, for: .normal)
         $0.layer.cornerRadius = 10
     }
     
@@ -157,8 +158,8 @@ extension FilteringSettingView {
         notchView.snp.makeConstraints {
             $0.top.equalTo(self.snp.top).offset(12)
             $0.centerX.equalTo(self.snp.centerX)
-            $0.width.equalTo(60)
-            $0.height.equalTo(4)
+            $0.width.equalTo(60.adjusted)
+            $0.height.equalTo(4.adjustedH)
         }
         
         mainTitleLabel.snp.makeConstraints {
@@ -169,7 +170,7 @@ extension FilteringSettingView {
         splitView.snp.makeConstraints {
             $0.top.equalTo(mainTitleLabel.snp.bottom).offset(15)
             $0.horizontalEdges.equalToSuperview().inset(25.adjusted)
-            $0.height.equalTo(1)
+            $0.height.equalTo(1.adjustedH)
         }
         
         schoolStatusLabel.snp.makeConstraints {
@@ -179,7 +180,7 @@ extension FilteringSettingView {
         
         [gradeButton1, gradeButton2, gradeButton3, gradeButton4].forEach {
             $0.snp.makeConstraints {
-                $0.height.equalTo(36)
+                $0.height.equalTo(36.adjustedH)
             }
         }
         
@@ -195,7 +196,7 @@ extension FilteringSettingView {
         
         [periodButton1, periodButton2, periodButton3].forEach {
             $0.snp.makeConstraints {
-                $0.height.equalTo(36)
+                $0.height.equalTo(36.adjustedH)
             }
         }
         
@@ -226,7 +227,7 @@ extension FilteringSettingView {
 
 extension UIButton {
     func configurePeriodButton(period: String) {
-        self.makeBorder(width: 1, color: .terningMain, cornerRadius: 10)
+        self.makeBorder(width: 1, color: .grey150, cornerRadius: 10)
         self.setTitle(period, for: .normal)
         self.setTitleColor(.terningMain, for: .normal)
         self.titleLabel?.font = .button3
@@ -235,7 +236,7 @@ extension UIButton {
     func configureGradeButton(grade: String) {
         self.makeBorder(width: 1, color: .terningMain, cornerRadius: 10)
         self.setTitle(grade, for: .normal)
-        self.setTitleColor(.grey400, for: .normal)
+        self.setTitleColor(.grey375, for: .normal)
         self.titleLabel?.font = .button3
     }
 }

@@ -64,8 +64,9 @@ extension NonJobCardCell {
     private func setLayout() {
         InfoImage.snp.makeConstraints {
             $0.top.equalToSuperview()
+            $0.centerX.equalToSuperview()
             $0.height.equalTo(222.adjustedH)
-            $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.width.equalTo(327.adjusted)
         }
         
         descriptionLabel.snp.makeConstraints {

@@ -22,7 +22,7 @@ final class NonScrapInfoCell: UICollectionViewCell {
     }
     
     private let internshipScrapedStatusLabel = LabelFactory.build(
-        text: "오늘 마감인 공고가 없어요",
+        text: "아직 스크랩된 인턴 공고가 없어요!",
         font: .detail2,
         textColor: .grey400
     ).then {
@@ -67,7 +67,7 @@ extension NonScrapInfoCell {
         nonTodayDeadlineImage.snp.makeConstraints {
             $0.top.equalTo(internshipScrapedStatus.snp.top).offset(30)
             $0.centerX.equalTo(internshipScrapedStatus)
-            $0.height.width.equalTo(44)
+            $0.height.width.equalTo(44.adjustedH)
         }
         
         internshipScrapedStatusLabel.snp.makeConstraints {

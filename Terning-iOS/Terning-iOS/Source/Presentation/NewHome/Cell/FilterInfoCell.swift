@@ -25,6 +25,12 @@ final class FilterInfoCell: UICollectionViewCell {
     private let sortSettingVC = SortSettingViewController()
     var totalCount: Int = 999999
     
+    private var isFilterButtonSelected = false
+    private var originalBackgroundColor: UIColor?
+    
+    weak var filterDelegate: FilterButtonProtocol?
+    weak var sortDelegate: SortButtonProtocol?
+    
     // MARK: - UIComponents
     
     private let titleLabel = LabelFactory.build(
@@ -36,9 +42,6 @@ final class FilterInfoCell: UICollectionViewCell {
     
     // 필터링 버튼 및 필터링 상태 표시 바
     private lazy var filterButton = FilterButton()
-    
-    weak var filterDelegate: FilterButtonProtocol?
-    weak var sortDelegate: SortButtonProtocol?
     
     var gradeLabel = LabelFactory.build(
         text: "3학년",
@@ -154,6 +157,7 @@ extension FilterInfoCell {
             titleLabel,
             filterButton,
             filteringStack,
+            nonFilteringLabel,
             totalCountLabel,
             sortButtonStack
         )
@@ -176,9 +180,14 @@ extension FilterInfoCell {
             $0.width.equalTo(196.adjusted)
         }
         
+        nonFilteringLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(19)
+            $0.trailing.equalToSuperview().inset(24)
+        }
+        
         filterButton.snp.makeConstraints {
-            $0.height.equalTo(28.adjustedH)
-            $0.width.equalTo(75.adjusted)
+            $0.height.equalTo(30.adjustedH)
+            $0.width.equalTo(80.adjusted)
         }
         
         distinction1.snp.makeConstraints {
@@ -204,6 +213,9 @@ extension FilterInfoCell {
     
     func setAddTarget() {
         filterButton.addTarget(self, action: #selector(filterButtonDidTap), for: .touchUpInside)
+        filterButton.addTarget(self, action: #selector(filterButtonTouchDown), for: .touchDown)
+        filterButton.addTarget(self, action: #selector(filterButtonTouchUpOutside), for: .touchUpOutside)
+        filterButton.addTarget(self, action: #selector(filterButtonTouchUpInside), for: .touchUpInside)
     }
     
     func setTapGesture() {
@@ -212,9 +224,28 @@ extension FilterInfoCell {
     }
     
     @objc func filterButtonDidTap() {
-        print("filterButton is clicked")
-        filterDelegate?.filterButtonDidTap()
-    }
+            print("filterButton is clicked")
+            filterDelegate?.filterButtonDidTap()
+        }
+        
+        @objc func filterButtonTouchDown() {
+            originalBackgroundColor = filterButton.configuration?.background.backgroundColor
+            filterButton.configuration?.background.backgroundColor = .terningPressed
+        }
+        
+        @objc func filterButtonTouchUpOutside() {
+            revertButtonBackgroundColor()
+        }
+        
+        @objc func filterButtonTouchUpInside() {
+            revertButtonBackgroundColor()
+        }
+        
+        private func revertButtonBackgroundColor() {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.filterButton.configuration?.background.backgroundColor = self.originalBackgroundColor
+            }
+        }
     
     @objc func sortButtonDidTap() {
         print("sortButton is clicked")
@@ -227,11 +258,18 @@ extension FilterInfoCell {
         guard let grade = model.grade,
               let workingPeriod = model.workingPeriod,
               let startYear = model.startYear,
-              let startMonth = model.startMonth else { return }
+              let startMonth = model.startMonth else {
+            filteringStack.isHidden = true
+            nonFilteringLabel.isHidden = false
+            return
+        }
         
         gradeLabel.text = gradeText(for: grade)
         periodLabel.text = periodText(for: workingPeriod)
         monthLabel.text = "\(startYear)년 \(startMonth)월"
+        
+        filteringStack.isHidden = false
+        nonFilteringLabel.isHidden = true
     }
     
     func countBind(model: JobCardModel) {
@@ -240,21 +278,21 @@ extension FilterInfoCell {
         totalCountLabel.setAttributedText(targetFontList: ["\(model.totalCount)": .body3], targetColorList: ["\(model.totalCount)": .terningMain])
     }
     
-    private func gradeText(for grade: Int) -> String {
+    private func gradeText(for grade: String) -> String {
         switch grade {
-        case 0: return "1학년"
-        case 1: return "2학년"
-        case 2: return "3학년"
-        case 3: return "4학년"
+        case "freshman": return "1학년"
+        case "sophomore": return "2학년"
+        case "junior": return "3학년"
+        case "senior": return "4학년"
         default: return "-"
         }
     }
     
-    private func periodText(for period: Int) -> String {
+    private func periodText(for period: String) -> String {
         switch period {
-        case 0: return "1~3개월"
-        case 1: return "4~6개월"
-        case 2: return "7개월 이상"
+        case "short": return "1~3개월"
+        case "middle": return "4~6개월"
+        case "long": return "7개월 이상"
         default: return "-"
         }
     }

@@ -24,10 +24,28 @@ enum AlertViewType {
 final class NewCustomAlertVC: UIViewController {
     
     // MARK: - Properties
+    
+    let disposeBag = DisposeBag()
+    let selectedColorNameRelay = BehaviorRelay<String>(value: "red")
+    
+    var centerButtonDidTap: Driver<Void> {
+        return centerButton.rx.tap.asDriver()
+    }
+    
+    var leftButtonDidTap: Driver<Void> {
+        return changeColorButton.rx.tap.asDriver()
+    }
+    
+    var rightButtonDidTap: Driver<Void> {
+        return viewJobDetailButton.rx.tap.asDriver()
+    }
+    
+    var centerButtonDidTapAction: (() -> Void)?
+    var leftButtonDidTapAction: (() -> Void)?
+    var rightButtonDidTapAction: (() -> Void)?
+    
     var alertViewType: AlertViewType!
     
-    let selectedColorNameRelay = BehaviorRelay<String>(value: "red")
-
     
     private let colors: [UIColor] = [
         .calRed,
@@ -48,13 +66,12 @@ final class NewCustomAlertVC: UIViewController {
     ]
     
     // MARK: - UIComponents
-
+    
     private var jobImageView: UIImageView?
     private var mainJobLabel: UILabel?
     private var subLabelView: UIView?
     private var subLabel: UILabel?
     private var subInfoLabel: UILabel?
-    
     private var alertImageView: UIImageView?
     
     private lazy var paletteCollectionView: UICollectionView? = {
@@ -86,9 +103,7 @@ final class NewCustomAlertVC: UIViewController {
     private let centerButton = CustomButton(title: "내 캘린더에 스크랩 하기", font: .button3)
     private let changeColorButton = CustomButton(title: "색상 변경하기", font: .button3)
     private let viewJobDetailButton = CustomButton(title: "공고 상세 정보 보기", font: .button3)
-    
     private let closeButton = UIButton()
-    
     private let alertView = UIView()
     
     // MARK: - Life Cycles
@@ -106,6 +121,7 @@ final class NewCustomAlertVC: UIViewController {
     
     init(alertViewType: AlertViewType) {
         self.alertViewType = alertViewType
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -115,10 +131,9 @@ final class NewCustomAlertVC: UIViewController {
     
 }
 
+// MARK: - UI & Layout
+
 extension NewCustomAlertVC {
-    
-    // MARK: - UI & Layout
-    
     private func setUI(_ type: AlertViewType) {
         view.backgroundColor = .terningBlack.withAlphaComponent(0.3)
         
@@ -376,9 +391,27 @@ extension NewCustomAlertVC {
     }
     
     private func bindViews() {
+        centerButtonDidTap
+            .drive(onNext: { [weak self] in
+                self?.centerButtonDidTapAction?()
+            })
+            .disposed(by: disposeBag)
         
+        leftButtonDidTap
+            .drive(onNext: { [weak self] in
+                self?.leftButtonDidTapAction?()
+            })
+            .disposed(by: disposeBag)
+        
+        rightButtonDidTap
+            .drive(onNext: { [weak self] in
+                self?.rightButtonDidTapAction?()
+            })
+            .disposed(by: disposeBag)
     }
 }
+
+// MARK: - Public Methods
 
 extension NewCustomAlertVC {
     public func setSearchData(model: SearchResult) {
@@ -394,11 +427,9 @@ extension NewCustomAlertVC {
         self.workPeriodInfoView.setDescriptionText(description: model.workingPeriod)
         self.workStartInfoView.setDescriptionText(description: model.startYearMonth)
         
-        // 모델에서 받은 색상 설정 (예: "orange")
         let selectedColor = model.color ?? "red"
         self.selectedColorNameRelay.accept(selectedColor)
         
-        // 컬렉션 뷰 리로드하여 선택된 색상 반영
         self.paletteCollectionView?.reloadData()
     }
 }

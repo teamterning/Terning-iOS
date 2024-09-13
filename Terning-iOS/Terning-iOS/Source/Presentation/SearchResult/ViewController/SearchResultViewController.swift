@@ -239,31 +239,35 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
         if scrapId == nil {
             let startDateComponents = parseStartDate(model.startYearMonth)
             
-            let dailyScrapModel = DailyScrapModel(
-                scrapId: model.scrapId ?? 0,
-                title: model.title,
-                color: "#ED4E54",
+            let searchModel = SearchResult(
                 internshipAnnouncementId: model.internshipAnnouncementId,
+                scrapId: model.scrapId,
                 dDay: model.dDay,
-                workingPeriod: model.workingPeriod,
+                deadline: model.deadline,
                 companyImage: model.companyImage,
-                startYear: startDateComponents.year,
-                startMonth: startDateComponents.month
+                title: model.title,
+                workingPeriod: model.workingPeriod,
+                startYearMonth: model.startYearMonth,
+                color: model.color
             )
+            
             let alertSheet = CustomAlertViewController(alertType: .custom, customType: .scrap)
-            alertSheet.setData2(model: dailyScrapModel, deadline: model.deadline)
             
-            alertSheet.modalTransitionStyle = .crossDissolve
-            alertSheet.modalPresentationStyle = .overFullScreen
             
-            alertSheet.centerButtonTapAction = { [weak self] in
+            let alertViewController = NewCustomAlertVC(alertViewType: .scrap)
+            alertViewController.setSearchData(model: searchModel)
+            
+            alertViewController.modalTransitionStyle = .crossDissolve
+            alertViewController.modalPresentationStyle = .overFullScreen
+            
+            alertViewController.centerButtonDidTapAction = { [weak self] in
                 guard let self = self else { return }
                 
-                let colorIndex = alertSheet.selectedColorIndexRelay
+                let colorName = alertViewController.selectedColorNameRelay
                 
                 self.scrapAnnouncementWithCompletion(
                     internshipAnnouncementId: model.internshipAnnouncementId,
-                    color: self.colorIndexMapping[colorIndex.value] ?? 0
+                    color: colorName.value
                 ) { success in
                     if success {
                         self.bindViewModel()
@@ -274,6 +278,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
                 }
             }
             self.present(alertSheet, animated: false)
+            
         } else {
             let alertSheet = CustomAlertViewController(alertType: .normal)
             alertSheet.setComponentDatas(
@@ -283,7 +288,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
             )
             
             alertSheet.centerButtonTapAction = {
-                self.cancelScrapAnnouncement(scrapId: scrapId)
+                self.cancelScrapAnnouncement(internshipAnnouncementId: scrapId)
                 self.dismiss(animated: false)
              
                 self.showToast(message: "관심 공고가 캘린더에서 사라졌어요!")
@@ -297,7 +302,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
         
     }
     
-    private func scrapAnnouncementWithCompletion(internshipAnnouncementId: Int, color: Int, completion: @escaping (Bool) -> Void) {
+    private func scrapAnnouncementWithCompletion(internshipAnnouncementId: Int, color: String, completion: @escaping (Bool) -> Void) {
         self.scrapAnnouncement(internshipAnnouncementId: internshipAnnouncementId, color: color)
         completion(true)
     }
@@ -319,9 +324,9 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
 // MARK: - API
     
 extension SearchResultViewController {
-    private func patchScrapAnnouncement(scrapId: Int?, color: Int, cell: JobCardScrapedCell) {
-        guard let scrapId = scrapId else { return }
-        Providers.scrapsProvider.request(.patchScrap(scrapId: scrapId, color: color)) { [weak self] result in
+    private func patchScrapAnnouncement(internshipAnnouncementId: Int?, color: String, cell: JobCardScrapedCell) {
+        guard let scrapId = internshipAnnouncementId else { return }
+        Providers.scrapsProvider.request(.patchScrap(internshipAnnouncementId: scrapId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
             switch result {
@@ -342,9 +347,9 @@ extension SearchResultViewController {
         }
     }
     
-    private func cancelScrapAnnouncement(scrapId: Int?) {
-        guard let scrapId = scrapId else { return }
-        Providers.scrapsProvider.request(.removeScrap(scrapId: scrapId)) { [weak self] result in
+    private func cancelScrapAnnouncement(internshipAnnouncementId: Int?) {
+        guard let scrapId = internshipAnnouncementId else { return }
+        Providers.scrapsProvider.request(.removeScrap(internshipAnnouncementId: scrapId)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
             switch result {

@@ -48,19 +48,6 @@ final class TNCalendarViewController: UIViewController {
         $0.dateFormat = "yyyy년 MM월 dd일"
     }
     
-    private let colorIndexMapping: [Int: Int] = [
-        0: 0,  // calRed
-        1: 2,  // calOrange2
-        2: 4,  // calGreen1
-        3: 6,  // calBlue1
-        4: 8,  // calPurple
-        5: 1,  // calOrange
-        6: 3,  // calYellow
-        7: 5,  // calGreen2
-        8: 7,  // calBlue2
-        9: 9   // calPink
-    ]
-    
     // MARK: - UIComponents
     private let rootView = TNCalendarView()
     private let disposeBag = DisposeBag()

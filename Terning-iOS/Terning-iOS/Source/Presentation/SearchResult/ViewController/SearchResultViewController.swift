@@ -21,19 +21,6 @@ final class SearchResultViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let colorIndexMapping: [Int: Int] = [
-        0: 0,  // calRed
-        1: 2,  // calOrange2
-        2: 4,  // calGreen1
-        3: 6,  // calBlue1
-        4: 8,  // calPurple
-        5: 1,  // calOrange
-        6: 3,  // calYellow
-        7: 5,  // calGreen2
-        8: 7,  // calBlue2
-        9: 9   // calPink
-    ]
-    
     private var searchResultCount: Int = 0
     private var searchHasNext = true
     private var isFetchingMoreData = false
@@ -123,7 +110,7 @@ extension SearchResultViewController {
             .do(onNext: { page in
                 print("Page changed: \(page)")
             })
-
+        
         let searchTrigger = Observable.merge(searchChanged, sortChanged, pageChanged.map { _ in () })
             .withLatestFrom(keyword)
             .do(onNext: { _ in
@@ -134,7 +121,7 @@ extension SearchResultViewController {
                     self.isFetchingMoreData = false
                 }
             })
-                
+        
         let input = SearchResultViewModel.Input(
             keyword: searchTrigger,
             sortTap: sortButtonTapObservable.asObservable(),
@@ -295,7 +282,7 @@ extension SearchResultViewController: UICollectionViewDelegate {
         case .search:
             guard let SearchResult = rootView.searchResult else { return }
             let selectedItem = SearchResult[indexPath.item].internshipAnnouncementId
-    
+            
             let jobDetailVC = JobDetailViewController()
             jobDetailVC.internshipAnnouncementId.onNext(selectedItem)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
@@ -318,27 +305,22 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
         }
         
         print("index", index)
-       
+        
         let model = searchResults[index]
         print("model", model)
         
-        if model.isScrapped == false {
-            let startDateComponents = parseStartDate(model.startYearMonth)
-            
+        if model.isScrapped == false {          
             let searchModel = SearchResult(
                 internshipAnnouncementId: model.internshipAnnouncementId,
-                scrapId: model.scrapId,
-                dDay: model.dDay,
-                deadline: model.deadline,
                 companyImage: model.companyImage,
+                dDay: model.dDay,
                 title: model.title,
                 workingPeriod: model.workingPeriod,
-                startYearMonth: model.startYearMonth,
-                color: model.color
+                isScrapped: true,
+                color: model.color,
+                deadline: model.deadline,
+                startYearMonth: model.startYearMonth
             )
-            
-            let alertSheet = CustomAlertViewController(alertType: .custom, customType: .scrap)
-            
             
             let alertViewController = NewCustomAlertVC(alertViewType: .scrap)
             alertViewController.setSearchData(model: searchModel)
@@ -363,27 +345,23 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
                     self.dismiss(animated: false)
                 }
             }
-            self.present(alertSheet, animated: false)
+            self.present(alertViewController, animated: false)
             
         } else {
-            let alertSheet = CustomAlertViewController(alertType: .normal)
-            alertSheet.setComponentDatas(
-                mainLabel: "관심 공고가 캘린더에서 사라져요!",
-                subLabel: "스크랩을 취소하시겠어요?",
-                buttonLabel: "스크랩 취소하기"
-            )
+
+            let alertViewController = NewCustomAlertVC(alertViewType: .scrap)
             
-            alertSheet.centerButtonTapAction = {
-                self.cancelScrapAnnouncement(internshipAnnouncementId: scrapId)
+            alertViewController.centerButtonDidTapAction = {
+                
                 self.dismiss(animated: false)
-             
+                
                 self.showToast(message: "관심 공고가 캘린더에서 사라졌어요!")
             }
             
-            alertSheet.modalTransitionStyle = .crossDissolve
-            alertSheet.modalPresentationStyle = .overFullScreen
+            alertViewController.modalTransitionStyle = .crossDissolve
+            alertViewController.modalPresentationStyle = .overFullScreen
             
-            self.present(alertSheet, animated: false)
+            self.present(alertViewController, animated: false)
         }
         
     }
@@ -408,7 +386,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
 }
 
 // MARK: - API
-    
+
 extension SearchResultViewController {
     private func patchScrapAnnouncement(internshipAnnouncementId: Int?, color: String, cell: JobCardScrapedCell) {
         guard let scrapId = internshipAnnouncementId else { return }
@@ -464,7 +442,7 @@ extension SearchResultViewController: SortSettingButtonProtocol {
         sortBySubject.onNext(option.apiValue)
         
         let visibleHeaders = rootView.collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
-
+        
         if let sortHeader = visibleHeaders.first as? SortHeaderCell {
             sortHeader.setSortButtonTitle(option.title)
         }
@@ -491,7 +469,7 @@ extension SearchResultViewController: UIScrollViewDelegate {
         
         if offsetY >= contentHeight - height && searchHasNext && !isFetchingMoreData {
             isFetchingMoreData = true
-
+            
             if let currentPage = try? pageSubject.value() {
                 pageSubject.onNext(currentPage + 1)
             }

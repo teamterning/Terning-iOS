@@ -27,19 +27,6 @@ final class JobDetailViewController: UIViewController {
     
     private var scarpNum: Int = 0
     
-    private let colorIndexMapping: [Int: Int] = [
-        0: 0,  // calRed
-        1: 2,  // calOrange2
-        2: 4,  // calGreen1
-        3: 6,  // calBlue1
-        4: 8,  // calPurple
-        5: 1,  // calOrange
-        6: 3,  // calYellow
-        7: 5,  // calGreen2
-        8: 7,  // calBlue2
-        9: 9   // calPink
-    ]
-    
     // MARK: - UI Components
     
     private let rootView = JobDetailView()
@@ -179,7 +166,6 @@ extension JobDetailViewController {
                     
                     alertSheet.centerButtonTapAction = { [weak self] in
                         guard let self = self else { return }
-                        self.cancelScrapAnnouncement(internshipAnnouncementId: jobDetail.scrapId ?? -1)
                         self.dismiss(animated: false)
                        
                         self.rootView.scrapButton.isSelected = false

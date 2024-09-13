@@ -84,7 +84,7 @@ extension UIViewController {
         view.endEditing(true)
     }
     
-    func scrapAnnouncement(internshipAnnouncementId: Int, color: Int) {
+    func scrapAnnouncement(internshipAnnouncementId: Int, color: String) {
         Providers.scrapsProvider.request(.addScrap(internshipAnnouncementId: internshipAnnouncementId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }

@@ -393,19 +393,25 @@ extension NewCustomAlertVC {
     private func bindViews() {
         centerButtonDidTap
             .drive(onNext: { [weak self] in
-                self?.centerButtonDidTapAction?()
+                guard let self = self else { return }
+                
+                self.centerButtonDidTapAction?()
             })
             .disposed(by: disposeBag)
         
         leftButtonDidTap
             .drive(onNext: { [weak self] in
-                self?.leftButtonDidTapAction?()
+                guard let self = self else { return }
+                
+                self.leftButtonDidTapAction?()
             })
             .disposed(by: disposeBag)
         
         rightButtonDidTap
             .drive(onNext: { [weak self] in
-                self?.rightButtonDidTapAction?()
+                guard let self = self else { return }
+                
+                self.rightButtonDidTapAction?()
             })
             .disposed(by: disposeBag)
     }

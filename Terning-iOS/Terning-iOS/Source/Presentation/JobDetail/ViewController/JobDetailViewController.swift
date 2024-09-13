@@ -107,7 +107,7 @@ extension JobDetailViewController {
         return (year, month)
     }
     
-    private func scrapAnnouncementWithCompletion(internshipAnnouncementId: Int, color: Int, completion: @escaping (Bool) -> Void) {
+    private func scrapAnnouncementWithCompletion(internshipAnnouncementId: Int, color: String, completion: @escaping (Bool) -> Void) {
         self.scrapAnnouncement(internshipAnnouncementId: internshipAnnouncementId, color: color)
         completion(true)
     }
@@ -151,7 +151,7 @@ extension JobDetailViewController {
                         
                         self.scrapAnnouncementWithCompletion(
                             internshipAnnouncementId: currentId,
-                            color: self.colorIndexMapping[colorIndex.value] ?? 0
+                            color: "기본 값"
                         ) { success in
                             if success {
                                 self.rootView.scrapButton.isSelected = true
@@ -179,7 +179,7 @@ extension JobDetailViewController {
                     
                     alertSheet.centerButtonTapAction = { [weak self] in
                         guard let self = self else { return }
-                        self.cancelScrapAnnouncement(scrapId: jobDetail.scrapId ?? -1)
+                        self.cancelScrapAnnouncement(internshipAnnouncementId: jobDetail.scrapId ?? -1)
                         self.dismiss(animated: false)
                        
                         self.rootView.scrapButton.isSelected = false
@@ -379,9 +379,9 @@ extension JobDetailViewController: UITableViewDelegate {
 // MARK: - API
     
 extension JobDetailViewController {
-    private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
-        guard let scrapId = scrapId else { return }
-        Providers.scrapsProvider.request(.patchScrap(scrapId: scrapId, color: color)) { [weak self] result in
+    private func patchScrapAnnouncement(internshipAnnouncementId: Int?, color: String) {
+        guard let intershipAnnouncementId = internshipAnnouncementId else { return }
+        Providers.scrapsProvider.request(.patchScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
             switch result {
@@ -402,9 +402,9 @@ extension JobDetailViewController {
         }
     }
     
-    private func cancelScrapAnnouncement(scrapId: Int?) {
-        guard let scrapId = scrapId else { return }
-        Providers.scrapsProvider.request(.removeScrap(scrapId: scrapId)) { [weak self] result in
+    private func cancelScrapAnnouncement(internshipAnnouncementId: Int?) {
+        guard let intershipAnnouncementId = internshipAnnouncementId else { return }
+        Providers.scrapsProvider.request(.removeScrap(internshipAnnouncementId: intershipAnnouncementId)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
             switch result {

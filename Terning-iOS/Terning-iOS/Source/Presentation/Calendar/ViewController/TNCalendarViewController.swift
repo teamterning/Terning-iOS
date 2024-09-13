@@ -35,7 +35,7 @@ final class TNCalendarViewController: UIViewController {
         return relay
     }()
     
-    private let patchScrapSubject = PublishSubject<(Int, Int)>()
+    private let patchScrapSubject = PublishSubject<(Int, String)>()
     private let cancelScrapSubject = PublishSubject<Int>()
     
     private var isListViewVisible = false
@@ -224,7 +224,7 @@ extension TNCalendarViewController {
     }
     
     // 스크랩 수정 호출
-    private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
+    private func patchScrapAnnouncement(scrapId: Int?, color: String) {
         guard let scrapId = scrapId else { return }
         patchScrapSubject.onNext((scrapId, color))
     }
@@ -478,7 +478,8 @@ extension TNCalendarViewController: UICollectionViewDelegate {
                     self.dismiss(animated: true)
                     self.navigationController?.pushViewController(jobDetailViewController, animated: true)
                 } else if alertSheet.currentMode == .color {
-                    self.patchScrapAnnouncement(scrapId: model.scrapId, color: self.colorIndexMapping[colorIndex.value] ?? 0)
+                    self.patchScrapAnnouncement(scrapId: model.scrapId, color: "red")
+                    // TODO: color 부분 수정
                     self.dismiss(animated: true)
                 }
             }
@@ -512,7 +513,8 @@ extension TNCalendarViewController: UICollectionViewDelegate {
                     jobDetailVC.hidesBottomBarWhenPushed = true
                     self.navigationController?.pushViewController(jobDetailVC, animated: true)
                 } else if alertSheet.currentMode == .color {
-                    self.patchScrapAnnouncement(scrapId: model.scrapId, color: self.colorIndexMapping[colorIndex.value] ?? 0)
+                    self.patchScrapAnnouncement(scrapId: model.scrapId, color: "red")
+                    // TODO: 수정 해야한다.
                     self.dismiss(animated: true)
                 }
             }

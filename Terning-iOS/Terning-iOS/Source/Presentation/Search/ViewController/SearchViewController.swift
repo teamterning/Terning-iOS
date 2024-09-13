@@ -237,13 +237,13 @@ extension SearchViewController: UICollectionViewDelegate {
         case .viewsNum:
             headerView.bind(
                 title: "요즘 대학생들에게 인기 있는 공고",
-                subTitle: "지금 조회수가 많은 공고들이에요",
+                subTitle: "이번 주 가장 많이 조회한 공고에요",
                 type: .main
             )
         case .scrapsNum:
             headerView.bind(
                 title: nil,
-                subTitle: "지금 스크랩수가 많은 공고들이에요",
+                subTitle: "이번 주 가장 많이 스크랩 한 공고에요",
                 type: .sub
             )
         }

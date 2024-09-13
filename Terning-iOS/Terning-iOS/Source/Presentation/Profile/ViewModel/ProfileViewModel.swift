@@ -18,7 +18,7 @@ final class ProfileViewModel: ProfileViewModelType {
     
     var userInfo: UserProfileInfoModel?
     let nameRelay = BehaviorRelay<String>(value: "")
-    let imageStringRelay = BehaviorRelay<String>(value: "")
+    let imageStringRelay = BehaviorRelay<String>(value: "basic")
     
     private let nameValidationMessageRelay = BehaviorRelay<ValidationMessage>(value: .defaultMessage)
     

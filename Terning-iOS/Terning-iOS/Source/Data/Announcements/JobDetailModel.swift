@@ -8,21 +8,22 @@
 import Foundation
 
 struct JobDetailModel: Codable {
+    let companyImage: String
     let dDay: String
     let title: String
-    let deadline: String
     let workingPeriod: String
-    let startDate: String
+    let isScrapped: Bool
+    let color: String?
+    let deadline: String
+    let startYearMonth: String
     let scrapCount: Int
     let viewCount: Int
     let company: String
     let companyCategory: String
-    let companyImage: String
     let qualification: String
     let jobType: String
     let detail: String
     let url: String
-    let scrapId: Int?
 }
 
 struct CompanyInfoModel {
@@ -56,6 +57,6 @@ struct DetailInfoModel {
 
 struct BottomInfoModel {
     let url: String?
-    let scrapId: Int?
+    let isScrapped: Bool
     let scrapCount: Int
 }

@@ -32,6 +32,10 @@
 		2D89C7652C486E2E002B035F /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C7642C486E2E002B035F /* SearchResultView.swift */; };
 		2D89C7672C486E53002B035F /* CustomSortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C7662C486E53002B035F /* CustomSortButton.swift */; };
 		2D8D0D412C492B8C00ECB36F /* SearchResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8D0D402C492B8C00ECB36F /* SearchResultModel.swift */; };
+		2D997FAE2C91A6460078DAB0 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2D997FAD2C91A6460078DAB0 /* Lottie */; };
+		2D997FBA2C91ADFE0078DAB0 /* login.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D997FB92C91ADFE0078DAB0 /* login.json */; };
+		2D997FBD2C9228F00078DAB0 /* beforeOnboarding.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D997FBC2C9228F00078DAB0 /* beforeOnboarding.json */; };
+		2D997FBF2C9229760078DAB0 /* afterOnboarding.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D997FBE2C9229760078DAB0 /* afterOnboarding.json */; };
 		2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */; };
 		2DC61EF52C4075EB009F991F /* MainInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF42C4075EB009F991F /* MainInfoTableViewCell.swift */; };
 		2DC61EF72C4075F3009F991F /* JobDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF62C4075F3009F991F /* JobDetailViewModel.swift */; };
@@ -200,6 +204,9 @@
 		2D89C7642C486E2E002B035F /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		2D89C7662C486E53002B035F /* CustomSortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSortButton.swift; sourceTree = "<group>"; };
 		2D8D0D402C492B8C00ECB36F /* SearchResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultModel.swift; sourceTree = "<group>"; };
+		2D997FB92C91ADFE0078DAB0 /* login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login.json; sourceTree = "<group>"; };
+		2D997FBC2C9228F00078DAB0 /* beforeOnboarding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = beforeOnboarding.json; sourceTree = "<group>"; };
+		2D997FBE2C9229760078DAB0 /* afterOnboarding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = afterOnboarding.json; sourceTree = "<group>"; };
 		2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailViewController.swift; sourceTree = "<group>"; };
 		2DC61EF42C4075EB009F991F /* MainInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInfoTableViewCell.swift; sourceTree = "<group>"; };
 		2DC61EF62C4075F3009F991F /* JobDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailViewModel.swift; sourceTree = "<group>"; };
@@ -339,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				719C6DEC2C8F220D006AF9C9 /* Inject in Frameworks */,
+				2D997FAE2C91A6460078DAB0 /* Lottie in Frameworks */,
 				71E3C3F92C241D900026C4DD /* Kingfisher in Frameworks */,
 				2DC61F302C4213C7009F991F /* KakaoSDKCommon in Frameworks */,
 				71E3C4042C241DD40026C4DD /* Moya in Frameworks */,
@@ -494,6 +502,16 @@
 				2D89C75E2C486E05002B035F /* GraphicCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		2D997FBB2C91B0A90078DAB0 /* Lotties */ = {
+			isa = PBXGroup;
+			children = (
+				2D997FBC2C9228F00078DAB0 /* beforeOnboarding.json */,
+				2D997FBE2C9229760078DAB0 /* afterOnboarding.json */,
+				2D997FB92C91ADFE0078DAB0 /* login.json */,
+			);
+			path = Lotties;
 			sourceTree = "<group>";
 		};
 		2DC61EEE2C40759F009F991F /* JobDetail */ = {
@@ -1037,6 +1055,7 @@
 		71E3C3E42C241B8A0026C4DD /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				2D997FBB2C91B0A90078DAB0 /* Lotties */,
 				716E08AA2C44346F00469E3B /* Config */,
 				7121A1312C396F980056DB8B /* UIComponents */,
 				71E3C4102C243BBC0026C4DD /* Utils */,
@@ -1246,6 +1265,7 @@
 				2DC61F2F2C4213C7009F991F /* KakaoSDKCommon */,
 				71CCC0752C3F373400789A9B /* FSCalendar */,
 				719C6DEB2C8F220D006AF9C9 /* Inject */,
+				2D997FAD2C91A6460078DAB0 /* Lottie */,
 			);
 			productName = "Terning-iOS";
 			productReference = 71E3C3C92C22BAF40026C4DD /* Terning-iOS.app */;
@@ -1284,6 +1304,7 @@
 				2DC61F2A2C4213C7009F991F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				71CCC0742C3F373400789A9B /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				719C6DEA2C8F220D006AF9C9 /* XCRemoteSwiftPackageReference "Inject" */,
+				2D997FAC2C91A6460078DAB0 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 71E3C3CA2C22BAF40026C4DD /* Products */;
 			projectDirPath = "";
@@ -1300,13 +1321,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				71E3C40D2C2423280026C4DD /* .swiftlint.yml in Resources */,
+				2D997FBF2C9229760078DAB0 /* afterOnboarding.json in Resources */,
 				71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */,
 				71E3C3D92C22BAF50026C4DD /* LaunchScreen.storyboard in Resources */,
 				71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */,
 				B8F503382C749309000D2A22 /* Config.xcconfig in Resources */,
 				71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */,
+				2D997FBD2C9228F00078DAB0 /* beforeOnboarding.json in Resources */,
 				71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */,
 				71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */,
+				2D997FBA2C91ADFE0078DAB0 /* login.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1716,6 +1740,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2D997FAC2C91A6460078DAB0 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
 		2DC61F2A2C4213C7009F991F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
@@ -1783,6 +1815,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2D997FAD2C91A6460078DAB0 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D997FAC2C91A6460078DAB0 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		2DC61F2B2C4213C7009F991F /* KakaoSDK */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2DC61F2A2C4213C7009F991F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;

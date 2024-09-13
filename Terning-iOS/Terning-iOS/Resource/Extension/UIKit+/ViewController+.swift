@@ -122,7 +122,7 @@ extension UIViewController {
         }
         
         if let sheet = contentVC.sheetPresentationController {
-            sheet.detents = [fraction, .large()]
+            sheet.detents = [fraction, fraction]
             sheet.largestUndimmedDetentIdentifier = nil
             contentVC.modalPresentationStyle = .custom
             

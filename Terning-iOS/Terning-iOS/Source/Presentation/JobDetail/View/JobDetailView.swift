@@ -136,8 +136,8 @@ extension JobDetailView {
         self.url = url
     }
     
-    func setScrapped(_ scrapId: Int?) {
-        if scrapId == nil {
+    func setScrapped(_ isScrapped: Bool) {
+        if isScrapped == false {
             scrapButton.isSelected = false
         } else {
             scrapButton.isSelected = true

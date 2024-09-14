@@ -110,7 +110,7 @@ struct CompositionalLayout {
     static func createHomeListLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
             
-            let HomeVC = NewHomeViewController()
+            let HomeVC = HomeViewController()
             
             if sectionNumber == 0 {
                 let item = NSCollectionLayoutItem(

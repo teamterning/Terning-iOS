@@ -1,5 +1,5 @@
 //
-//  NewHomeViewController.swift
+//  HomeViewController.swift
 //  Terning-iOS
 //
 //  Created by 이명진 on 7/19/24.
@@ -25,7 +25,7 @@ enum HomeMainSection: Int, CaseIterable {
     }
 }
 
-final class NewHomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -66,7 +66,7 @@ final class NewHomeViewController: UIViewController {
     
     // MARK: - UIComponents
     
-    private let rootView = NewHomeView()
+    private let rootView = HomeView()
     
     // MARK: - Life Cycles
     
@@ -130,7 +130,7 @@ final class NewHomeViewController: UIViewController {
 
 // MARK: - Extensions
 
-extension NewHomeViewController: UICollectionViewDelegate {
+extension HomeViewController: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = rootView.collectionView.contentOffset.y
         let stickyAttributes = 220.6
@@ -160,7 +160,7 @@ extension NewHomeViewController: UICollectionViewDelegate {
     }
 }
 
-extension NewHomeViewController: UICollectionViewDataSource {
+extension HomeViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return HomeMainSection.allCases.count
     }
@@ -256,7 +256,7 @@ extension NewHomeViewController: UICollectionViewDataSource {
 
 // MARK: - FilterButtonProtocol
 
-extension NewHomeViewController: FilterButtonProtocol {
+extension HomeViewController: FilterButtonProtocol {
     func filterButtonDidTap() {
         let filterSettingVC = FilteringSettingViewController(data: filterInfos)
         
@@ -287,7 +287,7 @@ extension NewHomeViewController: FilterButtonProtocol {
 }
 
 // UIAdaptivePresentationControllerDelegate를 구현하여 바텀시트가 사라질 때 호출되는 메서드 추가
-extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
+extension HomeViewController: UIAdaptivePresentationControllerDelegate {
     func removeDimmedBackgroundView() {
         if let presentingView = self.view,
            let dimmedBackgroundView = presentingView.viewWithTag(999) {
@@ -306,7 +306,7 @@ extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
 
 // MARK: - SaveButtonDelegate
 
-extension NewHomeViewController: SaveButtonProtocol {
+extension HomeViewController: SaveButtonProtocol {
     func didSaveSetting() {
         removeDimmedBackgroundView()
         fetchFilterInfos()
@@ -315,7 +315,7 @@ extension NewHomeViewController: SaveButtonProtocol {
 
 // MARK: - SortButtonDelegate
 
-extension NewHomeViewController: SortButtonProtocol {
+extension HomeViewController: SortButtonProtocol {
     func sortButtonTap() {
         let sortSettingVC = SortSettingViewController()
         sortSettingVC.sortSettingDelegate = self
@@ -346,7 +346,7 @@ extension NewHomeViewController: SortButtonProtocol {
 
 // MARK: - SortSettingButtonDelegate
 
-extension NewHomeViewController: SortSettingButtonProtocol {
+extension HomeViewController: SortSettingButtonProtocol {
     func didSelectSortingOption(_ option: SortingOptions) {
         guard let headerView = rootView.collectionView.supplementaryView(
             forElementKind: UICollectionView.elementKindSectionHeader,
@@ -375,7 +375,7 @@ extension NewHomeViewController: SortSettingButtonProtocol {
 
 // MARK: - ScrapDidTapDelegate
 
-extension NewHomeViewController: ScrapDidTapDelegate {
+extension HomeViewController: ScrapDidTapDelegate {
     func scrapButtonDidTap(id index: Int) {
         let model = jobCardLists[index]
         let alertSheet = CustomAlertViewController(alertType: .custom)
@@ -399,7 +399,7 @@ extension NewHomeViewController: ScrapDidTapDelegate {
 
 // MARK: - Network
 
-extension NewHomeViewController {
+extension HomeViewController {
     func fetchTodayDeadlineDatas() {
         homeProviders.request(.getHomeToday) { [weak self] response in
             guard let self = self else { return }

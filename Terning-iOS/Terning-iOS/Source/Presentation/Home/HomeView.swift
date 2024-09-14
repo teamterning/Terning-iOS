@@ -1,5 +1,5 @@
 //
-//  NewHomeView.swift
+//  HomeView.swift
 //  Terning-iOS
 //
 //  Created by 이명진 on 7/19/24.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class NewHomeView: UIView {
+final class HomeView: UIView {
     
     // MARK: - UIComponents
     
@@ -50,7 +50,7 @@ final class NewHomeView: UIView {
 
 // MARK: - UI & Layout
 
-extension NewHomeView {
+extension HomeView {
     private func setUI() {
         gradientLayerView.isHidden = true
     }

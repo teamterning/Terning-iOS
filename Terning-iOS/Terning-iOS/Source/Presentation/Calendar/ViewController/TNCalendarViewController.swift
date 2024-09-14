@@ -392,11 +392,15 @@ extension TNCalendarViewController: FSCalendarDataSource {
         
         let month = calendar.currentPage
         let isCurrentMonth = Calendar.current.isDate(date, equalTo: month, toGranularity: .month)
+        let isToday = Calendar.current.isDateInToday(date)
+        let isSelected = selectedDate != nil && Calendar.current.isDate(date, inSameDayAs: selectedDate!)
         
         let dateStatus: CalendarState = {
-            if Calendar.current.isDateInToday(date) {
+            if isSelected && isToday {
+                return .selected // 오늘인데 선택되는 경우는 selected 상태로 처리
+            } else if isToday { // 오늘 기본 상태는 today
                 return .today
-            } else if let selectedDate = selectedDate, Calendar.current.isDate(date, inSameDayAs: selectedDate) {
+            } else if isSelected {
                 return .selected
             } else {
                 return .normal

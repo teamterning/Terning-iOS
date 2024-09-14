@@ -65,7 +65,7 @@ final class CustomBottomSheetViewController: UIViewController {
     
     // MARK: - Life Cycles
     
-    init(bottomType: BottomSheet, contentViewController: UIViewController = ViewController(), upScroll: Bool = true, isNotch: Bool = true) {
+    init(bottomType: BottomSheet, contentViewController: UIViewController = UIViewController(), upScroll: Bool = true, isNotch: Bool = true) {
         self.contentViewController = contentViewController
         self.bottomHeight = bottomType.height
         self.upScroll = upScroll

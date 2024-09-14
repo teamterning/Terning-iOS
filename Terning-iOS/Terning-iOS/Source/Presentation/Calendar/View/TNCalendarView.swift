@@ -11,6 +11,10 @@ import FSCalendar
 import SnapKit
 import Then
 
+enum CalendarViewType {
+    case bottom, list
+}
+
 final class TNCalendarView: UIView {
     
     // MARK: - UIComponents
@@ -87,12 +91,8 @@ final class TNCalendarView: UIView {
         return collectionView
     }()
     
-    let bottomEmptyView = EmptyView().then {
-        $0.isHidden = true
-    }
-    let listEmptyView = EmptyView().then {
-        $0.isHidden = true
-    }
+    let bottomEmptyView = EmptyView()
+    let listEmptyView = EmptyView()
     
     // MARK: - Life Cycles
     
@@ -138,7 +138,7 @@ extension TNCalendarView {
     private func setLayout() {
         naviBar.snp.makeConstraints {
             $0.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
-            $0.height.equalTo(68)
+            $0.height.equalTo(68.adjustedH)
         }
         
         dummyView.snp.makeConstraints {
@@ -153,7 +153,7 @@ extension TNCalendarView {
         
         calendarView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
-            $0.height.equalTo(90 * 6 + 48 + 28) // 기본 높이 설정
+            $0.height.equalTo(90.adjustedH * 6 + 48.adjustedH + 28.adjustedH) // 기본 높이 설정
             $0.horizontalEdges.equalToSuperview().inset(18.adjusted)
         }
         
@@ -166,7 +166,7 @@ extension TNCalendarView {
         self.bringSubviewToFront(separatorView)
         
         calenderBottomCollectionView.snp.makeConstraints {
-            $0.top.equalTo(calendarView.snp.bottom).offset(10)
+            $0.top.equalTo(calendarView.snp.bottom).offset(10.adjustedH)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
@@ -179,13 +179,11 @@ extension TNCalendarView {
         bottomEmptyView.snp.makeConstraints {
             $0.top.equalTo(calenderBottomCollectionView.snp.top).offset(40.adjustedH)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
         
         listEmptyView.snp.makeConstraints {
-            $0.top.equalTo(calenderListCollectionView.snp.top).offset(40.adjustedH)
+            $0.top.equalTo(calenderListCollectionView.snp.top).offset(120.adjustedH)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
     }
 }
@@ -199,20 +197,12 @@ extension TNCalendarView {
         calendarViewContainer.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
     
-    func showBottomEmptyView() {
-        bottomEmptyView.isHidden = false
+    func toggleEmptyView(for type: CalendarViewType, isHidden: Bool) {
+        switch type {
+        case .bottom:
+            bottomEmptyView.isHidden = !isHidden
+        case .list:
+            listEmptyView.isHidden = !isHidden
+        }
     }
-    
-    func showListEmptyView() {
-        listEmptyView.isHidden = false
-    }
-    
-    func hideBottomEmptyView() {
-        bottomEmptyView.isHidden = true
-    }
-    
-    func hideListEmptyView() {
-        listEmptyView.isHidden = true
-    }
-    
 }

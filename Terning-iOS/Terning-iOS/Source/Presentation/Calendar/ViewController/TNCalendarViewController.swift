@@ -162,13 +162,7 @@ extension TNCalendarViewController {
                 guard let self = self else { return }
                 
                 self.scrapLists = scrapLists
-                
-                if scrapLists.isEmpty {
-                    self.rootView.showListEmptyView()
-                } else {
-                    self.rootView.hideListEmptyView()
-                }
-                
+                self.rootView.toggleEmptyView(for: .list, isHidden: scrapLists.isEmpty)
                 self.rootView.calenderListCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
@@ -179,11 +173,7 @@ extension TNCalendarViewController {
                 guard let self = self else { return }
                 
                 self.calendarDaily = dailyData
-                if dailyData.isEmpty {
-                    self.rootView.showBottomEmptyView()
-                } else {
-                    self.rootView.hideBottomEmptyView()
-                }
+                self.rootView.toggleEmptyView(for: .bottom, isHidden: dailyData.isEmpty)
                 self.rootView.calenderBottomCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
@@ -350,7 +340,7 @@ extension TNCalendarViewController: FSCalendarDelegate {
             rootView.calendarViewContainer.layer.applyShadow(alpha: 0.1, y: 4, blur: 4)
             
             rootView.calendarView.snp.updateConstraints { make in
-                make.height.equalTo(95) // 주간 뷰 높이 설정
+                make.height.equalTo(95.adjustedH) // 주간 뷰 높이 설정
             }
             rootView.calenderBottomCollectionView.isHidden = false
         } else {

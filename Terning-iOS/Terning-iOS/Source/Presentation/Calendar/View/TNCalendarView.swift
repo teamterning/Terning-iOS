@@ -87,6 +87,13 @@ final class TNCalendarView: UIView {
         return collectionView
     }()
     
+    let bottomEmptyView = EmptyView().then {
+        $0.isHidden = true
+    }
+    let listEmptyView = EmptyView().then {
+        $0.isHidden = true
+    }
+    
     // MARK: - Life Cycles
     
     override init(frame: CGRect) {
@@ -117,9 +124,15 @@ extension TNCalendarView {
             separatorView,
             calendarViewContainer,
             calenderBottomCollectionView,
-            calenderListCollectionView
+            calenderListCollectionView,
+            bottomEmptyView,
+            listEmptyView
         )
         calendarViewContainer.addSubview(calendarView)
+        
+        calenderBottomCollectionView.addSubview(bottomEmptyView)
+        calenderListCollectionView.addSubview(listEmptyView)
+        
     }
     
     private func setLayout() {
@@ -162,6 +175,18 @@ extension TNCalendarView {
             $0.top.equalTo(naviBar.snp.bottom)
             $0.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
         }
+        
+        bottomEmptyView.snp.makeConstraints {
+            $0.top.equalTo(calenderBottomCollectionView.snp.top).offset(40.adjustedH)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        listEmptyView.snp.makeConstraints {
+            $0.top.equalTo(calenderListCollectionView.snp.top).offset(40.adjustedH)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+        }
     }
 }
 
@@ -173,4 +198,21 @@ extension TNCalendarView {
         calendarViewContainer.layer.cornerRadius = radius
         calendarViewContainer.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
+    
+    func showBottomEmptyView() {
+        bottomEmptyView.isHidden = false
+    }
+    
+    func showListEmptyView() {
+        listEmptyView.isHidden = false
+    }
+    
+    func hideBottomEmptyView() {
+        bottomEmptyView.isHidden = true
+    }
+    
+    func hideListEmptyView() {
+        listEmptyView.isHidden = true
+    }
+    
 }

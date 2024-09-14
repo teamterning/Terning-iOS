@@ -162,18 +162,32 @@ extension TNCalendarViewController {
                 guard let self = self else { return }
                 
                 self.scrapLists = scrapLists
+                
+                if scrapLists.isEmpty {
+                    self.rootView.showListEmptyView()
+                } else {
+                    self.rootView.hideListEmptyView()
+                }
+                
                 self.rootView.calenderListCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
+        
         
         output.dailyData
             .drive(onNext: { [weak self] dailyData in
                 guard let self = self else { return }
                 
                 self.calendarDaily = dailyData
+                if dailyData.isEmpty {
+                    self.rootView.showBottomEmptyView()
+                } else {
+                    self.rootView.hideBottomEmptyView()
+                }
                 self.rootView.calenderBottomCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
+        
         
         output.patchScrapResult
             .drive(onNext: { [weak self] in

@@ -66,7 +66,6 @@
 [Docs]: README나 WIKI 등의 문서 개정
 [Feat]: 새로운 기능 구현
 [Fix]: 버그, 오류 해결, 코드 수정
-[Merge]: 머지
 [Refactor]: 전면 수정이 있을 때 사용합니다
 [Remove]: 파일 삭제
 [Setting]: 프로젝트 세팅 및 전반적 기능
@@ -128,7 +127,7 @@
 <p align="left">
 <img src ="https://img.shields.io/badge/Swift-5.9-orange?logo=swift">
 <img src ="https://img.shields.io/badge/Xcode-15.0-blue?logo=xcode">
-<img src ="https://img.shields.io/badge/iOS-15.0-green.svg">
+<img src ="https://img.shields.io/badge/iOS-16.0-green.svg">
 
 <br>
 <br>

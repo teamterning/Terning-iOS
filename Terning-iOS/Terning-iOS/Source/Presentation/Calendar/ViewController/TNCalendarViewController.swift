@@ -249,6 +249,11 @@ extension TNCalendarViewController {
             rootView.separatorView.isHidden = false
             rootView.calendarViewContainer.isHidden = false
             rootView.calenderListCollectionView.isHidden = true
+            
+            if let selectedDate = selectedDate {
+                pageRelay.accept(selectedDate)
+            }
+            
         } else {
             // 기존 뷰를 감추고 리스트 뷰를 보이게 함
             rootView.separatorView.isHidden = true
@@ -257,6 +262,7 @@ extension TNCalendarViewController {
             
             pageRelay.accept(rootView.calendarView.currentPage)
         }
+        
         isListViewVisible.toggle()
     }
     

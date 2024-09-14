@@ -78,7 +78,7 @@ extension AccountOptionViewController {
         
         output.showSplashScreen
             .drive(onNext: { [weak self] in
-                if self?.viewModel.accountOption == .logout  {
+                if self?.viewModel.accountOption == .logout {
                     self?.navigateToLoginVC()
                 } else {
                     self?.navigateToSplashVC()

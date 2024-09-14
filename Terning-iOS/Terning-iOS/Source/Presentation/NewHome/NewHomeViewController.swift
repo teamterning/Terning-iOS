@@ -389,7 +389,7 @@ extension NewHomeViewController: ScrapDidTapDelegate {
             guard let self = self else { return }
             let colorIndex = alertSheet.selectedColorIndexRelay
             
-            self.addScrapAnnouncement(scrapId: Int(model.intershipAnnouncementId), color: colorIndex.value)
+            self.addScrapAnnouncement(intershipAnnouncementId: Int(model.intershipAnnouncementId), color: String(colorIndex.value))
             self.dismiss(animated: false)
             
         }
@@ -502,9 +502,10 @@ extension NewHomeViewController {
         }
     }
     
-    private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
-        guard let scrapId = scrapId else { return }
-        Providers.scrapsProvider.request(.patchScrap(scrapId: scrapId, color: color)) { [weak self] result in
+    private func patchScrapAnnouncement(internshipAnnouncementId: Int?, color: String) {
+        guard let scrapId = internshipAnnouncementId else { return }
+        
+        Providers.scrapsProvider.request(.patchScrap(internshipAnnouncementId: scrapId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
             switch result {
@@ -524,8 +525,8 @@ extension NewHomeViewController {
         }
     }
     
-    private func addScrapAnnouncement(scrapId: Int, color: Int) {
-        Providers.scrapsProvider.request(.addScrap(internshipAnnouncementId: scrapId, color: color)) { [weak self] result in
+    private func addScrapAnnouncement(intershipAnnouncementId: Int, color: String) {
+        Providers.scrapsProvider.request(.addScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
             switch result {

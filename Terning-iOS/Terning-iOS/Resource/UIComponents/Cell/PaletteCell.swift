@@ -14,8 +14,12 @@ final class PaletteCell: UICollectionViewCell {
     
     // MARK: - UI Components
     
-    private let colorView: UIView = UIView().then {
+    private let selectColorView: UIView = UIView().then {
         $0.layer.cornerRadius = 20
+    }
+    
+    private let colorView: UIView = UIView().then {
+        $0.layer.cornerRadius = 15
     }
     
     private let checkImageView: UIImageView = UIImageView().then {
@@ -29,6 +33,7 @@ final class PaletteCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        setUI()
         setHierarchy()
         setLayout()
     }
@@ -44,18 +49,24 @@ final class PaletteCell: UICollectionViewCell {
     }
     
     private func setHierarchy() {
-        contentView.addSubview(colorView)
+        contentView.addSubviews(selectColorView, colorView)
         colorView.addSubview(checkImageView)
     }
     
     private func setLayout() {
-        colorView.snp.makeConstraints {
+        
+        selectColorView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+        
+        colorView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.height.equalTo(29.adjusted)
         }
         
         checkImageView.snp.makeConstraints {
             $0.center.equalToSuperview()
-            $0.width.height.equalTo(24)
+            $0.width.height.equalTo(18.adjusted)
         }
     }
     
@@ -63,6 +74,8 @@ final class PaletteCell: UICollectionViewCell {
     
     func configure(color: UIColor, isSelected: Bool) {
         colorView.backgroundColor = color
+        selectColorView.backgroundColor = color.withAlphaComponent(0.5)
         checkImageView.isHidden = !isSelected
+        selectColorView.isHidden = !isSelected
     }
 }

@@ -113,7 +113,7 @@ final class CustomAlertViewController: UIViewController {
     }
     
     private let colorButton = UIButton(type: .system).then {
-        $0.setBackgroundColor(.calGreen2, for: .normal)
+        $0.setBackgroundColor(.terningMain, for: .normal)
         $0.setTitleColor(.white, for: .normal)
         $0.setTitle("색상", for: .normal)
         $0.layer.cornerRadius = 13
@@ -147,14 +147,8 @@ final class CustomAlertViewController: UIViewController {
     
     private let colors: [UIColor] = [
         .calRed,
-        .calOrange2,
-        .calGreen1,
-        .calBlue1,
         .calPurple,
         .calOrange,
-        .calYellow,
-        .calGreen2,
-        .calBlue2,
         .calPink
     ]
     

@@ -35,7 +35,7 @@ final class TNCalendarViewController: UIViewController {
         return relay
     }()
     
-    private let patchScrapSubject = PublishSubject<(Int, Int)>()
+    private let patchScrapSubject = PublishSubject<(Int, String)>()
     private let cancelScrapSubject = PublishSubject<Int>()
     
     private var isListViewVisible = false
@@ -47,19 +47,6 @@ final class TNCalendarViewController: UIViewController {
     private let koreanDateFormmatter = DateFormatter().then {
         $0.dateFormat = "yyyy년 MM월 dd일"
     }
-    
-    private let colorIndexMapping: [Int: Int] = [
-        0: 0,  // calRed
-        1: 2,  // calOrange2
-        2: 4,  // calGreen1
-        3: 6,  // calBlue1
-        4: 8,  // calPurple
-        5: 1,  // calOrange
-        6: 3,  // calYellow
-        7: 5,  // calGreen2
-        8: 7,  // calBlue2
-        9: 9   // calPink
-    ]
     
     // MARK: - UIComponents
     private let rootView = TNCalendarView()
@@ -224,7 +211,7 @@ extension TNCalendarViewController {
     }
     
     // 스크랩 수정 호출
-    private func patchScrapAnnouncement(scrapId: Int?, color: Int) {
+    private func patchScrapAnnouncement(scrapId: Int?, color: String) {
         guard let scrapId = scrapId else { return }
         patchScrapSubject.onNext((scrapId, color))
     }
@@ -463,7 +450,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             let model = calendarDaily[indexPath.row]
             let alertSheet = CustomAlertViewController(alertType: .custom)
             
-            let colorIndex = alertSheet.selectedColorIndexRelay
+            _ = alertSheet.selectedColorIndexRelay
             
             let deadLine = koreanDateFormmatter.string(from: selectedDate ?? Date())
             alertSheet.setData2(model: model, deadline: deadLine)
@@ -478,7 +465,8 @@ extension TNCalendarViewController: UICollectionViewDelegate {
                     self.dismiss(animated: true)
                     self.navigationController?.pushViewController(jobDetailViewController, animated: true)
                 } else if alertSheet.currentMode == .color {
-                    self.patchScrapAnnouncement(scrapId: model.scrapId, color: self.colorIndexMapping[colorIndex.value] ?? 0)
+                    self.patchScrapAnnouncement(scrapId: model.scrapId, color: "red")
+                    // TODO: color 부분 수정
                     self.dismiss(animated: true)
                 }
             }
@@ -496,7 +484,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             let model = scrapSection[indexPath.row]
             let alertSheet = CustomAlertViewController(alertType: .custom)
             
-            let colorIndex = alertSheet.selectedColorIndexRelay
+            _ = alertSheet.selectedColorIndexRelay
             
             let deadLine = koreanDateFormmatter.string(from: selectedDate ?? Date())
             alertSheet.setData2(model: model, deadline: deadLine)
@@ -512,7 +500,8 @@ extension TNCalendarViewController: UICollectionViewDelegate {
                     jobDetailVC.hidesBottomBarWhenPushed = true
                     self.navigationController?.pushViewController(jobDetailVC, animated: true)
                 } else if alertSheet.currentMode == .color {
-                    self.patchScrapAnnouncement(scrapId: model.scrapId, color: self.colorIndexMapping[colorIndex.value] ?? 0)
+                    self.patchScrapAnnouncement(scrapId: model.scrapId, color: "red")
+                    // TODO: 수정 해야한다.
                     self.dismiss(animated: true)
                 }
             }

@@ -117,4 +117,3 @@ extension MyPageProfileViewCell {
         profileImageView.image = ProfileImageUtils.imageForProfile(imageString: viewModel.profileImage)
     }
 }
-

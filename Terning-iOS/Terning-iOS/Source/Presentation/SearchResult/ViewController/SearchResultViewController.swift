@@ -21,19 +21,6 @@ final class SearchResultViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let colorIndexMapping: [Int: Int] = [
-        0: 0,  // calRed
-        1: 2,  // calOrange2
-        2: 4,  // calGreen1
-        3: 6,  // calBlue1
-        4: 8,  // calPurple
-        5: 1,  // calOrange
-        6: 3,  // calYellow
-        7: 5,  // calGreen2
-        8: 7,  // calBlue2
-        9: 9   // calPink
-    ]
-    
     private var searchResultCount: Int = 0
     private var searchHasNext = true
     private var isFetchingMoreData = false
@@ -123,7 +110,7 @@ extension SearchResultViewController {
             .do(onNext: { page in
                 print("Page changed: \(page)")
             })
-
+        
         let searchTrigger = Observable.merge(searchChanged, sortChanged, pageChanged.map { _ in () })
             .withLatestFrom(keyword)
             .do(onNext: { _ in
@@ -134,7 +121,7 @@ extension SearchResultViewController {
                     self.isFetchingMoreData = false
                 }
             })
-                
+        
         let input = SearchResultViewModel.Input(
             keyword: searchTrigger,
             sortTap: sortButtonTapObservable.asObservable(),
@@ -295,7 +282,7 @@ extension SearchResultViewController: UICollectionViewDelegate {
         case .search:
             guard let SearchResult = rootView.searchResult else { return }
             let selectedItem = SearchResult[indexPath.item].internshipAnnouncementId
-    
+            
             let jobDetailVC = JobDetailViewController()
             jobDetailVC.internshipAnnouncementId.onNext(selectedItem)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
@@ -318,38 +305,37 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
         }
         
         print("index", index)
-       
+        
         let model = searchResults[index]
         print("model", model)
         
-        if model.isScrapped == false {
-            let startDateComponents = parseStartDate(model.startYearMonth)
-            
-            let dailyScrapModel = DailyScrapModel(
-                scrapId: model.internshipAnnouncementId,
-                title: model.title,
-                color: model.color ?? "#ED4E54",
+        if model.isScrapped == false {          
+            let searchModel = SearchResult(
                 internshipAnnouncementId: model.internshipAnnouncementId,
-                dDay: model.dDay,
-                workingPeriod: model.workingPeriod,
                 companyImage: model.companyImage,
-                startYear: startDateComponents.year,
-                startMonth: startDateComponents.month
+                dDay: model.dDay,
+                title: model.title,
+                workingPeriod: model.workingPeriod,
+                isScrapped: true,
+                color: model.color,
+                deadline: model.deadline,
+                startYearMonth: model.startYearMonth
             )
-            let alertSheet = CustomAlertViewController(alertType: .custom, customType: .scrap)
-            alertSheet.setData2(model: dailyScrapModel, deadline: model.deadline)
             
-            alertSheet.modalTransitionStyle = .crossDissolve
-            alertSheet.modalPresentationStyle = .overFullScreen
+            let alertViewController = NewCustomAlertVC(alertViewType: .scrap)
+            alertViewController.setSearchData(model: searchModel)
             
-            alertSheet.centerButtonTapAction = { [weak self] in
+            alertViewController.modalTransitionStyle = .crossDissolve
+            alertViewController.modalPresentationStyle = .overFullScreen
+            
+            alertViewController.centerButtonDidTapAction = { [weak self] in
                 guard let self = self else { return }
                 
-                let colorIndex = alertSheet.selectedColorIndexRelay
+                let colorName = alertViewController.selectedColorNameRelay
                 
                 self.scrapAnnouncementWithCompletion(
                     internshipAnnouncementId: model.internshipAnnouncementId,
-                    color: self.colorIndexMapping[colorIndex.value] ?? 0
+                    color: colorName.value
                 ) { success in
                     if success {
                         self.bindViewModel()
@@ -359,31 +345,28 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
                     self.dismiss(animated: false)
                 }
             }
-            self.present(alertSheet, animated: false)
-        } else {
-            let alertSheet = CustomAlertViewController(alertType: .normal)
-            alertSheet.setComponentDatas(
-                mainLabel: "관심 공고가 캘린더에서 사라져요!",
-                subLabel: "스크랩을 취소하시겠어요?",
-                buttonLabel: "스크랩 취소하기"
-            )
+            self.present(alertViewController, animated: false)
             
-            alertSheet.centerButtonTapAction = {
-                self.cancelScrapAnnouncement(scrapId: model.internshipAnnouncementId)
+        } else {
+
+            let alertViewController = NewCustomAlertVC(alertViewType: .scrap)
+            
+            alertViewController.centerButtonDidTapAction = {
+                
                 self.dismiss(animated: false)
-             
+                
                 self.showToast(message: "관심 공고가 캘린더에서 사라졌어요!")
             }
             
-            alertSheet.modalTransitionStyle = .crossDissolve
-            alertSheet.modalPresentationStyle = .overFullScreen
+            alertViewController.modalTransitionStyle = .crossDissolve
+            alertViewController.modalPresentationStyle = .overFullScreen
             
-            self.present(alertSheet, animated: false)
+            self.present(alertViewController, animated: false)
         }
         
     }
     
-    private func scrapAnnouncementWithCompletion(internshipAnnouncementId: Int, color: Int, completion: @escaping (Bool) -> Void) {
+    private func scrapAnnouncementWithCompletion(internshipAnnouncementId: Int, color: String, completion: @escaping (Bool) -> Void) {
         self.scrapAnnouncement(internshipAnnouncementId: internshipAnnouncementId, color: color)
         completion(true)
     }
@@ -403,11 +386,11 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
 }
 
 // MARK: - API
-    
+
 extension SearchResultViewController {
-    private func patchScrapAnnouncement(scrapId: Int?, color: Int, cell: JobCardScrapedCell) {
-        guard let scrapId = scrapId else { return }
-        Providers.scrapsProvider.request(.patchScrap(scrapId: scrapId, color: color)) { [weak self] result in
+    private func patchScrapAnnouncement(internshipAnnouncementId: Int?, color: String, cell: JobCardScrapedCell) {
+        guard let scrapId = internshipAnnouncementId else { return }
+        Providers.scrapsProvider.request(.patchScrap(internshipAnnouncementId: scrapId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
             switch result {
@@ -428,9 +411,9 @@ extension SearchResultViewController {
         }
     }
     
-    private func cancelScrapAnnouncement(scrapId: Int?) {
-        guard let scrapId = scrapId else { return }
-        Providers.scrapsProvider.request(.removeScrap(scrapId: scrapId)) { [weak self] result in
+    private func cancelScrapAnnouncement(internshipAnnouncementId: Int?) {
+        guard let scrapId = internshipAnnouncementId else { return }
+        Providers.scrapsProvider.request(.removeScrap(internshipAnnouncementId: scrapId)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
             switch result {
@@ -459,7 +442,7 @@ extension SearchResultViewController: SortSettingButtonProtocol {
         sortBySubject.onNext(option.apiValue)
         
         let visibleHeaders = rootView.collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
-
+        
         if let sortHeader = visibleHeaders.first as? SortHeaderCell {
             sortHeader.setSortButtonTitle(option.title)
         }
@@ -486,7 +469,7 @@ extension SearchResultViewController: UIScrollViewDelegate {
         
         if offsetY >= contentHeight - height && searchHasNext && !isFetchingMoreData {
             isFetchingMoreData = true
-
+            
             if let currentPage = try? pageSubject.value() {
                 pageSubject.onNext(currentPage + 1)
             }

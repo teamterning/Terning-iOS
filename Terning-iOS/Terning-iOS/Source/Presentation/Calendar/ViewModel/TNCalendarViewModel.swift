@@ -17,7 +17,7 @@ final class TNCalendarViewModel: ViewModelType {
         let fetchMonthDataTrigger: Observable<Date>
         let fetchMonthlyListTrigger: Observable<Date>
         let fetchDailyDataTrigger: Observable<Date>
-        let patchScrapTrigger: Observable<(Int, Int)>
+        let patchScrapTrigger: Observable<(Int, String)>
         let cancelScrapTrigger: Observable<Int>
     }
     
@@ -111,8 +111,8 @@ final class TNCalendarViewModel: ViewModelType {
             .asDriver(onErrorJustReturn: [])
         
         let patchScrap = input.patchScrapTrigger
-            .flatMapLatest { (scrapId, color) in
-                self.scrapRepository.patchScrap(scrapId: scrapId, color: color)
+            .flatMapLatest { (intershipAnnouncementId, color) in
+                self.scrapRepository.patchScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)
                     .do(onNext: {
                         successMessageTracker.onNext("스크랩 수정 완료!")
                     })
@@ -124,8 +124,8 @@ final class TNCalendarViewModel: ViewModelType {
             .asDriver(onErrorDriveWith: .empty())
         
         let cancelScrap = input.cancelScrapTrigger
-            .flatMapLatest { scrapId in
-                self.scrapRepository.cancelScrap(scrapId: scrapId)
+            .flatMapLatest { intershipAnnouncementId in
+                self.scrapRepository.cancelScrap(internshipAnnouncementId: intershipAnnouncementId)
                     .do(onNext: {
                         successMessageTracker.onNext("관심 공고가 캘린더에서 사라졌어요!")
                     })

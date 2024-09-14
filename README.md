@@ -159,46 +159,44 @@
 ## **📂 Foldering**
 
 ```
-├── 📂 Terning-iOS
-│   ├── 📂 Application
-│   │   ├── AppDelegate.swift
-│   │   └── SceneDelegate.swift
-│   ├── Info.plist
-│   ├── 📂 Network
-│   │   ├── 📂 Base
-│   │   ├── 📂 Service
-│   │   ├── 📂 TargetType
-│   │   └── 📂 User
-│   ├── 📂 Resource
-│   │   ├── Assets.xcassets
-│   │   ├── 📂 Extension
-│   │   ├── 📂 Fonts
-│   │   ├── 📂 Literal
-│   │   ├── 📂 Protocols
-│   │   ├── 📂 UIComponents
-│   │   └── 📂 Utils
-│   └── 📂 Source
-│       ├── 📂 Data
-│       │   ├── 📂 Announcement
-│       │   ├── 📂 Calender
-│       │   ├── 📂 Home
-│       │   ├── 📂 Search
-│       │   └── 📂 SignIn
-│       ├── 📂 Presentation
-│       │   ├── 📂 Calendar
-│       │   ├── 📂 FilteringSetting
-│       │   ├── 📂 Home
-│       │   ├── 📂 JobDetail
-│       │   ├── 📂 Login
-│       │   ├── 📂 MyPage
-│       │   ├── 📂 Onboarding
-│       │   ├── 📂 Profile
-│       │   ├── 📂 Search
-│       │   ├── 📂 SearchResult
-│       │   ├── 📂 Splash
-│       │   ├── 📂 TabBar
-│       │   ├── 📂 Welcome
-│       │   └── .gitkeep
+└── 📂 Terning-iOS
+    ├── 📂 Application
+    │   ├── 📂 AppDelegate.swift
+    │   └── 📂 SceneDelegate.swift
+    ├── 📂 Info.plist
+    ├── 📂 Resource
+    │   ├── 📂 Assets.xcassets
+    │   ├── 📂 Config
+    │   ├── 📂 Extension
+    │   ├── 📂 Fonts
+    │   ├── 📂 Literal
+    │   ├── 📂 Lotties
+    │   ├── 📂 Protocols
+    │   ├── 📂 UIComponents
+    │   └── 📂 Utils
+    └── 📂 Source
+        ├── 📂 Data
+        │   ├── 📂 Network
+        │   └── 📂 Repository
+        ├── 📂 Domain
+        │   └── 📂 Model
+        └── 📂 Presentation
+            ├── 📂 AccountOption
+            ├── 📂 Calendar
+            ├── 📂 FilteringSetting
+            ├── 📂 Home
+            ├── 📂 JobDetail
+            ├── 📂 Login
+            ├── 📂 MyPage
+            ├── 📂 Onboarding
+            ├── 📂 Profile
+            ├── 📂 ProfileImage
+            ├── 📂 Search
+            ├── 📂 SearchResult
+            ├── 📂 SortSetting
+            ├── 📂 Splash
+            ├── 📂 TabBar
+            └── 📂 Welcome
 ```
 
 ## **🎨 Design**

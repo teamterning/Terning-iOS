@@ -8,9 +8,9 @@
 import RxSwift
 
 protocol TNCalendarRepositoryProtocol {
-    func fetchMonthData(for year: Int, month: Int) -> Observable<[ScrapsByDeadlineModel]>
-    func fetchDailyData(for date: String) -> Observable<[DailyScrapModel]>
-    func getMonthlyList(for year: Int, month: Int) -> Observable<[ScrapsByDeadlineModel]>
+    func fetchMonthData(for year: Int, month: Int) -> Observable<[CalendarScrapModel]>
+    func fetchDailyData(for date: String) -> Observable<[AnnouncementModel]>
+    func getMonthlyList(for year: Int, month: Int) -> Observable<[CalendarAnnouncementModel]>
 }
 
 final class TNCalendarRepository: TNCalendarRepositoryProtocol {
@@ -21,15 +21,15 @@ final class TNCalendarRepository: TNCalendarRepositoryProtocol {
         self.service = service
     }
     
-    func fetchMonthData(for year: Int, month: Int) -> Observable<[ScrapsByDeadlineModel]> {
+    func fetchMonthData(for year: Int, month: Int) -> Observable<[CalendarScrapModel]> {
         return service.fetchMonthData(for: year, month: month)
     }
     
-    func fetchDailyData(for date: String) -> Observable<[DailyScrapModel]> {
+    func fetchDailyData(for date: String) -> Observable<[AnnouncementModel]> {
         return service.fetchDailyData(for: date)
     }
     
-    func getMonthlyList(for year: Int, month: Int) -> Observable<[ScrapsByDeadlineModel]> {
+    func getMonthlyList(for year: Int, month: Int) -> Observable<[CalendarAnnouncementModel]> {
         return service.getMonthlyList(for: year, month: month)
     }
 }

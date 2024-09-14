@@ -52,9 +52,9 @@ final class TNCalendarViewController: UIViewController {
     private let rootView = TNCalendarView()
     private let disposeBag = DisposeBag()
     private var selectedDate: Date?
-    private var scraps: [Date: [DailyScrapModel]] = [:] // 스크랩 데이터를 저장할 딕셔너리
-    private var scrapLists: [Date: [DailyScrapModel]] = [:] // 리스트 데이터를 저장할 딕셔너리
-    private var calendarDaily: [DailyScrapModel] = [] // 일간 캘린더 데이터를 저장할 딕셔너리
+    private var scraps: [Date: [ScrapModel]] = [:] // 스크랩 데이터를 저장할 딕셔너리
+    private var scrapLists: [Date: [AnnouncementModel]] = [:] // 리스트 데이터를 저장할 딕셔너리
+    private var calendarDaily: [AnnouncementModel] = [] // 일간 캘린더 데이터를 저장할 딕셔너리
     
     // MARK: - Life Cycles
     
@@ -211,8 +211,7 @@ extension TNCalendarViewController {
     }
     
     // 스크랩 수정 호출
-    private func patchScrapAnnouncement(scrapId: Int?, color: String) {
-        guard let scrapId = scrapId else { return }
+    private func patchScrapAnnouncement(scrapId: Int, color: String) {
         patchScrapSubject.onNext((scrapId, color))
     }
     
@@ -455,8 +454,6 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             let deadLine = koreanDateFormmatter.string(from: selectedDate ?? Date())
             alertSheet.setData2(model: model, deadline: deadLine)
             
-            guard let index = model.internshipAnnouncementId else { return }
-            
             alertSheet.modalTransitionStyle = .crossDissolve
             alertSheet.modalPresentationStyle = .overFullScreen
             
@@ -465,7 +462,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
                     self.dismiss(animated: true)
                     self.navigationController?.pushViewController(jobDetailViewController, animated: true)
                 } else if alertSheet.currentMode == .color {
-                    self.patchScrapAnnouncement(scrapId: model.scrapId, color: "red")
+                    self.patchScrapAnnouncement(scrapId: model.internshipAnnouncementId, color: "red")
                     // TODO: color 부분 수정
                     self.dismiss(animated: true)
                 }
@@ -473,12 +470,11 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             
             self.present(alertSheet, animated: false)
             
-            jobDetailViewController.internshipAnnouncementId.onNext(index)
+            jobDetailViewController.internshipAnnouncementId.onNext(model.internshipAnnouncementId)
         } else {
             let sortedKeys = scrapLists.keys.sorted()
             let date = sortedKeys[indexPath.section]
             guard let scrapSection = scrapLists[date] else { return }
-            guard let index = scrapSection[indexPath.row].internshipAnnouncementId else { return }
             //            jobDetailViewController.internshipAnnouncementId.onNext(index)
             
             let model = scrapSection[indexPath.row]
@@ -496,11 +492,11 @@ extension TNCalendarViewController: UICollectionViewDelegate {
                 if alertSheet.currentMode == .info {
                     self.dismiss(animated: true)
                     let jobDetailVC = JobDetailViewController()
-                    jobDetailVC.internshipAnnouncementId.onNext(index)
+                    jobDetailVC.internshipAnnouncementId.onNext(model.internshipAnnouncementId)
                     jobDetailVC.hidesBottomBarWhenPushed = true
                     self.navigationController?.pushViewController(jobDetailVC, animated: true)
                 } else if alertSheet.currentMode == .color {
-                    self.patchScrapAnnouncement(scrapId: model.scrapId, color: "red")
+                    self.patchScrapAnnouncement(scrapId: scrapSection[indexPath.row].internshipAnnouncementId, color: "red")
                     // TODO: 수정 해야한다.
                     self.dismiss(animated: true)
                 }
@@ -608,7 +604,7 @@ extension TNCalendarViewController: JobListCellProtocol {
     func scrapButtonDidTapInCalendar(in collectionView: UICollectionView, isScrap: Bool, indexPath: IndexPath) {
         let alertSheet = CustomAlertViewController(alertType: .normal)
         
-        let model: DailyScrapModel
+        let model: AnnouncementModel
         
         if collectionView == rootView.calenderBottomCollectionView {
             model = calendarDaily[indexPath.row]
@@ -625,7 +621,7 @@ extension TNCalendarViewController: JobListCellProtocol {
             return
         }
         
-        let scrapId = model.scrapId
+        let scrapId = model.internshipAnnouncementId
         
         print(scrapId)
         

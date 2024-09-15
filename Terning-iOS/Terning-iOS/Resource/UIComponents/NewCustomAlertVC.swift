@@ -380,7 +380,7 @@ final class NewCustomAlertVC: UIViewController {
         workStartInfoView.setDescriptionText(description: model.startYearMonth)
         
         let selectedColor = model.color
-        selectedColorNameRelay.accept(selectedColor)
+        selectedColorHexRelay.accept(selectedColor)
         
         paletteCollectionView.reloadData()
         

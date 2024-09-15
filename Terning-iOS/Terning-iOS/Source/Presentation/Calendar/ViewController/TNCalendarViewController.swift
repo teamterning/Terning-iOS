@@ -506,7 +506,6 @@ extension TNCalendarViewController: UICollectionViewDelegate {
                 let selectedColorNameRelay = alertSheet.selectedColorNameRelay.value
                 
                 self.patchScrapAnnouncement(scrapId: model.internshipAnnouncementId, color: selectedColorNameRelay)
-                // TODO: color 부분 수정
                 self.dismiss(animated: true)
             }
             

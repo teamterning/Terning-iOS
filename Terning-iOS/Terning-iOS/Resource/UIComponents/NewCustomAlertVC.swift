@@ -414,6 +414,12 @@ extension NewCustomAlertVC {
                 self.rightButtonDidTapAction?()
             })
             .disposed(by: disposeBag)
+        
+        closeButton.rx.tap.bind { [weak self] in
+            guard let self = self else { return }
+            
+            self.dismiss(animated: false)
+        }.disposed(by: disposeBag)
     }
 }
 

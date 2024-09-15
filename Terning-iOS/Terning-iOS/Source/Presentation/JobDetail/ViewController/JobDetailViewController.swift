@@ -93,24 +93,54 @@ extension JobDetailViewController {
         
         return (year, month)
     }
-    
-    private func scrapAnnouncementWithCompletion(internshipAnnouncementId: Int, color: String, completion: @escaping (Bool) -> Void) {
-        self.scrapAnnouncement(internshipAnnouncementId: internshipAnnouncementId, color: color)
-        completion(true)
-    }
 }
 
 // MARK: - @objc func
 
 extension JobDetailViewController {
     @objc
-    private func scrapButtonDidTapped() {
-        
+    private func scrapButtonDidTapped(_ sender: UIButton) {
+        if rootView.scrapButton.isSelected { // 스크랩 취소
+            let alertViewController = NewCustomAlertVC(alertViewType: .info)
+            
+            alertViewController.centerButtonDidTapAction = {
+                self.dismiss(animated: false)
+                self.cancelScrapAnnouncement(internshipAnnouncementId: self.internshipAnnouncementId.value)
+                self.updateScrapButton(isSelected: true)
+            }
+            
+            alertViewController.modalTransitionStyle = .crossDissolve
+            alertViewController.modalPresentationStyle = .overFullScreen
+            
+            self.present(alertViewController, animated: false)
+            
+        } else { // 스크랩 추가
+            
+            let alertViewController = NewCustomAlertVC(alertViewType: .scrap)
+            
+            let color = alertViewController.selectedColorNameRelay
+            
+            alertViewController.centerButtonDidTapAction = {
+                self.dismiss(animated: false)
+                self.addScrapAnnouncement(internshipAnnouncementId: self.internshipAnnouncementId.value, color: color.value)
+                self.updateScrapButton(isSelected: false)
+            }
+            
+            alertViewController.modalTransitionStyle = .crossDissolve
+            alertViewController.modalPresentationStyle = .overFullScreen
+            
+            self.present(alertViewController, animated: false)
+        }
+    }
+    
+    private func updateScrapButton(isSelected: Bool) {
+        rootView.scrapButton.isSelected = isSelected
+        self.rootView.tableView.reloadData()
     }
 }
 
-    // MARK: - Bind
-    
+// MARK: - Bind
+
 extension JobDetailViewController {
     private func bindViewModel() {
         let fetchJobDetail = internshipAnnouncementId
@@ -176,9 +206,9 @@ extension JobDetailViewController {
         }).disposed(by: disposeBag)
     }
 }
-    
-    // MARK: - UITableViewDataSource
-    
+
+// MARK: - UITableViewDataSource
+
 extension JobDetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return JobDetailInfoType.allCases.count
@@ -237,9 +267,9 @@ extension JobDetailViewController: UITableViewDataSource {
         }
     }
 }
-    
-    // MARK: - UITableViewDelegate
-    
+
+// MARK: - UITableViewDelegate
+
 extension JobDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let sectionType = JobDetailInfoType(rawValue: section) else { return nil }
@@ -286,20 +316,20 @@ extension JobDetailViewController: UITableViewDelegate {
 }
 
 // MARK: - API
-    
+
 extension JobDetailViewController {
-    private func patchScrapAnnouncement(internshipAnnouncementId: Int?, color: String) {
-        guard let intershipAnnouncementId = internshipAnnouncementId else { return }
-        Providers.scrapsProvider.request(.patchScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)) { [weak self] result in
+    private func addScrapAnnouncement(internshipAnnouncementId: Int, color: String) {
+        Providers.scrapsProvider.request(.addScrap(internshipAnnouncementId: internshipAnnouncementId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
             switch result {
             case .success(let response):
                 let status = response.statusCode
                 if 200..<300 ~= status {
-                    print("스크랩 수정 성공")
+                    print("스크랩 추가 성공")
                     bindViewModel()
-                    JobDetailView().tableView.reloadData()
+                    rootView.tableView.reloadData()
+                    self.showToast(message: "관심 공고가 캘린더에 스크랩되었어요!")
                 } else {
                     print("400 error")
                     self.showToast(message: "네트워크 오류")
@@ -311,9 +341,8 @@ extension JobDetailViewController {
         }
     }
     
-    private func cancelScrapAnnouncement(internshipAnnouncementId: Int?) {
-        guard let intershipAnnouncementId = internshipAnnouncementId else { return }
-        Providers.scrapsProvider.request(.removeScrap(internshipAnnouncementId: intershipAnnouncementId)) { [weak self] result in
+    private func cancelScrapAnnouncement(internshipAnnouncementId: Int) {
+        Providers.scrapsProvider.request(.removeScrap(internshipAnnouncementId: internshipAnnouncementId)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
             switch result {
@@ -322,7 +351,7 @@ extension JobDetailViewController {
                 if 200..<300 ~= status {
                     print("스크랩 취소 성공")
                     bindViewModel()
-                    JobDetailView().tableView.reloadData()
+                    rootView.tableView.reloadData()
                 } else {
                     print("400 error")
                     self.showToast(message: "네트워크 오류")

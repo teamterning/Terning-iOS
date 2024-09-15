@@ -152,7 +152,7 @@ extension HomeViewController: UICollectionViewDelegate {
             print(indexPath)
             let jobDetailVC = JobDetailViewController()
             let index = jobCardLists[indexPath.row].intershipAnnouncementId
-            jobDetailVC.internshipAnnouncementId.onNext(index)
+            jobDetailVC.internshipAnnouncementId.accept(index)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         default:
             return

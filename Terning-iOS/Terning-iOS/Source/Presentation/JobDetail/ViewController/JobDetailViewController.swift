@@ -33,7 +33,7 @@ final class JobDetailViewController: UIViewController {
     private let viewModel = JobDetailViewModel()
     private let disposeBag = DisposeBag()
     private var jobDetail: JobDetailModel?
-    let internshipAnnouncementId = BehaviorSubject<Int>(value: 0)
+    let internshipAnnouncementId = BehaviorRelay<Int>(value: 0)
     
     // MARK: - View Life Cycle
     

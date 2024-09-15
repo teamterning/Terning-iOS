@@ -19,7 +19,7 @@ final class JobDetailViewModel: ViewModelType {
     // MARK: - Input
     
     struct Input {
-        let internshipAnnouncementId: Observable<Int>
+        let internshipAnnouncementId: BehaviorRelay<Int> // 수정된 부분
         let fetchJobDetail: Observable<Void>
     }
     

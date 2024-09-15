@@ -284,7 +284,7 @@ extension SearchResultViewController: UICollectionViewDelegate {
             let selectedItem = SearchResult[indexPath.item].internshipAnnouncementId
             
             let jobDetailVC = JobDetailViewController()
-            jobDetailVC.internshipAnnouncementId.onNext(selectedItem)
+            jobDetailVC.internshipAnnouncementId.accept(selectedItem)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         default:
             break

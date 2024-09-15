@@ -484,7 +484,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             
             self.present(alertSheet, animated: false)
             
-            jobDetailViewController.internshipAnnouncementId.onNext(model.internshipAnnouncementId)
+            jobDetailViewController.internshipAnnouncementId.accept(model.internshipAnnouncementId)
         } else {
             let sortedKeys = scrapLists.keys.sorted()
             let date = sortedKeys[indexPath.section]
@@ -506,7 +506,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
                 if alertSheet.currentMode == .info {
                     self.dismiss(animated: true)
                     let jobDetailVC = JobDetailViewController()
-                    jobDetailVC.internshipAnnouncementId.onNext(model.internshipAnnouncementId)
+                    jobDetailVC.internshipAnnouncementId.accept(model.internshipAnnouncementId)
                     jobDetailVC.hidesBottomBarWhenPushed = true
                     self.navigationController?.pushViewController(jobDetailVC, animated: true)
                 } else if alertSheet.currentMode == .color {

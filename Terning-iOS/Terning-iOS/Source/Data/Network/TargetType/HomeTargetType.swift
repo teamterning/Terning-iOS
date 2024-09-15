@@ -1,5 +1,5 @@
 //
-//  HomeTargertType.swift
+//  HomeTargetType.swift
 //  Terning-iOS
 //
 //  Created by 이명진 on 7/16/24.
@@ -8,12 +8,12 @@
 import Foundation
 import Moya
 
-enum HomeTargertType {
+enum HomeTargetType {
     case getHomeToday
     case getHome(sortBy: String, startYear: Int, startMonth: Int)
 }
 
-extension HomeTargertType: TargetType {
+extension HomeTargetType: TargetType {
     var baseURL: URL {
         guard let url = URL(string: Config.baseURL) else {
             fatalError("baseURL could not be configured")

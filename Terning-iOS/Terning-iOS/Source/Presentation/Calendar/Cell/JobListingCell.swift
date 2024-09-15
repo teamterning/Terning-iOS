@@ -182,7 +182,7 @@ extension JobListingCell {
         self.monthLabel.text = model.workingPeriod
         self.mainTitleLabel.text = model.title
         self.colorMark.backgroundColor = UIColor(hex: model.color)
-        self.scrapButton.isSelected = true
+        self.scrapButton.isSelected = model.isScrapped
     }
     
     private func setAddTarget() {

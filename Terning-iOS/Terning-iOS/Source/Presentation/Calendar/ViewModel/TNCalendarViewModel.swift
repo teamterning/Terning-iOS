@@ -24,9 +24,9 @@ final class TNCalendarViewModel: ViewModelType {
     // MARK: - Output
     
     struct Output {
-        let monthData: Driver<[Date: [DailyScrapModel]]>
-        let monthlyList: Driver<[Date: [DailyScrapModel]]>
-        let dailyData: Driver<[DailyScrapModel]>
+        let monthData: Driver<[Date: [ScrapModel]]>
+        let monthlyList: Driver<[Date: [AnnouncementModel]]>
+        let dailyData: Driver<[AnnouncementModel]>
         let error: Driver<String>
         let successMessage: Driver<String>
         let patchScrapResult: Driver<Void>
@@ -52,7 +52,7 @@ final class TNCalendarViewModel: ViewModelType {
         let successMessageTracker = PublishSubject<String>()
         
         let monthData = input.fetchMonthDataTrigger
-            .flatMapLatest { date -> Observable<[ScrapsByDeadlineModel]> in
+            .flatMapLatest { date -> Observable<[CalendarScrapModel]> in
                 let year = Calendar.current.component(.year, from: date)
                 let month = Calendar.current.component(.month, from: date)
                 
@@ -62,8 +62,8 @@ final class TNCalendarViewModel: ViewModelType {
                         return .empty()
                     }
             }
-            .map { scrapsByDeadline -> [Date: [DailyScrapModel]] in
-                var scraps: [Date: [DailyScrapModel]] = [:]
+            .map { scrapsByDeadline -> [Date: [ScrapModel]] in
+                var scraps: [Date: [ScrapModel]] = [:]
                 
                 for item in scrapsByDeadline {
                     if let date = self.dateFormatter.date(from: item.deadline) {
@@ -75,8 +75,9 @@ final class TNCalendarViewModel: ViewModelType {
             }
             .asDriver(onErrorJustReturn: [:])
         
+        
         let monthlyList = input.fetchMonthlyListTrigger
-            .flatMapLatest { date -> Observable<[ScrapsByDeadlineModel]> in
+            .flatMapLatest { date -> Observable<[CalendarAnnouncementModel]> in
                 let year = Calendar.current.component(.year, from: date)
                 let month = Calendar.current.component(.month, from: date)
                 
@@ -86,12 +87,12 @@ final class TNCalendarViewModel: ViewModelType {
                         return .empty()
                     }
             }
-            .map { scrapsByDeadline -> [Date: [DailyScrapModel]] in
-                var scrapLists: [Date: [DailyScrapModel]] = [:]
+            .map { scrapsByDeadline -> [Date: [AnnouncementModel]] in
+                var scrapLists: [Date: [AnnouncementModel]] = [:]
                 
                 for item in scrapsByDeadline {
                     if let date = self.dateFormatter.date(from: item.deadline) {
-                        scrapLists[date] = item.scraps
+                        scrapLists[date] = item.announcements
                     }
                 }
                 
@@ -100,7 +101,7 @@ final class TNCalendarViewModel: ViewModelType {
             .asDriver(onErrorJustReturn: [:])
         
         let dailyData = input.fetchDailyDataTrigger
-            .flatMapLatest { date -> Observable<[DailyScrapModel]> in
+            .flatMapLatest { date -> Observable<[AnnouncementModel]> in
                 let dateString = self.dateFormatter.string(from: date)
                 return self.calendarRepository.fetchDailyData(for: dateString)
                     .catch { error in

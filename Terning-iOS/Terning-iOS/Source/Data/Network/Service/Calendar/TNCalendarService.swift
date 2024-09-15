@@ -10,9 +10,9 @@ import Moya
 import RxMoya
 
 protocol TNCalendarServiceProtocol {
-    func fetchMonthData(for year: Int, month: Int) -> Observable<[ScrapsByDeadlineModel]>
-    func fetchDailyData(for date: String) -> Observable<[DailyScrapModel]>
-    func getMonthlyList(for year: Int, month: Int) -> Observable<[ScrapsByDeadlineModel]>
+    func fetchMonthData(for year: Int, month: Int) -> Observable<[CalendarScrapModel]>
+    func fetchDailyData(for date: String) -> Observable<[AnnouncementModel]>
+    func getMonthlyList(for year: Int, month: Int) -> Observable<[CalendarAnnouncementModel]>
 }
 
 final class TNCalendarService: TNCalendarServiceProtocol {
@@ -23,26 +23,26 @@ final class TNCalendarService: TNCalendarServiceProtocol {
         self.provider = provider
     }
     
-    func fetchMonthData(for year: Int, month: Int) -> Observable<[ScrapsByDeadlineModel]> {
+    func fetchMonthData(for year: Int, month: Int) -> Observable<[CalendarScrapModel]> {
         return provider.rx.request(.getMonthlyDefault(year: year, month: month))
             .filterSuccessfulStatusCodes()
-            .map(BaseResponse<[ScrapsByDeadlineModel]>.self)
+            .map(BaseResponse<[CalendarScrapModel]>.self)
             .compactMap { $0.result }
             .asObservable()
     }
     
-    func fetchDailyData(for date: String) -> Observable<[DailyScrapModel]> {
+    func fetchDailyData(for date: String) -> Observable<[AnnouncementModel]> {
         return provider.rx.request(.getDaily(date: date))
             .filterSuccessfulStatusCodes()
-            .map(BaseResponse<[DailyScrapModel]>.self)
+            .map(BaseResponse<[AnnouncementModel]>.self)
             .compactMap { $0.result }
             .asObservable()
     }
     
-    func getMonthlyList(for year: Int, month: Int) -> Observable<[ScrapsByDeadlineModel]> {
+    func getMonthlyList(for year: Int, month: Int) -> Observable<[CalendarAnnouncementModel]> {
         return provider.rx.request(.getMonthlyList(year: year, month: month))
             .filterSuccessfulStatusCodes()
-            .map(BaseResponse<[ScrapsByDeadlineModel]>.self)
+            .map(BaseResponse<[CalendarAnnouncementModel]>.self)
             .compactMap { $0.result }
             .asObservable()
     }

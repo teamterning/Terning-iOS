@@ -52,9 +52,9 @@ final class TNCalendarViewController: UIViewController {
     private let rootView = TNCalendarView()
     private let disposeBag = DisposeBag()
     private var selectedDate: Date?
-    private var scraps: [Date: [DailyScrapModel]] = [:] // 스크랩 데이터를 저장할 딕셔너리
-    private var scrapLists: [Date: [DailyScrapModel]] = [:] // 리스트 데이터를 저장할 딕셔너리
-    private var calendarDaily: [DailyScrapModel] = [] // 일간 캘린더 데이터를 저장할 딕셔너리
+    private var scraps: [Date: [ScrapModel]] = [:] // 스크랩 데이터를 저장할 딕셔너리
+    private var scrapLists: [Date: [AnnouncementModel]] = [:] // 리스트 데이터를 저장할 딕셔너리
+    private var calendarDaily: [AnnouncementModel] = [] // 일간 캘린더 데이터를 저장할 딕셔너리
     
     // MARK: - Life Cycles
     
@@ -162,18 +162,22 @@ extension TNCalendarViewController {
                 guard let self = self else { return }
                 
                 self.scrapLists = scrapLists
+                self.rootView.toggleEmptyView(for: .list, isHidden: scrapLists.isEmpty)
                 self.rootView.calenderListCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
+        
         
         output.dailyData
             .drive(onNext: { [weak self] dailyData in
                 guard let self = self else { return }
                 
                 self.calendarDaily = dailyData
+                self.rootView.toggleEmptyView(for: .bottom, isHidden: dailyData.isEmpty)
                 self.rootView.calenderBottomCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
+        
         
         output.patchScrapResult
             .drive(onNext: { [weak self] in
@@ -211,8 +215,7 @@ extension TNCalendarViewController {
     }
     
     // 스크랩 수정 호출
-    private func patchScrapAnnouncement(scrapId: Int?, color: String) {
-        guard let scrapId = scrapId else { return }
+    private func patchScrapAnnouncement(scrapId: Int, color: String) {
         patchScrapSubject.onNext((scrapId, color))
     }
     
@@ -246,6 +249,11 @@ extension TNCalendarViewController {
             rootView.separatorView.isHidden = false
             rootView.calendarViewContainer.isHidden = false
             rootView.calenderListCollectionView.isHidden = true
+            
+            if let selectedDate = selectedDate {
+                pageRelay.accept(selectedDate)
+            }
+            
         } else {
             // 기존 뷰를 감추고 리스트 뷰를 보이게 함
             rootView.separatorView.isHidden = true
@@ -254,6 +262,7 @@ extension TNCalendarViewController {
             
             pageRelay.accept(rootView.calendarView.currentPage)
         }
+        
         isListViewVisible.toggle()
     }
     
@@ -337,7 +346,7 @@ extension TNCalendarViewController: FSCalendarDelegate {
             rootView.calendarViewContainer.layer.applyShadow(alpha: 0.1, y: 4, blur: 4)
             
             rootView.calendarView.snp.updateConstraints { make in
-                make.height.equalTo(95) // 주간 뷰 높이 설정
+                make.height.equalTo(95.adjustedH) // 주간 뷰 높이 설정
             }
             rootView.calenderBottomCollectionView.isHidden = false
         } else {
@@ -383,11 +392,15 @@ extension TNCalendarViewController: FSCalendarDataSource {
         
         let month = calendar.currentPage
         let isCurrentMonth = Calendar.current.isDate(date, equalTo: month, toGranularity: .month)
+        let isToday = Calendar.current.isDateInToday(date)
+        let isSelected = selectedDate != nil && Calendar.current.isDate(date, inSameDayAs: selectedDate!)
         
         let dateStatus: CalendarState = {
-            if Calendar.current.isDateInToday(date) {
+            if isSelected && isToday {
+                return .selected // 오늘인데 선택되는 경우는 selected 상태로 처리
+            } else if isToday { // 오늘 기본 상태는 today
                 return .today
-            } else if let selectedDate = selectedDate, Calendar.current.isDate(date, inSameDayAs: selectedDate) {
+            } else if isSelected {
                 return .selected
             } else {
                 return .normal
@@ -455,8 +468,6 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             let deadLine = koreanDateFormmatter.string(from: selectedDate ?? Date())
             alertSheet.setData2(model: model, deadline: deadLine)
             
-            guard let index = model.internshipAnnouncementId else { return }
-            
             alertSheet.modalTransitionStyle = .crossDissolve
             alertSheet.modalPresentationStyle = .overFullScreen
             
@@ -465,7 +476,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
                     self.dismiss(animated: true)
                     self.navigationController?.pushViewController(jobDetailViewController, animated: true)
                 } else if alertSheet.currentMode == .color {
-                    self.patchScrapAnnouncement(scrapId: model.scrapId, color: "red")
+                    self.patchScrapAnnouncement(scrapId: model.internshipAnnouncementId, color: "red")
                     // TODO: color 부분 수정
                     self.dismiss(animated: true)
                 }
@@ -473,12 +484,11 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             
             self.present(alertSheet, animated: false)
             
-            jobDetailViewController.internshipAnnouncementId.onNext(index)
+            jobDetailViewController.internshipAnnouncementId.accept(model.internshipAnnouncementId)
         } else {
             let sortedKeys = scrapLists.keys.sorted()
             let date = sortedKeys[indexPath.section]
             guard let scrapSection = scrapLists[date] else { return }
-            guard let index = scrapSection[indexPath.row].internshipAnnouncementId else { return }
             //            jobDetailViewController.internshipAnnouncementId.onNext(index)
             
             let model = scrapSection[indexPath.row]
@@ -496,11 +506,11 @@ extension TNCalendarViewController: UICollectionViewDelegate {
                 if alertSheet.currentMode == .info {
                     self.dismiss(animated: true)
                     let jobDetailVC = JobDetailViewController()
-                    jobDetailVC.internshipAnnouncementId.onNext(index)
+                    jobDetailVC.internshipAnnouncementId.accept(model.internshipAnnouncementId)
                     jobDetailVC.hidesBottomBarWhenPushed = true
                     self.navigationController?.pushViewController(jobDetailVC, animated: true)
                 } else if alertSheet.currentMode == .color {
-                    self.patchScrapAnnouncement(scrapId: model.scrapId, color: "red")
+                    self.patchScrapAnnouncement(scrapId: scrapSection[indexPath.row].internshipAnnouncementId, color: "red")
                     // TODO: 수정 해야한다.
                     self.dismiss(animated: true)
                 }
@@ -608,7 +618,7 @@ extension TNCalendarViewController: JobListCellProtocol {
     func scrapButtonDidTapInCalendar(in collectionView: UICollectionView, isScrap: Bool, indexPath: IndexPath) {
         let alertSheet = CustomAlertViewController(alertType: .normal)
         
-        let model: DailyScrapModel
+        let model: AnnouncementModel
         
         if collectionView == rootView.calenderBottomCollectionView {
             model = calendarDaily[indexPath.row]
@@ -625,7 +635,7 @@ extension TNCalendarViewController: JobListCellProtocol {
             return
         }
         
-        let scrapId = model.scrapId
+        let scrapId = model.internshipAnnouncementId
         
         print(scrapId)
         

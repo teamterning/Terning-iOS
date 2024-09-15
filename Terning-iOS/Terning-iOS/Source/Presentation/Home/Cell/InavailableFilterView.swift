@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class InavailableFilterView: UICollectionViewCell {
+final class InavailableFilterView: UICollectionViewCell {
     
     // MARK: - UIComponents
     

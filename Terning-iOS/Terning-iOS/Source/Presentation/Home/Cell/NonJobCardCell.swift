@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class NonJobCardCell: UICollectionViewCell {
+final class NonJobCardCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     

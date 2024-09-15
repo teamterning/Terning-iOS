@@ -172,17 +172,14 @@ extension JobListingCell {
     
     // MARK: - Methods
     
-    func bind(model: DailyScrapModel, indexPath: IndexPath? = nil, in collectionView: UICollectionView? = nil) {
-        guard let day = model.dDay else { return print("JobListingCell Error dDay") }
-        guard let workingPeriod = model.workingPeriod else { return print("JobListingCell Error workingPeriod") }
-        guard let companyImage = model.companyImage else { return print("JobListingCell Error companyImage") }
+    func bind(model: AnnouncementModel, indexPath: IndexPath? = nil, in collectionView: UICollectionView? = nil) {
         
         self.indexPath = indexPath
         self.collectionView = collectionView
         
-        self.mainImageView.setImage(with: companyImage)
-        self.deadlineLabel.text = day
-        self.monthLabel.text = workingPeriod
+        self.mainImageView.setImage(with: model.companyImage)
+        self.deadlineLabel.text = model.deadline
+        self.monthLabel.text = model.workingPeriod
         self.mainTitleLabel.text = model.title
         self.colorMark.backgroundColor = UIColor(hex: model.color)
         self.scrapButton.isSelected = true

@@ -66,7 +66,6 @@
 [Docs]: README나 WIKI 등의 문서 개정
 [Feat]: 새로운 기능 구현
 [Fix]: 버그, 오류 해결, 코드 수정
-[Merge]: 머지
 [Refactor]: 전면 수정이 있을 때 사용합니다
 [Remove]: 파일 삭제
 [Setting]: 프로젝트 세팅 및 전반적 기능
@@ -107,7 +106,7 @@
 
 ## **📌 Git Flow**
 
-1. 이슈 생성
+1. 이슈 생성 (어떤 작업 할 것 인지?)
 2. 브랜치 생성
 3. 브랜치 add, commit, push → PR 과정 거치기
 4. 최소 1명 "Approve" 있어야 merge (강제 머지 금지 )
@@ -128,7 +127,7 @@
 <p align="left">
 <img src ="https://img.shields.io/badge/Swift-5.9-orange?logo=swift">
 <img src ="https://img.shields.io/badge/Xcode-15.0-blue?logo=xcode">
-<img src ="https://img.shields.io/badge/iOS-15.0-green.svg">
+<img src ="https://img.shields.io/badge/iOS-16.0-green.svg">
 
 <br>
 <br>
@@ -140,10 +139,12 @@
  Moya | 서버 통신 | 15.0.3 | SPM
  SnapKit | UI Layout | 5.7.1 | SPM
  Then | UI 선언 | 3.0.0 | SPM
- Kingfisher | 이미지 처리 | 7.10.1| SPM
- RxSwift | 비동기 처리 | 6.7.1| SPM
- FSCalendar | 캘린더 구현 | 2.8.3 | SPM
+ Kingfisher | 이미지 처리 | 7.12.0 | SPM
+ RxSwift | 비동기 처리 | 6.7.1 | SPM
+ FSCalendar | 캘린더 구현 | 2.8.4 | SPM
  KakaoSDK | 카카오 소셜 로그인 구현 | 2.22.4 | SPM
+ Inject | SwiftUI 처럼 뷰 디버깅 | 1.5.2 | SPM
+ Lottie | 애니메이션 구현 | 4.5.0 | SPM
  <br>
 
  - 🧱 framework
@@ -159,46 +160,44 @@
 ## **📂 Foldering**
 
 ```
-├── 📂 Terning-iOS
-│   ├── 📂 Application
-│   │   ├── AppDelegate.swift
-│   │   └── SceneDelegate.swift
-│   ├── Info.plist
-│   ├── 📂 Network
-│   │   ├── 📂 Base
-│   │   ├── 📂 Service
-│   │   ├── 📂 TargetType
-│   │   └── 📂 User
-│   ├── 📂 Resource
-│   │   ├── Assets.xcassets
-│   │   ├── 📂 Extension
-│   │   ├── 📂 Fonts
-│   │   ├── 📂 Literal
-│   │   ├── 📂 Protocols
-│   │   ├── 📂 UIComponents
-│   │   └── 📂 Utils
-│   └── 📂 Source
-│       ├── 📂 Data
-│       │   ├── 📂 Announcement
-│       │   ├── 📂 Calender
-│       │   ├── 📂 Home
-│       │   ├── 📂 Search
-│       │   └── 📂 SignIn
-│       ├── 📂 Presentation
-│       │   ├── 📂 Calendar
-│       │   ├── 📂 FilteringSetting
-│       │   ├── 📂 Home
-│       │   ├── 📂 JobDetail
-│       │   ├── 📂 Login
-│       │   ├── 📂 MyPage
-│       │   ├── 📂 Onboarding
-│       │   ├── 📂 Profile
-│       │   ├── 📂 Search
-│       │   ├── 📂 SearchResult
-│       │   ├── 📂 Splash
-│       │   ├── 📂 TabBar
-│       │   ├── 📂 Welcome
-│       │   └── .gitkeep
+└── 📂 Terning-iOS
+    ├── 📂 Application
+    │   ├── 📂 AppDelegate.swift
+    │   └── 📂 SceneDelegate.swift
+    ├── 📂 Info.plist
+    ├── 📂 Resource
+    │   ├── 📂 Assets.xcassets
+    │   ├── 📂 Config
+    │   ├── 📂 Extension
+    │   ├── 📂 Fonts
+    │   ├── 📂 Literal
+    │   ├── 📂 Lotties
+    │   ├── 📂 Protocols
+    │   ├── 📂 UIComponents
+    │   └── 📂 Utils
+    └── 📂 Source
+        ├── 📂 Data
+        │   ├── 📂 Network
+        │   └── 📂 Repository
+        ├── 📂 Domain
+        │   └── 📂 Model
+        └── 📂 Presentation
+            ├── 📂 AccountOption
+            ├── 📂 Calendar
+            ├── 📂 FilteringSetting
+            ├── 📂 Home
+            ├── 📂 JobDetail
+            ├── 📂 Login
+            ├── 📂 MyPage
+            ├── 📂 Onboarding
+            ├── 📂 Profile
+            ├── 📂 ProfileImage
+            ├── 📂 Search
+            ├── 📂 SearchResult
+            ├── 📂 SortSetting
+            ├── 📂 Splash
+            ├── 📂 TabBar
+            └── 📂 Welcome
 ```
 
 ## **🎨 Design**

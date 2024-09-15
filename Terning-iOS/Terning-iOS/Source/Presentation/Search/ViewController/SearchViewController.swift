@@ -260,7 +260,7 @@ extension SearchViewController: UICollectionViewDelegate {
     
             let jobDetailVC = JobDetailViewController()
             jobDetailVC.hidesBottomBarWhenPushed = true
-            jobDetailVC.internshipAnnouncementId.onNext(selectedItem)
+            jobDetailVC.internshipAnnouncementId.accept(selectedItem)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         case .scrapsNum:
             guard let scrapsNum = searchView.scrapsNum else { return }
@@ -269,7 +269,7 @@ extension SearchViewController: UICollectionViewDelegate {
     
             let jobDetailVC = JobDetailViewController()
             jobDetailVC.hidesBottomBarWhenPushed = true
-            jobDetailVC.internshipAnnouncementId.onNext(selectedItem)
+            jobDetailVC.internshipAnnouncementId.accept(selectedItem)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         default:
             break

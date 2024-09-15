@@ -11,6 +11,10 @@ import FSCalendar
 import SnapKit
 import Then
 
+enum CalendarViewType {
+    case bottom, list
+}
+
 final class TNCalendarView: UIView {
     
     // MARK: - UIComponents
@@ -87,6 +91,9 @@ final class TNCalendarView: UIView {
         return collectionView
     }()
     
+    let bottomEmptyView = EmptyView()
+    let listEmptyView = EmptyView()
+    
     // MARK: - Life Cycles
     
     override init(frame: CGRect) {
@@ -117,15 +124,21 @@ extension TNCalendarView {
             separatorView,
             calendarViewContainer,
             calenderBottomCollectionView,
-            calenderListCollectionView
+            calenderListCollectionView,
+            bottomEmptyView,
+            listEmptyView
         )
         calendarViewContainer.addSubview(calendarView)
+        
+        calenderBottomCollectionView.addSubview(bottomEmptyView)
+        calenderListCollectionView.addSubview(listEmptyView)
+        
     }
     
     private func setLayout() {
         naviBar.snp.makeConstraints {
             $0.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
-            $0.height.equalTo(68)
+            $0.height.equalTo(68.adjustedH)
         }
         
         dummyView.snp.makeConstraints {
@@ -140,7 +153,7 @@ extension TNCalendarView {
         
         calendarView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
-            $0.height.equalTo(90 * 6 + 48 + 28) // 기본 높이 설정
+            $0.height.equalTo(90.adjustedH * 6 + 48.adjustedH + 28.adjustedH) // 기본 높이 설정
             $0.horizontalEdges.equalToSuperview().inset(18.adjusted)
         }
         
@@ -153,7 +166,7 @@ extension TNCalendarView {
         self.bringSubviewToFront(separatorView)
         
         calenderBottomCollectionView.snp.makeConstraints {
-            $0.top.equalTo(calendarView.snp.bottom).offset(10)
+            $0.top.equalTo(calendarView.snp.bottom).offset(10.adjustedH)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
@@ -161,6 +174,16 @@ extension TNCalendarView {
         calenderListCollectionView.snp.makeConstraints {
             $0.top.equalTo(naviBar.snp.bottom)
             $0.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
+        }
+        
+        bottomEmptyView.snp.makeConstraints {
+            $0.top.equalTo(calenderBottomCollectionView.snp.top).offset(40.adjustedH)
+            $0.centerX.equalToSuperview()
+        }
+        
+        listEmptyView.snp.makeConstraints {
+            $0.top.equalTo(calenderListCollectionView.snp.top).offset(120.adjustedH)
+            $0.centerX.equalToSuperview()
         }
     }
 }
@@ -172,5 +195,14 @@ extension TNCalendarView {
     func roundCalendarViewCorners(radius: CGFloat) {
         calendarViewContainer.layer.cornerRadius = radius
         calendarViewContainer.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+    }
+    
+    func toggleEmptyView(for type: CalendarViewType, isHidden: Bool) {
+        switch type {
+        case .bottom:
+            bottomEmptyView.isHidden = !isHidden
+        case .list:
+            listEmptyView.isHidden = !isHidden
+        }
     }
 }

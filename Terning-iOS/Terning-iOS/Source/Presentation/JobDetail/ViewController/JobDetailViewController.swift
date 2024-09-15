@@ -327,8 +327,6 @@ extension JobDetailViewController {
                 let status = response.statusCode
                 if 200..<300 ~= status {
                     print("스크랩 추가 성공")
-                    bindViewModel()
-                    rootView.tableView.reloadData()
                     self.showToast(message: "관심 공고가 캘린더에 스크랩되었어요!")
                 } else {
                     print("400 error")
@@ -350,8 +348,7 @@ extension JobDetailViewController {
                 let status = response.statusCode
                 if 200..<300 ~= status {
                     print("스크랩 취소 성공")
-                    bindViewModel()
-                    rootView.tableView.reloadData()
+                    self.showToast(message: "관심 공고가 캘린더에서 사라졌어요!")
                 } else {
                     print("400 error")
                     self.showToast(message: "네트워크 오류")

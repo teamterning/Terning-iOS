@@ -13,6 +13,8 @@ import RxCocoa
 import SnapKit
 import Then
 
+import Lottie
+
 @frozen
 enum AlertViewType {
     case scrap
@@ -92,8 +94,13 @@ final class NewCustomAlertVC: UIViewController {
         textColor: .grey350
     )
     
-    private let alertImageView = UIImageView().then {
-        $0.image = .iosScrapCancel
+    private let alertImageView = LottieAnimationView().then {
+        let animation = LottieAnimation.named("scrapCancel")
+        $0.animation = animation
+        $0.contentMode = .scaleAspectFit
+        $0.loopMode = .autoReverse
+        $0.animationSpeed = 1
+        $0.play()
     }
     
     private lazy var paletteCollectionView: UICollectionView = {
@@ -251,6 +258,7 @@ final class NewCustomAlertVC: UIViewController {
         alertImageView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(60)
             $0.centerX.equalToSuperview()
+            $0.height.equalTo(203.adjustedH)
         }
         mainJobLabel.snp.makeConstraints {
             $0.top.equalTo(alertImageView.snp.bottom).offset(20.adjustedH)

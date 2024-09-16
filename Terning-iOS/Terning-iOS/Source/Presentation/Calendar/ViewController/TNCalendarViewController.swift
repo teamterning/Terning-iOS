@@ -81,7 +81,7 @@ final class TNCalendarViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        pageRelay.accept(rootView.calendarView.currentPage)
+        pageRelay.accept(selectedDate ?? rootView.calendarView.currentPage)
     }
     
     override func loadView() {
@@ -461,59 +461,57 @@ extension TNCalendarViewController: UICollectionViewDelegate {
         
         if collectionView == rootView.calenderBottomCollectionView {
             let model = calendarDaily[indexPath.row]
-            let alertSheet = CustomAlertViewController(alertType: .custom)
             
-            _ = alertSheet.selectedColorIndexRelay
+            let alertSheet = NewCustomAlertVC(alertViewType: .changeColorAndPushJobDetail)
             
-            let deadLine = koreanDateFormmatter.string(from: selectedDate ?? Date())
-            alertSheet.setData2(model: model, deadline: deadLine)
+            jobDetailViewController.internshipAnnouncementId.accept(model.internshipAnnouncementId)
+            jobDetailViewController.hidesBottomBarWhenPushed = true
+            alertSheet.setAnnouncementData(model: model)
             
             alertSheet.modalTransitionStyle = .crossDissolve
             alertSheet.modalPresentationStyle = .overFullScreen
             
-            alertSheet.centerButtonTapAction = {
-                if alertSheet.currentMode == .info {
-                    self.dismiss(animated: true)
-                    self.navigationController?.pushViewController(jobDetailViewController, animated: true)
-                } else if alertSheet.currentMode == .color {
-                    self.patchScrapAnnouncement(scrapId: model.internshipAnnouncementId, color: "red")
-                    // TODO: color 부분 수정
-                    self.dismiss(animated: true)
-                }
+            alertSheet.leftButtonDidTapAction = {
+                let selectedColorNameRelay = alertSheet.selectedColorNameRelay.value
+                
+                self.patchScrapAnnouncement(scrapId: model.internshipAnnouncementId, color: selectedColorNameRelay)
+                self.dismiss(animated: true)
+            }
+            
+            alertSheet.rightButtonDidTapAction = {
+                self.dismiss(animated: true)
+                self.navigationController?.pushViewController(jobDetailViewController, animated: true)
             }
             
             self.present(alertSheet, animated: false)
             
-            jobDetailViewController.internshipAnnouncementId.accept(model.internshipAnnouncementId)
         } else {
             let sortedKeys = scrapLists.keys.sorted()
             let date = sortedKeys[indexPath.section]
             guard let scrapSection = scrapLists[date] else { return }
-            //            jobDetailViewController.internshipAnnouncementId.onNext(index)
             
             let model = scrapSection[indexPath.row]
-            let alertSheet = CustomAlertViewController(alertType: .custom)
             
-            _ = alertSheet.selectedColorIndexRelay
+            let alertSheet = NewCustomAlertVC(alertViewType: .changeColorAndPushJobDetail)
             
-            let deadLine = koreanDateFormmatter.string(from: selectedDate ?? Date())
-            alertSheet.setData2(model: model, deadline: deadLine)
+            alertSheet.setAnnouncementData(model: model)
+            
+            jobDetailViewController.internshipAnnouncementId.accept(model.internshipAnnouncementId)
+            jobDetailViewController.hidesBottomBarWhenPushed = true
             
             alertSheet.modalTransitionStyle = .crossDissolve
             alertSheet.modalPresentationStyle = .overFullScreen
             
-            alertSheet.centerButtonTapAction = {
-                if alertSheet.currentMode == .info {
-                    self.dismiss(animated: true)
-                    let jobDetailVC = JobDetailViewController()
-                    jobDetailVC.internshipAnnouncementId.accept(model.internshipAnnouncementId)
-                    jobDetailVC.hidesBottomBarWhenPushed = true
-                    self.navigationController?.pushViewController(jobDetailVC, animated: true)
-                } else if alertSheet.currentMode == .color {
-                    self.patchScrapAnnouncement(scrapId: scrapSection[indexPath.row].internshipAnnouncementId, color: "red")
-                    // TODO: 수정 해야한다.
-                    self.dismiss(animated: true)
-                }
+            alertSheet.leftButtonDidTapAction = {
+                let selectedColorNameRelay = alertSheet.selectedColorNameRelay.value
+                
+                self.patchScrapAnnouncement(scrapId: model.internshipAnnouncementId, color: selectedColorNameRelay)
+                self.dismiss(animated: true)
+            }
+            
+            alertSheet.rightButtonDidTapAction = {
+                self.dismiss(animated: true)
+                self.navigationController?.pushViewController(jobDetailViewController, animated: true)
             }
             
             self.present(alertSheet, animated: false)
@@ -616,7 +614,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
 
 extension TNCalendarViewController: JobListCellProtocol {
     func scrapButtonDidTapInCalendar(in collectionView: UICollectionView, isScrap: Bool, indexPath: IndexPath) {
-        let alertSheet = CustomAlertViewController(alertType: .normal)
+        let alertSheet = NewCustomAlertVC(alertViewType: .info)
         
         let model: AnnouncementModel
         
@@ -639,13 +637,7 @@ extension TNCalendarViewController: JobListCellProtocol {
         
         print(scrapId)
         
-        alertSheet.setComponentDatas(
-            mainLabel: "관심 공고가 캘린더에서 사라져요!",
-            subLabel: "스크랩을 취소하시겠어요?",
-            buttonLabel: "스크랩 취소하기"
-        )
-        
-        alertSheet.centerButtonTapAction = {
+        alertSheet.centerButtonDidTapAction = {
             self.cancelScrapAnnouncement(scrapId: scrapId)
             self.dismiss(animated: false)
         }

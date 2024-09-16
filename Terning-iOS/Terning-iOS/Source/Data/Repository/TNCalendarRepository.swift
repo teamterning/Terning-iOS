@@ -30,6 +30,6 @@ final class TNCalendarRepository: TNCalendarRepositoryProtocol {
     }
     
     func getMonthlyList(for year: Int, month: Int) -> Observable<[CalendarAnnouncementModel]> {
-        return service.getMonthlyList(for: year, month: month)
+        return service.fetchMonthlyList(for: year, month: month)
     }
 }

@@ -12,7 +12,7 @@ import RxMoya
 protocol TNCalendarServiceProtocol {
     func fetchMonthData(for year: Int, month: Int) -> Observable<[CalendarScrapModel]>
     func fetchDailyData(for date: String) -> Observable<[AnnouncementModel]>
-    func getMonthlyList(for year: Int, month: Int) -> Observable<[CalendarAnnouncementModel]>
+    func fetchMonthlyList(for year: Int, month: Int) -> Observable<[CalendarAnnouncementModel]>
 }
 
 final class TNCalendarService: TNCalendarServiceProtocol {
@@ -39,7 +39,7 @@ final class TNCalendarService: TNCalendarServiceProtocol {
             .asObservable()
     }
     
-    func getMonthlyList(for year: Int, month: Int) -> Observable<[CalendarAnnouncementModel]> {
+    func fetchMonthlyList(for year: Int, month: Int) -> Observable<[CalendarAnnouncementModel]> {
         return provider.rx.request(.getMonthlyList(year: year, month: month))
             .filterSuccessfulStatusCodes()
             .map(BaseResponse<[CalendarAnnouncementModel]>.self)

@@ -17,10 +17,14 @@ enum CalendarState {
     case today
 }
 
-// Cell의 UI를 담당하는 뷰 클래스
+// 각 날짜 Cell의 UI를 담당하는 뷰
 final class CalendarDateCellView: UIView {
     
     // MARK: - Properties
+    
+    private let displayedEventCount: Int = 3
+    
+    // MARK: - UIComponents
     
     private let selectView = UIView().then {
         $0.layer.cornerRadius = 12
@@ -55,7 +59,7 @@ final class CalendarDateCellView: UIView {
     private var eventViews: [EventView] = []
     
     // MARK: - Init
-
+    
     init() {
         super.init(frame: .zero)
         
@@ -69,7 +73,7 @@ final class CalendarDateCellView: UIView {
     }
     
     // MARK: - UI & Layout
-
+    
     private func setUI() {
         backgroundColor = .white
     }
@@ -115,7 +119,7 @@ final class CalendarDateCellView: UIView {
     }
     
     // MARK: - Methods
-
+    
     func bind(date: Date, textColor: UIColor, state: CalendarState, events: [CalendarEventProtocol]) {
         updateState(state)
         
@@ -148,7 +152,7 @@ final class CalendarDateCellView: UIView {
         eventViews.forEach { $0.removeFromSuperview() }
         eventViews = []
         
-        let remainingEventsCount = events.count - 3
+        let remainingEventsCount = events.count - displayedEventCount
         
         // 남은 이벤트 수가 1보다 클 경우에만 remainJobCountLabel 표시
         if remainingEventsCount > 0 {
@@ -158,7 +162,7 @@ final class CalendarDateCellView: UIView {
             remainJobCountLabel.isHidden = true
         }
         
-        for event in events.prefix(3) { // 최대 3개의 이벤트만 표시
+        for event in events.prefix(displayedEventCount) { // 최대 N 개의 이벤트만 표시
             let eventView = EventView()
             eventView.bind(with: event)
             eventStackView.addArrangedSubview(eventView)

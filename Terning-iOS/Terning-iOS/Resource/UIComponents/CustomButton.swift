@@ -110,6 +110,46 @@ extension CustomButton {
         
         return self
     }
+    
+    @discardableResult
+    public func setAlertViewColor() -> Self {
+        let buttonStateHandler: UIButton.ConfigurationUpdateHandler = { button in
+            var updatedConfiguration = button.configuration
+            
+            switch button.state {
+            case .normal:
+                updatedConfiguration?.background.backgroundColor = .terningMain
+                
+                updatedConfiguration?.attributedTitle = AttributedString(
+                    self.title,
+                    attributes: AttributeContainer(
+                        [NSAttributedString.Key.font: self.font, NSAttributedString.Key.foregroundColor: UIColor.white]
+                    )
+                )
+            case .highlighted:
+                updatedConfiguration?.background.backgroundColor = .grey200
+            case .disabled:
+                updatedConfiguration?.background.backgroundColor = .clear
+                updatedConfiguration?.attributedTitle = AttributedString(
+                    self.title,
+                    attributes: AttributeContainer(
+                        [NSAttributedString.Key.font: self.font, NSAttributedString.Key.foregroundColor: UIColor.grey375]
+                    )
+                )
+                
+            default:
+                updatedConfiguration?.background.backgroundColor = .clear
+            }
+            button.configuration = updatedConfiguration
+            button.layer.borderColor = UIColor.grey150.cgColor
+            button.layer.borderWidth = 1
+            button.layer.cornerRadius = 5
+            button.clipsToBounds = true
+        }
+        self.configurationUpdateHandler = buttonStateHandler
+        
+        return self
+    }
 }
 
 // MARK: - UI & Layout

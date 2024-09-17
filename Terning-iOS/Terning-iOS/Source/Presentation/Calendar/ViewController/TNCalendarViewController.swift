@@ -49,6 +49,7 @@ final class TNCalendarViewController: UIViewController {
     }
     
     // MARK: - UIComponents
+    
     private let rootView = TNCalendarView()
     private let disposeBag = DisposeBag()
     private var selectedDate: Date?
@@ -90,6 +91,7 @@ final class TNCalendarViewController: UIViewController {
 }
 
 // MARK: - Method
+
 extension TNCalendarViewController {
     private func setDelegate() {
         rootView.calendarView.delegate = self
@@ -263,6 +265,7 @@ extension TNCalendarViewController {
             pageRelay.accept(rootView.calendarView.currentPage)
         }
         
+        rootView.naviBar.isClicked(isListViewVisible)
         isListViewVisible.toggle()
     }
     

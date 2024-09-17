@@ -31,6 +31,8 @@ final class MyPageViewModel: ViewModelType {
     private let sectionsRelay = BehaviorRelay<[SectionData]>(value: [])
     private let userInfoRelay = BehaviorRelay<UserProfileInfoModel>(value: UserProfileInfoModel(name: "회원", profileImage: "basic", authType: "UNKNOWN"))
     
+    private let info = Bundle.main.infoDictionary
+    
     // MARK: - Input
     struct Input {
         let fixProfileTap: Observable<Void>
@@ -52,8 +54,8 @@ final class MyPageViewModel: ViewModelType {
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let navigateToProfileEdit = input.fixProfileTap
-                    .withLatestFrom(userInfoRelay.asObservable())
-                    .asDriver(onErrorJustReturn: UserProfileInfoModel(name: "", profileImage: "basic", authType: ""))
+            .withLatestFrom(userInfoRelay.asObservable())
+            .asDriver(onErrorJustReturn: UserProfileInfoModel(name: "", profileImage: "basic", authType: ""))
         let showLogoutAlert = input.logoutTap.asDriver(onErrorJustReturn: ())
         let showWithdrawAlert = input.withdrawTap.asDriver(onErrorJustReturn: ())
         
@@ -100,7 +102,13 @@ final class MyPageViewModel: ViewModelType {
                 items: [
                     .cellViewModel(MyPageBasicCellModel(image: .icService, title: "서비스 이용약관", accessoryType: .disclosureIndicator)),
                     .cellViewModel(MyPageBasicCellModel(image: .icPersonal, title: "개인정보 처리방침", accessoryType: .disclosureIndicator)),
-                    .cellViewModel(MyPageBasicCellModel(image: .icVersion, title: "버전 정보", accessoryType: .label(text: "1.1.0")))
+                    .cellViewModel(
+                        MyPageBasicCellModel(
+                            image: .icVersion,
+                            title: "버전 정보",
+                            accessoryType: .label(text: info?["CFBundleShortVersionString"] as? String ?? "1.0.0")
+                        )
+                    )
                 ]
             ),
             SectionData(
@@ -137,14 +145,14 @@ extension MyPageViewModel {
                     do {
                         let responseDto = try response.map(BaseResponse<UserProfileInfoModel>.self)
                         guard let data = responseDto.result else { return }
-
+                        
                         let updatedUserInfo = UserProfileInfoModel(
                             name: data.name,
                             profileImage: data.profileImage,
                             authType: data.authType
                         )
                         self.userInfoRelay.accept(updatedUserInfo)
-
+                        
                         var updatedSections = self.sectionsRelay.value
                         updatedSections[0] = SectionData(
                             title: "프로필",

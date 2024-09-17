@@ -98,6 +98,7 @@
 		71461ED62C38150C002A6999 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461ED52C38150C002A6999 /* UILabel+.swift */; };
 		715028672C84A5C600F67472 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715028662C84A5C600F67472 /* LoginService.swift */; };
 		715028692C84AA1600F67472 /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715028682C84AA1600F67472 /* LoginRepository.swift */; };
+		715C0FD32C98140400EDDD60 /* scrapCancel.json in Resources */ = {isa = PBXBuildFile; fileRef = 715C0FD22C98140400EDDD60 /* scrapCancel.json */; };
 		71665AAC2C7C4A94008EB0D7 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAB2C7C4A94008EB0D7 /* EventView.swift */; };
 		71665AAE2C7C4BAA008EB0D7 /* CalendarDateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */; };
 		71665AB12C7C5444008EB0D7 /* TNCalendarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */; };
@@ -268,6 +269,7 @@
 		71461ED52C38150C002A6999 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		715028662C84A5C600F67472 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		715028682C84AA1600F67472 /* LoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
+		715C0FD22C98140400EDDD60 /* scrapCancel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = scrapCancel.json; sourceTree = "<group>"; };
 		71665AAB2C7C4A94008EB0D7 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCellView.swift; sourceTree = "<group>"; };
 		71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarRepository.swift; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 		2D997FBB2C91B0A90078DAB0 /* Lotties */ = {
 			isa = PBXGroup;
 			children = (
+				715C0FD22C98140400EDDD60 /* scrapCancel.json */,
 				2D997FBC2C9228F00078DAB0 /* beforeOnboarding.json */,
 				2D997FBE2C9229760078DAB0 /* afterOnboarding.json */,
 				2D997FB92C91ADFE0078DAB0 /* login.json */,
@@ -1357,6 +1360,7 @@
 				71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */,
 				2D997FBD2C9228F00078DAB0 /* beforeOnboarding.json in Resources */,
 				71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */,
+				715C0FD32C98140400EDDD60 /* scrapCancel.json in Resources */,
 				71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */,
 				2D997FBA2C91ADFE0078DAB0 /* login.json in Resources */,
 			);

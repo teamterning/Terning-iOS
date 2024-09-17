@@ -75,7 +75,6 @@ final class TNCalendarViewModel: ViewModelType {
             }
             .asDriver(onErrorJustReturn: [:])
         
-        
         let monthlyList = input.fetchMonthlyListTrigger
             .flatMapLatest { date -> Observable<[CalendarAnnouncementModel]> in
                 let year = Calendar.current.component(.year, from: date)

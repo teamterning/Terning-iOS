@@ -42,6 +42,14 @@ final class CalendarDateCellView: UIView {
         $0.spacing = 2
     }
     
+    private let remainJobCountLabel = LabelFactory.build(
+        text: "",
+        font: .detail5,
+        textAlignment: .right,
+        lineSpacing: 1.0,
+        characterSpacing: 0.002
+    )
+    
     private let separatorView = UIView().then { $0.backgroundColor = .grey200 }
     
     private var eventViews: [EventView] = []
@@ -71,7 +79,8 @@ final class CalendarDateCellView: UIView {
             selectView,
             dateLabel,
             eventStackView,
-            separatorView
+            separatorView,
+            remainJobCountLabel
         )
     }
     
@@ -97,6 +106,11 @@ final class CalendarDateCellView: UIView {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(selectView.snp.bottom).offset(3)
             $0.width.equalToSuperview().inset(5)
+        }
+        
+        remainJobCountLabel.snp.makeConstraints {
+            $0.top.equalTo(eventStackView.snp.bottom).offset(2.adjustedH)
+            $0.trailing.equalTo(eventStackView.snp.trailing)
         }
     }
     
@@ -133,6 +147,16 @@ final class CalendarDateCellView: UIView {
         // 기존 이벤트 뷰를 모두 제거
         eventViews.forEach { $0.removeFromSuperview() }
         eventViews = []
+        
+        let remainingEventsCount = events.count - 3
+        
+        // 남은 이벤트 수가 1보다 클 경우에만 remainJobCountLabel 표시
+        if remainingEventsCount > 0 {
+            remainJobCountLabel.text = "+\(remainingEventsCount)"
+            remainJobCountLabel.isHidden = false
+        } else {
+            remainJobCountLabel.isHidden = true
+        }
         
         for event in events.prefix(3) { // 최대 3개의 이벤트만 표시
             let eventView = EventView()

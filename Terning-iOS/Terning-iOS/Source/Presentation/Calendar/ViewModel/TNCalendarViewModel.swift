@@ -17,8 +17,7 @@ final class TNCalendarViewModel: ViewModelType {
     var scrapLists: [Date: [AnnouncementModel]] = [:] // 리스트 데이터를 저장할 딕셔너리
     var calendarDaily: [AnnouncementModel] = [] // 일간 캘린더 데이터를 저장할 딕셔너리
     
-    private let calendarRepository: TNCalendarRepositoryProtocol
-    private let scrapRepository: ScrapsRepositoryProtocol
+    private let calendarRepository: TNCalendarRepositoryInterface
     
     private let dateFormatter = DateFormatter().then {
         $0.dateFormat = "yyyy-MM-dd"
@@ -45,9 +44,8 @@ final class TNCalendarViewModel: ViewModelType {
     }
     
     // MARK: - Init
-    init(calendarRepository: TNCalendarRepositoryProtocol, scrapRepository: ScrapsRepositoryProtocol) {
+    init(calendarRepository: TNCalendarRepositoryInterface) {
         self.calendarRepository = calendarRepository
-        self.scrapRepository = scrapRepository
     }
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
@@ -118,7 +116,7 @@ final class TNCalendarViewModel: ViewModelType {
         
         let patchScrap = input.patchScrapTrigger
             .flatMapLatest { (intershipAnnouncementId, color) in
-                self.scrapRepository.patchScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)
+                self.calendarRepository.patchScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)
                     .do(onNext: {
                         successMessageTracker.onNext("스크랩 수정 완료!")
                     })
@@ -131,7 +129,7 @@ final class TNCalendarViewModel: ViewModelType {
         
         let cancelScrap = input.cancelScrapTrigger
             .flatMapLatest { intershipAnnouncementId in
-                self.scrapRepository.cancelScrap(internshipAnnouncementId: intershipAnnouncementId)
+                self.calendarRepository.cancelScrap(internshipAnnouncementId: intershipAnnouncementId)
                     .do(onNext: {
                         successMessageTracker.onNext("관심 공고가 캘린더에서 사라졌어요!")
                     })

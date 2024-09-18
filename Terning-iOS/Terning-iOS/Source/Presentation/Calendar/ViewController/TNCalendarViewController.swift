@@ -53,9 +53,6 @@ final class TNCalendarViewController: UIViewController {
     private let rootView = TNCalendarView()
     private let disposeBag = DisposeBag()
     private var selectedDate: Date?
-    private var scraps: [Date: [ScrapModel]] = [:] // 스크랩 데이터를 저장할 딕셔너리
-    private var scrapLists: [Date: [AnnouncementModel]] = [:] // 리스트 데이터를 저장할 딕셔너리
-    private var calendarDaily: [AnnouncementModel] = [] // 일간 캘린더 데이터를 저장할 딕셔너리
     
     // MARK: - Life Cycles
     
@@ -151,31 +148,28 @@ extension TNCalendarViewController {
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
         output.monthData
-            .drive(onNext: { [weak self] scraps in
+            .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 
-                self.scraps = scraps
                 self.rootView.calendarView.reloadData()
             })
             .disposed(by: disposeBag)
         
         output.monthlyList
-            .drive(onNext: { [weak self] scrapLists in
+            .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 
-                self.scrapLists = scrapLists
-                self.rootView.toggleEmptyView(for: .list, isHidden: scrapLists.isEmpty)
+                self.rootView.toggleEmptyView(for: .list, isHidden: self.viewModel.scrapLists.isEmpty)
                 self.rootView.calenderListCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
         
         output.dailyData
-            .drive(onNext: { [weak self] dailyData in
+            .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 
-                self.calendarDaily = dailyData
-                self.rootView.toggleEmptyView(for: .bottom, isHidden: dailyData.isEmpty)
+                self.rootView.toggleEmptyView(for: .bottom, isHidden: self.viewModel.calendarDaily.isEmpty)
                 self.rootView.calenderBottomCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
@@ -389,6 +383,7 @@ extension TNCalendarViewController {
 }
 
 // MARK: - FSCalendarDataSource
+
 extension TNCalendarViewController: FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         guard let cell = calendar.dequeueReusableCell(withIdentifier: TNCalendarDateCell.className, for: date, at: position) as? TNCalendarDateCell else { return FSCalendarCell() }
@@ -413,7 +408,7 @@ extension TNCalendarViewController: FSCalendarDataSource {
         let isWeekView = calendar.scope == .week
         cell.cellView.setViewMode(isWeekView: isWeekView)
         
-        let events: [CalendarEvent] = scraps[date]?.map { CalendarEvent(color: UIColor(hex: $0.color), title: $0.title) } ?? []
+        let events: [CalendarEvent] = self.viewModel.scraps[date]?.map { CalendarEvent(color: UIColor(hex: $0.color), title: $0.title) } ?? []
         
         cell.bind(
             with: date,
@@ -463,7 +458,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
         let jobDetailViewController = JobDetailViewController()
         
         if collectionView == rootView.calenderBottomCollectionView {
-            let model = calendarDaily[indexPath.row]
+            let model = self.viewModel.calendarDaily[indexPath.row]
             
             let alertSheet = NewCustomAlertVC(alertViewType: .changeColorAndPushJobDetail)
             
@@ -489,9 +484,9 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             self.present(alertSheet, animated: false)
             
         } else {
-            let sortedKeys = scrapLists.keys.sorted()
+            let sortedKeys = self.viewModel.scrapLists.keys.sorted()
             let date = sortedKeys[indexPath.section]
-            guard let scrapSection = scrapLists[date] else { return }
+            guard let scrapSection = self.viewModel.scrapLists[date] else { return }
             
             let model = scrapSection[indexPath.row]
             
@@ -541,16 +536,16 @@ extension TNCalendarViewController: UICollectionViewDataSource {
         if collectionView == rootView.calenderBottomCollectionView {
             return 1
         } else {
-            return scrapLists.count
+            return self.viewModel.scrapLists.count
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == rootView.calenderBottomCollectionView {
-            return calendarDaily.count
+            return self.viewModel.calendarDaily.count
         } else {
-            let sortedKeys = scrapLists.keys.sorted()
-            let scrapSection = scrapLists[sortedKeys[section]] ?? []
+            let sortedKeys = self.viewModel.scrapLists.keys.sorted()
+            let scrapSection = self.viewModel.scrapLists[sortedKeys[section]] ?? []
             return scrapSection.count
         }
     }
@@ -559,7 +554,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
         if collectionView == rootView.calenderBottomCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else { return UICollectionViewCell() }
             
-            cell.bind(model: calendarDaily[indexPath.row], indexPath: indexPath, in: collectionView)
+            cell.bind(model: self.viewModel.calendarDaily[indexPath.row], indexPath: indexPath, in: collectionView)
             cell.delegate = self
             return cell
         } else {
@@ -567,8 +562,8 @@ extension TNCalendarViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
-            let sortedKeys = scrapLists.keys.sorted()
-            let scrapSection = scrapLists[sortedKeys[indexPath.section]] ?? []
+            let sortedKeys = self.viewModel.scrapLists.keys.sorted()
+            let scrapSection = self.viewModel.scrapLists[sortedKeys[indexPath.section]] ?? []
             let scrapItem = scrapSection[indexPath.row]
             
             cell.bind(model: scrapItem, indexPath: indexPath, in: collectionView)
@@ -589,7 +584,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
                     return UICollectionReusableView()
                 }
                 
-                let sortedKeys = scrapLists.keys.sorted()
+                let sortedKeys = self.viewModel.scrapLists.keys.sorted()
                 let scrapSection = sortedKeys[indexPath.section]
                 let formattedDate = isoDateFormatter.string(from: scrapSection)
                 headerView.bind(title: formattedDate)
@@ -601,7 +596,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
                     return UICollectionReusableView()
                 }
                 
-                // 마지막 섹션인 경우 배경색 설정
+                // 마지막 섹션인 경우 배경색 설정 TODO: 추후 삭제
                 if indexPath.section == collectionView.numberOfSections - 1 {
                     footerView.backgroundColor = .back
                 }
@@ -622,13 +617,13 @@ extension TNCalendarViewController: JobListCellProtocol {
         let model: AnnouncementModel
         
         if collectionView == rootView.calenderBottomCollectionView {
-            model = calendarDaily[indexPath.row]
+            model = self.viewModel.calendarDaily[indexPath.row]
             
         } else if collectionView == rootView.calenderListCollectionView {
             
-            let sortedKeys = scrapLists.keys.sorted()
+            let sortedKeys = self.viewModel.scrapLists.keys.sorted()
             let date = sortedKeys[indexPath.section]
-            guard let scrapSection = scrapLists[date] else { return }
+            guard let scrapSection = self.viewModel.scrapLists[date] else { return }
             
             model = scrapSection[indexPath.row]
             

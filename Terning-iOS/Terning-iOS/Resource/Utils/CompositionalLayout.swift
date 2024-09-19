@@ -172,7 +172,6 @@ struct CompositionalLayout {
                     return section
                     
                 } else {
-                    print("🙇🏻‍♂️")
                     let itemWidth: CGFloat = 246.adjusted
                     
                     let item = NSCollectionLayoutItem(

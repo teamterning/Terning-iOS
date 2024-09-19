@@ -107,10 +107,13 @@ struct CompositionalLayout {
         }
     }
     
-    static func createHomeListLayout() -> UICollectionViewCompositionalLayout {
+    static func createHomeListLayout(HomeVC: HomeViewController) -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
             
-            let HomeVC = HomeViewController()
+            // TEST: - HomeViewController에 있는 인스턴스를 잘 가져오는지 테스트 하는 코드
+            print("🙆🏻userName: \(HomeVC.userName)🙆🏻")
+            print("🙆🏻todayDeadlineLists: \(HomeVC.todayDeadlineLists)🙆🏻")
+            print("🙆🏻existIsScrapped: \(HomeVC.existIsScrapped)🙆🏻")
             
             if sectionNumber == 0 {
                 let item = NSCollectionLayoutItem(
@@ -144,7 +147,7 @@ struct CompositionalLayout {
                 
             } else if sectionNumber == 1 {
                 
-                if HomeVC.todayDeadlineLists.isEmpty || HomeVC.existIsScrapped {
+                if HomeVC.todayDeadlineLists.isEmpty && HomeVC.existIsScrapped {
                     let itemWidth: CGFloat = 327.adjusted
                     
                     let item = NSCollectionLayoutItem(
@@ -169,6 +172,7 @@ struct CompositionalLayout {
                     return section
                     
                 } else {
+                    print("🙇🏻‍♂️")
                     let itemWidth: CGFloat = 246.adjusted
                     
                     let item = NSCollectionLayoutItem(
@@ -178,21 +182,20 @@ struct CompositionalLayout {
                         )
                     )
                     
-                    item.contentInsets.trailing = 12
-                    
                     let groupHeight: CGFloat = 116.adjustedH
                     
                     let group = NSCollectionLayoutGroup.horizontal(
                         layoutSize: .init(
-                            widthDimension: .fractionalWidth(1.0),
+                            widthDimension: .estimated(itemWidth),
                             heightDimension: .absolute(groupHeight)
                         ),
                         subitems: [item]
                     )
                     
-                    group.interItemSpacing = .fixed(-5)
-                    
                     let section = NSCollectionLayoutSection(group: group)
+                    
+                    section.contentInsets = .init(top: 0, leading: 24, bottom: 20, trailing: 24)
+                    section.interGroupSpacing = 20
                     
                     section.orthogonalScrollingBehavior = .continuous
                     

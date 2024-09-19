@@ -55,6 +55,7 @@ final class HomeViewController: UIViewController {
     
     private var jobCardLists: [JobCard] = [] {
         didSet {
+            print("📋\(jobCardLists)📋")
             rootView.collectionView.reloadData()
         }
     }
@@ -66,7 +67,7 @@ final class HomeViewController: UIViewController {
     
     // MARK: - UIComponents
     
-    private let rootView = HomeView()
+    private lazy var rootView = HomeView(frame: .zero, homeViewController: self)
     
     // MARK: - Life Cycles
     
@@ -377,10 +378,12 @@ extension HomeViewController: SortSettingButtonProtocol {
 
 extension HomeViewController: ScrapDidTapDelegate {
     func scrapButtonDidTap(id index: Int) {
+        print("📌scrap📌")
+        
         let model = jobCardLists[index]
         let alertSheet = CustomAlertViewController(alertType: .custom)
         
-        alertSheet.setData3(model: model, deadline: model.deadline)
+//        alertSheet.setData3(model: model, deadline: model.deadline)
         
         alertSheet.modalTransitionStyle = .crossDissolve
         alertSheet.modalPresentationStyle = .overFullScreen
@@ -485,7 +488,7 @@ extension HomeViewController {
                                 self.existIsScrapped = true
                             }
                         }
-                        
+
                         self.rootView.collectionView.reloadData()
                     } catch {
                         print(error.localizedDescription)
@@ -557,6 +560,7 @@ extension HomeViewController {
                     do {
                         let responseDto = try response.map(BaseResponse<UserProfileInfoModel>.self)
                         guard let data = responseDto.result else { return }
+                        
                         userName = data.name
                         
                     } catch {

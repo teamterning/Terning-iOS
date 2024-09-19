@@ -147,7 +147,7 @@ struct CompositionalLayout {
                 
             } else if sectionNumber == 1 {
                 
-                if HomeVC.todayDeadlineLists.isEmpty && HomeVC.existIsScrapped {
+                if HomeVC.todayDeadlineLists.isEmpty || HomeVC.existIsScrapped {
                     let itemWidth: CGFloat = 327.adjusted
                     
                     let item = NSCollectionLayoutItem(

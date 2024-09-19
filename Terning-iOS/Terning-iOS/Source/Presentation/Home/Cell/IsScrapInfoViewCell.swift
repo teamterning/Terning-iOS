@@ -129,7 +129,7 @@ extension IsScrapInfoViewCell {
         }
         
         companyLabelStack.snp.makeConstraints {
-            $0.top.equalTo(cardLabel.snp.bottom).offset(22)
+            $0.top.equalTo(scrapAndDeadlineCard.snp.top).inset(72)
             $0.leading.equalTo(colorMark.snp.trailing).offset(12)
         }
         
@@ -138,10 +138,10 @@ extension IsScrapInfoViewCell {
         }
         
         dDayView.snp.makeConstraints {
-            $0.top.equalTo(cardLabel.snp.bottom).offset(28)
+            $0.top.equalTo(scrapAndDeadlineCard.snp.top).inset(78)
             $0.trailing.equalTo(scrapAndDeadlineCard.snp.trailing).inset(12)
             $0.height.equalTo(20.adjustedH)
-            $0.width.equalTo(43.adjusted)
+            $0.width.equalTo(52.adjusted)
         }
 
         dDayLabel.snp.makeConstraints {

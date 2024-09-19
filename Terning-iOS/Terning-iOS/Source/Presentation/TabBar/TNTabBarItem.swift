@@ -60,12 +60,10 @@ enum TNTabBarItem {
             return TNCalendarViewController(
                 viewModel: TNCalendarViewModel(
                     calendarRepository: TNCalendarRepository(
-                        service: TNCalendarService(
+                        calendarService: TNCalendarService(
                             provider: Providers.calendarProvider
-                        )
-                    ),
-                    scrapRepository: ScrapsRepository(
-                        service: ScrapsService(
+                        ),
+                        scrapService: ScrapsService(
                             provider: Providers.scrapsProvider
                         )
                     )

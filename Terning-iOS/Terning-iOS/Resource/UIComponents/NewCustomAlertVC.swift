@@ -98,7 +98,7 @@ final class NewCustomAlertVC: UIViewController {
         let animation = LottieAnimation.named("scrapCancel")
         $0.animation = animation
         $0.contentMode = .scaleAspectFit
-        $0.loopMode = .autoReverse
+        $0.loopMode = .playOnce
         $0.animationSpeed = 1
         $0.play()
     }
@@ -237,7 +237,7 @@ final class NewCustomAlertVC: UIViewController {
         }
         viewJobDetailButton.snp.makeConstraints {
             $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
-//            $0.trailing.equalToSuperview().offset(-16.adjusted)
+            //            $0.trailing.equalToSuperview().offset(-16.adjusted)
             $0.leading.equalTo(changeColorButton.snp.trailing).offset(8.adjusted)
             $0.height.equalTo(40.adjustedH)
             $0.width.equalTo(140.adjusted)
@@ -261,14 +261,21 @@ final class NewCustomAlertVC: UIViewController {
             $0.centerX.equalToSuperview()
             $0.height.equalTo(203.adjustedH)
         }
+        
         mainJobLabel.snp.makeConstraints {
             $0.top.equalTo(alertImageView.snp.bottom).offset(20.adjustedH)
             $0.centerX.equalToSuperview()
         }
+        
         subInfoLabel.snp.makeConstraints {
             $0.top.equalTo(mainJobLabel.snp.bottom).offset(4.adjustedH)
             $0.centerX.equalToSuperview()
         }
+        
+        centerButton.do {
+            $0.titleLabel?.text = "스크랩 취소하기"
+        }
+        
         centerButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(16.adjustedH)
             $0.horizontalEdges.equalToSuperview().inset(16)

@@ -29,6 +29,6 @@ final class CalendarDateFooterView: UICollectionReusableView {
 
 extension CalendarDateFooterView {
     private func setUI() {
-        backgroundColor = .grey200
+        backgroundColor = .back
     }
 }

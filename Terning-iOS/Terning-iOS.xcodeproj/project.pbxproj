@@ -99,10 +99,11 @@
 		715028672C84A5C600F67472 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715028662C84A5C600F67472 /* LoginService.swift */; };
 		715028692C84AA1600F67472 /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715028682C84AA1600F67472 /* LoginRepository.swift */; };
 		715C0FD32C98140400EDDD60 /* scrapCancel.json in Resources */ = {isa = PBXBuildFile; fileRef = 715C0FD22C98140400EDDD60 /* scrapCancel.json */; };
+		715C0FD72C99077700EDDD60 /* MockCalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715C0FD62C99077700EDDD60 /* MockCalendarService.swift */; };
+		715C0FED2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715C0FEC2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift */; };
 		71665AAC2C7C4A94008EB0D7 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAB2C7C4A94008EB0D7 /* EventView.swift */; };
 		71665AAE2C7C4BAA008EB0D7 /* CalendarDateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */; };
 		71665AB12C7C5444008EB0D7 /* TNCalendarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */; };
-		7170F5E52C7C58C800DFC050 /* ScrapsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7170F5E42C7C58C800DFC050 /* ScrapsRepository.swift */; };
 		71780C322C45705C0073B731 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C312C45705C0073B731 /* Encodable+.swift */; };
 		71780C352C45725E0073B731 /* Providers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C342C45725E0073B731 /* Providers.swift */; };
 		71780C3A2C4577FF0073B731 /* CalendarTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C392C4577FF0073B731 /* CalendarTargetType.swift */; };
@@ -270,10 +271,11 @@
 		715028662C84A5C600F67472 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		715028682C84AA1600F67472 /* LoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
 		715C0FD22C98140400EDDD60 /* scrapCancel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = scrapCancel.json; sourceTree = "<group>"; };
+		715C0FD62C99077700EDDD60 /* MockCalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCalendarService.swift; sourceTree = "<group>"; };
+		715C0FEC2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarRepositoryInterface.swift; sourceTree = "<group>"; };
 		71665AAB2C7C4A94008EB0D7 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCellView.swift; sourceTree = "<group>"; };
 		71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarRepository.swift; sourceTree = "<group>"; };
-		7170F5E42C7C58C800DFC050 /* ScrapsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapsRepository.swift; sourceTree = "<group>"; };
 		71780C312C45705C0073B731 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		71780C342C45725E0073B731 /* Providers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Providers.swift; sourceTree = "<group>"; };
 		71780C392C4577FF0073B731 /* CalendarTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTargetType.swift; sourceTree = "<group>"; };
@@ -858,6 +860,30 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		715C0FD42C99075300EDDD60 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				715C0FD52C99076700EDDD60 /* MockSevices */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		715C0FD52C99076700EDDD60 /* MockSevices */ = {
+			isa = PBXGroup;
+			children = (
+				715C0FD62C99077700EDDD60 /* MockCalendarService.swift */,
+			);
+			path = MockSevices;
+			sourceTree = "<group>";
+		};
+		715C0FEB2C9ACFF000EDDD60 /* RepositoryInterface */ = {
+			isa = PBXGroup;
+			children = (
+				715C0FEC2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift */,
+			);
+			path = RepositoryInterface;
+			sourceTree = "<group>";
+		};
 		71665AAA2C7C4A4A008EB0D7 /* Header */ = {
 			isa = PBXGroup;
 			children = (
@@ -871,7 +897,6 @@
 			isa = PBXGroup;
 			children = (
 				71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */,
-				7170F5E42C7C58C800DFC050 /* ScrapsRepository.swift */,
 				715028682C84AA1600F67472 /* LoginRepository.swift */,
 			);
 			path = Repository;
@@ -1039,6 +1064,7 @@
 				71E3C3E02C2414870026C4DD /* Application */,
 				71E3C3E42C241B8A0026C4DD /* Resource */,
 				71E3C3E72C241BF20026C4DD /* Source */,
+				715C0FD42C99075300EDDD60 /* Tests */,
 				71E3C3DA2C22BAF50026C4DD /* Info.plist */,
 			);
 			path = "Terning-iOS";
@@ -1186,6 +1212,7 @@
 		71F004C92C95A2CE00CD202B /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				715C0FEB2C9ACFF000EDDD60 /* RepositoryInterface */,
 				71F004C82C95A1E400CD202B /* Model */,
 			);
 			path = Domain;
@@ -1397,6 +1424,7 @@
 			files = (
 				2DC61F012C40825D009F991F /* DetailInfoTableViewCell.swift in Sources */,
 				2DC986062C45704600D46729 /* CustomSearchView.swift in Sources */,
+				715C0FD72C99077700EDDD60 /* MockCalendarService.swift in Sources */,
 				2DF257272C8F692B00B85843 /* ProfileViewModelType.swift in Sources */,
 				2DF257292C8F6A7D00B85843 /* ProfileImageUtils.swift in Sources */,
 				71780C4C2C4598590073B731 /* ScrapsTargetType.swift in Sources */,
@@ -1422,7 +1450,6 @@
 				2DC61EFD2C40823C009F991F /* CompanyInfoTableViewCell.swift in Sources */,
 				B855485D2C48026B00EC67F6 /* MyPageView.swift in Sources */,
 				71FFB2BF2C4A188A00C60697 /* HomeView.swift in Sources */,
-				7170F5E52C7C58C800DFC050 /* ScrapsRepository.swift in Sources */,
 				7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */,
 				71780C562C45A81E0073B731 /* AuthInterceptor.swift in Sources */,
 				71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */,
@@ -1531,6 +1558,7 @@
 				2DC61F052C40926D009F991F /* JobDetailView.swift in Sources */,
 				7121A1492C3B08360056DB8B /* JobDetailModel.swift in Sources */,
 				2D4EE3ED2C4020DC00E3E95B /* OnboardingViewModel.swift in Sources */,
+				715C0FED2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift in Sources */,
 				71B5092B2C42DBBF006D8E56 /* CalendarDateFooterView.swift in Sources */,
 				7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */,
 				2DF257252C8F691300B85843 /* ProfileFixViewModel.swift in Sources */,

@@ -11,8 +11,19 @@ import RxCocoa
 
 final class TNCalendarViewModel: ViewModelType {
     
-    // MARK: - Input
+    // MARK: - Properties
     
+    var scraps: [Date: [ScrapModel]] = [:] // 스크랩 데이터를 저장할 딕셔너리
+    var scrapLists: [Date: [AnnouncementModel]] = [:] // 리스트 데이터를 저장할 딕셔너리
+    var calendarDaily: [AnnouncementModel] = [] // 일간 캘린더 데이터를 저장할 딕셔너리
+    
+    private let calendarRepository: TNCalendarRepositoryInterface
+    
+    private let dateFormatter = DateFormatter().then {
+        $0.dateFormat = "yyyy-MM-dd"
+    }
+    
+    // MARK: - Input
     struct Input {
         let fetchMonthDataTrigger: Observable<Date>
         let fetchMonthlyListTrigger: Observable<Date>
@@ -22,29 +33,19 @@ final class TNCalendarViewModel: ViewModelType {
     }
     
     // MARK: - Output
-    
     struct Output {
-        let monthData: Driver<[Date: [ScrapModel]]>
-        let monthlyList: Driver<[Date: [AnnouncementModel]]>
-        let dailyData: Driver<[AnnouncementModel]>
+        let monthData: Driver<Void>
+        let monthlyList: Driver<Void>
+        let dailyData: Driver<Void>
         let error: Driver<String>
         let successMessage: Driver<String>
         let patchScrapResult: Driver<Void>
         let cancelScrapResult: Driver<Void>
     }
     
-    private let calendarRepository: TNCalendarRepositoryProtocol
-    private let scrapRepository: ScrapsRepositoryProtocol
-    
-    private let dateFormatter = DateFormatter().then {
-        $0.dateFormat = "yyyy-MM-dd"
-    }
-    
     // MARK: - Init
-    
-    init(calendarRepository: TNCalendarRepositoryProtocol, scrapRepository: ScrapsRepositoryProtocol) {
+    init(calendarRepository: TNCalendarRepositoryInterface) {
         self.calendarRepository = calendarRepository
-        self.scrapRepository = scrapRepository
     }
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
@@ -62,19 +63,17 @@ final class TNCalendarViewModel: ViewModelType {
                         return .empty()
                     }
             }
-            .map { scrapsByDeadline -> [Date: [ScrapModel]] in
-                var scraps: [Date: [ScrapModel]] = [:]
-                
+            .do(onNext: { [weak self] scrapsByDeadline in
+                guard let self = self else { return }
+                self.scraps.removeAll()  // Clear the current scraps
                 for item in scrapsByDeadline {
                     if let date = self.dateFormatter.date(from: item.deadline) {
-                        scraps[date] = item.scraps
+                        self.scraps[date] = item.scraps
                     }
                 }
-                
-                return scraps
-            }
-            .asDriver(onErrorJustReturn: [:])
-        
+            })
+            .map { _ in }
+            .asDriver(onErrorJustReturn: ())
         
         let monthlyList = input.fetchMonthlyListTrigger
             .flatMapLatest { date -> Observable<[CalendarAnnouncementModel]> in
@@ -87,18 +86,17 @@ final class TNCalendarViewModel: ViewModelType {
                         return .empty()
                     }
             }
-            .map { scrapsByDeadline -> [Date: [AnnouncementModel]] in
-                var scrapLists: [Date: [AnnouncementModel]] = [:]
-                
+            .do(onNext: { [weak self] scrapsByDeadline in
+                guard let self = self else { return }
+                self.scrapLists.removeAll()
                 for item in scrapsByDeadline {
                     if let date = self.dateFormatter.date(from: item.deadline) {
-                        scrapLists[date] = item.announcements
+                        self.scrapLists[date] = item.announcements
                     }
                 }
-                
-                return scrapLists
-            }
-            .asDriver(onErrorJustReturn: [:])
+            })
+            .map { _ in }
+            .asDriver(onErrorJustReturn: ())
         
         let dailyData = input.fetchDailyDataTrigger
             .flatMapLatest { date -> Observable<[AnnouncementModel]> in
@@ -109,11 +107,16 @@ final class TNCalendarViewModel: ViewModelType {
                         return .empty()
                     }
             }
-            .asDriver(onErrorJustReturn: [])
+            .do(onNext: { [weak self] dailyData in
+                guard let self = self else { return }
+                self.calendarDaily = dailyData
+            })
+            .map { _ in }
+            .asDriver(onErrorJustReturn: ())
         
         let patchScrap = input.patchScrapTrigger
             .flatMapLatest { (intershipAnnouncementId, color) in
-                self.scrapRepository.patchScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)
+                self.calendarRepository.patchScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)
                     .do(onNext: {
                         successMessageTracker.onNext("스크랩 수정 완료!")
                     })
@@ -126,7 +129,7 @@ final class TNCalendarViewModel: ViewModelType {
         
         let cancelScrap = input.cancelScrapTrigger
             .flatMapLatest { intershipAnnouncementId in
-                self.scrapRepository.cancelScrap(internshipAnnouncementId: intershipAnnouncementId)
+                self.calendarRepository.cancelScrap(internshipAnnouncementId: intershipAnnouncementId)
                     .do(onNext: {
                         successMessageTracker.onNext("관심 공고가 캘린더에서 사라졌어요!")
                     })
@@ -149,6 +152,5 @@ final class TNCalendarViewModel: ViewModelType {
             patchScrapResult: patchScrap,
             cancelScrapResult: cancelScrap
         )
-        
     }
 }

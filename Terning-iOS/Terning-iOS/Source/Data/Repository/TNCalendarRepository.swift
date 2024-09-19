@@ -7,29 +7,37 @@
 
 import RxSwift
 
-protocol TNCalendarRepositoryProtocol {
-    func fetchMonthData(for year: Int, month: Int) -> Observable<[CalendarScrapModel]>
-    func fetchDailyData(for date: String) -> Observable<[AnnouncementModel]>
-    func getMonthlyList(for year: Int, month: Int) -> Observable<[CalendarAnnouncementModel]>
-}
-
-final class TNCalendarRepository: TNCalendarRepositoryProtocol {
+final class TNCalendarRepository: TNCalendarRepositoryInterface {
     
-    private let service: TNCalendarServiceProtocol
+    private let calendarService: TNCalendarServiceProtocol
+    private let scrapService: ScrapsServiceProtocol
     
-    init(service: TNCalendarServiceProtocol) {
-        self.service = service
+    init(calendarService: TNCalendarServiceProtocol, scrapService: ScrapsServiceProtocol) {
+        self.calendarService = calendarService
+        self.scrapService = scrapService
     }
     
     func fetchMonthData(for year: Int, month: Int) -> Observable<[CalendarScrapModel]> {
-        return service.fetchMonthData(for: year, month: month)
+        return calendarService.fetchMonthData(for: year, month: month)
     }
     
     func fetchDailyData(for date: String) -> Observable<[AnnouncementModel]> {
-        return service.fetchDailyData(for: date)
+        return calendarService.fetchDailyData(for: date)
     }
     
     func getMonthlyList(for year: Int, month: Int) -> Observable<[CalendarAnnouncementModel]> {
-        return service.fetchMonthlyList(for: year, month: month)
+        return calendarService.fetchMonthlyList(for: year, month: month)
+    }
+    
+    func addScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void> {
+        return scrapService.addScrap(internshipAnnouncementId: internshipAnnouncementId, color: color)
+    }
+    
+    func patchScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void> {
+        return scrapService.patchScrap(internshipAnnouncementId: internshipAnnouncementId, color: color)
+    }
+    
+    func cancelScrap(internshipAnnouncementId: Int) -> Observable<Void> {
+        return scrapService.cancelScrap(internshipAnnouncementId: internshipAnnouncementId)
     }
 }

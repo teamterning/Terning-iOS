@@ -172,4 +172,12 @@ extension CustomNavigationBar {
         centerTitleLabel.textColor = color
         return self
     }
+    
+    func isClicked(_ isSelected: Bool) {
+        if !isSelected {
+            self.calendarListButton.setImage(.icListFill, for: .normal)
+        } else {
+            self.calendarListButton.setImage(.icList, for: .normal)
+        }
+    }
 }

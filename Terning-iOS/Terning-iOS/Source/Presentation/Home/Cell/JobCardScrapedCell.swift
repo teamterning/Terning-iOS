@@ -76,7 +76,6 @@ final class JobCardScrapedCell: UICollectionViewCell {
         $0.setImage(.icScrap, for: [.normal, .highlighted])
         $0.setImage(.icScrapFill, for: .selected)
         $0.setImage(.icScrapFill, for: [.selected, .highlighted])
-        $0.addTarget(self, action: #selector(scrapButtonDidTap), for: .touchUpInside)
     }
     
     // MARK: - LifeCycles

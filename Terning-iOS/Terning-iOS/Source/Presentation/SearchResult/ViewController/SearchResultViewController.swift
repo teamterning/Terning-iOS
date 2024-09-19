@@ -21,6 +21,8 @@ final class SearchResultViewController: UIViewController {
     
     // MARK: - Properties
     
+    private var selectedIndex: Int?
+    
     private var searchResultCount: Int = 0
     private var searchHasNext = true
     private var isFetchingMoreData = false
@@ -29,6 +31,9 @@ final class SearchResultViewController: UIViewController {
     private let sortBySubject = BehaviorSubject<String>(value: "deadlineSoon")
     private let pageSubject = BehaviorSubject<Int>(value: 0)
     private var textFieldKeyword: String?
+    
+    private let addScrapSubject = PublishSubject<(Int, String)>()
+    private let cancelScrapSubject = PublishSubject<Int>()
     
     private let viewModel: SearchResultViewModel
     private let disposeBag = DisposeBag()
@@ -128,7 +133,9 @@ extension SearchResultViewController {
             sortBy: sortBySubject.asObservable(),
             page: pageSubject.asObservable(),
             size: Observable.just(10),
-            searchTrigger: searchTrigger.map { _ in () }
+            searchTrigger: searchTrigger.map { _ in () },
+            addScrapTrigger: addScrapSubject.asObservable(),
+            cancelScrapTrigger: cancelScrapSubject.asObservable()
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
@@ -179,6 +186,45 @@ extension SearchResultViewController {
                 self?.searchHasNext = hasNext
             })
             .disposed(by: disposeBag)
+
+        output.addScrapResult
+            .drive(onNext: { [weak self] in
+                guard let self = self, let index = self.selectedIndex else {
+                           return
+                       }
+                
+                rootView.searchResult?[index].isScrapped = true
+                rootView.collectionView.reloadData()
+            })
+            .disposed(by: disposeBag)
+
+        output.cancelScrapResult
+            .drive(onNext: { [weak self] in
+                guard let self = self, let index = self.selectedIndex else {
+                           return
+                       }
+                
+                rootView.searchResult?[index].isScrapped = false
+                rootView.collectionView.reloadData()
+            })
+            .disposed(by: disposeBag)
+
+        output.error
+            .drive(onNext: { [weak self] errorMessage in
+                guard let self = self else { return }
+                
+                self.showToast(message: errorMessage)
+            })
+            .disposed(by: disposeBag)
+        
+        output.successMessage
+            .drive(onNext: { [weak self] successMessage in
+                guard let self = self else { return }
+                
+                self.showToast(message: successMessage, heightOffset: 12)
+                self.rootView.collectionView.reloadData()
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -195,6 +241,14 @@ extension SearchResultViewController {
             guard let self = self else { return }
             self.popOrDismissViewController(animated: true)
         }
+    }
+    private func addScrapAnnouncement(scrapId: Int, color: String) {
+        addScrapSubject.onNext((scrapId, color))
+    }
+    
+    private func cancelScrapAnnouncement(scrapId: Int?) {
+        guard let scrapId = scrapId else { return }
+        cancelScrapSubject.onNext(scrapId)
     }
 }
 
@@ -278,12 +332,21 @@ extension SearchResultViewController: UICollectionViewDelegate {
         return headerView
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("❤️", indexPath)
         switch SearchResultType(rawValue: indexPath.section) {
         case .search:
             guard let SearchResult = rootView.searchResult else { return }
             let selectedItem = SearchResult[indexPath.item].internshipAnnouncementId
-            
-            let jobDetailVC = JobDetailViewController()
+
+            let jobDetailVC = JobDetailViewController(
+                viewModel: JobDetailViewModel(
+                    scrapRepository: ScrapsRepository(
+                        service: ScrapsService(
+                            provider: Providers.scrapsProvider
+                        )
+                    )
+                )
+            )
             jobDetailVC.internshipAnnouncementId.accept(selectedItem)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         default:
@@ -295,142 +358,46 @@ extension SearchResultViewController: UICollectionViewDelegate {
 extension SearchResultViewController: JobCardScrapedCellProtocol {
     func scrapButtonDidTap(index: Int) {
         guard let searchResults = rootView.searchResult, !searchResults.isEmpty else {
-            print("검색 결과가 비어 있습니다. 요청을 실행하지 않습니다.")
             return
         }
         
         guard index >= 0 && index < searchResults.count else {
-            print("잘못된 인덱스입니다.")
             return
         }
         
-        print("index", index)
-        
         let model = searchResults[index]
-        print("model", model)
-        
-        if model.isScrapped == false {          
-            let searchModel = SearchResult(
-                internshipAnnouncementId: model.internshipAnnouncementId,
-                companyImage: model.companyImage,
-                dDay: model.dDay,
-                title: model.title,
-                workingPeriod: model.workingPeriod,
-                isScrapped: true,
-                color: model.color,
-                deadline: model.deadline,
-                startYearMonth: model.startYearMonth
-            )
+        selectedIndex = index
+
+        if model.isScrapped {
+            let alertSheet = NewCustomAlertVC(alertViewType: .info)
             
-            let alertViewController = NewCustomAlertVC(alertViewType: .scrap)
-            alertViewController.setSearchData(model: searchModel)
+            alertSheet.modalTransitionStyle = .crossDissolve
+            alertSheet.modalPresentationStyle = .overFullScreen
             
-            alertViewController.modalTransitionStyle = .crossDissolve
-            alertViewController.modalPresentationStyle = .overFullScreen
-            
-            alertViewController.centerButtonDidTapAction = { [weak self] in
+            alertSheet.centerButtonDidTapAction = { [weak self] in
                 guard let self = self else { return }
-                
-                let colorName = alertViewController.selectedColorNameRelay
-                
-                self.scrapAnnouncementWithCompletion(
-                    internshipAnnouncementId: model.internshipAnnouncementId,
-                    color: colorName.value
-                ) { success in
-                    if success {
-                        self.bindViewModel()
-                        self.rootView.collectionView.reloadData()
-                        self.showToast(message: "관심 공고가 캘린더에 스크랩되었어요!")
-                    }
-                    self.dismiss(animated: false)
-                }
-            }
-            self.present(alertViewController, animated: false)
             
-        } else {
-
-            let alertViewController = NewCustomAlertVC(alertViewType: .scrap)
-            
-            alertViewController.centerButtonDidTapAction = {
-                
+                self.cancelScrapAnnouncement(scrapId: model.internshipAnnouncementId)
                 self.dismiss(animated: false)
+            }
+            
+            self.present(alertSheet, animated: false)
+        } else {
+            let alertSheet = NewCustomAlertVC(alertViewType: .scrap)
+            alertSheet.setAnnouncementData(model: model)
+            
+            alertSheet.modalTransitionStyle = .crossDissolve
+            alertSheet.modalPresentationStyle = .overFullScreen
+            
+            alertSheet.centerButtonDidTapAction = { [weak self] in
+                guard let self = self else { return }
+                let selectedColorNameRelay = alertSheet.selectedColorNameRelay.value
                 
-                self.showToast(message: "관심 공고가 캘린더에서 사라졌어요!")
+                self.addScrapAnnouncement(scrapId: model.internshipAnnouncementId, color: selectedColorNameRelay)
+                self.dismiss(animated: false)
             }
             
-            alertViewController.modalTransitionStyle = .crossDissolve
-            alertViewController.modalPresentationStyle = .overFullScreen
-            
-            self.present(alertViewController, animated: false)
-        }
-        
-    }
-    
-    private func scrapAnnouncementWithCompletion(internshipAnnouncementId: Int, color: String, completion: @escaping (Bool) -> Void) {
-        self.scrapAnnouncement(internshipAnnouncementId: internshipAnnouncementId, color: color)
-        completion(true)
-    }
-    
-    private func parseStartDate(_ startDate: String) -> (year: Int?, month: Int?) {
-        let dateComponents = startDate.components(separatedBy: "년 ")
-        guard dateComponents.count == 2 else { return (nil, nil) }
-        
-        let yearString = dateComponents[0]
-        let monthString = dateComponents[1].replacingOccurrences(of: "월", with: "")
-        
-        let year = Int(yearString.trimmingCharacters(in: .whitespaces))
-        let month = Int(monthString.trimmingCharacters(in: .whitespaces))
-        
-        return (year, month)
-    }
-}
-
-// MARK: - API
-
-extension SearchResultViewController {
-    private func patchScrapAnnouncement(internshipAnnouncementId: Int?, color: String, cell: JobCardScrapedCell) {
-        guard let scrapId = internshipAnnouncementId else { return }
-        Providers.scrapsProvider.request(.patchScrap(internshipAnnouncementId: scrapId, color: color)) { [weak self] result in
-            LoadingIndicator.hideLoading()
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                let status = response.statusCode
-                if 200..<300 ~= status {
-                    print("스크랩 수정 성공")
-                    self.bindViewModel()
-                    self.rootView.collectionView.reloadData()
-                } else {
-                    print("400 error")
-                    self.showToast(message: "네트워크 오류")
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-                self.showToast(message: "네트워크 오류")
-            }
-        }
-    }
-    
-    private func cancelScrapAnnouncement(internshipAnnouncementId: Int?) {
-        guard let scrapId = internshipAnnouncementId else { return }
-        Providers.scrapsProvider.request(.removeScrap(internshipAnnouncementId: scrapId)) { [weak self] result in
-            LoadingIndicator.hideLoading()
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                let status = response.statusCode
-                if 200..<300 ~= status {
-                    print("스크랩 취소 성공")
-                    self.bindViewModel()
-                    self.rootView.collectionView.reloadData()
-                } else {
-                    print("400 error")
-                    self.showToast(message: "네트워크 오류")
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-                self.showToast(message: "네트워크 오류")
-            }
+            self.present(alertSheet, animated: false)
         }
     }
 }

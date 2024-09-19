@@ -97,7 +97,15 @@ extension SearchViewController {
     }
     
     private func pushToSearchResultView() {
-        let searchResultVC = SearchResultViewController(viewModel: SearchResultViewModel())
+        let searchResultVC = SearchResultViewController(
+            viewModel: SearchResultViewModel(
+                scrapRepository: ScrapsRepository(
+                    service: ScrapsService(
+                        provider: Providers.scrapsProvider
+                    )
+                )
+            )
+        )
         
         searchResultVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(searchResultVC, animated: true)
@@ -258,7 +266,15 @@ extension SearchViewController: UICollectionViewDelegate {
             
             let selectedItem = viewsNum[indexPath.item].internshipAnnouncementId
     
-            let jobDetailVC = JobDetailViewController()
+            let jobDetailVC = JobDetailViewController(
+                viewModel: JobDetailViewModel(
+                    scrapRepository: ScrapsRepository(
+                        service: ScrapsService(
+                            provider: Providers.scrapsProvider
+                        )
+                    )
+                )
+            )
             jobDetailVC.hidesBottomBarWhenPushed = true
             jobDetailVC.internshipAnnouncementId.accept(selectedItem)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
@@ -267,7 +283,15 @@ extension SearchViewController: UICollectionViewDelegate {
             
             let selectedItem = scrapsNum[indexPath.item].internshipAnnouncementId
     
-            let jobDetailVC = JobDetailViewController()
+            let jobDetailVC = JobDetailViewController(
+                viewModel: JobDetailViewModel(
+                    scrapRepository: ScrapsRepository(
+                        service: ScrapsService(
+                            provider: Providers.scrapsProvider
+                        )
+                    )
+                )
+            )
             jobDetailVC.hidesBottomBarWhenPushed = true
             jobDetailVC.internshipAnnouncementId.accept(selectedItem)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)

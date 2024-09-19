@@ -150,7 +150,15 @@ extension HomeViewController: UICollectionViewDelegate {
         switch section {
         case .jobCard:
             print(indexPath)
-            let jobDetailVC = JobDetailViewController()
+            let jobDetailVC = JobDetailViewController(
+                viewModel: JobDetailViewModel(
+                    scrapRepository: ScrapsRepository(
+                        service: ScrapsService(
+                            provider: Providers.scrapsProvider
+                        )
+                    )
+                )
+            )
             let index = jobCardLists[indexPath.row].intershipAnnouncementId
             jobDetailVC.internshipAnnouncementId.accept(index)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)

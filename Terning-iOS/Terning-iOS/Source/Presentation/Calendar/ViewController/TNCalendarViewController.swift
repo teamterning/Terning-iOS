@@ -457,7 +457,15 @@ extension TNCalendarViewController: FSCalendarDelegateAppearance {
 
 extension TNCalendarViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let jobDetailViewController = JobDetailViewController()
+        let jobDetailViewController = JobDetailViewController(
+            viewModel: JobDetailViewModel(
+                scrapRepository: ScrapsRepository(
+                    service: ScrapsService(
+                        provider: Providers.scrapsProvider
+                    )
+                )
+            )
+        )
         
         if collectionView == rootView.calenderBottomCollectionView {
             let model = calendarDaily[indexPath.row]

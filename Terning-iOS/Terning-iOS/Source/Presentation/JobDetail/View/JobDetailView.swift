@@ -48,7 +48,12 @@ final class JobDetailView: UIView {
         characterSpacing: 0.002
     )
     
-    var scrapButton = CustomScrapButton()
+    let scrapButton = UIButton(type: .custom).then {
+        $0.setImage(.icScrap, for: .normal)
+        $0.setImage(.icScrap, for: [.normal, .highlighted])
+        $0.setImage(.icScrapFill, for: .selected)
+        $0.setImage(.icScrapFill, for: [.selected, .highlighted])
+    }
     
     private var goSiteButton = CustomButton(title: "지원 사이트로 이동하기")
     
@@ -137,11 +142,7 @@ extension JobDetailView {
     }
     
     func setScrapped(_ isScrapped: Bool) {
-        if isScrapped == false {
-            scrapButton.isSelected = false
-        } else {
-            scrapButton.isSelected = true
-        }
+        scrapButton.isSelected = isScrapped
     }
     
     func setScrapCount(_ count: Int) {

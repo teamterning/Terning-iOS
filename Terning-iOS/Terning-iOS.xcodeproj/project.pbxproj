@@ -44,7 +44,6 @@
 		2DC61EFF2C40824A009F991F /* SummaryInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EFE2C40824A009F991F /* SummaryInfoTableViewCell.swift */; };
 		2DC61F012C40825D009F991F /* DetailInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F002C40825D009F991F /* DetailInfoTableViewCell.swift */; };
 		2DC61F052C40926D009F991F /* JobDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F042C40926D009F991F /* JobDetailView.swift */; };
-		2DC61F072C4145CD009F991F /* CustomScrapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F062C4145CD009F991F /* CustomScrapButton.swift */; };
 		2DC61F152C41AB54009F991F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F142C41AB54009F991F /* LoginViewController.swift */; };
 		2DC61F192C41B261009F991F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F182C41B261009F991F /* LoginView.swift */; };
 		2DC61F292C421335009F991F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61F282C421335009F991F /* LoginViewModel.swift */; };
@@ -220,7 +219,6 @@
 		2DC61EFE2C40824A009F991F /* SummaryInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInfoTableViewCell.swift; sourceTree = "<group>"; };
 		2DC61F002C40825D009F991F /* DetailInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoTableViewCell.swift; sourceTree = "<group>"; };
 		2DC61F042C40926D009F991F /* JobDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailView.swift; sourceTree = "<group>"; };
-		2DC61F062C4145CD009F991F /* CustomScrapButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScrapButton.swift; sourceTree = "<group>"; };
 		2DC61F142C41AB54009F991F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2DC61F182C41B261009F991F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		2DC61F282C421335009F991F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -786,7 +784,6 @@
 			children = (
 				7121A1412C3AE99D0056DB8B /* Cell */,
 				7121A1322C396FB40056DB8B /* CustomButton.swift */,
-				2DC61F062C4145CD009F991F /* CustomScrapButton.swift */,
 				2D89C7662C486E53002B035F /* CustomSortButton.swift */,
 				2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */,
 				7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */,
@@ -1475,7 +1472,6 @@
 				2DC61EF52C4075EB009F991F /* MainInfoTableViewCell.swift in Sources */,
 				2DC61F292C421335009F991F /* LoginViewModel.swift in Sources */,
 				71780C3C2C457DD70073B731 /* AuthTargetType.swift in Sources */,
-				2DC61F072C4145CD009F991F /* CustomScrapButton.swift in Sources */,
 				2D4EE3E82C400D6900E3E95B /* OnboardingPageViewController.swift in Sources */,
 				71780C4E2C459F610073B731 /* FiltersTargetType.swift in Sources */,
 				2DF2571C2C8DEF5E00B85843 /* AccountOptionView.swift in Sources */,

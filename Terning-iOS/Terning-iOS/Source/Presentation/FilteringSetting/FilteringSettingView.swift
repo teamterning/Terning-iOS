@@ -103,7 +103,7 @@ final class FilteringSettingView: UIView {
         textColor: .terningBlack
     )
     
-    var monthPickerView = CustomDatePicker()
+    var customPickerView = CustomDatePicker()
     
     lazy var saveButton = UIButton().then {
         $0.setTitle("저장하기", for: .normal)
@@ -149,7 +149,7 @@ extension FilteringSettingView {
             workingPeriodLabel,
             periodButtonStack,
             workStartTimeLabel,
-            monthPickerView,
+            customPickerView,
             saveButton
         )
     }
@@ -210,7 +210,7 @@ extension FilteringSettingView {
             $0.leading.equalToSuperview().offset(25)
         }
         
-        monthPickerView.snp.makeConstraints {
+        customPickerView.snp.makeConstraints {
             $0.top.equalTo(workStartTimeLabel.snp.bottom).offset(12)
             $0.horizontalEdges.equalToSuperview().inset(20.adjusted)
         }

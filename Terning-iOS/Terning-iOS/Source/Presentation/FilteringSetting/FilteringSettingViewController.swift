@@ -89,15 +89,16 @@ class FilteringSettingViewController: UIViewController, UIPickerViewDelegate, UI
 extension FilteringSettingViewController {
     
     func setDelegate() {
-        rootView.monthPickerView.delegate = self
+        rootView.customPickerView.delegate = self
     }
     
     func setPickerView() {
-        rootView.monthPickerView.onDateSelected = { [weak self] (year, month) in
+        rootView.customPickerView.onDateSelected = { [weak self] (year, month) in
             self?.startYear = year
             self?.startMonth = month
-            print("Selected Year: \(year), Month: \(month)")
         }
+        
+        rootView.customPickerView.setInitialDate(year: startYear ?? 2023, month: startMonth ?? 8)
     }
     
     func setAddTarget() {
@@ -151,7 +152,7 @@ extension FilteringSettingViewController {
             startYear = 2023 + row
             print(startYear ?? 2024)
         case 1:
-            startMonth = row + 1
+            startMonth = row
             print(startMonth ?? 9)
         default:
             break
@@ -211,7 +212,6 @@ extension FilteringSettingViewController {
     @objc
     func saveButtonDidTap() {
         self.setUserFilterInfo()
-    
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.showToast(message: "스크랩 설정이 완료 되었어요 !")
             self.saveButtonDelegate?.didSaveSetting()

@@ -227,7 +227,7 @@ extension SearchResultViewController: UICollectionViewDataSource {
             return cell
             
         case .search:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as? JobCardScrapedCell, let SearchResult = rootView.searchResult else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobCardCell.className, for: indexPath) as? JobCardCell, let SearchResult = rootView.searchResult else {
                 return UICollectionViewCell()
             }
             cell.bind(model: SearchResult[indexPath.item], indexPath: indexPath)
@@ -388,7 +388,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
 // MARK: - API
 
 extension SearchResultViewController {
-    private func patchScrapAnnouncement(internshipAnnouncementId: Int?, color: String, cell: JobCardScrapedCell) {
+    private func patchScrapAnnouncement(internshipAnnouncementId: Int?, color: String, cell: JobCardCell) {
         guard let scrapId = internshipAnnouncementId else { return }
         Providers.scrapsProvider.request(.patchScrap(internshipAnnouncementId: scrapId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()

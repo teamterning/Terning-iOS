@@ -116,7 +116,7 @@ final class HomeViewController: UIViewController {
         rootView.collectionView.register(FilterInfoCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FilterInfoCell.className)
         
         // 딱 맞는 대학생 인턴공고 셀
-        rootView.collectionView.register(JobCardScrapedCell.self, forCellWithReuseIdentifier: JobCardScrapedCell.className) // 맞춤 공고가 있는 경우
+        rootView.collectionView.register(JobCardCell.self, forCellWithReuseIdentifier: JobCardCell.className) // 맞춤 공고가 있는 경우
         rootView.collectionView.register(NonJobCardCell.self, forCellWithReuseIdentifier: NonJobCardCell.className)
         rootView.collectionView.register(InavailableFilterView.self, forCellWithReuseIdentifier: InavailableFilterView.className)
     }
@@ -245,7 +245,7 @@ extension HomeViewController: UICollectionViewDataSource {
                 return cell
                 
             } else if !isNoneData && !jobCardLists.isEmpty {
-                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: JobCardScrapedCell.className, for: indexPath) as? JobCardScrapedCell else { return UICollectionViewCell() }
+                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: JobCardCell.className, for: indexPath) as? JobCardCell else { return UICollectionViewCell() }
                 cell.delegate = self
                 cell.bindData(model: jobCardLists[indexPath.row])
                 return cell

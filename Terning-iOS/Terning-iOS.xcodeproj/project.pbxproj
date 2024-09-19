@@ -169,7 +169,7 @@
 		B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86A67572C41166800CB90E5 /* FilterButton.swift */; };
 		B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7222C3E8835008D78C2 /* JobCardModel.swift */; };
 		B871D7252C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7242C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift */; };
-		B871D7292C3E8E46008D78C2 /* JobCardScrapedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7282C3E8E46008D78C2 /* JobCardScrapedCell.swift */; };
+		B871D7292C3E8E46008D78C2 /* JobCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7282C3E8E46008D78C2 /* JobCardCell.swift */; };
 		B871D7312C3E9118008D78C2 /* NonScrapInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7302C3E9118008D78C2 /* NonScrapInfoCell.swift */; };
 		B871D7332C3EC148008D78C2 /* IsScrapInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */; };
 		B871D7352C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */; };
@@ -336,7 +336,7 @@
 		B86A67572C41166800CB90E5 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		B871D7222C3E8835008D78C2 /* JobCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardModel.swift; sourceTree = "<group>"; };
 		B871D7242C3E8A53008D78C2 /* ScrapInfoHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapInfoHeaderCell.swift; sourceTree = "<group>"; };
-		B871D7282C3E8E46008D78C2 /* JobCardScrapedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardScrapedCell.swift; sourceTree = "<group>"; };
+		B871D7282C3E8E46008D78C2 /* JobCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardCell.swift; sourceTree = "<group>"; };
 		B871D7302C3E9118008D78C2 /* NonScrapInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonScrapInfoCell.swift; sourceTree = "<group>"; };
 		B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsScrapInfoViewCell.swift; sourceTree = "<group>"; };
 		B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapedAndDeadlineModel.swift; sourceTree = "<group>"; };
@@ -1218,7 +1218,7 @@
 				B871D7302C3E9118008D78C2 /* NonScrapInfoCell.swift */,
 				B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */,
 				71FFB2C32C4A81E200C60697 /* FilterInfoCell.swift */,
-				B871D7282C3E8E46008D78C2 /* JobCardScrapedCell.swift */,
+				B871D7282C3E8E46008D78C2 /* JobCardCell.swift */,
 				B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */,
 				B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */,
 			);
@@ -1487,7 +1487,7 @@
 				71780C482C458FF80073B731 /* HomeTargetType.swift in Sources */,
 				71780C3E2C45849A0073B731 /* UserDefaultWrapper.swift in Sources */,
 				7121A14B2C3B09800056DB8B /* setImage.swift in Sources */,
-				B871D7292C3E8E46008D78C2 /* JobCardScrapedCell.swift in Sources */,
+				B871D7292C3E8E46008D78C2 /* JobCardCell.swift in Sources */,
 				2D89C74D2C47E8EA002B035F /* ProfileImageViewModel.swift in Sources */,
 				2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */,
 				71FFB2BD2C4A186900C60697 /* HomeViewController.swift in Sources */,

@@ -16,7 +16,7 @@ protocol JobCardScrapedCellProtocol: AnyObject {
     func scrapButtonDidTap(index: Int)
 }
 
-final class JobCardScrapedCell: UICollectionViewCell {
+final class JobCardCell: UICollectionViewCell {
     
     // MARK: - Properties
     
@@ -93,7 +93,7 @@ final class JobCardScrapedCell: UICollectionViewCell {
 
 // MARK: - UI & Layout
 
-extension JobCardScrapedCell {
+extension JobCardCell {
     func setHierarchy() {
         contentView.addSubviews(
             jobCard,

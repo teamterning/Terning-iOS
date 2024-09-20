@@ -112,8 +112,7 @@ struct CompositionalLayout {
             
             // TEST: - HomeViewController에 있는 인스턴스를 잘 가져오는지 테스트 하는 코드
             print("🙆🏻userName: \(HomeVC.userName)🙆🏻")
-            print("🙆🏻todayDeadlineLists: \(HomeVC.todayDeadlineLists)🙆🏻")
-            print("🙆🏻existIsScrapped: \(HomeVC.existIsScrapped)🙆🏻")
+            print("🙆🏻existIsScrapped: \(HomeVC.hasScrapped)🙆🏻")
             
             if sectionNumber == 0 {
                 let item = NSCollectionLayoutItem(
@@ -147,7 +146,7 @@ struct CompositionalLayout {
                 
             } else if sectionNumber == 1 {
                 
-                if HomeVC.todayDeadlineLists.isEmpty || HomeVC.existIsScrapped {
+                if HomeVC.upcomingCardLists.isEmpty {
                     let itemWidth: CGFloat = 327.adjusted
                     
                     let item = NSCollectionLayoutItem(

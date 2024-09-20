@@ -37,8 +37,8 @@ final class HomeViewController: UIViewController {
     var apiParameter: String = "deadlineSoon"
 
     var userName: String = ""
-    var existIsScrapped: Bool = false
-    var todayDeadlineLists: [ScrapedAndDeadlineModel] = [] {
+    var hasScrapped: Bool = false
+    var upcomingCardLists: [UpcomingCard] = [] {
         didSet {
             rootView.collectionView.reloadData()
         }
@@ -201,7 +201,7 @@ extension HomeViewController: UICollectionViewDataSource {
         case .todayDeadlineUserInfo:
             return section.numberOfItemsInSection
         case .todayDeadline:
-            return todayDeadlineLists.isEmpty ? 1 : todayDeadlineLists.count
+            return upcomingCardLists.isEmpty ? 1 : upcomingCardLists.count
         case .jobCard:
             return (isNoneData || jobCardLists.isEmpty) ? 1 : jobCardLists.count
         }
@@ -219,19 +219,17 @@ extension HomeViewController: UICollectionViewDataSource {
             return cell
             
         case .todayDeadline:
-            if todayDeadlineLists.isEmpty {
-                if !jobCardLists.isEmpty && existIsScrapped {
+            if hasScrapped {
+                if upcomingCardLists.isEmpty {
                     guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: CheckDeadlineCell.className, for: indexPath) as? CheckDeadlineCell  else { return UICollectionViewCell() }
                     return cell
-                    
                 } else {
-                    guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonScrapInfoCell.className, for: indexPath) as? NonScrapInfoCell else { return UICollectionViewCell() } // 오늘 마감인 공고가 없어요
+                    guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: IsScrapInfoViewCell.className, for: indexPath) as? IsScrapInfoViewCell else { return UICollectionViewCell() }
+                    cell.bindData(model: upcomingCardLists[indexPath.item])
                     return cell
                 }
-                
             } else {
-                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: IsScrapInfoViewCell.className, for: indexPath) as? IsScrapInfoViewCell else { return UICollectionViewCell() }
-                cell.bindData(model: todayDeadlineLists[indexPath.item])
+                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonScrapInfoCell.className, for: indexPath) as? NonScrapInfoCell else { return UICollectionViewCell() } // 오늘 마감인 공고가 없어요
                 return cell
             }
             
@@ -411,11 +409,12 @@ extension HomeViewController {
                 let status = result.statusCode
                 if 200..<300 ~= status {
                     do {
-                        let responseDto = try result.map(BaseResponse<[ScrapedAndDeadlineModel]>.self)
+                        let responseDto = try result.map(BaseResponse<UpcomingCardModel>.self)
                         guard let data = responseDto.result else { return }
                         
-                        print("🔥 fetchTodayDeadlineDatas: \(data)")
-                        todayDeadlineLists = data
+                        print("🔥 fetchTodayDeadlineDatas: \(data.scraps)")
+                        upcomingCardLists = data.scraps
+                        hasScrapped = data.hasScrapped
                         rootView.collectionView.reloadData()
                         
                     } catch {
@@ -485,7 +484,7 @@ extension HomeViewController {
                         
                         if !jobCardLists.isEmpty {
                             if data.result.contains(where: { $0.isScrapped }) {
-                                self.existIsScrapped = true
+                                self.hasScrapped = true
                             }
                         }
 

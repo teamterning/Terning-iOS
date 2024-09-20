@@ -25,7 +25,6 @@ final class SearchResultViewController: UIViewController {
     
     private var searchResultCount: Int = 0
     private var searchHasNext = true
-    private var isFetchingMoreData = false
     private let sortButtonTapObservable = PublishSubject<Void>()
     
     private let sortBySubject = BehaviorSubject<String>(value: "deadlineSoon")
@@ -57,7 +56,6 @@ final class SearchResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
         setUI()
         setHierarchy()
@@ -71,6 +69,7 @@ final class SearchResultViewController: UIViewController {
 
 extension SearchResultViewController {
     private func setUI() {
+        view.backgroundColor = .white
         navigationController?.isNavigationBarHidden = true
     }
     
@@ -113,7 +112,7 @@ extension SearchResultViewController {
         let pageChanged = pageSubject
             .filter { $0 > 0 }
             .do(onNext: { page in
-                print("Page changed: \(page)")
+                print("❤️❤️❤️❤️❤️Page changed: \(page)")
             })
         
         let searchTrigger = Observable.merge(searchChanged, sortChanged, pageChanged.map { _ in () })
@@ -123,7 +122,6 @@ extension SearchResultViewController {
                     firstSearch = false
                     self.rootView.searchTitleLabel.isHidden = true
                     self.rootView.updateLayout()
-                    self.isFetchingMoreData = false
                 }
             })
         
@@ -140,6 +138,19 @@ extension SearchResultViewController {
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
+        rootView.collectionView.rx.prefetchItems
+          .compactMap { $0.last?.item }
+          .withUnretained(self)
+          .bind { ss, row in
+              guard row == 0 else { return }
+              guard ss.searchHasNext else { return }
+              
+              if let currentPage = try? ss.pageSubject.value() {
+                  ss.pageSubject.onNext(currentPage + 1)
+              }
+          }
+          .disposed(by: disposeBag)
+        
         output.showSortBottom
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
@@ -153,19 +164,22 @@ extension SearchResultViewController {
             .drive(onNext: { [weak self] newSearchResults in
                 guard let self = self else { return }
                 
-                if let currentPage = try? self.pageSubject.value(), currentPage > 1 {
+                if let currentPage = try? self.pageSubject.value(), currentPage >= 1 {
+                    print("🔥 ")
                     if let currentResults = self.rootView.searchResult {
+                        print("🔥추가됨 ", currentPage)
                         self.rootView.searchResult = currentResults + newSearchResults
                     } else {
+                        print("🔥교체됨 ",currentPage )
                         self.rootView.searchResult = newSearchResults
                     }
                 } else {
+                    print("🔥실패함 ")
                     self.rootView.collectionView.setContentOffset(.zero, animated: true)
                     self.rootView.searchResult = newSearchResults
                 }
                 
                 self.rootView.collectionView.reloadData()
-                self.isFetchingMoreData = false
             })
             .disposed(by: disposeBag)
         
@@ -424,23 +438,3 @@ extension SearchResultViewController: UIAdaptivePresentationControllerDelegate {
     }
 }
 
-// MARK: - UIScrollViewDelegate
-
-extension SearchResultViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let height = scrollView.frame.size.height
-        
-        var isFetchingMoreData = false
-        
-        if offsetY >= contentHeight - height && searchHasNext && !isFetchingMoreData {
-            isFetchingMoreData = true
-            
-            if let currentPage = try? pageSubject.value() {
-                pageSubject.onNext(currentPage + 1)
-            }
-            
-        }
-    }
-}

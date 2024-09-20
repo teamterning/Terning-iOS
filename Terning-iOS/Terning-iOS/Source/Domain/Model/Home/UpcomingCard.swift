@@ -7,7 +7,12 @@
 
 import UIKit
 
-struct ScrapedAndDeadlineModel: Codable {
+struct UpcomingCardModel: Codable {
+    let hasScrapped: Bool
+    let scraps: [UpcomingCard]
+}
+
+struct UpcomingCard: Codable {
     let internshipAnnouncementId: Double
     let companyImage: String
     let dDay: String
@@ -17,4 +22,5 @@ struct ScrapedAndDeadlineModel: Codable {
     let color: String
     let deadline: String
     let startYearMonth: String
+    let companyInfo: String
 }

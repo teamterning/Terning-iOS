@@ -172,7 +172,7 @@
 		B871D7292C3E8E46008D78C2 /* JobCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7282C3E8E46008D78C2 /* JobCardCell.swift */; };
 		B871D7312C3E9118008D78C2 /* NonScrapInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7302C3E9118008D78C2 /* NonScrapInfoCell.swift */; };
 		B871D7332C3EC148008D78C2 /* IsScrapInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */; };
-		B871D7352C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */; };
+		B871D7352C3ECF37008D78C2 /* UpcomingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7342C3ECF37008D78C2 /* UpcomingCard.swift */; };
 		B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */; };
 		B8A5A5AE2C78780B007C33C5 /* GradientLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A5A5AD2C78780B007C33C5 /* GradientLayerView.swift */; };
 		B8BE0E142C46D38700B3D298 /* UserFilteringInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE0E132C46D38700B3D298 /* UserFilteringInfoModel.swift */; };
@@ -339,7 +339,7 @@
 		B871D7282C3E8E46008D78C2 /* JobCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardCell.swift; sourceTree = "<group>"; };
 		B871D7302C3E9118008D78C2 /* NonScrapInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonScrapInfoCell.swift; sourceTree = "<group>"; };
 		B871D7322C3EC148008D78C2 /* IsScrapInfoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsScrapInfoViewCell.swift; sourceTree = "<group>"; };
-		B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapedAndDeadlineModel.swift; sourceTree = "<group>"; };
+		B871D7342C3ECF37008D78C2 /* UpcomingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingCard.swift; sourceTree = "<group>"; };
 		B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonJobCardCell.swift; sourceTree = "<group>"; };
 		B8A5A5AD2C78780B007C33C5 /* GradientLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLayerView.swift; sourceTree = "<group>"; };
 		B8BE0E132C46D38700B3D298 /* UserFilteringInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFilteringInfoModel.swift; sourceTree = "<group>"; };
@@ -1248,7 +1248,7 @@
 			isa = PBXGroup;
 			children = (
 				B871D7222C3E8835008D78C2 /* JobCardModel.swift */,
-				B871D7342C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift */,
+				B871D7342C3ECF37008D78C2 /* UpcomingCard.swift */,
 				B8BE0E132C46D38700B3D298 /* UserFilteringInfoModel.swift */,
 				B85548592C47EEBB00EC67F6 /* UserProfileInfoModel.swift */,
 			);
@@ -1455,7 +1455,7 @@
 				71780C322C45705C0073B731 /* Encodable+.swift in Sources */,
 				2DC61EFF2C40824A009F991F /* SummaryInfoTableViewCell.swift in Sources */,
 				71B5092D2C4326F8006D8E56 /* adjusted+.swift in Sources */,
-				B871D7352C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift in Sources */,
+				B871D7352C3ECF37008D78C2 /* UpcomingCard.swift in Sources */,
 				2D4EE3A22C3E788200E3E95B /* ProfileViewModel.swift in Sources */,
 				2DC985F92C456F9300D46729 /* RecommendCollectionViewCell.swift in Sources */,
 				2D89C75F2C486E05002B035F /* GraphicCollectionViewCell.swift in Sources */,

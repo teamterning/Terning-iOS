@@ -208,7 +208,7 @@ extension CustomAlertViewController {
 // MARK: - Methods
 
 extension CustomAlertViewController {
-    public func setData(model: ScrapedAndDeadlineModel) {
+    public func setData(model: UpcomingCard) {
         guard alertType == .custom else { return } // custom 타입 일때만 사용 가능한 메서드
         
         self.JobImageView.setImage(with: model.companyImage)

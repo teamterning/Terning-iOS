@@ -152,18 +152,12 @@ extension IsScrapInfoViewCell {
     
     // MARK: - Methods
     
-    func bindData(model: ScrapedAndDeadlineModel) {
-        if let range = model.title.range(of: "\\[(.*?)\\]", options: .regularExpression) {
-            let extractedCompanyName = String(model.title[range]).replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "")
-            
-            self.companyName.text = extractedCompanyName
-        }
-        
+    func bindData(model: UpcomingCard) {
         self.companyImageView.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.dDayLabel.text = model.dDay
         self.cardLabel.text = model.title
         self.colorMark.backgroundColor = UIColor(hex: model.color)
-//        self.companyName.text = model.companyInfo 스테이징 서버에 변경 확정 후 주석 제거
+        self.companyName.text = model.companyInfo
         self.internshipAnnouncementId = model.internshipAnnouncementId
         self.companyImage = model.companyImage
         self.dDay = model.dDay

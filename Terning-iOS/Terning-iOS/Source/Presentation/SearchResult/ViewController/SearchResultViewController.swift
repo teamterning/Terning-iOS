@@ -165,16 +165,12 @@ extension SearchResultViewController {
                 guard let self = self else { return }
                 
                 if let currentPage = try? self.pageSubject.value(), currentPage >= 1 {
-                    print("🔥 ")
                     if let currentResults = self.rootView.searchResult {
-                        print("🔥추가됨 ", currentPage)
                         self.rootView.searchResult = currentResults + newSearchResults
                     } else {
-                        print("🔥교체됨 ",currentPage )
                         self.rootView.searchResult = newSearchResults
                     }
                 } else {
-                    print("🔥실패함 ")
                     self.rootView.collectionView.setContentOffset(.zero, animated: true)
                     self.rootView.searchResult = newSearchResults
                 }

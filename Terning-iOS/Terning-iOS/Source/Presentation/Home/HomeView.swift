@@ -14,12 +14,15 @@ final class HomeView: UIView {
     
     // MARK: - Properties
     
-    private let homeViewController: HomeViewController
+    private weak var homeViewController: HomeViewController?
     
     // MARK: - UIComponents
     
     lazy var collectionView: UICollectionView = {
-        let layout = CompositionalLayout.createHomeListLayout(HomeVC: homeViewController)
+        guard let homeVC = homeViewController else {
+                fatalError("homeViewController가 없습니다.")
+            }
+        let layout = CompositionalLayout.createHomeListLayout(HomeVC: homeVC)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         collectionView.isScrollEnabled = true

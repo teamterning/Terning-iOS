@@ -98,7 +98,8 @@ extension FilteringSettingViewController {
             self?.startMonth = month
         }
         
-        rootView.customPickerView.setInitialDate(year: startYear ?? 2023, month: startMonth ?? 8)
+        guard let startYear = startYear, let startMonth = startMonth else { return }
+        rootView.customPickerView.setInitialDate(year: startYear, month: startMonth)
     }
     
     func setAddTarget() {

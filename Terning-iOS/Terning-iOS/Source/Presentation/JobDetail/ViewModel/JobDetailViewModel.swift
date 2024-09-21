@@ -15,12 +15,15 @@ final class JobDetailViewModel: ViewModelType {
     // MARK: - Properties
     
     private let announcementsProvider = Providers.announcementsProvider
+    private let scrapRepository: ScrapsRepositoryProtocol
     
     // MARK: - Input
     
     struct Input {
         let internshipAnnouncementId: BehaviorRelay<Int> // 수정된 부분
         let fetchJobDetail: Observable<Void>
+        let addScrapTrigger: Observable<(Int, String)>
+        let cancelScrapTrigger: Observable<Int>
     }
     
     // MARK: - Output
@@ -33,11 +36,24 @@ final class JobDetailViewModel: ViewModelType {
         let conditionInfo: Driver<ConditionInfoModel>
         let detailInfo: Driver<DetailInfoModel>
         let bottomInfo: Driver<BottomInfoModel>
+        let error: Driver<String>
+        let successMessage: Driver<String>
+        let addScrapResult: Driver<Void>
+        let cancelScrapResult: Driver<Void>
+    }
+    
+    // MARK: - Init
+    
+    init(scrapRepository: ScrapsRepositoryProtocol) {
+        self.scrapRepository = scrapRepository
     }
     
     // MARK: - Transform
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
+        let errorTracker = PublishSubject<String>()
+        let successMessageTracker = PublishSubject<String>()
+        
         let jobDetail = input.internshipAnnouncementId
             .flatMapLatest { id in
                 input.fetchJobDetail
@@ -172,6 +188,36 @@ final class JobDetailViewModel: ViewModelType {
             )
         )
         
+        let addScrap = input.addScrapTrigger
+            .flatMapLatest { (intershipAnnouncementId, color) in
+                self.scrapRepository.addScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)
+                    .do(onNext: {
+                        successMessageTracker.onNext("스크랩 완료!")
+                    })
+                    .catch { error in
+                        errorTracker.onNext("스크랩 오류: \(error.localizedDescription)")
+                        return .empty()
+                    }
+            }
+            .asDriver(onErrorDriveWith: .empty())
+        
+        let cancelScrap = input.cancelScrapTrigger
+            .flatMapLatest { intershipAnnouncementId in
+                
+                self.scrapRepository.cancelScrap(internshipAnnouncementId: intershipAnnouncementId)
+                    .do(onNext: {
+                        successMessageTracker.onNext("관심 공고가 캘린더에서 사라졌어요!")
+                    })
+                    .catch { error in
+                        errorTracker.onNext("스크랩 취소 오류: \(error.localizedDescription)")
+                        return .empty()
+                    }
+            }
+            .asDriver(onErrorDriveWith: .empty())
+        
+        let error = errorTracker.asDriver(onErrorJustReturn: "알 수 없는 오류가 발생했습니다.")
+        let successMessage = successMessageTracker.asDriver(onErrorJustReturn: "")
+        
         return Output(
             jobDetailInfo: jobDetailInfo,
             companyInfo: companyInfo,
@@ -179,7 +225,11 @@ final class JobDetailViewModel: ViewModelType {
             summaryInfo: summaryInfo,
             conditionInfo: conditionInfo,
             detailInfo: detailInfo,
-            bottomInfo: bottomInfo
+            bottomInfo: bottomInfo,
+            error: error,
+            successMessage: successMessage,
+            addScrapResult: addScrap,
+            cancelScrapResult: cancelScrap
         )
     }
 }

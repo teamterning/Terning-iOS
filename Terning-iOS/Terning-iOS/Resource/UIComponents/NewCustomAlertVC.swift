@@ -375,15 +375,15 @@ final class NewCustomAlertVC: UIViewController {
     
     // MARK: - Public Methods
     
-    public func setSearchData(model: SearchResult) {
+    public func setJobDetailData(model: JobDetailModel) {
         jobImageView.setImage(with: model.companyImage)
         mainJobLabel.text = model.title
         deadlineInfoView.setDescriptionText(description: model.deadline)
         workPeriodInfoView.setDescriptionText(description: model.workingPeriod)
         workStartInfoView.setDescriptionText(description: model.startYearMonth)
         
-        let selectedColor = model.color ?? "red"
-        selectedColorNameRelay.accept(selectedColor)
+        let selectedColor = model.color ?? "#ED4E54"
+        selectedColorHexRelay.accept(selectedColor)
         
         paletteCollectionView.reloadData()
     }
@@ -395,7 +395,7 @@ final class NewCustomAlertVC: UIViewController {
         workPeriodInfoView.setDescriptionText(description: model.workingPeriod)
         workStartInfoView.setDescriptionText(description: model.startYearMonth)
         
-        let selectedColor = model.color
+        let selectedColor = model.color ?? "#ED4E54"
         selectedColorHexRelay.accept(selectedColor)
         
         paletteCollectionView.reloadData()

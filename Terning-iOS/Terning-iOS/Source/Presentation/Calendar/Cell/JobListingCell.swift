@@ -179,7 +179,7 @@ extension JobListingCell {
         self.deadlineLabel.text = model.deadline
         self.monthLabel.text = model.workingPeriod
         self.mainTitleLabel.text = model.title
-        self.colorMark.backgroundColor = UIColor(hex: model.color)
+        self.colorMark.backgroundColor = UIColor(hex: model.color ?? "#ED4E54")
         self.scrapButton.isSelected = model.isScrapped
     }
     

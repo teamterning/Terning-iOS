@@ -39,7 +39,6 @@ final class JobDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
         setUI()
         setLayout()
@@ -54,6 +53,9 @@ final class JobDetailViewController: UIViewController {
 extension JobDetailViewController {
     private func setUI() {
         navigationController?.isNavigationBarHidden = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        
+        view.backgroundColor = .white
         view.addSubview(rootView)
     }
     

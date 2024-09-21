@@ -20,7 +20,7 @@ final class JobDetailViewModel: ViewModelType {
     // MARK: - Input
     
     struct Input {
-        let internshipAnnouncementId: BehaviorRelay<Int> // 수정된 부분
+        let internshipAnnouncementId: BehaviorRelay<Int> 
         let fetchJobDetail: Observable<Void>
         let addScrapTrigger: Observable<(Int, String)>
         let cancelScrapTrigger: Observable<Int>

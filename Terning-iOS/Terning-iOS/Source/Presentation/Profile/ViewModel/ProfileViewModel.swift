@@ -67,7 +67,7 @@ final class ProfileViewModel: ProfileViewModelType {
                 return self.signUp(
                     name: self.nameRelay.value,
                     profileImage: self.imageStringRelay.value,
-                    authType: self.userInfo?.authType ?? "KAKAO"
+                    authType: Config.authType
                 )
             }
             .asDriver(onErrorJustReturn: ())

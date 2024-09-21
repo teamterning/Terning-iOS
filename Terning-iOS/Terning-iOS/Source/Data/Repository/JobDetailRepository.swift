@@ -9,9 +9,9 @@ import RxSwift
 
 final class JobDetailRepository: JobDetailRepositoryInterface {
     
-    private let scrapService: ScrapsServiceProtocol
+    private let scrapService: ScrapServiceProtocol
     
-    init(scrapService: ScrapsServiceProtocol) {
+    init(scrapService: ScrapServiceProtocol) {
         self.scrapService = scrapService
     }
     

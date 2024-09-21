@@ -9,13 +9,13 @@ import RxSwift
 import Moya
 import RxMoya
 
-protocol ScrapsServiceProtocol {
+protocol ScrapServiceProtocol {
     func addScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void>
     func patchScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void>
     func cancelScrap(internshipAnnouncementId: Int) -> Observable<Void>
 }
 
-final class ScrapsService: ScrapsServiceProtocol {
+final class ScrapsService: ScrapServiceProtocol {
     
     private let provider: MoyaProvider<ScrapsTargetType>
     

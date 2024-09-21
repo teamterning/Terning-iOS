@@ -97,7 +97,7 @@ extension AuthTargetType: TargetType {
                 headers["Authorization"] = "Bearer \(refreshToken)"
             }
         case .signUp:
-            headers["authId"] = Config.authId
+            headers["Authorization"] = Config.authId
         case .postOnboarding:
             return Config.userIdHeader
         }

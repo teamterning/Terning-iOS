@@ -27,4 +27,3 @@ final class JobDetailRepository: JobDetailRepositoryInterface {
         return scrapService.cancelScrap(internshipAnnouncementId: internshipAnnouncementId)
     }
 }
-

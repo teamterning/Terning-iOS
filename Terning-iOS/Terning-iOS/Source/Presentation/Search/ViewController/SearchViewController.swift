@@ -99,7 +99,7 @@ extension SearchViewController {
     private func pushToSearchResultView() {
         let searchResultVC = SearchResultViewController(
             viewModel: SearchResultViewModel(
-                scrapRepository: JobDetailRepository(
+                jobDetailRepository: JobDetailRepository(
                     scrapService: ScrapsService(
                         provider: Providers.scrapsProvider
                     )
@@ -268,7 +268,7 @@ extension SearchViewController: UICollectionViewDelegate {
             
             let jobDetailVC = JobDetailViewController(
                 viewModel: JobDetailViewModel(
-                    scrapRepository: JobDetailRepository(
+                    jobDetailRepository: JobDetailRepository(
                         scrapService: ScrapsService(
                             provider: Providers.scrapsProvider
                         )
@@ -285,7 +285,7 @@ extension SearchViewController: UICollectionViewDelegate {
             
             let jobDetailVC = JobDetailViewController(
                 viewModel: JobDetailViewModel(
-                    scrapRepository: JobDetailRepository(
+                    jobDetailRepository: JobDetailRepository(
                         scrapService: ScrapsService(
                             provider: Providers.scrapsProvider
                         )

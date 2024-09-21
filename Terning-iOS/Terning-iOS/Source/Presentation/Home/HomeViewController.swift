@@ -161,6 +161,7 @@ extension HomeViewController: UICollectionViewDelegate {
             )
             let index = jobCardLists[indexPath.row].intershipAnnouncementId
             jobDetailVC.internshipAnnouncementId.accept(index)
+            jobDetailVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         default:
             return

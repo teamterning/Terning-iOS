@@ -152,8 +152,8 @@ extension HomeViewController: UICollectionViewDelegate {
             print(indexPath)
             let jobDetailVC = JobDetailViewController(
                 viewModel: JobDetailViewModel(
-                    scrapRepository: ScrapsRepository(
-                        service: ScrapsService(
+                    jobDetailRepository: JobDetailRepository(
+                        scrapService: ScrapsService(
                             provider: Providers.scrapsProvider
                         )
                     )

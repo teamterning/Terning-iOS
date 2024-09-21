@@ -10,9 +10,9 @@ import RxSwift
 final class TNCalendarRepository: TNCalendarRepositoryInterface {
     
     private let calendarService: TNCalendarServiceProtocol
-    private let scrapService: ScrapsServiceProtocol
+    private let scrapService: ScrapServiceProtocol
     
-    init(calendarService: TNCalendarServiceProtocol, scrapService: ScrapsServiceProtocol) {
+    init(calendarService: TNCalendarServiceProtocol, scrapService: ScrapServiceProtocol) {
         self.calendarService = calendarService
         self.scrapService = scrapService
     }

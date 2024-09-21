@@ -100,6 +100,8 @@
 		715C0FD32C98140400EDDD60 /* scrapCancel.json in Resources */ = {isa = PBXBuildFile; fileRef = 715C0FD22C98140400EDDD60 /* scrapCancel.json */; };
 		715C0FD72C99077700EDDD60 /* MockCalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715C0FD62C99077700EDDD60 /* MockCalendarService.swift */; };
 		715C0FED2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715C0FEC2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift */; };
+		715C0FEF2C9F252500EDDD60 /* JobDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715C0FEE2C9F252500EDDD60 /* JobDetailRepository.swift */; };
+		715C0FF12C9F256700EDDD60 /* JobDetailRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715C0FF02C9F256700EDDD60 /* JobDetailRepositoryInterface.swift */; };
 		71665AAC2C7C4A94008EB0D7 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAB2C7C4A94008EB0D7 /* EventView.swift */; };
 		71665AAE2C7C4BAA008EB0D7 /* CalendarDateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */; };
 		71665AB12C7C5444008EB0D7 /* TNCalendarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */; };
@@ -271,6 +273,8 @@
 		715C0FD22C98140400EDDD60 /* scrapCancel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = scrapCancel.json; sourceTree = "<group>"; };
 		715C0FD62C99077700EDDD60 /* MockCalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCalendarService.swift; sourceTree = "<group>"; };
 		715C0FEC2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarRepositoryInterface.swift; sourceTree = "<group>"; };
+		715C0FEE2C9F252500EDDD60 /* JobDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailRepository.swift; sourceTree = "<group>"; };
+		715C0FF02C9F256700EDDD60 /* JobDetailRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailRepositoryInterface.swift; sourceTree = "<group>"; };
 		71665AAB2C7C4A94008EB0D7 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCellView.swift; sourceTree = "<group>"; };
 		71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarRepository.swift; sourceTree = "<group>"; };
@@ -877,6 +881,7 @@
 			isa = PBXGroup;
 			children = (
 				715C0FEC2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift */,
+				715C0FF02C9F256700EDDD60 /* JobDetailRepositoryInterface.swift */,
 			);
 			path = RepositoryInterface;
 			sourceTree = "<group>";
@@ -895,6 +900,7 @@
 			children = (
 				71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */,
 				715028682C84AA1600F67472 /* LoginRepository.swift */,
+				715C0FEE2C9F252500EDDD60 /* JobDetailRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1477,6 +1483,7 @@
 				71B509272C41FB41006D8E56 /* ScrapModel.swift in Sources */,
 				71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */,
 				71780C322C45705C0073B731 /* Encodable+.swift in Sources */,
+				715C0FEF2C9F252500EDDD60 /* JobDetailRepository.swift in Sources */,
 				2DC61EFF2C40824A009F991F /* SummaryInfoTableViewCell.swift in Sources */,
 				71B5092D2C4326F8006D8E56 /* adjusted+.swift in Sources */,
 				B871D7352C3ECF37008D78C2 /* ScrapedAndDeadlineModel.swift in Sources */,
@@ -1532,6 +1539,7 @@
 				2DC61F192C41B261009F991F /* LoginView.swift in Sources */,
 				2DD483802C4B37A0000541E3 /* AccountOptionViewController.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
+				715C0FF12C9F256700EDDD60 /* JobDetailRepositoryInterface.swift in Sources */,
 				2D89C7652C486E2E002B035F /* SearchResultView.swift in Sources */,
 				2D89C7672C486E53002B035F /* CustomSortButton.swift in Sources */,
 				2DC61EF72C4075F3009F991F /* JobDetailViewModel.swift in Sources */,

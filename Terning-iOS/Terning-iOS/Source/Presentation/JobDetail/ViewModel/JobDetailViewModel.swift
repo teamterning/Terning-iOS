@@ -15,7 +15,7 @@ final class JobDetailViewModel: ViewModelType {
     // MARK: - Properties
     
     private let announcementsProvider = Providers.announcementsProvider
-    private let scrapRepository: ScrapsRepositoryProtocol
+    private let jobDetailRepository: JobDetailRepositoryInterface
     
     // MARK: - Input
     
@@ -44,8 +44,8 @@ final class JobDetailViewModel: ViewModelType {
     
     // MARK: - Init
     
-    init(scrapRepository: ScrapsRepositoryProtocol) {
-        self.scrapRepository = scrapRepository
+    init(jobDetailRepository: JobDetailRepositoryInterface) {
+        self.jobDetailRepository = jobDetailRepository
     }
     
     // MARK: - Transform
@@ -190,7 +190,7 @@ final class JobDetailViewModel: ViewModelType {
         
         let addScrap = input.addScrapTrigger
             .flatMapLatest { (intershipAnnouncementId, color) in
-                self.scrapRepository.addScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)
+                self.jobDetailRepository.addScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)
                     .do(onNext: {
                         successMessageTracker.onNext("스크랩 완료!")
                     })
@@ -204,7 +204,7 @@ final class JobDetailViewModel: ViewModelType {
         let cancelScrap = input.cancelScrapTrigger
             .flatMapLatest { intershipAnnouncementId in
                 
-                self.scrapRepository.cancelScrap(internshipAnnouncementId: intershipAnnouncementId)
+                self.jobDetailRepository.cancelScrap(internshipAnnouncementId: intershipAnnouncementId)
                     .do(onNext: {
                         successMessageTracker.onNext("관심 공고가 캘린더에서 사라졌어요!")
                     })

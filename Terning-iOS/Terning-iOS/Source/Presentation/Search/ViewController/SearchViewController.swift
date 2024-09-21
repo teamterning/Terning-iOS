@@ -58,9 +58,9 @@ final class SearchViewController: UIViewController {
         startTimer()
     }
 }
-    
+
 // MARK: - UI & Layout
-        
+
 extension SearchViewController {
     private func setUI() {
         view.addSubview(searchView)
@@ -99,8 +99,8 @@ extension SearchViewController {
     private func pushToSearchResultView() {
         let searchResultVC = SearchResultViewController(
             viewModel: SearchResultViewModel(
-                scrapRepository: ScrapsRepository(
-                    service: ScrapsService(
+                jobDetailRepository: JobDetailRepository(
+                    scrapService: ScrapsService(
                         provider: Providers.scrapsProvider
                     )
                 )
@@ -131,7 +131,7 @@ extension SearchViewController {
 }
 
 // MARK: - Bind
-    
+
 extension SearchViewController {
     private func bindViewModel() {
         let input = SearchViewModel.Input(
@@ -200,7 +200,7 @@ extension SearchViewController: UICollectionViewDataSource {
             return 0
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch RecomandType(rawValue: indexPath.section) {
         case .advertisement:
@@ -265,11 +265,11 @@ extension SearchViewController: UICollectionViewDelegate {
             guard let viewsNum = searchView.viewsNum else { return }
             
             let selectedItem = viewsNum[indexPath.item].internshipAnnouncementId
-    
+            
             let jobDetailVC = JobDetailViewController(
                 viewModel: JobDetailViewModel(
-                    scrapRepository: ScrapsRepository(
-                        service: ScrapsService(
+                    jobDetailRepository: JobDetailRepository(
+                        scrapService: ScrapsService(
                             provider: Providers.scrapsProvider
                         )
                     )
@@ -282,11 +282,11 @@ extension SearchViewController: UICollectionViewDelegate {
             guard let scrapsNum = searchView.scrapsNum else { return }
             
             let selectedItem = scrapsNum[indexPath.item].internshipAnnouncementId
-    
+            
             let jobDetailVC = JobDetailViewController(
                 viewModel: JobDetailViewModel(
-                    scrapRepository: ScrapsRepository(
-                        service: ScrapsService(
+                    jobDetailRepository: JobDetailRepository(
+                        scrapService: ScrapsService(
                             provider: Providers.scrapsProvider
                         )
                     )
@@ -307,6 +307,6 @@ extension SearchViewController: UICollectionViewDelegate {
         if sectionType == .advertisement {
             searchView.pageControl.currentPage = indexPath.item
         }
-
+        
     }
 }

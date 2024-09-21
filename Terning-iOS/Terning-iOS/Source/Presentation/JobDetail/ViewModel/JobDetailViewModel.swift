@@ -15,7 +15,7 @@ final class JobDetailViewModel: ViewModelType {
     // MARK: - Properties
     
     private let announcementsProvider = Providers.announcementsProvider
-    private let scrapRepository: ScrapsRepositoryProtocol
+    private let scrapRepository: JobDetailRepositoryInterface
     
     // MARK: - Input
     
@@ -44,7 +44,7 @@ final class JobDetailViewModel: ViewModelType {
     
     // MARK: - Init
     
-    init(scrapRepository: ScrapsRepositoryProtocol) {
+    init(scrapRepository: JobDetailRepositoryInterface) {
         self.scrapRepository = scrapRepository
     }
     

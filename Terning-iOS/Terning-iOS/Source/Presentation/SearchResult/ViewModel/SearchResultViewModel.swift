@@ -15,7 +15,7 @@ final class SearchResultViewModel: ViewModelType {
     // MARK: - Properties
     
     private let searchProvider = Providers.searchProvider
-    private let scrapRepository: ScrapsRepositoryProtocol
+    private let scrapRepository: JobDetailRepositoryInterface
     
     // MARK: - Input
     
@@ -46,7 +46,7 @@ final class SearchResultViewModel: ViewModelType {
     
     // MARK: - Init
     
-    init(scrapRepository: ScrapsRepositoryProtocol) {
+    init(scrapRepository: JobDetailRepositoryInterface) {
         self.scrapRepository = scrapRepository
     }
     

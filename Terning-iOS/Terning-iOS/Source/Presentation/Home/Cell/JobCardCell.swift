@@ -38,6 +38,7 @@ final class JobCardCell: UICollectionViewCell {
     
     private let jobCardCoverImage = UIImageView().then {
         $0.image = UIImage(resource: .icHome)
+        $0.contentMode = .scaleAspectFit
     }
     
     private let daysRemaining = LabelFactory.build(
@@ -71,9 +72,10 @@ final class JobCardCell: UICollectionViewCell {
     )
     
     lazy var scrapButton = UIButton().then {
-        $0.setImage(.icScrapFill, for: .selected)
         $0.setImage(.icScrap, for: .normal)
-        $0.addTarget(self, action: #selector(scrapButtonDidTap), for: .touchUpInside)
+        $0.setImage(.icScrap, for: [.normal, .highlighted])
+        $0.setImage(.icScrapFill, for: .selected)
+        $0.setImage(.icScrapFill, for: [.selected, .highlighted])
     }
     
     // MARK: - LifeCycles
@@ -167,19 +169,14 @@ extension JobCardCell {
         self.scrapButton.isSelected = model.isScrapped
     }
     
-    func bind(model: SearchResult, indexPath: IndexPath) {
+    func bind(model: AnnouncementModel, indexPath: IndexPath) {
         self.internshipAnnouncementId = model.internshipAnnouncementId
         self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.daysRemaining.text = model.dDay
         self.jobLabel.text = model.title
         self.period.text = model.workingPeriod
         self.indexPath = indexPath.item
-        if model.isScrapped == false {
-            self.scrapButton.isSelected = false
-        } else {
-            self.scrapButton.isSelected = true
-            self.scrapId = model.internshipAnnouncementId
-        }
+        self.scrapButton.isSelected = model.isScrapped
     }
     
     // MARK: - objc Functions
@@ -189,10 +186,11 @@ extension JobCardCell {
         print("scrap")
         guard let internshipAnnouncementId = self.internshipAnnouncementId else { return }
         
-        self.scrapButton.isSelected.toggle()
+
+        print("클릭됨")
         
         guard let indexPath = self.indexPath else { return }
-
+        
         self.isScrapButtonSelected = sender.isSelected
         delegate?.scrapButtonDidTap(id: internshipAnnouncementId)
         delegate2?.scrapButtonDidTap(index: indexPath)

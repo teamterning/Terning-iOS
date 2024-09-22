@@ -41,7 +41,6 @@ final class JobListingCell: UICollectionViewCell {
     )
     
     private let mainTitleLabel = LabelFactory.build(
-        text: "[Someone] 콘텐츠 마케터 대학생 인턴 채용",
         font: .title5,
         textColor: .black,
         textAlignment: .left,
@@ -61,7 +60,6 @@ final class JobListingCell: UICollectionViewCell {
     )
     
     private let monthLabel = LabelFactory.build(
-        text: "2개월",
         font: .detail3,
         textColor: .terningMain,
         textAlignment: .left,
@@ -181,7 +179,7 @@ extension JobListingCell {
         self.deadlineLabel.text = model.deadline
         self.monthLabel.text = model.workingPeriod
         self.mainTitleLabel.text = model.title
-        self.colorMark.backgroundColor = UIColor(hex: model.color)
+        self.colorMark.backgroundColor = UIColor(hex: model.color ?? "#ED4E54")
         self.scrapButton.isSelected = model.isScrapped
     }
     

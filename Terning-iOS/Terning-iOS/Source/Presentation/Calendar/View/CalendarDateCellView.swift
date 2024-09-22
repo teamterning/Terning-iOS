@@ -17,10 +17,14 @@ enum CalendarState {
     case today
 }
 
-// Cell의 UI를 담당하는 뷰 클래스
+// 각 날짜 Cell의 UI를 담당하는 뷰
 final class CalendarDateCellView: UIView {
     
     // MARK: - Properties
+    
+    private let displayedEventCount: Int = 3
+    
+    // MARK: - UIComponents
     
     private let selectView = UIView().then {
         $0.layer.cornerRadius = 12
@@ -42,12 +46,20 @@ final class CalendarDateCellView: UIView {
         $0.spacing = 2
     }
     
+    private let remainJobCountLabel = LabelFactory.build(
+        text: "",
+        font: .detail5,
+        textAlignment: .right,
+        lineSpacing: 1.0,
+        characterSpacing: 0.002
+    )
+    
     private let separatorView = UIView().then { $0.backgroundColor = .grey200 }
     
     private var eventViews: [EventView] = []
     
     // MARK: - Init
-
+    
     init() {
         super.init(frame: .zero)
         
@@ -61,7 +73,7 @@ final class CalendarDateCellView: UIView {
     }
     
     // MARK: - UI & Layout
-
+    
     private func setUI() {
         backgroundColor = .white
     }
@@ -71,7 +83,8 @@ final class CalendarDateCellView: UIView {
             selectView,
             dateLabel,
             eventStackView,
-            separatorView
+            separatorView,
+            remainJobCountLabel
         )
     }
     
@@ -98,10 +111,15 @@ final class CalendarDateCellView: UIView {
             $0.top.equalTo(selectView.snp.bottom).offset(3)
             $0.width.equalToSuperview().inset(5)
         }
+        
+        remainJobCountLabel.snp.makeConstraints {
+            $0.top.equalTo(eventStackView.snp.bottom).offset(2.adjustedH)
+            $0.trailing.equalTo(eventStackView.snp.trailing)
+        }
     }
     
     // MARK: - Methods
-
+    
     func bind(date: Date, textColor: UIColor, state: CalendarState, events: [CalendarEventProtocol]) {
         updateState(state)
         
@@ -134,7 +152,17 @@ final class CalendarDateCellView: UIView {
         eventViews.forEach { $0.removeFromSuperview() }
         eventViews = []
         
-        for event in events.prefix(3) { // 최대 3개의 이벤트만 표시
+        let remainingEventsCount = events.count - displayedEventCount
+        
+        // 남은 이벤트 수가 1보다 클 경우에만 remainJobCountLabel 표시
+        if remainingEventsCount > 0 {
+            remainJobCountLabel.text = "+\(remainingEventsCount)"
+            remainJobCountLabel.isHidden = false
+        } else {
+            remainJobCountLabel.isHidden = true
+        }
+        
+        for event in events.prefix(displayedEventCount) { // 최대 N 개의 이벤트만 표시
             let eventView = EventView()
             eventView.bind(with: event)
             eventStackView.addArrangedSubview(eventView)

@@ -151,9 +151,18 @@ extension HomeViewController: UICollectionViewDelegate {
         switch section {
         case .jobCard:
             print(indexPath)
-            let jobDetailVC = JobDetailViewController()
+            let jobDetailVC = JobDetailViewController(
+                viewModel: JobDetailViewModel(
+                    jobDetailRepository: JobDetailRepository(
+                        scrapService: ScrapsService(
+                            provider: Providers.scrapsProvider
+                        )
+                    )
+                )
+            )
             let index = jobCardLists[indexPath.row].intershipAnnouncementId
             jobDetailVC.internshipAnnouncementId.accept(index)
+            jobDetailVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         default:
             return

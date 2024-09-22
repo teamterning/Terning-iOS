@@ -58,9 +58,9 @@ final class SearchViewController: UIViewController {
         startTimer()
     }
 }
-    
+
 // MARK: - UI & Layout
-        
+
 extension SearchViewController {
     private func setUI() {
         view.addSubview(searchView)
@@ -97,7 +97,15 @@ extension SearchViewController {
     }
     
     private func pushToSearchResultView() {
-        let searchResultVC = SearchResultViewController(viewModel: SearchResultViewModel())
+        let searchResultVC = SearchResultViewController(
+            viewModel: SearchResultViewModel(
+                jobDetailRepository: JobDetailRepository(
+                    scrapService: ScrapsService(
+                        provider: Providers.scrapsProvider
+                    )
+                )
+            )
+        )
         
         searchResultVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(searchResultVC, animated: true)
@@ -123,7 +131,7 @@ extension SearchViewController {
 }
 
 // MARK: - Bind
-    
+
 extension SearchViewController {
     private func bindViewModel() {
         let input = SearchViewModel.Input(
@@ -192,7 +200,7 @@ extension SearchViewController: UICollectionViewDataSource {
             return 0
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch RecomandType(rawValue: indexPath.section) {
         case .advertisement:
@@ -257,8 +265,16 @@ extension SearchViewController: UICollectionViewDelegate {
             guard let viewsNum = searchView.viewsNum else { return }
             
             let selectedItem = viewsNum[indexPath.item].internshipAnnouncementId
-    
-            let jobDetailVC = JobDetailViewController()
+            
+            let jobDetailVC = JobDetailViewController(
+                viewModel: JobDetailViewModel(
+                    jobDetailRepository: JobDetailRepository(
+                        scrapService: ScrapsService(
+                            provider: Providers.scrapsProvider
+                        )
+                    )
+                )
+            )
             jobDetailVC.hidesBottomBarWhenPushed = true
             jobDetailVC.internshipAnnouncementId.accept(selectedItem)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
@@ -266,8 +282,16 @@ extension SearchViewController: UICollectionViewDelegate {
             guard let scrapsNum = searchView.scrapsNum else { return }
             
             let selectedItem = scrapsNum[indexPath.item].internshipAnnouncementId
-    
-            let jobDetailVC = JobDetailViewController()
+            
+            let jobDetailVC = JobDetailViewController(
+                viewModel: JobDetailViewModel(
+                    jobDetailRepository: JobDetailRepository(
+                        scrapService: ScrapsService(
+                            provider: Providers.scrapsProvider
+                        )
+                    )
+                )
+            )
             jobDetailVC.hidesBottomBarWhenPushed = true
             jobDetailVC.internshipAnnouncementId.accept(selectedItem)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
@@ -283,6 +307,6 @@ extension SearchViewController: UICollectionViewDelegate {
         if sectionType == .advertisement {
             searchView.pageControl.currentPage = indexPath.item
         }
-
+        
     }
 }

@@ -15,6 +15,7 @@ final class SearchResultViewModel: ViewModelType {
     // MARK: - Properties
     
     private let searchProvider = Providers.searchProvider
+    private let jobDetailRepository: JobDetailRepositoryInterface
     
     // MARK: - Input
     
@@ -25,21 +26,36 @@ final class SearchResultViewModel: ViewModelType {
         let page: Observable<Int>
         let size: Observable<Int>
         let searchTrigger: Observable<Void>
+        let addScrapTrigger: Observable<(Int, String)>
+        let cancelScrapTrigger: Observable<Int>
     }
     
     // MARK: - Output
     
     struct Output {
         let showSortBottom: Driver<Void>
-        let searchResults: Driver<[SearchResult]>
+        let searchResults: Driver<[AnnouncementModel]>
         let keyword: Driver<String>
         let totalCounts: Driver<Int>
         let hasNextPage: Driver<Bool>
+        let error: Driver<String>
+        let successMessage: Driver<String>
+        let addScrapResult: Driver<Void>
+        let cancelScrapResult: Driver<Void>
+    }
+    
+    // MARK: - Init
+    
+    init(jobDetailRepository: JobDetailRepositoryInterface) {
+        self.jobDetailRepository = jobDetailRepository
     }
     
     // MARK: - Transform
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
+        let errorTracker = PublishSubject<String>()
+        let successMessageTracker = PublishSubject<String>()
+        
         let searchResponse = input.searchTrigger
             .withLatestFrom(Observable.combineLatest(input.keyword, input.sortBy, input.page, input.size))
             .flatMapLatest { keyword, sortBy, page, size in
@@ -64,12 +80,46 @@ final class SearchResultViewModel: ViewModelType {
         
         let keyword = input.keyword.asDriver(onErrorJustReturn: "")
         
+        let addScrap = input.addScrapTrigger
+            .flatMapLatest { (intershipAnnouncementId, color) in
+                self.jobDetailRepository.addScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)
+                    .do(onNext: {
+                        successMessageTracker.onNext("스크랩 완료!")
+                    })
+                    .catch { error in
+                        errorTracker.onNext("스크랩 오류: \(error.localizedDescription)")
+                        return .empty()
+                    }
+            }
+            .asDriver(onErrorDriveWith: .empty())
+        
+        let cancelScrap = input.cancelScrapTrigger
+            .flatMapLatest { intershipAnnouncementId in
+                
+                self.jobDetailRepository.cancelScrap(internshipAnnouncementId: intershipAnnouncementId)
+                    .do(onNext: {
+                        successMessageTracker.onNext("관심 공고가 캘린더에서 사라졌어요!")
+                    })
+                    .catch { error in
+                        errorTracker.onNext("스크랩 취소 오류: \(error.localizedDescription)")
+                        return .empty()
+                    }
+            }
+            .asDriver(onErrorDriveWith: .empty())
+        
+        let error = errorTracker.asDriver(onErrorJustReturn: "알 수 없는 오류가 발생했습니다.")
+        let successMessage = successMessageTracker.asDriver(onErrorJustReturn: "")
+        
         return Output(
             showSortBottom: showSortBottom,
             searchResults: searchResults,
             keyword: keyword,
             totalCounts: totalCounts,
-            hasNextPage: hasNextPage
+            hasNextPage: hasNextPage,
+            error: error,
+            successMessage: successMessage,
+            addScrapResult: addScrap,
+            cancelScrapResult: cancelScrap
         )
     }
 }

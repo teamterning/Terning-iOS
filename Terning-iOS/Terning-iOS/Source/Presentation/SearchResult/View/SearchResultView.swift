@@ -15,7 +15,7 @@ final class SearchResultView: UIView {
     
     // MARK: - Properties
     
-    var searchResult: [SearchResult]?
+    var searchResult: [AnnouncementModel]?
     var sortBySubject = PublishSubject<String>()
     
     // MARK: - UI Components

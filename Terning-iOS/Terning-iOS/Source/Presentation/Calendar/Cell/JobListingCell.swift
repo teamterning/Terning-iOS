@@ -73,7 +73,6 @@ final class JobListingCell: UICollectionViewCell {
     }
     
     private let colorMark = UIView().then {
-        $0.backgroundColor = .calOrange
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
     }
     

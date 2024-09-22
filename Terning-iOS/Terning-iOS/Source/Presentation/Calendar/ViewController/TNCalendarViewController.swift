@@ -564,6 +564,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
             
             cell.bind(model: self.viewModel.calendarDaily[indexPath.row], indexPath: indexPath, in: collectionView)
             cell.delegate = self
+            cell.layer.applyShadow(color: .greyShadow, alpha: 1, y: 0, blur: 4)
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else {
@@ -575,6 +576,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
             let scrapItem = scrapSection[indexPath.row]
             
             cell.bind(model: scrapItem, indexPath: indexPath, in: collectionView)
+            cell.layer.applyShadow(color: .greyShadow, alpha: 1, y: 0, blur: 4)
             cell.delegate = self
             return cell
         }

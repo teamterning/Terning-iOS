@@ -69,8 +69,8 @@ extension SearchResultView {
         navigationBar.setTitle("검색 결과")
         
         collectionView.register(
-            JobCardScrapedCell.self,
-            forCellWithReuseIdentifier: JobCardScrapedCell.className
+            JobCardCell.self,
+            forCellWithReuseIdentifier: JobCardCell.className
         )
         collectionView.register(
             GraphicCollectionViewCell.self,

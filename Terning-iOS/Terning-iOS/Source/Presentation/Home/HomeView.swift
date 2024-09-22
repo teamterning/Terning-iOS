@@ -12,10 +12,17 @@ import Then
 
 final class HomeView: UIView {
     
+    // MARK: - Properties
+    
+    private weak var homeViewController: HomeViewController?
+    
     // MARK: - UIComponents
     
     lazy var collectionView: UICollectionView = {
-        let layout = CompositionalLayout.createHomeListLayout()
+        guard let homeVC = homeViewController else {
+                fatalError("homeViewController가 없습니다.")
+            }
+        let layout = CompositionalLayout.createHomeListLayout(HomeVC: homeVC)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         collectionView.isScrollEnabled = true
@@ -33,7 +40,8 @@ final class HomeView: UIView {
     
     // MARK: - Life Cycles
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, homeViewController: HomeViewController) {
+        self.homeViewController = homeViewController
         super.init(frame: frame)
         
         setUI()

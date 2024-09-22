@@ -16,7 +16,7 @@ protocol JobCardScrapedCellProtocol: AnyObject {
     func scrapButtonDidTap(index: Int)
 }
 
-final class JobCardScrapedCell: UICollectionViewCell {
+final class JobCardCell: UICollectionViewCell {
     
     // MARK: - Properties
     
@@ -95,7 +95,7 @@ final class JobCardScrapedCell: UICollectionViewCell {
 
 // MARK: - UI & Layout
 
-extension JobCardScrapedCell {
+extension JobCardCell {
     func setHierarchy() {
         contentView.addSubviews(
             jobCard,
@@ -127,18 +127,18 @@ extension JobCardScrapedCell {
         }
         
         jobLabel.snp.makeConstraints {
-            $0.top.equalTo(jobCard.snp.top).offset(29)
+            $0.top.equalTo(jobCard.snp.top).offset(30)
             $0.leading.equalTo(jobCardCoverImage.snp.trailing).offset(8)
             $0.trailing.equalTo(jobCard.snp.trailing).inset(50)
         }
         
         periodTitle.snp.makeConstraints {
-            $0.bottom.equalTo(jobCard.snp.bottom).inset(9)
+            $0.bottom.equalTo(jobCard.snp.bottom).inset(12)
             $0.leading.equalTo(jobCardCoverImage.snp.trailing).offset(8)
         }
         
         period.snp.makeConstraints {
-            $0.bottom.equalTo(jobCard.snp.bottom).inset(9)
+            $0.bottom.equalTo(jobCard.snp.bottom).inset(12)
             $0.leading.equalTo(periodTitle.snp.trailing).offset(4)
         }
         
@@ -183,6 +183,7 @@ extension JobCardScrapedCell {
     
     @objc
     func scrapButtonDidTap(_ sender: UIButton) {
+        print("scrap")
         guard let internshipAnnouncementId = self.internshipAnnouncementId else { return }
         
 

@@ -129,7 +129,7 @@ extension IsScrapInfoViewCell {
         }
         
         companyLabelStack.snp.makeConstraints {
-            $0.top.equalTo(cardLabel.snp.bottom).offset(22)
+            $0.top.equalTo(scrapAndDeadlineCard.snp.top).inset(72)
             $0.leading.equalTo(colorMark.snp.trailing).offset(12)
         }
         
@@ -138,10 +138,10 @@ extension IsScrapInfoViewCell {
         }
         
         dDayView.snp.makeConstraints {
-            $0.top.equalTo(cardLabel.snp.bottom).offset(28)
+            $0.top.equalTo(scrapAndDeadlineCard.snp.top).inset(78)
             $0.trailing.equalTo(scrapAndDeadlineCard.snp.trailing).inset(12)
             $0.height.equalTo(20.adjustedH)
-            $0.width.equalTo(43.adjusted)
+            $0.width.equalTo(52.adjusted)
         }
 
         dDayLabel.snp.makeConstraints {
@@ -152,18 +152,12 @@ extension IsScrapInfoViewCell {
     
     // MARK: - Methods
     
-    func bindData(model: ScrapedAndDeadlineModel) {
-        if let range = model.title.range(of: "\\[(.*?)\\]", options: .regularExpression) {
-            let extractedCompanyName = String(model.title[range]).replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "")
-            
-            self.companyName.text = extractedCompanyName
-        }
-        
+    func bindData(model: UpcomingCard) {
         self.companyImageView.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.dDayLabel.text = model.dDay
         self.cardLabel.text = model.title
         self.colorMark.backgroundColor = UIColor(hex: model.color)
-//        self.companyName.text = model.companyInfo 스테이징 서버에 변경 확정 후 주석 제거
+        self.companyName.text = model.companyInfo
         self.internshipAnnouncementId = model.internshipAnnouncementId
         self.companyImage = model.companyImage
         self.dDay = model.dDay

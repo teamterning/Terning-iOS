@@ -73,9 +73,7 @@ final class JobListingCell: UICollectionViewCell {
     }
     
     private let colorMark = UIView().then {
-        $0.layer.cornerRadius = 6.35
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
-        $0.layer.masksToBounds = true
     }
     
     // MARK: - Life Cycles
@@ -102,8 +100,6 @@ extension JobListingCell {
         contentView.layer.cornerRadius = 10
         contentView.backgroundColor = .white
         contentView.clipsToBounds = true
-        
-        contentView.layer.applyShadow(color: .greyShadow, alpha: 1, y: 0, blur: 4)
     }
     
     private func setHierarchy() {

@@ -161,7 +161,7 @@ extension JobCardCell {
             self.daysRemaining.textColor = .terningMain
         }
         
-        self.internshipAnnouncementId = model.intershipAnnouncementId
+        self.internshipAnnouncementId = model.internshipAnnouncementId
         self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.daysRemaining.text = model.dDay
         self.jobLabel.text = model.title
@@ -186,7 +186,6 @@ extension JobCardCell {
         print("scrap")
         guard let internshipAnnouncementId = self.internshipAnnouncementId else { return }
         
-
         print("클릭됨")
         
         guard let indexPath = self.indexPath else { return }

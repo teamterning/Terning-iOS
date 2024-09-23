@@ -5,12 +5,9 @@
 //
 
 import UIKit
+
 import SnapKit
 import Then
-
-protocol ScrapDidTapDelegate: AnyObject {
-    func scrapButtonDidTap(id: Int)
-}
 
 protocol JobCardScrapedCellProtocol: AnyObject {
     func scrapButtonDidTap(index: Int)
@@ -20,8 +17,7 @@ final class JobCardCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    weak var delegate: ScrapDidTapDelegate?
-    weak var delegate2: JobCardScrapedCellProtocol?
+    weak var delegate: JobCardScrapedCellProtocol?
     
     private var isScrapButtonSelected: Bool = false
     private var internshipAnnouncementId: Int? = 0
@@ -151,25 +147,16 @@ extension JobCardCell {
     // MARK: - Methods
     
     private func setAddTarget() {
-        scrapButton.addTarget(self, action: #selector(scrapButtonDidTap), for: .touchUpInside)
+        scrapButton.addTarget(self, action: #selector(scrapButtonDidTap(_:)), for: .touchUpInside)
     }
     
-    func bindData(model: JobCard) {
+    func bind(model: AnnouncementModel, indexPath: IndexPath) {
         if model.dDay == "지원마감" {
             self.daysRemaining.textColor = .grey300
         } else {
             self.daysRemaining.textColor = .terningMain
         }
         
-        self.internshipAnnouncementId = model.intershipAnnouncementId
-        self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "placeholder_image")
-        self.daysRemaining.text = model.dDay
-        self.jobLabel.text = model.title
-        self.period.text = model.workingPeriod
-        self.scrapButton.isSelected = model.isScrapped
-    }
-    
-    func bind(model: AnnouncementModel, indexPath: IndexPath) {
         self.internshipAnnouncementId = model.internshipAnnouncementId
         self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.daysRemaining.text = model.dDay
@@ -183,16 +170,16 @@ extension JobCardCell {
     
     @objc
     func scrapButtonDidTap(_ sender: UIButton) {
-        print("scrap")
-        guard let internshipAnnouncementId = self.internshipAnnouncementId else { return }
+        guard let internshipAnnouncementId = self.indexPath else { return }
         
-
-        print("클릭됨")
+        self.isScrapButtonSelected = sender.isSelected
+        
+        delegate?.scrapButtonDidTap(index: internshipAnnouncementId)
         
         guard let indexPath = self.indexPath else { return }
         
         self.isScrapButtonSelected = sender.isSelected
-        delegate?.scrapButtonDidTap(id: internshipAnnouncementId)
-        delegate2?.scrapButtonDidTap(index: indexPath)
+
+        delegate?.scrapButtonDidTap(index: indexPath)
     }
 }

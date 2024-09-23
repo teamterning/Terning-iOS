@@ -10,11 +10,19 @@ import UIKit
 import SnapKit
 import Then
 
+protocol UpcomingCardCellProtocol {
+    func upcomingCardDidTap(index: Int)
+}
+
 final class IsScrapInfoViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    private var internshipAnnouncementId: Double = 1
+    var upcomingCardDelegate: UpcomingCardCellProtocol?
+    
+    private var indexPath: Int?
+    
+    private var internshipAnnouncementId: Int = 1
     private var isScrapped: Bool = false
     private var companyImage: String = ""
     private var dDay = "D-day"
@@ -27,6 +35,7 @@ final class IsScrapInfoViewCell: UICollectionViewCell {
     private let scrapAndDeadlineCard = UIView().then {
         $0.backgroundColor = .white
         $0.makeBorder(width: 1, color: .grey150, cornerRadius: 5)
+        $0.isUserInteractionEnabled = true
     }
     
     private let colorMark = UIView().then {
@@ -88,6 +97,7 @@ final class IsScrapInfoViewCell: UICollectionViewCell {
         
         setHierarchy()
         setLayout()
+        setTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -150,6 +160,11 @@ extension IsScrapInfoViewCell {
         }
     }
     
+    func setTapGesture() {
+        let upcomingCardTapGesture = UITapGestureRecognizer(target: self, action: #selector(upcomingCardDidTap))
+        scrapAndDeadlineCard.addGestureRecognizer(upcomingCardTapGesture)
+    }
+    
     // MARK: - Methods
     
     func bindData(model: UpcomingCard) {
@@ -165,5 +180,13 @@ extension IsScrapInfoViewCell {
         self.isScrapped = model.isScrapped
         self.deadline = model.deadline
         self.startYearMonth = model.startYearMonth
+    }
+    
+    // MARK: - objc fund
+    
+    @objc func upcomingCardDidTap() {
+        guard let internshipAnnouncementId = self.indexPath else { return }
+        
+        upcomingCardDelegate?.upcomingCardDidTap(index: internshipAnnouncementId)
     }
 }

@@ -13,7 +13,7 @@ struct UpcomingCardModel: Codable {
 }
 
 struct UpcomingCard: Codable {
-    let internshipAnnouncementId: Double
+    let internshipAnnouncementId: Int
     let companyImage: String
     let dDay: String
     let title: String

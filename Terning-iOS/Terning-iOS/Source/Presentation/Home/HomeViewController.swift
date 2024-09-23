@@ -419,7 +419,7 @@ extension HomeViewController: JobCardScrapedCellProtocol {
             alertSheet.centerButtonDidTapAction = { [weak self] in
                 guard let self = self else { return }
             
-                self.cancelScrapAnnouncement(intershipAnnouncementId: model.internshipAnnouncementId)
+                self.cancelScrapAnnouncement(internshipAnnouncementId: model.internshipAnnouncementId)
                 
                 jobCardLists[index].isScrapped = false
                 
@@ -440,7 +440,7 @@ extension HomeViewController: JobCardScrapedCellProtocol {
                 guard let self = self else { return }
                 let selectedColorNameRelay = alertSheet.selectedColorNameRelay.value
                 
-                self.addScrapAnnouncement(intershipAnnouncementId: model.internshipAnnouncementId, color: selectedColorNameRelay)
+                self.addScrapAnnouncement(internshipAnnouncementId: model.internshipAnnouncementId, color: selectedColorNameRelay)
                 
                 jobCardLists[index].isScrapped = true
                 
@@ -451,6 +451,43 @@ extension HomeViewController: JobCardScrapedCellProtocol {
             
             self.present(alertSheet, animated: false)
         }
+    }
+}
+
+// MARK: - UpcomingCardCellDidTapDelegate
+
+extension HomeViewController: UpcomingCardCellProtocol {
+    func upcomingCardDidTap(index: Int) {
+        let jobDetailViewController = JobDetailViewController(
+            viewModel: JobDetailViewModel(
+                jobDetailRepository: JobDetailRepository(
+                    scrapService: ScrapsService(
+                        provider: Providers.scrapsProvider
+                    )
+                )
+            )
+        )
+        
+        let model = upcomingCardLists[index]
+        
+        let alertSheet = NewCustomAlertVC(alertViewType: .changeColorAndPushJobDetail)
+        
+        alertSheet.modalTransitionStyle = .crossDissolve
+        alertSheet.modalPresentationStyle = .overFullScreen
+        
+        alertSheet.leftButtonDidTapAction = {
+            let selectedColorNameRelay = alertSheet.selectedColorNameRelay.value
+            
+            self.patchScrapAnnouncement(internshipAnnouncementId: model.internshipAnnouncementId, color: selectedColorNameRelay)
+            self.dismiss(animated: true)
+        }
+        
+        alertSheet.rightButtonDidTapAction = {
+            self.dismiss(animated: true)
+            self.navigationController?.pushViewController(jobDetailViewController, animated: true)
+        }
+        
+        self.present(alertSheet, animated: false)
     }
 }
 
@@ -583,8 +620,8 @@ extension HomeViewController {
         }
     }
     
-    private func addScrapAnnouncement(intershipAnnouncementId: Int, color: String) {
-        Providers.scrapsProvider.request(.addScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)) { [weak self] result in
+    private func addScrapAnnouncement(internshipAnnouncementId: Int, color: String) {
+        Providers.scrapsProvider.request(.addScrap(internshipAnnouncementId: internshipAnnouncementId, color: color)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
             switch result {
@@ -604,8 +641,8 @@ extension HomeViewController {
         }
     }
     
-    private func cancelScrapAnnouncement(intershipAnnouncementId: Int) {
-        Providers.scrapsProvider.request(.removeScrap(internshipAnnouncementId: intershipAnnouncementId)) { [weak self] result in
+    private func cancelScrapAnnouncement(internshipAnnouncementId: Int) {
+        Providers.scrapsProvider.request(.removeScrap(internshipAnnouncementId: internshipAnnouncementId)) { [weak self] result in
             LoadingIndicator.hideLoading()
             guard let self = self else { return }
             switch result {

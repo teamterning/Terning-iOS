@@ -53,7 +53,7 @@ final class HomeViewController: UIViewController {
     
     private var jobCardTotalCount: JobCardModel = JobCardModel(totalCount: 0, result: [])
     
-    private var jobCardLists: [JobCard] = [] {
+    private var jobCardLists: [AnnouncementModel] = [] {
         didSet {
             print("📋\(jobCardLists)📋")
             rootView.collectionView.reloadData()
@@ -160,7 +160,7 @@ extension HomeViewController: UICollectionViewDelegate {
                     )
                 )
             )
-            let index = jobCardLists[indexPath.row].intershipAnnouncementId
+            let index = jobCardLists[indexPath.row].internshipAnnouncementId
             jobDetailVC.internshipAnnouncementId.accept(index)
             jobDetailVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
@@ -231,6 +231,7 @@ extension HomeViewController: UICollectionViewDataSource {
             if hasScrapped {
                 if upcomingCardLists.isEmpty {
                     guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: CheckDeadlineCell.className, for: indexPath) as? CheckDeadlineCell  else { return UICollectionViewCell() }
+                    cell.checkDeadlineDelegate = self
                     return cell
                 } else {
                     guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: IsScrapInfoViewCell.className, for: indexPath) as? IsScrapInfoViewCell else { return UICollectionViewCell() }
@@ -254,7 +255,7 @@ extension HomeViewController: UICollectionViewDataSource {
             } else if !isNoneData && !jobCardLists.isEmpty {
                 guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: JobCardCell.className, for: indexPath) as? JobCardCell else { return UICollectionViewCell() }
                 cell.delegate = self
-                cell.bindData(model: jobCardLists[indexPath.row])
+                cell.bind(model: jobCardLists[indexPath.row], indexPath: indexPath)
                 return cell
             }
         }
@@ -381,29 +382,75 @@ extension HomeViewController: SortSettingButtonProtocol {
     }
 }
 
-// MARK: - ScrapDidTapDelegate
+// MARK: - CheckDeadlineButtonDidTapDelegate
 
-extension HomeViewController: ScrapDidTapDelegate {
-    func scrapButtonDidTap(id index: Int) {
-        print("📌scrap📌")
+extension HomeViewController: CheckDeadlineCellProtocol {
+    func checkDeadlineButtonDidTap() {
+        let calendarVC = TNCalendarViewController(
+            viewModel: TNCalendarViewModel(
+                calendarRepository: TNCalendarRepository(
+                    calendarService: TNCalendarService(
+                        provider: Providers.calendarProvider
+                    ),
+                    scrapService: ScrapsService(
+                        provider: Providers.scrapsProvider
+                    )
+                )
+            )
+        )
+        self.navigationController?.pushViewController(calendarVC, animated: true)
+    }
+}
+
+// MARK: - ScrapButtonDidTapDelegate
+
+extension HomeViewController: JobCardScrapedCellProtocol {
+    func scrapButtonDidTap(index: Int) {
         
         let model = jobCardLists[index]
-        let alertSheet = CustomAlertViewController(alertType: .custom)
-        
-//        alertSheet.setData3(model: model, deadline: model.deadline)
-        
-        alertSheet.modalTransitionStyle = .crossDissolve
-        alertSheet.modalPresentationStyle = .overFullScreen
-        
-        alertSheet.centerButtonTapAction = { [weak self] in
-            guard let self = self else { return }
-            let colorIndex = alertSheet.selectedColorIndexRelay
+
+        if model.isScrapped {
+            let alertSheet = NewCustomAlertVC(alertViewType: .info)
             
-            self.addScrapAnnouncement(intershipAnnouncementId: Int(model.intershipAnnouncementId), color: String(colorIndex.value))
-            self.dismiss(animated: false)
+            alertSheet.modalTransitionStyle = .crossDissolve
+            alertSheet.modalPresentationStyle = .overFullScreen
             
+            alertSheet.centerButtonDidTapAction = { [weak self] in
+                guard let self = self else { return }
+            
+                self.cancelScrapAnnouncement(intershipAnnouncementId: model.internshipAnnouncementId)
+                
+                jobCardLists[index].isScrapped = false
+                
+                self.rootView.collectionView.reloadData()
+                
+                self.dismiss(animated: false)
+            }
+            
+            self.present(alertSheet, animated: false)
+        } else {
+            let alertSheet = NewCustomAlertVC(alertViewType: .scrap)
+            alertSheet.setAnnouncementData(model: model)
+            
+            alertSheet.modalTransitionStyle = .crossDissolve
+            alertSheet.modalPresentationStyle = .overFullScreen
+            
+            alertSheet.centerButtonDidTapAction = { [weak self] in
+                guard let self = self else { return }
+                let selectedColorNameRelay = alertSheet.selectedColorNameRelay.value
+                
+                self.addScrapAnnouncement(intershipAnnouncementId: model.internshipAnnouncementId, color: selectedColorNameRelay)
+                
+                jobCardLists[index].isScrapped = true
+                
+                self.rootView.collectionView.reloadData()
+                
+                
+                self.dismiss(animated: false)
+            }
+            
+            self.present(alertSheet, animated: false)
         }
-        self.present(alertSheet, animated: false)
     }
 }
 
@@ -523,7 +570,7 @@ extension HomeViewController {
             case .success(let response):
                 let status = response.statusCode
                 if 200..<300 ~= status {
-                    print("스크랩 수정 성공")
+                    showToast(message: "스크랩 수정 성공", heightOffset: 20)
                     self.rootView.collectionView.reloadData()
                 } else {
                     print("400 error")
@@ -544,10 +591,30 @@ extension HomeViewController {
             case .success(let response):
                 let status = response.statusCode
                 if 200..<300 ~= status {
-                    print("스크랩 수정 성공")
+                    self.showToast(message: "관심 공고가 캘린더에 스크랩 되었어요!", heightOffset: 20)
                     self.rootView.collectionView.reloadData()
                 } else {
                     print("400 error")
+                    self.showToast(message: "네트워크 오류")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showToast(message: "네트워크 오류")
+            }
+        }
+    }
+    
+    private func cancelScrapAnnouncement(intershipAnnouncementId: Int) {
+        Providers.scrapsProvider.request(.removeScrap(internshipAnnouncementId: intershipAnnouncementId)) { [weak self] result in
+            LoadingIndicator.hideLoading()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                if 200..<300 ~= status {
+                    self.showToast(message: "관심 공고가 캘린더에서 사라졌어요!", heightOffset: 20)
+                    self.rootView.collectionView.reloadData()
+                } else {                    print("400 error")
                     self.showToast(message: "네트워크 오류")
                 }
             case .failure(let error):

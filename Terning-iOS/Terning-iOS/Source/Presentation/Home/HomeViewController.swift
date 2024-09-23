@@ -398,6 +398,7 @@ extension HomeViewController: CheckDeadlineCellProtocol {
                 )
             )
         )
+        
         self.navigationController?.pushViewController(calendarVC, animated: true)
     }
 }
@@ -444,7 +445,6 @@ extension HomeViewController: JobCardScrapedCellProtocol {
                 jobCardLists[index].isScrapped = true
                 
                 self.rootView.collectionView.reloadData()
-                
                 
                 self.dismiss(animated: false)
             }

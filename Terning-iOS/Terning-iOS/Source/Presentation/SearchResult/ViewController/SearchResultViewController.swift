@@ -433,4 +433,3 @@ extension SearchResultViewController: UIAdaptivePresentationControllerDelegate {
         removeModalBackgroundView()
     }
 }
-

@@ -97,11 +97,11 @@
 		71461ED62C38150C002A6999 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71461ED52C38150C002A6999 /* UILabel+.swift */; };
 		715028672C84A5C600F67472 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715028662C84A5C600F67472 /* LoginService.swift */; };
 		715028692C84AA1600F67472 /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715028682C84AA1600F67472 /* LoginRepository.swift */; };
-		715C0FD32C98140400EDDD60 /* scrapCancel.json in Resources */ = {isa = PBXBuildFile; fileRef = 715C0FD22C98140400EDDD60 /* scrapCancel.json */; };
 		715C0FD72C99077700EDDD60 /* MockCalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715C0FD62C99077700EDDD60 /* MockCalendarService.swift */; };
 		715C0FED2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715C0FEC2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift */; };
 		715C0FEF2C9F252500EDDD60 /* JobDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715C0FEE2C9F252500EDDD60 /* JobDetailRepository.swift */; };
 		715C0FF12C9F256700EDDD60 /* JobDetailRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715C0FF02C9F256700EDDD60 /* JobDetailRepositoryInterface.swift */; };
+		715C0FF52CA1C8B300EDDD60 /* scrapCancel.json in Resources */ = {isa = PBXBuildFile; fileRef = 715C0FF42CA1C8B300EDDD60 /* scrapCancel.json */; };
 		71665AAC2C7C4A94008EB0D7 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAB2C7C4A94008EB0D7 /* EventView.swift */; };
 		71665AAE2C7C4BAA008EB0D7 /* CalendarDateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */; };
 		71665AB12C7C5444008EB0D7 /* TNCalendarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */; };
@@ -270,11 +270,11 @@
 		71461ED52C38150C002A6999 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		715028662C84A5C600F67472 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		715028682C84AA1600F67472 /* LoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
-		715C0FD22C98140400EDDD60 /* scrapCancel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = scrapCancel.json; sourceTree = "<group>"; };
 		715C0FD62C99077700EDDD60 /* MockCalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCalendarService.swift; sourceTree = "<group>"; };
 		715C0FEC2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarRepositoryInterface.swift; sourceTree = "<group>"; };
 		715C0FEE2C9F252500EDDD60 /* JobDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailRepository.swift; sourceTree = "<group>"; };
 		715C0FF02C9F256700EDDD60 /* JobDetailRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailRepositoryInterface.swift; sourceTree = "<group>"; };
+		715C0FF42CA1C8B300EDDD60 /* scrapCancel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = scrapCancel.json; sourceTree = "<group>"; };
 		71665AAB2C7C4A94008EB0D7 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCellView.swift; sourceTree = "<group>"; };
 		71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarRepository.swift; sourceTree = "<group>"; };
@@ -521,7 +521,7 @@
 		2D997FBB2C91B0A90078DAB0 /* Lotties */ = {
 			isa = PBXGroup;
 			children = (
-				715C0FD22C98140400EDDD60 /* scrapCancel.json */,
+				715C0FF42CA1C8B300EDDD60 /* scrapCancel.json */,
 				2D997FBC2C9228F00078DAB0 /* beforeOnboarding.json */,
 				2D997FBE2C9229760078DAB0 /* afterOnboarding.json */,
 				2D997FB92C91ADFE0078DAB0 /* login.json */,
@@ -1381,6 +1381,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				715C0FF52CA1C8B300EDDD60 /* scrapCancel.json in Resources */,
 				71E3C40D2C2423280026C4DD /* .swiftlint.yml in Resources */,
 				2D997FBF2C9229760078DAB0 /* afterOnboarding.json in Resources */,
 				71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */,
@@ -1390,7 +1391,6 @@
 				71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */,
 				2D997FBD2C9228F00078DAB0 /* beforeOnboarding.json in Resources */,
 				71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */,
-				715C0FD32C98140400EDDD60 /* scrapCancel.json in Resources */,
 				71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */,
 				2D997FBA2C91ADFE0078DAB0 /* login.json in Resources */,
 			);
@@ -1724,11 +1724,12 @@
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2024.0720.1444;
+				CURRENT_PROJECT_VERSION = 2024.0924.0212;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Terning-iOS/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = terning;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1746,9 +1747,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1760,11 +1764,12 @@
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2024.0720.1444;
+				CURRENT_PROJECT_VERSION = 2024.0924.0212;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Terning-iOS/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = terning;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1778,9 +1783,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -160,7 +160,7 @@ extension HomeViewController: UICollectionViewDelegate {
                     )
                 )
             )
-            let index = jobCardLists[indexPath.row].intershipAnnouncementId
+            let index = jobCardLists[indexPath.row].internshipAnnouncementId
             jobDetailVC.internshipAnnouncementId.accept(index)
             jobDetailVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
@@ -399,7 +399,7 @@ extension HomeViewController: ScrapDidTapDelegate {
             guard let self = self else { return }
             let colorIndex = alertSheet.selectedColorIndexRelay
             
-            self.addScrapAnnouncement(intershipAnnouncementId: Int(model.intershipAnnouncementId), color: String(colorIndex.value))
+            self.addScrapAnnouncement(intershipAnnouncementId: Int(model.internshipAnnouncementId), color: String(colorIndex.value))
             self.dismiss(animated: false)
             
         }

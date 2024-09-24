@@ -181,7 +181,7 @@ extension OnboardingView {
             titleLabel.text = "\(userName)님의 재학 상태를 선택해주세요"
         }
         
-        subTitleLabel.text = "휴학중이라면, 휴학 전 마지막 수료 학년을 선택해주세요"
+        subTitleLabel.text = "휴학 중이라면, 휴학 전 마지막 수료 학년을 선택해주세요"
         
         addSubviews(
             buttonStackView,
@@ -201,7 +201,7 @@ extension OnboardingView {
     
     private func setworkingPeriodUI() {
         titleLabel.text = "희망하는 인턴 근무 기간을 선택해주세요"
-        subTitleLabel.text = "선택한 기간동안 근무할 수 있는 인턴 공고를 찾아드릴게요"
+        subTitleLabel.text = "선택한 기간 동안 근무할 수 있는 인턴 공고를 찾아드릴게요"
         
         addSubview(buttonStackView)
         

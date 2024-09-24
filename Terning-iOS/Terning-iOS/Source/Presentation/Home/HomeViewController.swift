@@ -35,7 +35,7 @@ final class HomeViewController: UIViewController {
     private let scrapProviders = Providers.scrapsProvider
     
     var apiParameter: String = "deadlineSoon"
-
+    
     var userName: String = ""
     var hasScrapped: Bool = false
     var upcomingCardLists: [UpcomingCard] = [] {
@@ -196,7 +196,7 @@ extension HomeViewController: UICollectionViewDataSource {
             
             return headerView
             
-        default: 
+        default:
             return UICollectionReusableView()
         }
     }
@@ -363,7 +363,7 @@ extension HomeViewController: SortSettingButtonProtocol {
         ) as? FilterInfoCell else { return }
         headerView.sortButtonLabel.text = option.title
         rootView.collectionView.reloadData()
-    
+        
         switch option {
         case .deadlineSoon:
             apiParameter =  "deadlineSoon"
@@ -409,7 +409,7 @@ extension HomeViewController: JobCardScrapedCellProtocol {
     func scrapButtonDidTap(index: Int) {
         
         let model = jobCardLists[index]
-
+        
         if model.isScrapped {
             let alertSheet = NewCustomAlertVC(alertViewType: .info)
             
@@ -418,12 +418,10 @@ extension HomeViewController: JobCardScrapedCellProtocol {
             
             alertSheet.centerButtonDidTapAction = { [weak self] in
                 guard let self = self else { return }
-            
+                
                 self.cancelScrapAnnouncement(internshipAnnouncementId: model.internshipAnnouncementId)
                 
                 jobCardLists[index].isScrapped = false
-                
-                self.rootView.collectionView.reloadData()
                 
                 self.dismiss(animated: false)
             }
@@ -443,8 +441,6 @@ extension HomeViewController: JobCardScrapedCellProtocol {
                 self.addScrapAnnouncement(internshipAnnouncementId: model.internshipAnnouncementId, color: selectedColorNameRelay)
                 
                 jobCardLists[index].isScrapped = true
-                
-                self.rootView.collectionView.reloadData()
                 
                 self.dismiss(animated: false)
             }
@@ -580,7 +576,7 @@ extension HomeViewController {
                                 self.hasScrapped = true
                             }
                         }
-
+                        
                         self.rootView.collectionView.reloadData()
                     } catch {
                         print(error.localizedDescription)
@@ -608,6 +604,7 @@ extension HomeViewController {
                 let status = response.statusCode
                 if 200..<300 ~= status {
                     showToast(message: "스크랩 수정 성공", heightOffset: 20)
+                    self.fetchTodayDeadlineDatas()
                     self.rootView.collectionView.reloadData()
                 } else {
                     print("400 error")
@@ -629,6 +626,7 @@ extension HomeViewController {
                 let status = response.statusCode
                 if 200..<300 ~= status {
                     self.showToast(message: "관심 공고가 캘린더에 스크랩 되었어요!", heightOffset: 20)
+                    self.fetchTodayDeadlineDatas()
                     self.rootView.collectionView.reloadData()
                 } else {
                     print("400 error")
@@ -650,6 +648,7 @@ extension HomeViewController {
                 let status = response.statusCode
                 if 200..<300 ~= status {
                     self.showToast(message: "관심 공고가 캘린더에서 사라졌어요!", heightOffset: 20)
+                    self.fetchTodayDeadlineDatas()
                     self.rootView.collectionView.reloadData()
                 } else {                    print("400 error")
                     self.showToast(message: "네트워크 오류")

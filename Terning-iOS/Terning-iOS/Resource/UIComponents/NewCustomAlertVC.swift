@@ -282,6 +282,11 @@ final class NewCustomAlertVC: UIViewController {
             $0.centerX.equalToSuperview()
         }
         
+        mainJobLabel.snp.makeConstraints {
+            $0.top.equalTo(alertImageView.snp.bottom).offset(20.adjustedH)
+            $0.centerX.equalToSuperview()
+        }
+
         centerButton.setTitle(title: "스크랩 취소하기")
         
         centerButton.snp.makeConstraints {

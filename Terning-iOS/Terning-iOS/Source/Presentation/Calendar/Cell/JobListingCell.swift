@@ -28,9 +28,9 @@ final class JobListingCell: UICollectionViewCell {
     }
     
     private let mainImageView = UIImageView().then {
-        $0.backgroundColor = .grey200
         $0.layer.cornerRadius = 5
         $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFit
     }
     
     private let deadlineLabel = LabelFactory.build(

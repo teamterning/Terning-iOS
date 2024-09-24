@@ -192,7 +192,7 @@ final class JobDetailViewModel: ViewModelType {
             .flatMapLatest { (intershipAnnouncementId, color) in
                 self.jobDetailRepository.addScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)
                     .do(onNext: {
-                        successMessageTracker.onNext("스크랩 완료!")
+                        successMessageTracker.onNext("관심 공고가 캘린더에 스크랩되었어요!")
                     })
                     .catch { error in
                         errorTracker.onNext("스크랩 오류: \(error.localizedDescription)")

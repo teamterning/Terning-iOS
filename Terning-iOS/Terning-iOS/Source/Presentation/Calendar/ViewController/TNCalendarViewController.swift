@@ -340,7 +340,7 @@ extension TNCalendarViewController: FSCalendarDelegate {
         if isWeekView {
             rootView.calenderBottomCollectionView.backgroundColor = .back
             rootView.roundCalendarViewCorners(radius: 20) // 라운드 처리 해주기
-            rootView.calendarViewContainer.layer.applyShadow(alpha: 0.1, y: 4, blur: 4)
+            rootView.calendarViewContainer.layer.applyShadow(alpha: 0.1, y: 4, blur: 2)
             
             rootView.calendarView.snp.updateConstraints { make in
                 make.height.equalTo(95.adjustedH) // 주간 뷰 높이 설정
@@ -348,7 +348,7 @@ extension TNCalendarViewController: FSCalendarDelegate {
             rootView.calenderBottomCollectionView.isHidden = false
         } else {
             rootView.roundCalendarViewCorners(radius: 0)  // 라운드 처리 풀어 주기
-            rootView.layer.shadowOpacity = 0
+            rootView.calendarViewContainer.layer.shadowOpacity = 0
             
             rootView.calendarView.snp.updateConstraints {
                 let weekCount = calculateWeekCount(for: calendar.currentPage)

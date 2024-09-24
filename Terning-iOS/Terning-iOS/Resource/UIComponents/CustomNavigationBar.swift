@@ -129,12 +129,12 @@ extension CustomNavigationBar {
             }
             calendarBackButton.snp.makeConstraints {
                 $0.centerY.equalToSuperview()
-                $0.trailing.equalTo(centerTitleLabel.snp.leading).offset(-8)
+                $0.leading.equalToSuperview().offset(106.adjustedH)
                 $0.width.height.equalTo(28)
             }
             calendarFrontButton.snp.makeConstraints {
                 $0.centerY.equalToSuperview()
-                $0.leading.equalTo(centerTitleLabel.snp.trailing).offset(8)
+                $0.trailing.equalToSuperview().inset(106.adjusted)
                 $0.width.height.equalTo(28)
             }
             calendarListButton.snp.makeConstraints {

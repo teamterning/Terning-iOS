@@ -405,6 +405,15 @@ extension TNCalendarViewController: FSCalendarDataSource {
             }
         }()
         
+        // 선택된 날짜는 흰색으로 표시, 그 외는 원래 색상
+        let textColor: UIColor = {
+            if isSelected {
+                return .white
+            } else {
+                return isCurrentMonth ? .black : .grey200
+            }
+        }()
+        
         let isWeekView = calendar.scope == .week
         cell.cellView.setViewMode(isWeekView: isWeekView)
         
@@ -412,7 +421,7 @@ extension TNCalendarViewController: FSCalendarDataSource {
         
         cell.bind(
             with: date,
-            textColor: isCurrentMonth ? .black : .grey200,
+            textColor: textColor,
             state: dateStatus,
             events: events
         )

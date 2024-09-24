@@ -143,7 +143,7 @@ final class CalendarDateCellView: UIView {
         case .selected:
             selectView.backgroundColor = .terningMain
             selectView.isHidden = false
-            dateLabel.textColor = .black
+            dateLabel.textColor = .white
         }
     }
     

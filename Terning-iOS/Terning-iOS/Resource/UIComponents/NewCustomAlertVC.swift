@@ -134,6 +134,17 @@ final class NewCustomAlertVC: UIViewController {
     
     private let alertView = UIView()
     
+    private lazy var imageLabelVStackView = UIStackView(
+        arrangedSubviews: [
+            jobImageView,
+            mainJobLabel
+        ]
+    ).then {
+        $0.axis = .vertical
+        $0.alignment = .center
+        $0.spacing = 10.adjustedH
+    }
+    
     // MARK: - Life Cycles
     
     override func viewDidLoad() {
@@ -183,8 +194,7 @@ final class NewCustomAlertVC: UIViewController {
         switch type {
         case .scrap, .changeColorAndPushJobDetail:
             alertView.addSubviews(
-                jobImageView,
-                mainJobLabel,
+                imageLabelVStackView,
                 subLabelView,
                 subLabel,
                 paletteCollectionView,
@@ -232,24 +242,6 @@ final class NewCustomAlertVC: UIViewController {
         }
     }
     
-    private func setChangeColorAndPushJobDetailLayout() {
-        centerButton.isHidden = true
-        
-        changeColorButton.snp.makeConstraints {
-            $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
-            $0.leading.equalToSuperview().inset(16.adjusted)
-            $0.height.equalTo(40.adjustedH)
-            $0.width.equalTo(140.adjusted)
-        }
-        viewJobDetailButton.snp.makeConstraints {
-            $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
-            //            $0.trailing.equalToSuperview().offset(-16.adjusted)
-            $0.leading.equalTo(changeColorButton.snp.trailing).offset(8.adjusted)
-            $0.height.equalTo(40.adjustedH)
-            $0.width.equalTo(140.adjusted)
-        }
-    }
-    
     private func setScrapLayout() {
         changeColorButton.isHidden = true
         viewJobDetailButton.isHidden = true
@@ -261,6 +253,23 @@ final class NewCustomAlertVC: UIViewController {
         }
     }
     
+    private func setChangeColorAndPushJobDetailLayout() {
+        centerButton.isHidden = true
+        
+        changeColorButton.snp.makeConstraints {
+            $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
+            $0.leading.equalToSuperview().inset(16.adjusted)
+            $0.height.equalTo(40.adjustedH)
+            $0.width.equalTo(140.adjusted)
+        }
+        viewJobDetailButton.snp.makeConstraints {
+            $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
+            $0.leading.equalTo(changeColorButton.snp.trailing).offset(8.adjusted)
+            $0.height.equalTo(40.adjustedH)
+            $0.width.equalTo(140.adjusted)
+        }
+    }
+    
     private func setInfoLayout() {
         alertImageView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(60)
@@ -268,19 +277,12 @@ final class NewCustomAlertVC: UIViewController {
             $0.height.equalTo(203.adjustedH)
         }
         
-        mainJobLabel.snp.makeConstraints {
-            $0.top.equalTo(alertImageView.snp.bottom).offset(20.adjustedH)
-            $0.centerX.equalToSuperview()
-        }
-        
         subInfoLabel.snp.makeConstraints {
             $0.top.equalTo(mainJobLabel.snp.bottom).offset(4.adjustedH)
             $0.centerX.equalToSuperview()
         }
         
-        centerButton.do {
-            $0.titleLabel?.text = "스크랩 취소하기"
-        }
+        centerButton.setTitle(title: "스크랩 취소하기")
         
         centerButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(16.adjustedH)
@@ -292,15 +294,20 @@ final class NewCustomAlertVC: UIViewController {
     private func setCommonLayout() {
         paletteCollectionView.isScrollEnabled = false
         
-        jobImageView.snp.makeConstraints {
+        imageLabelVStackView.snp.makeConstraints {
             $0.top.equalTo(alertView.snp.top).offset(32.adjustedH)
             $0.centerX.equalTo(alertView)
-            $0.width.height.equalTo(80.adjustedH)
+            $0.leading.trailing.equalToSuperview().inset(21)
+            $0.height.equalTo(153)
         }
         
         mainJobLabel.snp.makeConstraints {
-            $0.top.equalTo(jobImageView.snp.bottom).offset(10.adjustedH)
-            $0.horizontalEdges.equalToSuperview().inset(21)
+            $0.horizontalEdges.equalToSuperview()
+        }
+        
+        jobImageView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.width.height.equalTo(80.adjustedH)
         }
         
         subLabelView.snp.makeConstraints {

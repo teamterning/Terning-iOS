@@ -167,7 +167,7 @@ extension IsScrapInfoViewCell {
     
     // MARK: - Methods
     
-    func bindData(model: UpcomingCard) {
+    func bindData(model: UpcomingCard, indexPath: IndexPath) {
         self.companyImageView.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.dDayLabel.text = model.dDay
         self.cardLabel.text = model.title
@@ -180,6 +180,7 @@ extension IsScrapInfoViewCell {
         self.isScrapped = model.isScrapped
         self.deadline = model.deadline
         self.startYearMonth = model.startYearMonth
+        self.indexPath = indexPath.item
     }
     
     // MARK: - objc fund

@@ -235,7 +235,8 @@ extension HomeViewController: UICollectionViewDataSource {
                     return cell
                 } else {
                     guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: IsScrapInfoViewCell.className, for: indexPath) as? IsScrapInfoViewCell else { return UICollectionViewCell() }
-                    cell.bindData(model: upcomingCardLists[indexPath.item])
+                    cell.upcomingCardDelegate = self
+                    cell.bindData(model: upcomingCardLists[indexPath.item], indexPath: indexPath)
                     return cell
                 }
             } else {

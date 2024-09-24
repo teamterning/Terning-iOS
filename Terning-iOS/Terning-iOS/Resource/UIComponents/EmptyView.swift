@@ -25,7 +25,7 @@ final class EmptyView: UIView {
     
     private let emptyLabel = LabelFactory.build(
         text: "선택하신 날짜에 지원 마감인 스크랩 공고가 없어요",
-        font: .body5,
+        font: .detail2,
         textColor: .grey400,
         lineSpacing: 1.2,
         characterSpacing: 0.002

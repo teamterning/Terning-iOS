@@ -21,7 +21,7 @@ final class NonJobCardCell: UICollectionViewCell {
     private let descriptionLabel = LabelFactory.build(
         text: "지금 공고 필터링을 설정하고 \n 내 계획에 딱 맞는 대학생 인턴 공고를 추천받아보세요!",
         font: .detail2,
-        textColor: .grey500
+        textColor: .grey400
     ).then {
         $0.numberOfLines = 2
     }

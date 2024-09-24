@@ -169,6 +169,12 @@ final class NewCustomAlertVC: UIViewController {
             $0.setImage(UIImage(resource: .icX), for: .normal)
             $0.tintColor = .grey300
         }
+        
+        if type != .info {
+            sepeartorView.do {
+                $0.backgroundColor = .grey200
+            }
+        }
     }
     
     private func setHierarchy(_ type: AlertViewType) {

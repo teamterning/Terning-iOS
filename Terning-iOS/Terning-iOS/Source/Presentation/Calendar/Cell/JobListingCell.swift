@@ -33,7 +33,7 @@ final class JobListingCell: UICollectionViewCell {
         $0.contentMode = .scaleAspectFit
     }
     
-    private let deadlineLabel = LabelFactory.build(
+    private let dDayLabel = LabelFactory.build(
         font: .detail0,
         textColor: .terningMain,
         lineSpacing: 1.0,
@@ -110,7 +110,7 @@ extension JobListingCell {
         
         containerView.addSubviews(
             mainImageView,
-            deadlineLabel,
+            dDayLabel,
             mainTitleLabel,
             workingPeriodLabel,
             monthLabel,
@@ -136,7 +136,7 @@ extension JobListingCell {
             $0.width.height.equalTo(76)
         }
         
-        deadlineLabel.snp.makeConstraints {
+        dDayLabel.snp.makeConstraints {
             $0.top.equalTo(containerView.snp.top)
             $0.leading.equalTo(mainImageView.snp.trailing).offset(8)
         }
@@ -175,7 +175,7 @@ extension JobListingCell {
         self.collectionView = collectionView
         
         self.mainImageView.setImage(with: model.companyImage)
-        self.deadlineLabel.text = model.deadline
+        self.dDayLabel.text = model.dDay
         self.monthLabel.text = model.workingPeriod
         self.mainTitleLabel.text = model.title
         self.colorMark.backgroundColor = UIColor(hex: model.color ?? "#ED4E54")

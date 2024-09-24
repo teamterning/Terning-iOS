@@ -387,20 +387,7 @@ extension HomeViewController: SortSettingButtonProtocol {
 
 extension HomeViewController: CheckDeadlineCellProtocol {
     func checkDeadlineButtonDidTap() {
-        let calendarVC = TNCalendarViewController(
-            viewModel: TNCalendarViewModel(
-                calendarRepository: TNCalendarRepository(
-                    calendarService: TNCalendarService(
-                        provider: Providers.calendarProvider
-                    ),
-                    scrapService: ScrapsService(
-                        provider: Providers.scrapsProvider
-                    )
-                )
-            )
-        )
-        
-        self.navigationController?.pushViewController(calendarVC, animated: true)
+        self.tabBarController?.selectedIndex = 1
     }
 }
 

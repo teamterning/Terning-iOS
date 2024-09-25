@@ -147,7 +147,7 @@ extension JobCardCell {
     // MARK: - Methods
     
     private func setAddTarget() {
-        scrapButton.addTarget(self, action: #selector(scrapButtonDidTap(_:)), for: .touchUpInside)
+        scrapButton.addTarget(self, action: #selector(scrapButtonDidTap), for: .touchUpInside)
     }
     
     func bind(model: AnnouncementModel, indexPath: IndexPath) {

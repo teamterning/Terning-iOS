@@ -638,7 +638,8 @@ extension HomeViewController {
                     self.showToast(message: "관심 공고가 캘린더에서 사라졌어요!", heightOffset: 20)
                     self.fetchTodayDeadlineDatas()
                     self.rootView.collectionView.reloadData()
-                } else {                    print("400 error")
+                } else {                    
+                    print("400 error")
                     self.showToast(message: "네트워크 오류")
                 }
             case .failure(let error):

@@ -98,9 +98,7 @@ extension SearchView {
         }
         logoImageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8.adjustedH)
-            $0.leading.equalToSuperview().inset(21.adjusted)
-            $0.height.equalTo(27.adjustedH)
-            $0.width.equalTo(113.adjusted)
+            $0.leading.equalToSuperview().inset(24.adjusted)
         }
         searchView.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom).offset(8.adjustedH)

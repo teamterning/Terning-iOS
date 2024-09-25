@@ -126,7 +126,7 @@ extension JobListingCell {
         
         containerView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(12)
-            $0.trailing.equalToSuperview().inset(5)
+            $0.trailing.equalToSuperview().inset(12)
             $0.bottom.equalToSuperview().inset(8)
             $0.leading.equalTo(colorMark.snp.trailing).offset(12)
         }

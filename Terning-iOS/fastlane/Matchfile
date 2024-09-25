@@ -1,10 +1,11 @@
 git_url("https://github.com/thingineeer/fastlane-Terning")
+git_branch("master")
 
 storage_mode("git")
 
 type("development") # The default type, can be: appstore, adhoc, enterprise or development
 
-# app_identifier(["tools.fastlane.app", "tools.fastlane.app2"])
+app_identifier("com.terning.Terning-iOS")
 # username("user@fastlane.tools") # Your Apple Developer Portal username
 
 # For all available options run `fastlane match --help`

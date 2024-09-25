@@ -47,7 +47,6 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view?.backgroundColor = .white
         
         setUI()
         setLayout()
@@ -63,6 +62,7 @@ final class SearchViewController: UIViewController {
 
 extension SearchViewController {
     private func setUI() {
+        view.backgroundColor = .white
         view.addSubview(searchView)
     }
     private func setLayout() {
@@ -261,6 +261,10 @@ extension SearchViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch RecomandType(rawValue: indexPath.section) {
+        case .advertisement: 
+            let urlString = "https://www.instagram.com/terning_official?igsh=NnNma245bnUzbWNm&utm_source=qr"
+            guard let url = URL(string: urlString) else { return }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         case .viewsNum:
             guard let viewsNum = searchView.viewsNum else { return }
             

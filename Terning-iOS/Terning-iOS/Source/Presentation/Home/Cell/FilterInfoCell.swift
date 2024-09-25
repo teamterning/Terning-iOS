@@ -49,7 +49,7 @@ final class FilterInfoCell: UICollectionViewCell {
         textColor: .grey400,
         lineSpacing: 1.2,
         characterSpacing: 0.002
-
+        
     )
     
     var periodLabel = LabelFactory.build(
@@ -58,7 +58,7 @@ final class FilterInfoCell: UICollectionViewCell {
         textColor: .grey400,
         lineSpacing: 1.2,
         characterSpacing: 0.002
-
+        
     )
     
     var monthLabel = LabelFactory.build(
@@ -173,7 +173,7 @@ extension FilterInfoCell {
             $0.top.equalTo(titleLabel.snp.bottom).offset(12)
             $0.leading.equalToSuperview().offset(24)
         }
-
+        
         filteringStack.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(19)
             $0.trailing.equalToSuperview().inset(24)
@@ -213,9 +213,6 @@ extension FilterInfoCell {
     
     func setAddTarget() {
         filterButton.addTarget(self, action: #selector(filterButtonDidTap), for: .touchUpInside)
-        filterButton.addTarget(self, action: #selector(filterButtonTouchDown), for: .touchDown)
-        filterButton.addTarget(self, action: #selector(filterButtonTouchUpOutside), for: .touchUpOutside)
-        filterButton.addTarget(self, action: #selector(filterButtonTouchUpInside), for: .touchUpInside)
     }
     
     func setTapGesture() {
@@ -224,28 +221,9 @@ extension FilterInfoCell {
     }
     
     @objc func filterButtonDidTap() {
-            print("filterButton is clicked")
-            filterDelegate?.filterButtonDidTap()
-        }
-        
-        @objc func filterButtonTouchDown() {
-            originalBackgroundColor = filterButton.configuration?.background.backgroundColor
-            filterButton.configuration?.background.backgroundColor = .terningPressed
-        }
-        
-        @objc func filterButtonTouchUpOutside() {
-            revertButtonBackgroundColor()
-        }
-        
-        @objc func filterButtonTouchUpInside() {
-            revertButtonBackgroundColor()
-        }
-        
-        private func revertButtonBackgroundColor() {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.filterButton.configuration?.background.backgroundColor = self.originalBackgroundColor
-            }
-        }
+        print("filterButton is clicked")
+        filterDelegate?.filterButtonDidTap()
+    }
     
     @objc func sortButtonDidTap() {
         print("sortButton is clicked")

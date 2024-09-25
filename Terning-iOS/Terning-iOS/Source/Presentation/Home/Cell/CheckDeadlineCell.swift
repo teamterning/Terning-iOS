@@ -10,7 +10,15 @@ import UIKit
 import SnapKit
 import Then
 
+protocol CheckDeadlineCellProtocol {
+    func checkDeadlineButtonDidTap()
+}
+
 final class CheckDeadlineCell: UICollectionViewCell {
+    
+    // MARK: - Properties
+    
+    var checkDeadlineDelegate: CheckDeadlineCellProtocol?
     
     // MARK: - UIComponents
     
@@ -97,6 +105,6 @@ extension CheckDeadlineCell {
 extension CheckDeadlineCell {
     @objc func checkDeadlineButtonDidTap() {
         print("checkDeadlineButton")
-        // TODO: 캘린더 화면으로 네비게이션 하는 코드가 들어가야함.
+        checkDeadlineDelegate?.checkDeadlineButtonDidTap()
     }
 }

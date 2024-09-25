@@ -7,11 +7,12 @@
 
 import UIKit
 
-import SnapKit
 import Lottie
+import SnapKit
+import Then
 
 final class LoginView: UIView {
-
+    
     // MARK: - UI Components
     
     private let logoAnimationView = LottieAnimationView().then {
@@ -24,11 +25,11 @@ final class LoginView: UIView {
     }
     
     let kakaoLoginButton = UIButton(type: .custom).then {
-        $0.setImage(.iosBtnBoxKakao, for: .normal)
+        $0.setImage(.iosKakaoButton, for: .normal)
     }
     
     let appleLoginButton = UIButton(type: .custom).then {
-        $0.setImage(.iosBtnBoxApple, for: .normal)
+        $0.setImage(.iosAppleButton, for: .normal)
     }
     
     // MARK: - Init
@@ -72,6 +73,5 @@ extension LoginView {
             $0.top.equalTo(kakaoLoginButton.snp.bottom).offset(12.adjustedH)
             $0.centerX.equalToSuperview()
         }
-        
     }
 }

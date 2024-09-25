@@ -39,6 +39,21 @@ class FilterButton: UIButton {
         self.configuration?.background.strokeWidth = 1
         self.configuration?.background.backgroundColor = .white
         self.configuration?.background.strokeColor = .terningMain
+        
+        let buttonStateHandler: UIButton.ConfigurationUpdateHandler = { button in
+            var updatedConfiguration = button.configuration
+            switch button.state {
+            case .normal:
+                updatedConfiguration?.background.backgroundColor = .white
+            case .highlighted:
+                updatedConfiguration?.background.backgroundColor = .terningPressed
+            default:
+                break
+            }
+            button.configuration = updatedConfiguration
+        }
+        
+        self.configurationUpdateHandler = buttonStateHandler
     }
     
     required init?(coder: NSCoder) {

@@ -296,7 +296,7 @@ extension SearchResultViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             cell.bind(model: SearchResult[indexPath.item], indexPath: indexPath)
-            cell.delegate2 = self
+            cell.delegate = self
             return cell
             
         case .noSearch:

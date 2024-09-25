@@ -294,9 +294,9 @@ extension ProfileView {
         nameTextField.text = userInfo.name
         profileImageView.image = ProfileImageUtils.imageForProfile(imageString: userInfo.profileImage)
         if userInfo.authType == "APPLE" {
-            snsTypeLabel.text = "Apple 로그인"
+            snsTypeLabel.text = "애플 로그인"
         } else if userInfo.authType == "KAKAO" {
-            snsTypeLabel.text = "Kakao 로그인"
+            snsTypeLabel.text = "카카오 로그인"
         } else {
             snsTypeLabel.text = "정보 없음"
         }

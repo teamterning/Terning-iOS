@@ -100,24 +100,23 @@ extension SearchResultView {
     private func setLayout() {
         navigationBar.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(68)
+            $0.height.equalTo(68.adjustedH)
         }
         
         searchTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom).offset(14)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.top.equalTo(navigationBar.snp.bottom).offset(14.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
         }
         
         searchView.snp.makeConstraints {
-            $0.top.equalTo(searchTitleLabel.snp.bottom).offset(13)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.top.equalTo(searchTitleLabel.snp.bottom).offset(13.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
         }
         
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(searchView.snp.bottom).offset(8)
+            $0.top.equalTo(searchView.snp.bottom).offset(8.adjustedH)
             $0.horizontalEdges.bottom.equalToSuperview()
         }
-        
     }
 }
 

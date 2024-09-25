@@ -22,6 +22,7 @@ final class SearchResultViewController: UIViewController {
     // MARK: - Properties
     
     private var selectedIndex: Int?
+    private var didAppearOnce = false
     
     private var searchResultCount: Int = 0
     private var searchHasNext = true
@@ -71,6 +72,7 @@ extension SearchResultViewController {
     private func setUI() {
         view.backgroundColor = .white
         navigationController?.isNavigationBarHidden = true
+        rootView.searchView.textField.becomeFirstResponder()
     }
     
     private func setHierarchy() {

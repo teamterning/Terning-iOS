@@ -21,7 +21,7 @@ final class InavailableFilterView: UICollectionViewCell {
     
     private let inavailableLabel = LabelFactory.build(
         text: "필터링 설정에 일치하는 인턴 공고가 없어요!",
-        font: .body4,
+        font: .detail2,
         textColor: .grey400,
         textAlignment: .center
     ).then {

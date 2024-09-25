@@ -97,7 +97,7 @@ final class CalendarDateCellView: UIView {
         
         selectView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(7)
+            $0.top.equalToSuperview().offset(6)
             $0.width.height.equalTo(24)
         }
         
@@ -143,7 +143,7 @@ final class CalendarDateCellView: UIView {
         case .selected:
             selectView.backgroundColor = .terningMain
             selectView.isHidden = false
-            dateLabel.textColor = .black
+            dateLabel.textColor = .white
         }
     }
     

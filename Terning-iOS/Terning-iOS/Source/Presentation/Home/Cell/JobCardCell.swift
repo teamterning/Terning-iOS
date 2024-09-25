@@ -170,6 +170,11 @@ extension JobCardCell {
     }
     
     func bind(model: AnnouncementModel, indexPath: IndexPath) {
+        if model.dDay == "지원마감" {
+            self.daysRemaining.textColor = .grey300
+        } else {
+            self.daysRemaining.textColor = .terningMain
+        }
         self.internshipAnnouncementId = model.internshipAnnouncementId
         self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.daysRemaining.text = model.dDay

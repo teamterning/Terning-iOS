@@ -16,7 +16,7 @@ final class LoginView: UIView {
     // MARK: - UI Components
     
     private let logoAnimationView = LottieAnimationView().then {
-        let animation = LottieAnimation.named("login")
+        let animation = LottieAnimation.named("loginAnimation")
         $0.animation = animation
         $0.contentMode = .scaleAspectFit
         $0.loopMode = .autoReverse

@@ -33,7 +33,6 @@
 		2D89C7672C486E53002B035F /* CustomSortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C7662C486E53002B035F /* CustomSortButton.swift */; };
 		2D8D0D412C492B8C00ECB36F /* SearchResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8D0D402C492B8C00ECB36F /* SearchResultModel.swift */; };
 		2D997FAE2C91A6460078DAB0 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2D997FAD2C91A6460078DAB0 /* Lottie */; };
-		2D997FBA2C91ADFE0078DAB0 /* login.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D997FB92C91ADFE0078DAB0 /* login.json */; };
 		2D997FBD2C9228F00078DAB0 /* beforeOnboarding.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D997FBC2C9228F00078DAB0 /* beforeOnboarding.json */; };
 		2D997FBF2C9229760078DAB0 /* afterOnboarding.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D997FBE2C9229760078DAB0 /* afterOnboarding.json */; };
 		2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */; };
@@ -60,6 +59,7 @@
 		2DC986082C45FAC200D46729 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC986072C45FAC200D46729 /* CustomPageControl.swift */; };
 		2DC9860B2C46056300D46729 /* RecommendAnnouncementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */; };
 		2DC9860D2C4605FC00D46729 /* AdvertisementsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */; };
+		2DD419CA2CA46D2900F647DC /* loginAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 2DD419C92CA46D2900F647DC /* loginAnimation.json */; };
 		2DD483802C4B37A0000541E3 /* AccountOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD4837F2C4B37A0000541E3 /* AccountOptionViewController.swift */; };
 		2DF256F12C8C853F00B85843 /* MyPageProfileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F02C8C853F00B85843 /* MyPageProfileViewCell.swift */; };
 		2DF256F32C8C855700B85843 /* MyPageBasicViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F22C8C855700B85843 /* MyPageBasicViewCell.swift */; };
@@ -211,7 +211,6 @@
 		2D89C7642C486E2E002B035F /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		2D89C7662C486E53002B035F /* CustomSortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSortButton.swift; sourceTree = "<group>"; };
 		2D8D0D402C492B8C00ECB36F /* SearchResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultModel.swift; sourceTree = "<group>"; };
-		2D997FB92C91ADFE0078DAB0 /* login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login.json; sourceTree = "<group>"; };
 		2D997FBC2C9228F00078DAB0 /* beforeOnboarding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = beforeOnboarding.json; sourceTree = "<group>"; };
 		2D997FBE2C9229760078DAB0 /* afterOnboarding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = afterOnboarding.json; sourceTree = "<group>"; };
 		2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailViewController.swift; sourceTree = "<group>"; };
@@ -235,6 +234,7 @@
 		2DC986072C45FAC200D46729 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendAnnouncementModel.swift; sourceTree = "<group>"; };
 		2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementsModel.swift; sourceTree = "<group>"; };
+		2DD419C92CA46D2900F647DC /* loginAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loginAnimation.json; sourceTree = "<group>"; };
 		2DD4837F2C4B37A0000541E3 /* AccountOptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOptionViewController.swift; sourceTree = "<group>"; };
 		2DF256F02C8C853F00B85843 /* MyPageProfileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageProfileViewCell.swift; sourceTree = "<group>"; };
 		2DF256F22C8C855700B85843 /* MyPageBasicViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageBasicViewCell.swift; sourceTree = "<group>"; };
@@ -524,7 +524,7 @@
 				715C0FF42CA1C8B300EDDD60 /* scrapCancel.json */,
 				2D997FBC2C9228F00078DAB0 /* beforeOnboarding.json */,
 				2D997FBE2C9229760078DAB0 /* afterOnboarding.json */,
-				2D997FB92C91ADFE0078DAB0 /* login.json */,
+				2DD419C92CA46D2900F647DC /* loginAnimation.json */,
 			);
 			path = Lotties;
 			sourceTree = "<group>";
@@ -1389,10 +1389,10 @@
 				71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */,
 				B8F503382C749309000D2A22 /* Config.xcconfig in Resources */,
 				71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */,
+				2DD419CA2CA46D2900F647DC /* loginAnimation.json in Resources */,
 				2D997FBD2C9228F00078DAB0 /* beforeOnboarding.json in Resources */,
 				71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */,
 				71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */,
-				2D997FBA2C91ADFE0078DAB0 /* login.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

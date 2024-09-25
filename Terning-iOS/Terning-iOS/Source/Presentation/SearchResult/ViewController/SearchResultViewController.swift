@@ -71,6 +71,7 @@ extension SearchResultViewController {
     private func setUI() {
         view.backgroundColor = .white
         navigationController?.isNavigationBarHidden = true
+        rootView.searchView.textField.becomeFirstResponder()
     }
     
     private func setHierarchy() {

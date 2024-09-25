@@ -109,7 +109,7 @@ extension SearchResultView {
         }
         
         searchView.snp.makeConstraints {
-            $0.top.equalTo(searchTitleLabel.snp.bottom).offset(13.adjustedH)
+            $0.top.equalTo(searchTitleLabel.snp.bottom).offset(26.adjustedH)
             $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
         }
         

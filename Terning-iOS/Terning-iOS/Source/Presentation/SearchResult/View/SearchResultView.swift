@@ -66,7 +66,7 @@ final class SearchResultView: UIView {
 
 extension SearchResultView {
     private func setUI() {
-        navigationBar.setTitle("검색 결과")
+        navigationBar.setTitle("검색")
         
         collectionView.register(
             JobCardCell.self,
@@ -124,23 +124,25 @@ extension SearchResultView {
 
 extension SearchResultView {
     func updateLayout() {
+        navigationBar.setTitle("검색 결과")
+        
         navigationBar.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(68)
+            $0.height.equalTo(68.adjustedH)
         }
         
         searchTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom).offset(14)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.top.equalTo(navigationBar.snp.bottom).offset(14.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
         }
         
         searchView.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.top.equalTo(navigationBar.snp.bottom).offset(14.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
         }
         
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(searchView.snp.bottom).offset(20)
+            $0.top.equalTo(searchView.snp.bottom).offset(24.adjustedH)
             $0.horizontalEdges.bottom.equalToSuperview()
         }
         setNeedsLayout()
@@ -171,18 +173,18 @@ extension SearchResultView {
     private static func createSearchSection(hasResults: Bool) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(116)
+            heightDimension: .estimated(116.adjustedH)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(116)
+            heightDimension: .estimated(116.adjustedH)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
       
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 8.adjusted, leading: 0, bottom: 0, trailing: 0)
         
         if hasResults {
             let headerSize = NSCollectionLayoutSize(

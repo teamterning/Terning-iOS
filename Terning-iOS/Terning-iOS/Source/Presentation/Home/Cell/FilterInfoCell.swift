@@ -105,9 +105,7 @@ final class FilterInfoCell: UICollectionViewCell {
         text: "총 \(totalCount)개의 공고가 있어요",
         font: .body3,
         textColor: .grey400
-    ).then {
-        $0.setAttributedText(targetFontList: ["\(totalCount)": .body3], targetColorList: ["\(totalCount)": .terningMain])
-    }
+    )
     
     // 정렬 버튼
     var sortButtonLabel = LabelFactory.build(
@@ -251,9 +249,8 @@ extension FilterInfoCell {
     }
     
     func countBind(model: JobCardModel) {
-        print("total: \(model.totalCount)")
         totalCountLabel.text = "총 \(model.totalCount)개의 공고가 있어요"
-        totalCountLabel.setAttributedText(targetFontList: ["\(model.totalCount)": .body3], targetColorList: ["\(model.totalCount)": .terningMain])
+        totalCountLabel.setAttributedText(targetFontList: ["\(model.totalCount)": .button3], targetColorList: ["\(model.totalCount)": .terningMain])
     }
     
     private func gradeText(for grade: String) -> String {

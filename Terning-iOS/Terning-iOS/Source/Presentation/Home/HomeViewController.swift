@@ -455,6 +455,9 @@ extension HomeViewController: UpcomingCardCellProtocol {
         let model = upcomingCardLists[index]
         
         let alertSheet = NewCustomAlertVC(alertViewType: .changeColorAndPushJobDetail)
+        
+        jobDetailViewController.internshipAnnouncementId.accept(model.internshipAnnouncementId)
+        jobDetailViewController.hidesBottomBarWhenPushed = true
         alertSheet.setAnnouncementData(model: model)
         
         alertSheet.modalTransitionStyle = .crossDissolve

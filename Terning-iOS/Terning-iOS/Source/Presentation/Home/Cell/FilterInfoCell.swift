@@ -199,13 +199,13 @@ extension FilterInfoCell {
         }
         
         totalCountLabel.snp.makeConstraints {
-            $0.top.equalTo(filteringStack.snp.bottom).offset(28)
-            $0.leading.equalToSuperview().offset(26)
+            $0.top.equalTo(filteringStack.snp.bottom).offset(29.adjustedH)
+            $0.leading.equalToSuperview().offset(26.adjusted)
         }
         
         sortButtonStack.snp.makeConstraints {
-            $0.top.equalTo(filteringStack.snp.bottom).offset(28)
-            $0.trailing.equalToSuperview().inset(16)
+            $0.top.equalTo(filteringStack.snp.bottom).offset(30.adjustedH)
+            $0.trailing.equalToSuperview().inset(16.adjusted)
         }
     }
     

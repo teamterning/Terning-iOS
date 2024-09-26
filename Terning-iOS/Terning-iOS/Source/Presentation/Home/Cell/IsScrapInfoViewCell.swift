@@ -35,7 +35,7 @@ final class IsScrapInfoViewCell: UICollectionViewCell {
     private let scrapAndDeadlineCard = UIView().then {
         $0.layer.cornerRadius = 5
         $0.backgroundColor = .white
-        $0.layer.applyShadow(color: .greyShadow, alpha: 1.0, x: 0, y: 0, blur: 4, spread: 0)
+        $0.layer.applyShadow(color: .greyShadow, alpha: 1.0, x: 0, y: 0, blur: 3, spread: 0)
         $0.isUserInteractionEnabled = true
     }
     

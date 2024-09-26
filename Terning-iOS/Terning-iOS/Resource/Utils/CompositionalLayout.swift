@@ -203,14 +203,14 @@ struct CompositionalLayout {
             } else if sectionNumber == 2 {
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .absolute(100))
+                    heightDimension: .absolute(100.adjustedH))
                 
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 
                 // Group
                 let groupSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .absolute(100)) // 헤더가 포함된 사이즈여야함.
+                    heightDimension: .absolute(100.adjustedH)) // 헤더가 포함된 사이즈여야함.
                 
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 
@@ -227,7 +227,7 @@ struct CompositionalLayout {
                 sectionHeader.pinToVisibleBounds = true
                 section.boundarySupplementaryItems = [sectionHeader]
                 section.interGroupSpacing = 12
-                section.contentInsets = .init(top: 10, leading: 0, bottom: 20, trailing: 0)
+                section.contentInsets = .init(top: 4, leading: 0, bottom: 20, trailing: 0)
                 
                 return section
             } else {

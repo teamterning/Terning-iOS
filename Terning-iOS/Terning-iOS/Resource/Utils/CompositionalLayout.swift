@@ -226,8 +226,8 @@ struct CompositionalLayout {
                 
                 sectionHeader.pinToVisibleBounds = true
                 section.boundarySupplementaryItems = [sectionHeader]
-                section.interGroupSpacing = 20
-                section.contentInsets = .init(top: 10, leading: 0, bottom: 28, trailing: 0)
+                section.interGroupSpacing = 12
+                section.contentInsets = .init(top: 10, leading: 0, bottom: 20, trailing: 0)
                 
                 return section
             } else {

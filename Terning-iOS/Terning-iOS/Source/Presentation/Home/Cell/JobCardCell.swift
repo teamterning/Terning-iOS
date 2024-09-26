@@ -108,39 +108,39 @@ extension JobCardCell {
         jobCard.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(100.adjustedH)
+            $0.height.equalTo(92.adjustedH)
         }
         
         jobCardCoverImage.snp.makeConstraints {
-            $0.top.equalTo(jobCard.snp.top).offset(12)
-            $0.leading.equalTo(jobCard.snp.leading).offset(12)
+            $0.top.equalTo(jobCard.snp.top).offset(12.adjustedH)
+            $0.leading.equalTo(jobCard.snp.leading).offset(12.adjusted)
             $0.width.height.equalTo(72.adjusted)
         }
         
         daysRemaining.snp.makeConstraints {
-            $0.top.equalTo(jobCard.snp.top).offset(12)
-            $0.leading.equalTo(jobCardCoverImage.snp.trailing).offset(8)
+            $0.top.equalTo(jobCard.snp.top).offset(12.adjustedH)
+            $0.leading.equalTo(jobCardCoverImage.snp.trailing).offset(8.adjusted)
         }
         
         jobLabel.snp.makeConstraints {
-            $0.top.equalTo(jobCard.snp.top).offset(30)
-            $0.leading.equalTo(jobCardCoverImage.snp.trailing).offset(8)
-            $0.trailing.equalTo(jobCard.snp.trailing).inset(50)
+            $0.top.equalTo(jobCard.snp.top).offset(30.adjustedH)
+            $0.leading.equalTo(jobCardCoverImage.snp.trailing).offset(8.adjusted)
+            $0.trailing.equalTo(jobCard.snp.trailing).inset(8.adjusted)
         }
         
         periodTitle.snp.makeConstraints {
-            $0.bottom.equalTo(jobCard.snp.bottom).inset(12)
-            $0.leading.equalTo(jobCardCoverImage.snp.trailing).offset(8)
+            $0.bottom.equalTo(jobCard.snp.bottom).inset(12.adjustedH)
+            $0.leading.equalTo(jobCardCoverImage.snp.trailing).offset(8.adjusted)
         }
         
         period.snp.makeConstraints {
-            $0.bottom.equalTo(jobCard.snp.bottom).inset(12)
-            $0.leading.equalTo(periodTitle.snp.trailing).offset(4)
+            $0.bottom.equalTo(jobCard.snp.bottom).inset(12.adjustedH)
+            $0.leading.equalTo(periodTitle.snp.trailing).offset(4.adjusted)
         }
         
         scrapButton.snp.makeConstraints {
-            $0.top.equalTo(jobCard.snp.top).offset(62)
-            $0.trailing.equalTo(jobCard.snp.trailing).inset(17)
+            $0.top.equalTo(jobCard.snp.top).offset(58.adjustedH)
+            $0.trailing.equalTo(jobCard.snp.trailing).inset(14.adjusted)
         }
     }
     

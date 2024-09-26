@@ -19,4 +19,5 @@ struct AnnouncementModel: Codable {
     let color: String?
     let deadline: String
     let startYearMonth: String
+    let companyInfo: String?
 }

@@ -38,7 +38,7 @@ final class HomeViewController: UIViewController {
     
     var userName: String = ""
     var hasScrapped: Bool = false
-    var upcomingCardLists: [UpcomingCard] = [] {
+    var upcomingCardLists: [AnnouncementModel] = [] {
         didSet {
             rootView.collectionView.reloadData()
         }
@@ -455,6 +455,7 @@ extension HomeViewController: UpcomingCardCellProtocol {
         let model = upcomingCardLists[index]
         
         let alertSheet = NewCustomAlertVC(alertViewType: .changeColorAndPushJobDetail)
+        alertSheet.setAnnouncementData(model: model)
         
         alertSheet.modalTransitionStyle = .crossDissolve
         alertSheet.modalPresentationStyle = .overFullScreen
@@ -469,6 +470,7 @@ extension HomeViewController: UpcomingCardCellProtocol {
         alertSheet.rightButtonDidTapAction = {
             self.dismiss(animated: true)
             self.navigationController?.pushViewController(jobDetailViewController, animated: true)
+            
         }
         
         self.present(alertSheet, animated: false)

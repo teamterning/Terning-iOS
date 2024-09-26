@@ -73,8 +73,8 @@ extension HomeView {
     
     private func setLayout() {
         homeLogo.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(65)
-            $0.leading.equalToSuperview().offset(21)
+            $0.top.equalTo(safeAreaLayoutGuide).offset(8.adjustedH)
+            $0.leading.equalToSuperview().offset(24.adjusted)
         }
         
         collectionView.snp.makeConstraints {

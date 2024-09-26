@@ -57,6 +57,7 @@ final class IsScrapInfoViewCell: UICollectionViewCell {
     
     private let companyImageView = UIImageView().then {
         $0.image = UIImage(resource: .default)
+        $0.contentMode = .scaleAspectFit
         $0.clipsToBounds = true
         $0.makeBorder(width: 1, color: .grey150, cornerRadius: 32/2)
     }

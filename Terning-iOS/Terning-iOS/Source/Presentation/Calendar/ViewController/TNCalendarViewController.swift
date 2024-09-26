@@ -477,7 +477,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
         if collectionView == rootView.calenderBottomCollectionView {
             let model = self.viewModel.calendarDaily[indexPath.row]
             
-            let alertSheet = NewCustomAlertVC(alertViewType: .changeColorAndPushJobDetail)
+            let alertSheet = CustomAlertViewController(alertViewType: .changeColorAndPushJobDetail)
             
             jobDetailViewController.internshipAnnouncementId.accept(model.internshipAnnouncementId)
             jobDetailViewController.hidesBottomBarWhenPushed = true
@@ -507,7 +507,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             
             let model = scrapSection[indexPath.row]
             
-            let alertSheet = NewCustomAlertVC(alertViewType: .changeColorAndPushJobDetail)
+            let alertSheet = CustomAlertViewController(alertViewType: .changeColorAndPushJobDetail)
             
             alertSheet.setAnnouncementData(model: model)
             
@@ -631,7 +631,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
 
 extension TNCalendarViewController: JobListCellProtocol {
     func scrapButtonDidTapInCalendar(in collectionView: UICollectionView, isScrap: Bool, indexPath: IndexPath) {
-        let alertSheet = NewCustomAlertVC(alertViewType: .info)
+        let alertSheet = CustomAlertViewController(alertViewType: .info)
         
         let model: AnnouncementModel
         

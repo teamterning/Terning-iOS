@@ -399,7 +399,7 @@ extension HomeViewController: JobCardScrapedCellProtocol {
         let model = jobCardLists[index]
         
         if model.isScrapped {
-            let alertSheet = NewCustomAlertVC(alertViewType: .info)
+            let alertSheet = CustomAlertViewController(alertViewType: .info)
             
             alertSheet.modalTransitionStyle = .crossDissolve
             alertSheet.modalPresentationStyle = .overFullScreen
@@ -416,7 +416,7 @@ extension HomeViewController: JobCardScrapedCellProtocol {
             
             self.present(alertSheet, animated: false)
         } else {
-            let alertSheet = NewCustomAlertVC(alertViewType: .scrap)
+            let alertSheet = CustomAlertViewController(alertViewType: .scrap)
             alertSheet.setAnnouncementData(model: model)
             
             alertSheet.modalTransitionStyle = .crossDissolve
@@ -454,7 +454,7 @@ extension HomeViewController: UpcomingCardCellProtocol {
         
         let model = upcomingCardLists[index]
         
-        let alertSheet = NewCustomAlertVC(alertViewType: .changeColorAndPushJobDetail)
+        let alertSheet = CustomAlertViewController(alertViewType: .changeColorAndPushJobDetail)
         
         jobDetailViewController.internshipAnnouncementId.accept(model.internshipAnnouncementId)
         jobDetailViewController.hidesBottomBarWhenPushed = true

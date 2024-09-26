@@ -1,4 +1,4 @@
-//  NewCustomAlertVC.swift
+//  CustomAlertViewController.swift
 //  Terning-iOS
 //
 //  Created by 이명진 on 9/12/24.
@@ -22,7 +22,7 @@ enum AlertViewType {
     case info
 }
 
-final class NewCustomAlertVC: UIViewController {
+final class CustomAlertViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -427,7 +427,7 @@ final class NewCustomAlertVC: UIViewController {
 
 // MARK: - UICollectionViewDelegate
 
-extension NewCustomAlertVC: UICollectionViewDelegate {
+extension CustomAlertViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         print("선택한 index \(indexPath.item) 는 \(colorNames[indexPath.item])색")
@@ -441,7 +441,7 @@ extension NewCustomAlertVC: UICollectionViewDelegate {
 
 // MARK: - UICollectionViewDataSource
 
-extension NewCustomAlertVC: UICollectionViewDataSource {
+extension CustomAlertViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return colors.count
     }

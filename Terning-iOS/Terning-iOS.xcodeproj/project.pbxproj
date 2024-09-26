@@ -75,7 +75,6 @@
 		2DF257292C8F6A7D00B85843 /* ProfileImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF257282C8F6A7D00B85843 /* ProfileImageUtils.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
-		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
 		7121A13A2C3A6CEB0056DB8B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7121A1392C3A6CEB0056DB8B /* RxCocoa */; };
 		7121A13C2C3A6CEB0056DB8B /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 7121A13B2C3A6CEB0056DB8B /* RxRelay */; };
 		7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A13D2C3A98E10056DB8B /* LabelFactory.swift */; };
@@ -250,7 +249,6 @@
 		2DF257282C8F6A7D00B85843 /* ProfileImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageUtils.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
-		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		7121A13D2C3A98E10056DB8B /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
 		7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailInfoView.swift; sourceTree = "<group>"; };
 		7121A1422C3AE9C20056DB8B /* PaletteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteCell.swift; sourceTree = "<group>"; };
@@ -792,7 +790,6 @@
 				7121A1322C396FB40056DB8B /* CustomButton.swift */,
 				2D89C7662C486E53002B035F /* CustomSortButton.swift */,
 				2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */,
-				7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */,
 				2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */,
 				2DC986072C45FAC200D46729 /* CustomPageControl.swift */,
 				2DC986052C45704600D46729 /* CustomSearchView.swift */,
@@ -1564,7 +1561,6 @@
 				2D4EE3ED2C4020DC00E3E95B /* OnboardingViewModel.swift in Sources */,
 				715C0FED2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift in Sources */,
 				71B5092B2C42DBBF006D8E56 /* CalendarDateFooterView.swift in Sources */,
-				7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */,
 				2DF257252C8F691300B85843 /* ProfileFixViewModel.swift in Sources */,
 				2D4EE3872C3D7CB200E3E95B /* CustomOnboardingButton.swift in Sources */,
 				B855485F2C48027500EC67F6 /* MyPageViewController.swift in Sources */,

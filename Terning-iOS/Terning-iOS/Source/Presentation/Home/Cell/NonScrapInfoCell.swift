@@ -15,10 +15,9 @@ final class NonScrapInfoCell: UICollectionViewCell {
     // MARK: - UIComponents
     
     private let internshipScrapedStatus = UIView().then {
-        $0.makeBorder(width: 1, color: .grey150, cornerRadius: 5)
+        $0.layer.cornerRadius = 5
         $0.backgroundColor =  .white
-        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
-        $0.clipsToBounds = true
+        $0.layer.applyShadow(color: .greyShadow, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
     }
     
     private let internshipScrapedStatusLabel = LabelFactory.build(
@@ -30,7 +29,7 @@ final class NonScrapInfoCell: UICollectionViewCell {
     }
     
     private let nonTodayDeadlineImage = UIImageView().then {
-        $0.image = .imgNonDeadline
+        $0.image = .imgNonScrap
     }
     
     // MARK: - LifeCycles

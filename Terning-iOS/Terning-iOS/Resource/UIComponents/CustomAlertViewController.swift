@@ -208,7 +208,7 @@ extension CustomAlertViewController {
 // MARK: - Methods
 
 extension CustomAlertViewController {
-    public func setData(model: UpcomingCard) {
+    public func setData(model: AnnouncementModel) {
         guard alertType == .custom else { return } // custom 타입 일때만 사용 가능한 메서드
         
         self.JobImageView.setImage(with: model.companyImage)
@@ -218,7 +218,8 @@ extension CustomAlertViewController {
         self.workPeriodInfoView.setDescriptionText(description: model.workingPeriod)
         self.workStartInfoView.setDescriptionText(description: model.startYearMonth)
         DispatchQueue.main.async {
-            self.colorButton.setBackgroundColor(UIColor(hex: model.color), for: .normal)
+            guard let color = model.color else { return }
+            self.colorButton.setBackgroundColor(UIColor(hex: color), for: .normal)
         }
         self.subLabel.text = "오늘 지원이 마감되는 공고예요!"
         self.centerButton.setTitle(title: "공고 상세 정보 보러가기")
@@ -231,7 +232,7 @@ extension CustomAlertViewController {
         
     }
     
-    public func setData3(model: JobCard, deadline: String) {
+    public func setData3(model: AnnouncementModel, deadline: String) {
         guard alertType == .custom else { return } // custom 타입 일때만 사용 가능한 메서드
         
         self.JobImageView.setImage(with: model.companyImage)

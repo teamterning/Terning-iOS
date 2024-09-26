@@ -33,8 +33,9 @@ final class IsScrapInfoViewCell: UICollectionViewCell {
     // MARK: - UIComponents
     
     private let scrapAndDeadlineCard = UIView().then {
+        $0.layer.cornerRadius = 5
         $0.backgroundColor = .white
-        $0.makeBorder(width: 1, color: .grey150, cornerRadius: 5)
+        $0.layer.applyShadow(color: .greyShadow, alpha: 1.0, x: 0, y: 0, blur: 3, spread: 0)
         $0.isUserInteractionEnabled = true
     }
     
@@ -56,6 +57,7 @@ final class IsScrapInfoViewCell: UICollectionViewCell {
     
     private let companyImageView = UIImageView().then {
         $0.image = UIImage(resource: .default)
+        $0.contentMode = .scaleAspectFit
         $0.clipsToBounds = true
         $0.makeBorder(width: 1, color: .grey150, cornerRadius: 32/2)
     }
@@ -167,11 +169,13 @@ extension IsScrapInfoViewCell {
     
     // MARK: - Methods
     
-    func bindData(model: UpcomingCard, indexPath: IndexPath) {
+    func bindData(model: AnnouncementModel, indexPath: IndexPath) {
+        guard let color = model.color else { return }
+        
         self.companyImageView.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.dDayLabel.text = model.dDay
         self.cardLabel.text = model.title
-        self.colorMark.backgroundColor = UIColor(hex: model.color)
+        self.colorMark.backgroundColor = UIColor(hex: color)
         self.companyName.text = model.companyInfo
         self.internshipAnnouncementId = model.internshipAnnouncementId
         self.companyImage = model.companyImage

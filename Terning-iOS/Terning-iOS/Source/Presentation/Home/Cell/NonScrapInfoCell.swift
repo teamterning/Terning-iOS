@@ -29,7 +29,7 @@ final class NonScrapInfoCell: UICollectionViewCell {
     }
     
     private let nonTodayDeadlineImage = UIImageView().then {
-        $0.image = .imgNonDeadline
+        $0.image = .imgNonScrap
     }
     
     // MARK: - LifeCycles

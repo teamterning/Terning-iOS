@@ -170,13 +170,12 @@ extension IsScrapInfoViewCell {
     // MARK: - Methods
     
     func bindData(model: AnnouncementModel, indexPath: IndexPath) {
+        guard let color = model.color else { return }
+        
         self.companyImageView.setImage(with: model.companyImage, placeholder: "placeholder_image")
         self.dDayLabel.text = model.dDay
         self.cardLabel.text = model.title
-        
-        guard let color = model.color else { return }
         self.colorMark.backgroundColor = UIColor(hex: color)
-        
         self.companyName.text = model.companyInfo
         self.internshipAnnouncementId = model.internshipAnnouncementId
         self.companyImage = model.companyImage

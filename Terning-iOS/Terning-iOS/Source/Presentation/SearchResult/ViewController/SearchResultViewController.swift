@@ -7,6 +7,7 @@
 import UIKit
 
 import RxSwift
+import RxRelay
 
 import SnapKit
 
@@ -27,8 +28,8 @@ final class SearchResultViewController: UIViewController {
     private var searchHasNext = true
     private let sortButtonTapObservable = PublishSubject<Void>()
     
-    private let sortBySubject = BehaviorSubject<String>(value: "deadlineSoon")
-    private let pageSubject = BehaviorSubject<Int>(value: 0)
+    private let sortByRelay = BehaviorRelay<String>(value: "deadlineSoon")
+    private let pageRelay = BehaviorRelay<Int>(value: 0)
     private var textFieldKeyword: String?
     
     private let addScrapSubject = PublishSubject<(Int, String)>()
@@ -62,6 +63,21 @@ final class SearchResultViewController: UIViewController {
         setLayout()
         setDelegate()
         bindViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if !self.isMovingToParent {
+            if let currentKeyword =  rootView.searchView.textField.text,
+               !currentKeyword.trimmingCharacters(in: .whitespaces).isEmpty {
+                let currentSort = sortByRelay.value
+                let currentPage = pageRelay.value
+                sortByRelay.accept(currentSort)
+                pageRelay.accept(currentPage)
+            }
+            
+        }
     }
 }
 
@@ -98,19 +114,19 @@ extension SearchResultViewController {
             .withLatestFrom(keyword)
             .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
             .map { _ in () }
-            .do(onNext: { _ in
-                self.pageSubject.onNext(0)
+            .do(onNext: { [weak self] _ in
+                self?.pageRelay.accept(0)
             })
         
-        let sortChanged = sortBySubject
+        let sortChanged = sortByRelay
             .withLatestFrom(keyword)
             .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
             .map { _ in () }
-            .do(onNext: { _ in
-                self.pageSubject.onNext(0)
+            .do(onNext: { [weak self] _ in
+                self?.pageRelay.accept(0)
             })
         
-        let pageChanged = pageSubject
+        let pageChanged = pageRelay
             .filter { $0 > 0 }
             .do(onNext: { page in
                 print("❤️❤️❤️❤️❤️Page changed: \(page)")
@@ -118,7 +134,8 @@ extension SearchResultViewController {
         
         let searchTrigger = Observable.merge(searchChanged, sortChanged, pageChanged.map { _ in () })
             .withLatestFrom(keyword)
-            .do(onNext: { _ in
+            .do(onNext: { [weak self] _ in
+                guard let self = self else { return }
                 if firstSearch {
                     firstSearch = false
                     self.rootView.searchTitleLabel.isHidden = true
@@ -129,8 +146,8 @@ extension SearchResultViewController {
         let input = SearchResultViewModel.Input(
             keyword: searchTrigger,
             sortTap: sortButtonTapObservable.asObservable(),
-            sortBy: sortBySubject.asObservable(),
-            page: pageSubject.asObservable(),
+            sortBy: sortByRelay.asObservable(),
+            page: pageRelay.asObservable(),
             size: Observable.just(10),
             searchTrigger: searchTrigger.map { _ in () },
             addScrapTrigger: addScrapSubject.asObservable(),
@@ -140,17 +157,19 @@ extension SearchResultViewController {
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
         rootView.collectionView.rx.prefetchItems
-          .compactMap { $0.last?.item }
-          .withUnretained(self)
-          .bind { ss, row in
-              guard row == 0 else { return }
-              guard ss.searchHasNext else { return }
-              
-              if let currentPage = try? ss.pageSubject.value() {
-                  ss.pageSubject.onNext(currentPage + 1)
-              }
-          }
-          .disposed(by: disposeBag)
+            .compactMap { $0.last?.item }
+            .withUnretained(self)
+            .bind { ss, row in
+                if row == 0 {
+                    if ss.pageRelay.value > 0 {
+                        ss.pageRelay.accept(ss.pageRelay.value - 1)
+                    }
+                } else {
+                    guard ss.searchHasNext else { return }
+                    ss.pageRelay.accept(ss.pageRelay.value + 1)
+                }
+            }
+            .disposed(by: disposeBag)
         
         output.showSortBottom
             .drive(onNext: { [weak self] in
@@ -164,18 +183,7 @@ extension SearchResultViewController {
         output.searchResults
             .drive(onNext: { [weak self] newSearchResults in
                 guard let self = self else { return }
-                
-                if let currentPage = try? self.pageSubject.value(), currentPage >= 1 {
-                    if let currentResults = self.rootView.searchResult {
-                        self.rootView.searchResult = currentResults + newSearchResults
-                    } else {
-                        self.rootView.searchResult = newSearchResults
-                    }
-                } else {
-                    self.rootView.collectionView.setContentOffset(.zero, animated: true)
-                    self.rootView.searchResult = newSearchResults
-                }
-                
+                self.rootView.searchResult = newSearchResults
                 self.rootView.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
@@ -197,29 +205,29 @@ extension SearchResultViewController {
                 self?.searchHasNext = hasNext
             })
             .disposed(by: disposeBag)
-
+        
         output.addScrapResult
             .drive(onNext: { [weak self] in
                 guard let self = self, let index = self.selectedIndex else {
-                           return
-                       }
+                    return
+                }
                 
                 rootView.searchResult?[index].isScrapped = true
                 rootView.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
-
+        
         output.cancelScrapResult
             .drive(onNext: { [weak self] in
                 guard let self = self, let index = self.selectedIndex else {
-                           return
-                       }
+                    return
+                }
                 
                 rootView.searchResult?[index].isScrapped = false
                 rootView.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
-
+        
         output.error
             .drive(onNext: { [weak self] errorMessage in
                 guard let self = self else { return }
@@ -343,12 +351,11 @@ extension SearchResultViewController: UICollectionViewDelegate {
         return headerView
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("❤️", indexPath)
         switch SearchResultType(rawValue: indexPath.section) {
         case .search:
             guard let SearchResult = rootView.searchResult else { return }
             let selectedItem = SearchResult[indexPath.item].internshipAnnouncementId
-
+            
             let jobDetailVC = JobDetailViewController(
                 viewModel: JobDetailViewModel(
                     jobDetailRepository: JobDetailRepository(
@@ -378,7 +385,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
         
         let model = searchResults[index]
         selectedIndex = index
-
+        
         if model.isScrapped {
             let alertSheet = NewCustomAlertVC(alertViewType: .info)
             
@@ -387,7 +394,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
             
             alertSheet.centerButtonDidTapAction = { [weak self] in
                 guard let self = self else { return }
-            
+                
                 self.cancelScrapAnnouncement(scrapId: model.internshipAnnouncementId)
                 self.dismiss(animated: false)
             }
@@ -417,7 +424,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
 
 extension SearchResultViewController: SortSettingButtonProtocol {
     func didSelectSortingOption(_ option: SortingOptions) {
-        sortBySubject.onNext(option.apiValue)
+        sortByRelay.accept(option.apiValue)
         
         let visibleHeaders = rootView.collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
         

@@ -1,105 +1,120 @@
-//
 //  CustomAlertViewController.swift
 //  Terning-iOS
 //
-//  Created by 이명진 on 7/7/24.
+//  Created by 이명진 on 9/12/24.
 //
 
 import UIKit
 
-import RxCocoa
-import RxRelay
 import RxSwift
+import RxRelay
+import RxCocoa
 
 import SnapKit
 import Then
 
+import Lottie
+
 @frozen
-enum AlertType {
-    case custom
-    case normal
-}
-
-enum AlertMode {
-    case info
-    case color
-}
-
-enum CustomType {
+enum AlertViewType {
     case scrap
-    case goDetail
+    case changeColorAndPushJobDetail
+    case info
 }
 
 final class CustomAlertViewController: UIViewController {
     
     // MARK: - Properties
     
-    var centerButtonTapAction: (() -> Void)?
+    let disposeBag = DisposeBag()
     
-    private var disposeBag = DisposeBag()
-    var currentMode: AlertMode = .info
+    let selectedColorNameRelay = BehaviorRelay<String>(value: "red") // 서버에 보낼때는 컬러 Name으로
+    let selectedColorHexRelay = BehaviorRelay<String>(value: "#ED4E54") // 서버에서 받을 때는 Hex로
     
-    private var alertType: AlertType!
-    private var customType: CustomType? = .goDetail
+    var centerButtonDidTap: Driver<Void> {
+        return centerButton.rx.tap.asDriver()
+    }
     
-    let selectedColorIndexRelay = BehaviorRelay<Int>(value: 0)
+    var leftButtonDidTap: Driver<Void> {
+        return changeColorButton.rx.tap.asDriver()
+    }
     
-    // MARK: - UI Components
+    var rightButtonDidTap: Driver<Void> {
+        return viewJobDetailButton.rx.tap.asDriver()
+    }
     
-    private let alertView = UIView()
+    var centerButtonDidTapAction: (() -> Void)?
+    var leftButtonDidTapAction: (() -> Void)?
+    var rightButtonDidTapAction: (() -> Void)?
     
-    private lazy var palettecollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 14.adjusted
-        layout.minimumLineSpacing = 6.adjusted
-        layout.itemSize = CGSize(width: 40, height: 40)
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .clear
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(PaletteCell.self, forCellWithReuseIdentifier: PaletteCell.className)
-        collectionView.isScrollEnabled = false
-        return collectionView
-    }()
+    var alertViewType: AlertViewType!
     
-    private let JobImageView = UIImageView().then {
-        $0.setImage(with: "https://res.cloudinary.com/linkareer/image/fetch/f_auto,q_50/https://api.linkareer.com/attachments/397824")
+    private let colors: [UIColor] = [
+        .calRed, .calOrange, .calGreen, .calBlue, .calPurple, .calPink
+    ]
+    
+    private let colorNames: [String] = [
+        "red", "orange", "green", "blue", "purple", "pink"
+    ]
+    
+    private let hexColors: [String] = [
+        "#ED4E54", "#F3A649", "#84D558", "#4AA9F2", "#9B64E2", "#F260AC"
+    ]
+    
+    // MARK: - UIComponents
+    
+    private let jobImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.layer.cornerRadius = 15
+        $0.makeBorder(width: 1, color: .terningMain, cornerRadius: 10)
         $0.clipsToBounds = true
-        $0.makeBorder(width: 1, color: .terningMain)
     }
     
-    private let alertImageView = UIImageView().then {
-        $0.image = .iosScrapCancel
-    }
-    
-    private let mainLabel = LabelFactory.build(
-        text: "[한양대학교 컬렉티브임팩트센터] /코이카 영프로페셔널(YP) 모집합니다",
+    private let mainJobLabel = LabelFactory.build(
+        text: "관심 공고가 캘린더에서 사라져요!",
         font: .title4,
         textColor: .grey500
     ).then {
         $0.numberOfLines = 3
     }
     
+    private let subLabelView = UIView().then {
+        $0.backgroundColor = .grey100
+        $0.layer.cornerRadius = 10
+    }
+    
     private let subLabel = LabelFactory.build(
-        text: "공고를 캘린더에 스크랩 하시겠어요?",
+        text: "스크랩 색상",
+        font: .body6,
+        textColor: .grey400
+    )
+    
+    private let subInfoLabel = LabelFactory.build(
+        text: "스크랩을 취소하시겠어요?",
         font: .body5,
         textColor: .grey350
     )
     
-    private let sepeartorView = UIView().then { $0.backgroundColor = .grey200 }
+    private let alertImageView = LottieAnimationView().then {
+        let animation = LottieAnimation.named("scrapCancel")
+        $0.animation = animation
+        $0.contentMode = .scaleAspectFit
+        $0.loopMode = .playOnce
+        $0.animationSpeed = 1
+        $0.play()
+    }
     
-    private let dDayLabel = LabelFactory.build(
-        text: "D-3",
-        font: .body5,
-        textColor: .terningMain
-    )
+    private lazy var paletteCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 1
+        layout.itemSize = CGSize(width: 41, height: 41)
+        return UICollectionView(frame: .zero, collectionViewLayout: layout)
+    }()
     
-    private var deadlineInfoView = JobDetailInfoView(title: "서류 마감", description: "123")
-    private var workPeriodInfoView = JobDetailInfoView(title: "근무 기간", description: "123")
-    private var workStartInfoView = JobDetailInfoView(title: "근무 시작", description: "123")
+    private let sepeartorView = UIView()
+    
+    private let deadlineInfoView = JobDetailInfoView(title: "서류 마감", description: "123")
+    private let workPeriodInfoView = JobDetailInfoView(title: "근무 기간", description: "123")
+    private let workStartInfoView = JobDetailInfoView(title: "근무 시작", description: "123")
     
     private lazy var detailsVStackView = UIStackView(
         arrangedSubviews: [
@@ -109,387 +124,320 @@ final class CustomAlertViewController: UIViewController {
         ]
     ).then {
         $0.axis = .vertical
-        $0.spacing = 5
-    }
-    
-    private let colorButton = UIButton(type: .system).then {
-        $0.setBackgroundColor(.terningMain, for: .normal)
-        $0.setTitleColor(.white, for: .normal)
-        $0.setTitle("색상", for: .normal)
-        $0.layer.cornerRadius = 13
-    }
-    
-    private lazy var paletteContainerView = UIStackView(
-        arrangedSubviews: [
-            paletteRow1View,
-            paletteRow2View
-        ]
-    ).then {
-        $0.axis = .vertical
-        $0.distribution = .fillEqually
-        $0.spacing = 6
-        $0.isHidden = true
-    }
-    
-    private let paletteRow1View = UIStackView().then {
-        $0.axis = .horizontal
-        $0.distribution = .fillEqually
-        $0.spacing = 14
-    }
-    
-    private let paletteRow2View = UIStackView().then {
-        $0.axis = .horizontal
-        $0.distribution = .fillEqually
-        $0.spacing = 14
+        $0.spacing = 5.adjustedH
     }
     
     private let centerButton = CustomButton(title: "내 캘린더에 스크랩 하기", font: .button3)
+    private let changeColorButton = CustomButton(title: "색상 변경하기", font: .button3).setEnabled(false).setAlertViewColor()
+    private let viewJobDetailButton = CustomButton(title: "공고 상세 정보 보기", font: .button3)
+    private let closeButton = UIButton()
     
-    private let colors: [UIColor] = [
-        .calRed,
-        .calPurple,
-        .calOrange,
-        .calPink
-    ]
+    private let alertView = UIView()
     
-    private let closeButton = UIButton(type: .system).then {
-        $0.setImage(UIImage(resource: .icX), for: .normal)
-        $0.tintColor = .grey300
+    private lazy var imageLabelVStackView = UIStackView(
+        arrangedSubviews: [
+            jobImageView,
+            mainJobLabel
+        ]
+    ).then {
+        $0.axis = .vertical
+        $0.alignment = .center
+        $0.spacing = 10.adjustedH
     }
     
-    // MARK: - View Life Cycle
+    // MARK: - Life Cycles
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setUI()
-        self.setLayout(alertType)
-        self.bindViews(alertType)
-        if alertType == .custom {
-            if customType == .scrap {
-                switchMode(to: .info, type: .scrap)
-            } else {
-                switchMode(to: .info, type: .goDetail)
-            }
-        }
+        setUI(alertViewType)
+        setHierarchy(alertViewType)
+        setLayout(alertViewType)
+        setDelegate()
+        setRegister()
+        bindViews()
     }
     
-    init(alertType: AlertType, customType: CustomType? = .goDetail) {
-        
-        self.alertType = alertType
-        self.customType = customType
+    init(alertViewType: AlertViewType) {
+        self.alertViewType = alertViewType
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
-
-// MARK: - UI & Layout
-
-extension CustomAlertViewController {
-    private func setUI() {
+    
+    // MARK: - UI & Layout
+    
+    private func setUI(_ type: AlertViewType) {
         view.backgroundColor = .terningBlack.withAlphaComponent(0.3)
-        alertView.backgroundColor = .white
-        alertView.layer.cornerRadius = 20
+        
+        alertView.do {
+            $0.backgroundColor = .white
+            $0.layer.cornerRadius = 20
+        }
+        closeButton.do {
+            $0.setImage(UIImage(resource: .icX), for: .normal)
+            $0.tintColor = .grey300
+        }
+        
+        if type != .info {
+            sepeartorView.do {
+                $0.backgroundColor = .grey200
+            }
+        }
     }
     
-    private func setLayout(_ type: AlertType) {
+    private func setHierarchy(_ type: AlertViewType) {
+        view.addSubviews(alertView)
+        
         switch type {
-        case .custom:
-            setCustomLayout()
-        case .normal:
-            setNormalLayout()
-        }
-    }
-}
-
-// MARK: - Methods
-
-extension CustomAlertViewController {
-    public func setData(model: AnnouncementModel) {
-        guard alertType == .custom else { return } // custom 타입 일때만 사용 가능한 메서드
-        
-        self.JobImageView.setImage(with: model.companyImage)
-        self.mainLabel.text = model.title
-        self.dDayLabel.text = model.dDay
-        self.deadlineInfoView.setDescriptionText(description: model.deadline)
-        self.workPeriodInfoView.setDescriptionText(description: model.workingPeriod)
-        self.workStartInfoView.setDescriptionText(description: model.startYearMonth)
-        DispatchQueue.main.async {
-            guard let color = model.color else { return }
-            self.colorButton.setBackgroundColor(UIColor(hex: color), for: .normal)
-        }
-        self.subLabel.text = "오늘 지원이 마감되는 공고예요!"
-        self.centerButton.setTitle(title: "공고 상세 정보 보러가기")
-        
-        
-    }
-    
-    public func setData2(model: AnnouncementModel, deadline: String) {
-        guard alertType == .custom else { return } // custom 타입 일때만 사용 가능한 메서드
-        
-    }
-    
-    public func setData3(model: AnnouncementModel, deadline: String) {
-        guard alertType == .custom else { return } // custom 타입 일때만 사용 가능한 메서드
-        
-        self.JobImageView.setImage(with: model.companyImage)
-        self.mainLabel.text = model.title
-        self.dDayLabel.text = model.dDay
-        self.deadlineInfoView.setDescriptionText(description: deadline)
-        self.workPeriodInfoView.setDescriptionText(description: model.workingPeriod)
-        self.workStartInfoView.setDescriptionText(description: "\(model.startYearMonth)")
-        self.subLabel.text = "오늘 지원이 마감되는 공고예요!"
-        self.centerButton.setTitle(title: "스크랩 하기")
-    }
-    
-    
-    
-    /// 알림창에 들어갈 String 값을 커스텀 해주는 메서드 입니다.
-    /// - Parameters:
-    ///   - mainLabel: 메인 text
-    ///   - subLabel: 서브 text
-    ///   - buttonLabel: 중앙 버튼 text
-    public func setComponentDatas(mainLabel: String, subLabel: String, buttonLabel: String) {
-        
-        self.mainLabel.text = mainLabel
-        self.subLabel.text = subLabel
-        self.centerButton.setTitle(title: buttonLabel)
-    }
-    
-    private func bindViews(_ type: AlertType) {
-        
-        self.centerButton.rx.tap.subscribe { _ in
-            self.centerButtonTapAction?()
-        }.disposed(by: disposeBag)
-        
-        self.closeButton.rx.tap.bind { [weak self] in
-            guard let self = self else { return }
-            
-            self.dismiss(animated: false)
-        }.disposed(by: disposeBag)
-        
-        if type == .custom {
-            customBinds()
+        case .scrap, .changeColorAndPushJobDetail:
+            alertView.addSubviews(
+                imageLabelVStackView,
+                subLabelView,
+                subLabel,
+                paletteCollectionView,
+                sepeartorView,
+                detailsVStackView,
+                centerButton,
+                changeColorButton,
+                viewJobDetailButton,
+                closeButton
+            )
+        case .info:
+            alertView.addSubviews(
+                alertImageView,
+                mainJobLabel,
+                subInfoLabel,
+                centerButton,
+                closeButton
+            )
         }
     }
     
-    private func switchMode(to mode: AlertMode, type: CustomType? = .goDetail) {
-        self.currentMode = mode
-        let isInfoMode = mode == .info
-        
-        self.detailsVStackView.isHidden = !isInfoMode
-        self.dDayLabel.isHidden = !isInfoMode
-        self.palettecollectionView.isHidden = isInfoMode
-        if type == .scrap {
-            self.subLabel.text = "공고를 캘린더에 스크랩하시겠어요?"
-            let buttonName = isInfoMode ? "내 캘린더에 스크랩하기" : "내 캘린더에 스크랩하기"
-            self.centerButton.setTitle(title: buttonName)
-        } else {
-            self.subLabel.text = "공고를 캘린더에 스크랩하시겠어요?"
-            let buttonName = isInfoMode ? "공고 상세 정보 보러가기" : "색상 저장하기"
-            self.centerButton.setTitle(title: buttonName)
-        }
-    }
-    
-    private func handleColorSelection(at index: Int) {
-        selectedColorIndexRelay.accept(index)
-    }
-    
-    private func customBinds() {
-        self.colorButton.rx.tap.bind { [weak self] in
-            guard let self = self else { return }
-            
-            let newMode: AlertMode = self.currentMode == .info ? .color : .info
-            self.switchMode(to: newMode)
-        }.disposed(by: disposeBag)
-        
-        self.selectedColorIndexRelay
-            .asObservable()
-            .subscribe(onNext: { [weak self] index in
-                guard let self = self else { return }
-                
-                colorButton.setBackgroundColor(colors[index], for: .normal)
-                self.palettecollectionView.reloadData()
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func setCustomLayout() {
-        view.addSubview(alertView)
-        
-        alertView.addSubviews(
-            JobImageView,
-            palettecollectionView,
-            mainLabel,
-            subLabel,
-            sepeartorView,
-            dDayLabel,
-            detailsVStackView,
-            colorButton,
-            paletteContainerView,
-            centerButton,
-            closeButton
-        )
-        
+    private func setLayout(_ type: AlertViewType) {
         alertView.snp.makeConstraints {
             $0.centerX.centerY.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(30.adjusted)
             $0.height.equalTo(421.adjustedH)
+            $0.width.equalTo(320.adjusted)
+        }
+        closeButton.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(18.adjustedH)
+            $0.trailing.equalToSuperview().offset(-18.adjusted)
+            $0.width.height.equalTo(32)
         }
         
-        palettecollectionView.snp.makeConstraints {
-            $0.top.equalTo(sepeartorView.snp.bottom).offset(19)
-            $0.horizontalEdges.equalToSuperview().inset(28.adjusted)
-            $0.height.greaterThanOrEqualTo(88)
+        switch type {
+        case .scrap:
+            setCommonLayout()
+            setScrapLayout()
+            
+        case .changeColorAndPushJobDetail:
+            setCommonLayout()
+            setChangeColorAndPushJobDetailLayout()
+            
+        case .info:
+            setInfoLayout()
         }
+    }
+    
+    private func setScrapLayout() {
+        changeColorButton.isHidden = true
+        viewJobDetailButton.isHidden = true
         
-        JobImageView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(32)
+        centerButton.snp.makeConstraints {
+            $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(40)
+        }
+    }
+    
+    private func setChangeColorAndPushJobDetailLayout() {
+        centerButton.isHidden = true
+        
+        changeColorButton.snp.makeConstraints {
+            $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
+            $0.leading.equalToSuperview().inset(16.adjusted)
+            $0.height.equalTo(40.adjustedH)
+            $0.width.equalTo(140.adjusted)
+        }
+        viewJobDetailButton.snp.makeConstraints {
+            $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
+            $0.leading.equalTo(changeColorButton.snp.trailing).offset(8.adjusted)
+            $0.height.equalTo(40.adjustedH)
+            $0.width.equalTo(140.adjusted)
+        }
+    }
+    
+    private func setInfoLayout() {
+        alertImageView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(60)
             $0.centerX.equalToSuperview()
-            $0.width.height.equalTo(80)
+            $0.height.equalTo(203.adjustedH)
         }
         
-        mainLabel.snp.makeConstraints {
-            $0.top.equalTo(JobImageView.snp.bottom).offset(15)
-            $0.horizontalEdges.equalToSuperview().inset(21)
+        subInfoLabel.snp.makeConstraints {
+            $0.top.equalTo(mainJobLabel.snp.bottom).offset(4.adjustedH)
+            $0.centerX.equalToSuperview()
         }
+        
+        mainJobLabel.snp.makeConstraints {
+            $0.top.equalTo(alertImageView.snp.bottom).offset(20.adjustedH)
+            $0.centerX.equalToSuperview()
+        }
+
+        centerButton.setTitle(title: "스크랩 취소하기")
+        
+        centerButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(16.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(40)
+        }
+    }
+    
+    private func setCommonLayout() {
+        paletteCollectionView.isScrollEnabled = false
+        
+        imageLabelVStackView.snp.makeConstraints {
+            $0.top.equalTo(alertView.snp.top).offset(32.adjustedH)
+            $0.centerX.equalTo(alertView)
+            $0.leading.trailing.equalToSuperview().inset(21)
+            $0.height.equalTo(153)
+        }
+        
+        mainJobLabel.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview()
+        }
+        
+        jobImageView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.width.height.equalTo(80.adjustedH)
+        }
+        
+        subLabelView.snp.makeConstraints {
+            $0.top.equalTo(alertView.snp.top).offset(194.adjustedH)
+            $0.leading.equalToSuperview().offset(24)
+            $0.width.equalTo(71)
+            $0.height.equalTo(23)
+        }
+        
+        subLabelView.addSubview(subLabel)
         
         subLabel.snp.makeConstraints {
-            $0.top.equalTo(mainLabel.snp.bottom).offset(4)
-            $0.centerX.equalToSuperview()
+            $0.center.equalToSuperview()
         }
         
-        colorButton.snp.makeConstraints {
-            $0.top.equalTo(subLabel.snp.bottom).offset(15)
-            $0.leading.equalTo(alertView.snp.leading).offset(24)
-            $0.width.equalTo(65)
-            $0.height.equalTo(26)
+        paletteCollectionView.snp.makeConstraints {
+            $0.top.equalTo(subLabelView.snp.bottom).offset(8)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(41)
+            $0.width.equalTo(256)
         }
         
         sepeartorView.snp.makeConstraints {
-            $0.top.equalTo(colorButton.snp.bottom).offset(14)
-            $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.top.equalTo(paletteCollectionView.snp.bottom).offset(8)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
             $0.height.equalTo(1)
         }
         
-        dDayLabel.snp.makeConstraints {
-            $0.top.equalTo(sepeartorView.snp.bottom).offset(12)
-            $0.leading.equalTo(alertView.snp.leading).offset(24)
-        }
-        
-        deadlineInfoView.snp.makeConstraints {
-            $0.height.equalTo(18)
-        }
-        
-        [deadlineInfoView, workPeriodInfoView, workStartInfoView].forEach {
-            $0.snp.makeConstraints {
-                $0.height.equalTo(18)
-            }
-        }
-        
         detailsVStackView.snp.makeConstraints {
-            $0.top.equalTo(dDayLabel.snp.bottom).offset(8)
-            $0.leading.equalTo(alertView.snp.leading).offset(24)
-        }
-        
-        paletteContainerView.snp.makeConstraints {
-            $0.top.equalTo(sepeartorView.snp.bottom).offset(10)
-            $0.horizontalEdges.equalToSuperview().inset(34)
-            $0.height.equalTo(84)
-        }
-        
-        centerButton.snp.makeConstraints {
-            $0.top.equalTo(detailsVStackView.snp.bottom).offset(25)
-            $0.horizontalEdges.equalToSuperview().inset(16)
-            $0.height.equalTo(40)
-        }
-        
-        closeButton.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(10)
-            $0.right.equalToSuperview().offset(-10)
-            $0.width.height.equalTo(30)
+            $0.top.equalTo(sepeartorView.snp.bottom).offset(13.adjustedH)
+            $0.leading.equalTo(alertView.snp.leading).offset(24.adjusted)
         }
     }
     
-    private func setNormalLayout() {
-        view.addSubview(alertView)
+    // MARK: - Methods
+    
+    private func setDelegate() {
+        paletteCollectionView.delegate = self
+        paletteCollectionView.dataSource = self
+    }
+    
+    private func setRegister() {
+        paletteCollectionView.register(PaletteCell.self, forCellWithReuseIdentifier: PaletteCell.className)
+    }
+    
+    private func handleColorSelection(at indexPath: IndexPath) {
+        let selectedColorName = colorNames[indexPath.item] // 헥사 코드로 선택
+        selectedColorNameRelay.accept(selectedColorName) // 선택한 색상을 Relay에 저장
         
-        alertView.addSubviews(
-            alertImageView,
-            mainLabel,
-            subLabel,
-            centerButton,
-            closeButton
-        )
+        let selectedHexColor = hexColors[indexPath.item]
+        selectedColorHexRelay.accept(selectedHexColor)
+    }
+    
+    
+    private func bindViews() {
+        centerButtonDidTap
+            .drive(onNext: { [weak self] in
+                self?.centerButtonDidTapAction?()
+            })
+            .disposed(by: disposeBag)
         
-        mainLabel.do { $0.numberOfLines = 1 } // 기본 3줄로 초기화한 속성을 normal일때 한줄로 처리 해줍니다.
+        leftButtonDidTap
+            .drive(onNext: { [weak self] in
+                self?.leftButtonDidTapAction?()
+            })
+            .disposed(by: disposeBag)
         
-        alertView.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(30)
-            $0.height.equalTo(421)
-        }
+        rightButtonDidTap
+            .drive(onNext: { [weak self] in
+                self?.rightButtonDidTapAction?()
+            })
+            .disposed(by: disposeBag)
         
-        alertImageView.snp.makeConstraints {
-            $0.top.equalTo(alertView.snp.top).offset(60)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(279.02)
-            $0.height.equalTo(203)
-        }
+        closeButton.rx.tap.bind { [weak self] in
+            self?.dismiss(animated: false)
+        }.disposed(by: disposeBag)
+    }
+    
+    // MARK: - Public Methods
+    
+    public func setJobDetailData(model: JobDetailModel) {
+        jobImageView.setImage(with: model.companyImage)
+        mainJobLabel.text = model.title
+        deadlineInfoView.setDescriptionText(description: model.deadline)
+        workPeriodInfoView.setDescriptionText(description: model.workingPeriod)
+        workStartInfoView.setDescriptionText(description: model.startYearMonth)
         
-        mainLabel.snp.makeConstraints {
-            $0.top.equalTo(alertImageView.snp.bottom).offset(20)
-            $0.horizontalEdges.equalToSuperview().inset(21)
-        }
+        let selectedColor = model.color ?? "#ED4E54"
+        selectedColorHexRelay.accept(selectedColor)
         
-        subLabel.snp.makeConstraints {
-            $0.top.equalTo(mainLabel.snp.bottom).offset(4)
-            $0.centerX.equalToSuperview()
-        }
+        paletteCollectionView.reloadData()
+    }
+    
+    public func setAnnouncementData(model: AnnouncementModel) {
+        jobImageView.setImage(with: model.companyImage)
+        mainJobLabel.text = model.title
+        deadlineInfoView.setDescriptionText(description: model.deadline)
+        workPeriodInfoView.setDescriptionText(description: model.workingPeriod)
+        workStartInfoView.setDescriptionText(description: model.startYearMonth)
         
-        centerButton.snp.makeConstraints {
-            $0.top.equalTo(subLabel.snp.bottom).offset(40)
-            $0.horizontalEdges.equalToSuperview().inset(16)
-            $0.height.equalTo(40)
-        }
+        let selectedColor = model.color ?? "#ED4E54"
+        selectedColorHexRelay.accept(selectedColor)
         
-        closeButton.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(10)
-            $0.right.equalToSuperview().offset(-10)
-            $0.width.height.equalTo(30)
+        paletteCollectionView.reloadData()
+        
+        if let selectedIndex = colorNames.firstIndex(of: selectedColor) {
+            let selectedIndexPath = IndexPath(item: selectedIndex, section: 0)
+            paletteCollectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: .centeredHorizontally)
         }
     }
 }
 
-// MARK: - Custom Methods
+// MARK: - UICollectionViewDelegate
 
-extension CustomAlertViewController {
-    /// 이미지 변경
-    public func setImage(_ image: UIImage, size: CGSize) {
-        self.JobImageView.image = image
-        self.JobImageView.snp.updateConstraints {
-            $0.width.equalTo(size.width)
-            $0.height.equalTo(size.height)
-        }
-    }
-    
-    /// contentsLabel의 텍스트 변경
-    @discardableResult
-    public func setTitle(_ title: String) -> Self {
-        self.mainLabel.text = title
-        return self
-    }
-    
-    /// 중앙 버튼의 텍스트 변경
-    @discardableResult
-    public func setCenterButtonTitle(_ title: NSAttributedString) -> Self {
-        self.centerButton.changeTitle(attributedString: title)
-        return self
+extension CustomAlertViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print("선택한 index \(indexPath.item) 는 \(colorNames[indexPath.item])색")
+        changeColorButton.isEnabled = true // 다른거 선택하면 활성화
+        
+        handleColorSelection(at: indexPath)
+        collectionView.reloadData()
     }
 }
+
 
 // MARK: - UICollectionViewDataSource
 
@@ -502,17 +450,10 @@ extension CustomAlertViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PaletteCell.className, for: indexPath) as? PaletteCell else { return UICollectionViewCell() }
         
         let color = colors[indexPath.item]
-        let isSelected = indexPath.item == selectedColorIndexRelay.value
+        let colorName = hexColors[indexPath.item]
+        let isSelected = colorName == selectedColorHexRelay.value
+        
         cell.configure(color: color, isSelected: isSelected)
         return cell
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension CustomAlertViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("\(indexPath.item) 번 터치")
-        handleColorSelection(at: indexPath.item)
     }
 }

@@ -387,7 +387,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
         selectedIndex = index
         
         if model.isScrapped {
-            let alertSheet = NewCustomAlertVC(alertViewType: .info)
+            let alertSheet = CustomAlertViewController(alertViewType: .info)
             
             alertSheet.modalTransitionStyle = .crossDissolve
             alertSheet.modalPresentationStyle = .overFullScreen
@@ -401,7 +401,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
             
             self.present(alertSheet, animated: false)
         } else {
-            let alertSheet = NewCustomAlertVC(alertViewType: .scrap)
+            let alertSheet = CustomAlertViewController(alertViewType: .scrap)
             alertSheet.setAnnouncementData(model: model)
             
             alertSheet.modalTransitionStyle = .crossDissolve

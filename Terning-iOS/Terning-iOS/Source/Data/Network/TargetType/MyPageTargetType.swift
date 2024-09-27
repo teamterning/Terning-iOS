@@ -41,8 +41,10 @@ extension MyPageTargetType: TargetType {
         switch self {
         case .getProfileInfo:
             return .get
-        case .patchProfileInfo, .logout:
+        case .patchProfileInfo:
             return .patch
+        case .logout:
+            return .post
         case .withdraw:
             return .delete
         }

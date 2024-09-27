@@ -116,7 +116,7 @@ extension JobDetailViewController {
         guard let model = self.jobDetail else { return }
         
         if self.rootView.scrapButton.isSelected {
-            let alertSheet = NewCustomAlertVC(alertViewType: .info)
+            let alertSheet = CustomAlertViewController(alertViewType: .info)
             
             alertSheet.modalTransitionStyle = .crossDissolve
             alertSheet.modalPresentationStyle = .overFullScreen
@@ -129,7 +129,7 @@ extension JobDetailViewController {
             
             self.present(alertSheet, animated: false)
         } else {
-            let alertSheet = NewCustomAlertVC(alertViewType: .scrap)
+            let alertSheet = CustomAlertViewController(alertViewType: .scrap)
             alertSheet.setJobDetailData(model: model)
             
             alertSheet.modalTransitionStyle = .crossDissolve

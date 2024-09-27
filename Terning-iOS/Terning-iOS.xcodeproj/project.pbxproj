@@ -75,7 +75,6 @@
 		2DF257292C8F6A7D00B85843 /* ProfileImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF257282C8F6A7D00B85843 /* ProfileImageUtils.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
-		7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */; };
 		7121A13A2C3A6CEB0056DB8B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7121A1392C3A6CEB0056DB8B /* RxCocoa */; };
 		7121A13C2C3A6CEB0056DB8B /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 7121A13B2C3A6CEB0056DB8B /* RxRelay */; };
 		7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A13D2C3A98E10056DB8B /* LabelFactory.swift */; };
@@ -123,7 +122,7 @@
 		71780C562C45A81E0073B731 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C552C45A81E0073B731 /* AuthInterceptor.swift */; };
 		717D37EA2C32FA2F00A857DB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 717D37E92C32FA2F00A857DB /* SnapKit */; };
 		719C6DEC2C8F220D006AF9C9 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 719C6DEB2C8F220D006AF9C9 /* Inject */; };
-		719C6DF02C93DBB7006AF9C9 /* NewCustomAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719C6DED2C91F150006AF9C9 /* NewCustomAlertVC.swift */; };
+		719C6DF02C93DBB7006AF9C9 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719C6DED2C91F150006AF9C9 /* CustomAlertViewController.swift */; };
 		71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509202C41AD35006D8E56 /* JobListingCell.swift */; };
 		71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509222C41BD90006D8E56 /* CompositionalLayout.swift */; };
 		71B509252C41D027006D8E56 /* CalendarDateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509242C41D027006D8E56 /* CalendarDateHeaderView.swift */; };
@@ -250,7 +249,6 @@
 		2DF257282C8F6A7D00B85843 /* ProfileImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageUtils.swift; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
-		7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		7121A13D2C3A98E10056DB8B /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
 		7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailInfoView.swift; sourceTree = "<group>"; };
 		7121A1422C3AE9C20056DB8B /* PaletteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteCell.swift; sourceTree = "<group>"; };
@@ -295,7 +293,7 @@
 		71780C532C45A7DD0073B731 /* NetworkLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerPlugin.swift; sourceTree = "<group>"; };
 		71780C552C45A81E0073B731 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 		71780C592C4627A30073B731 /* Terning-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Terning-iOS.entitlements"; sourceTree = "<group>"; };
-		719C6DED2C91F150006AF9C9 /* NewCustomAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCustomAlertVC.swift; sourceTree = "<group>"; };
+		719C6DED2C91F150006AF9C9 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		71B509202C41AD35006D8E56 /* JobListingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListingCell.swift; sourceTree = "<group>"; };
 		71B509222C41BD90006D8E56 /* CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayout.swift; sourceTree = "<group>"; };
 		71B509242C41D027006D8E56 /* CalendarDateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateHeaderView.swift; sourceTree = "<group>"; };
@@ -792,7 +790,6 @@
 				7121A1322C396FB40056DB8B /* CustomButton.swift */,
 				2D89C7662C486E53002B035F /* CustomSortButton.swift */,
 				2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */,
-				7121A1362C3A6C7C0056DB8B /* CustomAlertViewController.swift */,
 				2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */,
 				2DC986072C45FAC200D46729 /* CustomPageControl.swift */,
 				2DC986052C45704600D46729 /* CustomSearchView.swift */,
@@ -800,7 +797,7 @@
 				7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */,
 				7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */,
 				71FFB2B42C47ECF200C60697 /* CustomBottmSheetViewController.swift */,
-				719C6DED2C91F150006AF9C9 /* NewCustomAlertVC.swift */,
+				719C6DED2C91F150006AF9C9 /* CustomAlertViewController.swift */,
 				71F004C62C957C8C00CD202B /* EmptyView.swift */,
 			);
 			path = UIComponents;
@@ -1548,7 +1545,7 @@
 				2DC985F72C456F7E00D46729 /* AdvertisementCollectionViewCell.swift in Sources */,
 				B871D7312C3E9118008D78C2 /* NonScrapInfoCell.swift in Sources */,
 				71F004C72C957C8C00CD202B /* EmptyView.swift in Sources */,
-				719C6DF02C93DBB7006AF9C9 /* NewCustomAlertVC.swift in Sources */,
+				719C6DF02C93DBB7006AF9C9 /* CustomAlertViewController.swift in Sources */,
 				2D89C7542C47E9AE002B035F /* ProfileImageCell.swift in Sources */,
 				2D4EE3892C3D9EA400E3E95B /* Date+.swift in Sources */,
 				7121A1532C3DE3680056DB8B /* CustomNavigationBar.swift in Sources */,
@@ -1564,7 +1561,6 @@
 				2D4EE3ED2C4020DC00E3E95B /* OnboardingViewModel.swift in Sources */,
 				715C0FED2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift in Sources */,
 				71B5092B2C42DBBF006D8E56 /* CalendarDateFooterView.swift in Sources */,
-				7121A1372C3A6C7C0056DB8B /* CustomAlertViewController.swift in Sources */,
 				2DF257252C8F691300B85843 /* ProfileFixViewModel.swift in Sources */,
 				2D4EE3872C3D7CB200E3E95B /* CustomOnboardingButton.swift in Sources */,
 				B855485F2C48027500EC67F6 /* MyPageViewController.swift in Sources */,

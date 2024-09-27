@@ -606,6 +606,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
                 let sortedKeys = self.viewModel.scrapLists.keys.sorted()
                 let scrapSection = sortedKeys[indexPath.section]
                 let formattedDate = isoDateFormatter.string(from: scrapSection)
+                headerView.setListViewLayout()
                 headerView.bind(title: formattedDate)
                 
                 return headerView

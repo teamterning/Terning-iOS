@@ -63,6 +63,20 @@ final class SearchResultViewController: UIViewController {
         setDelegate()
         bindViewModel()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if !self.isMovingToParent {
+            if let currentKeyword =  rootView.searchView.textField.text,
+               !currentKeyword.trimmingCharacters(in: .whitespaces).isEmpty,
+               let currentPage = try? pageSubject.value() {
+                sortBySubject.onNext(currentKeyword)
+                pageSubject.onNext(currentPage)
+            }
+            
+        }
+    }
 }
 
 // MARK: - UI & Layout
@@ -140,17 +154,21 @@ extension SearchResultViewController {
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
         rootView.collectionView.rx.prefetchItems
-          .compactMap { $0.last?.item }
-          .withUnretained(self)
-          .bind { ss, row in
-              guard row == 0 else { return }
-              guard ss.searchHasNext else { return }
-              
-              if let currentPage = try? ss.pageSubject.value() {
-                  ss.pageSubject.onNext(currentPage + 1)
-              }
-          }
-          .disposed(by: disposeBag)
+            .compactMap { $0.last?.item }
+            .withUnretained(self)
+            .bind { ss, row in
+                if row == 0 {
+                    if let currentPage = try? ss.pageSubject.value(), currentPage > 0 {
+                        ss.pageSubject.onNext(currentPage - 1)
+                    }
+                } else {
+                    guard ss.searchHasNext else { return }
+                    if let currentPage = try? ss.pageSubject.value() {
+                        ss.pageSubject.onNext(currentPage + 1)
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
         
         output.showSortBottom
             .drive(onNext: { [weak self] in
@@ -164,18 +182,8 @@ extension SearchResultViewController {
         output.searchResults
             .drive(onNext: { [weak self] newSearchResults in
                 guard let self = self else { return }
-                
-                if let currentPage = try? self.pageSubject.value(), currentPage >= 1 {
-                    if let currentResults = self.rootView.searchResult {
-                        self.rootView.searchResult = currentResults + newSearchResults
-                    } else {
-                        self.rootView.searchResult = newSearchResults
-                    }
-                } else {
-                    self.rootView.collectionView.setContentOffset(.zero, animated: true)
-                    self.rootView.searchResult = newSearchResults
-                }
-                
+                self.rootView.collectionView.setContentOffset(.zero, animated: true)
+                self.rootView.searchResult = newSearchResults
                 self.rootView.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
@@ -343,7 +351,6 @@ extension SearchResultViewController: UICollectionViewDelegate {
         return headerView
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("❤️", indexPath)
         switch SearchResultType(rawValue: indexPath.section) {
         case .search:
             guard let SearchResult = rootView.searchResult else { return }

@@ -25,11 +25,11 @@ final class LoginView: UIView {
     }
     
     let kakaoLoginButton = UIButton(type: .custom).then {
-        $0.setImage(.iosKakaoButton, for: .normal)
+        $0.setImage(.imgKakaoButton, for: .normal)
     }
     
     let appleLoginButton = UIButton(type: .custom).then {
-        $0.setImage(.iosAppleButton, for: .normal)
+        $0.setImage(.imgAppleButton, for: .normal)
     }
     
     // MARK: - Init

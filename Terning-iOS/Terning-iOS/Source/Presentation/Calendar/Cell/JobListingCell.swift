@@ -171,6 +171,12 @@ extension JobListingCell {
     
     func bind(model: AnnouncementModel, indexPath: IndexPath? = nil, in collectionView: UICollectionView? = nil) {
         
+        if model.dDay == "지원마감" {
+            self.dDayLabel.textColor = .grey300
+        } else {
+            self.dDayLabel.textColor = .terningMain
+        }
+        
         self.indexPath = indexPath
         self.collectionView = collectionView
         

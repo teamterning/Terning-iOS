@@ -112,16 +112,16 @@ extension SearchResultViewController {
             .withLatestFrom(keyword)
             .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
             .map { _ in () }
-            .do(onNext: { _ in
-                self.pageSubject.onNext(0)
+            .do(onNext: { [weak self] _ in
+                self?.pageSubject.onNext(0)
             })
         
         let sortChanged = sortBySubject
             .withLatestFrom(keyword)
             .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
             .map { _ in () }
-            .do(onNext: { _ in
-                self.pageSubject.onNext(0)
+            .do(onNext: { [weak self] _ in
+                self?.pageSubject.onNext(0)
             })
         
         let pageChanged = pageSubject
@@ -132,7 +132,8 @@ extension SearchResultViewController {
         
         let searchTrigger = Observable.merge(searchChanged, sortChanged, pageChanged.map { _ in () })
             .withLatestFrom(keyword)
-            .do(onNext: { _ in
+            .do(onNext: { [weak self] _ in
+                guard let self = self else { return }
                 if firstSearch {
                     firstSearch = false
                     self.rootView.searchTitleLabel.isHidden = true
@@ -205,29 +206,29 @@ extension SearchResultViewController {
                 self?.searchHasNext = hasNext
             })
             .disposed(by: disposeBag)
-
+        
         output.addScrapResult
             .drive(onNext: { [weak self] in
                 guard let self = self, let index = self.selectedIndex else {
-                           return
-                       }
+                    return
+                }
                 
                 rootView.searchResult?[index].isScrapped = true
                 rootView.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
-
+        
         output.cancelScrapResult
             .drive(onNext: { [weak self] in
                 guard let self = self, let index = self.selectedIndex else {
-                           return
-                       }
+                    return
+                }
                 
                 rootView.searchResult?[index].isScrapped = false
                 rootView.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
-
+        
         output.error
             .drive(onNext: { [weak self] errorMessage in
                 guard let self = self else { return }
@@ -355,7 +356,7 @@ extension SearchResultViewController: UICollectionViewDelegate {
         case .search:
             guard let SearchResult = rootView.searchResult else { return }
             let selectedItem = SearchResult[indexPath.item].internshipAnnouncementId
-
+            
             let jobDetailVC = JobDetailViewController(
                 viewModel: JobDetailViewModel(
                     jobDetailRepository: JobDetailRepository(
@@ -385,7 +386,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
         
         let model = searchResults[index]
         selectedIndex = index
-
+        
         if model.isScrapped {
             let alertSheet = NewCustomAlertVC(alertViewType: .info)
             
@@ -394,7 +395,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
             
             alertSheet.centerButtonDidTapAction = { [weak self] in
                 guard let self = self else { return }
-            
+                
                 self.cancelScrapAnnouncement(scrapId: model.internshipAnnouncementId)
                 self.dismiss(animated: false)
             }

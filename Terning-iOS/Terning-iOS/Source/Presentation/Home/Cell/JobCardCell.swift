@@ -29,7 +29,7 @@ final class JobCardCell: UICollectionViewCell {
     private let jobCard = UIView().then {
         $0.backgroundColor = UIColor.white
         $0.layer.cornerRadius = 10
-        $0.layer.applyShadow(color: .greyShadow, alpha: 1, x: 0, y: 0, blur: 3, spread: 0)
+        $0.layer.applyShadow(color: .greyShadow, alpha: 1, y: 0)
     }
     
     private let jobCardCoverImage = UIImageView().then {

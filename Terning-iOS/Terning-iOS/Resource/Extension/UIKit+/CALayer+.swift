@@ -22,14 +22,14 @@ public extension CALayer {
         alpha: Float = 0.05, // 피그마 디자인 시스템에 있는 기본 alpha 값 입니다.
         x: CGFloat = 0,
         y: CGFloat = 2,
-        blur: CGFloat = 5, // 흐림 정도
+        blur: CGFloat = 4, // 흐림 정도
         spread: CGFloat = 0) { // 그림자의 범위
             
             masksToBounds = false
             shadowColor = color.cgColor
             shadowOpacity = alpha
             shadowOffset = CGSize(width: x, height: y)
-            shadowRadius = blur
+            shadowRadius = blur / 2
             if spread == 0 {
                 shadowPath = nil
             } else {

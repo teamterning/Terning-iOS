@@ -25,7 +25,7 @@ final class CheckDeadlineCell: UICollectionViewCell {
     private let checkDeadlineCard = UIView().then {
         $0.layer.cornerRadius = 5
         $0.backgroundColor =  .white
-        $0.layer.applyShadow(color: .greyShadow, alpha: 1.0, x: 0, y: 0, blur: 4, spread: 0)
+        $0.layer.applyShadow(color: .greyShadow, alpha: 1, y: 0)
     }
     
     private let checkDeadlineCardLabel = LabelFactory.build(

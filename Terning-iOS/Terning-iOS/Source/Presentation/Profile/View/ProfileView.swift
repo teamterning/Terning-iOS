@@ -21,7 +21,7 @@ final class ProfileView: UIView {
     let navigationBar = CustomNavigationBar(type: .centerTitleWithLeftButton)
     
     private let welcomeLabel = LabelFactory.build(
-        text: "반가워요!\n이름을 알려주세요",
+        text: "반가워요!\n닉네임을 알려주세요",
         font: .heading2,
         textAlignment: .left
     ).then {
@@ -53,7 +53,7 @@ final class ProfileView: UIView {
     }
     
     private let nameLabel = LabelFactory.build(
-        text: "이름",
+        text: "닉네임",
         font: .body2,
         textColor: .grey500,
         lineSpacing: 1.2,
@@ -65,7 +65,7 @@ final class ProfileView: UIView {
         $0.textColor = .terningBlack
         $0.font = .detail0
         $0.attributedPlaceholder = NSAttributedString(
-            string: "이름을 입력해주세요",
+            string: "닉네임을 입력해주세요",
             attributes: [
                 .foregroundColor: UIColor.grey300,
                 .font: UIFont.detail1

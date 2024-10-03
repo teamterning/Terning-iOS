@@ -340,7 +340,7 @@ extension TNCalendarViewController: FSCalendarDelegate {
         if isWeekView {
             rootView.calenderBottomCollectionView.backgroundColor = .back
             rootView.roundCalendarViewCorners(radius: 20) // 라운드 처리 해주기
-            rootView.calendarViewContainer.layer.applyShadow(alpha: 0.1, y: 4, blur: 1)
+            rootView.calendarViewContainer.layer.applyShadow(color: .black, alpha: 0.1, y: 4, blur: 4)
             
             rootView.calendarView.snp.updateConstraints { make in
                 make.height.equalTo(90.adjustedH) // 주간 뷰 높이 설정
@@ -573,7 +573,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
             
             cell.bind(model: self.viewModel.calendarDaily[indexPath.row], indexPath: indexPath, in: collectionView)
             cell.delegate = self
-            cell.layer.applyShadow(color: .greyShadow, alpha: 1, y: 0, blur: 4)
+            cell.layer.applyShadow(color: .greyShadow, alpha: 1, y: 0)
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else {
@@ -585,7 +585,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
             let scrapItem = scrapSection[indexPath.row]
             
             cell.bind(model: scrapItem, indexPath: indexPath, in: collectionView)
-            cell.layer.applyShadow(color: .greyShadow, alpha: 1, y: 0, blur: 4)
+            cell.layer.applyShadow(color: .greyShadow, alpha: 1, y: 0)
             cell.delegate = self
             return cell
         }
@@ -606,6 +606,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
                 let sortedKeys = self.viewModel.scrapLists.keys.sorted()
                 let scrapSection = sortedKeys[indexPath.section]
                 let formattedDate = isoDateFormatter.string(from: scrapSection)
+                headerView.setListViewLayout()
                 headerView.bind(title: formattedDate)
                 
                 return headerView

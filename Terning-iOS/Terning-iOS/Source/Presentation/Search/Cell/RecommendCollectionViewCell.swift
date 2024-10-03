@@ -61,14 +61,7 @@ extension RecommendCollectionViewCell {
     private func setUI() {
         self.backgroundColor = .white
         self.layer.cornerRadius = 5
-        self.layer.applyShadow(
-            color: .black,
-            alpha: 0.15,
-            x: 0,
-            y: 0,
-            blur: 4,
-            spread: 0
-        )
+        self.layer.applyShadow(color: .greyShadow, alpha: 1, y: 0, blur: 4)
     }
     
     private func setHierarchy() {

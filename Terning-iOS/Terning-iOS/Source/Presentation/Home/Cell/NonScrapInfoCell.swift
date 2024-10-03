@@ -17,7 +17,7 @@ final class NonScrapInfoCell: UICollectionViewCell {
     private let internshipScrapedStatus = UIView().then {
         $0.layer.cornerRadius = 5
         $0.backgroundColor =  .white
-        $0.layer.applyShadow(color: .greyShadow, alpha: 0.25, x: 0, y: 0, blur: 4, spread: 0)
+        $0.layer.applyShadow(color: .greyShadow, alpha: 1, y: 0)
     }
     
     private let internshipScrapedStatusLabel = LabelFactory.build(

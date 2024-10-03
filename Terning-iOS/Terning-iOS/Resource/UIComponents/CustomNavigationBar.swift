@@ -100,7 +100,7 @@ extension CustomNavigationBar {
         }
         
         if isShadow {
-            self.layer.applyShadow(color: .terningBlack, alpha: 0.15, y: 3, blur: 4, spread: 0)
+            self.layer.applyShadow(color: .terningBlack, alpha: 0.15, y: 3)
         }
     }
     

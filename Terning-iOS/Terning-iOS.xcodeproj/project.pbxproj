@@ -73,6 +73,7 @@
 		2DF257252C8F691300B85843 /* ProfileFixViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF257242C8F691300B85843 /* ProfileFixViewModel.swift */; };
 		2DF257272C8F692B00B85843 /* ProfileViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF257262C8F692B00B85843 /* ProfileViewModelType.swift */; };
 		2DF257292C8F6A7D00B85843 /* ProfileImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF257282C8F6A7D00B85843 /* ProfileImageUtils.swift */; };
+		7119B8112CA72FBD00E94E62 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7119B8102CA72FBD00E94E62 /* UIColor+.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
 		7121A13A2C3A6CEB0056DB8B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7121A1392C3A6CEB0056DB8B /* RxCocoa */; };
@@ -247,6 +248,7 @@
 		2DF257242C8F691300B85843 /* ProfileFixViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFixViewModel.swift; sourceTree = "<group>"; };
 		2DF257262C8F692B00B85843 /* ProfileViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelType.swift; sourceTree = "<group>"; };
 		2DF257282C8F6A7D00B85843 /* ProfileImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageUtils.swift; sourceTree = "<group>"; };
+		7119B8102CA72FBD00E94E62 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A13D2C3A98E10056DB8B /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
@@ -835,6 +837,7 @@
 				71461ED32C3811E8002A6999 /* ViewController+.swift */,
 				71461ED52C38150C002A6999 /* UILabel+.swift */,
 				7121A1342C39CCF60056DB8B /* UIButton+.swift */,
+				7119B8102CA72FBD00E94E62 /* UIColor+.swift */,
 			);
 			path = "UIKit+";
 			sourceTree = "<group>";
@@ -1511,6 +1514,7 @@
 				71780C3A2C4577FF0073B731 /* CalendarTargetType.swift in Sources */,
 				71780C462C4589400073B731 /* NewTokenModel.swift in Sources */,
 				B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */,
+				7119B8112CA72FBD00E94E62 /* UIColor+.swift in Sources */,
 				71780C482C458FF80073B731 /* HomeTargetType.swift in Sources */,
 				71780C3E2C45849A0073B731 /* UserDefaultWrapper.swift in Sources */,
 				7121A14B2C3B09800056DB8B /* setImage.swift in Sources */,
@@ -1720,7 +1724,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2024.0924.0212;
+				CURRENT_PROJECT_VERSION = 2024.1002.0940;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1760,7 +1764,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2024.0924.0212;
+				CURRENT_PROJECT_VERSION = 2024.1002.0940;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;

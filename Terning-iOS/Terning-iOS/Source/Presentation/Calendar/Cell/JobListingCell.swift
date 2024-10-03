@@ -171,6 +171,12 @@ extension JobListingCell {
     
     func bind(model: AnnouncementModel, indexPath: IndexPath? = nil, in collectionView: UICollectionView? = nil) {
         
+        if model.dDay == "지원마감" {
+            self.dDayLabel.textColor = .grey300
+        } else {
+            self.dDayLabel.textColor = .terningMain
+        }
+        
         self.indexPath = indexPath
         self.collectionView = collectionView
         
@@ -197,23 +203,5 @@ extension JobListingCell {
         guard let collectionView = self.collectionView else { return print("쫑") }
         
         delegate?.scrapButtonDidTapInCalendar(in: collectionView, isScrap: sender.isSelected, indexPath: indexPath)
-    }
-}
-
-extension UIColor {
-    convenience init(hex: String, alpha: CGFloat = 1.0) {
-        var hexFormatted: String = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
-        
-        if hexFormatted.hasPrefix("#") {
-            hexFormatted = String(hexFormatted.dropFirst())
-        }
-        
-        assert(hexFormatted.count == 6, "Invalid hex code used.")
-        var rgbValue: UInt64 = 0
-        Scanner(string: hexFormatted).scanHexInt64(&rgbValue)
-        
-        self.init(red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-                  green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-                  blue: CGFloat(rgbValue & 0x0000FF) / 255.0, alpha: alpha)
     }
 }

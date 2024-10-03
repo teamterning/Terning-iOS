@@ -62,6 +62,13 @@ extension CalendarDateHeaderView {
     func bind(title: String) {
         self.titleLabel.text = convertToDayOfWeek(from: title)
     }
+    
+    func setListViewLayout() {
+        titleLabel.snp.updateConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview()
+        }
+    }
 }
 
 // MARK: - Methods

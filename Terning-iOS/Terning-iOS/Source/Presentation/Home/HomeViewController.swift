@@ -497,6 +497,7 @@ extension HomeViewController {
                         print("🔥 fetchTodayDeadlineDatas: \(data.scraps)")
                         upcomingCardLists = data.scraps
                         hasScrapped = data.hasScrapped
+                        
                         rootView.collectionView.reloadData()
                         
                     } catch {
@@ -596,7 +597,7 @@ extension HomeViewController {
             case .success(let response):
                 let status = response.statusCode
                 if 200..<300 ~= status {
-                    showToast(message: "스크랩 수정 성공", heightOffset: 20)
+                    showToast(message: "스크랩 색상이 변경되었어요!", heightOffset: 20)
                     self.fetchTodayDeadlineDatas()
                     self.rootView.collectionView.reloadData()
                 } else {

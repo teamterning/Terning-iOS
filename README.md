@@ -1,6 +1,8 @@
 <img src="https://github.com/user-attachments/assets/0a16569c-2480-4af8-bf3b-37b3f8ef58a0" width=120 />
 
-# 👔 terning
+# 👔 terning 터닝 - 대학생 인턴, 공고 관리 캘린더
+
+## 앱스토어 링크 : [앱스토어](https://apps.apple.com/kr/app/terning-%ED%84%B0%EB%8B%9D-%EB%8C%80%ED%95%99%EC%83%9D-%EC%9D%B8%ED%84%B4-%EA%B3%B5%EA%B3%A0-%EA%B4%80%EB%A6%AC-%EC%BA%98%EB%A6%B0%EB%8D%94/id6547866420) v1.0.0
 <p align="center"><img src="https://github.com/user-attachments/assets/984e7795-3746-4e7a-ad6c-cb1cb376c481"></p>
 
 **내 계획에 딱 맞는 대학생 인턴의 시작, 터닝**
@@ -43,7 +45,7 @@
 | 이명진<br/>([@thingineeer](https://github.com/thingineeer)) | 정민지<br/>([@wjdalswl](https://github.com/wjdalswl)) | 김민성<br/>([@mminny](https://github.com/mminny)) |
 | :---: | :---: | :---: |
 | <img width="544" alt="IMG_6676 2" src="https://github.com/user-attachments/assets/96a2e12c-ff29-42eb-b5ae-622d73c2b62b"> | <img width="544" alt="IMG_6678" src="https://github.com/user-attachments/assets/1e645a4e-e85e-4c7f-b082-6eb5a2d2dee4"> | <img width="544" alt="IMG_6677" src="https://github.com/user-attachments/assets/02f5e8cd-649d-4bd5-811b-c6e580886782"> |
-|`홈` `캘린더` `소셜 로그인` `스크랩` `공용 컴포넌트` |`온보딩` `소셜 로그인` `탐색` `공고 상세화면` `마이페이지` |`홈` `필터링`|
+|`홈 화면` `캘린더` `소셜 로그인` `스크랩` `공용 컴포넌트` |`온보딩` `소셜 로그인` `탐색` `공고 상세화면` `마이페이지` |`홈` `필터링`|
 <br>
 
 

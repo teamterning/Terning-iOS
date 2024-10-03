@@ -15,12 +15,11 @@ final class MainInfoTableViewCell: UITableViewCell {
     // MARK: - UI Components
     
     private let dDayDivView = UIView().then {
-        $0.backgroundColor = .terningSelectPressed
+        $0.backgroundColor = .terningSub3
         $0.layer.cornerRadius = 5.adjusted
     }
     
     private let dDayLabel = LabelFactory.build(
-        text: "D-3",
         font: .title4,
         textColor: .terningMain
     )
@@ -32,7 +31,7 @@ final class MainInfoTableViewCell: UITableViewCell {
     ).then {
         $0.numberOfLines = 0
     }
-
+    
     private let viewsImage = UIImageView().then {
         $0.image = .icView
         $0.contentMode = .scaleAspectFit
@@ -110,10 +109,14 @@ extension MainInfoTableViewCell {
 
 extension MainInfoTableViewCell {
     func bind(with mainInfo: MainInfoModel) {
-        if let dDayInt = Int(mainInfo.dDay) {
-            dDayLabel.text = "D-\(dDayInt)"
+        dDayLabel.text = mainInfo.dDay
+        
+        if mainInfo.dDay == "지원마감" {
+            dDayDivView.backgroundColor = .grey100
+            dDayLabel.textColor = .grey350
         } else {
-            dDayLabel.text = mainInfo.dDay
+            dDayDivView.backgroundColor = .terningSub3
+            dDayLabel.textColor = .terningMain
         }
         
         titleLabel.text = mainInfo.title

@@ -12,7 +12,7 @@ import RxRelay
 import SnapKit
 
 @frozen
-enum SearchResultType: Int, CaseIterable {
+public enum SearchResultType: Int, CaseIterable {
     case graphic = 0
     case search = 1
     case noSearch = 2

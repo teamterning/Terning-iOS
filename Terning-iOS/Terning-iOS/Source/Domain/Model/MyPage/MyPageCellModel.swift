@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct MyPageBasicCellModel {
+public struct MyPageBasicCellModel {
     let image: UIImage?
     let title: String
     let accessoryType: AccessoryType

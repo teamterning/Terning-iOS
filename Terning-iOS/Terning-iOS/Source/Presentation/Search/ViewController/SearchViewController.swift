@@ -12,7 +12,7 @@ import SnapKit
 import Then
 
 @frozen
-enum RecomandType: Int, CaseIterable {
+public enum RecomandType: Int, CaseIterable {
     case advertisement = 0
     case viewsNum = 1
     case scrapsNum = 2

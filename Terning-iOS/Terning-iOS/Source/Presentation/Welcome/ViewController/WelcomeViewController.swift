@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 @frozen
-enum WelcomeViewType {
+public enum WelcomeViewType {
     case first
     case second
 }

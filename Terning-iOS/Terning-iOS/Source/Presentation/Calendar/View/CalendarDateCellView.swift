@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 @frozen
-enum CalendarState {
+public enum CalendarState {
     case normal
     case selected
     case today

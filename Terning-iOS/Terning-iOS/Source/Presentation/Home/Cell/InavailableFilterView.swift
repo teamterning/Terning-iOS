@@ -83,7 +83,6 @@ extension InavailableFilterView {
         }
         
         let attributedString = NSMutableAttributedString(string: fullText)
-        
         // 글자 수가 16자 이상일 때
         if title.count > 16 {
             let titleRange = (fullText as NSString).range(of: finalTitle)

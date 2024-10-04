@@ -12,7 +12,7 @@ import RxSwift
 import SnapKit
 
 @frozen
-enum OnboardingViewType {
+public enum OnboardingViewType {
     case grade
     case workingPeriod
     case graduationDate

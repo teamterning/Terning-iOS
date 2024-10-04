@@ -13,7 +13,7 @@ import SnapKit
 import RxRelay
 
 @frozen
-enum ProfileViewType {
+public enum ProfileViewType {
     case setting
     case fix
 }

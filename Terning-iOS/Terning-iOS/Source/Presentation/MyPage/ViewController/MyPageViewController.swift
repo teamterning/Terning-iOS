@@ -19,7 +19,7 @@ struct SectionData {
 }
 
 @frozen
-enum SectionItem {
+public enum SectionItem {
     case userInfoViewModel(UserProfileInfoModel)
     case cellViewModel(MyPageBasicCellModel)
     case emptyCell

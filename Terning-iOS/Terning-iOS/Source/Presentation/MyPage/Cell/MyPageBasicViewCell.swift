@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 @frozen
-enum AccessoryType {
+public enum AccessoryType {
     case none
     case disclosureIndicator
     case label(text: String)

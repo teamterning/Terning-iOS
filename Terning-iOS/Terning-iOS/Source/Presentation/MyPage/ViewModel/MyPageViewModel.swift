@@ -68,7 +68,7 @@ final class MyPageViewModel: ViewModelType {
                     switch cellModel.title {
                     case "공지사항":
                         return .showNotice
-                    case "의견보내기":
+                    case "의견 보내기":
                         return .sendFeedback
                     case "서비스 이용약관":
                         return .showTermsOfUse
@@ -94,7 +94,7 @@ final class MyPageViewModel: ViewModelType {
                 title: "터닝 커뮤니티",
                 items: [
                     .cellViewModel(MyPageBasicCellModel(image: .icNotice, title: "공지사항", accessoryType: .disclosureIndicator)),
-                    .cellViewModel(MyPageBasicCellModel(image: .icOpinion, title: "의견보내기", accessoryType: .disclosureIndicator))
+                    .cellViewModel(MyPageBasicCellModel(image: .icOpinion, title: "의견 보내기", accessoryType: .disclosureIndicator))
                 ]
             ),
             SectionData(

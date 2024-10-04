@@ -25,7 +25,6 @@ final class InavailableFilterView: UICollectionViewCell {
         textColor: .grey400,
         textAlignment: .center
     ).then {
-        
         $0.numberOfLines = 2
     }
     
@@ -84,9 +83,27 @@ extension InavailableFilterView {
         }
         
         let attributedString = NSMutableAttributedString(string: fullText)
-        
-        let titleRange = (fullText as NSString).range(of: finalTitle)
-        attributedString.addAttribute(.foregroundColor, value: UIColor.terningMain, range: titleRange)
+        // 글자 수가 16자 이상일 때
+        if title.count > 16 {
+            let titleRange = (fullText as NSString).range(of: finalTitle)
+            attributedString.addAttributes([
+                .font: UIFont.title4,
+                .foregroundColor: UIColor.terningMain
+            ], range: titleRange)
+            
+            let bodyRange = (fullText as NSString).range(of: "에\n해당하는 검색 결과가 없어요")
+            attributedString.addAttribute(.font, value: UIFont.body1, range: bodyRange)
+        } else {
+            // 글자 수가 16자 미만일 때
+            let titleRange = (fullText as NSString).range(of: finalTitle)
+            attributedString.addAttributes([
+                .font: UIFont.title4,
+                .foregroundColor: UIColor.terningMain
+            ], range: titleRange)
+            
+            let bodyRange = (fullText as NSString).range(of: "에 해당하는 검색 결과가 없어요")
+            attributedString.addAttribute(.font, value: UIFont.body1, range: bodyRange)
+        }
         
         inavailableLabel.attributedText = attributedString
         

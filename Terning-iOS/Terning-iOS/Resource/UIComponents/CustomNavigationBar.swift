@@ -14,7 +14,7 @@ import SnapKit
 import Then
 
 @frozen
-enum NavigationBarType {
+public enum NavigationBarType {
     case leftButton // 뒤로가기 버튼
     case centerTitleWithLeftButton // 뒤로가기 버튼 + 중앙 타이틀
     case calendar // 캘린더 전용 네비게이션

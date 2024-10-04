@@ -12,7 +12,7 @@ import RxSwift
 import SnapKit
 
 @frozen
-enum OnboardingViewType {
+public enum OnboardingViewType {
     case grade
     case workingPeriod
     case graduationDate
@@ -76,7 +76,7 @@ final class OnboardingView: UIView {
     }
     
     let additionalInfoLabel = LabelFactory.build(
-        text: "*5년제 혹은 초과학기생인 경우 4학년으로 선택해주세요",
+        text: "*5년제 혹은 초과학기생인 경우 4학년으로 선택해 주세요",
         font: .detail3,
         textColor: .grey400,
         textAlignment: .left,
@@ -174,14 +174,14 @@ extension OnboardingView {
         let userName = OnboardingData.shared.userName
         print("userName", userName)
         if userName.isEmpty {
-            titleLabel.text = "재학 상태를 선택해주세요"
+            titleLabel.text = "재학 상태를 선택해 주세요"
         } else if userName.count > 6 {
-            titleLabel.text = "\(userName)님의\n재학 상태를 선택해주세요"
+            titleLabel.text = "\(userName)님의\n재학 상태를 선택해 주세요"
         } else {
-            titleLabel.text = "\(userName)님의 재학 상태를 선택해주세요"
+            titleLabel.text = "\(userName)님의 재학 상태를 선택해 주세요"
         }
         
-        subTitleLabel.text = "휴학 중이라면, 휴학 전 마지막 수료 학년을 선택해주세요"
+        subTitleLabel.text = "휴학 중이라면, 휴학 전 마지막 수료 학년을 선택해 주세요"
         
         addSubviews(
             buttonStackView,
@@ -200,7 +200,7 @@ extension OnboardingView {
     }
     
     private func setworkingPeriodUI() {
-        titleLabel.text = "희망하는 인턴 근무 기간을 선택해주세요"
+        titleLabel.text = "희망하는 인턴 근무 기간을 선택해 주세요"
         subTitleLabel.text = "선택한 기간 동안 근무할 수 있는 인턴 공고를 찾아드릴게요"
         
         addSubview(buttonStackView)

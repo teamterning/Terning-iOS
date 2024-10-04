@@ -13,7 +13,7 @@ import RxCocoa
 import SnapKit
 
 @frozen
-enum JobDetailInfoType: Int, CaseIterable {
+public enum JobDetailInfoType: Int, CaseIterable {
     case companyInfo = 0
     case mainInfo = 1
     case summaryInfo = 2

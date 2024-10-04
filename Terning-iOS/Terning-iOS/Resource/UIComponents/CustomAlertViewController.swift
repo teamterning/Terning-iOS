@@ -16,7 +16,7 @@ import Then
 import Lottie
 
 @frozen
-enum AlertViewType {
+public enum AlertViewType {
     case scrap
     case changeColorAndPushJobDetail
     case info

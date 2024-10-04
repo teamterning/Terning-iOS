@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 @frozen
-enum CalendarState {
+public enum CalendarState {
     case normal
     case selected
     case today
@@ -134,7 +134,7 @@ final class CalendarDateCellView: UIView {
     private func updateState(_ state: CalendarState) {
         switch state {
         case .today:
-            selectView.backgroundColor = .grey200
+            selectView.backgroundColor = .grey150
             selectView.isHidden = false
             dateLabel.textColor = .white
         case .normal:

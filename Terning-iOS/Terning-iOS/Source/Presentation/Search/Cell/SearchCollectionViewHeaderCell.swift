@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 @frozen
-enum SearchHeaderType {
+public enum SearchHeaderType {
     case main
     case sub
 }

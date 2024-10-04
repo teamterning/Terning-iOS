@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 @frozen
-enum AccountOption {
+public enum AccountOption {
     case logout
     case withdraw
 }

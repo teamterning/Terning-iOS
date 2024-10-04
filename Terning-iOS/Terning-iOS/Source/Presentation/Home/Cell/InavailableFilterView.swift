@@ -61,7 +61,7 @@ extension InavailableFilterView {
         }
         
         inavailableLabel.snp.makeConstraints {
-            $0.top.equalTo(inavailableImageView.snp.bottom).offset(9)
+            $0.top.equalTo(inavailableImageView.snp.bottom).offset(9.adjustedH)
             $0.centerX.equalToSuperview()
         }
     }
@@ -79,7 +79,7 @@ extension InavailableFilterView {
             fullText = "\(finalTitle)에\n해당하는 검색 결과가 없어요"
         } else {
             finalTitle = title
-            fullText = "\(finalTitle)에 해당하는 검색 결과가 없어요"
+            fullText = "\(finalTitle)에\n해당하는 검색 결과가 없어요"
         }
         
         let attributedString = NSMutableAttributedString(string: fullText)
@@ -101,15 +101,18 @@ extension InavailableFilterView {
                 .foregroundColor: UIColor.terningMain
             ], range: titleRange)
             
-            let bodyRange = (fullText as NSString).range(of: "에 해당하는 검색 결과가 없어요")
+            let bodyRange = (fullText as NSString).range(of: "에\n해당하는 검색 결과가 없어요")
             attributedString.addAttribute(.font, value: UIFont.body1, range: bodyRange)
         }
         
         inavailableLabel.attributedText = attributedString
         
+        inavailableImageView.snp.updateConstraints {
+            $0.top.equalToSuperview().inset(40.adjustedH)
+        }
+        
         inavailableLabel.snp.updateConstraints {
-            $0.top.equalTo(inavailableImageView.snp.bottom).offset(16)
-            $0.centerX.equalToSuperview()
+            $0.top.equalTo(inavailableImageView.snp.bottom).offset(16.adjustedH)
         }
     }
 }

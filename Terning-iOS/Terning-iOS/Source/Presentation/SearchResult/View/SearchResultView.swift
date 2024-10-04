@@ -208,13 +208,13 @@ extension SearchResultView {
     private static func createNoSearchSection(hasResults: Bool) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(266.adjustedH)
+            heightDimension: .absolute(350.adjustedH)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(266.adjustedH)
+            heightDimension: .absolute(350.adjustedH)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         

@@ -64,21 +64,6 @@ final class SearchResultViewController: UIViewController {
         setDelegate()
         bindViewModel()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if !self.isMovingToParent {
-            if let currentKeyword =  rootView.searchView.textField.text,
-               !currentKeyword.trimmingCharacters(in: .whitespaces).isEmpty {
-                let currentSort = sortByRelay.value
-                let currentPage = pageRelay.value
-                sortByRelay.accept(currentSort)
-                pageRelay.accept(currentPage)
-            }
-            
-        }
-    }
 }
 
 // MARK: - UI & Layout
@@ -160,14 +145,9 @@ extension SearchResultViewController {
             .compactMap { $0.last?.item }
             .withUnretained(self)
             .bind { ss, row in
-                if row == 0 {
-                    if ss.pageRelay.value > 0 {
-                        ss.pageRelay.accept(ss.pageRelay.value - 1)
-                    }
-                } else {
-                    guard ss.searchHasNext else { return }
-                    ss.pageRelay.accept(ss.pageRelay.value + 1)
-                }
+                guard row == 0 else { return }
+                guard ss.searchHasNext else { return }
+                ss.pageRelay.accept(ss.pageRelay.value + 1)
             }
             .disposed(by: disposeBag)
         
@@ -183,7 +163,16 @@ extension SearchResultViewController {
         output.searchResults
             .drive(onNext: { [weak self] newSearchResults in
                 guard let self = self else { return }
-                self.rootView.searchResult = newSearchResults
+                if self.pageRelay.value >= 1 {
+                    if let currentResults = self.rootView.searchResult {
+                        self.rootView.searchResult = currentResults + newSearchResults
+                    } else {
+                        self.rootView.searchResult = newSearchResults
+                    }
+                } else {
+                    self.rootView.collectionView.setContentOffset(.zero, animated: true)
+                    self.rootView.searchResult = newSearchResults
+                }
                 self.rootView.collectionView.reloadData()
             })
             .disposed(by: disposeBag)

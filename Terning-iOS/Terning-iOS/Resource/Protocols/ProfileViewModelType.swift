@@ -23,14 +23,14 @@ extension ProfileViewModelType {
     func characterCount(of string: String) -> Int {
         return string.count
     }
-
+    
     func containsSpecialCharacters(_ string: String) -> Bool {
         let regex = "[\\p{S}\\p{C}]"
         return string.range(of: regex, options: .regularExpression) != nil
     }
-
+    
     func containsSymbols(_ string: String) -> Bool {
-        let regex = "[!@#$%^&*(),.?\":;'/{}\\[\\]|<>+=\\-_\\\\\\ \\—…’‘’]"
+        let regex = "[!@#$%^&*(),.?\":;'/{}\\[\\]|<>+=\\-_\\\\—…’‘’]"
         return string.range(of: regex, options: .regularExpression) != nil
     }
 }

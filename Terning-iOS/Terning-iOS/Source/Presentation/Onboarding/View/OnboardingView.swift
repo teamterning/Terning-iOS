@@ -298,34 +298,42 @@ extension OnboardingView {
 extension OnboardingView {
     @objc
     private func optionSelected(_ sender: CustomOnboardingButton) {
-        selectedButton?.deselectButton()
-        selectedButton = sender
-        sender.selectButton()
         
-        let stringValue: String?
-            switch viewType {
-            case .grade:
-                switch sender.index {
-                case 0: stringValue = "freshman"
-                case 1: stringValue = "sophomore"
-                case 2: stringValue = "junior"
-                case 3: stringValue = "senior"
-                default: stringValue = nil
-                }
-                
-            case .workingPeriod:
-                switch sender.index {
-                case 0: stringValue = "short"
-                case 1: stringValue = "middle"
-                case 2: stringValue = "long"
-                default: stringValue = nil
-                }
+        if sender == selectedButton {
+            selectedButton?.deselectButton()
+            selectedButton = nil
+            updateOnboardingData(for: viewType, with: nil)
+            optionSelectedSubject.onNext(nil)
+        } else {
+            selectedButton?.deselectButton()
+            selectedButton = sender
+            sender.selectButton()
+            
+            let stringValue: String?
+                switch viewType {
+                case .grade:
+                    switch sender.index {
+                    case 0: stringValue = "freshman"
+                    case 1: stringValue = "sophomore"
+                    case 2: stringValue = "junior"
+                    case 3: stringValue = "senior"
+                    default: stringValue = nil
+                    }
+                    
+                case .workingPeriod:
+                    switch sender.index {
+                    case 0: stringValue = "short"
+                    case 1: stringValue = "middle"
+                    case 2: stringValue = "long"
+                    default: stringValue = nil
+                    }
 
-            case .graduationDate:
-                stringValue = nil
-            }
-        
-        updateOnboardingData(for: viewType, with: stringValue)
-        optionSelectedSubject.onNext(sender.index)
+                case .graduationDate:
+                    stringValue = nil
+                }
+            
+            updateOnboardingData(for: viewType, with: stringValue)
+            optionSelectedSubject.onNext(sender.index)
+        }
     }
 }

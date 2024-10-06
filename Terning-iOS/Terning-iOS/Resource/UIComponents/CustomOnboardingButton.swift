@@ -19,8 +19,11 @@ final class CustomOnboardingButton: UIButton {
     
     override var isHighlighted: Bool {
         didSet {
-            if !isSelected {
-                self.layer.borderColor = isHighlighted ? UIColor.grey200.cgColor : UIColor.grey150.cgColor
+            if isSelected {
+                self.layer.borderColor = isHighlighted ? UIColor.terningMain.cgColor : UIColor.terningMain.cgColor
+                self.backgroundColor = isHighlighted ? .terningPressed : .clear
+            } else {
+                self.layer.borderColor = isHighlighted ? UIColor.grey200.cgColor : UIColor.grey200.cgColor
                 self.backgroundColor = isHighlighted ? .grey50 : .clear
                 self.setTitleColor(isHighlighted ? .grey375 : .grey375, for: .normal)
             }
@@ -84,7 +87,9 @@ extension CustomOnboardingButton {
             self.setTitleColor(.grey375, for: .normal)
             self.layer.borderColor = UIColor.grey150.cgColor
             self.backgroundColor = .clear
+            setNeedsDisplay()
         }
+      
     }
     
     private func setAddTarget() {

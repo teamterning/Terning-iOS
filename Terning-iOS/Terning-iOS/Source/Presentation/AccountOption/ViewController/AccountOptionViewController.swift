@@ -99,12 +99,10 @@ extension AccountOptionViewController {
 
 extension AccountOptionViewController {
     private func navigateToLoginVC() {
-        let LoginVC = UINavigationController(
-            rootViewController: LoginViewController(
-                viewModel: LoginViewModel(
-                    loginRepository: LoginRepository(
-                        loginService: LoginService()
-                    )
+        let LoginVC = LoginViewController(
+            viewModel: LoginViewModel(
+                loginRepository: LoginRepository(
+                    loginService: LoginService()
                 )
             )
         )

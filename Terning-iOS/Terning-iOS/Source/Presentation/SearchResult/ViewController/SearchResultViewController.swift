@@ -23,6 +23,7 @@ final class SearchResultViewController: UIViewController {
     // MARK: - Properties
     
     private var selectedIndex: Int?
+    private var selectedIndexPath: IndexPath?
     
     private var searchResultCount: Int = 0
     private var searchHasNext = true
@@ -69,14 +70,9 @@ final class SearchResultViewController: UIViewController {
         super.viewWillAppear(animated)
         
         if !self.isMovingToParent {
-            if let currentKeyword =  rootView.searchView.textField.text,
-               !currentKeyword.trimmingCharacters(in: .whitespaces).isEmpty {
-                let currentSort = sortByRelay.value
-                let currentPage = pageRelay.value
-                sortByRelay.accept(currentSort)
-                pageRelay.accept(currentPage)
+            if let indexPath = selectedIndexPath {
+                reloadCollectionViewItems(at: indexPath)
             }
-            
         }
     }
 }
@@ -160,14 +156,9 @@ extension SearchResultViewController {
             .compactMap { $0.last?.item }
             .withUnretained(self)
             .bind { ss, row in
-                if row == 0 {
-                    if ss.pageRelay.value > 0 {
-                        ss.pageRelay.accept(ss.pageRelay.value - 1)
-                    }
-                } else {
-                    guard ss.searchHasNext else { return }
-                    ss.pageRelay.accept(ss.pageRelay.value + 1)
-                }
+                guard row == 0 else { return }
+                guard ss.searchHasNext else { return }
+                ss.pageRelay.accept(ss.pageRelay.value + 1)
             }
             .disposed(by: disposeBag)
         
@@ -183,7 +174,16 @@ extension SearchResultViewController {
         output.searchResults
             .drive(onNext: { [weak self] newSearchResults in
                 guard let self = self else { return }
-                self.rootView.searchResult = newSearchResults
+                if self.pageRelay.value >= 1 {
+                    if let currentResults = self.rootView.searchResult {
+                        self.rootView.searchResult = currentResults + newSearchResults
+                    } else {
+                        self.rootView.searchResult = newSearchResults
+                    }
+                } else {
+                    self.rootView.collectionView.setContentOffset(.zero, animated: true)
+                    self.rootView.searchResult = newSearchResults
+                }
                 self.rootView.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
@@ -261,6 +261,32 @@ extension SearchResultViewController {
             self.popOrDismissViewController(animated: true)
         }
     }
+    
+    private func reloadCollectionViewItems(at indexPath: IndexPath) {
+        let pageSize = 10
+        let pageIndex = indexPath.item / pageSize
+        let itemIndexInPage = indexPath.item % pageSize
+        
+        viewModel.fetchJobCards(keyword: textFieldKeyword ?? "", sortBy: sortByRelay.value, page: pageIndex, size: pageSize)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self else { return }
+                
+                let announcements = result.announcements
+                
+                if !announcements.isEmpty && itemIndexInPage < announcements.count {
+                    let updatedResult = announcements[itemIndexInPage]
+                    
+                    if var currentResults = self.rootView.searchResult, indexPath.item < currentResults.count {
+                        currentResults[indexPath.item] = updatedResult
+                        self.rootView.searchResult = currentResults
+                        self.rootView.collectionView.reloadItems(at: [indexPath])
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func addScrapAnnouncement(scrapId: Int, color: String) {
         addScrapSubject.onNext((scrapId, color))
     }
@@ -355,6 +381,8 @@ extension SearchResultViewController: UICollectionViewDelegate {
         case .search:
             guard let SearchResult = rootView.searchResult else { return }
             let selectedItem = SearchResult[indexPath.item].internshipAnnouncementId
+            
+            selectedIndexPath = indexPath
             
             let jobDetailVC = JobDetailViewController(
                 viewModel: JobDetailViewModel(

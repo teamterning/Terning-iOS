@@ -127,7 +127,7 @@ final class SearchResultViewModel: ViewModelType {
 // MARK: - API
 
 extension SearchResultViewModel {
-    private func fetchJobCards(keyword: String, sortBy: String, page: Int, size: Int) -> Observable<SearchResultModel> {
+    func fetchJobCards(keyword: String, sortBy: String, page: Int, size: Int) -> Observable<SearchResultModel> {
         return Observable.create { observer in
             let request = self.searchProvider.request(
                 .getSearchResult(

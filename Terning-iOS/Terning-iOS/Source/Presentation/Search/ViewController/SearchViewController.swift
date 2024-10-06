@@ -30,12 +30,13 @@ final class SearchViewController: UIViewController {
     
     // MARK: - UI Components
     
-    let searchView = SearchView()
+    let rootView = SearchView()
     
     // MARK: - Init
     
     init(viewModel: SearchViewModel) {
         self.viewModel = viewModel
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -63,10 +64,10 @@ final class SearchViewController: UIViewController {
 extension SearchViewController {
     private func setUI() {
         view.backgroundColor = .white
-        view.addSubview(searchView)
+        view.addSubview(rootView)
     }
     private func setLayout() {
-        searchView.snp.makeConstraints {
+        rootView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -76,15 +77,15 @@ extension SearchViewController {
 
 extension SearchViewController {
     private func setDelegate() {
-        searchView.collectionView.dataSource = self
-        searchView.collectionView.delegate = self
+        rootView.collectionView.dataSource = self
+        rootView.collectionView.delegate = self
     }
     
     private func setAddTarget() {
-        searchView.searchView.textField.isUserInteractionEnabled = false
+        rootView.searchView.textField.isUserInteractionEnabled = false
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleSearchViewTap))
-        searchView.searchView.addGestureRecognizer(tapGestureRecognizer)
-        searchView.pageControl.isUserInteractionEnabled = false
+        rootView.searchView.addGestureRecognizer(tapGestureRecognizer)
+        rootView.pageControl.isUserInteractionEnabled = false
     }
     
     private func startTimer() {
@@ -122,11 +123,11 @@ extension SearchViewController {
     
     @objc
     private func autoScroll() {
-        let currentPage = searchView.pageControl.currentPage
-        let nextPage = (currentPage + 1) % (searchView.advertisement?.advertisements?.count ?? 1)
+        let currentPage = rootView.pageControl.currentPage
+        let nextPage = (currentPage + 1) % (rootView.advertisement?.advertisements?.count ?? 1)
         let indexPath = IndexPath(item: nextPage, section: RecomandType.advertisement.rawValue)
-        searchView.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        searchView.pageControl.currentPage = nextPage
+        rootView.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        rootView.pageControl.currentPage = nextPage
     }
 }
 
@@ -144,23 +145,23 @@ extension SearchViewController {
         
         output.announcements
             .drive(onNext: { [weak self] advertisements in
-                self?.searchView.advertisement = advertisements
-                self?.searchView.collectionView.reloadData()
-                self?.searchView.pageControl.numberOfPages = advertisements.advertisements?.count ?? 0
+                self?.rootView.advertisement = advertisements
+                self?.rootView.collectionView.reloadData()
+                self?.rootView.pageControl.numberOfPages = advertisements.advertisements?.count ?? 0
             })
             .disposed(by: disposeBag)
         
         output.recommendedByViews
             .drive(onNext: { [weak self] viewsNum in
-                self?.searchView.viewsNum = viewsNum
-                self?.searchView.collectionView.reloadData()
+                self?.rootView.viewsNum = viewsNum
+                self?.rootView.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
         output.recommendedByScraps
             .drive(onNext: { [weak self] scrapsNum in
-                self?.searchView.scrapsNum = scrapsNum
-                self?.searchView.collectionView.reloadData()
+                self?.rootView.scrapsNum = scrapsNum
+                self?.rootView.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
@@ -174,8 +175,8 @@ extension SearchViewController {
             .drive(onNext: { [weak self] page in
                 guard let self = self else { return }
                 let indexPath = IndexPath(item: page, section: RecomandType.advertisement.rawValue)
-                self.searchView.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-                self.searchView.pageControl.currentPage = page
+                self.rootView.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+                self.rootView.pageControl.currentPage = page
             })
             .disposed(by: disposeBag)
     }
@@ -191,11 +192,11 @@ extension SearchViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch RecomandType(rawValue: section) {
         case .advertisement:
-            return searchView.advertisement?.advertisements?.count ?? 0
+            return rootView.advertisement?.advertisements?.count ?? 0
         case .viewsNum:
-            return searchView.viewsNum?.count ?? 0
+            return rootView.viewsNum?.count ?? 0
         case .scrapsNum:
-            return searchView.scrapsNum?.count ?? 0
+            return rootView.scrapsNum?.count ?? 0
         default:
             return 0
         }
@@ -205,21 +206,21 @@ extension SearchViewController: UICollectionViewDataSource {
         switch RecomandType(rawValue: indexPath.section) {
         case .advertisement:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AdvertisementCollectionViewCell.className, for: indexPath) as? AdvertisementCollectionViewCell,
-                  let advertisements = searchView.advertisement?.advertisements else {
+                  let advertisements = rootView.advertisement?.advertisements else {
                 return UICollectionViewCell()
             }
             cell.bind(with: advertisements[indexPath.row])
             return cell
         case .viewsNum:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendCollectionViewCell.className, for: indexPath) as? RecommendCollectionViewCell,
-                  let viewsNum = searchView.viewsNum else {
+                  let viewsNum = rootView.viewsNum else {
                 return UICollectionViewCell()
             }
             cell.bind(with: viewsNum[indexPath.row])
             return cell
         case .scrapsNum:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendCollectionViewCell.className, for: indexPath) as? RecommendCollectionViewCell,
-                  let scrapsNum = searchView.scrapsNum else {
+                  let scrapsNum = rootView.scrapsNum else {
                 return UICollectionViewCell()
             }
             cell.bind(with: scrapsNum[indexPath.row])
@@ -266,7 +267,7 @@ extension SearchViewController: UICollectionViewDelegate {
             guard let url = URL(string: urlString) else { return }
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         case .viewsNum:
-            guard let viewsNum = searchView.viewsNum else { return }
+            guard let viewsNum = rootView.viewsNum else { return }
             
             let selectedItem = viewsNum[indexPath.item].internshipAnnouncementId
             
@@ -283,7 +284,7 @@ extension SearchViewController: UICollectionViewDelegate {
             jobDetailVC.internshipAnnouncementId.accept(selectedItem)
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         case .scrapsNum:
-            guard let scrapsNum = searchView.scrapsNum else { return }
+            guard let scrapsNum = rootView.scrapsNum else { return }
             
             let selectedItem = scrapsNum[indexPath.item].internshipAnnouncementId
             
@@ -309,7 +310,7 @@ extension SearchViewController: UICollectionViewDelegate {
         guard let sectionType = RecomandType(rawValue: indexPath.section) else { return }
         
         if sectionType == .advertisement {
-            searchView.pageControl.currentPage = indexPath.item
+            rootView.pageControl.currentPage = indexPath.item
         }
         
     }

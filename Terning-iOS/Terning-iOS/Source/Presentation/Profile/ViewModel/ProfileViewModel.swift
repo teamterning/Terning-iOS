@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 final class ProfileViewModel: ProfileViewModelType {
-
+    
     // MARK: - Properties
     
     private let authProvider = Providers.authProvider

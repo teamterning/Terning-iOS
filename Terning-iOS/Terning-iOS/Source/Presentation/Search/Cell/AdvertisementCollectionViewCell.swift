@@ -57,6 +57,6 @@ extension AdvertisementCollectionViewCell {
 
 extension AdvertisementCollectionViewCell {
     func bind(with advertisement: UIImage) {
-            advertisementImageView.image = advertisement
+        advertisementImageView.image = advertisement
     }
 }

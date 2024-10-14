@@ -199,7 +199,7 @@ struct CompositionalLayout {
                     
                     return section
                 }
-            
+                
             } else if sectionNumber == 2 {
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
@@ -230,6 +230,73 @@ struct CompositionalLayout {
                 section.contentInsets = .init(top: 4, leading: 0, bottom: 20, trailing: 0)
                 
                 return section
+            } else {
+                return nil
+            }
+        }
+    }
+    
+    static func createAdvertisementLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
+            
+            if sectionNumber == 0 {
+                let itemSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .absolute(108.adjustedH)
+                )
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                
+                let groupSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .absolute(108.adjustedH)
+                )
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                
+                let section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .groupPaging
+                
+                return section
+                
+            } else {
+                return nil
+            }
+        }
+    }
+    
+    static func createRecommendSection() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
+            
+            if sectionNumber == 0 || sectionNumber == 1 {
+                let itemSize = NSCollectionLayoutSize(
+                    widthDimension: .absolute(140.adjusted),
+                    heightDimension: .absolute(136.adjustedH)
+                )
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 12.adjusted)
+                
+                let groupSize = NSCollectionLayoutSize(
+                    widthDimension: .absolute(140.adjusted),
+                    heightDimension: .absolute(136.adjustedH)
+                )
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                let section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .continuous
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 24.adjusted, bottom: 0, trailing: 0)
+                
+                let headerSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .estimated(63.adjustedH)
+                )
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: headerSize,
+                    elementKind: UICollectionView.elementKindSectionHeader,
+                    alignment: .top
+                )
+                
+                section.boundarySupplementaryItems = [sectionHeader]
+                
+                return section
+                
             } else {
                 return nil
             }

@@ -16,6 +16,8 @@ final class SearchViewModel: ViewModelType {
     
     private let searchProvider = Providers.searchProvider
     
+    var advertisements: [UIImage] = []
+    
     // MARK: - Input
     
     struct Input {
@@ -38,10 +40,15 @@ final class SearchViewModel: ViewModelType {
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let announcements = input.viewDidLoad
-            .flatMapLatest { _ in
-                self.fetchAdvertisement()
-                    .catchAndReturn(AdvertisementsModel(advertisements: []))
-            }
+            .do(onNext: {
+                // 기본 이미지 배열 추가
+                self.advertisements = [
+                    UIImage(named: "img_ad_1")!,
+                    UIImage(named: "img_ad_2")!,
+                    UIImage(named: "img_ad_3")!
+                ]
+            })
+            .map { AdvertisementsModel(advertisements: self.advertisements) }
             .asDriver(onErrorJustReturn: AdvertisementsModel(advertisements: []))
         
         let recommendedByViews = input.viewDidLoad
@@ -77,15 +84,6 @@ final class SearchViewModel: ViewModelType {
 // MARK: - Methods
 
 extension SearchViewModel {
-    private func fetchAdvertisement() -> Observable<AdvertisementsModel> {
-        let data = AdvertisementsModel(advertisements: [
-            UIImage(named: "img_ad_1")!,
-            UIImage(named: "img_ad_2")!,
-            UIImage(named: "img_ad_3")!
-        ])
-        return Observable.just(data)
-    }
-    
     private func fetchRecommendedByViews() -> Observable<[RecommendAnnouncement]> {
         return Observable.create { observer in
             let request = self.searchProvider.request(.getMostViewDatas) { result in
@@ -116,7 +114,7 @@ extension SearchViewModel {
                     observer.onError(error)
                 }
             }
-
+            
             return Disposables.create {
                 request.cancel()
             }
@@ -153,7 +151,7 @@ extension SearchViewModel {
                     observer.onError(error)
                 }
             }
-
+            
             return Disposables.create {
                 request.cancel()
             }

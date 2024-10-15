@@ -23,7 +23,6 @@ final class SearchViewModel: ViewModelType {
     struct Input {
         let viewDidLoad: Observable<Void>
         let searchButtonTapped: Observable<Void>
-        let pageControlTapped: Observable<Int>
     }
     
     // MARK: - Output
@@ -33,7 +32,6 @@ final class SearchViewModel: ViewModelType {
         let recommendedByViews: Driver<[RecommendAnnouncement]>
         let recommendedByScraps: Driver<[RecommendAnnouncement]>
         let searchTapped: Driver<Void>
-        let pageChanged: Driver<Int>
     }
     
     // MARK: - Transform
@@ -68,15 +66,11 @@ final class SearchViewModel: ViewModelType {
         let searchTapped = input.searchButtonTapped
             .asDriver(onErrorJustReturn: ())
         
-        let pageChanged = input.pageControlTapped
-            .asDriver(onErrorJustReturn: 0)
-        
         return Output(
             announcements: announcements,
             recommendedByViews: recommendedByViews,
             recommendedByScraps: recommendedByScraps,
-            searchTapped: searchTapped,
-            pageChanged: pageChanged
+            searchTapped: searchTapped
         )
     }
 }

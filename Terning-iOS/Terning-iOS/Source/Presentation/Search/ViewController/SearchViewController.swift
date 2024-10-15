@@ -18,7 +18,6 @@ final class SearchViewController: UIViewController {
     // MARK: - Properties
     
     private let searchButtonDidTapSubject = PublishSubject<Void>()
-    private let pageControlDidTapSubject = PublishSubject<Int>()
     
     private var timer: Timer?
     private let viewModel: SearchViewModel
@@ -164,8 +163,7 @@ extension SearchViewController {
     private func bindViewModel() {
         let input = SearchViewModel.Input(
             viewDidLoad: Observable.just(()),
-            searchButtonTapped: searchButtonDidTapSubject.asObservable(),
-            pageControlTapped: pageControlDidTapSubject.asObservable()
+            searchButtonTapped: searchButtonDidTapSubject.asObservable()
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
@@ -193,15 +191,6 @@ extension SearchViewController {
         output.searchTapped
             .drive(onNext: { [weak self] in
                 self?.pushToSearchResultView()
-            })
-            .disposed(by: disposeBag)
-        
-        output.pageChanged
-            .drive(onNext: { [weak self] page in
-                guard let self = self else { return }
-                let indexPath = IndexPath(item: page, section: 0)
-                self.rootView.advertisementCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-                self.rootView.pageControl.currentPage = page
             })
             .disposed(by: disposeBag)
     }

@@ -56,7 +56,10 @@ final class SearchCollectionViewHeaderCell: UICollectionReusableView {
 
 extension SearchCollectionViewHeaderCell {
     private func setUI() {
-        self.addSubviews(titleLabel, subTitleLabel)
+        self.addSubviews(
+            titleLabel,
+            subTitleLabel
+        )
     }
     
     private func setLayout(_ type: SearchHeaderType) {
@@ -73,8 +76,11 @@ extension SearchCollectionViewHeaderCell {
 
 extension SearchCollectionViewHeaderCell {
     private func setMainLayout() {
+        titleLabel.isHidden = false
+        subTitleLabel.isHidden = false
+        
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(20.adjustedH)
+            $0.top.equalToSuperview()
             $0.horizontalEdges.equalToSuperview()
         }
         subTitleLabel.snp.makeConstraints {
@@ -86,8 +92,8 @@ extension SearchCollectionViewHeaderCell {
     
     private func setSubLayout() {
         titleLabel.isHidden = true
-
-        subTitleLabel.snp.remakeConstraints {
+        
+        subTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(32.adjustedH)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalToSuperview().inset(12.adjustedH)

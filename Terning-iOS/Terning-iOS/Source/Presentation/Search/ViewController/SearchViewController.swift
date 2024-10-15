@@ -58,6 +58,12 @@ final class SearchViewController: UIViewController {
         //        startTimer()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        setInfinityCarousel()
+    }
+    
 }
 
 // MARK: - UI & Layout
@@ -98,12 +104,12 @@ extension SearchViewController {
     
     private func setRegister() {
         rootView.advertisementCollectionView.register(AdvertisementCollectionViewCell.self,
-                                             forCellWithReuseIdentifier: AdvertisementCollectionViewCell.className)
+                                                      forCellWithReuseIdentifier: AdvertisementCollectionViewCell.className)
         rootView.recommendedCollectionView.register(RecommendCollectionViewCell.self,
-                                           forCellWithReuseIdentifier: RecommendCollectionViewCell.className)
+                                                    forCellWithReuseIdentifier: RecommendCollectionViewCell.className)
         rootView.recommendedCollectionView.register(SearchCollectionViewHeaderCell.self,
-                                           forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                           withReuseIdentifier: SearchCollectionViewHeaderCell.className)
+                                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                                    withReuseIdentifier: SearchCollectionViewHeaderCell.className)
     }
     
     private func startTimer() {
@@ -136,6 +142,11 @@ extension SearchViewController {
             viewModel.advertisements.insert(lastAd, at: 0)
             viewModel.advertisements.append(firstAd)
         }
+    }
+    
+    private func setInfinityCarousel() {
+        rootView.advertisementCollectionView.setContentOffset(
+            .init(x: screenWidth, y: rootView.advertisementCollectionView.contentOffset.y), animated: false)
     }
 }
 
@@ -207,7 +218,7 @@ extension SearchViewController: UICollectionViewDataSource {
         }
         return 0
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == rootView.advertisementCollectionView {
             return viewModel.advertisements.count
@@ -220,7 +231,7 @@ extension SearchViewController: UICollectionViewDataSource {
         }
         return 0
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == rootView.advertisementCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AdvertisementCollectionViewCell.className, for: indexPath) as? AdvertisementCollectionViewCell else {
@@ -251,6 +262,16 @@ extension SearchViewController: UICollectionViewDataSource {
             }
         }
     }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.x == 0 { // 첫번째(3)가 보이면 3번째 index의 3으로 이동시키기
+            scrollView.setContentOffset(.init(x: screenWidth * 3, y: scrollView.contentOffset.y), animated: false)
+        } else if scrollView.contentOffset.x == screenWidth * 4 { //마지막 1이 보이면 1번째 index의 1로 이동
+            scrollView.setContentOffset(.init(x: screenWidth, y: scrollView.contentOffset.y), animated: false)
+        }
+        rootView.pageControl.currentPage = Int(scrollView.contentOffset.x / scrollView.frame.maxX) - 1
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -261,7 +282,7 @@ extension SearchViewController: UICollectionViewDelegate {
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchCollectionViewHeaderCell.className, for: indexPath) as? SearchCollectionViewHeaderCell else {
                 return UICollectionReusableView()
             }
-
+            
             if indexPath.section == 0 {
                 headerView.bind(
                     title: "요즘 대학생들에게 인기 있는 공고",
@@ -278,9 +299,9 @@ extension SearchViewController: UICollectionViewDelegate {
                 )
                 return headerView
             }
-
+            
         }
-
+        
         return UICollectionReusableView()
     }
     

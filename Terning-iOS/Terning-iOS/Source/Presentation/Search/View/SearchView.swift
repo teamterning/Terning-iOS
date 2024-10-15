@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 
 import SnapKit
+import Then
 
 final class SearchView: UIView {
     
@@ -31,12 +32,16 @@ final class SearchView: UIView {
     let searchBar = CustomSearchBar()
     
     lazy var advertisementCollectionView: UICollectionView = {
-        let layout = CompositionalLayout.createAdvertisementLayout()
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.itemSize = .init(width: UIScreen.main.bounds.width, height: 108.adjustedH)
+
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
-        collectionView.backgroundColor = .white
         collectionView.isScrollEnabled = true
-        collectionView.showsVerticalScrollIndicator = false
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
     
@@ -52,6 +57,7 @@ final class SearchView: UIView {
     
     let pageControl = UIPageControl().then {
         $0.currentPage = 0
+        $0.numberOfPages = 3
         $0.pageIndicatorTintColor = UIColor(
             red: 1.0,
             green: 1.0,

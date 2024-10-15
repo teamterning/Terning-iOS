@@ -309,15 +309,6 @@ extension SearchViewController: UICollectionViewDelegate {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        if collectionView == rootView.advertisementCollectionView {
-            rootView.pageControl.currentPage = indexPath.item
-        } else {
-            return
-        }
-    }
-    
     private func pushToJobDetailVC(internshipId: Int) {
         let jobDetailVC = JobDetailViewController(
             viewModel: JobDetailViewModel(
@@ -330,5 +321,4 @@ extension SearchViewController: UICollectionViewDelegate {
         jobDetailVC.internshipAnnouncementId.accept(internshipId)
         navigationController?.pushViewController(jobDetailVC, animated: true)
     }
-    
 }

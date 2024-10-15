@@ -10,5 +10,5 @@ import UIKit
 // MARK: - AdvertisementsModel
 
 struct AdvertisementsModel {
-    let advertisements: [UIImage]?
+    let advertisements: [UIImage]
 }

@@ -263,7 +263,7 @@ struct CompositionalLayout {
         }
     }
     
-    static func createRecommendSection() -> UICollectionViewCompositionalLayout {
+    static func createRecommendLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
             
             if sectionNumber == 0 || sectionNumber == 1 {

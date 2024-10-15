@@ -28,7 +28,7 @@ final class SearchView: UIView {
         $0.layer.masksToBounds = true
     }
     
-    let searchView = CustomSearchView()
+    let searchBar = CustomSearchBar()
     
     lazy var advertisementCollectionView: UICollectionView = {
         let layout = CompositionalLayout.createAdvertisementLayout()
@@ -88,7 +88,7 @@ extension SearchView {
         self.addSubviews(
             navigationView,
             logoImageView,
-            searchView,
+            searchBar,
             advertisementCollectionView,
             recommendedCollectionView,
             pageControl
@@ -106,13 +106,13 @@ extension SearchView {
             $0.leading.equalToSuperview().inset(24.adjusted)
         }
         
-        searchView.snp.makeConstraints {
+        searchBar.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom).offset(8.adjustedH)
             $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
         }
         
         advertisementCollectionView.snp.makeConstraints {
-            $0.top.equalTo(searchView.snp.bottom).offset(12.adjustedH)
+            $0.top.equalTo(searchBar.snp.bottom).offset(12.adjustedH)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(108.adjustedH)
         }

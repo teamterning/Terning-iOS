@@ -91,9 +91,9 @@ extension SearchViewController {
     }
     
     private func setAddTarget() {
-        rootView.searchView.textField.isUserInteractionEnabled = false
+        rootView.searchBar.textField.isUserInteractionEnabled = false
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleSearchViewTap))
-        rootView.searchView.addGestureRecognizer(tapGestureRecognizer)
+        rootView.searchBar.addGestureRecognizer(tapGestureRecognizer)
         rootView.pageControl.isUserInteractionEnabled = false
     }
     

@@ -88,6 +88,9 @@
 		7121A1532C3DE3680056DB8B /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */; };
 		7121A1552C3EA01F0056DB8B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1542C3EA01F0056DB8B /* Toast.swift */; };
 		7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1562C3EA4C10056DB8B /* LoadingIndicator.swift */; };
+		713EED672CB9A8D00022B732 /* NewSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713EED662CB9A8D00022B732 /* NewSearchViewController.swift */; };
+		713EED692CB9A8E90022B732 /* NewSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713EED682CB9A8E90022B732 /* NewSearchView.swift */; };
+		713EED6B2CB9ACC80022B732 /* NewSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713EED6A2CB9ACC80022B732 /* NewSearchViewModel.swift */; };
 		71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAC2C370439002A6999 /* Pretendard-Light.otf */; };
 		71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAE2C370439002A6999 /* Pretendard-Medium.otf */; };
 		71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */; };
@@ -261,6 +264,9 @@
 		7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		7121A1542C3EA01F0056DB8B /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		7121A1562C3EA4C10056DB8B /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
+		713EED662CB9A8D00022B732 /* NewSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchViewController.swift; sourceTree = "<group>"; };
+		713EED682CB9A8E90022B732 /* NewSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchView.swift; sourceTree = "<group>"; };
+		713EED6A2CB9ACC80022B732 /* NewSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchViewModel.swift; sourceTree = "<group>"; };
 		71461EAC2C370439002A6999 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		71461EAE2C370439002A6999 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -635,6 +641,7 @@
 			isa = PBXGroup;
 			children = (
 				2DC985FD2C456FC300D46729 /* SearchView.swift */,
+				713EED682CB9A8E90022B732 /* NewSearchView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -643,6 +650,7 @@
 			isa = PBXGroup;
 			children = (
 				2DC986002C456FE900D46729 /* SearchViewController.swift */,
+				713EED662CB9A8D00022B732 /* NewSearchViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -651,6 +659,7 @@
 			isa = PBXGroup;
 			children = (
 				2DC986022C45701D00D46729 /* SearchViewModel.swift */,
+				713EED6A2CB9ACC80022B732 /* NewSearchViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1482,6 +1491,7 @@
 				71FFB2B82C48286300C60697 /* SplashViewController.swift in Sources */,
 				71B509272C41FB41006D8E56 /* ScrapModel.swift in Sources */,
 				71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */,
+				713EED692CB9A8E90022B732 /* NewSearchView.swift in Sources */,
 				71780C322C45705C0073B731 /* Encodable+.swift in Sources */,
 				715C0FEF2C9F252500EDDD60 /* JobDetailRepository.swift in Sources */,
 				2DC61EFF2C40824A009F991F /* SummaryInfoTableViewCell.swift in Sources */,
@@ -1532,6 +1542,7 @@
 				B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */,
 				2DC9860D2C4605FC00D46729 /* AdvertisementsModel.swift in Sources */,
 				2D89C75D2C486DF7002B035F /* SortHeaderCell.swift in Sources */,
+				713EED672CB9A8D00022B732 /* NewSearchViewController.swift in Sources */,
 				B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */,
 				2DC985FE2C456FC300D46729 /* SearchView.swift in Sources */,
 				2D4EE3A62C3E78A200E3E95B /* ProfileViewController.swift in Sources */,
@@ -1555,6 +1566,7 @@
 				7121A1532C3DE3680056DB8B /* CustomNavigationBar.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,
 				71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */,
+				713EED6B2CB9ACC80022B732 /* NewSearchViewModel.swift in Sources */,
 				B8BE0E142C46D38700B3D298 /* UserFilteringInfoModel.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
 				B833F7D22C8EC661006AE46E /* CheckDeadlineCell.swift in Sources */,

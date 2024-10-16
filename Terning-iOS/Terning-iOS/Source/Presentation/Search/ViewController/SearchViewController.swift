@@ -160,11 +160,22 @@ extension SearchViewController {
     
     @objc
     private func autoScroll() {
-        let currentPage = rootView.pageControl.currentPage
-        let nextPage = (currentPage + 1) % (viewModel.advertisements.count)
-        let indexPath = IndexPath(item: nextPage, section: 0)
-        rootView.advertisementCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        rootView.pageControl.currentPage = nextPage
+        let collectionView = rootView.advertisementCollectionView
+        
+        let visibleItem = collectionView.indexPathsForVisibleItems[0].item
+        
+        let nextItem = visibleItem + 1
+        let initialAdCounts = viewModel.advertisements.count - 2
+        
+        collectionView.scrollToItem(at: IndexPath(item: nextItem, section: 0), at: .centeredHorizontally, animated: true)
+        
+        if visibleItem == initialAdCounts {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)
+            }
+        }
+
+        rootView.pageControl.currentPage = visibleItem % initialAdCounts
     }
 }
 

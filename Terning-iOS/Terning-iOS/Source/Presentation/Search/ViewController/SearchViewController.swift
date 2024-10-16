@@ -276,6 +276,9 @@ extension SearchViewController: UICollectionViewDataSource {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
+        stopTimer()
+        startTimer()
+        
         if scrollView.contentOffset.x == 0 { // 첫번째(3)가 보이면 3번째 index의 3으로 이동시키기
             scrollView.setContentOffset(.init(x: screenWidth * 3, y: scrollView.contentOffset.y), animated: false)
         } else if scrollView.contentOffset.x == screenWidth * 4 { //마지막 1이 보이면 1번째 index의 1로 이동

@@ -41,7 +41,7 @@ final class SearchViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - View Life Cycle
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,8 +54,18 @@ final class SearchViewController: UIViewController {
         setAddTarget()
         bindViewModel()
         setAdvertisements()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        //        startTimer()
+        startTimer()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        stopTimer()
     }
     
     override func viewDidLayoutSubviews() {
@@ -113,7 +123,9 @@ extension SearchViewController {
     }
     
     private func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(autoScroll), userInfo: nil, repeats: true)
+        if timer == nil { // 타이머가 없을때만 실행 (중복 타이머 문제 해결)
+            timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(autoScroll), userInfo: nil, repeats: true)
+        }
     }
     
     private func stopTimer() {

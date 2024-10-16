@@ -160,6 +160,19 @@ extension SearchViewController {
         rootView.advertisementCollectionView.setContentOffset(
             .init(x: screenWidth, y: rootView.advertisementCollectionView.contentOffset.y), animated: false)
     }
+    
+    private func pushToJobDetailVC(internshipId: Int) {
+        let jobDetailVC = JobDetailViewController(
+            viewModel: JobDetailViewModel(
+                jobDetailRepository: JobDetailRepository(
+                    scrapService: ScrapsService(provider: Providers.scrapsProvider)
+                )
+            )
+        )
+        jobDetailVC.hidesBottomBarWhenPushed = true
+        jobDetailVC.internshipAnnouncementId.accept(internshipId)
+        navigationController?.pushViewController(jobDetailVC, animated: true)
+    }
 }
 
 // MARK: - @objc func
@@ -173,9 +186,7 @@ extension SearchViewController {
     @objc
     private func autoScroll() {
         let collectionView = rootView.advertisementCollectionView
-        
         let visibleItem = collectionView.indexPathsForVisibleItems[0].item
-        
         let nextItem = visibleItem + 1
         let initialAdCounts = viewModel.advertisements.count - 2
         
@@ -186,7 +197,7 @@ extension SearchViewController {
                 collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)
             }
         }
-
+        
         rootView.pageControl.currentPage = visibleItem % initialAdCounts
     }
 }
@@ -354,18 +365,5 @@ extension SearchViewController: UICollectionViewDelegate {
                 return
             }
         }
-    }
-    
-    private func pushToJobDetailVC(internshipId: Int) {
-        let jobDetailVC = JobDetailViewController(
-            viewModel: JobDetailViewModel(
-                jobDetailRepository: JobDetailRepository(
-                    scrapService: ScrapsService(provider: Providers.scrapsProvider)
-                )
-            )
-        )
-        jobDetailVC.hidesBottomBarWhenPushed = true
-        jobDetailVC.internshipAnnouncementId.accept(internshipId)
-        navigationController?.pushViewController(jobDetailVC, animated: true)
     }
 }

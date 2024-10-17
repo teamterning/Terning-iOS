@@ -6,31 +6,28 @@
 //
 
 import UIKit
+
 import RxSwift
 import RxCocoa
+
 import SnapKit
 import Then
-
-@frozen
-public enum RecomandType: Int, CaseIterable {
-    case advertisement = 0
-    case viewsNum = 1
-    case scrapsNum = 2
-}
 
 final class SearchViewController: UIViewController {
     
     // MARK: - Properties
-    private let searchButtonTappedSubject = PublishSubject<Void>()
-    private let pageControlTappedSubject = PublishSubject<Int>()
+    
+    private let searchButtonDidTapSubject = PublishSubject<Void>()
     
     private var timer: Timer?
     private let viewModel: SearchViewModel
     private let disposeBag = DisposeBag()
     
+    private let screenWidth = UIScreen.main.bounds.width
+    
     // MARK: - UI Components
     
-    let rootView = SearchView()
+    private let rootView = SearchView()
     
     // MARK: - Init
     
@@ -44,19 +41,39 @@ final class SearchViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - View Life Cycle
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUI()
+        setHierachy()
         setLayout()
+        setRegister()
         setDelegate()
         setAddTarget()
         bindViewModel()
+        setAdvertisements()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         startTimer()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        stopTimer()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        setInfinityCarousel()
+    }
+    
 }
 
 // MARK: - UI & Layout
@@ -64,8 +81,12 @@ final class SearchViewController: UIViewController {
 extension SearchViewController {
     private func setUI() {
         view.backgroundColor = .white
+    }
+    
+    private func setHierachy() {
         view.addSubview(rootView)
     }
+    
     private func setLayout() {
         rootView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -77,19 +98,34 @@ extension SearchViewController {
 
 extension SearchViewController {
     private func setDelegate() {
-        rootView.collectionView.dataSource = self
-        rootView.collectionView.delegate = self
+        rootView.advertisementCollectionView.dataSource = self
+        rootView.advertisementCollectionView.delegate = self
+        
+        rootView.recommendedCollectionView.dataSource = self
+        rootView.recommendedCollectionView.delegate = self
     }
     
     private func setAddTarget() {
-        rootView.searchView.textField.isUserInteractionEnabled = false
+        rootView.searchBar.textField.isUserInteractionEnabled = false
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleSearchViewTap))
-        rootView.searchView.addGestureRecognizer(tapGestureRecognizer)
+        rootView.searchBar.addGestureRecognizer(tapGestureRecognizer)
         rootView.pageControl.isUserInteractionEnabled = false
     }
     
+    private func setRegister() {
+        rootView.advertisementCollectionView.register(AdvertisementCollectionViewCell.self,
+                                                      forCellWithReuseIdentifier: AdvertisementCollectionViewCell.className)
+        rootView.recommendedCollectionView.register(RecommendCollectionViewCell.self,
+                                                    forCellWithReuseIdentifier: RecommendCollectionViewCell.className)
+        rootView.recommendedCollectionView.register(SearchCollectionViewHeaderCell.self,
+                                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                                    withReuseIdentifier: SearchCollectionViewHeaderCell.className)
+    }
+    
     private func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(autoScroll), userInfo: nil, repeats: true)
+        if timer == nil { // 타이머가 없을때만 실행 (중복 타이머 문제 해결)
+            timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(autoScroll), userInfo: nil, repeats: true)
+        }
     }
     
     private func stopTimer() {
@@ -111,6 +147,32 @@ extension SearchViewController {
         searchResultVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(searchResultVC, animated: true)
     }
+    
+    private func setAdvertisements() {
+        // 원래 광고 배열을 복사하여 처음과 끝에 추가 (infite carousel)
+        if let firstAd = viewModel.advertisements.first, let lastAd = viewModel.advertisements.last {
+            viewModel.advertisements.insert(lastAd, at: 0)
+            viewModel.advertisements.append(firstAd)
+        }
+    }
+    
+    private func setInfinityCarousel() {
+        rootView.advertisementCollectionView.setContentOffset(
+            .init(x: screenWidth, y: rootView.advertisementCollectionView.contentOffset.y), animated: false)
+    }
+    
+    private func pushToJobDetailVC(internshipId: Int) {
+        let jobDetailVC = JobDetailViewController(
+            viewModel: JobDetailViewModel(
+                jobDetailRepository: JobDetailRepository(
+                    scrapService: ScrapsService(provider: Providers.scrapsProvider)
+                )
+            )
+        )
+        jobDetailVC.hidesBottomBarWhenPushed = true
+        jobDetailVC.internshipAnnouncementId.accept(internshipId)
+        navigationController?.pushViewController(jobDetailVC, animated: true)
+    }
 }
 
 // MARK: - @objc func
@@ -118,16 +180,25 @@ extension SearchViewController {
 extension SearchViewController {
     @objc
     private func handleSearchViewTap() {
-        searchButtonTappedSubject.onNext(())
+        searchButtonDidTapSubject.onNext(())
     }
     
     @objc
     private func autoScroll() {
-        let currentPage = rootView.pageControl.currentPage
-        let nextPage = (currentPage + 1) % (rootView.advertisement?.advertisements?.count ?? 1)
-        let indexPath = IndexPath(item: nextPage, section: RecomandType.advertisement.rawValue)
-        rootView.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        rootView.pageControl.currentPage = nextPage
+        let collectionView = rootView.advertisementCollectionView
+        let visibleItem = collectionView.indexPathsForVisibleItems[0].item
+        let nextItem = visibleItem + 1
+        let initialAdCounts = viewModel.advertisements.count - 2
+        
+        collectionView.scrollToItem(at: IndexPath(item: nextItem, section: 0), at: .centeredHorizontally, animated: true)
+        
+        if visibleItem == initialAdCounts {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)
+            }
+        }
+        
+        rootView.pageControl.currentPage = visibleItem % initialAdCounts
     }
 }
 
@@ -137,46 +208,34 @@ extension SearchViewController {
     private func bindViewModel() {
         let input = SearchViewModel.Input(
             viewDidLoad: Observable.just(()),
-            searchButtonTapped: searchButtonTappedSubject.asObservable(),
-            pageControlTapped: pageControlTappedSubject.asObservable()
+            searchButtonTapped: searchButtonDidTapSubject.asObservable()
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
         output.announcements
             .drive(onNext: { [weak self] advertisements in
-                self?.rootView.advertisement = advertisements
-                self?.rootView.collectionView.reloadData()
-                self?.rootView.pageControl.numberOfPages = advertisements.advertisements?.count ?? 0
+                self?.rootView.pageControl.numberOfPages = advertisements.advertisements.count
             })
             .disposed(by: disposeBag)
         
         output.recommendedByViews
             .drive(onNext: { [weak self] viewsNum in
                 self?.rootView.viewsNum = viewsNum
-                self?.rootView.collectionView.reloadData()
+                self?.rootView.recommendedCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
         output.recommendedByScraps
             .drive(onNext: { [weak self] scrapsNum in
                 self?.rootView.scrapsNum = scrapsNum
-                self?.rootView.collectionView.reloadData()
+                self?.rootView.recommendedCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
         output.searchTapped
             .drive(onNext: { [weak self] in
                 self?.pushToSearchResultView()
-            })
-            .disposed(by: disposeBag)
-        
-        output.pageChanged
-            .drive(onNext: { [weak self] page in
-                guard let self = self else { return }
-                let indexPath = IndexPath(item: page, section: RecomandType.advertisement.rawValue)
-                self.rootView.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-                self.rootView.pageControl.currentPage = page
             })
             .disposed(by: disposeBag)
     }
@@ -186,48 +245,69 @@ extension SearchViewController {
 
 extension SearchViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return RecomandType.allCases.count
+        if collectionView == rootView.advertisementCollectionView {
+            return 1
+        } else if collectionView == rootView.recommendedCollectionView {
+            return 2
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch RecomandType(rawValue: section) {
-        case .advertisement:
-            return rootView.advertisement?.advertisements?.count ?? 0
-        case .viewsNum:
-            return rootView.viewsNum?.count ?? 0
-        case .scrapsNum:
-            return rootView.scrapsNum?.count ?? 0
-        default:
-            return 0
+        if collectionView == rootView.advertisementCollectionView {
+            return viewModel.advertisements.count
+        } else if collectionView == rootView.recommendedCollectionView {
+            if section == 0 {
+                return rootView.viewsNum?.count ?? 0
+            } else if section == 1 {
+                return rootView.scrapsNum?.count ?? 0
+            }
         }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch RecomandType(rawValue: indexPath.section) {
-        case .advertisement:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AdvertisementCollectionViewCell.className, for: indexPath) as? AdvertisementCollectionViewCell,
-                  let advertisements = rootView.advertisement?.advertisements else {
+        if collectionView == rootView.advertisementCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AdvertisementCollectionViewCell.className, for: indexPath) as? AdvertisementCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            cell.bind(with: advertisements[indexPath.row])
+            
+            cell.bind(with: viewModel.advertisements[indexPath.row])
             return cell
-        case .viewsNum:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendCollectionViewCell.className, for: indexPath) as? RecommendCollectionViewCell,
-                  let viewsNum = rootView.viewsNum else {
+        } else {
+            if indexPath.section == 0 {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendCollectionViewCell.className, for: indexPath) as? RecommendCollectionViewCell,
+                      let viewsNum = rootView.viewsNum else {
+                    return UICollectionViewCell()
+                }
+                
+                cell.bind(with: viewsNum[indexPath.row])
+                return cell
+            } else if indexPath.section == 1 {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendCollectionViewCell.className, for: indexPath) as? RecommendCollectionViewCell,
+                      let scrapsNum = rootView.scrapsNum else {
+                    return UICollectionViewCell()
+                }
+                
+                cell.bind(with: scrapsNum[indexPath.row])
+                return cell
+            } else {
                 return UICollectionViewCell()
             }
-            cell.bind(with: viewsNum[indexPath.row])
-            return cell
-        case .scrapsNum:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendCollectionViewCell.className, for: indexPath) as? RecommendCollectionViewCell,
-                  let scrapsNum = rootView.scrapsNum else {
-                return UICollectionViewCell()
-            }
-            cell.bind(with: scrapsNum[indexPath.row])
-            return cell
-        default:
-            return UICollectionViewCell()
         }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        stopTimer()
+        startTimer()
+        
+        if scrollView.contentOffset.x == 0 { // 첫번째(3)가 보이면 3번째 index의 3으로 이동시키기
+            scrollView.setContentOffset(.init(x: screenWidth * 3, y: scrollView.contentOffset.y), animated: false)
+        } else if scrollView.contentOffset.x == screenWidth * 4 { //마지막 1이 보이면 1번째 index의 1로 이동
+            scrollView.setContentOffset(.init(x: screenWidth, y: scrollView.contentOffset.y), animated: false)
+        }
+        rootView.pageControl.currentPage = Int(scrollView.contentOffset.x / scrollView.frame.maxX) - 1
     }
 }
 
@@ -235,83 +315,55 @@ extension SearchViewController: UICollectionViewDataSource {
 
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let sectionType = RecomandType(rawValue: indexPath.section),
-              let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchCollectionViewHeaderCell.className, for: indexPath) as? SearchCollectionViewHeaderCell else {
-            return UICollectionReusableView()
+        if collectionView == rootView.recommendedCollectionView {
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchCollectionViewHeaderCell.className, for: indexPath) as? SearchCollectionViewHeaderCell else {
+                return UICollectionReusableView()
+            }
+            
+            if indexPath.section == 0 {
+                headerView.bind(
+                    title: "요즘 대학생들에게 인기 있는 공고",
+                    subTitle: "이번 주 가장 많이 조회한 공고에요",
+                    type: .main
+                )
+                return headerView
+                
+            } else if indexPath.section == 1 {
+                headerView.bind(
+                    title: nil,
+                    subTitle: "이번 주 가장 많이 스크랩 한 공고에요",
+                    type: .sub
+                )
+                return headerView
+            }
+            
         }
         
-        switch sectionType {
-        case .advertisement:
-            break
-        case .viewsNum:
-            headerView.bind(
-                title: "요즘 대학생들에게 인기 있는 공고",
-                subTitle: "이번 주 가장 많이 조회한 공고에요",
-                type: .main
-            )
-        case .scrapsNum:
-            headerView.bind(
-                title: nil,
-                subTitle: "이번 주 가장 많이 스크랩 한 공고에요",
-                type: .sub
-            )
-        }
-        
-        return headerView
+        return UICollectionReusableView()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch RecomandType(rawValue: indexPath.section) {
-        case .advertisement: 
+        
+        if collectionView == rootView.advertisementCollectionView {
             let urlString = "https://www.instagram.com/terning_official?igsh=NnNma245bnUzbWNm&utm_source=qr"
             guard let url = URL(string: urlString) else { return }
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        case .viewsNum:
-            guard let viewsNum = rootView.viewsNum else { return }
-            
-            let selectedItem = viewsNum[indexPath.item].internshipAnnouncementId
-            
-            let jobDetailVC = JobDetailViewController(
-                viewModel: JobDetailViewModel(
-                    jobDetailRepository: JobDetailRepository(
-                        scrapService: ScrapsService(
-                            provider: Providers.scrapsProvider
-                        )
-                    )
-                )
-            )
-            jobDetailVC.hidesBottomBarWhenPushed = true
-            jobDetailVC.internshipAnnouncementId.accept(selectedItem)
-            self.navigationController?.pushViewController(jobDetailVC, animated: true)
-        case .scrapsNum:
-            guard let scrapsNum = rootView.scrapsNum else { return }
-            
-            let selectedItem = scrapsNum[indexPath.item].internshipAnnouncementId
-            
-            let jobDetailVC = JobDetailViewController(
-                viewModel: JobDetailViewModel(
-                    jobDetailRepository: JobDetailRepository(
-                        scrapService: ScrapsService(
-                            provider: Providers.scrapsProvider
-                        )
-                    )
-                )
-            )
-            jobDetailVC.hidesBottomBarWhenPushed = true
-            jobDetailVC.internshipAnnouncementId.accept(selectedItem)
-            self.navigationController?.pushViewController(jobDetailVC, animated: true)
-        default:
-            break
+        } else {
+            if indexPath.section == 0 {
+                guard let viewsNum = rootView.viewsNum else { return }
+                
+                let selectedItem = viewsNum[indexPath.item].internshipAnnouncementId
+                
+                pushToJobDetailVC(internshipId: selectedItem)
+            } else if indexPath.section == 1 {
+                guard let scrapsNum = rootView.scrapsNum else { return }
+                
+                let selectedItem = scrapsNum[indexPath.item].internshipAnnouncementId
+                
+                pushToJobDetailVC(internshipId: selectedItem)
+            } else {
+                return
+            }
         }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        guard let sectionType = RecomandType(rawValue: indexPath.section) else { return }
-        
-        if sectionType == .advertisement {
-            rootView.pageControl.currentPage = indexPath.item
-        }
-        
     }
 }

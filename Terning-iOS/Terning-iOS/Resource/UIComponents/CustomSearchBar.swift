@@ -1,5 +1,5 @@
 //
-//  CustomSearchView.swift
+//  CustomSearchBar.swift
 //  Terning-iOS
 //
 //  Created by 정민지 on 7/15/24.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class CustomSearchView: UIView, UITextFieldDelegate {
+final class CustomSearchBar: UIView {
     
     // MARK: - UI Components
     
@@ -44,8 +44,6 @@ final class CustomSearchView: UIView, UITextFieldDelegate {
         
         self.setUI()
         self.setLayout()
-        textField.delegate = self
-
     }
     
     required init?(coder: NSCoder) {
@@ -62,6 +60,8 @@ final class CustomSearchView: UIView, UITextFieldDelegate {
             textField,
             underLineView
         )
+        
+        textField.delegate = self
     }
     
     private func setLayout() {
@@ -82,9 +82,11 @@ final class CustomSearchView: UIView, UITextFieldDelegate {
             $0.height.equalTo(2)
         }
     }
-    
-    // MARK: - UITextFieldDelegate
-    
+}
+
+// MARK: - UITextFieldDelegate
+
+extension CustomSearchBar: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         updatePlaceholderFont(isEditing: true)
     }

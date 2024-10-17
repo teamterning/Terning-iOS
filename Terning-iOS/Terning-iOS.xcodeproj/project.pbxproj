@@ -55,7 +55,7 @@
 		2DC985FE2C456FC300D46729 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC985FD2C456FC300D46729 /* SearchView.swift */; };
 		2DC986012C456FE900D46729 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC986002C456FE900D46729 /* SearchViewController.swift */; };
 		2DC986032C45701D00D46729 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC986022C45701D00D46729 /* SearchViewModel.swift */; };
-		2DC986062C45704600D46729 /* CustomSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC986052C45704600D46729 /* CustomSearchView.swift */; };
+		2DC986062C45704600D46729 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC986052C45704600D46729 /* CustomSearchBar.swift */; };
 		2DC986082C45FAC200D46729 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC986072C45FAC200D46729 /* CustomPageControl.swift */; };
 		2DC9860B2C46056300D46729 /* RecommendAnnouncementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */; };
 		2DC9860D2C4605FC00D46729 /* AdvertisementsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */; };
@@ -230,7 +230,7 @@
 		2DC985FD2C456FC300D46729 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		2DC986002C456FE900D46729 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		2DC986022C45701D00D46729 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
-		2DC986052C45704600D46729 /* CustomSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchView.swift; sourceTree = "<group>"; };
+		2DC986052C45704600D46729 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		2DC986072C45FAC200D46729 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		2DC9860A2C46056300D46729 /* RecommendAnnouncementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendAnnouncementModel.swift; sourceTree = "<group>"; };
 		2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementsModel.swift; sourceTree = "<group>"; };
@@ -794,7 +794,7 @@
 				2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */,
 				2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */,
 				2DC986072C45FAC200D46729 /* CustomPageControl.swift */,
-				2DC986052C45704600D46729 /* CustomSearchView.swift */,
+				2DC986052C45704600D46729 /* CustomSearchBar.swift */,
 				2D4EE38A2C3D9FD900E3E95B /* CustomDatePicker.swift */,
 				7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */,
 				7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */,
@@ -1426,7 +1426,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DC61F012C40825D009F991F /* DetailInfoTableViewCell.swift in Sources */,
-				2DC986062C45704600D46729 /* CustomSearchView.swift in Sources */,
+				2DC986062C45704600D46729 /* CustomSearchBar.swift in Sources */,
 				715C0FD72C99077700EDDD60 /* MockCalendarService.swift in Sources */,
 				2DF257272C8F692B00B85843 /* ProfileViewModelType.swift in Sources */,
 				2DF257292C8F6A7D00B85843 /* ProfileImageUtils.swift in Sources */,

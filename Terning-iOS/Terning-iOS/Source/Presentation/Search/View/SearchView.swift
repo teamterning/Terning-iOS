@@ -4,19 +4,22 @@
 //
 //  Created by 정민지 on 7/13/24.
 //
+
 import UIKit
+
 import RxSwift
+
 import SnapKit
+import Then
 
 final class SearchView: UIView {
     
-    // MARK: - UIProperty
+    // MARK: - Properties
     
-    var advertisement: AdvertisementsModel?
     var viewsNum: [RecommendAnnouncement]?
     var scrapsNum: [RecommendAnnouncement]?
     
-    // MARK: - UI Components
+    // MARK: - UIComponents
     
     private let navigationView = UIView()
     
@@ -26,22 +29,35 @@ final class SearchView: UIView {
         $0.layer.masksToBounds = true
     }
     
-    let searchView = CustomSearchView()
+    let searchBar = CustomSearchBar()
     
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-        guard let section = RecomandType(rawValue: sectionIndex) else { return nil }
-        switch section {
-        case .advertisement:
-            return SearchView.createAdvertisementSection(using: layoutEnvironment)
-        case .viewsNum, .scrapsNum:
-            return SearchView.createRecommendSection()
-        }
-    }).then {
-        $0.isScrollEnabled = false
-    }
+    lazy var advertisementCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.itemSize = .init(width: UIScreen.main.bounds.width, height: 108.adjustedH)
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.isScrollEnabled = true
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
+        return collectionView
+    }()
+    
+    lazy var recommendedCollectionView: UICollectionView = {
+        let layout = CompositionalLayout.createRecommendLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        collectionView.backgroundColor = .white
+        collectionView.isScrollEnabled = false
+        collectionView.showsVerticalScrollIndicator = false
+        return collectionView
+    }()
     
     let pageControl = UIPageControl().then {
         $0.currentPage = 0
+        $0.numberOfPages = 3
         $0.pageIndicatorTintColor = UIColor(
             red: 1.0,
             green: 1.0,
@@ -56,7 +72,6 @@ final class SearchView: UIView {
     
     init() {
         super.init(frame: .zero)
-        self.backgroundColor = .white
         
         setUI()
         setHierarchy()
@@ -72,21 +87,16 @@ final class SearchView: UIView {
 
 extension SearchView {
     private func setUI() {
-        collectionView.register(AdvertisementCollectionViewCell.self,
-                                forCellWithReuseIdentifier: AdvertisementCollectionViewCell.className)
-        collectionView.register(RecommendCollectionViewCell.self,
-                                forCellWithReuseIdentifier: RecommendCollectionViewCell.className)
-        collectionView.register(SearchCollectionViewHeaderCell.self,
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: SearchCollectionViewHeaderCell.className)
+        self.backgroundColor = .white
     }
     
     private func setHierarchy() {
         self.addSubviews(
             navigationView,
             logoImageView,
-            searchView,
-            collectionView,
+            searchBar,
+            advertisementCollectionView,
+            recommendedCollectionView,
             pageControl
         )
     }
@@ -96,76 +106,32 @@ extension SearchView {
             $0.top.horizontalEdges.equalToSuperview()
             $0.height.equalTo(52.adjustedH)
         }
+        
         logoImageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8.adjustedH)
             $0.leading.equalToSuperview().inset(24.adjusted)
         }
-        searchView.snp.makeConstraints {
+        
+        searchBar.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom).offset(8.adjustedH)
             $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
         }
-        collectionView.snp.makeConstraints {
-            $0.top.equalTo(searchView.snp.bottom).offset(12.adjustedH)
-            $0.horizontalEdges.bottom.equalToSuperview()
+        
+        advertisementCollectionView.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(12.adjustedH)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(108.adjustedH)
         }
+        
+        recommendedCollectionView.snp.makeConstraints {
+            $0.top.equalTo(advertisementCollectionView.snp.bottom).offset(20.adjustedH)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide)
+        }
+        
         pageControl.snp.makeConstraints {
-            $0.top.equalTo(collectionView.snp.top).offset(84.adjustedH)
+            $0.top.equalTo(advertisementCollectionView.snp.top).offset(84.adjustedH)
             $0.centerX.equalToSuperview()
         }
-    }
-}
-
-// MARK: - UICollectionViewCompositionalLayout
-
-extension SearchView {
-    private static func createAdvertisementSection(using environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(108.adjustedH)
-        )
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(108.adjustedH)
-        )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .groupPaging
-        
-        return section
-    }
-    
-    private static func createRecommendSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(140.adjusted),
-            heightDimension: .absolute(136.adjustedH)
-        )
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 12.adjusted)
-        
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(140.adjusted),
-            heightDimension: .absolute(136.adjustedH)
-        )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuous
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 24.adjusted, bottom: 0, trailing: 0)
-        
-        let headerSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(63.adjustedH)
-        )
-        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: headerSize,
-            elementKind: UICollectionView.elementKindSectionHeader,
-            alignment: .top
-        )
-        
-        section.boundarySupplementaryItems = [sectionHeader]
-        
-        return section
     }
 }

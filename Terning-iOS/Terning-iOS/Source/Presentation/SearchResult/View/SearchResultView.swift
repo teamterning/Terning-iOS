@@ -22,7 +22,7 @@ final class SearchResultView: UIView {
     
     let navigationBar = CustomNavigationBar(type: .centerTitleWithLeftButton)
     
-    let searchView = CustomSearchView()
+    let searchView = CustomSearchBar()
     
     let searchTitleLabel = LabelFactory.build(
         text: "어떤 공고를\n찾고 계시나요?",

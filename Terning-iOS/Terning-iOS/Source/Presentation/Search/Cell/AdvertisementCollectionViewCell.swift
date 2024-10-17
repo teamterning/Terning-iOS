@@ -39,15 +39,15 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
 
 extension AdvertisementCollectionViewCell {
     private func setUI() {
-        self.backgroundColor = .grey200
+        //        self.backgroundColor = .grey200
     }
     
     private func setHierarchy() {
-        self.addSubview(advertisementImageView)
+        contentView.addSubview(advertisementImageView)
     }
     
     private func setLayout() {
-        advertisementImageView .snp.makeConstraints {
+        advertisementImageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }

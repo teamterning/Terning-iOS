@@ -20,8 +20,8 @@ final class HomeView: UIView {
     
     lazy var collectionView: UICollectionView = {
         guard let homeVC = homeViewController else {
-                fatalError("homeViewController가 없습니다.")
-            }
+            fatalError("homeViewController가 없습니다.")
+        }
         let layout = CompositionalLayout.createHomeListLayout(HomeVC: homeVC)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -78,13 +78,13 @@ extension HomeView {
         }
         
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(homeLogo.snp.bottom).offset(23)
+            $0.top.equalTo(homeLogo.snp.bottom).offset(23.adjustedH)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(safeAreaLayoutGuide)
         }
         
         gradientLayerView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(230)
+            $0.top.equalToSuperview().offset(215.adjustedH)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(43.adjustedH)
         }

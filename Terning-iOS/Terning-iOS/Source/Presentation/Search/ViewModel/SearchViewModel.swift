@@ -16,12 +16,13 @@ final class SearchViewModel: ViewModelType {
     
     private let searchProvider = Providers.searchProvider
     
+    var advertisements: [UIImage] = []
+    
     // MARK: - Input
     
     struct Input {
         let viewDidLoad: Observable<Void>
         let searchButtonTapped: Observable<Void>
-        let pageControlTapped: Observable<Int>
     }
     
     // MARK: - Output
@@ -31,17 +32,21 @@ final class SearchViewModel: ViewModelType {
         let recommendedByViews: Driver<[RecommendAnnouncement]>
         let recommendedByScraps: Driver<[RecommendAnnouncement]>
         let searchTapped: Driver<Void>
-        let pageChanged: Driver<Int>
     }
     
     // MARK: - Transform
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let announcements = input.viewDidLoad
-            .flatMapLatest { _ in
-                self.fetchAdvertisement()
-                    .catchAndReturn(AdvertisementsModel(advertisements: []))
-            }
+            .do(onNext: {
+                // 기본 이미지 배열 추가
+                self.advertisements = [
+                    UIImage(named: "img_ad_1")!,
+                    UIImage(named: "img_ad_2")!,
+                    UIImage(named: "img_ad_3")!
+                ]
+            })
+            .map { AdvertisementsModel(advertisements: self.advertisements) }
             .asDriver(onErrorJustReturn: AdvertisementsModel(advertisements: []))
         
         let recommendedByViews = input.viewDidLoad
@@ -61,15 +66,11 @@ final class SearchViewModel: ViewModelType {
         let searchTapped = input.searchButtonTapped
             .asDriver(onErrorJustReturn: ())
         
-        let pageChanged = input.pageControlTapped
-            .asDriver(onErrorJustReturn: 0)
-        
         return Output(
             announcements: announcements,
             recommendedByViews: recommendedByViews,
             recommendedByScraps: recommendedByScraps,
-            searchTapped: searchTapped,
-            pageChanged: pageChanged
+            searchTapped: searchTapped
         )
     }
 }
@@ -77,15 +78,6 @@ final class SearchViewModel: ViewModelType {
 // MARK: - Methods
 
 extension SearchViewModel {
-    private func fetchAdvertisement() -> Observable<AdvertisementsModel> {
-        let data = AdvertisementsModel(advertisements: [
-            UIImage(named: "img_ad_1")!,
-            UIImage(named: "img_ad_2")!,
-            UIImage(named: "img_ad_3")!
-        ])
-        return Observable.just(data)
-    }
-    
     private func fetchRecommendedByViews() -> Observable<[RecommendAnnouncement]> {
         return Observable.create { observer in
             let request = self.searchProvider.request(.getMostViewDatas) { result in
@@ -116,7 +108,7 @@ extension SearchViewModel {
                     observer.onError(error)
                 }
             }
-
+            
             return Disposables.create {
                 request.cancel()
             }
@@ -153,7 +145,7 @@ extension SearchViewModel {
                     observer.onError(error)
                 }
             }
-
+            
             return Disposables.create {
                 request.cancel()
             }

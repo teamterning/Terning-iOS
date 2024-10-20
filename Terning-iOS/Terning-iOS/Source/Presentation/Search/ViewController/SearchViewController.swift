@@ -345,9 +345,22 @@ extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == rootView.advertisementCollectionView {
-            let urlString = "https://www.instagram.com/terning_official?igsh=NnNma245bnUzbWNm&utm_source=qr"
-            guard let url = URL(string: urlString) else { return }
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            var urlString: String?
+
+            switch indexPath.item {
+            case 0, viewModel.advertisements.count - 2:
+                urlString = "https://forms.gle/4btEwEbUQ3JSjTKP7"
+            case 1, viewModel.advertisements.count - 1:
+                urlString = "https://www.instagram.com/p/DBWCO97TRds/?igsh=bDhjMGxlMGliNDc2"
+            case 2:
+                urlString = "https://www.instagram.com/terning_official/"
+            default:
+                urlString = nil
+            }
+            
+            if let urlString = urlString, let url = URL(string: urlString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
         } else {
             if indexPath.section == 0 {
                 guard let viewsNum = rootView.viewsNum else { return }

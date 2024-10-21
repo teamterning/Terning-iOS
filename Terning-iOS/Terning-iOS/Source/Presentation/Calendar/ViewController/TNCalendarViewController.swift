@@ -94,24 +94,24 @@ extension TNCalendarViewController {
         rootView.calendarView.delegate = self
         rootView.calendarView.dataSource = self
         
-        rootView.calenderBottomCollectionView.delegate = self
-        rootView.calenderBottomCollectionView.dataSource = self
+        rootView.calendarBottomCollectionView.delegate = self
+        rootView.calendarBottomCollectionView.dataSource = self
         
-        rootView.calenderListCollectionView.delegate = self
-        rootView.calenderListCollectionView.dataSource = self
+        rootView.calendarListCollectionView.delegate = self
+        rootView.calendarListCollectionView.dataSource = self
         
-        rootView.calenderBottomCollectionView.backgroundColor = .white
+        rootView.calendarBottomCollectionView.backgroundColor = .white
     }
     
     private func setRegister() {
         rootView.calendarView.register(TNCalendarDateCell.self, forCellReuseIdentifier: TNCalendarDateCell.className)
         
-        rootView.calenderBottomCollectionView.register(JobListingCell.self, forCellWithReuseIdentifier: JobListingCell.className)
-        rootView.calenderBottomCollectionView.register(CalendarDateHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CalendarDateHeaderView.className)
+        rootView.calendarBottomCollectionView.register(JobListingCell.self, forCellWithReuseIdentifier: JobListingCell.className)
+        rootView.calendarBottomCollectionView.register(CalendarDateHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CalendarDateHeaderView.className)
         
-        rootView.calenderListCollectionView.register(JobListingCell.self, forCellWithReuseIdentifier: JobListingCell.className)
-        rootView.calenderListCollectionView.register(CalendarDateHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CalendarDateHeaderView.className)
-        rootView.calenderListCollectionView.register(CalendarDateFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CalendarDateFooterView.className)
+        rootView.calendarListCollectionView.register(JobListingCell.self, forCellWithReuseIdentifier: JobListingCell.className)
+        rootView.calendarListCollectionView.register(CalendarDateHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CalendarDateHeaderView.className)
+        rootView.calendarListCollectionView.register(CalendarDateFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CalendarDateFooterView.className)
     }
     
     private func setAddTarget() {
@@ -161,7 +161,7 @@ extension TNCalendarViewController {
                 guard let self = self else { return }
                 
                 self.rootView.toggleEmptyView(for: .list, isHidden: self.viewModel.scrapLists.isEmpty)
-                self.rootView.calenderListCollectionView.reloadData()
+                self.rootView.calendarListCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
@@ -171,7 +171,7 @@ extension TNCalendarViewController {
                 guard let self = self else { return }
                 
                 self.rootView.toggleEmptyView(for: .bottom, isHidden: self.viewModel.calendarDaily.isEmpty)
-                self.rootView.calenderBottomCollectionView.reloadData()
+                self.rootView.calendarBottomCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
@@ -245,7 +245,7 @@ extension TNCalendarViewController {
             // 리스트 뷰를 감추고 기존 뷰를 보이게 함
             rootView.separatorView.isHidden = false
             rootView.calendarViewContainer.isHidden = false
-            rootView.calenderListCollectionView.isHidden = true
+            rootView.calendarListCollectionView.isHidden = true
             
             if let selectedDate = selectedDate {
                 pageRelay.accept(selectedDate)
@@ -255,7 +255,7 @@ extension TNCalendarViewController {
             // 기존 뷰를 감추고 리스트 뷰를 보이게 함
             rootView.separatorView.isHidden = true
             rootView.calendarViewContainer.isHidden = true
-            rootView.calenderListCollectionView.isHidden = false
+            rootView.calendarListCollectionView.isHidden = false
             
             pageRelay.accept(rootView.calendarView.currentPage)
         }
@@ -339,14 +339,14 @@ extension TNCalendarViewController: FSCalendarDelegate {
         
         // 주간 모드일 때 그림자 및 라운딩 처리
         if isWeekView {
-            rootView.calenderBottomCollectionView.backgroundColor = .back
+            rootView.calendarBottomCollectionView.backgroundColor = .back
             rootView.roundCalendarViewCorners(radius: 20) // 라운드 처리 해주기
             rootView.calendarViewContainer.layer.applyShadow(color: .black, alpha: 0.1, y: 4, blur: 4)
             
             rootView.calendarView.snp.updateConstraints { make in
                 make.height.equalTo(90.adjustedH) // 주간 뷰 높이 설정
             }
-            rootView.calenderBottomCollectionView.isHidden = false
+            rootView.calendarBottomCollectionView.isHidden = false
         } else {
             rootView.roundCalendarViewCorners(radius: 0)  // 라운드 처리 풀어 주기
             rootView.calendarViewContainer.layer.shadowOpacity = 0
@@ -361,8 +361,8 @@ extension TNCalendarViewController: FSCalendarDelegate {
                 $0.height.equalTo(point.adjustedH)
             }
             
-            rootView.calenderBottomCollectionView.isHidden = true
-            rootView.calenderBottomCollectionView.backgroundColor = .white
+            rootView.calendarBottomCollectionView.isHidden = true
+            rootView.calendarBottomCollectionView.backgroundColor = .white
         }
         
         updateNaviBarTitle(for: calendar.currentPage)
@@ -376,7 +376,7 @@ extension TNCalendarViewController {
     private func updateBottomCollectionViewHeader(for date: Date) {
         // 선택된 날짜를 헤더에 표시하기 위한 코드
         let headerIndexPath = IndexPath(item: 0, section: 0)
-        if let header = rootView.calenderBottomCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: headerIndexPath) as? CalendarDateHeaderView {
+        if let header = rootView.calendarBottomCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: headerIndexPath) as? CalendarDateHeaderView {
             let formattedDate = isoDateFormatter.string(from: date)
             header.bind(title: formattedDate)
         }
@@ -475,7 +475,7 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             )
         )
         
-        if collectionView == rootView.calenderBottomCollectionView {
+        if collectionView == rootView.calendarBottomCollectionView {
             let model = self.viewModel.calendarDaily[indexPath.row]
             
             let alertSheet = CustomAlertViewController(alertViewType: .changeColorAndPushJobDetail)
@@ -543,15 +543,15 @@ extension TNCalendarViewController: UICollectionViewDelegate {
         }
         
         rootView.calendarView.reloadData()
-        rootView.calenderBottomCollectionView.reloadData()
-        rootView.calenderListCollectionView.reloadData()
+        rootView.calendarBottomCollectionView.reloadData()
+        rootView.calendarListCollectionView.reloadData()
     }
 }
 
 // MARK: - UICollectionViewDataSource
 extension TNCalendarViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if collectionView == rootView.calenderBottomCollectionView {
+        if collectionView == rootView.calendarBottomCollectionView {
             return 1
         } else {
             return self.viewModel.scrapLists.count
@@ -559,7 +559,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == rootView.calenderBottomCollectionView {
+        if collectionView == rootView.calendarBottomCollectionView {
             return self.viewModel.calendarDaily.count
         } else {
             let sortedKeys = self.viewModel.scrapLists.keys.sorted()
@@ -569,7 +569,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == rootView.calenderBottomCollectionView {
+        if collectionView == rootView.calendarBottomCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListingCell.className, for: indexPath) as? JobListingCell else { return UICollectionViewCell() }
             
             cell.bind(model: self.viewModel.calendarDaily[indexPath.row], indexPath: indexPath, in: collectionView)
@@ -593,7 +593,7 @@ extension TNCalendarViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if collectionView == rootView.calenderBottomCollectionView {
+        if collectionView == rootView.calendarBottomCollectionView {
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CalendarDateHeaderView.className, for: indexPath) as? CalendarDateHeaderView else { return UICollectionReusableView() }
             
             return headerView
@@ -637,10 +637,10 @@ extension TNCalendarViewController: JobListCellProtocol {
         
         let model: AnnouncementModel
         
-        if collectionView == rootView.calenderBottomCollectionView {
+        if collectionView == rootView.calendarBottomCollectionView {
             model = self.viewModel.calendarDaily[indexPath.row]
             
-        } else if collectionView == rootView.calenderListCollectionView {
+        } else if collectionView == rootView.calendarListCollectionView {
             
             let sortedKeys = self.viewModel.scrapLists.keys.sorted()
             let date = sortedKeys[indexPath.section]

@@ -151,6 +151,7 @@ extension HomeViewController: UICollectionViewDelegate {
         switch section {
         case .jobCard:
             print(indexPath)
+            track(eventName: .clickInternCard) // 공고 카드 클릭
             let jobDetailVC = JobDetailViewController(
                 viewModel: JobDetailViewModel(
                     jobDetailRepository: JobDetailRepository(
@@ -292,6 +293,8 @@ extension HomeViewController: FilterButtonProtocol {
             filterSettingVC.presentationController?.delegate = self
         }
         
+        track(eventName: .clickFiltering)
+        
         self.present(filterSettingVC, animated: true)
     }
 }
@@ -319,6 +322,7 @@ extension HomeViewController: UIAdaptivePresentationControllerDelegate {
 extension HomeViewController: SaveButtonProtocol {
     func didSaveSetting() {
         removeDimmedBackgroundView()
+        track(eventName: .clickFilteringSave)
         fetchFilterInfos()
     }
 }
@@ -368,14 +372,19 @@ extension HomeViewController: SortSettingButtonProtocol {
         switch option {
         case .deadlineSoon:
             apiParameter =  "deadlineSoon"
+            track(eventName: .clickFilteredDeadline)
         case .shortestDuration:
             apiParameter =  "shortestDuration"
+            track(eventName: .clickFilteredShortTerm)
         case .longestDuration:
             apiParameter = "longestDuration"
+            track(eventName: .clickFilteredLongTerm)
         case .mostScrapped:
             apiParameter = "mostScrapped"
+            track(eventName: .clickFilteredScraps)
         case .mostViewed:
             apiParameter = "mostViewed"
+            track(eventName: .clickFilteredHits)
         }
         
         fetchJobCardDatas(apiParameter)
@@ -395,6 +404,8 @@ extension HomeViewController: CheckDeadlineCellProtocol {
 
 extension HomeViewController: JobCardScrapedCellProtocol {
     func scrapButtonDidTap(index: Int) {
+        
+        track(eventName: .clickScrapHome)
         
         let model = jobCardLists[index]
         
@@ -462,6 +473,8 @@ extension HomeViewController: UpcomingCardCellProtocol {
         
         alertSheet.modalTransitionStyle = .crossDissolve
         alertSheet.modalPresentationStyle = .overFullScreen
+        
+        track(eventName: .clickRemindInternCard)
         
         alertSheet.leftButtonDidTapAction = {
             let selectedColorNameRelay = alertSheet.selectedColorNameRelay.value

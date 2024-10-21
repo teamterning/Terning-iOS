@@ -124,7 +124,7 @@ extension SearchViewController {
     
     private func startTimer() {
         if timer == nil { // 타이머가 없을때만 실행 (중복 타이머 문제 해결)
-            timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(autoScroll), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(autoScroll), userInfo: nil, repeats: true)
         }
     }
     

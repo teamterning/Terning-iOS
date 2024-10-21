@@ -265,7 +265,6 @@ extension SearchResultViewController {
     private func reloadCollectionViewItems(at indexPath: IndexPath) {
         let pageSize = 10
         let pageIndex = indexPath.item / pageSize
-        let itemIndexInPage = indexPath.item % pageSize
         
         guard let currentSearchResult = rootView.searchResult?[indexPath.item].internshipAnnouncementId else { return }
         

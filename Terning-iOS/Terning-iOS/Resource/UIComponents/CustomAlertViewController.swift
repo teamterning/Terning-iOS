@@ -376,12 +376,14 @@ final class CustomAlertViewController: UIViewController {
         
         leftButtonDidTap
             .drive(onNext: { [weak self] in
+                self?.track(eventName: .clickScrapColor)
                 self?.leftButtonDidTapAction?()
             })
             .disposed(by: disposeBag)
         
         rightButtonDidTap
             .drive(onNext: { [weak self] in
+                self?.track(eventName: .clickScarpInformation)
                 self?.rightButtonDidTapAction?()
             })
             .disposed(by: disposeBag)

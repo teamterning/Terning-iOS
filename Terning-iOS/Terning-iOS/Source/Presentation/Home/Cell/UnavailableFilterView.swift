@@ -1,5 +1,5 @@
 //
-//  InavailableFilterView.swift
+//  UnavailableFilterView.swift
 //  Terning-iOS
 //
 //  Created by 김민성 on 7/11/24.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class InavailableFilterView: UICollectionViewCell {
+final class UnavailableFilterView: UICollectionViewCell {
     
     // MARK: - UIComponents
     
@@ -44,7 +44,7 @@ final class InavailableFilterView: UICollectionViewCell {
 
 // MARK: - UI & Layout
 
-extension InavailableFilterView {
+extension UnavailableFilterView {
     private func setHierarchy() {
         contentView.addSubviews(
             inavailableImageView,
@@ -69,7 +69,7 @@ extension InavailableFilterView {
 
 // MARK: - Bind
 
-extension InavailableFilterView {
+extension UnavailableFilterView {
     public func bind(title: String) {
         let fullText: String
         let finalTitle: String

@@ -326,15 +326,15 @@ extension SearchResultViewController: UICollectionViewDataSource {
             return cell
             
         case .search:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobCardCell.className, for: indexPath) as? JobCardCell, let SearchResult = rootView.searchResult else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobCardCell.className, for: indexPath) as? JobCardCell, let searchResult = rootView.searchResult else {
                 return UICollectionViewCell()
             }
-            cell.bind(model: SearchResult[indexPath.item], indexPath: indexPath)
+            cell.bind(model: searchResult[indexPath.item], indexPath: indexPath)
             cell.delegate = self
             return cell
             
         case .noSearch:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InavailableFilterView.className, for: indexPath) as? InavailableFilterView, let title = self.textFieldKeyword else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UnavailableFilterView.className, for: indexPath) as? UnavailableFilterView, let title = self.textFieldKeyword else {
                 return UICollectionViewCell()
             }
             cell.bind(title: title)

@@ -179,7 +179,7 @@
 		B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */; };
 		B8A5A5AE2C78780B007C33C5 /* GradientLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A5A5AD2C78780B007C33C5 /* GradientLayerView.swift */; };
 		B8BE0E142C46D38700B3D298 /* UserFilteringInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE0E132C46D38700B3D298 /* UserFilteringInfoModel.swift */; };
-		B8C5DB6E2C3F353D00865B1A /* InavailableFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */; };
+		B8C5DB6E2C3F353D00865B1A /* UnavailableFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB6D2C3F353D00865B1A /* UnavailableFilterView.swift */; };
 		B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */; };
 		B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */; };
 		B8F503382C749309000D2A22 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = B8F503372C749309000D2A22 /* Config.xcconfig */; };
@@ -348,7 +348,7 @@
 		B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonJobCardCell.swift; sourceTree = "<group>"; };
 		B8A5A5AD2C78780B007C33C5 /* GradientLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLayerView.swift; sourceTree = "<group>"; };
 		B8BE0E132C46D38700B3D298 /* UserFilteringInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFilteringInfoModel.swift; sourceTree = "<group>"; };
-		B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InavailableFilterView.swift; sourceTree = "<group>"; };
+		B8C5DB6D2C3F353D00865B1A /* UnavailableFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnavailableFilterView.swift; sourceTree = "<group>"; };
 		B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSettingView.swift; sourceTree = "<group>"; };
 		B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSettingViewController.swift; sourceTree = "<group>"; };
 		B8F503372C749309000D2A22 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
@@ -1257,7 +1257,7 @@
 				71FFB2C32C4A81E200C60697 /* FilterInfoCell.swift */,
 				B871D7282C3E8E46008D78C2 /* JobCardCell.swift */,
 				B871D7362C3EF87B008D78C2 /* NonJobCardCell.swift */,
-				B8C5DB6D2C3F353D00865B1A /* InavailableFilterView.swift */,
+				B8C5DB6D2C3F353D00865B1A /* UnavailableFilterView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1509,7 +1509,7 @@
 				2DF256F32C8C855700B85843 /* MyPageBasicViewCell.swift in Sources */,
 				7121A1462C3B07AA0056DB8B /* BaseResponse.swift in Sources */,
 				71CCC07F2C40377E00789A9B /* TNCalendarDateCell.swift in Sources */,
-				B8C5DB6E2C3F353D00865B1A /* InavailableFilterView.swift in Sources */,
+				B8C5DB6E2C3F353D00865B1A /* UnavailableFilterView.swift in Sources */,
 				2DF2571E2C8DEF7E00B85843 /* AccountOptionViewModelType.swift in Sources */,
 				7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */,
 				7121A1552C3EA01F0056DB8B /* Toast.swift in Sources */,
@@ -1736,7 +1736,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2024.1006.1653;
+				CURRENT_PROJECT_VERSION = 2024.1021.2112;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1751,7 +1751,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",
@@ -1776,7 +1776,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2024.1006.1653;
+				CURRENT_PROJECT_VERSION = 2024.1021.2112;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1791,7 +1791,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

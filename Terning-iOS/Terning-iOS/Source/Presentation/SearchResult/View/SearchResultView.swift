@@ -77,8 +77,8 @@ extension SearchResultView {
             forCellWithReuseIdentifier: GraphicCollectionViewCell.className
         )
         collectionView.register(
-            InavailableFilterView.self,
-            forCellWithReuseIdentifier: InavailableFilterView.className
+            UnavailableFilterView.self,
+            forCellWithReuseIdentifier: UnavailableFilterView.className
         )
         collectionView.register(
             SortHeaderCell.self,

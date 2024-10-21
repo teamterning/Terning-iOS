@@ -47,7 +47,7 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         setUI()
-        setHierachy()
+        setHierarchy()
         setLayout()
         setRegister()
         setDelegate()
@@ -83,7 +83,7 @@ extension SearchViewController {
         view.backgroundColor = .white
     }
     
-    private func setHierachy() {
+    private func setHierarchy() {
         view.addSubview(rootView)
     }
     

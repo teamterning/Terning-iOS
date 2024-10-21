@@ -25,7 +25,7 @@ public enum AmplitudeEventType: String {
     case clickFilteredScraps = "click_filtered_scraps" // 홈_정렬_스크랩 많은 순
     case clickFilteredHits = "click_filtered_hits" // 홈_정렬_조회수 많은 순
     case clickInternCard = "click_intern_card" // 홈_공고 카드 클릭
-    case clickScrap = "click_scrap" // 홈_스크랩
+    case clickScrapHome = "click_scrap_home" // 홈_스크랩
     case clickRemindInternCard = "click_remind_intern_card" // 홈_곧 마감되는 관심 공고 클릭
     case clickFilteringSave = "click_filtering_save" // 홈_필터링 재설정_저장하기
     case screenHomeDuration = "screen_home_duration" // 홈_화면 체류 시간

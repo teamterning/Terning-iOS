@@ -265,7 +265,8 @@ extension SearchResultViewController {
     private func reloadCollectionViewItems(at indexPath: IndexPath) {
         let pageSize = 10
         let pageIndex = indexPath.item / pageSize
-        let itemIndexInPage = indexPath.item % pageSize
+        
+        guard let currentSearchResult = rootView.searchResult?[indexPath.item].internshipAnnouncementId else { return }
         
         viewModel.fetchJobCards(keyword: textFieldKeyword ?? "", sortBy: sortByRelay.value, page: pageIndex, size: pageSize)
             .observe(on: MainScheduler.instance)
@@ -274,8 +275,7 @@ extension SearchResultViewController {
                 
                 let announcements = result.announcements
                 
-                if !announcements.isEmpty && itemIndexInPage < announcements.count {
-                    let updatedResult = announcements[itemIndexInPage]
+                if let updatedResult = announcements.first(where: { $0.internshipAnnouncementId == currentSearchResult }) {
                     
                     if var currentResults = self.rootView.searchResult, indexPath.item < currentResults.count {
                         currentResults[indexPath.item] = updatedResult
@@ -381,7 +381,7 @@ extension SearchResultViewController: UICollectionViewDelegate {
         case .search:
             guard let SearchResult = rootView.searchResult else { return }
             let selectedItem = SearchResult[indexPath.item].internshipAnnouncementId
-            
+
             selectedIndexPath = indexPath
             
             let jobDetailVC = JobDetailViewController(

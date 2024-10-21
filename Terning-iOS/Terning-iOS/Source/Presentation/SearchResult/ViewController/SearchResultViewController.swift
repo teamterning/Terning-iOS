@@ -334,7 +334,7 @@ extension SearchResultViewController: UICollectionViewDataSource {
             return cell
             
         case .noSearch:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InavailableFilterView.className, for: indexPath) as? InavailableFilterView, let title = self.textFieldKeyword else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UnavailableFilterView.className, for: indexPath) as? UnavailableFilterView, let title = self.textFieldKeyword else {
                 return UICollectionViewCell()
             }
             cell.bind(title: title)

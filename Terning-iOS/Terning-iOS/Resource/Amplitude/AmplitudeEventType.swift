@@ -37,7 +37,7 @@ public enum AmplitudeEventType: String {
     
     // 공고 상세페이지 이벤트
     case clickDetailScrap = "click_detail_scrap" // 공고상세페이지_스크랩아이콘
-    case clickDetailActiveScrap = "click_detail_active_scrap" // 공고상세페이지_활성화된 스크랩 아이콘_스크랩취소하기
+    case clickDetailCancelScrap = "click_detail_cancel_scrap" // 공고상세페이지_활성화된 스크랩 아이콘_스크랩취소하기
     case clickDetailUrl = "click_detail_url" // 공고상세페이지_지원사이트로이동하기
     
     // 스크랩 이벤트

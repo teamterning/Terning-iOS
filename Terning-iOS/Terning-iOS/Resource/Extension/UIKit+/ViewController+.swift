@@ -157,7 +157,7 @@ extension UIViewController {
      
      */
     
-    public func track(eventName: AmplitudeEventType , eventProperties: [String: Any]? = nil) {
+    public func track(eventName: AmplitudeEventType, eventProperties: [String: Any]? = nil) {
         AmplitudeManager.shared.track(eventType: eventName, eventProperties: eventProperties)
     }
     

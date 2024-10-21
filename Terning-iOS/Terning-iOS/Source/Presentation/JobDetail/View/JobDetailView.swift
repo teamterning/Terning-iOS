@@ -155,6 +155,7 @@ extension JobDetailView {
 extension JobDetailView {
     @objc private func goToUrl() {
         guard let urlString = url, let url = URL(string: urlString) else { return }
+        track(eventName: .clickDetailUrl)
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }

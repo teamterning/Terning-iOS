@@ -370,21 +370,21 @@ final class CustomAlertViewController: UIViewController {
     private func bindViews() {
         centerButtonDidTap
             .drive(onNext: { [weak self] in
-                self?.track(eventName: .clickScrapDetail)
+                self?.track(eventName: .clickModalCalender)
                 self?.centerButtonDidTapAction?()
             })
             .disposed(by: disposeBag)
         
         leftButtonDidTap
             .drive(onNext: { [weak self] in
-                self?.track(eventName: .clickScrapColor)
+                self?.track(eventName: .clickModalColor)
                 self?.leftButtonDidTapAction?()
             })
             .disposed(by: disposeBag)
         
         rightButtonDidTap
             .drive(onNext: { [weak self] in
-                self?.track(eventName: .clickScrapDetail)
+                self?.track(eventName: .clickModalDetail)
                 self?.rightButtonDidTapAction?()
             })
             .disposed(by: disposeBag)

@@ -41,9 +41,9 @@ public enum AmplitudeEventType: String {
     case clickDetailUrl = "click_detail_url" // 공고상세페이지_지원사이트로이동하기
     
     // 스크랩 이벤트
-    case clickScrapCalender = "click_scrap_calender" // 스크랩_내 캘린더에 스크랩하기
-    case clickScrapColor = "click_scrap_color" // 스크랩_색상 변경하기
-    case clickScrapDetail = "click_scrap_detail" // 스크랩_공고상세정보보기
+    case clickModalCalender = "click_modal_calender" // 스크랩_내 캘린더에 스크랩하기
+    case clickModalColor = "click_modal_color" // 스크랩_색상 변경하기
+    case clickModalDetail = "click_modal_detail" // 스크랩_공고상세정보보기
     
     // 탐색 이벤트
     case clickQuestBanner = "click_quest_bannner" // 탐색_각 배너 누르기

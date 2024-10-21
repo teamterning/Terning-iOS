@@ -286,7 +286,7 @@ final class CustomAlertViewController: UIViewController {
             $0.top.equalTo(alertImageView.snp.bottom).offset(20.adjustedH)
             $0.centerX.equalToSuperview()
         }
-
+        
         centerButton.setTitle(title: "스크랩 취소하기")
         
         centerButton.snp.makeConstraints {
@@ -370,6 +370,7 @@ final class CustomAlertViewController: UIViewController {
     private func bindViews() {
         centerButtonDidTap
             .drive(onNext: { [weak self] in
+                self?.track(eventName: .clickScrapDetail)
                 self?.centerButtonDidTapAction?()
             })
             .disposed(by: disposeBag)
@@ -383,7 +384,7 @@ final class CustomAlertViewController: UIViewController {
         
         rightButtonDidTap
             .drive(onNext: { [weak self] in
-                self?.track(eventName: .clickScarpInformation)
+                self?.track(eventName: .clickScrapDetail)
                 self?.rightButtonDidTapAction?()
             })
             .disposed(by: disposeBag)

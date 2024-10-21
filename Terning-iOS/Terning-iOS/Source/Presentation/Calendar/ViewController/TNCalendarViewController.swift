@@ -133,6 +133,7 @@ extension TNCalendarViewController {
         rootView.naviBar.calendarListButtonDidTap
             .subscribe(with: self) { owner, _ in
                 owner.toggleListView()
+                owner.track(eventName: .clickCalendarList)
             }.disposed(by: disposeBag)
     }
     

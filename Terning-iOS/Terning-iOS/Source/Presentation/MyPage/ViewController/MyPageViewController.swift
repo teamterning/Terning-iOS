@@ -186,12 +186,14 @@ extension MyPageViewController {
     }
     
     private func showNotice() {
+        track(eventName: .clickMypageNotice)
         let urlString = "https://abundant-quiver-13f.notion.site/iOS-2324f4c5ff03441d99ff0157b2f15424?pvs=4"
         guard let url = URL(string: urlString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
     private func sendFeedback() {
+        track(eventName: .clickMypageComment)
         let urlString = "https://docs.google.com/forms/d/e/1FAIpQLSeYwkK70ThHAZnUum0Qm_coO5ijmqxZaoCJ0k2erXWmtt_eSg/viewform"
         guard let url = URL(string: urlString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)

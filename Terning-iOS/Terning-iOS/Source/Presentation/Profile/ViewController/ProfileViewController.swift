@@ -42,7 +42,7 @@ final class ProfileViewController: UIViewController {
         self.viewType = viewType
         self.viewModel = viewModel
         self.imageStringSubject = BehaviorSubject<String>(value: viewModel.userInfo?.profileImage ?? "basic")
-
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -54,7 +54,7 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUI()
         setLayout()
         bindViewModel()
@@ -107,7 +107,7 @@ extension ProfileViewController {
     private func bindViewModel() {
         let input = ProfileViewModelInput(
             userInfo: Observable.just(viewModel.userInfo ?? UserProfileInfoModel(name: "", profileImage: "basic", authType: "")),
-            name: rootView.nameTextField.rx.text.orEmpty.asObservable(), 
+            name: rootView.nameTextField.rx.text.orEmpty.asObservable(),
             imageStringSubject: imageStringSubject.asObservable(),
             saveButtonTap: rootView.saveButton.rx.tap.asObservable()
         )
@@ -149,6 +149,7 @@ extension ProfileViewController {
                 
                 switch self.viewType {
                 case .fix:
+                    track(eventName: .clickMypageModifyProfile)
                     self.navigationController?.popViewController(animated: true)
                 case .setting:
                     self.pushToWelcome()

@@ -153,6 +153,7 @@ extension OnboardingPageViewController {
     }
     
     private func completeOnboarding() {
+        track(eventName: .clickOnboardingCompleted, eventProperties: ["grade": OnboardingData.shared.grade])
         let welcomeVC = WelcomeViewController(viewType: .second)
         self.navigationController?.pushViewController(welcomeVC, animated: true)
     }

@@ -7,6 +7,9 @@
 
 import AuthenticationServices
 import KakaoSDKUser
+
+import AmplitudeSwift
+
 import RxSwift
 import RxCocoa
 
@@ -45,6 +48,7 @@ final class LoginService: NSObject, LoginServiceProtocol {
                             switch result {
                             case .success(let type):
                                 print(type)
+                                AmplitudeManager.shared.track(eventType: .signupKakao)
                                 observer.onNext(true)
                                 observer.onCompleted()
                             case .failure(let error):
@@ -81,6 +85,7 @@ final class LoginService: NSObject, LoginServiceProtocol {
                             switch result {
                             case .success(let type):
                                 print(type)
+                                AmplitudeManager.shared.track(eventType: .signupKakao)
                                 observer.onNext(true)
                                 observer.onCompleted()
                             case .failure(let error):
@@ -144,6 +149,7 @@ extension LoginService: ASAuthorizationControllerDelegate {
             UserManager.shared.signIn(authType: "APPLE") { result in
                 switch result {
                 case .success(let type):
+                    AmplitudeManager.shared.track(eventType: .signupApple)
                     print(type)
                     self.userInfoRelay.accept(type)
                 case .failure(let error):

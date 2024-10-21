@@ -110,6 +110,7 @@ extension AccountOptionViewController {
             print("Window is nil")
             return
         }
+        track(eventName: .clickMypageLogout)
         ViewControllerUtils.setRootViewController(window: window, viewController: LoginVC, withAnimation: true)
     }
     private func navigateToSplashVC() {
@@ -118,6 +119,7 @@ extension AccountOptionViewController {
             print("Window is nil")
             return
         }
+        track(eventName: .clickMypageDeleteAccount)
         ViewControllerUtils.setRootViewController(window: window, viewController: splashVC, withAnimation: true)
     }
 }

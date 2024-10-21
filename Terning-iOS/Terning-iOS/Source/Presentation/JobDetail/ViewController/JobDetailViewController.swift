@@ -123,6 +123,7 @@ extension JobDetailViewController {
             
             alertSheet.centerButtonDidTapAction = { [weak self] in
                 guard let self = self else { return }
+                track(eventName: .clickDetailCancelScrap)
                 self.cancelScrapAnnouncement(scrapId: self.internshipAnnouncementId.value)
                 self.dismiss(animated: false)
             }
@@ -137,8 +138,8 @@ extension JobDetailViewController {
             
             alertSheet.centerButtonDidTapAction = { [weak self] in
                 guard let self = self else { return }
+                track(eventName: .clickDetailScrap)
                 let selectedColorNameRelay = alertSheet.selectedColorNameRelay.value
-                
                 self.addScrapAnnouncement(scrapId: self.internshipAnnouncementId.value, color: selectedColorNameRelay)
                 self.dismiss(animated: false)
             }
@@ -251,7 +252,7 @@ extension JobDetailViewController {
             .drive(onNext: { [weak self] successMessage in
                 guard let self = self else { return }
                 self.showToast(message: successMessage, heightOffset: 12)
-              
+                
             })
             .disposed(by: disposeBag)
     }

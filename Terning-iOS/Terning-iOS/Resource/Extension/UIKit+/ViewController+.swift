@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AmplitudeSwift
 
 extension UIViewController {
     convenience init(backgroundColor: UIColor) {
@@ -143,5 +144,28 @@ extension UIViewController {
                 }
             }
         }
+    }
+}
+
+extension UIViewController {
+    
+    /**
+     
+     - Description:
+     
+     Amplitude 추적 메서드
+     
+     */
+    
+    public func track(eventName: AmplitudeEventType , eventProperties: [String: Any]? = nil) {
+        AmplitudeManager.shared.track(eventType: eventName, eventProperties: eventProperties)
+    }
+    
+    public func trackScreenDuration(eventName: AmplitudeEventType, duration: TimeInterval) {
+        let durationInSeconds = Int(duration)
+        
+        AmplitudeManager.shared.track(eventType: eventName, eventProperties: [
+            "duration": durationInSeconds
+        ])
     }
 }

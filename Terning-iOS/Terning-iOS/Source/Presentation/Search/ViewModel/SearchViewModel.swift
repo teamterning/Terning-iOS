@@ -16,7 +16,7 @@ final class SearchViewModel: ViewModelType {
     
     private let searchProvider = Providers.searchProvider
     
-    var advertisements: [UIImage] = []
+    var advertisements: [Advertisement] = []
     
     // MARK: - Input
     
@@ -28,7 +28,7 @@ final class SearchViewModel: ViewModelType {
     // MARK: - Output
     
     struct Output {
-        let announcements: Driver<AdvertisementsModel>
+        let announcements: Driver<[Advertisement]>
         let recommendedByViews: Driver<[RecommendAnnouncement]>
         let recommendedByScraps: Driver<[RecommendAnnouncement]>
         let searchTapped: Driver<Void>
@@ -39,15 +39,14 @@ final class SearchViewModel: ViewModelType {
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let announcements = input.viewDidLoad
             .do(onNext: {
-                // 기본 이미지 배열 추가
                 self.advertisements = [
-                    UIImage(named: "img_ad_1")!,
-                    UIImage(named: "img_ad_2")!,
-                    UIImage(named: "img_ad_3")!
+                    Advertisement(image: .imgAd1, url: "https://www.instagram.com/p/DBWCO97TRds/?igsh=bDhjMGxlMGliNDc2"),
+                    Advertisement(image: .imgAd2, url: "https://www.instagram.com/terning_official/"),
+                    Advertisement(image: .imgAd3, url: "https://forms.gle/4btEwEbUQ3JSjTKP7")
                 ]
             })
-            .map { AdvertisementsModel(advertisements: self.advertisements) }
-            .asDriver(onErrorJustReturn: AdvertisementsModel(advertisements: []))
+            .map { self.advertisements }
+            .asDriver(onErrorJustReturn: [])
         
         let recommendedByViews = input.viewDidLoad
             .flatMapLatest { _ in

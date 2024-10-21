@@ -134,6 +134,7 @@ extension SearchViewController {
     }
     
     private func pushToSearchResultView() {
+        track(eventName: .clickQuestSearch)
         let searchResultVC = SearchResultViewController(
             viewModel: SearchResultViewModel(
                 jobDetailRepository: JobDetailRepository(

@@ -437,6 +437,7 @@ extension SearchResultViewController: JobCardScrapedCellProtocol {
             
             alertSheet.centerButtonDidTapAction = { [weak self] in
                 guard let self = self else { return }
+                track(eventName: .clickQuestScrap)
                 let selectedColorNameRelay = alertSheet.selectedColorNameRelay.value
                 
                 self.addScrapAnnouncement(scrapId: model.internshipAnnouncementId, color: selectedColorNameRelay)

@@ -9,6 +9,7 @@ import UIKit
 
 // MARK: - AdvertisementsModel
 
-struct AdvertisementsModel {
-    let advertisements: [UIImage]
+struct Advertisement {
+    let image: UIImage
+    let url: String
 }

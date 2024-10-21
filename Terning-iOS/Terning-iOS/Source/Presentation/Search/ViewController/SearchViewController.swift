@@ -215,7 +215,7 @@ extension SearchViewController {
         
         output.announcements
             .drive(onNext: { [weak self] advertisements in
-                self?.rootView.pageControl.numberOfPages = advertisements.advertisements.count
+                self?.rootView.pageControl.numberOfPages = advertisements.count
             })
             .disposed(by: disposeBag)
         
@@ -272,7 +272,7 @@ extension SearchViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
-            cell.bind(with: viewModel.advertisements[indexPath.row])
+            cell.bind(with: viewModel.advertisements[indexPath.row].image)
             return cell
         } else {
             if indexPath.section == 0 {
@@ -345,9 +345,10 @@ extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == rootView.advertisementCollectionView {
-            let urlString = "https://www.instagram.com/terning_official?igsh=NnNma245bnUzbWNm&utm_source=qr"
-            guard let url = URL(string: urlString) else { return }
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            let advertisement = viewModel.advertisements[indexPath.item]
+            if let url = URL(string: advertisement.url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
         } else {
             if indexPath.section == 0 {
                 guard let viewsNum = rootView.viewsNum else { return }

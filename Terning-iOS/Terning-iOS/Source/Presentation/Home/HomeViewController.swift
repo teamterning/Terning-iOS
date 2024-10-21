@@ -151,7 +151,7 @@ extension HomeViewController: UICollectionViewDelegate {
         switch section {
         case .jobCard:
             print(indexPath)
-            track(eventName: .clickInternCard) // 공고 카드 클릭
+            track(eventName: .clickHomeInternCard) // 홈 공고 카드 클릭
             let jobDetailVC = JobDetailViewController(
                 viewModel: JobDetailViewModel(
                     jobDetailRepository: JobDetailRepository(
@@ -293,7 +293,7 @@ extension HomeViewController: FilterButtonProtocol {
             filterSettingVC.presentationController?.delegate = self
         }
         
-        track(eventName: .clickFiltering)
+        track(eventName: .clickHomeFiltering)
         
         self.present(filterSettingVC, animated: true)
     }
@@ -322,7 +322,7 @@ extension HomeViewController: UIAdaptivePresentationControllerDelegate {
 extension HomeViewController: SaveButtonProtocol {
     func didSaveSetting() {
         removeDimmedBackgroundView()
-        track(eventName: .clickFilteringSave)
+        track(eventName: .clickHomeFilteringSave)
         fetchFilterInfos()
     }
 }
@@ -396,6 +396,7 @@ extension HomeViewController: SortSettingButtonProtocol {
 
 extension HomeViewController: CheckDeadlineCellProtocol {
     func checkDeadlineButtonDidTap() {
+        track(eventName: .clickCheckSchedule)
         self.tabBarController?.selectedIndex = 1
     }
 }
@@ -405,7 +406,7 @@ extension HomeViewController: CheckDeadlineCellProtocol {
 extension HomeViewController: JobCardScrapedCellProtocol {
     func scrapButtonDidTap(index: Int) {
         
-        track(eventName: .clickScrapHome)
+        track(eventName: .clickHomeScrap)
         
         let model = jobCardLists[index]
         

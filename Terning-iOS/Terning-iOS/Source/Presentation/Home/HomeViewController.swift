@@ -118,7 +118,7 @@ final class HomeViewController: UIViewController {
         // 딱 맞는 대학생 인턴공고 셀
         rootView.collectionView.register(JobCardCell.self, forCellWithReuseIdentifier: JobCardCell.className) // 맞춤 공고가 있는 경우
         rootView.collectionView.register(NonJobCardCell.self, forCellWithReuseIdentifier: NonJobCardCell.className)
-        rootView.collectionView.register(InavailableFilterView.self, forCellWithReuseIdentifier: InavailableFilterView.className)
+        rootView.collectionView.register(UnavailableFilterView.self, forCellWithReuseIdentifier: UnavailableFilterView.className)
     }
     
     // MARK: - private func
@@ -251,7 +251,7 @@ extension HomeViewController: UICollectionViewDataSource {
                 return cell
                 
             } else if !isNoneData && jobCardLists.isEmpty {
-                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: InavailableFilterView.className, for: indexPath) as? InavailableFilterView else { return UICollectionViewCell() }
+                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: UnavailableFilterView.className, for: indexPath) as? UnavailableFilterView else { return UICollectionViewCell() }
                 return cell
                 
             } else if !isNoneData && !jobCardLists.isEmpty {

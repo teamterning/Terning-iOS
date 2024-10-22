@@ -2,7 +2,7 @@
 
 # 👔 terning 터닝 - 대학생 인턴, 공고 관리 캘린더
 
-## 앱스토어 링크 : [앱스토어](https://apps.apple.com/kr/app/terning-%ED%84%B0%EB%8B%9D-%EB%8C%80%ED%95%99%EC%83%9D-%EC%9D%B8%ED%84%B4-%EA%B3%B5%EA%B3%A0-%EA%B4%80%EB%A6%AC-%EC%BA%98%EB%A6%B0%EB%8D%94/id6547866420) v1.0.0
+## 앱스토어 링크 : [앱스토어](https://apps.apple.com/kr/app/terning-%ED%84%B0%EB%8B%9D-%EB%8C%80%ED%95%99%EC%83%9D-%EC%9D%B8%ED%84%B4-%EA%B3%B5%EA%B3%A0-%EA%B4%80%EB%A6%AC-%EC%BA%98%EB%A6%B0%EB%8D%94/id6547866420) v1.0.2
 <p align="center"><img src="https://github.com/user-attachments/assets/984e7795-3746-4e7a-ad6c-cb1cb376c481"></p>
 
 **내 계획에 딱 맞는 대학생 인턴의 시작, 터닝**
@@ -52,6 +52,19 @@
 ## [🏠 Project Design](https://www.figma.com/board/h597MCTAjj8PawsF1nbHMC/iOS-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%84%A4%EA%B3%84?node-id=0-1&t=elsfeNTTSrKMhUfx-1)
 <img width="941" alt="image" src="https://github.com/teamterning/Terning-iOS/assets/88179341/8e4c42ce-4bef-4c02-87b8-b7adfb5ced1f">
 
+## **📌 Issue Naming Rule**
+
+`[Prefix] - 이슈내용`
+
+> ex) [Feat] - TerningPoint 홈 화면 구현
+
+
+## **📌 PR Naming Rule**
+
+`[Prefix] #이슈번호- 작업내용`
+
+> ex) [Feat] #1 - TerningPoint 홈 화면 구현
+
 
 ## **⭐️ Commit Message Rule**
 
@@ -89,21 +102,11 @@
 **코드 리뷰를 최대한 빨리 달고 반영하자!**
 
 
+## **📌 App Store Distribution Rule**
 
-## **📌 Issue Naming Rule**
+[Setting] #issueNumber - VersionNumber 배포
 
-`[Prefix] - 이슈내용`
-
-> ex) [Feat] - TerningPoint 홈 화면 구현
-
-
-
-## **📌 PR Naming Rule**
-
-`[Prefix] #이슈번호- 작업내용`
-
-> ex) [Feat] #1 - TerningPoint 홈 화면 구현
-
+> ex) [Setting] #821 - v1.0.0 배포
 
 
 ## **📌 Git Flow**
@@ -111,7 +114,7 @@
 1. 이슈 생성 (어떤 작업 할 것 인지?)
 2. 브랜치 생성
 3. 브랜치 add, commit, push → PR 과정 거치기
-4. 최소 1명 "Approve" 있어야 merge (강제 머지 금지 )
+4. 최소 1명 "Approve" 있어야 merge (리드 외 강제 머지 금지)
 5. 머지후 ( 해당 브랜치 바로 제거 )
 6. pull 받아서 다음 이슈 진행
 
@@ -127,8 +130,8 @@
 
 - Development Environment
 <p align="left">
-<img src ="https://img.shields.io/badge/Swift-5.9-orange?logo=swift">
-<img src ="https://img.shields.io/badge/Xcode-15.0-blue?logo=xcode">
+<img src ="https://img.shields.io/badge/Swift-6.0-orange?logo=swift">
+<img src ="https://img.shields.io/badge/Xcode-16.0-blue?logo=xcode">
 <img src ="https://img.shields.io/badge/iOS-16.0-green.svg">
 
 <br>

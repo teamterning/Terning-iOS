@@ -25,7 +25,6 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
         
         super.init(frame: frame)
         
-        self.setUI()
         self.setHierarchy()
         self.setLayout()
     }
@@ -38,10 +37,6 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
 // MARK: - UI & Layout
 
 extension AdvertisementCollectionViewCell {
-    private func setUI() {
-        //        self.backgroundColor = .grey200
-    }
-    
     private func setHierarchy() {
         contentView.addSubview(advertisementImageView)
     }

@@ -68,7 +68,7 @@ final class TNCalendarView: UIView {
     let separatorView = UIView().then { $0.backgroundColor = .grey200 }
     
     // 캘린더 주간 뷰
-    lazy var calenderBottomCollectionView: UICollectionView = {
+    lazy var calendarBottomCollectionView: UICollectionView = {
         let layout = CompositionalLayout.createCalendarBottomLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -80,7 +80,7 @@ final class TNCalendarView: UIView {
     }()
     
     // 리스트 뷰
-    lazy var calenderListCollectionView: UICollectionView = {
+    lazy var calendarListCollectionView: UICollectionView = {
         let layout = CompositionalLayout.createCalendarListLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -123,15 +123,15 @@ extension TNCalendarView {
             dummyView,
             separatorView,
             calendarViewContainer,
-            calenderBottomCollectionView,
-            calenderListCollectionView,
+            calendarBottomCollectionView,
+            calendarListCollectionView,
             bottomEmptyView,
             listEmptyView
         )
         calendarViewContainer.addSubview(calendarView)
         
-        calenderBottomCollectionView.addSubview(bottomEmptyView)
-        calenderListCollectionView.addSubview(listEmptyView)
+        calendarBottomCollectionView.addSubview(bottomEmptyView)
+        calendarListCollectionView.addSubview(listEmptyView)
         
     }
     
@@ -165,24 +165,24 @@ extension TNCalendarView {
         
         self.bringSubviewToFront(separatorView)
         
-        calenderBottomCollectionView.snp.makeConstraints {
+        calendarBottomCollectionView.snp.makeConstraints {
             $0.top.equalTo(calendarView.snp.bottom).offset(10.adjustedH)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
         
-        calenderListCollectionView.snp.makeConstraints {
+        calendarListCollectionView.snp.makeConstraints {
             $0.top.equalTo(naviBar.snp.bottom)
             $0.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
         }
         
         bottomEmptyView.snp.makeConstraints {
-            $0.top.equalTo(calenderBottomCollectionView.snp.top).offset(40.adjustedH)
+            $0.top.equalTo(calendarBottomCollectionView.snp.top).offset(40.adjustedH)
             $0.centerX.equalToSuperview()
         }
         
         listEmptyView.snp.makeConstraints {
-            $0.top.equalTo(calenderListCollectionView.snp.top).offset(120.adjustedH)
+            $0.top.equalTo(calendarListCollectionView.snp.top).offset(120.adjustedH)
             $0.centerX.equalToSuperview()
         }
     }

@@ -304,7 +304,6 @@ extension SearchViewController: UICollectionViewDataSource {
         stopTimer()
         startTimer()
         
-        
         if scrollView.contentOffset.x == 0 { // 첫번째 배너 가 보이면 (배너 갯수) 번째 index의 배너갯수 으로 이동시키기
             scrollView.setContentOffset(.init(x: screenWidth * initialBannerCount, y: scrollView.contentOffset.y), animated: false)
         } else if scrollView.contentOffset.x == screenWidth * (initialBannerCount + 1) { // 마지막 1이 보이면 1번째 index의 1로 이동

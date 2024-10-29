@@ -40,9 +40,8 @@ final class SearchViewModel: ViewModelType {
         let announcements = input.viewDidLoad
             .do(onNext: {
                 self.advertisements = [
-                    Advertisement(image: .imgAd1, url: "https://www.instagram.com/p/DBWCO97TRds/?igsh=bDhjMGxlMGliNDc2"),
-                    Advertisement(image: .imgAd2, url: "https://www.instagram.com/terning_official/"),
-                    Advertisement(image: .imgAd3, url: "https://forms.gle/4btEwEbUQ3JSjTKP7")
+                    Advertisement(image: .imgAd1, url: "https://www.instagram.com/terning_official/"),
+                    Advertisement(image: .imgAd2, url: "https://forms.gle/4btEwEbUQ3JSjTKP7")
                 ]
             })
             .map { self.advertisements }

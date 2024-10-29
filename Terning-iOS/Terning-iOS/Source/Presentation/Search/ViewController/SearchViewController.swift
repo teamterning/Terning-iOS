@@ -24,6 +24,7 @@ final class SearchViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     private let screenWidth = UIScreen.main.bounds.width
+    private lazy var initialBannerCount: CGFloat = CGFloat(viewModel.advertisements.count - 2)
     
     // MARK: - UI Components
     
@@ -194,7 +195,7 @@ extension SearchViewController {
         collectionView.scrollToItem(at: IndexPath(item: nextItem, section: 0), at: .centeredHorizontally, animated: true)
         
         if visibleItem == initialAdCounts {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)
             }
         }
@@ -303,12 +304,13 @@ extension SearchViewController: UICollectionViewDataSource {
         stopTimer()
         startTimer()
         
-        if scrollView.contentOffset.x == 0 { // 첫번째(3)가 보이면 3번째 index의 3으로 이동시키기
-            scrollView.setContentOffset(.init(x: screenWidth * 3, y: scrollView.contentOffset.y), animated: false)
-        } else if scrollView.contentOffset.x == screenWidth * 4 { //마지막 1이 보이면 1번째 index의 1로 이동
+        if scrollView.contentOffset.x == 0 { // 첫번째 배너 가 보이면 (배너 갯수) 번째 index의 배너갯수 으로 이동시키기
+            scrollView.setContentOffset(.init(x: screenWidth * initialBannerCount, y: scrollView.contentOffset.y), animated: false)
+        } else if scrollView.contentOffset.x == screenWidth * (initialBannerCount + 1) { // 마지막 1이 보이면 1번째 index의 1로 이동
             scrollView.setContentOffset(.init(x: screenWidth, y: scrollView.contentOffset.y), animated: false)
         }
-        rootView.pageControl.currentPage = Int(scrollView.contentOffset.x / scrollView.frame.maxX) - 1
+        
+        rootView.pageControl.currentPage = Int(scrollView.contentOffset.x / scrollView.frame.maxX) - (Int(initialBannerCount) - 1)
     }
 }
 

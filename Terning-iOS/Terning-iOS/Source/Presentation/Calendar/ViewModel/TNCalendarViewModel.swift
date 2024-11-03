@@ -53,6 +53,7 @@ final class TNCalendarViewModel: ViewModelType {
         let successMessageTracker = PublishSubject<String>()
         
         let monthData = input.fetchMonthDataTrigger
+            .distinctUntilChanged()
             .flatMapLatest { date -> Observable<[CalendarScrapModel]> in
                 let year = Calendar.current.component(.year, from: date)
                 let month = Calendar.current.component(.month, from: date)
@@ -76,6 +77,7 @@ final class TNCalendarViewModel: ViewModelType {
             .asDriver(onErrorJustReturn: ())
         
         let monthlyList = input.fetchMonthlyListTrigger
+            .distinctUntilChanged()
             .flatMapLatest { date -> Observable<[CalendarAnnouncementModel]> in
                 let year = Calendar.current.component(.year, from: date)
                 let month = Calendar.current.component(.month, from: date)
@@ -99,6 +101,7 @@ final class TNCalendarViewModel: ViewModelType {
             .asDriver(onErrorJustReturn: ())
         
         let dailyData = input.fetchDailyDataTrigger
+            .distinctUntilChanged()
             .flatMapLatest { date -> Observable<[AnnouncementModel]> in
                 let dateString = self.dateFormatter.string(from: date)
                 return self.calendarRepository.fetchDailyData(for: dateString)

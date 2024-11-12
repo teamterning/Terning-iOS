@@ -33,7 +33,7 @@ extension SearchTargetType: TargetType {
         case .getMostScrapDatas:
             return "/search/scraps"
         case .getAdvertiseDatas:
-            return "/search/advertisement"
+            return "/search/banners"
         }
     }
     

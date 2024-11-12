@@ -10,13 +10,15 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+import RxMoya
+
 final class SearchViewModel: ViewModelType {
     
     // MARK: - Properties
     
     private let searchProvider = Providers.searchProvider
     
-    var advertisements: [Advertisement] = []
+    var advertisements: [BannerModel] = []
     
     // MARK: - Input
     
@@ -28,7 +30,7 @@ final class SearchViewModel: ViewModelType {
     // MARK: - Output
     
     struct Output {
-        let announcements: Driver<[Advertisement]>
+        let announcements: Driver<[BannerModel]>
         let recommendedByViews: Driver<[RecommendAnnouncement]>
         let recommendedByScraps: Driver<[RecommendAnnouncement]>
         let searchTapped: Driver<Void>
@@ -38,13 +40,13 @@ final class SearchViewModel: ViewModelType {
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let announcements = input.viewDidLoad
-            .do(onNext: {
-                self.advertisements = [
-                    Advertisement(image: .imgAd1, url: "https://www.instagram.com/terning_official/"),
-                    Advertisement(image: .imgAd2, url: "https://forms.gle/4btEwEbUQ3JSjTKP7")
-                ]
-            })
-            .map { self.advertisements }
+            .flatMapLatest { _ in
+                self.fetchAdveriseData()
+                    .do(onNext: { fetchedAdvertisements in
+                        self.advertisements = fetchedAdvertisements
+                    })
+                    .catchAndReturn([]) // 오류 발생 시 빈 배열 반환
+            }
             .asDriver(onErrorJustReturn: [])
         
         let recommendedByViews = input.viewDidLoad
@@ -148,5 +150,13 @@ extension SearchViewModel {
                 request.cancel()
             }
         }
+    }
+    
+    private func fetchAdveriseData() -> Observable<[BannerModel]> {
+        return searchProvider.rx.request(.getAdvertiseDatas)
+            .filterSuccessfulStatusCodes()
+            .map(BaseResponse<AdvertisementModel>.self)
+            .compactMap { $0.result?.banners } // banners 배열만 추출
+            .asObservable()
     }
 }

@@ -9,7 +9,11 @@ import UIKit
 
 // MARK: - AdvertisementsModel
 
-struct Advertisement {
-    let image: UIImage
-    let url: String
+struct AdvertisementModel: Codable {
+    let banners: [BannerModel]
+}
+
+struct BannerModel: Codable {
+    let imageUrl: String
+    let link: String
 }

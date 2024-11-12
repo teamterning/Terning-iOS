@@ -26,6 +26,8 @@ final class SearchViewController: UIViewController {
     private let screenWidth = UIScreen.main.bounds.width
     private lazy var initialBannerCount: CGFloat = CGFloat(viewModel.advertisements.count - 2)
     
+    private let currentPageRelay = BehaviorRelay<Int>(value: 0)
+    
     // MARK: - UI Components
     
     private let rootView = SearchView()
@@ -54,7 +56,6 @@ final class SearchViewController: UIViewController {
         setDelegate()
         setAddTarget()
         bindViewModel()
-        setAdvertisements()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -152,6 +153,7 @@ extension SearchViewController {
     
     private func setAdvertisements() {
         // 원래 광고 배열을 복사하여 처음과 끝에 추가 (infite carousel)
+        
         if let firstAd = viewModel.advertisements.first, let lastAd = viewModel.advertisements.last {
             viewModel.advertisements.insert(lastAd, at: 0)
             viewModel.advertisements.append(firstAd)
@@ -188,6 +190,10 @@ extension SearchViewController {
     @objc
     private func autoScroll() {
         let collectionView = rootView.advertisementCollectionView
+        
+        // 배열이 비어 있지 않은지 확인
+        guard !collectionView.indexPathsForVisibleItems.isEmpty else { return }
+        
         let visibleItem = collectionView.indexPathsForVisibleItems[0].item
         let nextItem = visibleItem + 1
         let initialAdCounts = viewModel.advertisements.count - 2
@@ -200,8 +206,9 @@ extension SearchViewController {
             }
         }
         
-        rootView.pageControl.currentPage = visibleItem % initialAdCounts
+        currentPageRelay.accept(visibleItem % initialAdCounts)
     }
+    
 }
 
 // MARK: - Bind
@@ -217,7 +224,10 @@ extension SearchViewController {
         
         output.announcements
             .drive(onNext: { [weak self] advertisements in
+                self?.viewModel.advertisements = advertisements
                 self?.rootView.pageControl.numberOfPages = advertisements.count
+                self?.rootView.advertisementCollectionView.reloadData()
+                self?.setAdvertisements()
             })
             .disposed(by: disposeBag)
         
@@ -239,6 +249,11 @@ extension SearchViewController {
             .drive(onNext: { [weak self] in
                 self?.pushToSearchResultView()
             })
+            .disposed(by: disposeBag)
+        
+        currentPageRelay
+            .distinctUntilChanged()
+            .bind(to: rootView.pageControl.rx.currentPage)
             .disposed(by: disposeBag)
     }
 }
@@ -274,7 +289,7 @@ extension SearchViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
-            cell.bind(with: viewModel.advertisements[indexPath.row].image)
+            cell.bind(with: viewModel.advertisements[indexPath.row].imageUrl)
             return cell
         } else {
             if indexPath.section == 0 {
@@ -300,17 +315,26 @@ extension SearchViewController: UICollectionViewDataSource {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
         stopTimer()
         startTimer()
         
-        if scrollView.contentOffset.x == 0 { // 첫번째 배너 가 보이면 (배너 갯수) 번째 index의 배너갯수 으로 이동시키기
-            scrollView.setContentOffset(.init(x: screenWidth * initialBannerCount, y: scrollView.contentOffset.y), animated: false)
-        } else if scrollView.contentOffset.x == screenWidth * (initialBannerCount + 1) { // 마지막 1이 보이면 1번째 index의 1로 이동
-            scrollView.setContentOffset(.init(x: screenWidth, y: scrollView.contentOffset.y), animated: false)
-        }
+        let pageWidth = screenWidth
+        let maxPage = Int(initialBannerCount)
+        let currentOffset = scrollView.contentOffset.x
+        let currentPage = Int(currentOffset / pageWidth)
         
-        rootView.pageControl.currentPage = Int(scrollView.contentOffset.x / scrollView.frame.maxX) - (Int(initialBannerCount) - 1)
+        if currentPage == 0 {
+            // 첫 번째 가짜 배너 (마지막 실제 배너로 이동)
+            scrollView.setContentOffset(CGPoint(x: pageWidth * CGFloat(maxPage), y: 0), animated: false)
+            currentPageRelay.accept(maxPage - 1)
+        } else if currentPage == maxPage + 1 {
+            // 마지막 가짜 배너 (첫 번째 실제 배너로 이동)
+            scrollView.setContentOffset(CGPoint(x: pageWidth, y: 0), animated: false)
+            currentPageRelay.accept(0)
+        } else {
+            // 그 외의 경우
+            currentPageRelay.accept(currentPage - 1)
+        }
     }
 }
 
@@ -349,7 +373,7 @@ extension SearchViewController: UICollectionViewDelegate {
         
         if collectionView == rootView.advertisementCollectionView {
             let advertisement = viewModel.advertisements[indexPath.item]
-            if let url = URL(string: advertisement.url) {
+            if let url = URL(string: advertisement.link) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         } else {

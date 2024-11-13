@@ -177,6 +177,7 @@ extension SearchViewController {
         jobDetailVC.internshipAnnouncementId.accept(internshipId)
         navigationController?.pushViewController(jobDetailVC, animated: true)
     }
+    
 }
 
 // MARK: - @objc func

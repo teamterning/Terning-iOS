@@ -45,7 +45,7 @@ final class SearchViewModel: ViewModelType {
                     .do(onNext: { fetchedAdvertisements in
                         self.advertisements = fetchedAdvertisements
                     })
-                    .catchAndReturn([]) // 오류 발생 시 빈 배열 반환
+                    .catchAndReturn([])
             }
             .asDriver(onErrorJustReturn: [])
         
@@ -153,10 +153,38 @@ extension SearchViewModel {
     }
     
     private func fetchAdveriseData() -> Observable<[BannerModel]> {
-        return searchProvider.rx.request(.getAdvertiseDatas)
-            .filterSuccessfulStatusCodes()
-            .map(BaseResponse<AdvertisementModel>.self)
-            .compactMap { $0.result?.banners } // banners 배열만 추출
-            .asObservable()
+        return Observable.create { observer in
+            let request = self.searchProvider.request(.getAdvertiseDatas) { result in
+                switch result {
+                case .success(let response):
+                    let status = response.statusCode
+                    if 200..<300 ~= status {
+                        do {
+                            let responseDto = try response.map(BaseResponse<AdvertisementModel>.self)
+                            if let banners = responseDto.result?.banners {
+                                observer.onNext(banners)
+                                observer.onCompleted()
+                            } else {
+                                print("No banner data available")
+                                observer.onError(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No banner data available"]))
+                            }
+                        } catch {
+                            print(error.localizedDescription)
+                            observer.onError(error)
+                        }
+                    } else if status >= 400 {
+                        print("Server error with status code: \(status)")
+                        observer.onError(NSError(domain: "", code: status, userInfo: [NSLocalizedDescriptionKey: "Error with status code: \(status)"]))
+                    }
+                case .failure(let error):
+                    print("Network error: \(error.localizedDescription)")
+                    observer.onError(error)
+                }
+            }
+            
+            return Disposables.create {
+                request.cancel()
+            }
+        }
     }
 }

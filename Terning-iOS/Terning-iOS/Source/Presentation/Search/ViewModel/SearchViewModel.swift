@@ -166,7 +166,7 @@ extension SearchViewModel {
                                 observer.onCompleted()
                             } else {
                                 print("No banner data available")
-                                observer.onError(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No banner data available"]))
+                                observer.onError(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "배너 데이터 없음"]))
                             }
                         } catch {
                             print(error.localizedDescription)
@@ -174,7 +174,7 @@ extension SearchViewModel {
                         }
                     } else if status >= 400 {
                         print("Server error with status code: \(status)")
-                        observer.onError(NSError(domain: "", code: status, userInfo: [NSLocalizedDescriptionKey: "Error with status code: \(status)"]))
+                        observer.onError(NSError(domain: "", code: status, userInfo: [NSLocalizedDescriptionKey: "에러 상태 코드: \(status)"]))
                     }
                 case .failure(let error):
                     print("Network error: \(error.localizedDescription)")

@@ -10,13 +10,15 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+import RxMoya
+
 final class SearchViewModel: ViewModelType {
     
     // MARK: - Properties
     
     private let searchProvider = Providers.searchProvider
     
-    var advertisements: [Advertisement] = []
+    var advertisements: [BannerModel] = []
     
     // MARK: - Input
     
@@ -28,7 +30,7 @@ final class SearchViewModel: ViewModelType {
     // MARK: - Output
     
     struct Output {
-        let announcements: Driver<[Advertisement]>
+        let announcements: Driver<[BannerModel]>
         let recommendedByViews: Driver<[RecommendAnnouncement]>
         let recommendedByScraps: Driver<[RecommendAnnouncement]>
         let searchTapped: Driver<Void>
@@ -38,13 +40,13 @@ final class SearchViewModel: ViewModelType {
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let announcements = input.viewDidLoad
-            .do(onNext: {
-                self.advertisements = [
-                    Advertisement(image: .imgAd1, url: "https://www.instagram.com/terning_official/"),
-                    Advertisement(image: .imgAd2, url: "https://forms.gle/4btEwEbUQ3JSjTKP7")
-                ]
-            })
-            .map { self.advertisements }
+            .flatMapLatest { _ in
+                self.fetchAdveriseData()
+                    .do(onNext: { fetchedAdvertisements in
+                        self.advertisements = fetchedAdvertisements
+                    })
+                    .catchAndReturn([])
+            }
             .asDriver(onErrorJustReturn: [])
         
         let recommendedByViews = input.viewDidLoad
@@ -140,6 +142,42 @@ extension SearchViewModel {
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
+                    observer.onError(error)
+                }
+            }
+            
+            return Disposables.create {
+                request.cancel()
+            }
+        }
+    }
+    
+    private func fetchAdveriseData() -> Observable<[BannerModel]> {
+        return Observable.create { observer in
+            let request = self.searchProvider.request(.getAdvertiseDatas) { result in
+                switch result {
+                case .success(let response):
+                    let status = response.statusCode
+                    if 200..<300 ~= status {
+                        do {
+                            let responseDto = try response.map(BaseResponse<AdvertisementModel>.self)
+                            if let banners = responseDto.result?.banners {
+                                observer.onNext(banners)
+                                observer.onCompleted()
+                            } else {
+                                print("No banner data available")
+                                observer.onError(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "배너 데이터 없음"]))
+                            }
+                        } catch {
+                            print(error.localizedDescription)
+                            observer.onError(error)
+                        }
+                    } else if status >= 400 {
+                        print("Server error with status code: \(status)")
+                        observer.onError(NSError(domain: "", code: status, userInfo: [NSLocalizedDescriptionKey: "에러 상태 코드: \(status)"]))
+                    }
+                case .failure(let error):
+                    print("Network error: \(error.localizedDescription)")
                     observer.onError(error)
                 }
             }

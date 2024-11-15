@@ -18,6 +18,7 @@ final class SearchView: UIView {
     
     var viewsNum: [RecommendAnnouncement]?
     var scrapsNum: [RecommendAnnouncement]?
+    var advertisements: [AdvertisementModel]?
     
     // MARK: - UIComponents
     

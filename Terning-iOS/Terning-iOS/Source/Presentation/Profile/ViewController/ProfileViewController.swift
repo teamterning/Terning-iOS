@@ -95,6 +95,7 @@ extension ProfileViewController {
     }
     
     private func pushToWelcome() {
+        track(eventName: .clickStartService)
         let welcomeViewController = WelcomeViewController(viewType: .first)
         OnboardingData.shared.userName = self.userName
         self.navigationController?.pushViewController(welcomeViewController, animated: true)

@@ -374,6 +374,8 @@ extension SearchViewController: UICollectionViewDelegate {
         
         if collectionView == rootView.advertisementCollectionView {
             let advertisement = viewModel.advertisements[indexPath.item]
+            
+            track(eventName: .clickQuestBanner, eventProperties: ["배너 위치": "\(indexPath.item + 1) 번째 배너 클릭"])
             if let url = URL(string: advertisement.link) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }

@@ -54,7 +54,7 @@ extension HomeTargetType: TargetType {
     }
     
     var headers: [String: String]? {
-        return ["Content-Type": "application/json", "Authorization": "Bearer \(Config.accessToken)"]
+        return Config.defaultHeader
     }
     
     var validationType: ValidationType {

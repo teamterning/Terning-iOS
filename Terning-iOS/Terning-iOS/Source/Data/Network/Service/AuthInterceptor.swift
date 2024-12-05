@@ -14,33 +14,26 @@ import Moya
 final class AuthInterceptor: RequestInterceptor {
     
     static let shared = AuthInterceptor()
-    
-    private var retryCount = 0
-    private let maxRetryCount = 3
-    
+        
     private init() {}
     
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-        var urlRequest = urlRequest
-        
         guard urlRequest.url?.absoluteString.hasPrefix(Config.baseURL) == true,
-              let accessToken = UserManager.shared.accessToken,
-              let refreshToken = UserManager.shared.refreshToken
+              let accessToken = UserManager.shared.accessToken
         else {
             completion(.success(urlRequest))
             return
         }
         
-        urlRequest.setValue(accessToken, forHTTPHeaderField: "accessToken")
-        urlRequest.setValue(refreshToken, forHTTPHeaderField: "refreshToken")
+        var urlRequest = urlRequest
+        urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         print("adator 적용 \(urlRequest.headers)")
         completion(.success(urlRequest))
     }
     
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
         print("retry 진입")
-        guard retryCount < maxRetryCount,
-              let response = request.task?.response as? HTTPURLResponse,
+        guard let response = request.task?.response as? HTTPURLResponse,
               response.statusCode == 401,
               let pathComponents = request.request?.url?.pathComponents,
               !pathComponents.contains("getNewToken")
@@ -54,7 +47,6 @@ final class AuthInterceptor: RequestInterceptor {
             switch result {
             case .success:
                 print("Retry-토큰 재발급 성공")
-                self.retryCount += 1
                 completion(.retry)
             case .failure(let error):
                 // 세션 만료 -> 로그인 화면으로 전환

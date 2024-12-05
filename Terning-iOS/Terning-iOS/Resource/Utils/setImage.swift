@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 import Kingfisher
 
 public extension UIImageView {
@@ -50,5 +51,23 @@ public extension UIImageView {
                 }
             }
         )
+    }
+}
+
+struct RemoteImageView: View {
+    let urlString: String
+    
+    var body: some View {
+        KFImage(URL(string: urlString))
+            .placeholder {
+                Image("img_placeholder") // 로드 중에 표시할 placeholder
+                    .resizable()
+                    .scaledToFit()
+            }
+            .resizable()
+            .fade(duration: 0.5)
+            .loadDiskFileSynchronously()
+            .cacheMemoryOnly()
+            .scaledToFit()
     }
 }

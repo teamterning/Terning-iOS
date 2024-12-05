@@ -71,7 +71,3 @@ struct RemoteImageView: View {
             .scaledToFit()
     }
 }
-
-#Preview {
-    ClosingSoonView(model: upcomingCard)
-}

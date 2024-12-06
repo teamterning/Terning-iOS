@@ -14,7 +14,7 @@ import Moya
 final class AuthInterceptor: RequestInterceptor {
     
     static let shared = AuthInterceptor()
-        
+    
     private init() {}
     
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {

@@ -7,9 +7,9 @@
 	<key>CFBundleDisplayName</key>
 	<string>terning</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.4</string>
+	<string>1.0.5</string>
 	<key>CFBundleVersion</key>
-	<string>2024.1119.2145</string>
+	<string>2024.1206.0304</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleURLTypes</key>

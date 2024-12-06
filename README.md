@@ -3,7 +3,7 @@
 # 👔 terning 터닝 - 대학생 인턴, 공고 관리 캘린더
 
 ## 앱스토어 링크 : [앱스토어](https://apps.apple.com/kr/app/terning-%ED%84%B0%EB%8B%9D-%EB%8C%80%ED%95%99%EC%83%9D-%EC%9D%B8%ED%84%B4-%EA%B3%B5%EA%B3%A0-%EA%B4%80%EB%A6%AC-%EC%BA%98%EB%A6%B0%EB%8D%94/id6547866420) v1.0.5
-<p align="center"><img src="https://github.com/user-attachments/assets/984e7795-3746-4e7a-ad6c-cb1cb376c481"></p>
+<p align="left"><img width="900" src="https://github.com/user-attachments/assets/984e7795-3746-4e7a-ad6c-cb1cb376c481"></p>
 
 **내 계획에 딱 맞는 대학생 인턴의 시작, 터닝**
 
@@ -44,9 +44,99 @@
 ## **🧑‍💻 Member**
 | 이명진<br/>([@thingineeer](https://github.com/thingineeer)) | 정민지<br/>([@wjdalswl](https://github.com/wjdalswl)) | 김민성<br/>([@mminny](https://github.com/mminny)) |
 | :---: | :---: | :---: |
-| <img width="544" alt="IMG_6676 2" src="https://github.com/user-attachments/assets/96a2e12c-ff29-42eb-b5ae-622d73c2b62b"> | <img width="544" alt="IMG_6678" src="https://github.com/user-attachments/assets/1e645a4e-e85e-4c7f-b082-6eb5a2d2dee4"> | <img width="544" alt="IMG_6677" src="https://github.com/user-attachments/assets/02f5e8cd-649d-4bd5-811b-c6e580886782"> |
+| <img width="400" alt="IMG_6676 2" src="https://github.com/user-attachments/assets/96a2e12c-ff29-42eb-b5ae-622d73c2b62b"> | <img width="400" alt="IMG_6678" src="https://github.com/user-attachments/assets/1e645a4e-e85e-4c7f-b082-6eb5a2d2dee4"> | <img width="400" alt="IMG_6677" src="https://github.com/user-attachments/assets/02f5e8cd-649d-4bd5-811b-c6e580886782"> |
 |`홈 화면` `캘린더` `소셜 로그인` `스크랩` `공용 컴포넌트` |`온보딩` `소셜 로그인` `탐색` `공고 상세화면` `마이페이지` |`홈` `필터링`|
 <br>
+
+## **📸 시연 영상**
+
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/825315e8-6b57-4c60-a95e-abf9e9439dd4" width="200" /></td>
+    <td><img src="https://github.com/user-attachments/assets/ad025d19-e558-48d6-91d1-9eaa3ba8641b" width="200" /></td>
+    <td><img src="https://github.com/user-attachments/assets/cbeab450-0be9-4c9f-924b-97b67a068bee" width="200" /></td>
+    <td><img src="https://github.com/user-attachments/assets/4f763daa-1717-461e-8763-f4744c0e7418" width="200" /></td>
+    <td><img src="https://github.com/user-attachments/assets/2c5b6a77-e45f-42ca-96ec-6fe0a886aeb5" width="200" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>스플래시</b></td>
+    <td align="center"><b>카카오 로그인</b></td>
+    <td align="center"><b>애플 로그인</b></td>
+    <td align="center"><b>로그아웃</b></td>
+    <td align="center"><b>회원탈퇴</b></td>
+  </tr>
+</table>
+<br>
+<br>
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/11de57e0-169d-4ed9-b5cd-81b0c3e509ce" width="250" /></td>
+    <td><img src="https://github.com/user-attachments/assets/c0f5fdea-ecc7-4a73-b3ee-f72953e2dde4" width="250" /></td>
+    <td><img src="https://github.com/user-attachments/assets/7477ef5b-4d92-4894-816e-54ce2358cdc7" width="250" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>자동 로그인</b></td>
+    <td align="center"><b>회원가입</b></td>
+    <td align="center"><b>온보딩</b></td>
+  </tr>
+</table>
+<br>
+<br>
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/41bc9602-a0d5-406a-87c0-8c65eb36e135" width="250" /></td>
+    <td><img src="https://github.com/user-attachments/assets/30aa73b7-4e0d-4b80-aa2a-53e40418f89c" width="250" /></td>
+    <td><img src="https://github.com/user-attachments/assets/2dba6848-d103-44b6-a0f7-050deca7718d" width="250" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>스크랩(홈)</b></td>
+    <td align="center"><b>스크랩 취소(검색)</b></td>
+    <td align="center"><b>스크랩 색상 변경(캘린더)</b></td>
+  </tr>
+</table>
+<br>
+<br>
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/7480f227-eab7-435a-a8ce-0c0153489af1" width="250" /></td>
+    <td><img src="https://github.com/user-attachments/assets/c7090822-3720-4e5f-a10f-957f21bfe02a" width="250" /></td>
+    <td><img src="https://github.com/user-attachments/assets/8c0c64f7-9b5f-472c-8ad9-e3f94ae4e9b3" width="250" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>홈 정렬</b></td>
+    <td align="center"><b>홈 필터링</b></td>
+    <td align="center"><b>공고 상세</b></td>
+  </tr>
+</table>
+<br>
+<br>
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/e35a7bf1-0cdd-4f42-99bf-ca194a73aee5" width="250" /></td>
+    <td><img src="https://github.com/user-attachments/assets/ae371436-f23f-40ae-be5b-69871822d8f1" width="250" /></td>
+    <td><img src="https://github.com/user-attachments/assets/53c75627-8551-4808-8365-1f5ec5935f93" width="250" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>지원사이트 이동</b></td>
+    <td align="center"><b>공고 검색</b></td>
+    <td align="center"><b>검색 정렬 및 페이지네이션</b></td>
+  </tr>
+</table>
+<br>
+<br>
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/12d2df7c-dd78-4e27-8c2d-fa7ce2c84c88" width="250" /></td>
+    <td><img src="https://github.com/user-attachments/assets/bbfcfe4a-cce4-4109-8fd3-aeb0fc381c6a" width="250" /></td>
+    <td><img src="https://github.com/user-attachments/assets/d1bf6ee8-b7fb-4a8a-bbc7-afc8b862d443" width="250" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>캘린더 공고 모음</b></td>
+    <td align="center"><b>캘린더 기능</b></td>
+    <td align="center"><b>캘린더 스크랩 취소</b></td>
+  </tr>
+</table>
+
 
 
 ## [🏠 Project Design](https://www.figma.com/board/h597MCTAjj8PawsF1nbHMC/iOS-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%84%A4%EA%B3%84?node-id=0-1&t=elsfeNTTSrKMhUfx-1)
@@ -206,5 +296,4 @@
             └── 📂 Welcome
 ```
 
-## **🎨 Design**
-<img src ="https://github.com/user-attachments/assets/02afcc51-e476-45f9-bb57-9ac997eef127">
+## **🎨 [Behance(앱 소개)](https://www.behance.net/gallery/209714965/terning-College-Internship-App)**

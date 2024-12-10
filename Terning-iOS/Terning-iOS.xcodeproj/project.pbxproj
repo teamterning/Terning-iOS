@@ -355,8 +355,20 @@
 		B8F503392C749315000D2A22 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		71DA89982CFDFA960003078C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Components/FilterButtonView.swift,
+			);
+			target = 71E3C3C82C22BAF40026C4DD /* Terning-iOS */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		713C5A772CC15B7E00321E15 /* Amplitude */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Amplitude; sourceTree = "<group>"; };
+		71DA88DA2CFDC81D0003078C /* SwiftUI+ */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "SwiftUI+"; sourceTree = "<group>"; };
+		71DA89952CFDFA460003078C /* SwiftUI */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (71DA89982CFDFA960003078C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SwiftUI; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1074,6 +1086,7 @@
 				71E3C3E42C241B8A0026C4DD /* Resource */,
 				71E3C3E72C241BF20026C4DD /* Source */,
 				715C0FD42C99075300EDDD60 /* Tests */,
+				71DA89952CFDFA460003078C /* SwiftUI */,
 				71E3C3DA2C22BAF50026C4DD /* Info.plist */,
 			);
 			path = "Terning-iOS";
@@ -1174,6 +1187,7 @@
 		71E3C3EB2C241C480026C4DD /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				71DA88DA2CFDC81D0003078C /* SwiftUI+ */,
 				7121A14D2C3B09BF0056DB8B /* Foundation+ */,
 				7121A14C2C3B09B30056DB8B /* UIKit+ */,
 			);
@@ -1320,6 +1334,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				713C5A772CC15B7E00321E15 /* Amplitude */,
+				71DA88DA2CFDC81D0003078C /* SwiftUI+ */,
 			);
 			name = "Terning-iOS";
 			packageProductDependencies = (

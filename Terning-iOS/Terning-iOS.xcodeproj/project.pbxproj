@@ -359,6 +359,7 @@
 		71DA89982CFDFA960003078C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Components/ClosingSoonView.swift,
 				Components/FilterButtonView.swift,
 				Components/MainHomeLogoView.swift,
 				Components/SortButtonView.swift,

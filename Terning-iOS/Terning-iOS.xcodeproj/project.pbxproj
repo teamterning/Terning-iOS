@@ -361,6 +361,7 @@
 			membershipExceptions = (
 				Components/ClosingSoonView.swift,
 				Components/FilterButtonView.swift,
+				Components/JobCardView.swift,
 				Components/MainHomeLogoView.swift,
 				Components/SortButtonView.swift,
 			);

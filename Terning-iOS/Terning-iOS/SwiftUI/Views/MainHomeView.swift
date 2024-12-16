@@ -44,9 +44,9 @@ struct MainHomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 10) {
                                 ForEach(jobList.scraps, id: \.internshipAnnouncementId) { scrap in
-                                    Button(action: {
+                                    Button {
                                         self.navigateToDetailViewController(scrapModel: scrap)
-                                    }) {
+                                    } label: {
                                         ClosingSoonView(model: scrap)
                                     }
                                 }
@@ -153,9 +153,9 @@ struct StickyHeaderView: View {
                         .foregroundStyle(.grey400)
                         .padding(.trailing, 54)
                     
-                    Button(action: {
+                    Button {
                         isBottomSheetPresented.toggle()
-                    }) {
+                    } label: {
                         SortButtonView()
                     }
                     

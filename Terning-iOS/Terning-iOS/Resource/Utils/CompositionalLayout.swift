@@ -275,4 +275,87 @@ struct CompositionalLayout {
             }
         }
     }
+    
+    static func createNewHomeCollectionViewLayout(hasScrapped: Bool, soonData: [AnnouncementModel]) -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
+            
+            print("호출: 섹션 번호 - \(sectionNumber)")
+            if sectionNumber == 0 {
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(1)
+                    )
+                )
+                
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(48)),
+                    subitems: [item]
+                )
+                
+                let section = NSCollectionLayoutSection(group: group)
+                
+                return section
+                
+            } else if sectionNumber == 1 {
+                
+                if hasScrapped && !soonData.isEmpty {
+                    let itemWidth: CGFloat = 246.adjusted
+                    
+                    let item = NSCollectionLayoutItem(
+                        layoutSize: .init(
+                            widthDimension: .absolute(itemWidth),
+                            heightDimension: .fractionalHeight(1)
+                        )
+                    )
+                    
+                    let groupHeight: CGFloat = 116.adjustedH
+                    
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .estimated(itemWidth),
+                            heightDimension: .absolute(groupHeight)
+                        ),
+                        subitems: [item]
+                    )
+                    
+                    let section = NSCollectionLayoutSection(group: group)
+                    
+                    section.contentInsets = .init(top: 0, leading: 24, bottom: 20, trailing: 24)
+                    section.interGroupSpacing = 20
+                    
+                    section.orthogonalScrollingBehavior = .continuous
+                    
+                    return section
+                } else {
+                    
+                    let itemWidth: CGFloat = 327.adjusted
+                    
+                    let item = NSCollectionLayoutItem(
+                        layoutSize: .init(
+                            widthDimension: .absolute(itemWidth),
+                            heightDimension: .fractionalHeight(1)
+                        )
+                    )
+                    
+                    let groupHeight: CGFloat = 116.adjustedH
+                    
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1.0),
+                            heightDimension: .absolute(groupHeight)
+                        ), subitems: [item]
+                    )
+                    
+                    let section = NSCollectionLayoutSection(group: group)
+                    section.contentInsets = .init(top: 0, leading: 24, bottom: 20, trailing: 0)
+                    
+                    return section
+                }
+                
+            }
+            
+            return nil
+        }
+    }
 }

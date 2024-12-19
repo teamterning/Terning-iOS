@@ -360,6 +360,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				MainFilterButton.swift,
+				MainSortButton.swift,
 			);
 			target = 71E3C3C82C22BAF40026C4DD /* Terning-iOS */;
 		};

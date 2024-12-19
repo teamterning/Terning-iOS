@@ -1,5 +1,5 @@
 //
-//  MainFilterButton.swift
+//  MainSortButton.swift
 //  Terning-iOS
 //
 //  Created by 이명진 on 12/19/24.
@@ -7,12 +7,14 @@
 
 import UIKit
 
-final class MainFilterButton: UIButton {
+final class MainSortButton: UIButton {
     
-    // MARK: - Life Cycle
+    private var sortName: String
     
-    init() {
+    init(sortName: String = "채용 마감 이른순") {
+        self.sortName = sortName
         super.init(frame: .zero)
+        
         configureButton()
     }
     
@@ -20,27 +22,24 @@ final class MainFilterButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - UI & Layout
-    
     private func configureButton() {
         
         var config = UIButton.Configuration.filled()
         
         config.attributedTitle = AttributedString(
-            "필터링",
+            "\(sortName)",
             attributes: AttributeContainer([
                 .font: UIFont.button3,
-                .foregroundColor: UIColor.terningMain
+                .foregroundColor: UIColor.grey350
             ])
         )
         
-        config.image = .icFilter
-        
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 9)
+        config.image = .icUnderArrow
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 3.adjusted, bottom: 0, trailing: 10.adjusted)
         
         config.background.cornerRadius = 5
         config.background.strokeWidth = 1
-        config.background.strokeColor = .terningMain
+        config.background.strokeColor = .grey350
         config.background.backgroundColor = .white
         
         self.configuration = config

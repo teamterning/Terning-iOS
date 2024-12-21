@@ -32,7 +32,10 @@ final class HomeView: UIView {
         return collectionView
     }()
     
-    private let homeLogo = UIImageView().then {
+    private let homeLogoView = UIView().then {
+        $0.backgroundColor = .white
+    }
+    private let homeLogoImage = UIImageView().then {
         $0.image = UIImage(resource: .homeLogo)
     }
     
@@ -65,20 +68,28 @@ extension HomeView {
     
     private func setHierarchy() {
         addSubviews(
-            homeLogo,
+            homeLogoView,
             collectionView,
             gradientLayerView
         )
+        
+        homeLogoView.addSubview(homeLogoImage)
     }
     
     private func setLayout() {
-        homeLogo.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).offset(8.adjustedH)
+        homeLogoView.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(52.adjustedH)
+        }
+        
+        homeLogoImage.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(24.adjusted)
+            $0.centerY.equalToSuperview()
         }
         
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(homeLogo.snp.bottom).offset(23.adjustedH)
+            $0.top.equalTo(homeLogoImage.snp.bottom)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(safeAreaLayoutGuide)
         }

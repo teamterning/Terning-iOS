@@ -57,12 +57,10 @@ extension ScrapInfoHeaderCell {
 
 extension ScrapInfoHeaderCell {
     func bind(name: String) {
-        if name.isEmpty {
-            titleLabel.text = "곧 마감되는 회원님의 관심 공고"
-        } else if name.count > 6 {
-            titleLabel.text = "곧 마감되는\n\(name)님의 관심 공고"
+        if name.count > 6 {
+            titleLabel.text = "\(name)님에게 \n딱 맞는 대학생 인턴 공고"
         } else {
-            titleLabel.text = "곧 마감되는 \(name)님의 관심 공고"
+            titleLabel.text = "\(name)님에게 딱 맞는 대학생 인턴 공고"
         }
     }
 }

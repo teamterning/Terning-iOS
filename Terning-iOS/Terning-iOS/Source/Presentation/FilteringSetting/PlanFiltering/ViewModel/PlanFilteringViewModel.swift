@@ -49,12 +49,14 @@ final class PlanFilteringViewModel: ViewModelType {
         input.gradeSelected
             .subscribe(onNext: { grade in
                 TemporaryFilteringData.shared.grade = grade
+                self.gradeRelay.accept(grade)
             })
             .disposed(by: disposeBag)
         
         input.periodSelected
             .subscribe(onNext: { period in
                 TemporaryFilteringData.shared.workingPeriod = period
+                self.periodRelay.accept(period)
             })
             .disposed(by: disposeBag)
         
@@ -64,6 +66,7 @@ final class PlanFilteringViewModel: ViewModelType {
                 let components = Calendar.current.dateComponents([.year, .month], from: date)
                 TemporaryFilteringData.shared.startYear = components.year
                 TemporaryFilteringData.shared.startMonth = components.month
+                self.dateRelay.accept(date)
             })
             .disposed(by: disposeBag)
         

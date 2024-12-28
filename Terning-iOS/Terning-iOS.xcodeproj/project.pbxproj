@@ -359,6 +359,7 @@
 		71D01B312D142A3F00E8A8CE /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Cell/ClosingJobAnnouncementCell.swift,
 				Cell/HomeTopCell.swift,
 				Cell/StickyHeaderCell.swift,
 				MainFilterButton.swift,

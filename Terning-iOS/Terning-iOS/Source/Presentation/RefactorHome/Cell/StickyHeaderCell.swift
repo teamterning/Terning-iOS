@@ -81,7 +81,7 @@ extension StickyHeaderCell {
         
         HStackView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(15.adjustedH)
-            $0.leading.equalTo(totalCountLabel.snp.trailing).offset(54.adjusted)
+            $0.trailing.equalToSuperview().offset(-24.adjusted)
             $0.height.equalTo(30.adjustedH)
         }
         

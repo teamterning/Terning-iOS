@@ -231,7 +231,7 @@ extension HomeViewController: UICollectionViewDataSource {
         case .todayDeadline:
             if hasScrapped {
                 if upcomingCardLists.isEmpty {
-                    guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: CheckDeadlineCell.className, for: indexPath) as? CheckDeadlineCell  else { return UICollectionViewCell() }
+                    guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: CheckDeadlineCell.className, for: indexPath) as? CheckDeadlineCell  else { return UICollectionViewCell() } // 일주일 내에 마감인 공고가 없어요 \n 캘린더에서 스크랩한 공고 일정을 확인해 보세요
                     cell.checkDeadlineDelegate = self
                     return cell
                 } else {
@@ -241,7 +241,7 @@ extension HomeViewController: UICollectionViewDataSource {
                     return cell
                 }
             } else {
-                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonScrapInfoCell.className, for: indexPath) as? NonScrapInfoCell else { return UICollectionViewCell() } // 오늘 마감인 공고가 없어요
+                guard let cell = rootView.collectionView.dequeueReusableCell(withReuseIdentifier: NonScrapInfoCell.className, for: indexPath) as? NonScrapInfoCell else { return UICollectionViewCell() } // 아직 스크랩된 인턴 공고가 없어요!
                 return cell
             }
             

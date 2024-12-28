@@ -107,7 +107,7 @@ extension JobCardCell {
     func setLayout() {
         jobCard.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(20.adjusted)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
             $0.height.equalTo(100.adjustedH)
         }
         

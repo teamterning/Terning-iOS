@@ -41,7 +41,7 @@ extension UIButton {
     
     func press(vibrate: Bool = false,
                animated: Bool = true,
-               for controlEvents: UIControl.Event = .touchUpInside, _ closure: @escaping() -> Void) {
+               for controlEvents: UIControl.Event = .touchUpInside, _ closure: @escaping () -> Void) {
         if #available(iOS 14.0, *) {
             self.addAction(UIAction { _ in closure()
                 if animated { self.clickedAnimation(vibrate: vibrate) }
@@ -50,7 +50,7 @@ extension UIButton {
             @objc class ClosureSleeve: NSObject {
                 let closure: () -> Void
                 
-                init(_ closure: @escaping() -> Void) {
+                init(_ closure: @escaping () -> Void) {
                     self.closure = closure
                 }
                 @objc func invoke() { closure() }

@@ -159,6 +159,7 @@
 		71F004C32C956C8500CD202B /* CalendarScrapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F004C22C956C8500CD202B /* CalendarScrapModel.swift */; };
 		71F004C52C956C9700CD202B /* CalendarAnnouncementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F004C42C956C9700CD202B /* CalendarAnnouncementModel.swift */; };
 		71F004C72C957C8C00CD202B /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F004C62C957C8C00CD202B /* EmptyView.swift */; };
+		71F918522D0A29F700FA0430 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 71F918512D0A29F700FA0430 /* ComposableArchitecture */; };
 		71FFB2B52C47ECF200C60697 /* CustomBottmSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2B42C47ECF200C60697 /* CustomBottmSheetViewController.swift */; };
 		71FFB2B82C48286300C60697 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2B72C48286300C60697 /* SplashViewController.swift */; };
 		71FFB2BD2C4A186900C60697 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2BC2C4A186900C60697 /* HomeViewController.swift */; };
@@ -409,6 +410,7 @@
 				7121A13C2C3A6CEB0056DB8B /* RxRelay in Frameworks */,
 				71E3C4062C241DD40026C4DD /* ReactiveMoya in Frameworks */,
 				2DC61F2C2C4213C7009F991F /* KakaoSDK in Frameworks */,
+				71F918522D0A29F700FA0430 /* ComposableArchitecture in Frameworks */,
 				2DC61F2E2C4213C7009F991F /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1373,6 +1375,7 @@
 				719C6DEB2C8F220D006AF9C9 /* Inject */,
 				2D997FAD2C91A6460078DAB0 /* Lottie */,
 				713C5A732CC1578600321E15 /* AmplitudeSwift */,
+				71F918512D0A29F700FA0430 /* ComposableArchitecture */,
 			);
 			productName = "Terning-iOS";
 			productReference = 71E3C3C92C22BAF40026C4DD /* Terning-iOS.app */;
@@ -1413,6 +1416,7 @@
 				719C6DEA2C8F220D006AF9C9 /* XCRemoteSwiftPackageReference "Inject" */,
 				2D997FAC2C91A6460078DAB0 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				713C5A722CC1578600321E15 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */,
+				71F918502D0A29F700FA0430 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			productRefGroup = 71E3C3CA2C22BAF40026C4DD /* Products */;
 			projectDirPath = "";
@@ -1951,6 +1955,14 @@
 				minimumVersion = 15.0.3;
 			};
 		};
+		71F918502D0A29F700FA0430 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.17.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2028,6 +2040,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 71E3C4022C241DD40026C4DD /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = RxMoya;
+		};
+		71F918512D0A29F700FA0430 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71F918502D0A29F700FA0430 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

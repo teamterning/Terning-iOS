@@ -241,8 +241,8 @@ extension OnboardingView {
             dateComponents.year = year
             dateComponents.month = month
             if let date = calendar.date(from: dateComponents) {
-                OnboardingData.shared.startYear = year
-                OnboardingData.shared.startMonth = month
+                OnboardingData.shared.startYear = year ?? 0
+                OnboardingData.shared.startMonth = month ?? 0
                 self?.dateSelectedSubject.onNext(date)
             }
         }

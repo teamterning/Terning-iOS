@@ -11,11 +11,15 @@ public final class CustomDatePicker: UIPickerView {
     
     // MARK: - Properties
     
-    private let years = Array(2010...2030)
-    private let months = Array(1...12)
+    private(set) var years = Array(2010...2030).map { "\($0)" }
+    private(set) var months = Array(1...12).map { "\($0)" }
+    private var shouldRemovePlaceholderOnSelection = false
     
-    var onDateSelected: ((Int, Int) -> Void)?
+    var onDateSelected: ((Int?, Int?) -> Void)?
     
+    private var hasPlaceholder: Bool {
+        years.last == "-" || months.last == "-"
+    }
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -38,11 +42,7 @@ extension CustomDatePicker: UIPickerViewDataSource {
     }
     
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0 {
-            return years.count
-        } else {
-            return months.count
-        }
+        return component == 0 ? years.count : months.count
     }
 }
 
@@ -54,7 +54,7 @@ extension CustomDatePicker: UIPickerViewDelegate {
     }
     
     public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 40
+        return 34.18
     }
     
     public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
@@ -73,9 +73,9 @@ extension CustomDatePicker: UIPickerViewDelegate {
             label.snp.makeConstraints {
                 $0.centerY.equalToSuperview()
                 if component == 0 {
-                    $0.trailing.equalToSuperview().inset(15)
+                    $0.trailing.equalToSuperview().inset(years[row] == "-" ? 40 : 15)
                 } else {
-                    $0.leading.equalToSuperview().inset(26)
+                    $0.leading.equalToSuperview().inset(months[row] == "-" ? 32 : 26)
                 }
             }
         }
@@ -84,7 +84,8 @@ extension CustomDatePicker: UIPickerViewDelegate {
         paragraphStyle.alignment = .right
         paragraphStyle.tailIndent = 60
         
-        let text = (component == 0) ? "\(years[row])년" : "\(months[row])월"
+        let text = (component == 0) ? "\(years[row])\(years[row] == "-" ? " " : "년")"
+        : "\(months[row])\(months[row] == "-" ? " " : "월")"
         
         let attributedString = NSAttributedString(string: text, attributes: [
             NSAttributedString.Key.paragraphStyle: paragraphStyle,
@@ -98,8 +99,24 @@ extension CustomDatePicker: UIPickerViewDelegate {
     }
     
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let selectedYear = years[pickerView.selectedRow(inComponent: 0)]
-        let selectedMonth = months[pickerView.selectedRow(inComponent: 1)]
+        if shouldRemovePlaceholderOnSelection {
+            if component == 0, years.last == "-", row < years.count - 1 {
+                years.removeLast()
+                reloadComponent(0)
+            }
+            
+            if component == 1, months.last == "-", row < months.count - 1 {
+                months.removeLast()
+                reloadComponent(1)
+            }
+        }
+        
+        let selectedYear = years[selectedRow(inComponent: 0)] != "-"
+        ? Int(years[selectedRow(inComponent: 0)])
+        : nil
+        let selectedMonth = selectedRow(inComponent: 1) < months.count && months[selectedRow(inComponent: 1)] != "-"
+        ? Int(months[selectedRow(inComponent: 1)])
+        : nil
         onDateSelected?(selectedYear, selectedMonth)
     }
 }
@@ -116,8 +133,8 @@ extension CustomDatePicker {
     private func setSelectedRow() {
         let (currentYear, currentMonth) = Date().getCurrentKrYearAndMonth()
         
-        if let initialYearIndex = years.firstIndex(of: currentYear),
-           let initialMonthIndex = months.firstIndex(of: currentMonth) {
+        if let initialYearIndex = years.firstIndex(of: "\(currentYear)"),
+           let initialMonthIndex = months.firstIndex(of: "\(currentMonth)") {
             self.selectRow(initialYearIndex, inComponent: 0, animated: false)
             self.selectRow(initialMonthIndex, inComponent: 1, animated: false)
             onDateSelected?(currentYear, currentMonth)
@@ -129,11 +146,34 @@ extension CustomDatePicker {
 
 extension CustomDatePicker {
     public func setInitialDate(year: Int, month: Int) {
-        if let initialYearIndex = years.firstIndex(of: year),
-           let initialMonthIndex = months.firstIndex(of: month) {
+        if let initialYearIndex = years.firstIndex(of: "\(year)"),
+           let initialMonthIndex = months.firstIndex(of: "\(month)") {
             self.selectRow(initialYearIndex, inComponent: 0, animated: false)
             self.selectRow(initialMonthIndex, inComponent: 1, animated: false)
             onDateSelected?(year, month)
+        }
+    }
+    
+    public func addPlaceholder() {
+        if years.last != "-" {
+            years.append("-")
+        }
+        if months.last != "-" {
+            months.append("-")
+        }
+        reloadAllComponents()
+        
+        let yearLastIndex = years.count - 1
+        let monthLastIndex = months.count - 1
+        selectRow(yearLastIndex, inComponent: 0, animated: true)
+        selectRow(monthLastIndex, inComponent: 1, animated: true)
+        
+        onDateSelected?(nil, nil)
+    }
+    
+    public func removePlaceholder() {
+        if hasPlaceholder {
+            shouldRemovePlaceholderOnSelection = true
         }
     }
 }

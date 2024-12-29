@@ -276,6 +276,36 @@ struct CompositionalLayout {
         }
     }
     
+    static func jobFilterLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
+            let interItemSpacing: CGFloat = 17.0
+            let numberOfColumns: CGFloat = 3
+            
+            let totalHorizontalInsets: CGFloat = (numberOfColumns - 1) * interItemSpacing
+            let sideInset: CGFloat = 24 * 2
+            let availableWidth = UIScreen.main.bounds.width - totalHorizontalInsets - sideInset
+            let itemWidth = availableWidth / numberOfColumns
+            
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .absolute(itemWidth),
+                heightDimension: .absolute(itemWidth)
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(itemWidth)
+            )
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            group.interItemSpacing = .fixed(interItemSpacing)
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.interGroupSpacing = 20
+            
+            return section
+        }
+    }
+    
     static func createNewHomeCollectionViewLayout(hasScrapped: Bool, soonData: [AnnouncementModel], userName: String) -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
             

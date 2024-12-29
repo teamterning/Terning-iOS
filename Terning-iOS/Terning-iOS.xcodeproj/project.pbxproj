@@ -21,6 +21,12 @@
 		2D4EE3E82C400D6900E3E95B /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3E72C400D6900E3E95B /* OnboardingPageViewController.swift */; };
 		2D4EE3EA2C400ECB00E3E95B /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3E92C400ECB00E3E95B /* OnboardingViewController.swift */; };
 		2D4EE3ED2C4020DC00E3E95B /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3EC2C4020DC00E3E95B /* OnboardingViewModel.swift */; };
+		2D74E4F22D1F10CD0018A56E /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D74E4F12D1F10CC0018A56E /* Grade.swift */; };
+		2D74E4F42D1F11C20018A56E /* WorkingPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D74E4F32D1F11BE0018A56E /* WorkingPeriod.swift */; };
+		2D74E4F62D1F12230018A56E /* JobType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D74E4F52D1F121F0018A56E /* JobType.swift */; };
+		2D74E4F92D1F1BF20018A56E /* JobFilteringViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D74E4F82D1F1BF10018A56E /* JobFilteringViewModel.swift */; };
+		2D74E5022D1F20250018A56E /* PlanFilteringViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D74E5012D1F201B0018A56E /* PlanFilteringViewModel.swift */; };
+		2D74E5082D1F26100018A56E /* FilteringViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D74E5072D1F260F0018A56E /* FilteringViewModel.swift */; };
 		2D89C74D2C47E8EA002B035F /* ProfileImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C74C2C47E8EA002B035F /* ProfileImageViewModel.swift */; };
 		2D89C74F2C47E98B002B035F /* ProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C74E2C47E98B002B035F /* ProfileImageViewController.swift */; };
 		2D89C7512C47E99B002B035F /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C7502C47E99B002B035F /* ProfileImageView.swift */; };
@@ -31,10 +37,16 @@
 		2D89C7632C486E20002B035F /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C7622C486E20002B035F /* SearchResultViewController.swift */; };
 		2D89C7652C486E2E002B035F /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C7642C486E2E002B035F /* SearchResultView.swift */; };
 		2D89C7672C486E53002B035F /* CustomSortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D89C7662C486E53002B035F /* CustomSortButton.swift */; };
+		2D8CCF0D2D1107F60030E8E5 /* FilteringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CCF0C2D1107F30030E8E5 /* FilteringViewController.swift */; };
+		2D8CCF0F2D110A990030E8E5 /* JobFilteringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CCF0E2D110A8F0030E8E5 /* JobFilteringViewController.swift */; };
+		2D8CCF112D110AD30030E8E5 /* PlanFilteringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CCF102D110AD10030E8E5 /* PlanFilteringViewController.swift */; };
+		2D8CCF132D110B3A0030E8E5 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CCF122D110B340030E8E5 /* CustomSegmentedControl.swift */; };
+		2D8CCF152D11122F0030E8E5 /* JobCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CCF142D11122E0030E8E5 /* JobCategoryCell.swift */; };
 		2D8D0D412C492B8C00ECB36F /* SearchResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8D0D402C492B8C00ECB36F /* SearchResultModel.swift */; };
 		2D997FAE2C91A6460078DAB0 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2D997FAD2C91A6460078DAB0 /* Lottie */; };
 		2D997FBD2C9228F00078DAB0 /* beforeOnboarding.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D997FBC2C9228F00078DAB0 /* beforeOnboarding.json */; };
 		2D997FBF2C9229760078DAB0 /* afterOnboarding.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D997FBE2C9229760078DAB0 /* afterOnboarding.json */; };
+		2DAC9E7B2D112AC600A7842E /* CustomCheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAC9E7A2D112AC500A7842E /* CustomCheckButton.swift */; };
 		2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */; };
 		2DC61EF52C4075EB009F991F /* MainInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF42C4075EB009F991F /* MainInfoTableViewCell.swift */; };
 		2DC61EF72C4075F3009F991F /* JobDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF62C4075F3009F991F /* JobDetailViewModel.swift */; };
@@ -61,6 +73,10 @@
 		2DC9860D2C4605FC00D46729 /* AdvertisementsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */; };
 		2DD419CA2CA46D2900F647DC /* loginAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 2DD419C92CA46D2900F647DC /* loginAnimation.json */; };
 		2DD483802C4B37A0000541E3 /* AccountOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD4837F2C4B37A0000541E3 /* AccountOptionViewController.swift */; };
+		2DD4DC8D2D1F7F080036D08D /* FiltersRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD4DC8C2D1F7EF50036D08D /* FiltersRepositoryInterface.swift */; };
+		2DD4DC8F2D1F7FB20036D08D /* FiltersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD4DC8E2D1F7FAA0036D08D /* FiltersModel.swift */; };
+		2DD4DC912D1F80590036D08D /* FiltersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD4DC902D1F80570036D08D /* FiltersRepository.swift */; };
+		2DD4DC932D1F80DD0036D08D /* FiltersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD4DC922D1F80D10036D08D /* FiltersService.swift */; };
 		2DF256F12C8C853F00B85843 /* MyPageProfileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F02C8C853F00B85843 /* MyPageProfileViewCell.swift */; };
 		2DF256F32C8C855700B85843 /* MyPageBasicViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F22C8C855700B85843 /* MyPageBasicViewCell.swift */; };
 		2DF256F52C8C856800B85843 /* MyPageAccountOptionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF256F42C8C856800B85843 /* MyPageAccountOptionViewCell.swift */; };
@@ -202,6 +218,12 @@
 		2D4EE3E72C400D6900E3E95B /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
 		2D4EE3E92C400ECB00E3E95B /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		2D4EE3EC2C4020DC00E3E95B /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		2D74E4F12D1F10CC0018A56E /* Grade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grade.swift; sourceTree = "<group>"; };
+		2D74E4F32D1F11BE0018A56E /* WorkingPeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingPeriod.swift; sourceTree = "<group>"; };
+		2D74E4F52D1F121F0018A56E /* JobType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobType.swift; sourceTree = "<group>"; };
+		2D74E4F82D1F1BF10018A56E /* JobFilteringViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobFilteringViewModel.swift; sourceTree = "<group>"; };
+		2D74E5012D1F201B0018A56E /* PlanFilteringViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanFilteringViewModel.swift; sourceTree = "<group>"; };
+		2D74E5072D1F260F0018A56E /* FilteringViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringViewModel.swift; sourceTree = "<group>"; };
 		2D89C74C2C47E8EA002B035F /* ProfileImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViewModel.swift; sourceTree = "<group>"; };
 		2D89C74E2C47E98B002B035F /* ProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViewController.swift; sourceTree = "<group>"; };
 		2D89C7502C47E99B002B035F /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
@@ -212,9 +234,15 @@
 		2D89C7622C486E20002B035F /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		2D89C7642C486E2E002B035F /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		2D89C7662C486E53002B035F /* CustomSortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSortButton.swift; sourceTree = "<group>"; };
+		2D8CCF0C2D1107F30030E8E5 /* FilteringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringViewController.swift; sourceTree = "<group>"; };
+		2D8CCF0E2D110A8F0030E8E5 /* JobFilteringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobFilteringViewController.swift; sourceTree = "<group>"; };
+		2D8CCF102D110AD10030E8E5 /* PlanFilteringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanFilteringViewController.swift; sourceTree = "<group>"; };
+		2D8CCF122D110B340030E8E5 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		2D8CCF142D11122E0030E8E5 /* JobCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCategoryCell.swift; sourceTree = "<group>"; };
 		2D8D0D402C492B8C00ECB36F /* SearchResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultModel.swift; sourceTree = "<group>"; };
 		2D997FBC2C9228F00078DAB0 /* beforeOnboarding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = beforeOnboarding.json; sourceTree = "<group>"; };
 		2D997FBE2C9229760078DAB0 /* afterOnboarding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = afterOnboarding.json; sourceTree = "<group>"; };
+		2DAC9E7A2D112AC500A7842E /* CustomCheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCheckButton.swift; sourceTree = "<group>"; };
 		2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailViewController.swift; sourceTree = "<group>"; };
 		2DC61EF42C4075EB009F991F /* MainInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInfoTableViewCell.swift; sourceTree = "<group>"; };
 		2DC61EF62C4075F3009F991F /* JobDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailViewModel.swift; sourceTree = "<group>"; };
@@ -238,6 +266,10 @@
 		2DC9860C2C4605FC00D46729 /* AdvertisementsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementsModel.swift; sourceTree = "<group>"; };
 		2DD419C92CA46D2900F647DC /* loginAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loginAnimation.json; sourceTree = "<group>"; };
 		2DD4837F2C4B37A0000541E3 /* AccountOptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOptionViewController.swift; sourceTree = "<group>"; };
+		2DD4DC8C2D1F7EF50036D08D /* FiltersRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersRepositoryInterface.swift; sourceTree = "<group>"; };
+		2DD4DC8E2D1F7FAA0036D08D /* FiltersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersModel.swift; sourceTree = "<group>"; };
+		2DD4DC902D1F80570036D08D /* FiltersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersRepository.swift; sourceTree = "<group>"; };
+		2DD4DC922D1F80D10036D08D /* FiltersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersService.swift; sourceTree = "<group>"; };
 		2DF256F02C8C853F00B85843 /* MyPageProfileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageProfileViewCell.swift; sourceTree = "<group>"; };
 		2DF256F22C8C855700B85843 /* MyPageBasicViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageBasicViewCell.swift; sourceTree = "<group>"; };
 		2DF256F42C8C856800B85843 /* MyPageAccountOptionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAccountOptionViewCell.swift; sourceTree = "<group>"; };
@@ -514,6 +546,93 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		2D74E4F72D1F13230018A56E /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				2D74E4F12D1F10CC0018A56E /* Grade.swift */,
+				2DD4DC8E2D1F7FAA0036D08D /* FiltersModel.swift */,
+				2D74E4F32D1F11BE0018A56E /* WorkingPeriod.swift */,
+				2D74E4F52D1F121F0018A56E /* JobType.swift */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
+		2D74E4FA2D1F1BFD0018A56E /* JobFiltering */ = {
+			isa = PBXGroup;
+			children = (
+				2D74E4FB2D1F1C0A0018A56E /* ViewController */,
+				2D74E4FC2D1F1C110018A56E /* ViewModel */,
+				2D8CCF162D11123C0030E8E5 /* Cell */,
+			);
+			path = JobFiltering;
+			sourceTree = "<group>";
+		};
+		2D74E4FB2D1F1C0A0018A56E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2D8CCF0E2D110A8F0030E8E5 /* JobFilteringViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2D74E4FC2D1F1C110018A56E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2D74E4F82D1F1BF10018A56E /* JobFilteringViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2D74E4FD2D1F1F670018A56E /* PlanFiltering */ = {
+			isa = PBXGroup;
+			children = (
+				2D74E4FF2D1F1F730018A56E /* ViewModel */,
+				2D74E4FE2D1F1F700018A56E /* ViewController */,
+			);
+			path = PlanFiltering;
+			sourceTree = "<group>";
+		};
+		2D74E4FE2D1F1F700018A56E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2D8CCF102D110AD10030E8E5 /* PlanFilteringViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2D74E4FF2D1F1F730018A56E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2D74E5012D1F201B0018A56E /* PlanFilteringViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2D74E5032D1F25E00018A56E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2D8CCF0C2D1107F30030E8E5 /* FilteringViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2D74E5042D1F25E70018A56E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2D74E5072D1F260F0018A56E /* FilteringViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2D74E5052D1F25F00018A56E /* FilteringView */ = {
+			isa = PBXGroup;
+			children = (
+				2D74E5042D1F25E70018A56E /* ViewModel */,
+				2D74E5032D1F25E00018A56E /* ViewController */,
+			);
+			path = FilteringView;
+			sourceTree = "<group>";
+		};
 		2D89C7572C486DD2002B035F /* SearchResult */ = {
 			isa = PBXGroup;
 			children = (
@@ -554,6 +673,14 @@
 			children = (
 				2D89C75C2C486DF7002B035F /* SortHeaderCell.swift */,
 				2D89C75E2C486E05002B035F /* GraphicCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		2D8CCF162D11123C0030E8E5 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2D8CCF142D11122E0030E8E5 /* JobCategoryCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -715,6 +842,14 @@
 			path = AccountOption;
 			sourceTree = "<group>";
 		};
+		2DD4DC942D1F80F00036D08D /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				2DD4DC922D1F80D10036D08D /* FiltersService.swift */,
+			);
+			path = Filters;
+			sourceTree = "<group>";
+		};
 		2DF256EF2C8C853300B85843 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -830,12 +965,14 @@
 			children = (
 				7121A1412C3AE99D0056DB8B /* Cell */,
 				7121A1322C396FB40056DB8B /* CustomButton.swift */,
+				2DAC9E7A2D112AC500A7842E /* CustomCheckButton.swift */,
 				2D89C7662C486E53002B035F /* CustomSortButton.swift */,
 				2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */,
 				2D4EE3842C3D6E6B00E3E95B /* CustomProgressView.swift */,
 				2DC986072C45FAC200D46729 /* CustomPageControl.swift */,
 				2DC986052C45704600D46729 /* CustomSearchBar.swift */,
 				2D4EE38A2C3D9FD900E3E95B /* CustomDatePicker.swift */,
+				2D8CCF122D110B340030E8E5 /* CustomSegmentedControl.swift */,
 				7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */,
 				7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */,
 				71FFB2B42C47ECF200C60697 /* CustomBottmSheetViewController.swift */,
@@ -920,6 +1057,7 @@
 		715C0FEB2C9ACFF000EDDD60 /* RepositoryInterface */ = {
 			isa = PBXGroup;
 			children = (
+				2DD4DC8C2D1F7EF50036D08D /* FiltersRepositoryInterface.swift */,
 				715C0FEC2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift */,
 				715C0FF02C9F256700EDDD60 /* JobDetailRepositoryInterface.swift */,
 			);
@@ -940,6 +1078,7 @@
 			children = (
 				71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */,
 				715028682C84AA1600F67472 /* LoginRepository.swift */,
+				2DD4DC902D1F80570036D08D /* FiltersRepository.swift */,
 				715C0FEE2C9F252500EDDD60 /* JobDetailRepository.swift */,
 			);
 			path = Repository;
@@ -957,6 +1096,7 @@
 		71780C332C4572300073B731 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				2DD4DC942D1F80F00036D08D /* Filters */,
 				71DE23762C7C67460024ACED /* Calendar */,
 				715028652C84A5AD00F67472 /* Login */,
 				71780C342C45725E0073B731 /* Providers.swift */,
@@ -1246,6 +1386,7 @@
 		71F004C82C95A1E400CD202B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2D74E4F72D1F13230018A56E /* Filter */,
 				2DF256F82C8C85A100B85843 /* MyPage */,
 				2DC986092C46054D00D46729 /* Search */,
 				B8BE0E122C4666BD00B3D298 /* Home */,
@@ -1334,6 +1475,9 @@
 			children = (
 				B86A67572C41166800CB90E5 /* FilterButton.swift */,
 				B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */,
+				2D74E5052D1F25F00018A56E /* FilteringView */,
+				2D74E4FA2D1F1BFD0018A56E /* JobFiltering */,
+				2D74E4FD2D1F1F670018A56E /* PlanFiltering */,
 				B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */,
 			);
 			path = FilteringSetting;
@@ -1486,7 +1630,9 @@
 				B871D7332C3EC148008D78C2 /* IsScrapInfoViewCell.swift in Sources */,
 				2DF256FA2C8C85AC00B85843 /* MyPageCellModel.swift in Sources */,
 				B8A5A5AE2C78780B007C33C5 /* GradientLayerView.swift in Sources */,
+				2D8CCF0F2D110A990030E8E5 /* JobFilteringViewController.swift in Sources */,
 				2D4EE3962C3DD5CB00E3E95B /* WelcomeViewController.swift in Sources */,
+				2DD4DC932D1F80DD0036D08D /* FiltersService.swift in Sources */,
 				2DF256F52C8C856800B85843 /* MyPageAccountOptionViewCell.swift in Sources */,
 				7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */,
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
@@ -1507,6 +1653,7 @@
 				71FFB2BF2C4A188A00C60697 /* HomeView.swift in Sources */,
 				7121A13E2C3A98E10056DB8B /* LabelFactory.swift in Sources */,
 				71780C562C45A81E0073B731 /* AuthInterceptor.swift in Sources */,
+				2D74E5082D1F26100018A56E /* FilteringViewModel.swift in Sources */,
 				71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */,
 				715028672C84A5C600F67472 /* LoginService.swift in Sources */,
 				2D89C7632C486E20002B035F /* SearchResultViewController.swift in Sources */,
@@ -1520,13 +1667,16 @@
 				71F004C32C956C8500CD202B /* CalendarScrapModel.swift in Sources */,
 				71780C442C45860C0073B731 /* SignInResponseModel.swift in Sources */,
 				B855485A2C47EEBB00EC67F6 /* UserProfileInfoModel.swift in Sources */,
+				2DD4DC8D2D1F7F080036D08D /* FiltersRepositoryInterface.swift in Sources */,
 				2D4EE38B2C3D9FD900E3E95B /* CustomDatePicker.swift in Sources */,
 				2D4EE3942C3DD5B700E3E95B /* WelcomeView.swift in Sources */,
 				71461ED42C3811E8002A6999 /* ViewController+.swift in Sources */,
+				2D8CCF132D110B3A0030E8E5 /* CustomSegmentedControl.swift in Sources */,
 				B853C88A2C7B2F6B00AA439C /* SortSettingViewController.swift in Sources */,
 				71E3C4122C243BDD0026C4DD /* getClassName.swift in Sources */,
 				71CCC0792C3FDABF00789A9B /* TNCalendarViewModel.swift in Sources */,
 				71F004C52C956C9700CD202B /* CalendarAnnouncementModel.swift in Sources */,
+				2DD4DC912D1F80590036D08D /* FiltersRepository.swift in Sources */,
 				2D8D0D412C492B8C00ECB36F /* SearchResultModel.swift in Sources */,
 				71CCC0732C3F36EA00789A9B /* TNCalendarView.swift in Sources */,
 				2DC986082C45FAC200D46729 /* CustomPageControl.swift in Sources */,
@@ -1557,6 +1707,7 @@
 				71E3C3CF2C22BAF40026C4DD /* SceneDelegate.swift in Sources */,
 				2DC61EF52C4075EB009F991F /* MainInfoTableViewCell.swift in Sources */,
 				2DC61F292C421335009F991F /* LoginViewModel.swift in Sources */,
+				2D74E4F42D1F11C20018A56E /* WorkingPeriod.swift in Sources */,
 				71780C3C2C457DD70073B731 /* AuthTargetType.swift in Sources */,
 				2D4EE3E82C400D6900E3E95B /* OnboardingPageViewController.swift in Sources */,
 				71780C4E2C459F610073B731 /* FiltersTargetType.swift in Sources */,
@@ -1568,6 +1719,7 @@
 				B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */,
 				7119B8112CA72FBD00E94E62 /* UIColor+.swift in Sources */,
 				71780C482C458FF80073B731 /* HomeTargetType.swift in Sources */,
+				2D8CCF0D2D1107F60030E8E5 /* FilteringViewController.swift in Sources */,
 				71780C3E2C45849A0073B731 /* UserDefaultWrapper.swift in Sources */,
 				7121A14B2C3B09800056DB8B /* setImage.swift in Sources */,
 				B871D7292C3E8E46008D78C2 /* JobCardCell.swift in Sources */,
@@ -1582,6 +1734,7 @@
 				71780C522C45A4950073B731 /* SearchTargetType.swift in Sources */,
 				71DE237A2C7C67890024ACED /* ScrapsService.swift in Sources */,
 				B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */,
+				2D8CCF112D110AD30030E8E5 /* PlanFilteringViewController.swift in Sources */,
 				2DC9860D2C4605FC00D46729 /* AdvertisementsModel.swift in Sources */,
 				2D89C75D2C486DF7002B035F /* SortHeaderCell.swift in Sources */,
 				B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */,
@@ -1593,6 +1746,7 @@
 				2DD483802C4B37A0000541E3 /* AccountOptionViewController.swift in Sources */,
 				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
 				715C0FF12C9F256700EDDD60 /* JobDetailRepositoryInterface.swift in Sources */,
+				2D8CCF152D11122F0030E8E5 /* JobCategoryCell.swift in Sources */,
 				2D89C7652C486E2E002B035F /* SearchResultView.swift in Sources */,
 				2D89C7672C486E53002B035F /* CustomSortButton.swift in Sources */,
 				2DC61EF72C4075F3009F991F /* JobDetailViewModel.swift in Sources */,
@@ -1601,22 +1755,28 @@
 				2DC985F72C456F7E00D46729 /* AdvertisementCollectionViewCell.swift in Sources */,
 				B871D7312C3E9118008D78C2 /* NonScrapInfoCell.swift in Sources */,
 				71F004C72C957C8C00CD202B /* EmptyView.swift in Sources */,
+				2D74E5022D1F20250018A56E /* PlanFilteringViewModel.swift in Sources */,
 				719C6DF02C93DBB7006AF9C9 /* CustomAlertViewController.swift in Sources */,
 				2D89C7542C47E9AE002B035F /* ProfileImageCell.swift in Sources */,
 				2D4EE3892C3D9EA400E3E95B /* Date+.swift in Sources */,
 				7121A1532C3DE3680056DB8B /* CustomNavigationBar.swift in Sources */,
+				2D74E4F62D1F12230018A56E /* JobType.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,
 				71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */,
+				2D74E4F22D1F10CD0018A56E /* Grade.swift in Sources */,
 				B8BE0E142C46D38700B3D298 /* UserFilteringInfoModel.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
 				B833F7D22C8EC661006AE46E /* CheckDeadlineCell.swift in Sources */,
 				2D89C7612C486E12002B035F /* SearchResultViewModel.swift in Sources */,
 				2DC61F152C41AB54009F991F /* LoginViewController.swift in Sources */,
+				2D74E4F92D1F1BF20018A56E /* JobFilteringViewModel.swift in Sources */,
 				2DC61F052C40926D009F991F /* JobDetailView.swift in Sources */,
 				7121A1492C3B08360056DB8B /* JobDetailModel.swift in Sources */,
 				2D4EE3ED2C4020DC00E3E95B /* OnboardingViewModel.swift in Sources */,
 				715C0FED2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift in Sources */,
 				71B5092B2C42DBBF006D8E56 /* CalendarDateFooterView.swift in Sources */,
+				2DAC9E7B2D112AC600A7842E /* CustomCheckButton.swift in Sources */,
+				2DD4DC8F2D1F7FB20036D08D /* FiltersModel.swift in Sources */,
 				2DF257252C8F691300B85843 /* ProfileFixViewModel.swift in Sources */,
 				2D4EE3872C3D7CB200E3E95B /* CustomOnboardingButton.swift in Sources */,
 				B855485F2C48027500EC67F6 /* MyPageViewController.swift in Sources */,

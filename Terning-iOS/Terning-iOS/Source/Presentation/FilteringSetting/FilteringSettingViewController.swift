@@ -168,7 +168,8 @@ extension FilteringSettingViewController {
                 grade: grade,
                 workingPeriod: workingPeriod,
                 startYear: startYear ?? 2024,
-                startMonth: startMonth ?? 9
+                startMonth: startMonth ?? 9,
+                jobType: ""
             )
         ) { [weak self] result in
             guard let self = self else { return }

@@ -269,11 +269,17 @@ extension HomeViewController: UICollectionViewDataSource {
 
 extension HomeViewController: FilterButtonProtocol {
     func filterButtonDidTap() {
-        let filterSettingVC = FilteringSettingViewController(data: filterInfos)
+        let filterSettingVC = FilteringViewController(
+            viewModel: FilteringViewModel(
+                filtersRepository: FiltersRepository(
+                    filtersService: FiltersService(
+                        provider: Providers.filtersProvider
+                    )
+                )
+            )
+        )
         
-        filterSettingVC.saveButtonDelegate = self
-        
-        let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * ((658-32)/812) }
+        let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * ((637-32)/812) }
         
         if let sheet = filterSettingVC.sheetPresentationController {
             sheet.detents = [fraction]

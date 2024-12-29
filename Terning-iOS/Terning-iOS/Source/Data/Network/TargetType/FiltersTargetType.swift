@@ -10,7 +10,13 @@ import Moya
 
 enum FiltersTargetType {
     case getFilterDatas
-    case setFilterDatas(grade: String?, workingPeriod: String?, startYear: Int?, startMonth: Int?)
+    case setFilterDatas(
+        grade: String?,
+        workingPeriod: String?,
+        startYear: Int?,
+        startMonth: Int?,
+        jobType: String?
+    )
 }
 
 extension FiltersTargetType: TargetType {
@@ -42,14 +48,25 @@ extension FiltersTargetType: TargetType {
         switch self {
         case .getFilterDatas:
             return .requestPlain
-        case .setFilterDatas(let grade, let workingPeriod, let startYear, let startMonth):
+        case .setFilterDatas(
+            let grade,
+            let workingPeriod,
+            let startYear,
+            let startMonth,
+            let jobType
+        ):
+            let parameters: [String: Any?] = [
+                "grade": grade,
+                "workingPeriod": workingPeriod,
+                "startYear": startYear,
+                "startMonth": startMonth,
+                "jobType": jobType
+            ]
+            
+            let nonNilParameters = parameters.mapValues { $0 ?? NSNull() }
+            
             return .requestParameters(
-                parameters: [
-                    "grade": grade ?? 0,
-                    "workingPeriod": workingPeriod ?? 0,
-                    "startYear": startYear ?? 2024,
-                    "startMonth": startMonth ?? 8
-                ],
+                parameters: nonNilParameters,
                 encoding: JSONEncoding.default
             )
         }

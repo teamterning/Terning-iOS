@@ -13,8 +13,10 @@ final class CustomOnboardingButton: UIButton {
     
     // MARK: - Properties
     
-    private var originalTitle: String
+    var originalTitle: String
     private var selectedTitle: String
+    private var cornerRadius: Int?
+    private var height: Int?
     var index: Int = 0
     
     override var isHighlighted: Bool {

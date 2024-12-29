@@ -16,13 +16,8 @@ final class PlanFilteringViewModel: ViewModelType {
     private let isFilterAppliedRelay = BehaviorRelay<Bool>(value: false)
     private let gradeRelay = BehaviorRelay<Grade?>(value: UserFilteringData.shared.grade)
     private let periodRelay = BehaviorRelay<WorkingPeriod?>(value: UserFilteringData.shared.workingPeriod)
-    private let dateRelay = BehaviorRelay<Date?>(
-        value: {
-            guard let year = UserFilteringData.shared.startYear,
-                  let month = UserFilteringData.shared.startMonth else { return nil }
-            let components = DateComponents(year: year, month: month)
-            return Calendar.current.date(from: components)
-        }())
+    private let yearRelay = BehaviorRelay<Int?>(value: UserFilteringData.shared.startYear)
+    private let monthRelay = BehaviorRelay<Int?>(value: UserFilteringData.shared.startMonth)
     private let checkBoxRelay = BehaviorRelay<Bool>(value: false)
     
     // MARK: - Input
@@ -30,7 +25,8 @@ final class PlanFilteringViewModel: ViewModelType {
     struct Input {
         let gradeSelected: Observable<Grade?>
         let periodSelected: Observable<WorkingPeriod?>
-        let dateSelected: Observable<Date?>
+        let yearSelected: Observable<Int?>
+        let monthSelected: Observable<Int?>
         let checkBoxToggled: Observable<Bool>
     }
     
@@ -39,7 +35,8 @@ final class PlanFilteringViewModel: ViewModelType {
     struct Output {
         let selectedGrade: Driver<Grade?>
         let selectedPeriod: Driver<WorkingPeriod?>
-        let selectedDate: Driver<Date?>
+        let selectedYear: Driver<Int?>
+        let selectedMonth: Driver<Int?>
         let isFilterApplied: Driver<Bool>
     }
     
@@ -60,13 +57,17 @@ final class PlanFilteringViewModel: ViewModelType {
             })
             .disposed(by: disposeBag)
         
-        input.dateSelected
-            .subscribe(onNext: { date in
-                guard let date = date else { return }
-                let components = Calendar.current.dateComponents([.year, .month], from: date)
-                TemporaryFilteringData.shared.startYear = components.year
-                TemporaryFilteringData.shared.startMonth = components.month
-                self.dateRelay.accept(date)
+        input.yearSelected
+            .subscribe(onNext: { year in
+                TemporaryFilteringData.shared.startMonth = year
+                self.yearRelay.accept(year)
+            })
+            .disposed(by: disposeBag)
+
+        input.monthSelected
+            .subscribe(onNext: { month in
+                TemporaryFilteringData.shared.startMonth = month
+                self.monthRelay.accept(month)
             })
             .disposed(by: disposeBag)
         
@@ -75,10 +76,10 @@ final class PlanFilteringViewModel: ViewModelType {
             .disposed(by: disposeBag)
         
         Observable
-            .combineLatest(gradeRelay, periodRelay, dateRelay, checkBoxRelay)
-            .map { grade, period, date, isChecked in
+            .combineLatest(gradeRelay, periodRelay, yearRelay, monthRelay, checkBoxRelay)
+            .map { grade, period, year, month, isChecked in
                 if isChecked { return true }
-                return grade != nil && period != nil && date != nil
+                return grade != nil && period != nil && year != nil && month != nil
             }
             .bind(to: isFilterAppliedRelay)
             .disposed(by: disposeBag)
@@ -86,7 +87,8 @@ final class PlanFilteringViewModel: ViewModelType {
         return Output(
             selectedGrade: gradeRelay.asDriver(),
             selectedPeriod: periodRelay.asDriver(),
-            selectedDate: dateRelay.asDriver(),
+            selectedYear: yearRelay.asDriver(),
+            selectedMonth: monthRelay.asDriver(),
             isFilterApplied: isFilterAppliedRelay.asDriver()
         )
     }

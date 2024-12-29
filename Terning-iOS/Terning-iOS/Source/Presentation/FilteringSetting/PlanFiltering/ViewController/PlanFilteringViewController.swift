@@ -143,23 +143,16 @@ extension PlanFilteringViewController {
                 }
             }
         )
-        let dateSelected: Observable<Date?> = Observable.create { [weak self] observer -> Disposable in
+        let dateSelected = Observable<(Int?, Int?)>.create { [weak self] observer -> Disposable in
             self?.customPickerView.onDateSelected = { year, month in
                 self?.updateCheckBoxState()
-                guard let year = year, let month = month else {
-                    observer.onNext(nil)
-                    return
-                }
-                let components = DateComponents(year: year, month: month)
-                let calendar = Calendar.current
-                if let date = calendar.date(from: components) {
-                    observer.onNext(date)
-                } else {
-                    observer.onNext(nil)
-                }
+                observer.onNext((year, month))
             }
             return Disposables.create()
         }
+        .observe(on: MainScheduler.asyncInstance)
+        .share()
+
         let checkBoxToggled: Observable<Bool> = Observable.create { [weak self] observer -> Disposable in
             self?.checkBox.action = { isChecked in
                 self?.didTapCheckBox(isChecked: isChecked)
@@ -171,7 +164,8 @@ extension PlanFilteringViewController {
         let input = PlanFilteringViewModel.Input(
             gradeSelected: gradeSelected,
             periodSelected: periodSelected,
-            dateSelected: dateSelected,
+            yearSelected: dateSelected.map { $0.0 },
+            monthSelected: dateSelected.map { $0.1 },
             checkBoxToggled: checkBoxToggled
         )
         
@@ -190,18 +184,13 @@ extension PlanFilteringViewController {
                 self.updateButtonState(for: self.periodButtons, selectedValue: period.displayName, section: 1)
             })
             .disposed(by: disposeBag)
-        
-        output.selectedDate
-            .asObservable()
+
+        Observable
+            .combineLatest(output.selectedYear.asObservable(), output.selectedMonth.asObservable())
             .take(1)
-            .subscribe(onNext: { [weak self] date in
-                guard let self = self, let date = date else { return }
-                let calendar = Calendar.current
-                let components = calendar.dateComponents([.year, .month], from: date)
-                
-                if let year = components.year, let month = components.month {
-                    self.customPickerView.setInitialDate(year: year, month: month)
-                }
+            .subscribe(onNext: { [weak self] year, month in
+                guard let self = self, let year = year, let month = month else { return }
+                self.customPickerView.setInitialDate(year: year, month: month)
             })
             .disposed(by: disposeBag)
         
@@ -230,10 +219,8 @@ extension PlanFilteringViewController {
             
             let yearIsValid = selectedYearRow >= 0 && selectedYearRow < customPickerView.years.count && customPickerView.years[selectedYearRow] != "-"
             let monthIsValid = selectedMonthRow >= 0 && selectedMonthRow < customPickerView.months.count && customPickerView.months[selectedMonthRow] != "-"
-            
             return yearIsValid || monthIsValid
         }()
-        
         if hasSelectedButton || pickerHasValidSelection {
             checkBox.setChecked(false)
         }

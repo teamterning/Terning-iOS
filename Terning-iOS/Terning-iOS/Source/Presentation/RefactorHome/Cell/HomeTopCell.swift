@@ -1,8 +1,8 @@
 //
-//  ScrapInfoHeaderCell.swift
+//  HomeTopCell.swift
 //  Terning-iOS
 //
-//  Created by 김민성 on 7/10/24.
+//  Created by 이명진 on 12/19/24.
 //
 
 import UIKit
@@ -10,12 +10,12 @@ import UIKit
 import SnapKit
 import Then
 
-final class ScrapInfoHeaderCell: UICollectionViewCell {
+final class HomeTopCell: UICollectionViewCell {
     
     // MARK: - UIComponents
     
     private let titleLabel = LabelFactory.build(
-        text: "곧 마감되는 회원님의 관심 공고",
+        text: "곧 마감되는 관심 공고",
         font: .title1,
         textColor: .terningBlack,
         textAlignment: .left
@@ -39,28 +39,16 @@ final class ScrapInfoHeaderCell: UICollectionViewCell {
 
 // MARK: - UI & Layout
 
-extension ScrapInfoHeaderCell {
-    
+extension HomeTopCell {
     private func setHierarchy() {
-        addSubview(titleLabel)
+        backgroundColor = .white
+        contentView.addSubview(titleLabel)
     }
     
     private func setLayout() {
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.equalToSuperview().offset(24)
-        }
-    }
-}
-
-// MARK: - Methods
-
-extension ScrapInfoHeaderCell {
-    func bind(name: String) {
-        if name.count > 6 {
-            titleLabel.text = "\(name)님에게 \n딱 맞는 대학생 인턴 공고"
-        } else {
-            titleLabel.text = "\(name)님에게 딱 맞는 대학생 인턴 공고"
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().offset(24.adjusted)
         }
     }
 }

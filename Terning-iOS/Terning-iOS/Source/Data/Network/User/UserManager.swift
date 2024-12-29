@@ -46,7 +46,7 @@ final class UserManager {
         self.refreshToken = refreshToken
     }
     
-    func signIn(authType: String, completion: @escaping(Result<Bool, TNError>) -> Void) {
+    func signIn(authType: String, completion: @escaping (Result<Bool, TNError>) -> Void) {
         print("🍎🍎signIn 함수 시작🍎🍎")
         authProvider.request(.signIn(authType: authType)) { [weak self] response in
             guard let self = self else { return }
@@ -92,7 +92,7 @@ final class UserManager {
         }
     }
     
-    func getNewToken(completion: @escaping(Result<Bool, TNError>) -> Void) {
+    func getNewToken(completion: @escaping (Result<Bool, TNError>) -> Void) {
         authProvider.request(.getNewToken) { [weak self] response in
             guard let self = self else { return }
             switch response {

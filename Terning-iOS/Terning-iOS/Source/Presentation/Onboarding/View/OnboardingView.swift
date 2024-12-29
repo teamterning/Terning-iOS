@@ -270,7 +270,7 @@ extension OnboardingView {
         customDatePicker.snp.makeConstraints {
             $0.top.equalTo(subTitleLabel.snp.bottom).offset(24.adjustedH)
             $0.horizontalEdges.equalToSuperview().inset(20.adjusted)
-            $0.height.equalTo(200.adjustedH)
+            $0.height.equalTo(170.adjustedH)
         }
     }
     private func updateOnboardingData(for viewType: OnboardingViewType, with stringValue: String?) {

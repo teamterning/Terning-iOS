@@ -64,7 +64,7 @@ extension JobCategoryCell {
     }
     private func setLayout() {
         iconImageView.snp.makeConstraints {
-            $0.size.equalTo(24)
+            $0.size.equalTo(24.adjustedH)
         }
         
         stackView.snp.makeConstraints {

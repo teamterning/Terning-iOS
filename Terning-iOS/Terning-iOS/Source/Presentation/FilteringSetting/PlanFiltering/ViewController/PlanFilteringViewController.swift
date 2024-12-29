@@ -34,6 +34,11 @@ final class PlanFilteringViewController: UIViewController {
         $0.font = .systemFont(ofSize: 16, weight: .bold)
         $0.textColor = .darkGray
     }
+    private let dateTitleLabel = UILabel().then {
+        $0.text = "근무 시작 시기"
+        $0.font = .systemFont(ofSize: 16, weight: .bold)
+        $0.textColor = .darkGray
+    }
     private lazy var gradeButtons = createButtonGroup(titles: Grade.allCases.map { $0.displayName }, section: 0)
     private lazy var periodButtons = createButtonGroup(titles: WorkingPeriod.allCases.map { $0.displayName }, section: 1)
     private var customPickerView = CustomDatePicker()
@@ -70,6 +75,7 @@ extension PlanFilteringViewController {
             gradeButtons,
             periodTitleLabel,
             periodButtons,
+            dateTitleLabel,
             customPickerView,
             checkBox
         )
@@ -79,22 +85,26 @@ extension PlanFilteringViewController {
             $0.top.horizontalEdges.equalToSuperview()
         }
         gradeButtons.snp.makeConstraints {
-            $0.top.equalTo(gradeTitleLabel.snp.bottom).offset(8)
+            $0.top.equalTo(gradeTitleLabel.snp.bottom).offset(8.adjustedH)
             $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(36)
+            $0.height.equalTo(36.adjustedH)
         }
         periodTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(gradeButtons.snp.bottom).offset(16)
+            $0.top.equalTo(gradeButtons.snp.bottom).offset(16.adjustedH)
             $0.leading.equalToSuperview()
         }
         periodButtons.snp.makeConstraints {
-            $0.top.equalTo(periodTitleLabel.snp.bottom).offset(8)
+            $0.top.equalTo(periodTitleLabel.snp.bottom).offset(8.adjustedH)
             $0.horizontalEdges.equalToSuperview()
         }
+        dateTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(periodButtons.snp.bottom).offset(24.adjustedH)
+            $0.leading.equalToSuperview()
+        }
         customPickerView.snp.makeConstraints {
-            $0.top.equalTo(periodButtons.snp.bottom).offset(8)
+            $0.top.equalTo(periodButtons.snp.bottom).offset(10.adjustedH)
             $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(170)
+            $0.height.equalTo(170.adjustedH)
         }
         checkBox.snp.makeConstraints {
             $0.bottom.trailing.equalToSuperview()

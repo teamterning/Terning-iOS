@@ -77,11 +77,7 @@ extension CustomCheckButton {
     }
     
     private func updateAppearance() {
-        if isChecked {
-            checkImageView.image = .icCheckboxFill
-        } else {
-            checkImageView.image = .icCheckbox
-        }
+        checkImageView.image = isChecked ? .icCheckboxFill : .icCheckbox
     }
 }
 

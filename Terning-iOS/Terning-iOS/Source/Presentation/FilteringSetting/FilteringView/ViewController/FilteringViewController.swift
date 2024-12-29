@@ -172,7 +172,7 @@ extension FilteringViewController {
 
 extension FilteringViewController {
     private func setupSegmentControl() {
-        segmentControl.addTarget(self, action: #selector(didChangeSegment(_:)), for: .valueChanged)
+        segmentControl.addTarget(self, action: #selector(didChangeSegment), for: .valueChanged)
     }
     
     private func bindViewModel() {

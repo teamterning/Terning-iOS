@@ -11,7 +11,7 @@ public final class CustomDatePicker: UIPickerView {
     
     // MARK: - Properties
     
-    private(set) var years = Array(2010...2030).map { "\($0)" }
+    private(set) var years = Array(2022...2030).map { "\($0)" }
     private(set) var months = Array(1...12).map { "\($0)" }
     private var shouldRemovePlaceholderOnSelection = false
     

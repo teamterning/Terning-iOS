@@ -17,9 +17,6 @@ final class JobCategoryCell: UICollectionViewCell {
     private let iconImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
         $0.tintColor = .grey300
-        $0.snp.makeConstraints {
-            $0.size.equalTo(24)
-        }
     }
     
     private let titleLabel = LabelFactory.build(
@@ -29,7 +26,12 @@ final class JobCategoryCell: UICollectionViewCell {
         characterSpacing: 0.002
     )
     
-    private lazy var stackView = UIStackView().then {
+    private lazy var stackView = UIStackView(
+        arrangedSubviews: [
+            iconImageView,
+            titleLabel
+        ]
+    ).then {
         $0.axis = .vertical
         $0.spacing = 7
         $0.alignment = .center
@@ -55,14 +57,9 @@ final class JobCategoryCell: UICollectionViewCell {
 
 extension JobCategoryCell {
     private func setUI() {
-        contentView.layer.borderWidth = 1.0
-        contentView.layer.cornerRadius = 10
-        contentView.layer.borderColor = UIColor.grey200.cgColor
+        contentView.makeBorder(width: 1.0, color: .grey200, cornerRadius: 10)
     }
     private func setHierarchy() {
-        stackView.addArrangedSubview(iconImageView)
-        stackView.addArrangedSubview(titleLabel)
-        
         contentView.addSubview(stackView)
     }
     private func setLayout() {
@@ -101,7 +98,7 @@ extension JobCategoryCell {
 // MARK: - Bind
 
 extension JobCategoryCell {
-    func bind(with title: String, image: UIImage?) {
+    func bind(with title: String, image: UIImage) {
         titleLabel.text = title
         iconImageView.image = image
     }

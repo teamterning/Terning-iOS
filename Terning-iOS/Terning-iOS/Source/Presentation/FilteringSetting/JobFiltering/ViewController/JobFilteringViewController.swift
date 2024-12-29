@@ -22,18 +22,9 @@ final class JobFilteringViewController: UIViewController {
     // MARK: - UIComponents
     
     private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout().then {
-            $0.minimumInteritemSpacing = 17
-            $0.minimumLineSpacing = 20
-            let numberOfColumns: CGFloat = 3
-            let sideInset: CGFloat = 24 * 2
-            let totalSpacing: CGFloat = $0.minimumInteritemSpacing * (numberOfColumns - 1)
-            let itemWidth = (UIScreen.main.bounds.width - sideInset - totalSpacing) / numberOfColumns
-            $0.itemSize = CGSize(width: itemWidth, height: itemWidth)
-        }
+        let layout = CompositionalLayout.jobFilterLayout()
         return UICollectionView(frame: .zero, collectionViewLayout: layout).then {
             $0.backgroundColor = .white
-            $0.register(JobCategoryCell.self, forCellWithReuseIdentifier: JobCategoryCell.className)
         }
     }()
     
@@ -55,6 +46,7 @@ final class JobFilteringViewController: UIViewController {
         
         setHierarchy()
         setLayout()
+        setRegister()
         bindViewModel()
     }
 }
@@ -71,6 +63,9 @@ extension JobFilteringViewController {
             $0.edges.equalToSuperview()
         }
     }
+    private func setRegister() {
+        collectionView.register(JobCategoryCell.self, forCellWithReuseIdentifier: JobCategoryCell.className)
+    }
 }
 
 // MARK: - Bind
@@ -85,7 +80,7 @@ extension JobFilteringViewController {
         
         output.jobTypes
             .drive(collectionView.rx.items(cellIdentifier: JobCategoryCell.className, cellType: JobCategoryCell.self)) { _, jobType, cell in
-                cell.bind(with: jobType.displayName, image: jobType.image)
+                cell.bind(with: jobType.displayName, image: jobType.image ?? .default)
             }
             .disposed(by: disposeBag)
         

@@ -32,7 +32,6 @@ final class CustomSegmentedControl: UISegmentedControl {
         self.underline = underline
         super.init(items: items)
         setUI()
-        selectedSegmentIndex = 0
     }
     
     required init?(coder: NSCoder) {
@@ -72,6 +71,7 @@ private extension CustomSegmentedControl {
         setTitleTextAttributes(normalTextAttributes, for: .normal)
         setTitleTextAttributes(selectedTextAttributes, for: .selected)
         selectedSegmentTintColor = .clear
+        selectedSegmentIndex = 0
     }
     
     private func setUnderbarMovableBackgroundLayer() {

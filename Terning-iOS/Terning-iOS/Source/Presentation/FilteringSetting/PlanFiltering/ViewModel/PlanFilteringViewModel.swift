@@ -59,7 +59,7 @@ final class PlanFilteringViewModel: ViewModelType {
         
         input.yearSelected
             .subscribe(onNext: { year in
-                TemporaryFilteringData.shared.startMonth = year
+                TemporaryFilteringData.shared.startYear = year
                 self.yearRelay.accept(year)
             })
             .disposed(by: disposeBag)
@@ -77,6 +77,13 @@ final class PlanFilteringViewModel: ViewModelType {
         
         Observable
             .combineLatest(gradeRelay, periodRelay, yearRelay, monthRelay, checkBoxRelay)
+            .do(onNext: { grade, period, year, month, isChecked in
+                    print("Grade: \(String(describing: grade))")
+                    print("Period: \(String(describing: period))")
+                    print("Year: \(String(describing: year))")
+                    print("Month: \(String(describing: month))")
+                    print("IsChecked: \(isChecked)")
+                })
             .map { grade, period, year, month, isChecked in
                 if isChecked { return true }
                 return grade != nil && period != nil && year != nil && month != nil

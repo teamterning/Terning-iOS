@@ -55,14 +55,18 @@ extension FiltersTargetType: TargetType {
             let startMonth,
             let jobType
         ):
+            let parameters: [String: Any?] = [
+                "grade": grade,
+                "workingPeriod": workingPeriod,
+                "startYear": startYear,
+                "startMonth": startMonth,
+                "jobType": jobType
+            ]
+            
+            let nonNilParameters = parameters.mapValues { $0 ?? NSNull() }
+            
             return .requestParameters(
-                parameters: [
-                    "grade": grade ?? "",
-                    "workingPeriod": workingPeriod ?? "",
-                    "startYear": startYear ?? 0,
-                    "startMonth": startMonth ?? 0,
-                    "jobType": jobType ?? ""
-                ],
+                parameters: nonNilParameters,
                 encoding: JSONEncoding.default
             )
         }

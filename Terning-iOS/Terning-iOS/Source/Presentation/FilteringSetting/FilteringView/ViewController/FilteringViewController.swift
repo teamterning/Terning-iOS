@@ -16,11 +16,11 @@ import Then
 final class UserFilteringData {
     static let shared = UserFilteringData()
     
-    var grade: Grade?
+    var grade: Grade? 
     var workingPeriod: WorkingPeriod?
-    var startYear: Int? = Date().getCurrentKrYearAndMonth().year
-    var startMonth: Int? = Date().getCurrentKrYearAndMonth().month
-    var jobType: JobType?
+    var startYear: Int?
+    var startMonth: Int?
+    var jobType: JobType? 
     
     private init() {}
 }

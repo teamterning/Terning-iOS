@@ -53,9 +53,8 @@ final class FilteringViewModel: ViewModelType {
         
         let saveAction: Observable<Event<Void>> = input.saveButtonTap
             .withLatestFrom(Observable.combineLatest(input.jobFilteringState, input.planFilteringState, input.currentIndex))
-            .flatMapLatest { [weak self] jobState, planState, currentIndex -> Observable<Void> in
+            .flatMapLatest { [weak self] _, _, currentIndex -> Observable<Void> in
                 guard let self = self else { return .empty() }
-                
                 if currentIndex == 0 {
                     return self.filtersRepository.setFilterDatas(
                         grade: UserFilteringData.shared.grade?.englishValue,

@@ -303,8 +303,9 @@ struct CompositionalLayout {
             section.interGroupSpacing = 20
             
             return section
+        }
     }
-      
+    
     static func createNewHomeCollectionViewLayout(hasScrapped: Bool, soonData: [AnnouncementModel], userName: String) -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
             

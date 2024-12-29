@@ -18,9 +18,9 @@ final class UserFilteringData {
     
     var grade: Grade? 
     var workingPeriod: WorkingPeriod?
-    var startYear: Int?
-    var startMonth: Int?
-    var jobType: JobType? 
+    var startYear: Int? = Date().getCurrentKrYearAndMonth().year
+    var startMonth: Int? = Date().getCurrentKrYearAndMonth().month
+    var jobType: JobType?
     
     private init() {}
 }

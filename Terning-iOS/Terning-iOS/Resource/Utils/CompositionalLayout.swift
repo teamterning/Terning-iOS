@@ -275,4 +275,152 @@ struct CompositionalLayout {
             }
         }
     }
+    
+    static func createNewHomeCollectionViewLayout(hasScrapped: Bool, soonData: [AnnouncementModel], userName: String) -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
+            
+            print("호출: 섹션 번호 - \(sectionNumber)")
+            if sectionNumber == 0 {
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(1)
+                    )
+                )
+                
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(46.adjustedH)),
+                    subitems: [item]
+                )
+                
+                let section = NSCollectionLayoutSection(group: group)
+                section.contentInsets = .init(top: 0, leading: 0, bottom: 2.adjustedH, trailing: 0)
+                
+                return section
+                
+            } else if sectionNumber == 1 {
+                
+                if hasScrapped && !soonData.isEmpty {
+                    let itemWidth: CGFloat = 246.adjusted
+                    
+                    let item = NSCollectionLayoutItem(
+                        layoutSize: .init(
+                            widthDimension: .absolute(itemWidth),
+                            heightDimension: .fractionalHeight(1)
+                        )
+                    )
+                    
+                    let groupHeight: CGFloat = 116.adjustedH
+                    
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .estimated(itemWidth),
+                            heightDimension: .absolute(groupHeight)
+                        ),
+                        subitems: [item]
+                    )
+                    
+                    let section = NSCollectionLayoutSection(group: group)
+                    
+                    section.contentInsets = .init(top: 0, leading: 24, bottom: 20, trailing: 24)
+                    section.interGroupSpacing = 20
+                    
+                    section.orthogonalScrollingBehavior = .continuous
+                    
+                    return section
+                } else {
+                    
+                    let itemWidth: CGFloat = 327.adjusted
+                    
+                    let item = NSCollectionLayoutItem(
+                        layoutSize: .init(
+                            widthDimension: .absolute(itemWidth),
+                            heightDimension: .fractionalHeight(1)
+                        )
+                    )
+                    
+                    let groupHeight: CGFloat = 116.adjustedH
+                    
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1.0),
+                            heightDimension: .absolute(groupHeight)
+                        ), subitems: [item]
+                    )
+                    
+                    let section = NSCollectionLayoutSection(group: group)
+                    section.contentInsets = .init(top: 0, leading: 24, bottom: 20, trailing: 0)
+                    
+                    return section
+                }
+                
+            } else if sectionNumber == 2 {
+                
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(1)
+                    )
+                )
+                
+                if userName.count > 6 {
+                    
+                    // Group
+                    let groupSize = NSCollectionLayoutSize(
+                        widthDimension: .fractionalWidth(1.0),
+                        heightDimension: .absolute(100.adjustedH))
+                    
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: groupSize,
+                        subitems: [item]
+                    )
+                    
+                    let section = NSCollectionLayoutSection(group: group)
+                    
+                    let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(108.adjustedH))
+                    let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                        layoutSize: headerSize,
+                        elementKind: UICollectionView.elementKindSectionHeader,
+                        alignment: .top
+                    )
+                    
+                    sectionHeader.pinToVisibleBounds = true
+                    section.boundarySupplementaryItems = [sectionHeader]
+                    section.interGroupSpacing = 12.adjustedH
+                    section.contentInsets = .init(top: 4, leading: 0, bottom: 12.adjustedH, trailing: 0)
+                    
+                    return section
+                    
+                } else {
+                    
+                    // Group
+                    let groupSize = NSCollectionLayoutSize(
+                        widthDimension: .fractionalWidth(1.0),
+                        heightDimension: .absolute(100.adjustedH))
+                    
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: groupSize,
+                        subitems: [item])
+                    
+                    let section = NSCollectionLayoutSection(group: group)
+                    
+                    let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(84.adjustedH))
+                    let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                        layoutSize: headerSize,
+                        elementKind: UICollectionView.elementKindSectionHeader,
+                        alignment: .top
+                    )
+                    
+                    sectionHeader.pinToVisibleBounds = true
+                    section.boundarySupplementaryItems = [sectionHeader]
+                    section.interGroupSpacing = 12.adjustedH
+                    section.contentInsets = .init(top: 4, leading: 0, bottom: 12.adjustedH, trailing: 0)
+                    
+                    return section
+                }
+            }
+            
+            return nil
+        }
+    }
 }

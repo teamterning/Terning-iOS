@@ -71,6 +71,12 @@ extension WelcomeViewController {
 extension WelcomeViewController {
     private func setButtonAction() {
         customView.setStartButtonAction(target: self, action: #selector(startButtonDidTap))
+        customView.setSkipButtonAction(target: self, action: #selector(skipButtonDidTap))
+    }
+    private func navigateToTabBar() {
+        let tabBarController = TNTabBarController()
+        guard let window = self.view.window else { return }
+        ViewControllerUtils.setRootViewController(window: window, viewController: tabBarController, withAnimation: true)
     }
 }
 
@@ -83,9 +89,10 @@ extension WelcomeViewController {
             let onboardingVC = OnboardingPageViewController()
             self.navigationController?.pushViewController(onboardingVC, animated: true)
         case .second:
-            let tabBarController = TNTabBarController()
-            guard let window = self.view.window else { return }
-            ViewControllerUtils.setRootViewController(window: window, viewController: tabBarController, withAnimation: true)
+            navigateToTabBar()
         }
+    }
+    @objc private func skipButtonDidTap() {
+        navigateToTabBar()
     }
 }

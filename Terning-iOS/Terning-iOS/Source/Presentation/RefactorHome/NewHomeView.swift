@@ -1,8 +1,8 @@
 //
-//  HomeView.swift
+//  NewHomeView.swift
 //  Terning-iOS
 //
-//  Created by 이명진 on 7/19/24.
+//  Created by 이명진 on 12/19/24.
 //
 
 import UIKit
@@ -10,19 +10,19 @@ import UIKit
 import SnapKit
 import Then
 
-final class HomeView: UIView {
+final class NewHomeView: UIView {
     
     // MARK: - Properties
     
-    private weak var homeViewController: HomeViewController?
-    
     // MARK: - UIComponents
     
+    var hasScrapped: Bool = false
+    var soonData: [AnnouncementModel] = []
+    var userName: String = ""
+    
     lazy var collectionView: UICollectionView = {
-        guard let homeVC = homeViewController else {
-            fatalError("homeViewController가 없습니다.")
-        }
-        let layout = CompositionalLayout.createHomeListLayout(HomeVC: homeVC)
+        
+        let layout = CompositionalLayout.createNewHomeCollectionViewLayout(hasScrapped: hasScrapped, soonData: soonData, userName: userName)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         collectionView.isScrollEnabled = true
@@ -43,9 +43,12 @@ final class HomeView: UIView {
     
     // MARK: - Life Cycles
     
-    init(frame: CGRect, homeViewController: HomeViewController) {
-        self.homeViewController = homeViewController
-        super.init(frame: frame)
+    init(hasScrapped: Bool, soonData: [AnnouncementModel], userName: String) {
+        super.init(frame: .zero)
+        
+        self.hasScrapped = hasScrapped
+        self.soonData = soonData
+        self.userName = userName
         
         setUI()
         setHierarchy()
@@ -61,7 +64,7 @@ final class HomeView: UIView {
 
 // MARK: - UI & Layout
 
-extension HomeView {
+extension NewHomeView {
     private func setUI() {
         gradientLayerView.isHidden = true
     }
@@ -74,6 +77,8 @@ extension HomeView {
         )
         
         homeLogoView.addSubview(homeLogoImage)
+        
+        homeLogoView.backgroundColor = .white
     }
     
     private func setLayout() {
@@ -89,7 +94,7 @@ extension HomeView {
         }
         
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(homeLogoImage.snp.bottom)
+            $0.top.equalTo(homeLogoView.snp.bottom)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(safeAreaLayoutGuide)
         }
@@ -99,5 +104,16 @@ extension HomeView {
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(43.adjustedH)
         }
+    }
+    
+    func updateLayout(hasScrapped: Bool, soonData: [AnnouncementModel], userName: String) {
+        self.hasScrapped = hasScrapped
+        self.soonData = soonData
+        self.userName = userName
+        
+        // 새로운 레이아웃 생성 및 적용
+        let newLayout = CompositionalLayout.createNewHomeCollectionViewLayout(hasScrapped: hasScrapped, soonData: soonData, userName: userName)
+        collectionView.collectionViewLayout = newLayout
+        collectionView.reloadData()
     }
 }

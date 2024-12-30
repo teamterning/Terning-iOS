@@ -282,7 +282,7 @@ struct CompositionalLayout {
             let numberOfColumns: CGFloat = 3
             
             let totalHorizontalInsets: CGFloat = (numberOfColumns - 1) * interItemSpacing
-            let sideInset: CGFloat = 24 * 2
+            let sideInset: CGFloat = 24.adjusted * 2
             let availableWidth = UIScreen.main.bounds.width - totalHorizontalInsets - sideInset
             let itemWidth = availableWidth / numberOfColumns
             

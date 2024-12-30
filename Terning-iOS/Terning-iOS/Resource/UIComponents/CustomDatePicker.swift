@@ -54,7 +54,7 @@ extension CustomDatePicker: UIPickerViewDelegate {
     }
     
     public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 34.18
+        return 34.18.adjustedH
     }
     
     public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {

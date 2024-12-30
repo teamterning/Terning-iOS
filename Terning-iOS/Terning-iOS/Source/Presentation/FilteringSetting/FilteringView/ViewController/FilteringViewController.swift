@@ -124,28 +124,28 @@ extension FilteringViewController {
     
     private func setLayout() {
         notchView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(12)
+            $0.top.equalToSuperview().offset(12.adjustedH)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(60.adjusted)
             $0.height.equalTo(4.adjustedH)
         }
         
         segmentControl.snp.makeConstraints {
-            $0.top.equalTo(notchView.snp.bottom).offset(24)
-            $0.leading.equalToSuperview().inset(20)
-            $0.height.equalTo(40)
+            $0.top.equalTo(notchView.snp.bottom).offset(24.adjustedH)
+            $0.leading.equalToSuperview().inset(20.adjusted)
+            $0.height.equalTo(40.adjustedH)
         }
         
         underLineView.snp.makeConstraints {
             $0.top.equalTo(segmentControl.snp.bottom).offset(-1)
-            $0.horizontalEdges.equalToSuperview().inset(29)
+            $0.horizontalEdges.equalToSuperview().inset(29.adjusted)
             $0.height.equalTo(1)
         }
         
         saveButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
-            $0.horizontalEdges.equalToSuperview().inset(24)
-            $0.height.equalTo(54)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(8.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
+            $0.height.equalTo(54.adjustedH)
         }
     }
     
@@ -161,9 +161,9 @@ extension FilteringViewController {
         pageViewController.didMove(toParent: self)
         
         pageViewController.view.snp.makeConstraints {
-            $0.top.equalTo(segmentControl.snp.bottom).offset(16)
-            $0.horizontalEdges.equalToSuperview().inset(24)
-            $0.bottom.equalTo(saveButton.snp.top).offset(-16)
+            $0.top.equalTo(segmentControl.snp.bottom).offset(16.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
+            $0.bottom.equalTo(saveButton.snp.top).offset(-16.adjustedH)
         }
     }
 }

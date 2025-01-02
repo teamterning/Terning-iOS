@@ -85,16 +85,15 @@ extension PlanFilteringViewController {
             $0.top.horizontalEdges.equalToSuperview()
         }
         gradeButtons.snp.makeConstraints {
-            $0.top.equalTo(gradeTitleLabel.snp.bottom).offset(8.adjustedH)
+            $0.top.equalTo(gradeTitleLabel.snp.bottom).offset(12.adjustedH)
             $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(36.adjustedH)
         }
         periodTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(gradeButtons.snp.bottom).offset(16.adjustedH)
+            $0.top.equalTo(gradeButtons.snp.bottom).offset(24.adjustedH)
             $0.leading.equalToSuperview()
         }
         periodButtons.snp.makeConstraints {
-            $0.top.equalTo(periodTitleLabel.snp.bottom).offset(8.adjustedH)
+            $0.top.equalTo(periodTitleLabel.snp.bottom).offset(12.adjustedH)
             $0.horizontalEdges.equalToSuperview()
         }
         dateTitleLabel.snp.makeConstraints {
@@ -102,7 +101,7 @@ extension PlanFilteringViewController {
             $0.leading.equalToSuperview()
         }
         customPickerView.snp.makeConstraints {
-            $0.top.equalTo(periodButtons.snp.bottom).offset(10.adjustedH)
+            $0.top.equalTo(dateTitleLabel.snp.bottom).offset(10.adjustedH)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(170.adjustedH)
         }
@@ -123,7 +122,7 @@ extension PlanFilteringViewController {
                 originalTitle: title,
                 selectedTitle: title,
                 cornerRadius: 10,
-                height: 36
+                height: 36.adjustedH
             )
             button.tag = section * 10 + index
 

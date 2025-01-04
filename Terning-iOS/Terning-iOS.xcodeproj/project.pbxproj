@@ -178,6 +178,8 @@
 		71F8F8702D278BE900B822F3 /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F8F86F2D278BE900B822F3 /* HomeRepository.swift */; };
 		71F8F8732D278C4700B822F3 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F8F8722D278C4700B822F3 /* HomeService.swift */; };
 		71F8F8762D278C7800B822F3 /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F8F8752D278C7800B822F3 /* HomeUseCase.swift */; };
+		71F8F9342D281C9200B822F3 /* ScrapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F8F9332D281C9200B822F3 /* ScrapRepository.swift */; };
+		71F8F9362D281CC500B822F3 /* ScrapUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F8F9352D281CC500B822F3 /* ScrapUseCase.swift */; };
 		71F918522D0A29F700FA0430 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 71F918512D0A29F700FA0430 /* ComposableArchitecture */; };
 		71FFB2B52C47ECF200C60697 /* CustomBottmSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2B42C47ECF200C60697 /* CustomBottmSheetViewController.swift */; };
 		71FFB2B82C48286300C60697 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFB2B72C48286300C60697 /* SplashViewController.swift */; };
@@ -367,6 +369,8 @@
 		71F8F86F2D278BE900B822F3 /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 		71F8F8722D278C4700B822F3 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
 		71F8F8752D278C7800B822F3 /* HomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
+		71F8F9332D281C9200B822F3 /* ScrapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapRepository.swift; sourceTree = "<group>"; };
+		71F8F9352D281CC500B822F3 /* ScrapUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapUseCase.swift; sourceTree = "<group>"; };
 		71FFB2B42C47ECF200C60697 /* CustomBottmSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBottmSheetViewController.swift; sourceTree = "<group>"; };
 		71FFB2B72C48286300C60697 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		71FFB2BC2C4A186900C60697 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -1087,6 +1091,7 @@
 				2DD4DC902D1F80570036D08D /* FiltersRepository.swift */,
 				715C0FEE2C9F252500EDDD60 /* JobDetailRepository.swift */,
 				71F8F86F2D278BE900B822F3 /* HomeRepository.swift */,
+				71F8F9332D281C9200B822F3 /* ScrapRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1723,6 +1728,7 @@
 				71CCC0712C3F36DE00789A9B /* TNCalendarViewController.swift in Sources */,
 				7121A1512C3B09E10056DB8B /* Result+.swift in Sources */,
 				2DC986012C456FE900D46729 /* SearchViewController.swift in Sources */,
+				71F8F9362D281CC500B822F3 /* ScrapUseCase.swift in Sources */,
 				2DF256F32C8C855700B85843 /* MyPageBasicViewCell.swift in Sources */,
 				7121A1462C3B07AA0056DB8B /* BaseResponse.swift in Sources */,
 				71CCC07F2C40377E00789A9B /* TNCalendarDateCell.swift in Sources */,
@@ -1743,6 +1749,7 @@
 				71F004C12C956C2F00CD202B /* AnnouncementModel.swift in Sources */,
 				71780C3A2C4577FF0073B731 /* CalendarTargetType.swift in Sources */,
 				71780C462C4589400073B731 /* NewTokenModel.swift in Sources */,
+				71F8F9342D281C9200B822F3 /* ScrapRepository.swift in Sources */,
 				B871D7372C3EF87B008D78C2 /* NonJobCardCell.swift in Sources */,
 				7119B8112CA72FBD00E94E62 /* UIColor+.swift in Sources */,
 				71780C482C458FF80073B731 /* HomeTargetType.swift in Sources */,

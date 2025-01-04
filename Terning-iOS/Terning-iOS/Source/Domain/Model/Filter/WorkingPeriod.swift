@@ -38,3 +38,9 @@ enum WorkingPeriod: String, CaseIterable, Codable {
         }
     }
 }
+
+extension WorkingPeriod {
+    static func fromEnglishValue(_ value: String) -> WorkingPeriod? {
+        return WorkingPeriod.allCases.first { $0.englishValue == value }
+    }
+}

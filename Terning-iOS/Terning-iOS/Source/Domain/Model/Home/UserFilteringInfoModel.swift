@@ -11,5 +11,6 @@ struct UserFilteringInfoModel: Codable {
     let grade: String?
     let workingPeriod: String?
     let startYear: Int?
-    let startMonth: Int? 
+    let startMonth: Int?
+    let jobType: String?
 }

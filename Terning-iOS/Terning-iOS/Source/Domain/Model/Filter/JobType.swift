@@ -68,3 +68,9 @@ enum JobType: String, CaseIterable, Codable {
         }
     }
 }
+
+extension JobType {
+    static func fromEnglishValue(_ value: String) -> JobType? {
+        return JobType.allCases.first { $0.englishValue == value }
+    }
+}

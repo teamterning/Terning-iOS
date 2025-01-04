@@ -195,6 +195,15 @@ final class NewHomeViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        output.successMessage
+            .drive(onNext: { [weak self] successMessage in
+                guard let self = self else { return }
+                
+                self.showToast(message: successMessage, heightOffset: 12)
+                self.soonDeadlineSubject.onNext(())
+            })
+            .disposed(by: disposeBag)
+        
         output.error
             .drive(onNext: { error in
                 print("Error: \(error)")

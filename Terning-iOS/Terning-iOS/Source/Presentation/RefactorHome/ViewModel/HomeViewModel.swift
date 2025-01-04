@@ -32,6 +32,7 @@ final class HomeViewModel: ViewModelType {
         let hasNext: Observable<Bool>
         let hasScrap: Observable<Bool>
         let announcementCount: Observable<Int>
+        let successMessage: Driver<String>
         let error: Driver<String>
     }
     
@@ -44,6 +45,9 @@ final class HomeViewModel: ViewModelType {
     }
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
+        
+        let successMessageTracker = PublishSubject<String>()
+        
         input.sortAndPage
             .subscribe(onNext: { [weak self] sort, page in
                 guard let self = self else { return }
@@ -81,7 +85,7 @@ final class HomeViewModel: ViewModelType {
                 guard let self = self else { return }
                 self.scrapUseCase.addScrap(internshipAnnouncementId: id, color: color)
                     .subscribe(onNext: {
-                        print("Scrap 추가 성공")
+                        successMessageTracker.onNext("관심 공고가 캘린더에 스크랩 되었어요!")
                     }, onError: { error in
                         self.errorRelay.accept(error.localizedDescription)
                     })
@@ -94,7 +98,7 @@ final class HomeViewModel: ViewModelType {
                 guard let self = self else { return }
                 self.scrapUseCase.patchScrap(internshipAnnouncementId: id, color: color)
                     .subscribe(onNext: {
-                        print("Scrap 변경 성공")
+                        successMessageTracker.onNext("스크랩 색상이 변경되었어요!")
                     }, onError: { error in
                         self.errorRelay.accept(error.localizedDescription)
                     })
@@ -107,7 +111,7 @@ final class HomeViewModel: ViewModelType {
                 guard let self = self else { return }
                 self.scrapUseCase.cancelScrap(internshipAnnouncementId: id)
                     .subscribe(onNext: {
-                        print("Scrap 취소 성공")
+                        successMessageTracker.onNext("관심공고 스크랩이 취소 되었어요!")
                     }, onError: { error in
                         self.errorRelay.accept(error.localizedDescription)
                     })
@@ -115,12 +119,16 @@ final class HomeViewModel: ViewModelType {
             })
             .disposed(by: disposeBag)
         
+        
+        let successMessage = successMessageTracker.asDriver(onErrorJustReturn: "")
+        
         return Output(
             jobModel: homeDataRelay.asObservable(),
             soonDeadlineAnnouncementModel: soonDeadlineRelay.asObservable(),
             hasNext: hasNextRelay.asObservable(),
             hasScrap: hasScrapRelay.asObservable(),
             announcementCount: annoncementCountRelay.asObservable(),
+            successMessage: successMessage,
             error: errorRelay.asDriver(onErrorJustReturn: "Unknown error")
         )
     }

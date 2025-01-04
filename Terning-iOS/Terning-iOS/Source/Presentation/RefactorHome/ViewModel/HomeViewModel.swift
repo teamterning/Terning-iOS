@@ -119,7 +119,6 @@ final class HomeViewModel: ViewModelType {
             })
             .disposed(by: disposeBag)
         
-        
         let successMessage = successMessageTracker.asDriver(onErrorJustReturn: "")
         
         return Output(
@@ -129,7 +128,7 @@ final class HomeViewModel: ViewModelType {
             hasScrap: hasScrapRelay.asObservable(),
             announcementCount: annoncementCountRelay.asObservable(),
             successMessage: successMessage,
-            error: errorRelay.asDriver(onErrorJustReturn: "Unknown error")
+            error: errorRelay.asDriver(onErrorJustReturn: "알수 없는 error")
         )
     }
 }

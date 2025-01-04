@@ -94,6 +94,12 @@ final class TNCalendarView: UIView {
     let bottomEmptyView = EmptyView()
     let listEmptyView = EmptyView()
     
+    let notchView = UIView().then {
+        $0.backgroundColor = .grey200
+        $0.layer.cornerRadius = 2
+        $0.isHidden = true
+    }
+    
     // MARK: - Life Cycles
     
     override init(frame: CGRect) {
@@ -129,6 +135,7 @@ extension TNCalendarView {
             listEmptyView
         )
         calendarViewContainer.addSubview(calendarView)
+        calendarViewContainer.addSubview(notchView)
         
         calendarBottomCollectionView.addSubview(bottomEmptyView)
         calendarListCollectionView.addSubview(listEmptyView)
@@ -161,6 +168,13 @@ extension TNCalendarView {
             $0.top.equalTo(calendarView.calendarWeekdayView.snp.bottom)
             $0.width.equalToSuperview()
             $0.height.equalTo(1)
+        }
+        
+        notchView.snp.makeConstraints {
+            $0.top.equalTo(separatorView.snp.bottom).offset(42.adjustedH)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(4.adjustedH)
+            $0.width.equalTo(55.adjusted)
         }
         
         self.bringSubviewToFront(separatorView)
@@ -198,6 +212,7 @@ extension TNCalendarView {
     }
     
     func toggleEmptyView(for type: CalendarViewType, isHidden: Bool) {
+        
         switch type {
         case .bottom:
             bottomEmptyView.isHidden = !isHidden

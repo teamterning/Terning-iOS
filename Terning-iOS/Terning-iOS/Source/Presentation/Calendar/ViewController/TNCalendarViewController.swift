@@ -344,9 +344,14 @@ extension TNCalendarViewController: FSCalendarDelegate {
             rootView.calendarViewContainer.layer.applyShadow(color: .black, alpha: 0.1, y: 4, blur: 4)
             
             rootView.calendarView.snp.updateConstraints { make in
-                make.height.equalTo(90.adjustedH) // 주간 뷰 높이 설정
+                make.height.equalTo(98.adjustedH) // 주간 뷰 높이 설정
             }
             rootView.calendarBottomCollectionView.isHidden = false
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                self.rootView.notchView.isHidden = false
+            }
+            
         } else {
             rootView.roundCalendarViewCorners(radius: 0)  // 라운드 처리 풀어 주기
             rootView.calendarViewContainer.layer.shadowOpacity = 0
@@ -362,6 +367,9 @@ extension TNCalendarViewController: FSCalendarDelegate {
             }
             
             rootView.calendarBottomCollectionView.isHidden = true
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                self.rootView.notchView.isHidden = true
+            }
             rootView.calendarBottomCollectionView.backgroundColor = .white
         }
         

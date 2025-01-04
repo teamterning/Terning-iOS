@@ -139,7 +139,7 @@ extension JobCardCell {
         }
         
         scrapButton.snp.makeConstraints {
-            $0.top.equalTo(jobCard.snp.top).offset(62.adjustedH)
+            $0.bottom.equalTo(jobCard.snp.bottom).inset(10.adjustedH)
             $0.trailing.equalTo(jobCard.snp.trailing).inset(12.adjusted)
         }
     }
@@ -153,8 +153,16 @@ extension JobCardCell {
     func bind(model: AnnouncementModel, indexPath: IndexPath) {
         if model.dDay == "지원마감" {
             self.daysRemaining.textColor = .grey300
+            self.jobLabel.textColor = .grey300
+            self.periodTitle.textColor = .grey300
+            self.period.textColor = .grey300
+            self.jobCardCoverImage.layer.opacity = 0.5
         } else {
             self.daysRemaining.textColor = .terningMain
+            self.jobLabel.textColor = .black
+            self.periodTitle.textColor = .grey400
+            self.period.textColor = .terningMain
+            self.jobCardCoverImage.layer.opacity = 1.0
         }
         
         self.internshipAnnouncementId = model.internshipAnnouncementId

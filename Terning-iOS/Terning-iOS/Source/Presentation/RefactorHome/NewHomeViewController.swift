@@ -29,7 +29,7 @@ final class NewHomeViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let homeProvider = Providers.homeProvider
+    private let myPageProvider = Providers.myPageProvider
     
     private let viewModel: HomeViewModel
     
@@ -93,6 +93,7 @@ final class NewHomeViewController: UIViewController {
         setUI()
         setDelegate()
         setRegister()
+        getMyPageInfo()
         bindViewModel()
         bindScrollPagination()
     }
@@ -545,5 +546,36 @@ extension NewHomeViewController: UpcomingCardCellProtocol {
         
         self.navigationController?.pushViewController(jobDetailViewController, animated: true)
         
+    }
+}
+
+extension NewHomeViewController {
+    private func getMyPageInfo() {
+        myPageProvider.request(.getProfileInfo) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let status = response.statusCode
+                
+                if 200..<300 ~= status {
+                    do {
+                        let responseDto = try response.map(BaseResponse<UserProfileInfoModel>.self)
+                        guard let data = responseDto.result else { return }
+                        
+                        self.userName = data.name
+                        
+                    } catch {
+                        print("사용자 정보를 불러올 수 없어요.")
+                        print(error.localizedDescription)
+                    }
+                    
+                } else {
+                    print("404 error")
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }

@@ -216,8 +216,17 @@ final class NewHomeViewController: UIViewController {
             .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] offset in
                 guard let self = self else { return }
+                
+                // 첫 번째 로직: Pagination 처리
                 self.handlePagination(offset: offset)
                 self.isLoading = false
+                
+                // 두 번째 로직: GradientLayerView 표시/숨김 처리
+                if offset.y > 200 {
+                    self.rootView.gradientLayerView.isHidden = false
+                } else {
+                    self.rootView.gradientLayerView.isHidden = true
+                }
             })
             .disposed(by: disposeBag)
     }

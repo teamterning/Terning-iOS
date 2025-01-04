@@ -311,7 +311,32 @@ extension NewHomeViewController: StickyHeaderCellDelegate {
 // MARK: - UICollectionViewDelegate
 
 extension NewHomeViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let section = MainSection(rawValue: indexPath.section) else {
+            return
+        }
+        
+        switch section {
+        case .jobCard:
+            print(indexPath)
+            track(eventName: .clickHomeInternCard)
+            let jobDetailVC = JobDetailViewController(
+                viewModel: JobDetailViewModel(
+                    jobDetailRepository: JobDetailRepository(
+                        scrapService: ScrapsService(
+                            provider: Providers.scrapsProvider
+                        )
+                    )
+                )
+            )
+            let index = mainHomeDatas[indexPath.row].internshipAnnouncementId
+            jobDetailVC.internshipAnnouncementId.accept(index)
+            jobDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(jobDetailVC, animated: true)
+        default:
+            return
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource

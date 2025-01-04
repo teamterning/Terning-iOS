@@ -15,21 +15,23 @@ final class EmptyView: UIView {
     // MARK: - UIComponents
     
     private let emptyView = UIView().then {
-        $0.backgroundColor = .back
+        $0.backgroundColor = .clear
         $0.isHidden = true
     }
     
-    private let emptyImage = UIImageView().then {
+    let emptyImage = UIImageView().then {
         $0.image = .imgEmptyTerning
     }
     
-    private let emptyLabel = LabelFactory.build(
+    let emptyLabel = LabelFactory.build(
         text: "선택하신 날짜에 지원 마감인 스크랩 공고가 없어요",
         font: .detail2,
         textColor: .grey400,
         lineSpacing: 1.2,
         characterSpacing: 0.002
-    )
+    ).then {
+        $0.numberOfLines = 2
+    }
     
     // MARK: - Life Cycles
     
@@ -49,7 +51,7 @@ final class EmptyView: UIView {
     // MARK: - UI & Layout
     
     private func setUI() {
-        backgroundColor = .white
+        backgroundColor = .clear
     }
     
     private func setHierarchy() {

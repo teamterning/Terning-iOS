@@ -22,6 +22,10 @@ final class ClosingJobAnnouncementCell: UICollectionViewCell {
     private var workingPeriod = "2개월"
     private var startYearMonth = "2025년 10월"
     
+    private var indexPath: Int?
+    
+    var delegate: UpcomingCardCellProtocol?
+    
     // MARK: - UIComponents
     
     private let scrapAndDeadlineCard = UIView().then {
@@ -91,6 +95,7 @@ final class ClosingJobAnnouncementCell: UICollectionViewCell {
         
         setHierarchy()
         setLayout()
+        setTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -155,7 +160,7 @@ extension ClosingJobAnnouncementCell {
     
     // MARK: - Methods
     
-    func bindData(model: AnnouncementModel) {
+    func bindData(model: AnnouncementModel, indexPath: IndexPath) {
         guard let color = model.color else { return }
         
         self.companyImageView.setImage(with: model.companyImage, placeholder: "placeholder_image")
@@ -170,5 +175,18 @@ extension ClosingJobAnnouncementCell {
         self.isScrapped = model.isScrapped
         self.deadline = model.deadline
         self.startYearMonth = model.startYearMonth
+        
+        self.indexPath = indexPath.item
+    }
+    
+    func setTapGesture() {
+        let upcomingCardTapGesture = UITapGestureRecognizer(target: self, action: #selector(upcomingCardDidTap))
+        scrapAndDeadlineCard.addGestureRecognizer(upcomingCardTapGesture)
+    }
+    
+    @objc func upcomingCardDidTap() {
+        guard let internshipAnnouncementId = self.indexPath else { return }
+        
+        delegate?.upcomingCardDidTap(index: internshipAnnouncementId)
     }
 }

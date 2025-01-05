@@ -11,18 +11,18 @@ final class MainSortButton: UIButton {
     
     private var sortName: String
     
-    init(sortName: String = "채용 마감 이른순") {
+    init(sortName: String = "정렬 하기") {
         self.sortName = sortName
         super.init(frame: .zero)
         
-        configureButton()
+        configureButton(sortName)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureButton() {
+    private func configureButton(_ sortName: String) {
         
         var config = UIButton.Configuration.filled()
         
@@ -35,7 +35,7 @@ final class MainSortButton: UIButton {
         )
         
         config.image = .icUnderArrow
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 3.adjusted, bottom: 0, trailing: 10.adjusted)
+        config.imagePadding = 4.adjusted
         
         config.background.cornerRadius = 5
         config.background.strokeWidth = 1

@@ -10,11 +10,18 @@ import UIKit
 import SnapKit
 import Then
 
+protocol StickyHeaderCellDelegate: AnyObject {
+    func didTapSortButton() // 정렬 버튼 Action
+    func didTapFilterButton() // 필터 버튼 Action
+}
+
 final class StickyHeaderCell: UICollectionViewCell {
     
     // MARK: - Properties
     
     private var count: Int = 0
+
+    weak var delegate: StickyHeaderCellDelegate?
     
     // MARK: - UIComponents
     
@@ -27,15 +34,15 @@ final class StickyHeaderCell: UICollectionViewCell {
         $0.numberOfLines = 0
     }
     
-    private lazy var FilterButton: UIButton = MainFilterButton()
-    private lazy var sortButton: UIButton = MainSortButton()
+    private lazy var filterButton: UIButton = MainFilterButton()
+    lazy var sortButton = MainSortButton()
     
     private let totalCountLabel = LabelFactory.build(font: .body3)
     
     private lazy var HStackView: UIStackView = UIStackView(
         arrangedSubviews: [
             sortButton,
-            FilterButton
+            filterButton
         ]
     ).then {
         $0.axis = .horizontal
@@ -49,6 +56,7 @@ final class StickyHeaderCell: UICollectionViewCell {
         
         setHierarchy()
         setLayout()
+        setAddTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -89,18 +97,33 @@ extension StickyHeaderCell {
             $0.width.equalTo(132.adjusted)
         }
         
-        FilterButton.snp.makeConstraints {
+        filterButton.snp.makeConstraints {
             $0.width.equalTo(80.adjusted)
         }
     }
     
-    func bind(name: String) {
+    private func setAddTarget() {
+        filterButton.addTarget(self, action: #selector(filterButtonDidTap), for: .touchUpInside)
+        sortButton.addTarget(self, action: #selector(sortButtonDidTap), for: .touchUpInside)
+    }
+    
+    @objc
+    private func filterButtonDidTap() {
+        delegate?.didTapFilterButton()
+    }
+    
+    @objc
+    private func sortButtonDidTap() {
+        delegate?.didTapSortButton()
+    }
+    
+    func bind(totalCount: Int, name: String) {
         if name.count > 6 {
             titleLabel.text = "\(name)님에게 \n딱 맞는 대학생 인턴 공고"
         } else {
             titleLabel.text = "\(name)님에게 딱 맞는 대학생 인턴 공고"
         }
         
-        totalCountLabel.text = "총 \(count)개"
+        totalCountLabel.text = "총 \(totalCount)개"
     }
 }

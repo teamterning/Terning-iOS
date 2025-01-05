@@ -44,6 +44,7 @@ final class FilteringViewController: UIViewController {
     private let viewModel: FilteringViewModel
     private let disposeBag = DisposeBag()
     private let currentIndex = BehaviorRelay<Int>(value: 0)
+    var removeModal = PublishSubject<Void>()
     
     // MARK: - UI Components
     
@@ -203,6 +204,7 @@ extension FilteringViewController {
         output.dismissModal
             .drive(onNext: { [weak self] in
                 self?.presentingViewController?.removeModalBackgroundView()
+                self?.removeModal.onNext(())
                 self?.dismiss(animated: true, completion: nil)
             })
             .disposed(by: disposeBag)

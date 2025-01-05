@@ -103,7 +103,6 @@ extension CheckDeadlineCell {
 
 extension CheckDeadlineCell {
     @objc func checkDeadlineButtonDidTap() {
-        print("checkDeadlineButton")
         checkDeadlineDelegate?.checkDeadlineButtonDidTap()
     }
 }

@@ -39,6 +39,8 @@ final class NewHomeView: UIView {
         $0.image = UIImage(resource: .homeLogo)
     }
     
+    private let emptyView = EmptyView()
+    
     let gradientLayerView = GradientLayerView()
     
     // MARK: - Life Cycles
@@ -67,12 +69,15 @@ final class NewHomeView: UIView {
 extension NewHomeView {
     private func setUI() {
         gradientLayerView.isHidden = true
+        
+        homeEmptyViewSetting()
     }
     
     private func setHierarchy() {
         addSubviews(
             homeLogoView,
             collectionView,
+            emptyView,
             gradientLayerView
         )
         
@@ -100,10 +105,22 @@ extension NewHomeView {
         }
         
         gradientLayerView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(215.adjustedH)
+            $0.top.equalToSuperview().offset(176.adjustedH)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(43.adjustedH)
         }
+        
+        emptyView.snp.makeConstraints {
+            $0.width.equalTo(327.adjusted)
+            $0.height.equalTo(258.adjustedH)
+            $0.top.equalToSuperview().offset(380.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
+        }
+    }
+    
+    private func homeEmptyViewSetting() {
+        emptyView.emptyImage.image = .imgNonCardViewInfo
+        emptyView.emptyLabel.text = "아직 채용중인 인턴 공고가 없어요!\n새로운 공고가 올라오면 보여드릴게요"
     }
     
     func updateLayout(hasScrapped: Bool, soonData: [AnnouncementModel], userName: String) {
@@ -112,8 +129,15 @@ extension NewHomeView {
         self.userName = userName
         
         // 새로운 레이아웃 생성 및 적용
-        let newLayout = CompositionalLayout.createNewHomeCollectionViewLayout(hasScrapped: hasScrapped, soonData: soonData, userName: userName)
-        collectionView.collectionViewLayout = newLayout
-        collectionView.reloadData()
+        
+        DispatchQueue.main.async { [weak self] in
+            let newLayout = CompositionalLayout.createNewHomeCollectionViewLayout(hasScrapped: hasScrapped, soonData: soonData, userName: userName)
+            self?.collectionView.collectionViewLayout = newLayout
+            self?.collectionView.reloadData()
+        }
+    }
+    
+    func emptyViewHidden(hidden: Bool) {
+        self.emptyView.isHidden = hidden
     }
 }

@@ -573,39 +573,39 @@ extension HomeViewController {
     
     private func fetchJobCardDatas(_ apiParameter: String) {
         print("🔥🔥🔥Fetching job card data with sortBy: \(apiParameter)🔥🔥🔥")
-        homeProviders.request(.getHome(sortBy: apiParameter, startYear: filterInfos.startYear ?? 2024, startMonth: filterInfos.startMonth ?? 9)) { [weak self] response in
-            guard let self = self else { return }
-            switch response {
-            case .success(let result):
-                let status = result.statusCode
-                if 200..<300 ~= status {
-                    do {
-                        let responseDto = try result.map(BaseResponse<JobCardModel>.self)
-                        guard let data = responseDto.result else { return }
-                        
-                        self.jobCardLists = data.result
-                        self.jobCardTotalCount = data
-                        
-                        if !jobCardLists.isEmpty {
-                            if data.result.contains(where: { $0.isScrapped }) {
-                                self.hasScrapped = true
-                            }
-                        }
-                        
-                        self.rootView.collectionView.reloadData()
-                    } catch {
-                        print(error.localizedDescription)
-                    }
-                }
-                if status >= 400 {
-                    print("400 error")
-                    self.showNetworkFailureToast()
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-                self.showNetworkFailureToast()
-            }
-        }
+//        homeProviders.request(.getHome(sortBy: apiParameter, startYear: filterInfos.startYear ?? 2024, startMonth: filterInfos.startMonth ?? 9)) { [weak self] response in
+//            guard let self = self else { return }
+//            switch response {
+//            case .success(let result):
+//                let status = result.statusCode
+//                if 200..<300 ~= status {
+//                    do {
+//                        let responseDto = try result.map(BaseResponse<JobCardModel>.self)
+//                        guard let data = responseDto.result else { return }
+//                        
+//                        self.jobCardLists = data.result
+//                        self.jobCardTotalCount = data
+//                        
+//                        if !jobCardLists.isEmpty {
+//                            if data.result.contains(where: { $0.isScrapped }) {
+//                                self.hasScrapped = true
+//                            }
+//                        }
+//                        
+//                        self.rootView.collectionView.reloadData()
+//                    } catch {
+//                        print(error.localizedDescription)
+//                    }
+//                }
+//                if status >= 400 {
+//                    print("400 error")
+//                    self.showNetworkFailureToast()
+//                }
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//                self.showNetworkFailureToast()
+//            }
+//        }
     }
     
     private func patchScrapAnnouncement(internshipAnnouncementId: Int?, color: String) {

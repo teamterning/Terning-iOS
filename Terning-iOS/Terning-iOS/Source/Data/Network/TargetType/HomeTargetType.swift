@@ -10,7 +10,7 @@ import Moya
 
 enum HomeTargetType {
     case getHomeToday
-    case getHome(sortBy: String, startYear: Int, startMonth: Int)
+    case getHome(sortBy: String, page: Int)
 }
 
 extension HomeTargetType: TargetType {
@@ -43,11 +43,10 @@ extension HomeTargetType: TargetType {
         case .getHomeToday:
             return .requestPlain
             
-        case .getHome(let sortBy, let startYear, let startMonth):
+        case .getHome(let sortBy, let page):
             let parameters: [String: Any] = [
                 "sortBy": sortBy,
-                "startYear": startYear,
-                "startMonth": startMonth
+                "page": page
             ]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         }

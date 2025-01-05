@@ -30,6 +30,7 @@ final class NewHomeViewController: UIViewController {
     // MARK: - Properties
     
     private let myPageProvider = Providers.myPageProvider
+    private let filterProviders = Providers.filtersProvider
     
     private let viewModel: HomeViewModel
     
@@ -48,6 +49,14 @@ final class NewHomeViewController: UIViewController {
     private var currentPage: Int = 0
     private var totalCount: Int = 0
     private var apiParameter: String = "deadlineSoon"
+    
+    var filterInfos: UserFilteringInfoModel = UserFilteringInfoModel(
+        grade: nil, // 기본값 설정
+        workingPeriod: nil, // 기본값 설정
+        startYear: nil, // 기본값 설정
+        startMonth: nil, // 기본값 설정
+        jobType: nil
+    )
     
     // MARK: - UIComponents
     
@@ -102,6 +111,8 @@ final class NewHomeViewController: UIViewController {
         super.viewWillAppear(true)
         
         resetSortOption()
+        fetchFilterInfos()
+        soonDeadlineSubject.onNext(())
     }
     
     // MARK: - UI & Layout
@@ -289,7 +300,7 @@ extension NewHomeViewController: StickyHeaderCellDelegate {
                         provider: Providers.filtersProvider
                     )
                 )
-            )
+            ), data: filterInfos
         )
         
         let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * ((637-32)/812) }
@@ -315,10 +326,11 @@ extension NewHomeViewController: StickyHeaderCellDelegate {
         filterSettingVC.removeModal
             .observe(on: MainScheduler.instance)
             .subscribe { [weak self] _ in
-            guard let self = self else { return }
-            self.mainHomeDatas.removeAll()
-            self.sortAndPageSubject.on(.next((apiParameter, 0)))
-        }.disposed(by: disposeBag)
+                guard let self = self else { return }
+                self.mainHomeDatas.removeAll()
+                fetchFilterInfos()
+                self.sortAndPageSubject.on(.next((apiParameter, 0)))
+            }.disposed(by: disposeBag)
         
         track(eventName: .clickHomeFiltering)
         
@@ -608,6 +620,39 @@ extension NewHomeViewController {
                 
             case .failure(let error):
                 print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func fetchFilterInfos() {
+        filterProviders.request(.getFilterDatas) { [weak self] response in
+            guard let self = self else { return }
+            switch response {
+            case .success(let result):
+                let status = result.statusCode
+                if 200..<300 ~= status {
+                    do {
+                        let responseDto = try result.map(BaseResponse<UserFilteringInfoModel>.self)
+                        guard let data = responseDto.result else { return }
+                        
+                        self.filterInfos = data
+                        
+                        // 0.2초 뒤에 fetchJobCardDatas 호출
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            self.sortAndPageSubject.onNext((self.apiParameter, 0))
+                        }
+                        
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+                if status >= 400 {
+                    print("400 error")
+                    self.showNetworkFailureToast()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.showNetworkFailureToast()
             }
         }
     }

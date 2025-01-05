@@ -11,7 +11,12 @@ public final class CustomDatePicker: UIPickerView {
     
     // MARK: - Properties
     
-    private(set) var years = Array(2022...2030).map { "\($0)" }
+    private(set) var years: [String] = {
+        let (currentYear, currentMonth) = Date().getCurrentKrYearAndMonth()
+        let endYear = currentMonth > 10 ? currentYear + 1 : currentYear
+        return Array(2022...endYear).map { "\($0)" }
+    }()
+
     private(set) var months = Array(1...12).map { "\($0)" }
     private var shouldRemovePlaceholderOnSelection = false
     

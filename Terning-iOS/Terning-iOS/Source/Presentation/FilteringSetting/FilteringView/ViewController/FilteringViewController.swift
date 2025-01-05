@@ -80,8 +80,14 @@ final class FilteringViewController: UIViewController {
     
     // MARK: - Init
     
-    init(viewModel: FilteringViewModel) {
+    init(viewModel: FilteringViewModel, data: UserFilteringInfoModel) {
+        UserFilteringData.shared.grade = data.grade.flatMap { Grade(rawValue: $0) ?? Grade.fromEnglishValue($0) }
+        UserFilteringData.shared.workingPeriod = data.workingPeriod.flatMap { WorkingPeriod(rawValue: $0) ?? WorkingPeriod.fromEnglishValue($0) }
+        UserFilteringData.shared.startYear = data.startYear
+        UserFilteringData.shared.startMonth = data.startMonth
+        UserFilteringData.shared.jobType = data.jobType.flatMap { JobType(rawValue: $0) ?? JobType.fromEnglishValue($0)  }
         self.viewModel = viewModel
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -97,8 +103,8 @@ final class FilteringViewController: UIViewController {
         setUI()
         setHierarchy()
         setLayout()
-        setupPageViewController()
         setupSegmentControl()
+        setupPageViewController()
         bindViewModel()
     }
 }

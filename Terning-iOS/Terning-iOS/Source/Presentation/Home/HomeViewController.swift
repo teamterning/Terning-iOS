@@ -48,7 +48,8 @@ final class HomeViewController: UIViewController {
         grade: nil, // 기본값 설정
         workingPeriod: nil, // 기본값 설정
         startYear: nil, // 기본값 설정
-        startMonth: nil // 기본값 설정
+        startMonth: nil, // 기본값 설정
+        jobType: nil
     )
     
     private var jobCardTotalCount: JobCardModel = JobCardModel(totalCount: 0, result: [])
@@ -276,7 +277,7 @@ extension HomeViewController: FilterButtonProtocol {
                         provider: Providers.filtersProvider
                     )
                 )
-            )
+            ), data: filterInfos
         )
         
         let fraction = UISheetPresentationController.Detent.custom { _ in self.view.frame.height * ((637-32)/812) }

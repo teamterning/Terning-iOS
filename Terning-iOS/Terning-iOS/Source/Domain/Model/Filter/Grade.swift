@@ -43,3 +43,9 @@ enum Grade: String, CaseIterable, Codable {
         }
     }
 }
+
+extension Grade {
+    static func fromEnglishValue(_ value: String) -> Grade? {
+        return Grade.allCases.first { $0.englishValue == value }
+    }
+}

@@ -309,7 +309,6 @@ struct CompositionalLayout {
     static func createNewHomeCollectionViewLayout(hasScrapped: Bool, soonData: [AnnouncementModel], userName: String) -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
             
-            print("호출: 섹션 번호 - \(sectionNumber)")
             if sectionNumber == 0 {
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(

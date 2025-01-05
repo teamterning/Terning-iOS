@@ -102,7 +102,6 @@ final class NewHomeViewController: UIViewController {
         super.viewWillAppear(true)
         
         resetSortOption()
-        soonDeadlineSubject.onNext(())
     }
     
     // MARK: - UI & Layout
@@ -313,7 +312,9 @@ extension NewHomeViewController: StickyHeaderCellDelegate {
             filterSettingVC.presentationController?.delegate = self
         }
         
-        filterSettingVC.removeModal.subscribe { [weak self] _ in
+        filterSettingVC.removeModal
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] _ in
             guard let self = self else { return }
             self.mainHomeDatas.removeAll()
             self.sortAndPageSubject.on(.next((apiParameter, 0)))
@@ -480,7 +481,7 @@ extension NewHomeViewController: SortSettingButtonProtocol {
         }
         
         self.mainHomeDatas.removeAll()
-        self.sortAndPageSubject.on(.next((apiParameter, 0)))
+        self.sortAndPageSubject.onNext((apiParameter, 0))
         
         removeDimmedBackgroundView()
     }
@@ -506,11 +507,6 @@ extension NewHomeViewController: JobCardScrapedCellProtocol {
                 
                 mainHomeDatas[index].isScrapped = false
                 
-                DispatchQueue.main.async {
-                    self.soonDeadlineSubject.onNext(())
-                    self.rootView.collectionView.reloadData()
-                }
-                
                 self.dismiss(animated: false)
             }
             
@@ -529,11 +525,6 @@ extension NewHomeViewController: JobCardScrapedCellProtocol {
                 self.addScrapSubject.onNext((model.internshipAnnouncementId, selectedColorNameRelay))
                 
                 mainHomeDatas[index].isScrapped = true
-                
-                DispatchQueue.main.async {
-                    self.soonDeadlineSubject.onNext(())
-                    self.rootView.collectionView.reloadData()
-                }
                 
                 self.dismiss(animated: false)
             }

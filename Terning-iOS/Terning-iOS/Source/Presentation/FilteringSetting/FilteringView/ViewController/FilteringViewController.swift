@@ -84,8 +84,8 @@ final class FilteringViewController: UIViewController {
     init(viewModel: FilteringViewModel, data: UserFilteringInfoModel) {
         UserFilteringData.shared.grade = data.grade.flatMap { Grade(rawValue: $0) ?? Grade.fromEnglishValue($0) }
         UserFilteringData.shared.workingPeriod = data.workingPeriod.flatMap { WorkingPeriod(rawValue: $0) ?? WorkingPeriod.fromEnglishValue($0) }
-        UserFilteringData.shared.startYear = data.startYear
-        UserFilteringData.shared.startMonth = data.startMonth
+        UserFilteringData.shared.startYear = data.startYear ?? UserFilteringData.shared.startYear
+        UserFilteringData.shared.startMonth = data.startMonth ?? UserFilteringData.shared.startMonth
         UserFilteringData.shared.jobType = data.jobType.flatMap { JobType(rawValue: $0) ?? JobType.fromEnglishValue($0)  }
         self.viewModel = viewModel
         

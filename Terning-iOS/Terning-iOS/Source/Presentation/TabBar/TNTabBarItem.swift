@@ -55,7 +55,6 @@ enum TNTabBarItem {
     var viewController: UIViewController {
         switch self {
         case .home:
-            //            return HomeViewController()
             return NewHomeViewController(
                 viewModel: HomeViewModel(
                     useCase: HomeUseCase(

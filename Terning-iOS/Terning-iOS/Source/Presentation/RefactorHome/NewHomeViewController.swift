@@ -140,6 +140,9 @@ final class NewHomeViewController: UIViewController {
         rootView.collectionView.register(JobCardCell.self, forCellWithReuseIdentifier: JobCardCell.className)
     }
     
+    
+    // MARK: - Bind
+    
     private func bindViewModel() {
         
         let input = HomeViewModel.Input(
@@ -227,11 +230,16 @@ final class NewHomeViewController: UIViewController {
             .subscribe(onNext: { [weak self] offset in
                 guard let self = self else { return }
                 
-                // 첫 번째 로직: Pagination 처리
                 self.handlePagination(offset: offset)
                 self.isLoading = false
+            })
+            .disposed(by: disposeBag)
+        
+        rootView.collectionView.rx.contentOffset
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] offset in
+                guard let self = self else { return }
                 
-                // 두 번째 로직: GradientLayerView 표시/숨김 처리
                 if offset.y > 200 {
                     self.rootView.gradientLayerView.isHidden = false
                 } else {
@@ -484,6 +492,9 @@ extension NewHomeViewController: UICollectionViewDataSource {
     }
 }
 
+
+// MARK: - SortSettingButtonProtocol
+
 extension NewHomeViewController: SortSettingButtonProtocol {
     func didSelectSortingOption(_ option: SortingOptions) {
         guard let headerView = rootView.collectionView.supplementaryView(
@@ -563,11 +574,17 @@ extension NewHomeViewController: JobCardScrapedCellProtocol {
     }
 }
 
+
+// MARK: - CheckDeadlineCellProtocol
+
 extension NewHomeViewController: CheckDeadlineCellProtocol {
     func checkDeadlineButtonDidTap() {
         self.tabBarController?.selectedIndex = 1
     }
 }
+
+
+// MARK: - UIAdaptivePresentationControllerDelegate
 
 extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
     func removeDimmedBackgroundView() {
@@ -585,6 +602,9 @@ extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
         removeDimmedBackgroundView()
     }
 }
+
+
+// MARK: - UpcomingCardCellProtocol
 
 extension NewHomeViewController: UpcomingCardCellProtocol {
     func upcomingCardDidTap(index: Int) {
@@ -623,6 +643,9 @@ extension NewHomeViewController: UpcomingCardCellProtocol {
         
     }
 }
+
+
+// MARK: - Network
 
 extension NewHomeViewController {
     private func getMyPageInfo() {

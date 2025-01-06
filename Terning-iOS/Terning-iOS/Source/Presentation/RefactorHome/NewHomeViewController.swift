@@ -360,8 +360,24 @@ extension NewHomeViewController: UICollectionViewDelegate {
                     )
                 )
             )
-            let index = mainHomeDatas[indexPath.row].internshipAnnouncementId
-            jobDetailVC.internshipAnnouncementId.accept(index)
+            
+            let index = indexPath.row
+            let internshipId = mainHomeDatas[index].internshipAnnouncementId
+            
+            jobDetailVC.internshipAnnouncementId.accept(internshipId)
+            
+            /// 공고 상세에서 스크랩을 적용했을때, 스크랩 상태를 홈 공고 UI와 얼라인을 해주는 코드 입니다.
+            jobDetailVC.didToggleScrap = { [weak self] internshipId, isScrapped in
+                guard let self = self else { return }
+                
+                if let rowIndex = self.mainHomeDatas.firstIndex(where: { $0.internshipAnnouncementId == internshipId }) {
+                    self.mainHomeDatas[rowIndex].isScrapped = isScrapped
+                    
+                    let indexPath = IndexPath(row: rowIndex, section: 2)
+                    self.rootView.collectionView.reloadItems(at: [indexPath])
+                }
+            }
+            
             jobDetailVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         default:
@@ -586,6 +602,19 @@ extension NewHomeViewController: UpcomingCardCellProtocol {
         let model = sectionTwoData[index]
         
         jobDetailViewController.internshipAnnouncementId.accept(model.internshipAnnouncementId)
+        
+        /// 공고 상세에서 스크랩을 적용했을때, 스크랩 상태를 홈 공고 UI와 얼라인을 해주는 코드 입니다.
+        jobDetailViewController.didToggleScrap = { [weak self] internshipId, isScrapped in
+            guard let self = self else { return }
+            
+            if let rowIndex = self.mainHomeDatas.firstIndex(where: { $0.internshipAnnouncementId == internshipId }) {
+                self.mainHomeDatas[rowIndex].isScrapped = isScrapped
+                
+                let indexPath = IndexPath(row: rowIndex, section: 2)
+                self.rootView.collectionView.reloadItems(at: [indexPath])
+            }
+        }
+        
         jobDetailViewController.hidesBottomBarWhenPushed = true
         
         track(eventName: .clickRemindInternCard)

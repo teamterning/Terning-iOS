@@ -35,6 +35,9 @@ final class JobDetailViewController: UIViewController {
     private let addScrapSubject = PublishSubject<(Int, String)>()
     private let cancelScrapSubject = PublishSubject<Int>()
     
+    // 공고 ID와 새로운 scrap 상태를 공고 외부에 전달하는 클로저
+    var didToggleScrap: ((Int, Bool) -> Void)?
+    
     // MARK: - UI Components
     
     private let rootView = JobDetailView()
@@ -113,7 +116,8 @@ extension JobDetailViewController {
 extension JobDetailViewController {
     @objc
     private func scrapButtonDidTapped(_ sender: UIButton) {
-        guard let model = self.jobDetail else { return }
+        // var를 사용해서 공고 데이터를 조작
+        guard var model = self.jobDetail else { return }
         
         if self.rootView.scrapButton.isSelected {
             let alertSheet = CustomAlertViewController(alertViewType: .info)
@@ -125,6 +129,12 @@ extension JobDetailViewController {
                 guard let self = self else { return }
                 track(eventName: .clickDetailCancelScrap)
                 self.cancelScrapAnnouncement(scrapId: self.internshipAnnouncementId.value)
+                
+                model.isScrapped.toggle()
+                rootView.setScrapped(model.isScrapped)
+                
+                didToggleScrap?(self.internshipAnnouncementId.value, model.isScrapped)
+                
                 self.dismiss(animated: false)
             }
             
@@ -141,6 +151,11 @@ extension JobDetailViewController {
                 track(eventName: .clickDetailScrap)
                 let selectedColorNameRelay = alertSheet.selectedColorNameRelay.value
                 self.addScrapAnnouncement(scrapId: self.internshipAnnouncementId.value, color: selectedColorNameRelay)
+                
+                model.isScrapped.toggle()
+                rootView.setScrapped(model.isScrapped)
+                
+                didToggleScrap?(self.internshipAnnouncementId.value, model.isScrapped)
                 self.dismiss(animated: false)
             }
             

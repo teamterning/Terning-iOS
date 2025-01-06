@@ -329,7 +329,8 @@ extension NewHomeViewController: StickyHeaderCellDelegate {
                 guard let self = self else { return }
                 self.mainHomeDatas.removeAll()
                 fetchFilterInfos()
-                self.sortAndPageSubject.on(.next((apiParameter, 0)))
+                self.currentPage = 0
+                self.sortAndPageSubject.onNext((apiParameter, currentPage))
             }.disposed(by: disposeBag)
         
         track(eventName: .clickHomeFiltering)
@@ -636,11 +637,6 @@ extension NewHomeViewController {
                         guard let data = responseDto.result else { return }
                         
                         self.filterInfos = data
-                        
-                        // 0.2초 뒤에 fetchJobCardDatas 호출
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            self.sortAndPageSubject.onNext((self.apiParameter, 0))
-                        }
                         
                     } catch {
                         print(error.localizedDescription)

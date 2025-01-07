@@ -119,7 +119,7 @@ extension SortHeaderCell {
         
         let range = (fullText as NSString).range(of: countString)
         attributedText.addAttributes([
-            .font: UIFont.body3,
+            .font: UIFont.body5,
             .foregroundColor: UIColor.terningMain,
             .kern: 0.002,
             .paragraphStyle: paragraphStyle

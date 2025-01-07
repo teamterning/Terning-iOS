@@ -123,8 +123,9 @@ extension WelcomeView {
                 $0.height.equalTo(388.adjustedH)
             }
             skipButton.snp.makeConstraints {
+                $0.height.equalTo(14.adjustedH)
                 $0.centerX.equalToSuperview()
-                $0.bottom.equalToSuperview().inset(52.adjustedH)
+                $0.bottom.equalToSuperview().inset(44.adjustedH)
             }
         case .second:
             logoAnimationView.snp.makeConstraints {

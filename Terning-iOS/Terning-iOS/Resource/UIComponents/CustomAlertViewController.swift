@@ -127,7 +127,7 @@ final class CustomAlertViewController: UIViewController {
         $0.spacing = 5.adjustedH
     }
     
-    private let centerButton = CustomButton(title: "내 캘린더에 스크랩 하기", font: .button3)
+    private let centerButton = CustomButton(title: "내 캘린더에 스크랩하기", font: .button3)
     private let changeColorButton = CustomButton(title: "색상 변경하기", font: .button3).setEnabled(false).setAlertViewColor()
     private let viewJobDetailButton = CustomButton(title: "공고 상세 정보 보기", font: .button3)
     private let closeButton = UIButton()
@@ -249,7 +249,7 @@ final class CustomAlertViewController: UIViewController {
         centerButton.snp.makeConstraints {
             $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
             $0.horizontalEdges.equalToSuperview().inset(16)
-            $0.height.equalTo(40)
+            $0.height.equalTo(40.adjustedH)
         }
     }
     
@@ -292,7 +292,7 @@ final class CustomAlertViewController: UIViewController {
         centerButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(16.adjustedH)
             $0.horizontalEdges.equalToSuperview().inset(16)
-            $0.height.equalTo(40)
+            $0.height.equalTo(40.adjustedH)
         }
     }
     

@@ -280,17 +280,14 @@ extension TNCalendarViewController {
         
         switch gesture.state {
         case .ended:
-            // 세로 방향의 속도가 특정 값을 넘는지 확인
-            
+            // 스와이프 속도가 500을 넘고, 주간 모드이면 월간 모드로 변경
             if velocity.y > 500 && rootView.calendarView.scope == .week {
                 rootView.calendarView.setScope(.month, animated: true)
+                
+                // #247: 선택된 날짜를 풀고, 캘린더 reloadData 하여 아래 스와이프시 초록색 터치 영역 없애주기
+                selectedDate = nil
+                self.rootView.calendarView.reloadData()
             }
-            //            } else if velocity.y > 500 {
-            //                if rootView.calendarView.scope == .week {
-            //                    rootView.calendarView.setScope(.month, animated: true)
-            //                }
-            //            }
-            // Comment: 캘린더에서 위로 스와이프하는 로직이 필요하다면 추가 작성 하기
         default:
             break
         }

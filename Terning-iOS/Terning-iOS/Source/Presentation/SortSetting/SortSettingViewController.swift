@@ -13,8 +13,8 @@ import Then
 @frozen
 public enum SortingOptions: String, CaseIterable {
     case deadlineSoon = "채용 마감 이른 순" // api 명세서에 맞게 수정
-    case shortestDuration = "짧은 근무 기간 순"
-    case longestDuration = "긴 근무 기간 순"
+    case shortestDuration = "근무 기간 짧은 순"
+    case longestDuration = "근무 기간 긴 순"
     case mostScrapped = "스크랩 많은 순"
     case mostViewed = "조회수 많은 순"
     

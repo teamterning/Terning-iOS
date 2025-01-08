@@ -21,8 +21,8 @@ public enum AmplitudeEventType: String {
     case clickHomeFilteringSave = "click_home_filtering_save" // 홈_필터링 재설정_저장하기
     case scrollHome = "scroll_home" // 홈_리스트 하단까지 스크롤한 횟수
     case clickFilteredDeadline = "click_filtered_deadline" // 홈_정렬_채용 마감 이른 순
-    case clickFilteredShortTerm = "click_filtered_short_term" // 홈_정렬_짧은 근무 기간 순
-    case clickFilteredLongTerm = "click_filtered_long_term" // 홈_정렬_긴 근무 기간 순
+    case clickFilteredShortTerm = "click_filtered_short_term" // 홈_정렬_근무 기간 짧은 순
+    case clickFilteredLongTerm = "click_filtered_long_term" // 홈_정렬_근무 기간 긴 순
     case clickFilteredScraps = "click_filtered_scraps" // 홈_정렬_스크랩 많은 순
     case clickFilteredHits = "click_filtered_hits" // 홈_정렬_조회수 많은 순
     case clickHomeInternCard = "click_home_intern_card" // 홈_공고 카드 클릭

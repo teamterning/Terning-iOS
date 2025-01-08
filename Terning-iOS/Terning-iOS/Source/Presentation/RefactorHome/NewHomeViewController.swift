@@ -72,7 +72,7 @@ final class NewHomeViewController: UIViewController {
         }
     }
     
-    private var userName: String = "여섯글자넘음ㅋ" {
+    private lazy var userName: String = "" {
         didSet {
             rootView.updateLayout(hasScrapped: hasScrapped, soonData: sectionTwoData, userName: userName)
         }
@@ -139,7 +139,6 @@ final class NewHomeViewController: UIViewController {
         
         rootView.collectionView.register(JobCardCell.self, forCellWithReuseIdentifier: JobCardCell.className)
     }
-    
     
     // MARK: - Bind
     
@@ -492,7 +491,6 @@ extension NewHomeViewController: UICollectionViewDataSource {
     }
 }
 
-
 // MARK: - SortSettingButtonProtocol
 
 extension NewHomeViewController: SortSettingButtonProtocol {
@@ -574,7 +572,6 @@ extension NewHomeViewController: JobCardScrapedCellProtocol {
     }
 }
 
-
 // MARK: - CheckDeadlineCellProtocol
 
 extension NewHomeViewController: CheckDeadlineCellProtocol {
@@ -582,7 +579,6 @@ extension NewHomeViewController: CheckDeadlineCellProtocol {
         self.tabBarController?.selectedIndex = 1
     }
 }
-
 
 // MARK: - UIAdaptivePresentationControllerDelegate
 
@@ -602,7 +598,6 @@ extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
         removeDimmedBackgroundView()
     }
 }
-
 
 // MARK: - UpcomingCardCellProtocol
 
@@ -644,7 +639,6 @@ extension NewHomeViewController: UpcomingCardCellProtocol {
     }
 }
 
-
 // MARK: - Network
 
 extension NewHomeViewController {
@@ -660,7 +654,7 @@ extension NewHomeViewController {
                         let responseDto = try response.map(BaseResponse<UserProfileInfoModel>.self)
                         guard let data = responseDto.result else { return }
                         
-                        self.userName = data.name
+                        UserManager.shared.userName = data.name
                         
                     } catch {
                         print("사용자 정보를 불러올 수 없어요.")
@@ -689,6 +683,7 @@ extension NewHomeViewController {
                         guard let data = responseDto.result else { return }
                         
                         self.filterInfos = data
+                        self.userName = UserManager.shared.userName ?? "" // 유저 네임 viewWillAppear 시 매번 접근
                         
                     } catch {
                         print(error.localizedDescription)

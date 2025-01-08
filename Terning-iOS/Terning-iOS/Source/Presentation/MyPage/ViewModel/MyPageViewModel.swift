@@ -152,6 +152,7 @@ extension MyPageViewModel {
                             authType: data.authType
                         )
                         self.userInfoRelay.accept(updatedUserInfo)
+                        UserManager.shared.userName = data.name
                         
                         var updatedSections = self.sectionsRelay.value
                         updatedSections[0] = SectionData(

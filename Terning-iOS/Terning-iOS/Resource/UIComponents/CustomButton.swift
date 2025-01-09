@@ -73,6 +73,13 @@ extension CustomButton {
         return self
     }
     
+    @discardableResult
+    public func setCornerRadius(_ radius: CGFloat) -> Self {
+        self.layer.cornerRadius = radius
+        self.clipsToBounds = true
+        return self
+    }
+    
     /// 버튼의 backgroundColor, textColor 변경
     @discardableResult
     public func setColor(bgColor: UIColor, disableColor: UIColor, textColor: UIColor = .white) -> Self {
@@ -143,7 +150,7 @@ extension CustomButton {
             button.configuration = updatedConfiguration
             button.layer.borderColor = UIColor.grey150.cgColor
             button.layer.borderWidth = 1
-            button.layer.cornerRadius = 5
+            button.layer.cornerRadius = 8
             button.clipsToBounds = true
         }
         self.configurationUpdateHandler = buttonStateHandler

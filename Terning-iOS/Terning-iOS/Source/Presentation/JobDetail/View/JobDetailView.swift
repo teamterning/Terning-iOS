@@ -56,6 +56,7 @@ final class JobDetailView: UIView {
     }
     
     private var goSiteButton = CustomButton(title: "지원 사이트로 이동하기")
+        .setCornerRadius(10)
     
     // MARK: - Init
     

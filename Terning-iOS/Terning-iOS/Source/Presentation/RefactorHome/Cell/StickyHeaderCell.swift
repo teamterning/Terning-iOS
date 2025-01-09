@@ -131,7 +131,7 @@ extension StickyHeaderCell {
     
     private func setAddTarget() {
         filterButton.addTarget(self, action: #selector(filterButtonDidTap), for: .touchUpInside)
-        sortButton.addTarget(self, action: #selector(sortButtonDidTap), for: .touchUpInside)
+        sortButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(sortButtonDidTap)))
     }
     
     @objc

@@ -50,6 +50,14 @@ final class NewHomeViewController: UIViewController {
     private var totalCount: Int = 0
     private var apiParameter: String = "deadlineSoon"
     
+    private let sortDictionary: [String: SortingOptions] = [
+        "deadlineSoon": .deadlineSoon,
+        "shortestDuration": .shortestDuration,
+        "longestDuration": .longestDuration,
+        "mostScrapped": .mostScrapped,
+        "mostViewed": .mostViewed
+    ]
+    
     var filterInfos: UserFilteringInfoModel = UserFilteringInfoModel(
         grade: nil, // 기본값 설정
         workingPeriod: nil, // 기본값 설정
@@ -414,6 +422,7 @@ extension NewHomeViewController: UICollectionViewDataSource {
                 return UICollectionReusableView()
             }
             
+            headerView.sortButton.changeTitle(name: sortDictionary[apiParameter]?.rawValue ?? "")
             headerView.bind(totalCount: totalCount, name: userName)
             headerView.delegate = self
             headerView.backgroundColor = .white
@@ -517,6 +526,8 @@ extension NewHomeViewController: SortSettingButtonProtocol {
             apiParameter = "mostViewed"
             track(eventName: .clickFilteredHits)
         }
+        
+        headerView.sortButton.changeTitle(name: option.title)
         
         self.mainHomeDatas.removeAll()
         self.sortAndPageSubject.onNext((apiParameter, 0))
@@ -643,8 +654,7 @@ extension NewHomeViewController: UpcomingCardCellProtocol {
 
 extension NewHomeViewController {
     private func getMyPageInfo() {
-        myPageProvider.request(.getProfileInfo) { [weak self] result in
-            guard let self = self else { return }
+        myPageProvider.request(.getProfileInfo) { result in
             switch result {
             case .success(let response):
                 let status = response.statusCode

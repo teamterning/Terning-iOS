@@ -138,13 +138,16 @@ private extension CustomSegmentedControl {
         let selectedSegmentFrame = frameForSegment(at: selectedSegmentIndex)
         let textWidth = calculateTextWidth(for: selectedSegmentIndex)
         
-        UIView.animate(withDuration: 0.27, delay: 0, options: .curveEaseOut, animations: {
+        underbar.layer.removeAllAnimations()
+        
+        UIView.animate(withDuration: 0.17, delay: 0, options: .curveLinear, animations: {
             self.underbar.frame = CGRect(
                 x: selectedSegmentFrame.origin.x + (selectedSegmentFrame.width - textWidth) / 2,
                 y: self.bounds.height - self.underbarInfo.height,
                 width: selectedSegmentFrame.width,
                 height: self.underbarInfo.height
             )
+            self.layoutIfNeeded()
         })
     }
     

@@ -26,6 +26,7 @@ final class UserManager {
     @UserDefaultWrapper<Int>(key: "userId") public var userId
     @UserDefaultWrapper<String>(key: "authId") public var authId
     @UserDefaultWrapper<String>(key: "authType") public var authType
+    @UserDefaultWrapper<String>(key: "userName") public var userName
     
     var hasAccessToken: Bool { return self.accessToken != nil }
     var hasKakaoToken: Bool { return self.kakaoAccessToken != nil }

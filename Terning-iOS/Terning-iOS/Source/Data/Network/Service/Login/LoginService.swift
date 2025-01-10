@@ -28,7 +28,7 @@ final class LoginService: NSObject, LoginServiceProtocol {
         return Observable<Bool>.create { observer in
             if UserApi.isKakaoTalkLoginAvailable() {
                 UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
-                    print("⭐️ kakao = \(oauthToken)")
+                    print("⭐️ kakao = \(String(describing: oauthToken))")
                     
                     if let error = error {
                         print("⭐️ kakao Error isKakaoTalkLoginAvailable = \(error.localizedDescription)")
@@ -61,7 +61,7 @@ final class LoginService: NSObject, LoginServiceProtocol {
                 }
             } else {
                 UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
-                    print("⭐️ kakao = \(oauthToken)")
+                    print("⭐️ kakao = \(String(describing: oauthToken))")
                     
                     if let error = error {
                         print("❗️ kakao Error loginWithKakaoAccount = \(error.localizedDescription)")

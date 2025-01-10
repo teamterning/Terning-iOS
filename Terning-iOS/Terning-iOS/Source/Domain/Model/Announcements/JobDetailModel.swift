@@ -12,7 +12,7 @@ struct JobDetailModel: Codable {
     let dDay: String
     let title: String
     let workingPeriod: String
-    let isScrapped: Bool
+    var isScrapped: Bool
     let color: String?
     let deadline: String
     let startYearMonth: String

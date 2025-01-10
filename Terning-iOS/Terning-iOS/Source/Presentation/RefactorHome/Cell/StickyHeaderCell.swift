@@ -37,7 +37,22 @@ final class StickyHeaderCell: UICollectionViewCell {
     private lazy var filterButton: UIButton = MainFilterButton()
     lazy var sortButton = MainSortButton()
     
-    private let totalCountLabel = LabelFactory.build(font: .body3)
+    private let totalLabel = LabelFactory.build(
+        text: "총",
+        font: .body3,
+        textColor: .grey400
+    )
+    
+    private let totalCountLabel = LabelFactory.build(
+        font: .body4,
+        textColor: .terningMain
+    )
+    
+    private let countLabel = LabelFactory.build(
+        text: "개",
+        font: .body3,
+        textColor: .grey400
+    )
     
     private lazy var HStackView: UIStackView = UIStackView(
         arrangedSubviews: [
@@ -71,7 +86,9 @@ extension StickyHeaderCell {
     private func setHierarchy() {
         addSubviews(
             titleLabel,
+            totalLabel,
             totalCountLabel,
+            countLabel,
             HStackView
         )
     }
@@ -82,9 +99,19 @@ extension StickyHeaderCell {
             $0.leading.equalToSuperview().offset(24.adjusted)
         }
         
-        totalCountLabel.snp.makeConstraints {
+        totalLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(21.adjustedH)
             $0.leading.equalToSuperview().offset(26.adjusted)
+        }
+        
+        totalCountLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(21.adjustedH)
+            $0.leading.equalTo(totalLabel.snp.trailing).offset(4.adjusted)
+        }
+        
+        countLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(21.adjustedH)
+            $0.leading.equalTo(totalCountLabel.snp.trailing).offset(1.adjusted)
         }
         
         HStackView.snp.makeConstraints {
@@ -104,7 +131,7 @@ extension StickyHeaderCell {
     
     private func setAddTarget() {
         filterButton.addTarget(self, action: #selector(filterButtonDidTap), for: .touchUpInside)
-        sortButton.addTarget(self, action: #selector(sortButtonDidTap), for: .touchUpInside)
+        sortButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(sortButtonDidTap)))
     }
     
     @objc
@@ -124,6 +151,6 @@ extension StickyHeaderCell {
             titleLabel.text = "\(name)님에게 딱 맞는 대학생 인턴 공고"
         }
         
-        totalCountLabel.text = "총 \(totalCount)개"
+        totalCountLabel.text = "\(totalCount)"
     }
 }

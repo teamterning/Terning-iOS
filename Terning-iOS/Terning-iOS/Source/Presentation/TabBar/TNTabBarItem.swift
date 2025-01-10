@@ -22,7 +22,7 @@ enum TNTabBarItem {
         case .search:
             return "탐색"
         case .myPage:
-            return "마이페이지"
+            return "마이"
         }
     }
     

@@ -50,6 +50,14 @@ final class NewHomeViewController: UIViewController {
     private var totalCount: Int = 0
     private var apiParameter: String = "deadlineSoon"
     
+    private let sortDictionary: [String: SortingOptions] = [
+        "deadlineSoon": .deadlineSoon,
+        "shortestDuration": .shortestDuration,
+        "longestDuration": .longestDuration,
+        "mostScrapped": .mostScrapped,
+        "mostViewed": .mostViewed
+    ]
+    
     var filterInfos: UserFilteringInfoModel = UserFilteringInfoModel(
         grade: nil, // 기본값 설정
         workingPeriod: nil, // 기본값 설정
@@ -72,7 +80,7 @@ final class NewHomeViewController: UIViewController {
         }
     }
     
-    private var userName: String = "여섯글자넘음ㅋ" {
+    private lazy var userName: String = "" {
         didSet {
             rootView.updateLayout(hasScrapped: hasScrapped, soonData: sectionTwoData, userName: userName)
         }
@@ -139,6 +147,8 @@ final class NewHomeViewController: UIViewController {
         
         rootView.collectionView.register(JobCardCell.self, forCellWithReuseIdentifier: JobCardCell.className)
     }
+    
+    // MARK: - Bind
     
     private func bindViewModel() {
         
@@ -227,11 +237,16 @@ final class NewHomeViewController: UIViewController {
             .subscribe(onNext: { [weak self] offset in
                 guard let self = self else { return }
                 
-                // 첫 번째 로직: Pagination 처리
                 self.handlePagination(offset: offset)
                 self.isLoading = false
+            })
+            .disposed(by: disposeBag)
+        
+        rootView.collectionView.rx.contentOffset
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] offset in
+                guard let self = self else { return }
                 
-                // 두 번째 로직: GradientLayerView 표시/숨김 처리
                 if offset.y > 200 {
                     self.rootView.gradientLayerView.isHidden = false
                 } else {
@@ -329,7 +344,8 @@ extension NewHomeViewController: StickyHeaderCellDelegate {
                 guard let self = self else { return }
                 self.mainHomeDatas.removeAll()
                 fetchFilterInfos()
-                self.sortAndPageSubject.on(.next((apiParameter, 0)))
+                self.currentPage = 0
+                self.sortAndPageSubject.onNext((apiParameter, currentPage))
             }.disposed(by: disposeBag)
         
         track(eventName: .clickHomeFiltering)
@@ -359,8 +375,24 @@ extension NewHomeViewController: UICollectionViewDelegate {
                     )
                 )
             )
-            let index = mainHomeDatas[indexPath.row].internshipAnnouncementId
-            jobDetailVC.internshipAnnouncementId.accept(index)
+            
+            let index = indexPath.row
+            let internshipId = mainHomeDatas[index].internshipAnnouncementId
+            
+            jobDetailVC.internshipAnnouncementId.accept(internshipId)
+            
+            /// 공고 상세에서 스크랩을 적용했을때, 스크랩 상태를 홈 공고 UI와 얼라인을 해주는 코드 입니다.
+            jobDetailVC.didToggleScrap = { [weak self] internshipId, isScrapped in
+                guard let self = self else { return }
+                
+                if let rowIndex = self.mainHomeDatas.firstIndex(where: { $0.internshipAnnouncementId == internshipId }) {
+                    self.mainHomeDatas[rowIndex].isScrapped = isScrapped
+                    
+                    let indexPath = IndexPath(row: rowIndex, section: 2)
+                    self.rootView.collectionView.reloadItems(at: [indexPath])
+                }
+            }
+            
             jobDetailVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(jobDetailVC, animated: true)
         default:
@@ -390,6 +422,7 @@ extension NewHomeViewController: UICollectionViewDataSource {
                 return UICollectionReusableView()
             }
             
+            headerView.sortButton.changeTitle(name: sortDictionary[apiParameter]?.rawValue ?? "")
             headerView.bind(totalCount: totalCount, name: userName)
             headerView.delegate = self
             headerView.backgroundColor = .white
@@ -467,6 +500,8 @@ extension NewHomeViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - SortSettingButtonProtocol
+
 extension NewHomeViewController: SortSettingButtonProtocol {
     func didSelectSortingOption(_ option: SortingOptions) {
         guard let headerView = rootView.collectionView.supplementaryView(
@@ -491,6 +526,8 @@ extension NewHomeViewController: SortSettingButtonProtocol {
             apiParameter = "mostViewed"
             track(eventName: .clickFilteredHits)
         }
+        
+        headerView.sortButton.changeTitle(name: option.title)
         
         self.mainHomeDatas.removeAll()
         self.sortAndPageSubject.onNext((apiParameter, 0))
@@ -546,11 +583,15 @@ extension NewHomeViewController: JobCardScrapedCellProtocol {
     }
 }
 
+// MARK: - CheckDeadlineCellProtocol
+
 extension NewHomeViewController: CheckDeadlineCellProtocol {
     func checkDeadlineButtonDidTap() {
         self.tabBarController?.selectedIndex = 1
     }
 }
+
+// MARK: - UIAdaptivePresentationControllerDelegate
 
 extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
     func removeDimmedBackgroundView() {
@@ -569,6 +610,8 @@ extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
     }
 }
 
+// MARK: - UpcomingCardCellProtocol
+
 extension NewHomeViewController: UpcomingCardCellProtocol {
     func upcomingCardDidTap(index: Int) {
         print(index)
@@ -585,6 +628,19 @@ extension NewHomeViewController: UpcomingCardCellProtocol {
         let model = sectionTwoData[index]
         
         jobDetailViewController.internshipAnnouncementId.accept(model.internshipAnnouncementId)
+        
+        /// 공고 상세에서 스크랩을 적용했을때, 스크랩 상태를 홈 공고 UI와 얼라인을 해주는 코드 입니다.
+        jobDetailViewController.didToggleScrap = { [weak self] internshipId, isScrapped in
+            guard let self = self else { return }
+            
+            if let rowIndex = self.mainHomeDatas.firstIndex(where: { $0.internshipAnnouncementId == internshipId }) {
+                self.mainHomeDatas[rowIndex].isScrapped = isScrapped
+                
+                let indexPath = IndexPath(row: rowIndex, section: 2)
+                self.rootView.collectionView.reloadItems(at: [indexPath])
+            }
+        }
+        
         jobDetailViewController.hidesBottomBarWhenPushed = true
         
         track(eventName: .clickRemindInternCard)
@@ -594,10 +650,11 @@ extension NewHomeViewController: UpcomingCardCellProtocol {
     }
 }
 
+// MARK: - Network
+
 extension NewHomeViewController {
     private func getMyPageInfo() {
-        myPageProvider.request(.getProfileInfo) { [weak self] result in
-            guard let self = self else { return }
+        myPageProvider.request(.getProfileInfo) { result in
             switch result {
             case .success(let response):
                 let status = response.statusCode
@@ -607,7 +664,7 @@ extension NewHomeViewController {
                         let responseDto = try response.map(BaseResponse<UserProfileInfoModel>.self)
                         guard let data = responseDto.result else { return }
                         
-                        self.userName = data.name
+                        UserManager.shared.userName = data.name
                         
                     } catch {
                         print("사용자 정보를 불러올 수 없어요.")
@@ -636,11 +693,7 @@ extension NewHomeViewController {
                         guard let data = responseDto.result else { return }
                         
                         self.filterInfos = data
-                        
-                        // 0.2초 뒤에 fetchJobCardDatas 호출
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            self.sortAndPageSubject.onNext((self.apiParameter, 0))
-                        }
+                        self.userName = UserManager.shared.userName ?? "" // 유저 네임 viewWillAppear 시 매번 접근
                         
                     } catch {
                         print(error.localizedDescription)

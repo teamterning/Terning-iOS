@@ -18,8 +18,8 @@ final class UserFilteringData {
     
     var grade: Grade? 
     var workingPeriod: WorkingPeriod?
-    var startYear: Int? = Date().getCurrentKrYearAndMonth().year
-    var startMonth: Int? = Date().getCurrentKrYearAndMonth().month
+    var startYear: Int?
+    var startMonth: Int?
     var jobType: JobType?
     
     private init() {}
@@ -30,8 +30,8 @@ final class TemporaryFilteringData {
     
     var grade: Grade?
     var workingPeriod: WorkingPeriod?
-    var startYear: Int? = Date().getCurrentKrYearAndMonth().year
-    var startMonth: Int? = Date().getCurrentKrYearAndMonth().month
+    var startYear: Int?
+    var startMonth: Int?
     var jobType: JobType?
     
     private init() {}
@@ -89,8 +89,8 @@ final class FilteringViewController: UIViewController {
     init(viewModel: FilteringViewModel, data: UserFilteringInfoModel) {
         UserFilteringData.shared.grade = data.grade.flatMap { Grade(rawValue: $0) ?? Grade.fromEnglishValue($0) }
         UserFilteringData.shared.workingPeriod = data.workingPeriod.flatMap { WorkingPeriod(rawValue: $0) ?? WorkingPeriod.fromEnglishValue($0) }
-        UserFilteringData.shared.startYear = data.startYear ?? UserFilteringData.shared.startYear
-        UserFilteringData.shared.startMonth = data.startMonth ?? UserFilteringData.shared.startMonth
+        UserFilteringData.shared.startYear = (data.startYear == 0) ? nil : data.startYear
+        UserFilteringData.shared.startMonth = (data.startMonth == 0) ? nil : data.startMonth
         UserFilteringData.shared.jobType = data.jobType.flatMap { JobType(rawValue: $0) ?? JobType.fromEnglishValue($0)  }
         self.viewModel = viewModel
         

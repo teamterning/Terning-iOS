@@ -20,7 +20,6 @@ final class PlanFilteringViewController: UIViewController {
     private let viewModel: PlanFilteringViewModel
     private let disposeBag = DisposeBag()
     var filteringState = BehaviorRelay<Bool>(value: false)
-    private var selectedButtons: [CustomOnboardingButton?] = [nil, nil]
    
     // MARK: - UI Components
     
@@ -135,38 +134,37 @@ extension PlanFilteringViewController {
     private func bindViewModel() {
         let gradeSelected = Observable<Grade?>.merge(
             gradeButtons.arrangedSubviews.compactMap { $0 as? CustomOnboardingButton }.map { button in
-                button.rx.tap.map { [weak self] in
-                    self?.updateSelectedButton(section: 0, sender: button)
-                    return self?.selectedButtons[0] != nil ? Grade.allCases[button.tag % 10] : nil
-                }
+                button.rx.tap.map { Grade.allCases[button.tag % 10] }
             }
         )
+        
         let periodSelected = Observable<WorkingPeriod?>.merge(
             periodButtons.arrangedSubviews.compactMap { $0 as? CustomOnboardingButton }.map { button in
-                button.rx.tap.map { [weak self] in
-                    self?.updateSelectedButton(section: 1, sender: button)
-                    return self?.selectedButtons[1] != nil ? WorkingPeriod.allCases[button.tag % 10] : nil
-                }
+                button.rx.tap.map { WorkingPeriod.allCases[button.tag % 10] }
             }
         )
+        
         let dateSelected = Observable<(Int?, Int?)>.create { [weak self] observer -> Disposable in
             self?.customPickerView.onDateSelected = { year, month in
-                self?.updateCheckBoxState()
                 observer.onNext((year, month))
             }
             return Disposables.create()
         }
         .observe(on: MainScheduler.asyncInstance)
         .share()
-
-        let checkBoxToggled: Observable<Bool> = Observable.create { [weak self] observer -> Disposable in
+        
+        let checkBoxToggled = Observable<Bool>.create { [weak self] observer -> Disposable in
             self?.checkBox.action = { isChecked in
-                self?.didTapCheckBox(isChecked: isChecked)
                 observer.onNext(isChecked)
+                if isChecked {
+                    self?.customPickerView.addPlaceholder()
+                    self?.customPickerView.removePlaceholder()
+                }
             }
             return Disposables.create()
         }
-        
+        .observe(on: MainScheduler.asyncInstance)
+
         let input = PlanFilteringViewModel.Input(
             gradeSelected: gradeSelected,
             periodSelected: periodSelected,
@@ -177,26 +175,44 @@ extension PlanFilteringViewController {
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
-        output.selectedGrade
-            .drive(onNext: { [weak self] grade in
-                guard let self = self, let grade = grade else { return }
-                self.updateButtonState(for: self.gradeButtons, selectedValue: grade.displayName, section: 0)
-            })
-            .disposed(by: disposeBag)
-
-        output.selectedPeriod
-            .drive(onNext: { [weak self] period in
-                guard let self = self, let period = period else { return }
-                self.updateButtonState(for: self.periodButtons, selectedValue: period.displayName, section: 1)
-            })
-            .disposed(by: disposeBag)
-
-        Observable
-            .combineLatest(output.selectedYear.asObservable(), output.selectedMonth.asObservable())
+        Observable.combineLatest(output.selectedYear.asObservable(), output.selectedMonth.asObservable())
             .take(1)
             .subscribe(onNext: { [weak self] year, month in
-                guard let self = self, let year = year, let month = month else { return }
-                self.customPickerView.setInitialDate(year: year, month: month)
+                guard let self = self else { return }
+                
+                if let year = year, let month = month, year > 0, month > 0 {
+                    self.customPickerView.setInitialDate(year: year, month: month)
+                } else {
+                    self.customPickerView.addPlaceholder()
+                }
+            })
+            .disposed(by: disposeBag)
+
+        output.selectedGrade
+            .drive(onNext: { [weak self] grade in
+                guard let self = self else { return }
+                if let grade = grade {
+                    self.updateButtonState(for: self.gradeButtons, selectedValue: grade.displayName)
+                } else {
+                    self.updateButtonState(for: self.gradeButtons, selectedValue: nil)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        output.selectedPeriod
+            .drive(onNext: { [weak self] period in
+                guard let self = self else { return }
+                if let period = period {
+                    self.updateButtonState(for: self.periodButtons, selectedValue: period.displayName)
+                } else {
+                    self.updateButtonState(for: self.periodButtons, selectedValue: nil)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        output.isCheckBoxChecked
+            .drive(onNext: { [weak self] isChecked in
+                self?.checkBox.setChecked(isChecked)
             })
             .disposed(by: disposeBag)
         
@@ -205,59 +221,11 @@ extension PlanFilteringViewController {
             .disposed(by: disposeBag)
     }
     
-    private func updateButtonState(for buttonGroup: UIStackView, selectedValue: String?, section: Int) {
+    private func updateButtonState(for buttonGroup: UIStackView?, selectedValue: String?) {
+        guard let buttonGroup = buttonGroup else { return }
         buttonGroup.arrangedSubviews.compactMap { $0 as? CustomOnboardingButton }.forEach { button in
             let isSelected = (button.originalTitle == selectedValue)
-            if isSelected {
-                button.selectButton()
-                selectedButtons[section] = button
-            } else {
-                button.deselectButton()
-            }
-        }
-    }
-    
-    private func updateCheckBoxState() {
-        let hasSelectedButton = selectedButtons.contains { $0 != nil }
-        let pickerHasValidSelection = {
-            let selectedYearRow = customPickerView.selectedRow(inComponent: 0)
-            let selectedMonthRow = customPickerView.selectedRow(inComponent: 1)
-            
-            let yearIsValid = selectedYearRow >= 0 && selectedYearRow < customPickerView.years.count && customPickerView.years[selectedYearRow] != "-"
-            let monthIsValid = selectedMonthRow >= 0 && selectedMonthRow < customPickerView.months.count && customPickerView.months[selectedMonthRow] != "-"
-            return yearIsValid || monthIsValid
-        }()
-        if hasSelectedButton || pickerHasValidSelection {
-            checkBox.setChecked(false)
-        }
-    }
-    
-    private func updateSelectedButton(section: Int, sender: CustomOnboardingButton) {
-        if selectedButtons[section] == sender {
-            selectedButtons[section]?.deselectButton()
-            selectedButtons[section] = nil
-        } else {
-            selectedButtons[section]?.deselectButton()
-            sender.selectButton()
-            selectedButtons[section] = sender
-        }
-        updateCheckBoxState()
-    }
-}
-
-// MARK: - @objc func
-
-extension PlanFilteringViewController {
-    @objc
-    private func didTapCheckBox(isChecked: Bool) {
-        if isChecked {
-            selectedButtons.forEach { button in
-                button?.deselectButton()
-            }
-            selectedButtons = [nil, nil]
-            
-            customPickerView.addPlaceholder()
-            customPickerView.removePlaceholder()
+            isSelected ? button.selectButton() : button.deselectButton()
         }
     }
 }

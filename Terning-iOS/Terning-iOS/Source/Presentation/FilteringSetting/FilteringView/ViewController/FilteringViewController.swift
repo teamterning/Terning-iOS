@@ -54,6 +54,11 @@ final class FilteringViewController: UIViewController {
         $0.isUserInteractionEnabled = true
     }
     
+    private var titleLabel = LabelFactory.build(
+        text: "필터",
+        font: .title2
+    )
+    
     private var segmentControl: CustomSegmentedControl = {
         let underbarInfo = UnderbarInfo(
             height: 4,
@@ -123,6 +128,7 @@ extension FilteringViewController {
     private func setHierarchy() {
         view.addSubviews(
             notchView,
+            titleLabel,
             segmentControl,
             underLineView,
             saveButton
@@ -137,8 +143,13 @@ extension FilteringViewController {
             $0.height.equalTo(4.adjustedH)
         }
         
-        segmentControl.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.top.equalTo(notchView.snp.bottom).offset(24.adjustedH)
+            $0.leading.equalToSuperview().inset(25.adjusted)
+        }
+        
+        segmentControl.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20.adjustedH)
             $0.leading.equalToSuperview().inset(20.adjusted)
             $0.height.equalTo(40.adjustedH)
         }

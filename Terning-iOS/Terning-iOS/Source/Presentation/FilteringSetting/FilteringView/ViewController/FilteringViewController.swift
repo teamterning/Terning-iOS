@@ -129,8 +129,8 @@ extension FilteringViewController {
         view.addSubviews(
             notchView,
             titleLabel,
-            segmentControl,
             underLineView,
+            segmentControl,
             saveButton
         )
     }
@@ -149,14 +149,14 @@ extension FilteringViewController {
         }
         
         segmentControl.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(20.adjustedH)
-            $0.leading.equalToSuperview().inset(20.adjusted)
-            $0.height.equalTo(40.adjustedH)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(11.adjustedH)
+            $0.leading.equalToSuperview().inset(25.adjusted)
+            $0.height.equalTo(39)
         }
         
         underLineView.snp.makeConstraints {
             $0.top.equalTo(segmentControl.snp.bottom).offset(-1)
-            $0.horizontalEdges.equalToSuperview().inset(29.adjusted)
+            $0.horizontalEdges.equalToSuperview().inset(25.adjusted)
             $0.height.equalTo(1)
         }
         

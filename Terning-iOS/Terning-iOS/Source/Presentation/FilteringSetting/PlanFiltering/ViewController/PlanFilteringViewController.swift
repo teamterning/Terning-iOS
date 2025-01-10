@@ -24,21 +24,18 @@ final class PlanFilteringViewController: UIViewController {
    
     // MARK: - UI Components
     
-    private let gradeTitleLabel = UILabel().then {
-        $0.text = "재학 상태"
-        $0.font = .systemFont(ofSize: 16, weight: .bold)
-        $0.textColor = .darkGray
-    }
-    private let periodTitleLabel = UILabel().then {
-        $0.text = "희망 근무 기간"
-        $0.font = .systemFont(ofSize: 16, weight: .bold)
-        $0.textColor = .darkGray
-    }
-    private let dateTitleLabel = UILabel().then {
-        $0.text = "근무 시작 시기"
-        $0.font = .systemFont(ofSize: 16, weight: .bold)
-        $0.textColor = .darkGray
-    }
+    private var gradeTitleLabel = LabelFactory.build(
+        text: "재학 상태",
+        font: .title4
+    )
+    private var periodTitleLabel = LabelFactory.build(
+        text: "희망 근무 기간",
+        font: .title4
+    )
+    private var dateTitleLabel = LabelFactory.build(
+        text: "근무 시작 시기",
+        font: .title4
+    )
     private lazy var gradeButtons = createButtonGroup(titles: Grade.allCases.map { $0.displayName }, section: 0)
     private lazy var periodButtons = createButtonGroup(titles: WorkingPeriod.allCases.map { $0.displayName }, section: 1)
     private var customPickerView = CustomDatePicker()
@@ -82,7 +79,7 @@ extension PlanFilteringViewController {
     }
     private func setLayout() {
         gradeTitleLabel.snp.makeConstraints {
-            $0.top.horizontalEdges.equalToSuperview()
+            $0.top.leading.equalToSuperview()
         }
         gradeButtons.snp.makeConstraints {
             $0.top.equalTo(gradeTitleLabel.snp.bottom).offset(12.adjustedH)

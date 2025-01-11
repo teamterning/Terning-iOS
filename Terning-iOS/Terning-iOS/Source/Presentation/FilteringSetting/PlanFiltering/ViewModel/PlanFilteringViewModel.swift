@@ -91,6 +91,9 @@ final class PlanFilteringViewModel: ViewModelType {
                     self.yearRelay.accept(nil)
                     self.monthRelay.accept(nil)
                     self.hasNonNilValueRelay.accept(false)
+                    
+                    TemporaryFilteringData.shared.grade = nil
+                    TemporaryFilteringData.shared.workingPeriod = nil
                 }
             })
             .disposed(by: disposeBag)
@@ -114,6 +117,7 @@ final class PlanFilteringViewModel: ViewModelType {
                 if !isAllNil {
                     self.hasNonNilValueRelay.accept(true)
                 }
+
                 return isAllNil && !self.hasNonNilValueRelay.value
             }
             .distinctUntilChanged()

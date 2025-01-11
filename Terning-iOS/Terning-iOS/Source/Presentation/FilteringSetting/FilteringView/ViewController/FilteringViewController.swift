@@ -18,8 +18,8 @@ final class UserFilteringData {
     
     var grade: Grade? 
     var workingPeriod: WorkingPeriod?
-    var startYear: Int? = Date().getCurrentKrYearAndMonth().year
-    var startMonth: Int? = Date().getCurrentKrYearAndMonth().month
+    var startYear: Int?
+    var startMonth: Int?
     var jobType: JobType?
     
     private init() {}
@@ -30,8 +30,8 @@ final class TemporaryFilteringData {
     
     var grade: Grade?
     var workingPeriod: WorkingPeriod?
-    var startYear: Int? = Date().getCurrentKrYearAndMonth().year
-    var startMonth: Int? = Date().getCurrentKrYearAndMonth().month
+    var startYear: Int?
+    var startMonth: Int?
     var jobType: JobType?
     
     private init() {}
@@ -53,6 +53,11 @@ final class FilteringViewController: UIViewController {
         $0.layer.cornerRadius = 2
         $0.isUserInteractionEnabled = true
     }
+    
+    private var titleLabel = LabelFactory.build(
+        text: "필터",
+        font: .title2
+    )
     
     private var segmentControl: CustomSegmentedControl = {
         let underbarInfo = UnderbarInfo(
@@ -84,8 +89,8 @@ final class FilteringViewController: UIViewController {
     init(viewModel: FilteringViewModel, data: UserFilteringInfoModel) {
         UserFilteringData.shared.grade = data.grade.flatMap { Grade(rawValue: $0) ?? Grade.fromEnglishValue($0) }
         UserFilteringData.shared.workingPeriod = data.workingPeriod.flatMap { WorkingPeriod(rawValue: $0) ?? WorkingPeriod.fromEnglishValue($0) }
-        UserFilteringData.shared.startYear = data.startYear ?? UserFilteringData.shared.startYear
-        UserFilteringData.shared.startMonth = data.startMonth ?? UserFilteringData.shared.startMonth
+        UserFilteringData.shared.startYear = (data.startYear == 0) ? nil : data.startYear
+        UserFilteringData.shared.startMonth = (data.startMonth == 0) ? nil : data.startMonth
         UserFilteringData.shared.jobType = data.jobType.flatMap { JobType(rawValue: $0) ?? JobType.fromEnglishValue($0)  }
         self.viewModel = viewModel
         
@@ -123,8 +128,9 @@ extension FilteringViewController {
     private func setHierarchy() {
         view.addSubviews(
             notchView,
-            segmentControl,
+            titleLabel,
             underLineView,
+            segmentControl,
             saveButton
         )
     }
@@ -137,15 +143,20 @@ extension FilteringViewController {
             $0.height.equalTo(4.adjustedH)
         }
         
-        segmentControl.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.top.equalTo(notchView.snp.bottom).offset(24.adjustedH)
-            $0.leading.equalToSuperview().inset(20.adjusted)
-            $0.height.equalTo(40.adjustedH)
+            $0.leading.equalToSuperview().inset(25.adjusted)
+        }
+        
+        segmentControl.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(11.adjustedH)
+            $0.leading.equalToSuperview().inset(25.adjusted)
+            $0.height.equalTo(39)
         }
         
         underLineView.snp.makeConstraints {
             $0.top.equalTo(segmentControl.snp.bottom).offset(-1)
-            $0.horizontalEdges.equalToSuperview().inset(29.adjusted)
+            $0.horizontalEdges.equalToSuperview().inset(25.adjusted)
             $0.height.equalTo(1)
         }
         

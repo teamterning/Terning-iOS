@@ -90,16 +90,10 @@ extension JobFilteringViewController {
         
         output.selectedJobType
             .drive(onNext: { [weak self] selectedJob in
-                guard let self = self else { return }
-                if let selectedJob = selectedJob,
-                   let index = JobType.allCases.firstIndex(of: selectedJob) {
-                    let indexPath = IndexPath(item: index, section: 0)
-                    self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
-                } else {
-                    self.collectionView.indexPathsForSelectedItems?.forEach {
-                        self.collectionView.deselectItem(at: $0, animated: false)
-                    }
-                }
+                guard let self = self, let selectedJob = selectedJob,
+                      let index = JobType.allCases.firstIndex(of: selectedJob) else { return }
+                let indexPath = IndexPath(item: index, section: 0)
+                self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
             })
             .disposed(by: disposeBag)
     }

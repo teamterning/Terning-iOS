@@ -15,7 +15,7 @@ final class JobFilteringViewModel: ViewModelType {
     // MARK: - Properties
     
     private let jobTypesRelay = BehaviorRelay<[JobType]>(value: JobType.allCases)
-    private let selectedJobTypeRelay = BehaviorRelay<JobType?>(value: UserFilteringData.shared.jobType)
+    private let selectedJobTypeRelay = BehaviorRelay<JobType?>(value: UserFilteringData.shared.jobType ?? JobType.allCases.last)
     
     // MARK: - Input
     
@@ -38,11 +38,7 @@ final class JobFilteringViewModel: ViewModelType {
             .subscribe(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
                 let selectedJob = JobType.allCases[indexPath.item]
-                if self.selectedJobTypeRelay.value == selectedJob {
-                    self.selectedJobTypeRelay.accept(nil)
-                } else {
-                    self.selectedJobTypeRelay.accept(selectedJob)
-                }
+                self.selectedJobTypeRelay.accept(selectedJob)
             })
             .disposed(by: disposeBag)
         

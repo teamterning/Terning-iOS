@@ -61,8 +61,8 @@ final class NewHomeViewController: UIViewController {
     var filterInfos: UserFilteringInfoModel = UserFilteringInfoModel(
         grade: nil, // 기본값 설정
         workingPeriod: nil, // 기본값 설정
-        startYear: nil, // 기본값 설정
-        startMonth: nil, // 기본값 설정
+        startYear: 0, // 기본값 설정
+        startMonth: 0, // 기본값 설정
         jobType: nil
     )
     

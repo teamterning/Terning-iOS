@@ -28,6 +28,7 @@ excluded:
     - Terning-iOS/Resource/UIComponents/CustomAlertViewController.swift
     - Terning-iOS/Resource/UIComponents/NewCustomAlertVC.swift
     - Terning-iOS/Source/Presentation/Calendar/ViewController/TNCalendarViewController.swift
+    - Terning-iOS/Source/Presentation/RefactorHome/NewHomeViewController.swift
 
 file_length:
     warning: 400 # 400줄 넘어가면 경고 입니다 ^_^

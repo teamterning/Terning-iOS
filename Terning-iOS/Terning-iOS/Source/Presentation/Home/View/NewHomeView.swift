@@ -14,11 +14,11 @@ final class NewHomeView: UIView {
     
     // MARK: - Properties
     
-    // MARK: - UIComponents
-    
     var hasScrapped: Bool = false
     var soonData: [AnnouncementModel] = []
     var userName: String = ""
+    
+    // MARK: - UIComponents
     
     lazy var collectionView: UICollectionView = {
         

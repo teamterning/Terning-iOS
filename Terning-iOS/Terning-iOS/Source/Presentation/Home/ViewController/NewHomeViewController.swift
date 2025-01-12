@@ -141,8 +141,6 @@ final class NewHomeViewController: UIViewController {
         rootView.collectionView.register(CheckDeadlineCell.self, forCellWithReuseIdentifier: CheckDeadlineCell.className)
         rootView.collectionView.register(NonScrapInfoCell.self, forCellWithReuseIdentifier: NonScrapInfoCell.className)
         
-        rootView.collectionView.register(ScrapInfoHeaderCell.self, forCellWithReuseIdentifier: ScrapInfoHeaderCell.className)
-        
         rootView.collectionView.register(StickyHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: StickyHeaderCell.className)
         
         rootView.collectionView.register(JobCardCell.self, forCellWithReuseIdentifier: JobCardCell.className)
@@ -613,7 +611,7 @@ extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
 // MARK: - UpcomingCardCellProtocol
 
 extension NewHomeViewController: UpcomingCardCellProtocol {
-    func upcomingCardDidTap(index: Int) {
+    func upcomingCardDidTap(indexPath index: Int) {
         print(index)
         let jobDetailViewController = JobDetailViewController(
             viewModel: JobDetailViewModel(

@@ -36,7 +36,7 @@ final class AuthInterceptor: RequestInterceptor {
         guard let response = request.task?.response as? HTTPURLResponse,
               response.statusCode == 401,
               let pathComponents = request.request?.url?.pathComponents,
-              !pathComponents.contains("getNewToken")
+              !pathComponents.contains("token-reissue")
         else {
             dump(error)
             completion(.doNotRetryWithError(error))

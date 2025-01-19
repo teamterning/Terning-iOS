@@ -11,6 +11,7 @@ public enum AmplitudeEventType: String {
     // 회원가입 이벤트
     case signupKakao = "signup_kakao" // 회원가입_카카오 로그인
     case signupApple = "signup_apple" // 회원가입_Apple 로그인
+    case skipPlan = "skip_plan" // 게획 나중에 입력하기
     
     // 스플래쉬 이벤트
     case clickStartService = "click_start_service" // 스플래쉬_서비스 시작하기

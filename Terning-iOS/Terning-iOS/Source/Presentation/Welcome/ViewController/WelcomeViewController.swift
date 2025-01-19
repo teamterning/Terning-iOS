@@ -93,6 +93,7 @@ extension WelcomeViewController {
         }
     }
     @objc private func skipButtonDidTap() {
+        track(eventName: .skipPlan)
         navigateToTabBar()
     }
 }

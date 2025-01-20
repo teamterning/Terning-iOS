@@ -10,6 +10,10 @@ import UIKit
 import SnapKit
 import Then
 
+protocol UpcomingCardCellProtocol {
+    func upcomingCardDidTap(indexPath: Int)
+}
+
 final class ClosingJobAnnouncementCell: UICollectionViewCell {
     
     // MARK: - Properties
@@ -187,6 +191,6 @@ extension ClosingJobAnnouncementCell {
     @objc func upcomingCardDidTap() {
         guard let internshipAnnouncementId = self.indexPath else { return }
         
-        delegate?.upcomingCardDidTap(index: internshipAnnouncementId)
+        delegate?.upcomingCardDidTap(indexPath: internshipAnnouncementId)
     }
 }

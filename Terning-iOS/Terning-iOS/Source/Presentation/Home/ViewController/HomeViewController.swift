@@ -1,5 +1,5 @@
 //
-//  NewHomeViewController.swift
+//  HomeViewController.swift
 //  Terning-iOS
 //
 //  Created by 이명진 on 12/19/24.
@@ -25,7 +25,7 @@ struct JobMainModel: Codable {
     let result: [AnnouncementModel]
 }
 
-final class NewHomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -86,7 +86,7 @@ final class NewHomeViewController: UIViewController {
         }
     }
     
-    private lazy var rootView = NewHomeView(hasScrapped: hasScrapped, soonData: sectionTwoData, userName: userName)
+    private lazy var rootView = HomeView(hasScrapped: hasScrapped, soonData: sectionTwoData, userName: userName)
     
     // MARK: - Life Cycles
     
@@ -140,8 +140,6 @@ final class NewHomeViewController: UIViewController {
         rootView.collectionView.register(ClosingJobAnnouncementCell.self, forCellWithReuseIdentifier: ClosingJobAnnouncementCell.className)
         rootView.collectionView.register(CheckDeadlineCell.self, forCellWithReuseIdentifier: CheckDeadlineCell.className)
         rootView.collectionView.register(NonScrapInfoCell.self, forCellWithReuseIdentifier: NonScrapInfoCell.className)
-        
-        rootView.collectionView.register(ScrapInfoHeaderCell.self, forCellWithReuseIdentifier: ScrapInfoHeaderCell.className)
         
         rootView.collectionView.register(StickyHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: StickyHeaderCell.className)
         
@@ -279,7 +277,7 @@ final class NewHomeViewController: UIViewController {
 
 // MARK: - StickyHeaderCellDelegate
 
-extension NewHomeViewController: StickyHeaderCellDelegate {
+extension HomeViewController: StickyHeaderCellDelegate {
     func didTapSortButton() {
         let sortSettingVC = SortSettingViewController()
         sortSettingVC.sortSettingDelegate = self
@@ -356,7 +354,7 @@ extension NewHomeViewController: StickyHeaderCellDelegate {
 
 // MARK: - UICollectionViewDelegate
 
-extension NewHomeViewController: UICollectionViewDelegate {
+extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let section = MainSection(rawValue: indexPath.section) else {
             return
@@ -403,7 +401,7 @@ extension NewHomeViewController: UICollectionViewDelegate {
 
 // MARK: - UICollectionViewDataSource
 
-extension NewHomeViewController: UICollectionViewDataSource {
+extension HomeViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return MainSection.allCases.count
@@ -502,7 +500,7 @@ extension NewHomeViewController: UICollectionViewDataSource {
 
 // MARK: - SortSettingButtonProtocol
 
-extension NewHomeViewController: SortSettingButtonProtocol {
+extension HomeViewController: SortSettingButtonProtocol {
     func didSelectSortingOption(_ option: SortingOptions) {
         guard let headerView = rootView.collectionView.supplementaryView(
             forElementKind: UICollectionView.elementKindSectionHeader,
@@ -536,7 +534,7 @@ extension NewHomeViewController: SortSettingButtonProtocol {
     }
 }
 
-extension NewHomeViewController: JobCardScrapedCellProtocol {
+extension HomeViewController: JobCardScrapedCellProtocol {
     func scrapButtonDidTap(index: Int) {
         
         track(eventName: .clickHomeScrap)
@@ -585,7 +583,7 @@ extension NewHomeViewController: JobCardScrapedCellProtocol {
 
 // MARK: - CheckDeadlineCellProtocol
 
-extension NewHomeViewController: CheckDeadlineCellProtocol {
+extension HomeViewController: CheckDeadlineCellProtocol {
     func checkDeadlineButtonDidTap() {
         self.tabBarController?.selectedIndex = 1
     }
@@ -593,7 +591,7 @@ extension NewHomeViewController: CheckDeadlineCellProtocol {
 
 // MARK: - UIAdaptivePresentationControllerDelegate
 
-extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
+extension HomeViewController: UIAdaptivePresentationControllerDelegate {
     func removeDimmedBackgroundView() {
         if let presentingView = self.view,
            let dimmedBackgroundView = presentingView.viewWithTag(999) {
@@ -612,8 +610,8 @@ extension NewHomeViewController: UIAdaptivePresentationControllerDelegate {
 
 // MARK: - UpcomingCardCellProtocol
 
-extension NewHomeViewController: UpcomingCardCellProtocol {
-    func upcomingCardDidTap(index: Int) {
+extension HomeViewController: UpcomingCardCellProtocol {
+    func upcomingCardDidTap(indexPath index: Int) {
         print(index)
         let jobDetailViewController = JobDetailViewController(
             viewModel: JobDetailViewModel(
@@ -652,7 +650,7 @@ extension NewHomeViewController: UpcomingCardCellProtocol {
 
 // MARK: - Network
 
-extension NewHomeViewController {
+extension HomeViewController {
     private func getMyPageInfo() {
         myPageProvider.request(.getProfileInfo) { result in
             switch result {

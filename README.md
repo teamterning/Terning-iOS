@@ -1,8 +1,9 @@
-<img src="https://github.com/user-attachments/assets/0a16569c-2480-4af8-bf3b-37b3f8ef58a0" width=120 />
+[<img src="https://github.com/user-attachments/assets/0a16569c-2480-4af8-bf3b-37b3f8ef58a0" width=120 />](https://apps.apple.com/kr/app/%ED%84%B0%EB%8B%9D-terning-%EB%8C%80%ED%95%99%EC%83%9D-%EC%9D%B8%ED%84%B4-%EA%B3%B5%EA%B3%A0-%EA%B4%80%EB%A6%AC-%EC%BA%98%EB%A6%B0%EB%8D%94/id6547866420)
+
 
 # 👔 terning 터닝 - 대학생 인턴, 공고 관리 캘린더
 
-## 앱스토어 링크 : [앱스토어](https://apps.apple.com/kr/app/terning-%ED%84%B0%EB%8B%9D-%EB%8C%80%ED%95%99%EC%83%9D-%EC%9D%B8%ED%84%B4-%EA%B3%B5%EA%B3%A0-%EA%B4%80%EB%A6%AC-%EC%BA%98%EB%A6%B0%EB%8D%94/id6547866420) v1.0.5
+## 앱스토어 링크 : [앱스토어](https://apps.apple.com/kr/app/terning-%ED%84%B0%EB%8B%9D-%EB%8C%80%ED%95%99%EC%83%9D-%EC%9D%B8%ED%84%B4-%EA%B3%B5%EA%B3%A0-%EA%B4%80%EB%A6%AC-%EC%BA%98%EB%A6%B0%EB%8D%94/id6547866420) v1.1.0
 <p align="left"><img width="900" src="https://github.com/user-attachments/assets/984e7795-3746-4e7a-ad6c-cb1cb376c481"></p>
 
 **내 계획에 딱 맞는 대학생 인턴의 시작, 터닝**

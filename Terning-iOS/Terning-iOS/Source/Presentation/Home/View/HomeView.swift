@@ -1,5 +1,5 @@
 //
-//  NewHomeView.swift
+//  HomeView.swift
 //  Terning-iOS
 //
 //  Created by 이명진 on 12/19/24.
@@ -10,19 +10,19 @@ import UIKit
 import SnapKit
 import Then
 
-final class NewHomeView: UIView {
+final class HomeView: UIView {
     
     // MARK: - Properties
-    
-    // MARK: - UIComponents
     
     var hasScrapped: Bool = false
     var soonData: [AnnouncementModel] = []
     var userName: String = ""
     
+    // MARK: - UIComponents
+    
     lazy var collectionView: UICollectionView = {
         
-        let layout = CompositionalLayout.createNewHomeCollectionViewLayout(hasScrapped: hasScrapped, soonData: soonData, userName: userName)
+        let layout = CompositionalLayout.createHomeCollectionViewLayout(hasScrapped: hasScrapped, soonData: soonData, userName: userName)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         collectionView.isScrollEnabled = true
@@ -66,7 +66,7 @@ final class NewHomeView: UIView {
 
 // MARK: - UI & Layout
 
-extension NewHomeView {
+extension HomeView {
     private func setUI() {
         gradientLayerView.isHidden = true
         
@@ -131,7 +131,7 @@ extension NewHomeView {
         // 새로운 레이아웃 생성 및 적용
         
         DispatchQueue.main.async { [weak self] in
-            let newLayout = CompositionalLayout.createNewHomeCollectionViewLayout(hasScrapped: hasScrapped, soonData: soonData, userName: userName)
+            let newLayout = CompositionalLayout.createHomeCollectionViewLayout(hasScrapped: hasScrapped, soonData: soonData, userName: userName)
             self?.collectionView.collectionViewLayout = newLayout
             self?.collectionView.reloadData()
         }

@@ -20,7 +20,7 @@ final class StickyHeaderCell: UICollectionViewCell {
     // MARK: - Properties
     
     private var count: Int = 0
-
+    
     weak var delegate: StickyHeaderCellDelegate?
     
     // MARK: - UIComponents
@@ -151,6 +151,6 @@ extension StickyHeaderCell {
             titleLabel.text = "\(name)님에게 딱 맞는 대학생 인턴 공고"
         }
         
-        totalCountLabel.text = "\(totalCount)"
+        totalCountLabel.text = totalCount >= 999 ? "999+" : "\(totalCount)"
     }
 }

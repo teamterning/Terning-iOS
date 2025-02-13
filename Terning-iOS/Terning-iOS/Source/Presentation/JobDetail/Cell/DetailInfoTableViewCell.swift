@@ -8,12 +8,13 @@
 import UIKit
 
 import SnapKit
+import Then
 
 final class DetailInfoTableViewCell: UITableViewCell {
     
     // MARK: - UI Components
-    
-    private let datailDescriptionLabel = LabelFactory.build(
+
+    private let datailDescriptionLabel = TextViewFactory.build(
         text: "상세 정보입니다.",
         font: .detail1,
         textColor: .grey400,
@@ -21,7 +22,9 @@ final class DetailInfoTableViewCell: UITableViewCell {
         lineSpacing: 1.2,
         characterSpacing: 0.002
     ).then {
-        $0.numberOfLines = 0
+        $0.isEditable = false
+        $0.isScrollEnabled = false
+        $0.dataDetectorTypes = []
     }
     
     // MARK: - Init
@@ -42,7 +45,7 @@ final class DetailInfoTableViewCell: UITableViewCell {
 
 extension DetailInfoTableViewCell {
     private func setUI() {
-        self.addSubview(datailDescriptionLabel)
+        contentView.addSubview(datailDescriptionLabel)
     }
     private func setLayout() {
         datailDescriptionLabel.snp.makeConstraints {

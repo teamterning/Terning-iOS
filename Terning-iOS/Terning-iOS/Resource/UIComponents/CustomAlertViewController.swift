@@ -106,7 +106,7 @@ final class CustomAlertViewController: UIViewController {
     private lazy var paletteCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 1
-        layout.itemSize = CGSize(width: 41, height: 41)
+        layout.itemSize = CGSize(width: 41.adjusted, height: 41.adjustedH)
         return UICollectionView(frame: .zero, collectionViewLayout: layout)
     }()
     
@@ -225,7 +225,7 @@ final class CustomAlertViewController: UIViewController {
         closeButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(18.adjustedH)
             $0.trailing.equalToSuperview().offset(-18.adjusted)
-            $0.width.height.equalTo(32)
+            $0.width.height.equalTo(32.adjusted)
         }
         
         switch type {
@@ -248,7 +248,7 @@ final class CustomAlertViewController: UIViewController {
         
         centerButton.snp.makeConstraints {
             $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
-            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.horizontalEdges.equalToSuperview().inset(16.adjusted)
             $0.height.equalTo(40.adjustedH)
         }
     }
@@ -272,7 +272,7 @@ final class CustomAlertViewController: UIViewController {
     
     private func setInfoLayout() {
         alertImageView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(60)
+            $0.top.equalToSuperview().offset(60.adjustedH)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(203.adjustedH)
         }
@@ -291,7 +291,7 @@ final class CustomAlertViewController: UIViewController {
         
         centerButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(16.adjustedH)
-            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.horizontalEdges.equalToSuperview().inset(16.adjusted)
             $0.height.equalTo(40.adjustedH)
         }
     }
@@ -302,8 +302,8 @@ final class CustomAlertViewController: UIViewController {
         imageLabelVStackView.snp.makeConstraints {
             $0.top.equalTo(alertView.snp.top).offset(32.adjustedH)
             $0.centerX.equalTo(alertView)
-            $0.leading.trailing.equalToSuperview().inset(21)
-            $0.height.equalTo(153)
+            $0.leading.trailing.equalToSuperview().inset(21.adjusted)
+            $0.height.equalTo(153.adjustedH)
         }
         
         mainJobLabel.snp.makeConstraints {
@@ -317,9 +317,9 @@ final class CustomAlertViewController: UIViewController {
         
         subLabelView.snp.makeConstraints {
             $0.top.equalTo(alertView.snp.top).offset(194.adjustedH)
-            $0.leading.equalToSuperview().offset(24)
-            $0.width.equalTo(71)
-            $0.height.equalTo(23)
+            $0.leading.equalToSuperview().offset(24.adjusted)
+            $0.width.equalTo(71.adjusted)
+            $0.height.equalTo(23.adjustedH)
         }
         
         subLabelView.addSubview(subLabel)
@@ -329,14 +329,14 @@ final class CustomAlertViewController: UIViewController {
         }
         
         paletteCollectionView.snp.makeConstraints {
-            $0.top.equalTo(subLabelView.snp.bottom).offset(8)
+            $0.top.equalTo(subLabelView.snp.bottom).offset(8.adjustedH)
             $0.centerX.equalToSuperview()
-            $0.height.equalTo(41)
-            $0.width.equalTo(256)
+            $0.height.equalTo(41.adjustedH)
+            $0.width.equalTo(256.adjusted)
         }
         
         sepeartorView.snp.makeConstraints {
-            $0.top.equalTo(paletteCollectionView.snp.bottom).offset(8)
+            $0.top.equalTo(paletteCollectionView.snp.bottom).offset(8.adjustedH)
             $0.horizontalEdges.equalToSuperview().inset(24.adjusted)
             $0.height.equalTo(1)
         }

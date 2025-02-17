@@ -1049,14 +1049,14 @@
 			path = MockSevices;
 			sourceTree = "<group>";
 		};
-		715C0FEB2C9ACFF000EDDD60 /* RepositoryInterface */ = {
+		715C0FEB2C9ACFF000EDDD60 /* RepositoryInterfaces */ = {
 			isa = PBXGroup;
 			children = (
 				2DD4DC8C2D1F7EF50036D08D /* FiltersRepositoryInterface.swift */,
 				715C0FEC2C9ACFFF00EDDD60 /* TNCalendarRepositoryInterface.swift */,
 				715C0FF02C9F256700EDDD60 /* JobDetailRepositoryInterface.swift */,
 			);
-			path = RepositoryInterface;
+			path = RepositoryInterfaces;
 			sourceTree = "<group>";
 		};
 		71665AAA2C7C4A4A008EB0D7 /* Header */ = {
@@ -1068,7 +1068,7 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
-		71665AAF2C7C5435008EB0D7 /* Repository */ = {
+		71665AAF2C7C5435008EB0D7 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
 				71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */,
@@ -1078,7 +1078,7 @@
 				71F8F86F2D278BE900B822F3 /* HomeRepository.swift */,
 				71F8F9332D281C9200B822F3 /* ScrapRepository.swift */,
 			);
-			path = Repository;
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		716E08AA2C44346F00469E3B /* Config */ = {
@@ -1243,8 +1243,10 @@
 			children = (
 				71780C592C4627A30073B731 /* Terning-iOS.entitlements */,
 				71E3C3E02C2414870026C4DD /* Application */,
+				71E3C3E82C241C020026C4DD /* Presentation */,
+				71F004C92C95A2CE00CD202B /* Domain */,
+				71E3C3E92C241C1B0026C4DD /* Data */,
 				71E3C3E42C241B8A0026C4DD /* Resource */,
-				71E3C3E72C241BF20026C4DD /* Source */,
 				715C0FD42C99075300EDDD60 /* Tests */,
 				71DA89952CFDFA460003078C /* SwiftUI */,
 				71E3C3DA2C22BAF50026C4DD /* Info.plist */,
@@ -1290,16 +1292,6 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		71E3C3E72C241BF20026C4DD /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				71F004C92C95A2CE00CD202B /* Domain */,
-				71E3C3E82C241C020026C4DD /* Presentation */,
-				71E3C3E92C241C1B0026C4DD /* Data */,
-			);
-			path = Source;
-			sourceTree = "<group>";
-		};
 		71E3C3E82C241C020026C4DD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1328,7 +1320,7 @@
 			isa = PBXGroup;
 			children = (
 				71E3C3E12C241B170026C4DD /* Network */,
-				71665AAF2C7C5435008EB0D7 /* Repository */,
+				71665AAF2C7C5435008EB0D7 /* Repositories */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1381,7 +1373,7 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		71F004C82C95A1E400CD202B /* Model */ = {
+		71F004C82C95A1E400CD202B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				2D74E4F72D1F13230018A56E /* Filter */,
@@ -1392,15 +1384,15 @@
 				71CCC0802C41282400789A9B /* Calendar */,
 				7121A1472C3B07F30056DB8B /* Announcements */,
 			);
-			path = Model;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		71F004C92C95A2CE00CD202B /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				71F8F8742D278C7000B822F3 /* UseCase */,
-				715C0FEB2C9ACFF000EDDD60 /* RepositoryInterface */,
-				71F004C82C95A1E400CD202B /* Model */,
+				71F8F8742D278C7000B822F3 /* UseCases */,
+				715C0FEB2C9ACFF000EDDD60 /* RepositoryInterfaces */,
+				71F004C82C95A1E400CD202B /* Entities */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1413,13 +1405,13 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		71F8F8742D278C7000B822F3 /* UseCase */ = {
+		71F8F8742D278C7000B822F3 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
 				71F8F8752D278C7800B822F3 /* HomeUseCase.swift */,
 				71F8F9352D281CC500B822F3 /* ScrapUseCase.swift */,
 			);
-			path = UseCase;
+			path = UseCases;
 			sourceTree = "<group>";
 		};
 		71FFB2B62C48284A00C60697 /* Splash */ = {

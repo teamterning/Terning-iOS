@@ -174,4 +174,15 @@
 
 <br>
 
+## **📂 Foldering**
+
+```
+└── 📂 Terning-iOS
+    ├── 📂 Application
+    ├── 📂 Resource
+    ├── 📂 Data
+    ├── 📂 Domain
+    └── 📂 Presentation
+```
+
 ## **🎨 [Behance(앱 소개)](https://www.behance.net/gallery/209714965/terning-College-Internship-App)**

@@ -89,6 +89,8 @@
 		2DF257252C8F691300B85843 /* ProfileFixViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF257242C8F691300B85843 /* ProfileFixViewModel.swift */; };
 		2DF257272C8F692B00B85843 /* ProfileViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF257262C8F692B00B85843 /* ProfileViewModelType.swift */; };
 		2DF257292C8F6A7D00B85843 /* ProfileImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF257282C8F6A7D00B85843 /* ProfileImageUtils.swift */; };
+		710660372D53B0B70065167A /* TextViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710660362D53B0B70065167A /* TextViewFactory.swift */; };
+		710660392D53B2510065167A /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710660382D53B2510065167A /* UITextView+.swift */; };
 		7119B8112CA72FBD00E94E62 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7119B8102CA72FBD00E94E62 /* UIColor+.swift */; };
 		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
@@ -275,6 +277,8 @@
 		2DF257242C8F691300B85843 /* ProfileFixViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFixViewModel.swift; sourceTree = "<group>"; };
 		2DF257262C8F692B00B85843 /* ProfileViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelType.swift; sourceTree = "<group>"; };
 		2DF257282C8F6A7D00B85843 /* ProfileImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageUtils.swift; sourceTree = "<group>"; };
+		710660362D53B0B70065167A /* TextViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewFactory.swift; sourceTree = "<group>"; };
+		710660382D53B2510065167A /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		7119B8102CA72FBD00E94E62 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
@@ -1005,6 +1009,7 @@
 				71461ED52C38150C002A6999 /* UILabel+.swift */,
 				7121A1342C39CCF60056DB8B /* UIButton+.swift */,
 				7119B8102CA72FBD00E94E62 /* UIColor+.swift */,
+				710660382D53B2510065167A /* UITextView+.swift */,
 			);
 			path = "UIKit+";
 			sourceTree = "<group>";
@@ -1371,6 +1376,7 @@
 				71B5092E2C432F90006D8E56 /* ViewControllerUtils.swift */,
 				71780C3D2C45849A0073B731 /* UserDefaultWrapper.swift */,
 				2DF257282C8F6A7D00B85843 /* ProfileImageUtils.swift */,
+				710660362D53B0B70065167A /* TextViewFactory.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1657,8 +1663,10 @@
 				71CCC0792C3FDABF00789A9B /* TNCalendarViewModel.swift in Sources */,
 				71F004C52C956C9700CD202B /* CalendarAnnouncementModel.swift in Sources */,
 				2DD4DC912D1F80590036D08D /* FiltersRepository.swift in Sources */,
+				710660372D53B0B70065167A /* TextViewFactory.swift in Sources */,
 				2D8D0D412C492B8C00ECB36F /* SearchResultModel.swift in Sources */,
 				71CCC0732C3F36EA00789A9B /* TNCalendarView.swift in Sources */,
+				710660392D53B2510065167A /* UITextView+.swift in Sources */,
 				2DC986082C45FAC200D46729 /* CustomPageControl.swift in Sources */,
 				71CCC07C2C3FDB0400789A9B /* ViewModelType.swift in Sources */,
 				71FFB2B82C48286300C60697 /* SplashViewController.swift in Sources */,
@@ -1914,7 +1922,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2025.0203.2314;
+				CURRENT_PROJECT_VERSION = 2025.0216.2221;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1931,7 +1939,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",
@@ -1958,7 +1966,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2025.0203.2314;
+				CURRENT_PROJECT_VERSION = 2025.0216.2221;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1975,7 +1983,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

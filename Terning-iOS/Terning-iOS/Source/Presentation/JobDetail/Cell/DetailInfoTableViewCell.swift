@@ -13,9 +13,9 @@ import Then
 final class DetailInfoTableViewCell: UITableViewCell {
     
     // MARK: - UI Components
-
+    
     private let datailDescriptionLabel = TextViewFactory.build(
-        text: "상세 정보입니다.",
+        text: "",
         font: .detail1,
         textColor: .grey400,
         textAlignment: .left,
@@ -24,7 +24,7 @@ final class DetailInfoTableViewCell: UITableViewCell {
     ).then {
         $0.isEditable = false
         $0.isScrollEnabled = false
-        $0.dataDetectorTypes = []
+        $0.dataDetectorTypes = [.link]
     }
     
     // MARK: - Init

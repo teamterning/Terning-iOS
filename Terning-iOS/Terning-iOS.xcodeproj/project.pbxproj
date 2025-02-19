@@ -156,6 +156,7 @@
 		71CCC0792C3FDABF00789A9B /* TNCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCC0782C3FDABF00789A9B /* TNCalendarViewModel.swift */; };
 		71CCC07C2C3FDB0400789A9B /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCC07B2C3FDB0400789A9B /* ViewModelType.swift */; };
 		71CCC07F2C40377E00789A9B /* TNCalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCC07E2C40377E00789A9B /* TNCalendarDateCell.swift */; };
+		71D034C02D66482600D242C2 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 71D034BF2D66482600D242C2 /* .gitkeep */; };
 		71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6EC2C2FF42500C54EA7 /* TNTabBarController.swift */; };
 		71D7E6EF2C2FF48800C54EA7 /* TNTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6EE2C2FF48800C54EA7 /* TNTabBarItem.swift */; };
 		71D7E6F12C2FFB5800C54EA7 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7E6F02C2FFB5800C54EA7 /* CALayer+.swift */; };
@@ -339,6 +340,7 @@
 		71CCC0782C3FDABF00789A9B /* TNCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarViewModel.swift; sourceTree = "<group>"; };
 		71CCC07B2C3FDB0400789A9B /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		71CCC07E2C40377E00789A9B /* TNCalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarDateCell.swift; sourceTree = "<group>"; };
+		71D034BF2D66482600D242C2 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		71D7E6EC2C2FF42500C54EA7 /* TNTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNTabBarController.swift; sourceTree = "<group>"; };
 		71D7E6EE2C2FF48800C54EA7 /* TNTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNTabBarItem.swift; sourceTree = "<group>"; };
 		71D7E6F02C2FFB5800C54EA7 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
@@ -1203,6 +1205,14 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
+		71D034BC2D66479C00D242C2 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				71D034BF2D66482600D242C2 /* .gitkeep */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		71D7E6EB2C2FF41200C54EA7 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1247,6 +1257,7 @@
 				71F004C92C95A2CE00CD202B /* Domain */,
 				71E3C3E92C241C1B0026C4DD /* Data */,
 				71E3C3E42C241B8A0026C4DD /* Resource */,
+				71D034BC2D66479C00D242C2 /* Common */,
 				715C0FD42C99075300EDDD60 /* Tests */,
 				71DA89952CFDFA460003078C /* SwiftUI */,
 				71E3C3DA2C22BAF50026C4DD /* Info.plist */,
@@ -1567,6 +1578,7 @@
 				71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */,
 				B8F503382C749309000D2A22 /* Config.xcconfig in Resources */,
 				71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */,
+				71D034C02D66482600D242C2 /* .gitkeep in Resources */,
 				2DD419CA2CA46D2900F647DC /* loginAnimation.json in Resources */,
 				2D997FBD2C9228F00078DAB0 /* beforeOnboarding.json in Resources */,
 				71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */,

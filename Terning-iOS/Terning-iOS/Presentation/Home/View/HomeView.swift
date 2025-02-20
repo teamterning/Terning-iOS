@@ -27,7 +27,6 @@ final class HomeView: UIView {
         
         collectionView.isScrollEnabled = true
         collectionView.backgroundColor = .clear
-        collectionView.showsVerticalScrollIndicator = false
         
         return collectionView
     }()
@@ -106,7 +105,7 @@ extension HomeView {
         
         gradientLayerView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(176.adjustedH)
-            $0.horizontalEdges.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(8.adjusted)
             $0.height.equalTo(43.adjustedH)
         }
         

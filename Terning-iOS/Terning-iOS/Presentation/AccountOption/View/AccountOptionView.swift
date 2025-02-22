@@ -33,19 +33,17 @@ final class AccountOptionView: UIView {
         $0.numberOfLines = 4
     }
     
-    lazy var yesButton = CustomButton(
+    lazy var yesButton = TerningCustomButton(
         title: "로그아웃하기",
         font: .button2,
-        cornerRadius: 10.adjustedH
+        radius: 10.adjustedH
     )
     
-    lazy var noButton = CustomButton(
+    lazy var noButton = TerningCustomButton(
         title: "취소",
         font: .button2,
-        cornerRadius: 10.adjustedH
-    ).then {
-        $0.setColor(bgColor: .grey150, disableColor: .grey150, textColor: .grey400)
-    }
+        radius: 10.adjustedH
+    )
     
     // MARK: - Init
     
@@ -73,6 +71,8 @@ extension AccountOptionView {
             yesButton,
             noButton
         )
+        
+        noButton.setAppearance(normalBackgroundColor: .grey100, pressedBackgroundColor: .grey200, textNormal: .grey400)
     }
     
     private func setLayout() {
@@ -111,10 +111,10 @@ extension AccountOptionView {
     func bind(for viewType: AccountOption) {
         if viewType == .logout {
             subTitleLabel.text = "정말 로그아웃 하시겠어요?"
-            yesButton.setTitle(title: "로그아웃하기")
+            yesButton.updateTitle("로그아웃하기")
         } else {
             subTitleLabel.text = "탈퇴 시 계정 및 이용 기록은 모두 삭제되며,\n삭제된 데이터는 복구가 불가능합니다.\n\n탈퇴를 진행할까요?"
-            yesButton.setTitle(title: "탈퇴하기")
+            yesButton.updateTitle("탈퇴하기")
         }
     }
 }

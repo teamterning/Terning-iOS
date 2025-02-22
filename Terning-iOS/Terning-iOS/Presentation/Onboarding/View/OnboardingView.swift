@@ -86,7 +86,7 @@ final class OnboardingView: UIView {
     
     let customDatePicker = CustomDatePicker()
     
-    lazy var nextButton = CustomButton(title: "다음으로")
+    lazy var nextButton = TerningCustomButton(title: "다음으로")
     
     // MARK: - Init
     
@@ -107,11 +107,6 @@ final class OnboardingView: UIView {
 
 extension OnboardingView {
     private func setUI(viewType: OnboardingViewType) {
-        nextButton.setColor(
-            bgColor: .terningMain,
-            disableColor: .grey200
-        )
-        
         addSubviews(
             navigationBar,
             progressView,
@@ -152,7 +147,7 @@ extension OnboardingView {
         
         nextButton.snp.makeConstraints {
             $0.height.equalTo(54.adjustedH)
-            $0.horizontalEdges.equalToSuperview().inset(-5.adjusted)
+            $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalToSuperview().inset(12.adjustedH)
         }
         
@@ -310,27 +305,27 @@ extension OnboardingView {
             sender.selectButton()
             
             let stringValue: String?
-                switch viewType {
-                case .grade:
-                    switch sender.index {
-                    case 0: stringValue = "freshman"
-                    case 1: stringValue = "sophomore"
-                    case 2: stringValue = "junior"
-                    case 3: stringValue = "senior"
-                    default: stringValue = nil
-                    }
-                    
-                case .workingPeriod:
-                    switch sender.index {
-                    case 0: stringValue = "short"
-                    case 1: stringValue = "middle"
-                    case 2: stringValue = "long"
-                    default: stringValue = nil
-                    }
-
-                case .graduationDate:
-                    stringValue = nil
+            switch viewType {
+            case .grade:
+                switch sender.index {
+                case 0: stringValue = "freshman"
+                case 1: stringValue = "sophomore"
+                case 2: stringValue = "junior"
+                case 3: stringValue = "senior"
+                default: stringValue = nil
                 }
+                
+            case .workingPeriod:
+                switch sender.index {
+                case 0: stringValue = "short"
+                case 1: stringValue = "middle"
+                case 2: stringValue = "long"
+                default: stringValue = nil
+                }
+                
+            case .graduationDate:
+                stringValue = nil
+            }
             
             updateOnboardingData(for: viewType, with: stringValue)
             optionSelectedSubject.onNext(sender.index)

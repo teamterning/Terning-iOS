@@ -115,7 +115,7 @@ final class ProfileView: UIView {
         characterSpacing: 0.002
     )
     
-    let saveButton = CustomButton(title: "저장하기")
+    let saveButton = TerningCustomButton(title: "저장하기")
     
     // MARK: - Init
     
@@ -201,7 +201,7 @@ extension ProfileView {
         }
         saveButton.snp.makeConstraints {
             $0.height.equalTo(54.adjustedH)
-            $0.horizontalEdges.equalToSuperview().inset(-5.adjusted)
+            $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalToSuperview().inset(44.adjustedH)
         }
         

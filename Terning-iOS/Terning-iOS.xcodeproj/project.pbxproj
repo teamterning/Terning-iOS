@@ -92,7 +92,6 @@
 		710660372D53B0B70065167A /* TextViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710660362D53B0B70065167A /* TextViewFactory.swift */; };
 		710660392D53B2510065167A /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710660382D53B2510065167A /* UITextView+.swift */; };
 		7119B8112CA72FBD00E94E62 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7119B8102CA72FBD00E94E62 /* UIColor+.swift */; };
-		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
 		7121A13A2C3A6CEB0056DB8B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7121A1392C3A6CEB0056DB8B /* RxCocoa */; };
 		7121A13C2C3A6CEB0056DB8B /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 7121A13B2C3A6CEB0056DB8B /* RxRelay */; };
@@ -282,7 +281,6 @@
 		710660362D53B0B70065167A /* TextViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewFactory.swift; sourceTree = "<group>"; };
 		710660382D53B2510065167A /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		7119B8102CA72FBD00E94E62 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
-		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A13D2C3A98E10056DB8B /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
 		7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailInfoView.swift; sourceTree = "<group>"; };
@@ -963,7 +961,6 @@
 			isa = PBXGroup;
 			children = (
 				7121A1412C3AE99D0056DB8B /* Cell */,
-				7121A1322C396FB40056DB8B /* CustomButton.swift */,
 				2DAC9E7A2D112AC500A7842E /* CustomCheckButton.swift */,
 				2D89C7662C486E53002B035F /* CustomSortButton.swift */,
 				2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */,
@@ -1739,7 +1736,6 @@
 				71B509252C41D027006D8E56 /* CalendarDateHeaderView.swift in Sources */,
 				2DC61F192C41B261009F991F /* LoginView.swift in Sources */,
 				2DD483802C4B37A0000541E3 /* AccountOptionViewController.swift in Sources */,
-				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
 				715C0FF12C9F256700EDDD60 /* JobDetailRepositoryInterface.swift in Sources */,
 				2D8CCF152D11122F0030E8E5 /* JobCategoryCell.swift in Sources */,
 				2D89C7652C486E2E002B035F /* SearchResultView.swift in Sources */,

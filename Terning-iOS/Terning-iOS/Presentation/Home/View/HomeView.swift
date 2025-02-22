@@ -128,6 +128,11 @@ extension HomeView {
         self.userName = userName
         
         // 새로운 레이아웃 생성 및 적용
+        let topOffset = userName.count > 6 ? 198.adjustedH : 176.adjustedH
+        
+        gradientLayerView.snp.updateConstraints {
+            $0.top.equalToSuperview().offset(topOffset)
+        }
         
         DispatchQueue.main.async { [weak self] in
             let newLayout = CompositionalLayout.createHomeCollectionViewLayout(hasScrapped: hasScrapped, soonData: soonData, userName: userName)

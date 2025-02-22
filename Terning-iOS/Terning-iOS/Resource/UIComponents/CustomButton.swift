@@ -181,7 +181,7 @@ extension CustomButton {
             case .normal:
                 updatedConfiguration?.background.backgroundColor = .terningMain
             case .highlighted:
-                updatedConfiguration?.background.backgroundColor = .terningMain2
+                updatedConfiguration?.background.backgroundColor = .terningSub1
             default:
                 break
             }
@@ -199,7 +199,7 @@ extension CustomButton {
             case .normal:
                 updatedConfiguration?.background.backgroundColor = .terningMain
             case .highlighted:
-                updatedConfiguration?.background.backgroundColor = .terningMain2
+                updatedConfiguration?.background.backgroundColor = .terningSub1
             default:
                 updatedConfiguration?.background.backgroundColor = .grey200
             }

@@ -127,9 +127,9 @@ final class CustomAlertViewController: UIViewController {
         $0.spacing = 5.adjustedH
     }
     
-    private let centerButton = CustomButton(title: "내 캘린더에 스크랩하기", font: .button3)
-    private let changeColorButton = CustomButton(title: "색상 변경하기", font: .button3).setEnabled(false).setAlertViewColor()
-    private let viewJobDetailButton = CustomButton(title: "공고 상세 정보 보기", font: .button3)
+    private let centerButton = TerningCustomButton(title: "내 캘린더에 스크랩하기", font: .button3, radius: 5)
+    private let changeColorButton = TerningCustomButton(title: "색상 변경하기", font: .button3, radius: 5).setEnabled(false)
+    private let viewJobDetailButton = TerningCustomButton(title: "공고 상세 정보 보기", font: .button3, radius: 5)
     private let closeButton = UIButton()
     
     private let alertView = UIView()
@@ -256,6 +256,16 @@ final class CustomAlertViewController: UIViewController {
     private func setChangeColorAndPushJobDetailLayout() {
         centerButton.isHidden = true
         
+        if !changeColorButton.isEnabled {
+            changeColorButton.makeBorder(width: 1, color: .grey150, cornerRadius: 5)
+            changeColorButton.clipsToBounds = true
+        }
+        
+        changeColorButton.setAppearance(
+            disabledBackgroundColor: .white,
+            textDisabled: .grey375
+        )
+        
         changeColorButton.snp.makeConstraints {
             $0.top.equalTo(detailsVStackView.snp.bottom).offset(20.adjustedH)
             $0.leading.equalToSuperview().inset(16.adjusted)
@@ -287,7 +297,7 @@ final class CustomAlertViewController: UIViewController {
             $0.centerX.equalToSuperview()
         }
         
-        centerButton.setTitle(title: "스크랩 취소하기")
+        centerButton.updateTitle("스크랩 취소하기")
         
         centerButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(16.adjustedH)

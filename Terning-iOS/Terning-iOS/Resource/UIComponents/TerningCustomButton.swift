@@ -11,7 +11,7 @@ final class TerningCustomButton: UIButton {
     
     // MARK: - Properties
     
-    private let title: String
+    private var title: String
     private let font: UIFont
     private var radius: CGFloat
     var buttonDidTap: (() -> Void)?
@@ -20,7 +20,7 @@ final class TerningCustomButton: UIButton {
     
     init(
         title: String,
-        font: UIFont,
+        font: UIFont = .button0,
         radius: CGFloat = 0
     ) {
         self.title = title
@@ -65,6 +65,13 @@ final class TerningCustomButton: UIButton {
     func setCornerRadius(radius: CGFloat) -> Self {
         self.layer.cornerRadius = radius
         self.clipsToBounds = true
+        return self
+    }
+    
+    @discardableResult
+    func updateTitle(_ newTitle: String) -> Self {
+        self.title = newTitle
+        setAppearance()
         return self
     }
 }

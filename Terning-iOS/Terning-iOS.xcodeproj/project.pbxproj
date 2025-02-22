@@ -124,6 +124,7 @@
 		71665AAC2C7C4A94008EB0D7 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAB2C7C4A94008EB0D7 /* EventView.swift */; };
 		71665AAE2C7C4BAA008EB0D7 /* CalendarDateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */; };
 		71665AB12C7C5444008EB0D7 /* TNCalendarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */; };
+		717054FD2D696D7D00B3F2CD /* TerningCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717054FC2D696D7D00B3F2CD /* TerningCustomButton.swift */; };
 		71780C322C45705C0073B731 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C312C45705C0073B731 /* Encodable+.swift */; };
 		71780C352C45725E0073B731 /* Providers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C342C45725E0073B731 /* Providers.swift */; };
 		71780C3A2C4577FF0073B731 /* CalendarTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C392C4577FF0073B731 /* CalendarTargetType.swift */; };
@@ -310,6 +311,7 @@
 		71665AAB2C7C4A94008EB0D7 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCellView.swift; sourceTree = "<group>"; };
 		71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarRepository.swift; sourceTree = "<group>"; };
+		717054FC2D696D7D00B3F2CD /* TerningCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerningCustomButton.swift; sourceTree = "<group>"; };
 		71780C312C45705C0073B731 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		71780C342C45725E0073B731 /* Providers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Providers.swift; sourceTree = "<group>"; };
 		71780C392C4577FF0073B731 /* CalendarTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTargetType.swift; sourceTree = "<group>"; };
@@ -974,6 +976,7 @@
 				7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */,
 				719C6DED2C91F150006AF9C9 /* CustomAlertViewController.swift */,
 				71F004C62C957C8C00CD202B /* EmptyView.swift */,
+				717054FC2D696D7D00B3F2CD /* TerningCustomButton.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -1617,6 +1620,7 @@
 			files = (
 				2DC61F012C40825D009F991F /* DetailInfoTableViewCell.swift in Sources */,
 				2DC986062C45704600D46729 /* CustomSearchBar.swift in Sources */,
+				717054FD2D696D7D00B3F2CD /* TerningCustomButton.swift in Sources */,
 				715C0FD72C99077700EDDD60 /* MockCalendarService.swift in Sources */,
 				2DF257272C8F692B00B85843 /* ProfileViewModelType.swift in Sources */,
 				2DF257292C8F6A7D00B85843 /* ProfileImageUtils.swift in Sources */,

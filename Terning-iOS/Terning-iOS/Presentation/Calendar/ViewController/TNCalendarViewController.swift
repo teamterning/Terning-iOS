@@ -165,7 +165,6 @@ extension TNCalendarViewController {
             })
             .disposed(by: disposeBag)
         
-        
         output.dailyData
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -174,7 +173,6 @@ extension TNCalendarViewController {
                 self.rootView.calendarBottomCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
-        
         
         output.patchScrapResult
             .drive(onNext: { [weak self] in
@@ -191,7 +189,6 @@ extension TNCalendarViewController {
                 self.refetchDataAndReloadViews()
             })
             .disposed(by: disposeBag)
-        
         
         output.error
             .drive(onNext: { [weak self] errorMessage in

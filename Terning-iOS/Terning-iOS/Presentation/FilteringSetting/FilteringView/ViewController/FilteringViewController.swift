@@ -82,7 +82,7 @@ final class FilteringViewController: UIViewController {
         return [jobVC, planVC]
     }()
     
-    private let saveButton = CustomButton(title: "저장하기")
+    private let saveButton = TerningCustomButton(title: "저장하기")
     
     // MARK: - Init
     

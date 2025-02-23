@@ -92,7 +92,6 @@
 		710660372D53B0B70065167A /* TextViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710660362D53B0B70065167A /* TextViewFactory.swift */; };
 		710660392D53B2510065167A /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710660382D53B2510065167A /* UITextView+.swift */; };
 		7119B8112CA72FBD00E94E62 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7119B8102CA72FBD00E94E62 /* UIColor+.swift */; };
-		7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1322C396FB40056DB8B /* CustomButton.swift */; };
 		7121A1352C39CCF60056DB8B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1342C39CCF60056DB8B /* UIButton+.swift */; };
 		7121A13A2C3A6CEB0056DB8B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7121A1392C3A6CEB0056DB8B /* RxCocoa */; };
 		7121A13C2C3A6CEB0056DB8B /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 7121A13B2C3A6CEB0056DB8B /* RxRelay */; };
@@ -124,6 +123,7 @@
 		71665AAC2C7C4A94008EB0D7 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAB2C7C4A94008EB0D7 /* EventView.swift */; };
 		71665AAE2C7C4BAA008EB0D7 /* CalendarDateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */; };
 		71665AB12C7C5444008EB0D7 /* TNCalendarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */; };
+		717054FD2D696D7D00B3F2CD /* TerningCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717054FC2D696D7D00B3F2CD /* TerningCustomButton.swift */; };
 		71780C322C45705C0073B731 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C312C45705C0073B731 /* Encodable+.swift */; };
 		71780C352C45725E0073B731 /* Providers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C342C45725E0073B731 /* Providers.swift */; };
 		71780C3A2C4577FF0073B731 /* CalendarTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C392C4577FF0073B731 /* CalendarTargetType.swift */; };
@@ -281,7 +281,6 @@
 		710660362D53B0B70065167A /* TextViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewFactory.swift; sourceTree = "<group>"; };
 		710660382D53B2510065167A /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		7119B8102CA72FBD00E94E62 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
-		7121A1322C396FB40056DB8B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7121A1342C39CCF60056DB8B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7121A13D2C3A98E10056DB8B /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
 		7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailInfoView.swift; sourceTree = "<group>"; };
@@ -310,6 +309,7 @@
 		71665AAB2C7C4A94008EB0D7 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCellView.swift; sourceTree = "<group>"; };
 		71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarRepository.swift; sourceTree = "<group>"; };
+		717054FC2D696D7D00B3F2CD /* TerningCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerningCustomButton.swift; sourceTree = "<group>"; };
 		71780C312C45705C0073B731 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		71780C342C45725E0073B731 /* Providers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Providers.swift; sourceTree = "<group>"; };
 		71780C392C4577FF0073B731 /* CalendarTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTargetType.swift; sourceTree = "<group>"; };
@@ -961,7 +961,6 @@
 			isa = PBXGroup;
 			children = (
 				7121A1412C3AE99D0056DB8B /* Cell */,
-				7121A1322C396FB40056DB8B /* CustomButton.swift */,
 				2DAC9E7A2D112AC500A7842E /* CustomCheckButton.swift */,
 				2D89C7662C486E53002B035F /* CustomSortButton.swift */,
 				2D4EE3862C3D7CB200E3E95B /* CustomOnboardingButton.swift */,
@@ -974,6 +973,7 @@
 				7121A13F2C3AB9EE0056DB8B /* JobDetailInfoView.swift */,
 				719C6DED2C91F150006AF9C9 /* CustomAlertViewController.swift */,
 				71F004C62C957C8C00CD202B /* EmptyView.swift */,
+				717054FC2D696D7D00B3F2CD /* TerningCustomButton.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -1617,6 +1617,7 @@
 			files = (
 				2DC61F012C40825D009F991F /* DetailInfoTableViewCell.swift in Sources */,
 				2DC986062C45704600D46729 /* CustomSearchBar.swift in Sources */,
+				717054FD2D696D7D00B3F2CD /* TerningCustomButton.swift in Sources */,
 				715C0FD72C99077700EDDD60 /* MockCalendarService.swift in Sources */,
 				2DF257272C8F692B00B85843 /* ProfileViewModelType.swift in Sources */,
 				2DF257292C8F6A7D00B85843 /* ProfileImageUtils.swift in Sources */,
@@ -1735,7 +1736,6 @@
 				71B509252C41D027006D8E56 /* CalendarDateHeaderView.swift in Sources */,
 				2DC61F192C41B261009F991F /* LoginView.swift in Sources */,
 				2DD483802C4B37A0000541E3 /* AccountOptionViewController.swift in Sources */,
-				7121A1332C396FB40056DB8B /* CustomButton.swift in Sources */,
 				715C0FF12C9F256700EDDD60 /* JobDetailRepositoryInterface.swift in Sources */,
 				2D8CCF152D11122F0030E8E5 /* JobCategoryCell.swift in Sources */,
 				2D89C7652C486E2E002B035F /* SearchResultView.swift in Sources */,

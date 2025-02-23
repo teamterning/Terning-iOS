@@ -30,7 +30,7 @@ final class JobDetailView: UIView {
         tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
-
+    
     private let bottomView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.shadowColor = UIColor.black.cgColor
@@ -55,8 +55,7 @@ final class JobDetailView: UIView {
         $0.setImage(.icScrapFill, for: [.selected, .highlighted])
     }
     
-    private var goSiteButton = CustomButton(title: "지원 사이트로 이동하기")
-        .setCornerRadius(10)
+    private var goSiteButton = TerningCustomButton(title: "지원 사이트로 이동하기", font: .button2, radius: 10)
     
     // MARK: - Init
     

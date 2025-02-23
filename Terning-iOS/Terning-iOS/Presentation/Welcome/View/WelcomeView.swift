@@ -29,15 +29,15 @@ final class WelcomeView: UIView {
         $0.loopMode = .loop
         $0.animationSpeed = 1
     }
-
-    private let startButton = CustomButton(title: "시작하기", font: .button0).then {
+    
+    private let startButton = TerningCustomButton(title: "시작하기", radius: 10).then {
         $0.alpha = 0.0
     }
     
     private let skipButton = UIButton().then {
         $0.backgroundColor = .clear
         $0.tintColor = .grey500
-
+        
         let title = "계획 나중에 입력하기"
         let attributedTitle = NSAttributedString(
             string: title,
@@ -51,7 +51,7 @@ final class WelcomeView: UIView {
     }.then {
         $0.alpha = 0.0
     }
-
+    
     // MARK: - Init
     
     init(viewType: WelcomeViewType) {
@@ -66,9 +66,9 @@ final class WelcomeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
-    
-    // MARK: - UI & Layout
-    
+
+// MARK: - UI & Layout
+
 extension WelcomeView {
     private func setUI(viewType: WelcomeViewType) {
         switch viewType {
@@ -77,7 +77,7 @@ extension WelcomeView {
             let animation = LottieAnimation.named("beforeOnboarding")
             logoAnimationView.animation = animation
             logoAnimationView.play()
-            startButton.setTitle(title: "시작하기")
+            startButton.updateTitle("시작하기")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 UIView.animate(withDuration: 0.5) {
                     self.skipButton.alpha = 1.0
@@ -88,7 +88,7 @@ extension WelcomeView {
             let animation = LottieAnimation.named("afterOnboarding")
             logoAnimationView.animation = animation
             logoAnimationView.play()
-            startButton.setTitle(title: "내 맞춤 공고 바로 보러가기")
+            startButton.updateTitle("내 맞춤 공고 바로 보러가기")
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {

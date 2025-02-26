@@ -16,7 +16,7 @@ import Then
 final class UserFilteringData {
     static let shared = UserFilteringData()
     
-    var grade: Grade? 
+    var grade: Grade?
     var workingPeriod: WorkingPeriod?
     var startYear: Int?
     var startMonth: Int?
@@ -171,6 +171,8 @@ extension FilteringViewController {
         pageViewController.dataSource = self
         pageViewController.delegate = self
         
+        pages.forEach { _ = $0.view }
+    
         pageViewController.setViewControllers([pages[0]], direction: .forward, animated: true)
         
         addChild(pageViewController)
@@ -196,10 +198,38 @@ extension FilteringViewController {
         guard let jobVC = pages[0] as? JobFilteringViewController,
               let planVC = pages[1] as? PlanFilteringViewController else { return }
         
+        let saveButtonTap = saveButton.rx.tap
+            .do(
+                onNext: {
+                    if planVC.checkBoxState.value {
+                        self.track(
+                            eventName: .clickHomeFilteringSave,
+                            eventProperties: [
+                                "jobType": UserFilteringData.shared.jobType,
+                                "planSaveAll": true
+                            ].compactMapValues { $0 }
+                        )
+                    } else {
+                        self.track(
+                            eventName: .clickHomeFilteringSave,
+                            eventProperties: [
+                                "grade": UserFilteringData.shared.grade,
+                                "jobType": UserFilteringData.shared.jobType,
+                                "planSaveAll": false,
+                                "startMonth": UserFilteringData.shared.startMonth,
+                                "startYear": UserFilteringData.shared.startYear,
+                                "workingPeriod": UserFilteringData.shared.workingPeriod
+                            ].compactMapValues { $0 }
+                        )
+                    }
+                }
+            )
+            .asObservable()
+        
         let input = FilteringViewModel.Input(
             jobFilteringState: jobVC.filteringState.asObservable(),
             planFilteringState: planVC.filteringState.asObservable(),
-            saveButtonTap: saveButton.rx.tap.asObservable()
+            saveButtonTap: saveButtonTap
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)

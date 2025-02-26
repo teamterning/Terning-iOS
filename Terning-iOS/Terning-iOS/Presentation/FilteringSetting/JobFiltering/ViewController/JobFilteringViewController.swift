@@ -17,7 +17,7 @@ final class JobFilteringViewController: UIViewController {
     
     private let viewModel: JobFilteringViewModel
     private let disposeBag = DisposeBag()
-    var filteringState = BehaviorRelay<Bool>(value: false)
+    var filteringState = BehaviorRelay<Bool>(value: true)
     
     // MARK: - UIComponents
     

@@ -19,7 +19,7 @@ final class PlanFilteringViewController: UIViewController {
     
     private let viewModel: PlanFilteringViewModel
     private let disposeBag = DisposeBag()
-    var filteringState = BehaviorRelay<Bool>(value: false)
+    var filteringState = BehaviorRelay<Bool>(value: true)
    
     // MARK: - UI Components
     

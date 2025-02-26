@@ -43,7 +43,6 @@ final class FilteringViewController: UIViewController {
     
     private let viewModel: FilteringViewModel
     private let disposeBag = DisposeBag()
-    private let currentIndex = BehaviorRelay<Int>(value: 0)
     var removeModal = PublishSubject<Void>()
     
     // MARK: - UI Components
@@ -200,7 +199,6 @@ extension FilteringViewController {
         let input = FilteringViewModel.Input(
             jobFilteringState: jobVC.filteringState.asObservable(),
             planFilteringState: planVC.filteringState.asObservable(),
-            currentIndex: currentIndex.asObservable(),
             saveButtonTap: saveButton.rx.tap.asObservable()
         )
         
@@ -227,11 +225,13 @@ extension FilteringViewController {
 extension FilteringViewController {
     @objc
     private func didChangeSegment(_ sender: UISegmentedControl) {
+        guard let currentVC = pageViewController.viewControllers?.first,
+              let currentIndex = pages.firstIndex(of: currentVC) else { return }
+        
         let newIndex = sender.selectedSegmentIndex
-        let direction: UIPageViewController.NavigationDirection = newIndex > currentIndex.value ? .forward : .reverse
+        let direction: UIPageViewController.NavigationDirection = newIndex > currentIndex ? .forward : .reverse
         
         pageViewController.setViewControllers([pages[newIndex]], direction: direction, animated: true, completion: nil)
-        currentIndex.accept(newIndex)
     }
 }
 
@@ -252,7 +252,6 @@ extension FilteringViewController: UIPageViewControllerDataSource, UIPageViewCon
         if let visibleViewController = pageViewController.viewControllers?.first,
            let index = pages.firstIndex(of: visibleViewController) {
             segmentControl.selectedSegmentIndex = index
-            currentIndex.accept(index)
         }
     }
 }

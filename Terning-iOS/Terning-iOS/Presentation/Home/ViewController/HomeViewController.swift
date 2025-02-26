@@ -346,7 +346,7 @@ extension HomeViewController: StickyHeaderCellDelegate {
                 self.sortAndPageSubject.onNext((apiParameter, currentPage))
             }.disposed(by: disposeBag)
         
-        track(eventName: .clickHomeFiltering)
+        track(eventName: .clickHomeFilteringSave)
         
         self.present(filterSettingVC, animated: true)
     }
@@ -510,19 +510,19 @@ extension HomeViewController: SortSettingButtonProtocol {
         switch option {
         case .deadlineSoon:
             apiParameter = "deadlineSoon"
-            track(eventName: .clickFilteredDeadline)
+            track(eventName: .clickInOrderOfDeadline)
         case .shortestDuration:
             apiParameter = "shortestDuration"
-            track(eventName: .clickFilteredShortTerm)
+            track(eventName: .clickInOrderOfShortTerm)
         case .longestDuration:
             apiParameter = "longestDuration"
-            track(eventName: .clickFilteredLongTerm)
+            track(eventName: .clickInOrderOfLongTerm)
         case .mostScrapped:
             apiParameter = "mostScrapped"
-            track(eventName: .clickFilteredScraps)
+            track(eventName: .clickInOrderOfScraps)
         case .mostViewed:
             apiParameter = "mostViewed"
-            track(eventName: .clickFilteredHits)
+            track(eventName: .clickInOrderOfHits)
         }
         
         headerView.sortButton.changeTitle(name: option.title)

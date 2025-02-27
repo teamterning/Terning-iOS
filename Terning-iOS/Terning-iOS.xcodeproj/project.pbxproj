@@ -189,12 +189,9 @@
 		B855485A2C47EEBB00EC67F6 /* UserProfileInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85548592C47EEBB00EC67F6 /* UserProfileInfoModel.swift */; };
 		B855485D2C48026B00EC67F6 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B855485C2C48026B00EC67F6 /* MyPageView.swift */; };
 		B855485F2C48027500EC67F6 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B855485E2C48027500EC67F6 /* MyPageViewController.swift */; };
-		B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86A67572C41166800CB90E5 /* FilterButton.swift */; };
 		B871D7232C3E8836008D78C2 /* JobCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7222C3E8835008D78C2 /* JobCardModel.swift */; };
 		B871D7352C3ECF37008D78C2 /* UpcomingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871D7342C3ECF37008D78C2 /* UpcomingCard.swift */; };
 		B8BE0E142C46D38700B3D298 /* UserFilteringInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE0E132C46D38700B3D298 /* UserFilteringInfoModel.swift */; };
-		B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */; };
-		B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */; };
 		B8F503382C749309000D2A22 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = B8F503372C749309000D2A22 /* Config.xcconfig */; };
 		B8F5033A2C749315000D2A22 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F503392C749315000D2A22 /* Config.swift */; };
 /* End PBXBuildFile section */
@@ -370,12 +367,9 @@
 		B85548592C47EEBB00EC67F6 /* UserProfileInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileInfoModel.swift; sourceTree = "<group>"; };
 		B855485C2C48026B00EC67F6 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		B855485E2C48027500EC67F6 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
-		B86A67572C41166800CB90E5 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		B871D7222C3E8835008D78C2 /* JobCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardModel.swift; sourceTree = "<group>"; };
 		B871D7342C3ECF37008D78C2 /* UpcomingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingCard.swift; sourceTree = "<group>"; };
 		B8BE0E132C46D38700B3D298 /* UserFilteringInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFilteringInfoModel.swift; sourceTree = "<group>"; };
-		B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSettingView.swift; sourceTree = "<group>"; };
-		B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSettingViewController.swift; sourceTree = "<group>"; };
 		B8F503372C749309000D2A22 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		B8F503392C749315000D2A22 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1466,12 +1460,9 @@
 		B8C5DB6F2C3F39A500865B1A /* FilteringSetting */ = {
 			isa = PBXGroup;
 			children = (
-				B86A67572C41166800CB90E5 /* FilterButton.swift */,
-				B8C5DB702C3F39B900865B1A /* FilteringSettingView.swift */,
 				2D74E5052D1F25F00018A56E /* FilteringView */,
 				2D74E4FA2D1F1BFD0018A56E /* JobFiltering */,
 				2D74E4FD2D1F1F670018A56E /* PlanFiltering */,
-				B8C5DB722C3F39C700865B1A /* FilteringSettingViewController.swift */,
 			);
 			path = FilteringSetting;
 			sourceTree = "<group>";
@@ -1630,7 +1621,6 @@
 				7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */,
 				71E3C40F2C243B510026C4DD /* UIView+.swift in Sources */,
 				2D4EE3A42C3E789200E3E95B /* ProfileView.swift in Sources */,
-				B8C5DB712C3F39B900865B1A /* FilteringSettingView.swift in Sources */,
 				2DC9860B2C46056300D46729 /* RecommendAnnouncementModel.swift in Sources */,
 				7121A1432C3AE9C20056DB8B /* PaletteCell.swift in Sources */,
 				71665AAC2C7C4A94008EB0D7 /* EventView.swift in Sources */,
@@ -1724,12 +1714,10 @@
 				2DF2571A2C8DEF4E00B85843 /* LogoutViewModel.swift in Sources */,
 				71780C522C45A4950073B731 /* SearchTargetType.swift in Sources */,
 				71DE237A2C7C67890024ACED /* ScrapsService.swift in Sources */,
-				B8C5DB732C3F39C700865B1A /* FilteringSettingViewController.swift in Sources */,
 				2D8CCF112D110AD30030E8E5 /* PlanFilteringViewController.swift in Sources */,
 				2DC9860D2C4605FC00D46729 /* AdvertisementsModel.swift in Sources */,
 				71F8F8732D278C4700B822F3 /* HomeService.swift in Sources */,
 				2D89C75D2C486DF7002B035F /* SortHeaderCell.swift in Sources */,
-				B86A67582C41166900CB90E5 /* FilterButton.swift in Sources */,
 				2DC985FE2C456FC300D46729 /* SearchView.swift in Sources */,
 				2D4EE3A62C3E78A200E3E95B /* ProfileViewController.swift in Sources */,
 				2D89C7512C47E99B002B035F /* ProfileImageView.swift in Sources */,
@@ -1926,7 +1914,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2025.0217.2354;
+				CURRENT_PROJECT_VERSION = 2025.0227.1744;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1943,7 +1931,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.1.4;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",
@@ -1970,7 +1958,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2025.0217.2354;
+				CURRENT_PROJECT_VERSION = 2025.0227.1744;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1987,7 +1975,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -19,8 +19,9 @@ final class PlanFilteringViewController: UIViewController {
     
     private let viewModel: PlanFilteringViewModel
     private let disposeBag = DisposeBag()
-    var filteringState = BehaviorRelay<Bool>(value: false)
-   
+    var filteringState = BehaviorRelay<Bool>(value: true)
+    var checkBoxState = BehaviorRelay<Bool>(value: false)
+    
     // MARK: - UI Components
     
     private var gradeTitleLabel = LabelFactory.build(
@@ -212,7 +213,9 @@ extension PlanFilteringViewController {
         
         output.isCheckBoxChecked
             .drive(onNext: { [weak self] isChecked in
-                self?.checkBox.setChecked(isChecked)
+                guard let self = self else { return }
+                checkBox.setChecked(isChecked)
+                checkBoxState.accept(isChecked)
             })
             .disposed(by: disposeBag)
         

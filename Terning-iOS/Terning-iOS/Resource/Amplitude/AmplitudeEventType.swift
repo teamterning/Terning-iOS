@@ -11,21 +11,21 @@ public enum AmplitudeEventType: String {
     // 회원가입 이벤트
     case signupKakao = "signup_kakao" // 회원가입_카카오 로그인
     case signupApple = "signup_apple" // 회원가입_Apple 로그인
-    case skipPlan = "skip_plan" // 게획 나중에 입력하기
+    case clickOnboardingPass = "click_onboarding_pass" // 게획 나중에 입력하기
     
     // 스플래쉬 이벤트
     case clickStartService = "click_start_service" // 스플래쉬_서비스 시작하기
     case clickOnboardingCompleted = "click_onboarding_completed" // 온보딩 완료 스플래쉬_맞춤공고 보러가기
     
     // 홈 화면 이벤트
-    case clickHomeFiltering = "click_home_filtering" // 홈_필터링
-    case clickHomeFilteringSave = "click_home_filtering_save" // 홈_필터링 재설정_저장하기
+    case clickHomeFilteringSave = "click_home_filtering_save" // 홈_필터링
+
     case scrollHome = "scroll_home" // 홈_리스트 하단까지 스크롤한 횟수
-    case clickFilteredDeadline = "click_filtered_deadline" // 홈_정렬_채용 마감 이른 순
-    case clickFilteredShortTerm = "click_filtered_short_term" // 홈_정렬_근무 기간 짧은 순
-    case clickFilteredLongTerm = "click_filtered_long_term" // 홈_정렬_근무 기간 긴 순
-    case clickFilteredScraps = "click_filtered_scraps" // 홈_정렬_스크랩 많은 순
-    case clickFilteredHits = "click_filtered_hits" // 홈_정렬_조회수 많은 순
+    case clickInOrderOfDeadline = "click_in_order_of_deadline" // 홈_정렬_채용 마감 이른 순
+    case clickInOrderOfShortTerm = "click_in_order_of_short_term" // 홈_정렬_짧은 근무 기간 순
+    case clickInOrderOfLongTerm = "click_in_order_of_long_term" // 홈_정렬_긴 근무 기간 순
+    case clickInOrderOfScraps = "click_in_order_of_scraps" // 홈_정렬_스크랩 많은 순
+    case clickInOrderOfHits = "click_in_order_of_hits" // 홈_정렬_조회수 많은 순
     case clickHomeInternCard = "click_home_intern_card" // 홈_공고 카드 클릭
     case clickHomeScrap = "click_home_scrap" // 홈_스크랩
     case clickRemindInternCard = "click_remind_intern_card" // 홈_곧 마감되는 관심 공고 클릭

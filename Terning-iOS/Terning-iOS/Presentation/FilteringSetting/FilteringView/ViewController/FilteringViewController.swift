@@ -16,7 +16,7 @@ import Then
 final class UserFilteringData {
     static let shared = UserFilteringData()
     
-    var grade: Grade? 
+    var grade: Grade?
     var workingPeriod: WorkingPeriod?
     var startYear: Int?
     var startMonth: Int?
@@ -43,7 +43,6 @@ final class FilteringViewController: UIViewController {
     
     private let viewModel: FilteringViewModel
     private let disposeBag = DisposeBag()
-    private let currentIndex = BehaviorRelay<Int>(value: 0)
     var removeModal = PublishSubject<Void>()
     
     // MARK: - UI Components
@@ -82,7 +81,7 @@ final class FilteringViewController: UIViewController {
         return [jobVC, planVC]
     }()
     
-    private let saveButton = TerningCustomButton(title: "저장하기")
+    private let saveButton = TerningCustomButton(title: "저장하기", font: .button0, radius: 10)
     
     // MARK: - Init
     
@@ -172,6 +171,8 @@ extension FilteringViewController {
         pageViewController.dataSource = self
         pageViewController.delegate = self
         
+        pages.forEach { _ = $0.view }
+    
         pageViewController.setViewControllers([pages[0]], direction: .forward, animated: true)
         
         addChild(pageViewController)
@@ -197,11 +198,38 @@ extension FilteringViewController {
         guard let jobVC = pages[0] as? JobFilteringViewController,
               let planVC = pages[1] as? PlanFilteringViewController else { return }
         
+        let saveButtonTap = saveButton.rx.tap
+            .do(
+                onNext: {
+                    if planVC.checkBoxState.value {
+                        self.track(
+                            eventName: .clickHomeFilteringSave,
+                            eventProperties: [
+                                "jobType": UserFilteringData.shared.jobType,
+                                "planSaveAll": true
+                            ].compactMapValues { $0 }
+                        )
+                    } else {
+                        self.track(
+                            eventName: .clickHomeFilteringSave,
+                            eventProperties: [
+                                "grade": UserFilteringData.shared.grade,
+                                "jobType": UserFilteringData.shared.jobType,
+                                "planSaveAll": false,
+                                "startMonth": UserFilteringData.shared.startMonth,
+                                "startYear": UserFilteringData.shared.startYear,
+                                "workingPeriod": UserFilteringData.shared.workingPeriod
+                            ].compactMapValues { $0 }
+                        )
+                    }
+                }
+            )
+            .asObservable()
+        
         let input = FilteringViewModel.Input(
             jobFilteringState: jobVC.filteringState.asObservable(),
             planFilteringState: planVC.filteringState.asObservable(),
-            currentIndex: currentIndex.asObservable(),
-            saveButtonTap: saveButton.rx.tap.asObservable()
+            saveButtonTap: saveButtonTap
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
@@ -227,11 +255,13 @@ extension FilteringViewController {
 extension FilteringViewController {
     @objc
     private func didChangeSegment(_ sender: UISegmentedControl) {
+        guard let currentVC = pageViewController.viewControllers?.first,
+              let currentIndex = pages.firstIndex(of: currentVC) else { return }
+        
         let newIndex = sender.selectedSegmentIndex
-        let direction: UIPageViewController.NavigationDirection = newIndex > currentIndex.value ? .forward : .reverse
+        let direction: UIPageViewController.NavigationDirection = newIndex > currentIndex ? .forward : .reverse
         
         pageViewController.setViewControllers([pages[newIndex]], direction: direction, animated: true, completion: nil)
-        currentIndex.accept(newIndex)
     }
 }
 
@@ -252,7 +282,6 @@ extension FilteringViewController: UIPageViewControllerDataSource, UIPageViewCon
         if let visibleViewController = pageViewController.viewControllers?.first,
            let index = pages.firstIndex(of: visibleViewController) {
             segmentControl.selectedSegmentIndex = index
-            currentIndex.accept(index)
         }
     }
 }

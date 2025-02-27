@@ -80,7 +80,7 @@ final class HomeViewController: UIViewController {
         }
     }
     
-    private lazy var userName: String = "" {
+    private var userName: String = "" {
         didSet {
             rootView.updateLayout(hasScrapped: hasScrapped, soonData: sectionTwoData, userName: userName)
         }

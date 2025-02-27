@@ -833,14 +833,6 @@
 			path = AccountOption;
 			sourceTree = "<group>";
 		};
-		2DD4DC942D1F80F00036D08D /* Filters */ = {
-			isa = PBXGroup;
-			children = (
-				2DD4DC922D1F80D10036D08D /* FiltersService.swift */,
-			);
-			path = Filters;
-			sourceTree = "<group>";
-		};
 		2DF256EF2C8C853300B85843 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -984,6 +976,8 @@
 			isa = PBXGroup;
 			children = (
 				7121A1452C3B07AA0056DB8B /* BaseResponse.swift */,
+				71780C342C45725E0073B731 /* Providers.swift */,
+				71780C382C45778D0073B731 /* TargetType */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1019,14 +1013,6 @@
 				71780C532C45A7DD0073B731 /* NetworkLoggerPlugin.swift */,
 			);
 			path = "Foundation+";
-			sourceTree = "<group>";
-		};
-		715028652C84A5AD00F67472 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				715028662C84A5C600F67472 /* LoginService.swift */,
-			);
-			path = Login;
 			sourceTree = "<group>";
 		};
 		715C0FD42C99075300EDDD60 /* Tests */ = {
@@ -1086,17 +1072,16 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
-		71780C332C4572300073B731 /* Service */ = {
+		71780C332C4572300073B731 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				71F8F8712D278C3700B822F3 /* Home */,
-				2DD4DC942D1F80F00036D08D /* Filters */,
-				71DE23762C7C67460024ACED /* Calendar */,
-				715028652C84A5AD00F67472 /* Login */,
-				71780C342C45725E0073B731 /* Providers.swift */,
-				71780C552C45A81E0073B731 /* AuthInterceptor.swift */,
+				71F8F8722D278C4700B822F3 /* HomeService.swift */,
+				2DD4DC922D1F80D10036D08D /* FiltersService.swift */,
+				71DE23772C7C67690024ACED /* TNCalendarService.swift */,
+				71DE23792C7C67890024ACED /* ScrapsService.swift */,
+				715028662C84A5C600F67472 /* LoginService.swift */,
 			);
-			path = Service;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		71780C382C45778D0073B731 /* TargetType */ = {
@@ -1118,6 +1103,7 @@
 			isa = PBXGroup;
 			children = (
 				71780C3F2C4584D40073B731 /* UserManager.swift */,
+				71780C552C45A81E0073B731 /* AuthInterceptor.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1216,15 +1202,6 @@
 			path = TabBar;
 			sourceTree = "<group>";
 		};
-		71DE23762C7C67460024ACED /* Calendar */ = {
-			isa = PBXGroup;
-			children = (
-				71DE23772C7C67690024ACED /* TNCalendarService.swift */,
-				71DE23792C7C67890024ACED /* ScrapsService.swift */,
-			);
-			path = Calendar;
-			sourceTree = "<group>";
-		};
 		71E3C3C02C22BAF40026C4DD = {
 			isa = PBXGroup;
 			children = (
@@ -1274,8 +1251,7 @@
 			children = (
 				7121A1442C3B079F0056DB8B /* Base */,
 				71780C412C4584DA0073B731 /* User */,
-				71780C332C4572300073B731 /* Service */,
-				71780C382C45778D0073B731 /* TargetType */,
+				71780C332C4572300073B731 /* Services */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1400,14 +1376,6 @@
 				71F004C82C95A1E400CD202B /* Entities */,
 			);
 			path = Domain;
-			sourceTree = "<group>";
-		};
-		71F8F8712D278C3700B822F3 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				71F8F8722D278C4700B822F3 /* HomeService.swift */,
-			);
-			path = Home;
 			sourceTree = "<group>";
 		};
 		71F8F8742D278C7000B822F3 /* UseCases */ = {

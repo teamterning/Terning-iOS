@@ -469,9 +469,11 @@ extension TNCalendarViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let jobDetailViewController = JobDetailViewController(
             viewModel: JobDetailViewModel(
-                jobDetailRepository: JobDetailRepository(
-                    scrapService: ScrapsService(
-                        provider: Providers.scrapsProvider
+                scrapUseCase: ScrapUseCase(
+                    repository: ScrapRepository(
+                        service: ScrapsService(
+                            provider: Providers.scrapsProvider
+                        )
                     )
                 )
             )
@@ -535,7 +537,6 @@ extension TNCalendarViewController: UICollectionViewDelegate {
             self.present(alertSheet, animated: false)
         }
     }
-    
     
     private func refetchDataAndReloadViews() {
         pageRelay.accept(rootView.calendarView.currentPage)

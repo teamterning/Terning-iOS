@@ -15,12 +15,12 @@ final class JobDetailViewModel: ViewModelType {
     // MARK: - Properties
     
     private let announcementsProvider = Providers.announcementsProvider
-    private let jobDetailRepository: JobDetailRepositoryInterface
+    private let scrapUseCase: ScrapUseCase
     
     // MARK: - Input
     
     struct Input {
-        let internshipAnnouncementId: BehaviorRelay<Int> 
+        let internshipAnnouncementId: BehaviorRelay<Int>
         let fetchJobDetail: Observable<Void>
         let addScrapTrigger: Observable<(Int, String)>
         let cancelScrapTrigger: Observable<Int>
@@ -44,8 +44,8 @@ final class JobDetailViewModel: ViewModelType {
     
     // MARK: - Init
     
-    init(jobDetailRepository: JobDetailRepositoryInterface) {
-        self.jobDetailRepository = jobDetailRepository
+    init(scrapUseCase: ScrapUseCase) {
+        self.scrapUseCase = scrapUseCase
     }
     
     // MARK: - Transform
@@ -189,8 +189,8 @@ final class JobDetailViewModel: ViewModelType {
         )
         
         let addScrap = input.addScrapTrigger
-            .flatMapLatest { (intershipAnnouncementId, color) in
-                self.jobDetailRepository.addScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)
+            .flatMapLatest { (internshipAnnouncementId, color) in
+                self.scrapUseCase.execute(action: .add(internshipAnnouncementId: internshipAnnouncementId, color: color))
                     .do(onNext: {
                         successMessageTracker.onNext("관심 공고가 캘린더에 스크랩되었어요!")
                     })
@@ -202,9 +202,8 @@ final class JobDetailViewModel: ViewModelType {
             .asDriver(onErrorDriveWith: .empty())
         
         let cancelScrap = input.cancelScrapTrigger
-            .flatMapLatest { intershipAnnouncementId in
-                
-                self.jobDetailRepository.cancelScrap(internshipAnnouncementId: intershipAnnouncementId)
+            .flatMapLatest { internshipAnnouncementId in
+                self.scrapUseCase.execute(action: .remove(internshipAnnouncementId: internshipAnnouncementId))
                     .do(onNext: {
                         successMessageTracker.onNext("관심 공고가 캘린더에서 사라졌어요!")
                     })

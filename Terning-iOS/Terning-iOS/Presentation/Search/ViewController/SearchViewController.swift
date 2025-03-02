@@ -139,9 +139,11 @@ extension SearchViewController {
         track(eventName: .clickQuestSearch)
         let searchResultVC = SearchResultViewController(
             viewModel: SearchResultViewModel(
-                jobDetailRepository: JobDetailRepository(
-                    scrapService: ScrapsService(
-                        provider: Providers.scrapsProvider
+                scrapUseCase: ScrapUseCase(
+                    repository: ScrapRepository(
+                        service: ScrapsService(
+                            provider: Providers.scrapsProvider
+                        )
                     )
                 )
             )
@@ -168,8 +170,12 @@ extension SearchViewController {
     private func pushToJobDetailVC(internshipId: Int) {
         let jobDetailVC = JobDetailViewController(
             viewModel: JobDetailViewModel(
-                jobDetailRepository: JobDetailRepository(
-                    scrapService: ScrapsService(provider: Providers.scrapsProvider)
+                scrapUseCase: ScrapUseCase(
+                    repository: ScrapRepository(
+                        service: ScrapsService(
+                            provider: Providers.scrapsProvider
+                        )
+                    )
                 )
             )
         )

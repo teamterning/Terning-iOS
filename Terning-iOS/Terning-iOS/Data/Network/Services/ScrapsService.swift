@@ -15,30 +15,30 @@ protocol ScrapServiceProtocol {
     func cancelScrap(internshipAnnouncementId: Int) -> Observable<Void>
 }
 
-final class ScrapsService: ScrapServiceProtocol {
+final class ScrapsService {
     
     private let provider: MoyaProvider<ScrapsTargetType>
     
     init(provider: MoyaProvider<ScrapsTargetType>) {
         self.provider = provider
     }
-    
-    func addScrap(internshipAnnouncementId: Int, color: String) -> RxSwift.Observable<Void> {
-        return provider.rx.request(.addScrap(internshipAnnouncementId: internshipAnnouncementId, color: color))
-            .filterSuccessfulStatusCodes()
-            .map { _ in () }
-            .asObservable()
+}
+
+extension ScrapsService: ScrapServiceProtocol {
+    func addScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void> {
+        return request(.addScrap(internshipAnnouncementId: internshipAnnouncementId, color: color))
     }
     
     func patchScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void> {
-        return provider.rx.request(.patchScrap(internshipAnnouncementId: internshipAnnouncementId, color: color))
-            .filterSuccessfulStatusCodes()
-            .map { _ in () }
-            .asObservable()
+        return request(.patchScrap(internshipAnnouncementId: internshipAnnouncementId, color: color))
     }
     
     func cancelScrap(internshipAnnouncementId: Int) -> Observable<Void> {
-        return provider.rx.request(.removeScrap(internshipAnnouncementId: internshipAnnouncementId))
+        return request(.removeScrap(internshipAnnouncementId: internshipAnnouncementId))
+    }
+    
+    private func request(_ target: ScrapsTargetType) -> Observable<Void> {
+        return provider.rx.request(target)
             .filterSuccessfulStatusCodes()
             .map { _ in () }
             .asObservable()

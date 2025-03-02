@@ -8,13 +8,7 @@
 import Foundation
 import RxSwift
 
-protocol ScrapRepositoryProtocol {
-    func addScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void>
-    func patchScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void>
-    func cancelScrap(internshipAnnouncementId: Int) -> Observable<Void>
-}
-
-final class ScrapRepository: ScrapRepositoryProtocol {
+final class ScrapRepository: ScrapRepositoryInterface {
     
     private let service: ScrapServiceProtocol
     

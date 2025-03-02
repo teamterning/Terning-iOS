@@ -386,9 +386,11 @@ extension SearchResultViewController: UICollectionViewDelegate {
             
             let jobDetailVC = JobDetailViewController(
                 viewModel: JobDetailViewModel(
-                    jobDetailRepository: JobDetailRepository(
-                        scrapService: ScrapsService(
-                            provider: Providers.scrapsProvider
+                    scrapUseCase: ScrapUseCase(
+                        repository: ScrapRepository(
+                            service: ScrapsService(
+                                provider: Providers.scrapsProvider
+                            )
                         )
                     )
                 )

@@ -57,7 +57,7 @@ final class JobCategoryCell: UICollectionViewCell {
 
 extension JobCategoryCell {
     private func setUI() {
-        contentView.makeBorder(width: 1.0, color: .grey200, cornerRadius: 10)
+        contentView.makeBorder(width: 1.0, color: .grey150, cornerRadius: 10)
     }
     private func setHierarchy() {
         contentView.addSubview(stackView)
@@ -88,7 +88,7 @@ extension JobCategoryCell {
             titleLabel.textColor = .terningMain
             iconImageView.tintColor = .terningMain
         } else {
-            contentView.layer.borderColor = UIColor.grey200.cgColor
+            contentView.layer.borderColor = UIColor.grey150.cgColor
             titleLabel.textColor = .grey350
             iconImageView.tintColor = .grey300
         }

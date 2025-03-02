@@ -13,6 +13,8 @@ enum AuthTargetType {
     case getNewToken
     case signUp(name: String, profileImage: String, authType: String)
     case postOnboarding(grade: String, workingPeriod: String, startYear: Int, startMonth: Int)
+    case logout
+    case withdraw
 }
 
 extension AuthTargetType: TargetType {
@@ -34,13 +36,19 @@ extension AuthTargetType: TargetType {
             return "/auth/sign-up"
         case .postOnboarding:
             return "/auth/sign-up/filter"
+        case .logout:
+            return "/auth/logout"
+        case .withdraw:
+            return "/auth/withdraw"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .signIn, .signUp, .getNewToken, .postOnboarding:
+        case .signIn, .signUp, .getNewToken, .postOnboarding, .logout:
             return .post
+        case .withdraw:
+            return .delete
         }
     }
     
@@ -71,6 +79,8 @@ extension AuthTargetType: TargetType {
                     "startMonth": startMonth
                 ],
                 encoding: JSONEncoding.default)
+        case .logout, .withdraw:
+            return .requestPlain
         }
     }
     
@@ -100,6 +110,8 @@ extension AuthTargetType: TargetType {
             headers["Authorization"] = Config.authId
         case .postOnboarding:
             return Config.userIdHeader
+        case .logout, .withdraw:
+            return Config.defaultHeader
         }
         return headers
     }

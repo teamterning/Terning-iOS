@@ -15,7 +15,7 @@ final class SearchResultViewModel: ViewModelType {
     // MARK: - Properties
     
     private let searchProvider = Providers.searchProvider
-    private let jobDetailRepository: JobDetailRepositoryInterface
+    private let scrapUseCase: ScrapUseCaseProtocol
     
     // MARK: - Input
     
@@ -46,8 +46,8 @@ final class SearchResultViewModel: ViewModelType {
     
     // MARK: - Init
     
-    init(jobDetailRepository: JobDetailRepositoryInterface) {
-        self.jobDetailRepository = jobDetailRepository
+    init(scrapUseCase: ScrapUseCaseProtocol) {
+        self.scrapUseCase = scrapUseCase
     }
     
     // MARK: - Transform
@@ -67,7 +67,7 @@ final class SearchResultViewModel: ViewModelType {
         let searchResults = searchResponse
             .map { $0.announcements }
             .asDriver(onErrorJustReturn: [])
-
+        
         let totalCounts = searchResponse
             .map { $0.totalCount }
             .asDriver(onErrorJustReturn: 0)
@@ -82,7 +82,7 @@ final class SearchResultViewModel: ViewModelType {
         
         let addScrap = input.addScrapTrigger
             .flatMapLatest { (intershipAnnouncementId, color) in
-                self.jobDetailRepository.addScrap(internshipAnnouncementId: intershipAnnouncementId, color: color)
+                self.scrapUseCase.execute(action: .add(internshipAnnouncementId: intershipAnnouncementId, color: color))
                     .do(onNext: {
                         successMessageTracker.onNext("관심 공고가 캘린더에 스크랩되었어요!")
                     })
@@ -96,7 +96,7 @@ final class SearchResultViewModel: ViewModelType {
         let cancelScrap = input.cancelScrapTrigger
             .flatMapLatest { intershipAnnouncementId in
                 
-                self.jobDetailRepository.cancelScrap(internshipAnnouncementId: intershipAnnouncementId)
+                self.scrapUseCase.execute(action: .remove(internshipAnnouncementId: intershipAnnouncementId))
                     .do(onNext: {
                         successMessageTracker.onNext("관심 공고가 캘린더에서 사라졌어요!")
                     })

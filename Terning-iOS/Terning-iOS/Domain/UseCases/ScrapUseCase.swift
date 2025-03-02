@@ -5,32 +5,34 @@
 //  Created by 이명진 on 1/3/25.
 //
 
-import Foundation
 import RxSwift
 
+enum ScrapAction {
+    case add(internshipAnnouncementId: Int, color: String)
+    case patch(internshipAnnouncementId: Int, color: String)
+    case remove(internshipAnnouncementId: Int)
+}
+
 protocol ScrapUseCaseProtocol {
-    func addScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void>
-    func patchScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void>
-    func cancelScrap(internshipAnnouncementId: Int) -> Observable<Void>
+    func execute(action: ScrapAction) -> Observable<Void>
 }
 
 final class ScrapUseCase: ScrapUseCaseProtocol {
     
-    private let repository: ScrapRepositoryProtocol
+    private let repository: ScrapRepositoryInterface
     
-    init(repository: ScrapRepositoryProtocol) {
+    init(repository: ScrapRepositoryInterface) {
         self.repository = repository
     }
     
-    func addScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void> {
-        return repository.addScrap(internshipAnnouncementId: internshipAnnouncementId, color: color)
-    }
-    
-    func patchScrap(internshipAnnouncementId: Int, color: String) -> Observable<Void> {
-        return repository.patchScrap(internshipAnnouncementId: internshipAnnouncementId, color: color)
-    }
-    
-    func cancelScrap(internshipAnnouncementId: Int) -> Observable<Void> {
-        return repository.cancelScrap(internshipAnnouncementId: internshipAnnouncementId)
+    func execute(action: ScrapAction) -> Observable<Void> {
+        switch action {
+        case .add(let id, let color):
+            return repository.addScrap(internshipAnnouncementId: id, color: color)
+        case .patch(let id, let color):
+            return repository.patchScrap(internshipAnnouncementId: id, color: color)
+        case .remove(let id):
+            return repository.cancelScrap(internshipAnnouncementId: id)
+        }
     }
 }

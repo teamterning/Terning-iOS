@@ -93,14 +93,15 @@ struct MainHomeView: View {
         print(scrapModel.internshipAnnouncementId)
         let jobDetailVC = JobDetailViewController(
             viewModel: JobDetailViewModel(
-                jobDetailRepository: JobDetailRepository(
-                    scrapService: ScrapsService(
-                        provider: Providers.scrapsProvider
+                scrapUseCase: ScrapUseCase(
+                    repository: ScrapRepository(
+                        service: ScrapsService(
+                            provider: Providers.scrapsProvider
+                        )
                     )
                 )
             )
         )
-        
         jobDetailVC.internshipAnnouncementId.accept(scrapModel.internshipAnnouncementId)
         jobDetailVC.hidesBottomBarWhenPushed = true
         

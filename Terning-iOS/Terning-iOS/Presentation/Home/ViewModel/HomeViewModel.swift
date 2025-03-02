@@ -83,7 +83,7 @@ final class HomeViewModel: ViewModelType {
         input.addScrap
             .subscribe(onNext: { [weak self] id, color in
                 guard let self = self else { return }
-                self.scrapUseCase.addScrap(internshipAnnouncementId: id, color: color)
+                self.scrapUseCase.execute(action: .add(internshipAnnouncementId: id, color: color))
                     .subscribe(onNext: {
                         successMessageTracker.onNext("관심 공고가 캘린더에 스크랩 되었어요!")
                     }, onError: { error in
@@ -96,7 +96,7 @@ final class HomeViewModel: ViewModelType {
         input.patchScrap
             .subscribe(onNext: { [weak self] id, color in
                 guard let self = self else { return }
-                self.scrapUseCase.patchScrap(internshipAnnouncementId: id, color: color)
+                self.scrapUseCase.execute(action: .patch(internshipAnnouncementId: id, color: color))
                     .subscribe(onNext: {
                         successMessageTracker.onNext("스크랩 색상이 변경되었어요!")
                     }, onError: { error in
@@ -109,7 +109,7 @@ final class HomeViewModel: ViewModelType {
         input.cancelScrap
             .subscribe(onNext: { [weak self] id in
                 guard let self = self else { return }
-                self.scrapUseCase.cancelScrap(internshipAnnouncementId: id)
+                self.scrapUseCase.execute(action: .remove(internshipAnnouncementId: id))
                     .subscribe(onNext: {
                         successMessageTracker.onNext("관심공고 스크랩이 취소 되었어요!")
                     }, onError: { error in

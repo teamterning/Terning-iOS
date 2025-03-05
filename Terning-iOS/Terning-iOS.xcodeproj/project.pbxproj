@@ -142,6 +142,11 @@
 		717D37EA2C32FA2F00A857DB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 717D37E92C32FA2F00A857DB /* SnapKit */; };
 		719C6DEC2C8F220D006AF9C9 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 719C6DEB2C8F220D006AF9C9 /* Inject */; };
 		719C6DF02C93DBB7006AF9C9 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719C6DED2C91F150006AF9C9 /* CustomAlertViewController.swift */; };
+		719D09142D74CC6200899C22 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 719D09132D74CC6200899C22 /* FirebaseAnalytics */; };
+		719D09162D74CC6200899C22 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 719D09152D74CC6200899C22 /* FirebaseCore */; };
+		719D09182D74D53800899C22 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 719D09172D74D53800899C22 /* GoogleService-Info.plist */; };
+		719D091A2D74DE7100899C22 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 719D09192D74DE7100899C22 /* FirebaseAuth */; };
+		719D091C2D74DE7100899C22 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 719D091B2D74DE7100899C22 /* FirebaseMessaging */; };
 		71B509212C41AD35006D8E56 /* JobListingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509202C41AD35006D8E56 /* JobListingCell.swift */; };
 		71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509222C41BD90006D8E56 /* CompositionalLayout.swift */; };
 		71B509252C41D027006D8E56 /* CalendarDateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B509242C41D027006D8E56 /* CalendarDateHeaderView.swift */; };
@@ -322,6 +327,7 @@
 		71780C552C45A81E0073B731 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 		71780C592C4627A30073B731 /* Terning-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Terning-iOS.entitlements"; sourceTree = "<group>"; };
 		719C6DED2C91F150006AF9C9 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		719D09172D74D53800899C22 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		71B509202C41AD35006D8E56 /* JobListingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListingCell.swift; sourceTree = "<group>"; };
 		71B509222C41BD90006D8E56 /* CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayout.swift; sourceTree = "<group>"; };
 		71B509242C41D027006D8E56 /* CalendarDateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateHeaderView.swift; sourceTree = "<group>"; };
@@ -419,15 +425,19 @@
 			files = (
 				719C6DEC2C8F220D006AF9C9 /* Inject in Frameworks */,
 				2D997FAE2C91A6460078DAB0 /* Lottie in Frameworks */,
+				719D09162D74CC6200899C22 /* FirebaseCore in Frameworks */,
 				71E3C3F92C241D900026C4DD /* Kingfisher in Frameworks */,
 				713C5A742CC1578600321E15 /* AmplitudeSwift in Frameworks */,
 				2DC61F302C4213C7009F991F /* KakaoSDKCommon in Frameworks */,
 				71E3C4042C241DD40026C4DD /* Moya in Frameworks */,
 				71E3C4082C241DD40026C4DD /* RxMoya in Frameworks */,
+				719D091C2D74DE7100899C22 /* FirebaseMessaging in Frameworks */,
 				7121A13A2C3A6CEB0056DB8B /* RxCocoa in Frameworks */,
 				71CCC0762C3F373400789A9B /* FSCalendar in Frameworks */,
 				717D37EA2C32FA2F00A857DB /* SnapKit in Frameworks */,
+				719D09142D74CC6200899C22 /* FirebaseAnalytics in Frameworks */,
 				71E3C4012C241DA30026C4DD /* Then in Frameworks */,
+				719D091A2D74DE7100899C22 /* FirebaseAuth in Frameworks */,
 				7121A13C2C3A6CEB0056DB8B /* RxRelay in Frameworks */,
 				71E3C4062C241DD40026C4DD /* ReactiveMoya in Frameworks */,
 				2DC61F2C2C4213C7009F991F /* KakaoSDK in Frameworks */,
@@ -1227,6 +1237,7 @@
 				715C0FD42C99075300EDDD60 /* Tests */,
 				71DA89952CFDFA460003078C /* SwiftUI */,
 				71E3C3DA2C22BAF50026C4DD /* Info.plist */,
+				719D09172D74D53800899C22 /* GoogleService-Info.plist */,
 			);
 			path = "Terning-iOS";
 			sourceTree = "<group>";
@@ -1467,6 +1478,10 @@
 				719C6DEB2C8F220D006AF9C9 /* Inject */,
 				2D997FAD2C91A6460078DAB0 /* Lottie */,
 				713C5A732CC1578600321E15 /* AmplitudeSwift */,
+				719D09132D74CC6200899C22 /* FirebaseAnalytics */,
+				719D09152D74CC6200899C22 /* FirebaseCore */,
+				719D09192D74DE7100899C22 /* FirebaseAuth */,
+				719D091B2D74DE7100899C22 /* FirebaseMessaging */,
 			);
 			productName = "Terning-iOS";
 			productReference = 71E3C3C92C22BAF40026C4DD /* Terning-iOS.app */;
@@ -1507,6 +1522,7 @@
 				719C6DEA2C8F220D006AF9C9 /* XCRemoteSwiftPackageReference "Inject" */,
 				2D997FAC2C91A6460078DAB0 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				713C5A722CC1578600321E15 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */,
+				719D09122D74CC6200899C22 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 71E3C3CA2C22BAF40026C4DD /* Products */;
 			projectDirPath = "";
@@ -1535,6 +1551,7 @@
 				2D997FBD2C9228F00078DAB0 /* beforeOnboarding.json in Resources */,
 				71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */,
 				71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */,
+				719D09182D74D53800899C22 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1801,6 +1818,7 @@
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",
+					"-ObjC",
 				);
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -2021,6 +2039,14 @@
 				minimumVersion = 1.5.2;
 			};
 		};
+		719D09122D74CC6200899C22 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.9.0;
+			};
+		};
 		71CCC0742C3F373400789A9B /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
@@ -2100,6 +2126,24 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 719C6DEA2C8F220D006AF9C9 /* XCRemoteSwiftPackageReference "Inject" */;
 			productName = Inject;
+		};
+		719D09132D74CC6200899C22 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 719D09122D74CC6200899C22 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		719D09152D74CC6200899C22 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 719D09122D74CC6200899C22 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		719D09192D74DE7100899C22 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseAuth;
+		};
+		719D091B2D74DE7100899C22 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseMessaging;
 		};
 		71CCC0752C3F373400789A9B /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -112,6 +112,18 @@ final class MyPageViewModel: ViewModelType {
                 ]
             ),
             SectionData(
+                title: "알림 설정",
+                items: [
+                    .cellViewModel(
+                        MyPageBasicCellModel(
+                            image: .icPushAlarm,
+                            title: "푸시 알림",
+                            accessoryType: .toggle(isOn: true, action: nil)
+                        )
+                    )
+                ]
+            ),
+            SectionData(
                 title: "기타",
                 items: [
                     .emptyCell

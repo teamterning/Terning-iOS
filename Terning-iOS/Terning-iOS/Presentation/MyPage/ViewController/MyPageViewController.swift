@@ -385,16 +385,17 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        let lastSectionIndex = tableView.numberOfSections - 1
         
         switch section {
         case 0:
             return 8.0.adjustedH
-        case 1:
-            return 20.0.adjustedH
-        case 2:
+        case lastSectionIndex - 1:
             return 16.0.adjustedH
+        case lastSectionIndex:
+            return 100.0.adjustedH
         default:
-            return 0.0.adjustedH
+            return 20.0.adjustedH
         }
     }
     

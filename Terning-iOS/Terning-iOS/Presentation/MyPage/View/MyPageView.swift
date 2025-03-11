@@ -38,7 +38,7 @@ final class MyPageView: UIView {
         tableView.separatorStyle = .none
         tableView.sectionHeaderTopPadding = 0
         tableView.delaysContentTouches = false
-
+        tableView.showsVerticalScrollIndicator = false
     }
     
     private func setLayout() {

@@ -14,6 +14,7 @@ public enum AccessoryType {
     case none
     case disclosureIndicator
     case label(text: String)
+    case toggle(isOn: Bool, action: ((Bool) -> Void)?)
 }
 
 final class MyPageBasicViewCell: UITableViewCell {
@@ -26,13 +27,10 @@ final class MyPageBasicViewCell: UITableViewCell {
         textAlignment: .left
     )
     
-    private let accessoryImageView = UIImageView()
-    
-    private let accessoryLabel = LabelFactory.build(
-        font: .body6,
-        textColor: .grey350,
-        textAlignment: .left
-    )
+    private var accessoryImageView: UIImageView?
+    private var accessoryLabel: UILabel?
+    private var toggleSwitch: UISwitch?
+    private var toggleAction: ((Bool) -> Void)?
     
     private let horizontalStickView = UIView().then {
         $0.backgroundColor = .grey150
@@ -59,14 +57,11 @@ extension MyPageBasicViewCell {
         contentView.addSubviews(
             profileImageView,
             titleLabel,
-            accessoryImageView,
-            accessoryLabel,
             horizontalStickView
         )
     }
     
     private func setLayout() {
-        
         profileImageView.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(16.adjusted)
             $0.verticalEdges.equalToSuperview().inset(20)
@@ -75,17 +70,6 @@ extension MyPageBasicViewCell {
         
         titleLabel.snp.makeConstraints {
             $0.leading.equalTo(profileImageView.snp.trailing).offset(8.adjusted)
-            $0.centerY.equalToSuperview()
-        }
-        
-        accessoryImageView.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(9.adjusted)
-            $0.verticalEdges.equalToSuperview().inset(20)
-            $0.width.equalTo(profileImageView.snp.height)
-        }
-        
-        accessoryLabel.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(16.adjusted)
             $0.centerY.equalToSuperview()
         }
         
@@ -105,20 +89,68 @@ extension MyPageBasicViewCell {
         profileImageView.image = viewModel.image
         titleLabel.text = viewModel.title
         
+        accessoryImageView?.removeFromSuperview()
+        accessoryLabel?.removeFromSuperview()
+        toggleSwitch?.removeFromSuperview()
+        
+        accessoryImageView = nil
+        accessoryLabel = nil
+        toggleSwitch = nil
+        
         switch viewModel.accessoryType {
         case .none:
-            accessoryImageView.isHidden = true
-            accessoryLabel.isHidden = true
+            break
+            
         case .disclosureIndicator:
-            accessoryImageView.image = .icFrontArrow
-            accessoryImageView.isHidden = false
-            accessoryLabel.isHidden = true
+            let imageView = UIImageView().then {
+                $0.image = .icFrontArrow
+            }
+            contentView.addSubview(imageView)
+            imageView.snp.makeConstraints {
+                $0.trailing.equalToSuperview().inset(9.adjusted)
+                $0.centerY.equalToSuperview()
+                $0.width.equalTo(20.adjusted)
+                $0.height.equalTo(20.adjusted)
+            }
+            accessoryImageView = imageView
+            
         case .label(let text):
-            accessoryLabel.text = text
-            accessoryLabel.isHidden = false
-            accessoryImageView.isHidden = true
+            let label = LabelFactory.build(
+                font: .body6,
+                textColor: .grey350,
+                textAlignment: .right
+            )
+            label.text = text
+            contentView.addSubview(label)
+            label.snp.makeConstraints {
+                $0.trailing.equalToSuperview().inset(16.adjusted)
+                $0.centerY.equalToSuperview()
+            }
+            accessoryLabel = label
+            
+        case .toggle(let isOn, let action):
+            let toggle = UISwitch().then {
+                $0.isOn = isOn
+                $0.onTintColor = .terningMain
+                $0.addTarget(self, action: #selector(toggleChanged(_:)), for: .valueChanged)
+            }
+            contentView.addSubview(toggle)
+            toggle.snp.makeConstraints {
+                $0.trailing.equalToSuperview().inset(16.adjusted)
+                $0.centerY.equalToSuperview()
+            }
+            toggleSwitch = toggle
+            toggleAction = action
         }
-
         horizontalStickView.isHidden = isLastCellInSection
+    }
+}
+
+// MARK: - @objc Function
+
+extension MyPageBasicViewCell {
+    @objc
+    private func toggleChanged(_ sender: UISwitch) {
+        toggleAction?(sender.isOn)
     }
 }

@@ -13,7 +13,7 @@ final class MyPageView: UIView {
     
     // MARK: - UI Components
     
-    let tableView = UITableView()
+    let tableView = UITableView(frame: .zero, style: .grouped)
 
     // MARK: - Init
     

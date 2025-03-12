@@ -132,7 +132,7 @@ extension MyPageBasicViewCell {
             let toggle = UISwitch().then {
                 $0.isOn = isOn
                 $0.onTintColor = .terningMain
-                $0.addTarget(self, action: #selector(toggleChanged(_:)), for: .valueChanged)
+                $0.addTarget(self, action: #selector(toggleChanged), for: .valueChanged)
             }
             contentView.addSubview(toggle)
             toggle.snp.makeConstraints {

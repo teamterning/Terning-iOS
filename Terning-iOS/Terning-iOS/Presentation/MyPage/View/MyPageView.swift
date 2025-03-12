@@ -13,7 +13,7 @@ final class MyPageView: UIView {
     
     // MARK: - UI Components
     
-    let tableView = UITableView()
+    let tableView = UITableView(frame: .zero, style: .grouped)
 
     // MARK: - Init
     
@@ -38,7 +38,7 @@ final class MyPageView: UIView {
         tableView.separatorStyle = .none
         tableView.sectionHeaderTopPadding = 0
         tableView.delaysContentTouches = false
-
+        tableView.showsVerticalScrollIndicator = false
     }
     
     private func setLayout() {

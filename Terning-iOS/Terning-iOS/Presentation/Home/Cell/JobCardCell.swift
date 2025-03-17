@@ -33,7 +33,6 @@ final class JobCardCell: UICollectionViewCell {
     }
     
     private let jobCardCoverImage = UIImageView().then {
-        $0.image = UIImage(resource: .icHome)
         $0.contentMode = .scaleAspectFit
     }
     
@@ -86,6 +85,12 @@ final class JobCardCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.jobCardCoverImage.image = UIImage(resource: .imgPostPlaceHolder)
     }
 }
 
@@ -166,7 +171,7 @@ extension JobCardCell {
         }
         
         self.internshipAnnouncementId = model.internshipAnnouncementId
-        self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "placeholder_image")
+        self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "imgPostPlaceHolder")
         self.daysRemaining.text = model.dDay
         self.jobLabel.text = model.title
         self.period.text = model.workingPeriod

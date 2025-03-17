@@ -22,16 +22,16 @@ public extension UIImageView {
                         self.image = image
                         completion?(image)
                     } else {
-                        self.setNewImage(with: urlString, placeholder: placeholder, completion: completion)
+                        self.setNewImage(with: urlString, completion: completion)
                     }
                 }.catch { _ in
-                    self.setNewImage(with: urlString, placeholder: placeholder, completion: completion)
+                    self.setNewImage(with: urlString, completion: completion)
                 }
             }
         }
     }
     
-    private func setNewImage(with urlString: String, placeholder: String? = "img_placeholder", completion: ((UIImage?) -> Void)? = nil) {
+    private func setNewImage(with urlString: String, completion: ((UIImage?) -> Void)? = nil) {
         guard let url = URL(string: urlString) else { return }
         let resource = Kingfisher.KF.ImageResource(downloadURL: url, cacheKey: urlString)
         let placeholderImage = UIImage(named: "img_placeholder")

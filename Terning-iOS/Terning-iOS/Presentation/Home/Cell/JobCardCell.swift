@@ -171,7 +171,7 @@ extension JobCardCell {
         }
         
         self.internshipAnnouncementId = model.internshipAnnouncementId
-        self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "imgPostPlaceHolder")
+        self.jobCardCoverImage.setImage(with: model.companyImage, placeholder: "img_post_placeHolder")
         self.daysRemaining.text = model.dDay
         self.jobLabel.text = model.title
         self.period.text = model.workingPeriod

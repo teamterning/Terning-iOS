@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - AnnouncementModel
 
-struct AnnouncementModel: Codable {
+struct AnnouncementModel: Codable, Equatable {
     let internshipAnnouncementId: Int
     let companyImage: String
     let dDay: String

@@ -161,6 +161,7 @@ final class HomeViewController: UIViewController {
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
         
         output.jobModel
+            .distinctUntilChanged()
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] jobDatas in
                 guard let self = self else { return }

@@ -143,6 +143,7 @@
 		71780C542C45A7DD0073B731 /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C532C45A7DD0073B731 /* NetworkLoggerPlugin.swift */; };
 		71780C562C45A81E0073B731 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C552C45A81E0073B731 /* AuthInterceptor.swift */; };
 		717D37EA2C32FA2F00A857DB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 717D37E92C32FA2F00A857DB /* SnapKit */; };
+		7191B0772D88FC6700541921 /* UpdateAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7191B0762D88FC6700541921 /* UpdateAlertViewController.swift */; };
 		719C6DEC2C8F220D006AF9C9 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 719C6DEB2C8F220D006AF9C9 /* Inject */; };
 		719C6DF02C93DBB7006AF9C9 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719C6DED2C91F150006AF9C9 /* CustomAlertViewController.swift */; };
 		719D09142D74CC6200899C22 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 719D09132D74CC6200899C22 /* FirebaseAnalytics */; };
@@ -332,6 +333,7 @@
 		71780C532C45A7DD0073B731 /* NetworkLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerPlugin.swift; sourceTree = "<group>"; };
 		71780C552C45A81E0073B731 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 		71780C592C4627A30073B731 /* Terning-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Terning-iOS.entitlements"; sourceTree = "<group>"; };
+		7191B0762D88FC6700541921 /* UpdateAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAlertViewController.swift; sourceTree = "<group>"; };
 		719C6DED2C91F150006AF9C9 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		719D09172D74D53800899C22 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		71B509202C41AD35006D8E56 /* JobListingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListingCell.swift; sourceTree = "<group>"; };
@@ -972,6 +974,7 @@
 				719C6DED2C91F150006AF9C9 /* CustomAlertViewController.swift */,
 				71F004C62C957C8C00CD202B /* EmptyView.swift */,
 				717054FC2D696D7D00B3F2CD /* TerningCustomButton.swift */,
+				7191B0762D88FC6700541921 /* UpdateAlertViewController.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -1695,6 +1698,7 @@
 				2D89C74D2C47E8EA002B035F /* ProfileImageViewModel.swift in Sources */,
 				2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */,
 				715028692C84AA1600F67472 /* LoginRepository.swift in Sources */,
+				7191B0772D88FC6700541921 /* UpdateAlertViewController.swift in Sources */,
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
 				2D3F7D9E2D7F345C0052B35F /* SearchService.swift in Sources */,
 				2DC61EF92C407E65009F991F /* JobDetailTableViewHeaderCell.swift in Sources */,

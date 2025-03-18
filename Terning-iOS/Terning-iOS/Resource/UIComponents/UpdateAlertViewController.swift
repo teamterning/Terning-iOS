@@ -13,12 +13,14 @@ import RxCocoa
 import SnapKit
 import Then
 
-public enum UpdateViewType {
-    case normal
-    case force
-}
-
 final class UpdateAlertViewController: UIViewController {
+    
+    // MARK: - UpdateViewType
+    
+    enum UpdateViewType {
+        case normal
+        case force
+    }
     
     // MARK: - Properties
     
@@ -48,7 +50,7 @@ final class UpdateAlertViewController: UIViewController {
     fileprivate let leftButton = TerningCustomButton(title: "다음에 하기", font: .button3, radius: 8)
     fileprivate let rightButton = TerningCustomButton(title: "업데이트 하기", font: .button3, radius: 8)
     
-    // MARK: - Life Cycles
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +59,8 @@ final class UpdateAlertViewController: UIViewController {
         setHierarchy(updateViewType)
         setLayout(updateViewType)
     }
+    
+    // MARK: - Init
     
     init(updateViewType: UpdateViewType, title: String? = "", discription: String? = "") {
         self.updateViewType = updateViewType

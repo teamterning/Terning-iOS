@@ -24,14 +24,14 @@ final class UpdateAlertViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let updateViewType: UpdateViewType!
+    private let updateViewType: UpdateViewType
     let disposeBag = DisposeBag()
     
     // MARK: - UIComponents
     
     private let alertView = UIView()
-    private final let updateTitle: String!
-    private final let discription: String!
+    private let updateTitle: String
+    private let updateDescription: String
     
     private let titleLabel = LabelFactory.build(
         font: .title2
@@ -62,11 +62,10 @@ final class UpdateAlertViewController: UIViewController {
     
     // MARK: - Init
     
-    init(updateViewType: UpdateViewType, title: String? = "", discription: String? = "") {
+    init(updateViewType: UpdateViewType, title: String = "", discription: String = "") {
         self.updateViewType = updateViewType
-        
         self.updateTitle = title
-        self.discription = discription
+        self.updateDescription = discription
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -90,7 +89,7 @@ final class UpdateAlertViewController: UIViewController {
         }
         
         discriptionLabel.do {
-            $0.text = discription
+            $0.text = updateDescription
         }
     }
     

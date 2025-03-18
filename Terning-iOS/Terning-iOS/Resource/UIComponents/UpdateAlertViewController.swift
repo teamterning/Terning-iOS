@@ -153,3 +153,17 @@ final class UpdateAlertViewController: UIViewController {
         }
     }
 }
+
+extension Reactive where Base: UpdateAlertViewController {
+    var centerButtonTap: Observable<Void> {
+        return base.centerButton.rx.tap.asObservable()
+    }
+    
+    var leftButtonTap: Observable<Void> {
+        return base.leftButton.rx.tap.asObservable()
+    }
+    
+    var rightButtonTap: Observable<Void> {
+        return base.rightButton.rx.tap.asObservable()
+    }
+}

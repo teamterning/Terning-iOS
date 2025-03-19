@@ -8,6 +8,7 @@
 import UIKit
 
 import SnapKit
+import Then
 
 final class CompanyInfoTableViewCell: UITableViewCell {
     
@@ -83,7 +84,7 @@ extension CompanyInfoTableViewCell {
 
 extension CompanyInfoTableViewCell {
     func bind(with companyInfo: CompanyInfoModel) {
-        companyImageView.setImage(with: companyInfo.companyImage ?? "placeholder_image", placeholder: "placeholder_image")
+        companyImageView.setImage(with: companyInfo.companyImage ?? "placeholder_image", placeholder: "img_post_placeHolder")
         companyNameLabel.text = companyInfo.company
         companyTypeLabel.text = companyInfo.companyCategory
     }

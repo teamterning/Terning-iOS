@@ -24,9 +24,9 @@ final class MainFilterButton: UIButton {
     
     private func configureButton() {
         
-        var config = UIButton.Configuration.filled()
+        var configuration = UIButton.Configuration.filled()
         
-        config.attributedTitle = AttributedString(
+        configuration.attributedTitle = AttributedString(
             "필터링",
             attributes: AttributeContainer([
                 .font: UIFont.button3,
@@ -34,23 +34,32 @@ final class MainFilterButton: UIButton {
             ])
         )
         
-        config.image = .icFilter
+        configuration.image = .icFilter
         
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 9)
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 9)
         
-        config.background.cornerRadius = 5
-        config.background.strokeWidth = 1
-        config.background.strokeColor = .terningMain
-        config.background.backgroundColor = .white
+        configuration.background.cornerRadius = 5
+        configuration.background.strokeWidth = 1
+        configuration.background.strokeColor = .terningMain
+        configuration.background.backgroundColor = .clear
         
-        self.configuration = config
+        self.configuration = configuration
         
-        self.configurationUpdateHandler = { button in
-            var updatedConfig = button.configuration
+        let buttonStateHandler: UIButton.ConfigurationUpdateHandler = { button in
+            var updatedConfiguration = button.configuration
+            let backgroundColor: UIColor
             
-            updatedConfig?.background.backgroundColor = (button.state == .highlighted) ? .terningPressed : .white
+            switch button.state {
+            case .highlighted:
+                backgroundColor = .terningPressed
+            default:
+                backgroundColor = .clear
+            }
             
-            button.configuration = updatedConfig
+            updatedConfiguration?.background.backgroundColor = backgroundColor
+            
+            button.configuration = updatedConfiguration
         }
+        self.configurationUpdateHandler = buttonStateHandler
     }
 }

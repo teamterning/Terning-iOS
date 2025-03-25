@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class MainSortButton: UIView {
+final class MainSortButton: UIButton {
     
     // MARK: - UI Components
     
@@ -31,6 +31,7 @@ final class MainSortButton: UIView {
         setUI()
         setHierarchy()
         setLayout()
+        configureButton()
     }
     
     required init?(coder: NSCoder) {
@@ -40,7 +41,6 @@ final class MainSortButton: UIView {
     // MARK: - UI & Layout
     
     private func setUI() {
-        self.isUserInteractionEnabled = true
         self.makeBorder(width: 1, color: .grey350, cornerRadius: 5)
     }
     
@@ -61,6 +61,29 @@ final class MainSortButton: UIView {
             $0.centerY.equalToSuperview()
             $0.leading.equalTo(sortIconImageView.snp.trailing).offset(3.adjusted)
         }
+    }
+    
+    private func configureButton() {
+        let configuration = UIButton.Configuration.filled()
+        
+        self.configuration = configuration
+        
+        let buttonStateHandler: UIButton.ConfigurationUpdateHandler = { button in
+            var updatedConfiguration = button.configuration
+            let backgroundColor: UIColor
+            
+            switch button.state {
+            case .highlighted:
+                backgroundColor = .grey100
+            default:
+                backgroundColor = .clear
+            }
+            
+            updatedConfiguration?.background.backgroundColor = backgroundColor
+            
+            button.configuration = updatedConfiguration
+        }
+        self.configurationUpdateHandler = buttonStateHandler
     }
     
     // MARK: - Methods

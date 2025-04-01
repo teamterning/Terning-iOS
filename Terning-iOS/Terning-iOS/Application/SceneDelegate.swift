@@ -11,6 +11,7 @@ import KakaoSDKAuth
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
+    private var pendingDeeplinkURL: URL?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -18,20 +19,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         let vc = UINavigationController(rootViewController: SplashVC())
-//        let vc = TNTabBarController()
+        //        let vc = TNTabBarController()
         window.rootViewController = vc
         self.window = window
         window.makeKeyAndVisible()
+        
+        if let url = connectionOptions.urlContexts.first?.url {
+            self.pendingDeeplinkURL = url
+        }
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         if let url = URLContexts.first?.url {
             if (AuthApi.isKakaoTalkLoginUrl(url)) {
                 _ = AuthController.handleOpenUrl(url: url)
+            } else {
+                handleDeeplink(url)
             }
         }
     }
     
+    func processPendingDeeplinkIfNeeded() {
+        if let url = pendingDeeplinkURL {
+            handleDeeplink(url)
+            pendingDeeplinkURL = nil
+        }
+    }
+
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
@@ -40,8 +54,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            if let url = self.pendingDeeplinkURL {
+                self.handleDeeplink(url)
+                self.pendingDeeplinkURL = nil
+            }
+        }
     }
     
     func sceneWillResignActive(_ scene: UIScene) {
@@ -59,6 +77,67 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
+}
+
+// MARK: - Methods
+
+extension SceneDelegate {
+    private func handleDeeplink(_ url: URL) {
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let action = components.queryItems?.first(where: { $0.name == "action" })?.value,
+              let id = components.queryItems?.first(where: { $0.name == "id" })?.value,
+              action == "jobDetail" else {
+            return
+        }
+        
+        if UserManager.shared.hasAccessToken {
+            routeToJobDetail(jobId: id)
+        } else {
+            pendingDeeplinkURL = url
+            
+            guard let window = self.window else { return }
+            
+            let loginViewController = LoginViewController(
+                viewModel: LoginViewModel(
+                    loginRepository: LoginRepository(
+                        loginService: LoginService()
+                    )
+                )
+            )
+            
+            ViewControllerUtils.setRootViewController(window: window, viewController: loginViewController, withAnimation: true)
+        }
+    }
     
-    
+    private func routeToJobDetail(jobId: String) {
+        guard let tabBar = window?.rootViewController as? TNTabBarController else { return }
+        
+        tabBar.selectedIndex = 0
+        
+        guard let nav = tabBar.viewControllers?.first as? UINavigationController else { return }
+        
+        if let topVC = nav.topViewController as? JobDetailViewController {
+            let currentId = topVC.internshipAnnouncementId.value
+            if "\(currentId)" == jobId { return } else {
+                nav.popViewController(animated: false)
+            }
+        }
+        
+        let jobDetailVC = JobDetailViewController(
+            viewModel: JobDetailViewModel(
+                scrapUseCase: ScrapUseCase(
+                    repository: ScrapRepository(
+                        service: ScrapsService(
+                            provider: Providers.scrapsProvider
+                        )
+                    )
+                )
+            )
+        )
+        
+        jobDetailVC.hidesBottomBarWhenPushed = true
+        jobDetailVC.internshipAnnouncementId.accept(Int(jobId) ?? 0)
+        
+        nav.pushViewController(jobDetailVC, animated: true)
+    }
 }

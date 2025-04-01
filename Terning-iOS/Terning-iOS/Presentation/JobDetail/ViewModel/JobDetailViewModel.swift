@@ -10,12 +10,15 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+import KakaoSDKShare
+
 final class JobDetailViewModel: ViewModelType {
     
     // MARK: - Properties
     
     private let announcementsProvider = Providers.announcementsProvider
     private let scrapUseCase: ScrapUseCase
+    private var latestJobId: Int = 0
     
     // MARK: - Input
     
@@ -24,6 +27,8 @@ final class JobDetailViewModel: ViewModelType {
         let fetchJobDetail: Observable<Void>
         let addScrapTrigger: Observable<(Int, String)>
         let cancelScrapTrigger: Observable<Int>
+        let shareTapped: Signal<Void>
+        let goToSiteTapped: Signal<Void>
     }
     
     // MARK: - Output
@@ -40,6 +45,8 @@ final class JobDetailViewModel: ViewModelType {
         let successMessage: Driver<String>
         let addScrapResult: Driver<Void>
         let cancelScrapResult: Driver<Void>
+        let shareAction: Signal<[String: String]>
+        let goToSiteLink: Signal<URL>
     }
     
     // MARK: - Init
@@ -217,6 +224,28 @@ final class JobDetailViewModel: ViewModelType {
         let error = errorTracker.asDriver(onErrorJustReturn: "알 수 없는 오류가 발생했습니다.")
         let successMessage = successMessageTracker.asDriver(onErrorJustReturn: "")
         
+        let shareAction = input.shareTapped
+            .withLatestFrom(jobDetail.asSignal(onErrorSignalWith: .empty()))
+            .compactMap { [weak self] job -> [String: String]? in
+                guard let self = self else { return nil }
+                let templateArgs: [String: String] = [
+                    "COMPANY_IMG": job.companyImage,
+                    "TITLE": job.title,
+                    "DEADLINE": job.deadline,
+                    "PERIOD": job.workingPeriod,
+                    "START_DATE": job.startYearMonth,
+                    "JOB_ID": "\(input.internshipAnnouncementId.value)"
+                ]
+                
+                return templateArgs
+            }
+            .asSignal(onErrorSignalWith: .empty())
+        
+        let goToSiteLink = input.goToSiteTapped
+            .withLatestFrom(jobDetail.asSignal(onErrorSignalWith: .empty()))
+            .compactMap { URL(string: $0.url) }
+            .asSignal(onErrorSignalWith: .empty())
+        
         return Output(
             jobDetailInfo: jobDetailInfo,
             companyInfo: companyInfo,
@@ -228,12 +257,15 @@ final class JobDetailViewModel: ViewModelType {
             error: error,
             successMessage: successMessage,
             addScrapResult: addScrap,
-            cancelScrapResult: cancelScrap
+            cancelScrapResult: cancelScrap,
+            shareAction: shareAction,
+            goToSiteLink: goToSiteLink
         )
     }
 }
 
-// MARK: - Methods
+// MARK: - API
+
 extension JobDetailViewModel {
     private func fetchJobDetailFromServer(internshipAnnouncementId: Int) -> Observable<JobDetailModel> {
         return Observable.create { observer in

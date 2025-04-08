@@ -50,6 +50,7 @@
 		2D997FBD2C9228F00078DAB0 /* beforeOnboarding.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D997FBC2C9228F00078DAB0 /* beforeOnboarding.json */; };
 		2D997FBF2C9229760078DAB0 /* afterOnboarding.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D997FBE2C9229760078DAB0 /* afterOnboarding.json */; };
 		2DAC9E7B2D112AC600A7842E /* CustomCheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAC9E7A2D112AC500A7842E /* CustomCheckButton.swift */; };
+		2DAFCC872DA58B0D002B9092 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 2DAFCC862DA58B0D002B9092 /* FirebaseRemoteConfig */; };
 		2DC61EF32C4075E3009F991F /* JobDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF22C4075E3009F991F /* JobDetailViewController.swift */; };
 		2DC61EF52C4075EB009F991F /* MainInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF42C4075EB009F991F /* MainInfoTableViewCell.swift */; };
 		2DC61EF72C4075F3009F991F /* JobDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC61EF62C4075F3009F991F /* JobDetailViewModel.swift */; };
@@ -450,6 +451,7 @@
 				71E3C4062C241DD40026C4DD /* ReactiveMoya in Frameworks */,
 				2DC61F2C2C4213C7009F991F /* KakaoSDK in Frameworks */,
 				2DC61F2E2C4213C7009F991F /* KakaoSDKAuth in Frameworks */,
+				2DAFCC872DA58B0D002B9092 /* FirebaseRemoteConfig in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,6 +701,13 @@
 				2DD419C92CA46D2900F647DC /* loginAnimation.json */,
 			);
 			path = Lotties;
+			sourceTree = "<group>";
+		};
+		2DAFCC852DA58B0D002B9092 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		2DC61EEE2C40759F009F991F /* JobDetail */ = {
@@ -1224,6 +1233,7 @@
 			children = (
 				71E3C40C2C2423280026C4DD /* .swiftlint.yml */,
 				71E3C3CB2C22BAF40026C4DD /* Terning-iOS */,
+				2DAFCC852DA58B0D002B9092 /* Frameworks */,
 				71E3C3CA2C22BAF40026C4DD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1494,6 +1504,7 @@
 				719D09152D74CC6200899C22 /* FirebaseCore */,
 				719D09192D74DE7100899C22 /* FirebaseAuth */,
 				719D091B2D74DE7100899C22 /* FirebaseMessaging */,
+				2DAFCC862DA58B0D002B9092 /* FirebaseRemoteConfig */,
 			);
 			productName = "Terning-iOS";
 			productReference = 71E3C3C92C22BAF40026C4DD /* Terning-iOS.app */;
@@ -2102,6 +2113,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2D997FAC2C91A6460078DAB0 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		2DAFCC862DA58B0D002B9092 /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 719D09122D74CC6200899C22 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
 		};
 		2DC61F2B2C4213C7009F991F /* KakaoSDK */ = {
 			isa = XCSwiftPackageProductDependency;

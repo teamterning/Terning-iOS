@@ -7,6 +7,8 @@
 
 import UIKit
 
+import FirebaseRemoteConfig
+
 import SnapKit
 import Then
 
@@ -27,7 +29,27 @@ final class SplashVC: UIViewController {
         self.setUI()
         self.setNavigationBar()
         self.setLayout()
-        self.checkDidSignIn()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.checkAppVersion {
+            self.checkDidSignIn()
+        }
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appDidBecomeActive),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 }
 
@@ -70,6 +92,134 @@ extension SplashVC {
         let tabBarController = TNTabBarController()
         guard let window = self.view.window else { return }
         ViewControllerUtils.setRootViewController(window: window, viewController: tabBarController, withAnimation: true)
+    }
+}
+
+// MARK: - Update Methods
+
+extension SplashVC {
+    func checkAppVersion(completion: @escaping () -> Void) {
+        let remoteConfig = RemoteConfig.remoteConfig()
+        let settings = RemoteConfigSettings()
+        settings.minimumFetchInterval = 86400
+        remoteConfig.configSettings = settings
+
+        remoteConfig.fetchAndActivate { status, error in
+            if let error = error {
+                print("🌷❌ Remote Config fetch error: \(error.localizedDescription)")
+                completion()
+                return
+            }
+
+            switch status {
+            case .successFetchedFromRemote:
+                print("🌷✅ Remote Config: fetched from remote")
+            case .successUsingPreFetchedData:
+                print("🌷ℹ️ Remote Config: using cached data")
+            case .error:
+                completion()
+                print("🌷⚠️ Remote Config: activation error")
+                return
+            @unknown default:
+                completion()
+                print("🌷⚠️ Remote Config: unknown status")
+                return
+            }
+
+            let remoteVersion = remoteConfig.configValue(forKey: "android_app_version").stringValue
+//            let remoteVersion = "1.1.6"
+            let majorTitle = remoteConfig.configValue(forKey: "android_major_update_title").stringValue
+            let majorBody = remoteConfig.configValue(forKey: "android_major_update_body").stringValue
+            let patchTitle = remoteConfig.configValue(forKey: "android_patch_update_title").stringValue
+            let patchBody = remoteConfig.configValue(forKey: "android_patch_update_body").stringValue
+            let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+
+            guard !remoteVersion.isEmpty else {
+                print("🌷❌ Remote Config에서 앱 버전이 누락됨")
+                return
+            }
+
+            guard currentVersion?.compare(remoteVersion, options: .numeric) == .orderedAscending else {
+                print("🌷✅ 최신 버전입니다")
+                completion()
+                return
+            }
+
+            let currentComponents = currentVersion?.split(separator: ".").compactMap { Int($0) } ?? [0, 0, 0]
+            let remoteComponents = remoteVersion.split(separator: ".").compactMap { Int($0) }
+
+            let currentMajor = currentComponents[0]
+            let currentMinor = currentComponents[1]
+
+            let remoteMajor = remoteComponents[0]
+            let remoteMinor = remoteComponents[1]
+
+            let isMajorUpdate = remoteMajor > currentMajor || (remoteMajor == currentMajor && remoteMinor > currentMinor)
+
+            let type: UpdateAlertViewController.UpdateViewType = isMajorUpdate ? .force : .normal
+            let titleRaw = isMajorUpdate ? majorTitle : patchTitle
+            let bodyRaw = isMajorUpdate ? majorBody : patchBody
+            
+            let title = titleRaw.replacingOccurrences(of: "\\n", with: "\n")
+            let body = bodyRaw.replacingOccurrences(of: "\\n", with: "\n")
+
+            guard !title.isEmpty, !body.isEmpty else {
+                print("🌷❌ 업데이트 문구 누락 → 팝업 표시 중단")
+                completion()
+                return
+            }
+
+            let updateVC = UpdateAlertViewController(updateViewType: type, title: title, discription: body)
+            updateVC.modalPresentationStyle = .overFullScreen
+
+            if let windowScene = UIApplication.shared.connectedScenes
+                .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
+               let rootVC = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
+                rootVC.present(updateVC, animated: false)
+            }
+
+            updateVC.rx.centerButtonTap
+                .bind { [weak updateVC] in
+                    UserDefaults.standard.set(true, forKey: "isWaitingForForceUpdate")
+                    self.goToAppStore()
+                    updateVC?.dismiss(animated: true)
+                }
+                .disposed(by: updateVC.disposeBag)
+
+            updateVC.rx.rightButtonTap
+                .bind { [weak updateVC] in
+                    UserDefaults.standard.set(true, forKey: "isWaitingForForceUpdate")
+                    self.goToAppStore()
+                    updateVC?.dismiss(animated: true)
+                }
+                .disposed(by: updateVC.disposeBag)
+
+            updateVC.rx.leftButtonTap
+                .bind { [weak updateVC] in
+                    updateVC?.dismiss(animated: true)
+                    completion()
+                }
+                .disposed(by: updateVC.disposeBag)
+        }
+    }
+
+    private func goToAppStore() {
+        if let url = URL(string: "https://apps.apple.com/app/id6547866420") {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    @objc
+    private func appDidBecomeActive() {
+        let isWaiting = UserDefaults.standard.bool(forKey: "isWaitingForForceUpdate")
+        
+        if isWaiting {
+            UserDefaults.standard.set(false, forKey: "isWaitingForForceUpdate")
+
+            self.checkAppVersion {
+                self.checkDidSignIn()
+            }
+        }
     }
 }
 

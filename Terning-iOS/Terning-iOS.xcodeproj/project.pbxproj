@@ -24,6 +24,7 @@
 		2D4EE3E82C400D6900E3E95B /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3E72C400D6900E3E95B /* OnboardingPageViewController.swift */; };
 		2D4EE3EA2C400ECB00E3E95B /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3E92C400ECB00E3E95B /* OnboardingViewController.swift */; };
 		2D4EE3ED2C4020DC00E3E95B /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4EE3EC2C4020DC00E3E95B /* OnboardingViewModel.swift */; };
+		2D6C324A2DA5658B00E499EF /* bannerLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D6C32492DA5658B00E499EF /* bannerLoading.json */; };
 		2D74E4F22D1F10CD0018A56E /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D74E4F12D1F10CC0018A56E /* Grade.swift */; };
 		2D74E4F42D1F11C20018A56E /* WorkingPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D74E4F32D1F11BE0018A56E /* WorkingPeriod.swift */; };
 		2D74E4F62D1F12230018A56E /* JobType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D74E4F52D1F121F0018A56E /* JobType.swift */; };
@@ -221,6 +222,7 @@
 		2D4EE3E72C400D6900E3E95B /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
 		2D4EE3E92C400ECB00E3E95B /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		2D4EE3EC2C4020DC00E3E95B /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		2D6C32492DA5658B00E499EF /* bannerLoading.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bannerLoading.json; sourceTree = "<group>"; };
 		2D74E4F12D1F10CC0018A56E /* Grade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grade.swift; sourceTree = "<group>"; };
 		2D74E4F32D1F11BE0018A56E /* WorkingPeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingPeriod.swift; sourceTree = "<group>"; };
 		2D74E4F52D1F121F0018A56E /* JobType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobType.swift; sourceTree = "<group>"; };
@@ -696,6 +698,7 @@
 				715C0FF42CA1C8B300EDDD60 /* scrapCancel.json */,
 				2D997FBC2C9228F00078DAB0 /* beforeOnboarding.json */,
 				2D997FBE2C9229760078DAB0 /* afterOnboarding.json */,
+				2D6C32492DA5658B00E499EF /* bannerLoading.json */,
 				2DD419C92CA46D2900F647DC /* loginAnimation.json */,
 			);
 			path = Lotties;
@@ -1555,6 +1558,7 @@
 				2D997FBF2C9229760078DAB0 /* afterOnboarding.json in Resources */,
 				71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */,
 				71E3C3D92C22BAF50026C4DD /* LaunchScreen.storyboard in Resources */,
+				2D6C324A2DA5658B00E499EF /* bannerLoading.json in Resources */,
 				71E3C3D62C22BAF50026C4DD /* Assets.xcassets in Resources */,
 				B8F503382C749309000D2A22 /* Config.xcconfig in Resources */,
 				71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */,

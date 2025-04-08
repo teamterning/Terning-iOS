@@ -12,6 +12,9 @@ import RxCocoa
 
 import SnapKit
 
+import SafariServices
+import KakaoSDKShare
+
 @frozen
 public enum JobDetailInfoType: Int, CaseIterable {
     case companyInfo = 0
@@ -34,6 +37,8 @@ final class JobDetailViewController: UIViewController {
     let internshipAnnouncementId = BehaviorRelay<Int>(value: 0)
     private let addScrapSubject = PublishSubject<(Int, String)>()
     private let cancelScrapSubject = PublishSubject<Int>()
+    let goToSiteRelay = PublishRelay<Void>()
+    let shareTapRelay = PublishRelay<Void>()
     
     // 공고 ID와 새로운 scrap 상태를 공고 외부에 전달하는 클로저
     var didToggleScrap: ((Int, Bool) -> Void)?
@@ -175,7 +180,9 @@ extension JobDetailViewController {
             internshipAnnouncementId: internshipAnnouncementId,
             fetchJobDetail: fetchJobDetail,
             addScrapTrigger: addScrapSubject.asObservable(),
-            cancelScrapTrigger: cancelScrapSubject.asObservable()
+            cancelScrapTrigger: cancelScrapSubject.asObservable(),
+            shareTapped: rootView.shareButton.rx.tap.asSignal(),
+            goToSiteTapped: rootView.goSiteButton.rx.tap.asSignal()
         )
         
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
@@ -268,6 +275,36 @@ extension JobDetailViewController {
                 guard let self = self else { return }
                 self.showToast(message: successMessage, heightOffset: 12)
                 
+            })
+            .disposed(by: disposeBag)
+        
+        output.goToSiteLink
+            .emit(onNext: { url in
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            })
+            .disposed(by: disposeBag)
+        
+        output.shareAction
+            .emit(onNext: { [weak self] templateArgs in
+                guard let self = self else { return }
+                guard let templateId = Int64(Config.KakaoMessageTemplateId) else { return }
+                
+                if ShareApi.isKakaoTalkSharingAvailable() {
+                    ShareApi.shared.shareCustom(templateId: templateId, templateArgs: templateArgs) { result, error in
+                        if error != nil {
+                            self.showToast(message: "카카오톡 공유에 실패했어요🥺")
+                        } else if let result = result {
+                            UIApplication.shared.open(result.url)
+                        }
+                    }
+                } else {
+                    if let url = ShareApi.shared.makeCustomUrl(templateId: templateId, templateArgs: templateArgs) {
+                        let safariVC = SFSafariViewController(url: url)
+                        safariVC.modalTransitionStyle = .crossDissolve
+                        safariVC.modalPresentationStyle = .overCurrentContext
+                        self.present(safariVC, animated: true)
+                    }
+                }
             })
             .disposed(by: disposeBag)
     }

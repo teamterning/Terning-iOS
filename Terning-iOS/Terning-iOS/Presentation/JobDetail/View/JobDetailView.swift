@@ -7,12 +7,16 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
+
 import SnapKit
 
 final class JobDetailView: UIView {
     
     // MARK: - Properties
     
+    private var internshipAnnouncementId: Int?
     var mainInfo: MainInfoModel?
     var companyInfo: CompanyInfoModel?
     var summaryInfo: SummaryInfoModel?
@@ -23,6 +27,10 @@ final class JobDetailView: UIView {
     // MARK: - UI Components
     
     let navigationBar = CustomNavigationBar(type: .centerTitleWithLeftButton)
+    
+    let shareButton = UIButton(type: .custom).then {
+        $0.setImage(.icShare, for: .normal)
+    }
     
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -55,7 +63,7 @@ final class JobDetailView: UIView {
         $0.setImage(.icScrapFill, for: [.selected, .highlighted])
     }
     
-    private var goSiteButton = TerningCustomButton(title: "지원 사이트로 이동하기", font: .button2, radius: 10)
+    var goSiteButton = TerningCustomButton(title: "지원 사이트로 이동하기", font: .button2, radius: 10)
     
     // MARK: - Init
     
@@ -64,7 +72,6 @@ final class JobDetailView: UIView {
         
         setUI()
         setLayout()
-        setButtonAction()
     }
     
     required init?(coder: NSCoder) {
@@ -92,6 +99,14 @@ extension JobDetailView {
         navigationBar.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
             $0.height.equalTo(68)
+        }
+        
+        navigationBar.addSubview(shareButton)
+        
+        shareButton.snp.makeConstraints {
+            $0.trailing.equalTo(navigationBar.snp.trailing).inset(18)
+            $0.centerY.equalTo(navigationBar.snp.centerY)
+            $0.height.width.equalTo(32)
         }
         
         bottomView.addSubviews(scrapLabel, scrapButton, goSiteButton)
@@ -127,13 +142,6 @@ extension JobDetailView {
     }
 }
 
-// MARK: - Methods
-extension JobDetailView {
-    private func setButtonAction() {
-        goSiteButton.addTarget(self, action: #selector(goToUrl), for: .touchUpInside)
-    }
-}
-
 // MARK: - Public Methods
 
 extension JobDetailView {
@@ -147,15 +155,5 @@ extension JobDetailView {
     
     func setScrapCount(_ count: Int) {
         scrapLabel.text = "\(count)회"
-    }
-}
-
-// MARK: - @objc func
-
-extension JobDetailView {
-    @objc private func goToUrl() {
-        guard let urlString = url, let url = URL(string: urlString) else { return }
-        track(eventName: .clickDetailUrl)
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }

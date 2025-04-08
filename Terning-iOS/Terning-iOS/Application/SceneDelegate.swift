@@ -38,13 +38,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
         }
     }
-    
-    func processPendingDeeplinkIfNeeded() {
-        if let url = pendingDeeplinkURL {
-            handleDeeplink(url)
-            pendingDeeplinkURL = nil
-        }
-    }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

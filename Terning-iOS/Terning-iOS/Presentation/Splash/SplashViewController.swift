@@ -125,14 +125,13 @@ extension SplashVC {
                 return
             }
             
-            let remoteVersion = remoteConfig.configValue(forKey: "android_app_version").stringValue
-//            let remoteVersion = "1.1.6"
-            let majorTitle = remoteConfig.configValue(forKey: "android_major_update_title").stringValue
-            let majorBody = remoteConfig.configValue(forKey: "android_major_update_body").stringValue
-            let patchTitle = remoteConfig.configValue(forKey: "android_patch_update_title").stringValue
-            let patchBody = remoteConfig.configValue(forKey: "android_patch_update_body").stringValue
+            let remoteVersion = remoteConfig.configValue(forKey: "ios_app_version").stringValue
+            let majorTitle = remoteConfig.configValue(forKey: "ios_major_update_title").stringValue
+            let majorBody = remoteConfig.configValue(forKey: "ios_major_update_body").stringValue
+            let patchTitle = remoteConfig.configValue(forKey: "ios_patch_update_title").stringValue
+            let patchBody = remoteConfig.configValue(forKey: "ios_patch_update_body").stringValue
             let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-
+            
             guard !remoteVersion.isEmpty else {
                 print("🌷❌ Remote Config에서 앱 버전이 누락됨")
                 return

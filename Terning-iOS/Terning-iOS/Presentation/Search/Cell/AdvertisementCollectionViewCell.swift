@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Lottie
 import SnapKit
 import Then
 
@@ -17,6 +18,12 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
     private let advertisementImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.layer.masksToBounds = true
+    }
+    
+    private let loadingAnimationView = LottieAnimationView().then {
+        $0.animation = LottieAnimation.named("bannerLoading")
+        $0.contentMode = .scaleAspectFill
+        $0.loopMode = .loop
     }
     
     // MARK: - Life Cycles
@@ -39,10 +46,14 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
 extension AdvertisementCollectionViewCell {
     private func setHierarchy() {
         contentView.addSubview(advertisementImageView)
+        advertisementImageView.addSubview(loadingAnimationView)
     }
     
     private func setLayout() {
         advertisementImageView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        loadingAnimationView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
@@ -52,6 +63,12 @@ extension AdvertisementCollectionViewCell {
 
 extension AdvertisementCollectionViewCell {
     func bind(with advertisement: String) {
-        advertisementImageView.setImage(with: advertisement)
+        loadingAnimationView.isHidden = false
+        loadingAnimationView.play()
+        
+        advertisementImageView.setImage(with: advertisement) { [weak self] _ in
+            self?.loadingAnimationView.stop()
+            self?.loadingAnimationView.isHidden = true
+        }
     }
 }

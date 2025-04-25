@@ -62,12 +62,14 @@ final class ProfileViewModel: ProfileViewModelType {
             .share(replay: 1, scope: .whileConnected)
         
         let saveAlert = input.saveButtonTap
+            .debounce(.seconds(3), scheduler: MainScheduler.instance)
             .flatMapLatest { [weak self] _ -> Observable<Void> in
                 guard let self = self else { return Observable.empty() }
                 return self.signUp(
                     name: self.nameRelay.value,
                     profileImage: self.imageStringRelay.value,
-                    authType: Config.authType
+                    authType: Config.authType,
+                    fcmToken: Config.fcmToken
                 )
             }
             .asDriver(onErrorJustReturn: ())
@@ -104,9 +106,9 @@ extension ProfileViewModel {
 // MARK: - API
 
 extension ProfileViewModel {
-    private func signUp(name: String, profileImage: String, authType: String) -> Observable<Void> {
+    private func signUp(name: String, profileImage: String, authType: String, fcmToken: String) -> Observable<Void> {
         return Observable.create { observer in
-            self.authProvider.request(.signUp(name: name, profileImage: profileImage, authType: authType)) { result in
+            self.authProvider.request(.signUp(name: name, profileImage: profileImage, authType: authType, fcmToken: fcmToken)) { result in
                 LoadingIndicator.hideLoading()
                 switch result {
                 case .success(let response):

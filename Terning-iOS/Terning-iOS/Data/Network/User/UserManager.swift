@@ -28,6 +28,7 @@ final class UserManager {
     @UserDefaultWrapper<String>(key: "authType") public var authType
     @UserDefaultWrapper<String>(key: "userName") public var userName
     @UserDefaultWrapper<String>(key: "fcmToken") public var fcmToken
+    @UserDefaultWrapper<Bool>(key: "isPushEnabled") public var isPushEnabled
     
     var hasAccessToken: Bool { return self.accessToken != nil }
     var hasKakaoToken: Bool { return self.kakaoAccessToken != nil }

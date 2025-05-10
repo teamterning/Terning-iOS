@@ -189,6 +189,7 @@
 		71F004C32C956C8500CD202B /* CalendarScrapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F004C22C956C8500CD202B /* CalendarScrapModel.swift */; };
 		71F004C52C956C9700CD202B /* CalendarAnnouncementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F004C42C956C9700CD202B /* CalendarAnnouncementModel.swift */; };
 		71F004C72C957C8C00CD202B /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F004C62C957C8C00CD202B /* EmptyView.swift */; };
+		71F64BCC2DCA42D2006DE3D6 /* NotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 71F64BC52DCA42D2006DE3D6 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		71F8F8702D278BE900B822F3 /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F8F86F2D278BE900B822F3 /* HomeRepository.swift */; };
 		71F8F8732D278C4700B822F3 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F8F8722D278C4700B822F3 /* HomeService.swift */; };
 		71F8F8762D278C7800B822F3 /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F8F8752D278C7800B822F3 /* HomeUseCase.swift */; };
@@ -205,6 +206,30 @@
 		B8F503382C749309000D2A22 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = B8F503372C749309000D2A22 /* Config.xcconfig */; };
 		B8F5033A2C749315000D2A22 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F503392C749315000D2A22 /* Config.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		71F64BCA2DCA42D2006DE3D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 71E3C3C12C22BAF40026C4DD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 71F64BC42DCA42D2006DE3D6;
+			remoteInfo = NotificationServiceExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		71F64BCD2DCA42D2006DE3D6 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				71F64BCC2DCA42D2006DE3D6 /* NotificationServiceExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2D3F7D9D2D7F344F0052B35F /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
@@ -373,6 +398,7 @@
 		71F004C22C956C8500CD202B /* CalendarScrapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarScrapModel.swift; sourceTree = "<group>"; };
 		71F004C42C956C9700CD202B /* CalendarAnnouncementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAnnouncementModel.swift; sourceTree = "<group>"; };
 		71F004C62C957C8C00CD202B /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		71F64BC52DCA42D2006DE3D6 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		71F8F86F2D278BE900B822F3 /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 		71F8F8722D278C4700B822F3 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
 		71F8F8752D278C7800B822F3 /* HomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
@@ -422,6 +448,13 @@
 			);
 			target = 71E3C3C82C22BAF40026C4DD /* Terning-iOS */;
 		};
+		71F64BD12DCA42D2006DE3D6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 71F64BC42DCA42D2006DE3D6 /* NotificationServiceExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -429,6 +462,7 @@
 		71CDCF742D33C5350087BF6B /* Home */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (71CDCF782D33C5430087BF6B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Home; sourceTree = "<group>"; };
 		71DA88DA2CFDC81D0003078C /* SwiftUI+ */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "SwiftUI+"; sourceTree = "<group>"; };
 		71DA89952CFDFA460003078C /* SwiftUI */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (71DA89982CFDFA960003078C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SwiftUI; sourceTree = "<group>"; };
+		71F64BC62DCA42D2006DE3D6 /* NotificationServiceExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (71F64BD12DCA42D2006DE3D6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = NotificationServiceExtension; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -456,6 +490,13 @@
 				2DC61F2C2C4213C7009F991F /* KakaoSDK in Frameworks */,
 				2DC61F2E2C4213C7009F991F /* KakaoSDKAuth in Frameworks */,
 				2DAFCC872DA58B0D002B9092 /* FirebaseRemoteConfig in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71F64BC22DCA42D2006DE3D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1239,6 +1280,7 @@
 			children = (
 				71E3C40C2C2423280026C4DD /* .swiftlint.yml */,
 				71E3C3CB2C22BAF40026C4DD /* Terning-iOS */,
+				71F64BC62DCA42D2006DE3D6 /* NotificationServiceExtension */,
 				2DAFCC852DA58B0D002B9092 /* Frameworks */,
 				71E3C3CA2C22BAF40026C4DD /* Products */,
 			);
@@ -1248,6 +1290,7 @@
 			isa = PBXGroup;
 			children = (
 				71E3C3C92C22BAF40026C4DD /* Terning-iOS.app */,
+				71F64BC52DCA42D2006DE3D6 /* NotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1480,10 +1523,12 @@
 				71E3C3C62C22BAF40026C4DD /* Frameworks */,
 				71E3C3C72C22BAF40026C4DD /* Resources */,
 				71E3C4092C24217E0026C4DD /* SwiftLint Script */,
+				71F64BCD2DCA42D2006DE3D6 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				71F64BCB2DCA42D2006DE3D6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				713C5A772CC15B7E00321E15 /* Amplitude */,
@@ -1515,6 +1560,28 @@
 			productName = "Terning-iOS";
 			productReference = 71E3C3C92C22BAF40026C4DD /* Terning-iOS.app */;
 			productType = "com.apple.product-type.application";
+		};
+		71F64BC42DCA42D2006DE3D6 /* NotificationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 71F64BD02DCA42D2006DE3D6 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
+			buildPhases = (
+				71F64BC12DCA42D2006DE3D6 /* Sources */,
+				71F64BC22DCA42D2006DE3D6 /* Frameworks */,
+				71F64BC32DCA42D2006DE3D6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				71F64BC62DCA42D2006DE3D6 /* NotificationServiceExtension */,
+			);
+			name = NotificationServiceExtension;
+			packageProductDependencies = (
+			);
+			productName = NotificationServiceExtension;
+			productReference = 71F64BC52DCA42D2006DE3D6 /* NotificationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -1558,6 +1625,7 @@
 			projectRoot = "";
 			targets = (
 				71E3C3C82C22BAF40026C4DD /* Terning-iOS */,
+				71F64BC42DCA42D2006DE3D6 /* NotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1582,6 +1650,13 @@
 				71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */,
 				71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */,
 				719D09182D74D53800899C22 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71F64BC32DCA42D2006DE3D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1779,7 +1854,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		71F64BC12DCA42D2006DE3D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		71F64BCB2DCA42D2006DE3D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 71F64BC42DCA42D2006DE3D6 /* NotificationServiceExtension */;
+			targetProxy = 71F64BCA2DCA42D2006DE3D6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		71E3C3D72C22BAF50026C4DD /* LaunchScreen.storyboard */ = {
@@ -2019,6 +2109,15 @@
 			buildConfigurations = (
 				71E3C3DE2C22BAF50026C4DD /* Debug */,
 				71E3C3DF2C22BAF50026C4DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		71F64BD02DCA42D2006DE3D6 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71F64BCE2DCA42D2006DE3D6 /* Debug */,
+				71F64BCF2DCA42D2006DE3D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

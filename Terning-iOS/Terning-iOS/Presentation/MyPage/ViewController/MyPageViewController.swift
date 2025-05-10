@@ -59,6 +59,7 @@ final class MyPageViewController: UIViewController {
         setUI()
         setLayout()
         setDelegate()
+        setPushPermissionObserver()
         bindViewModel()
         myPageView.registerCells()
     }
@@ -157,6 +158,45 @@ extension MyPageViewController {
                 }
             })
             .disposed(by: disposeBag)
+    }
+    
+    // MARK: - Push Notification
+
+    private func setPushPermissionObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handlePushPermissionChange),
+            name: .didChangePushPermission,
+            object: nil
+        )
+    }
+    
+    @objc
+    private func handlePushPermissionChange(_ notification: Notification) {
+        let isAuthorized = notification.userInfo?["isAuthorized"] as? Bool ?? false
+        let isUserEnabled = UserManager.shared.isPushEnabled ?? false
+        let finalToggleState = isAuthorized && isUserEnabled  // ✅ 둘 다 true여야 ON
+
+        var updatedSections = sections
+        
+        if let index = updatedSections.firstIndex(where: { $0.title == "알림 설정" }) {
+            updatedSections[index] = SectionData(
+                title: "알림 설정",
+                items: [
+                    .cellViewModel(
+                        MyPageBasicCellModel(
+                            image: .icPushAlarm,
+                            title: "푸시 알림",
+                            accessoryType: .toggle(isOn: finalToggleState, action: nil)
+                        )
+                    )
+                ]
+            )
+            
+            self.sections = updatedSections
+            
+            myPageView.tableView.reloadSections(IndexSet(integer: index), with: .fade)
+        }
     }
 }
 

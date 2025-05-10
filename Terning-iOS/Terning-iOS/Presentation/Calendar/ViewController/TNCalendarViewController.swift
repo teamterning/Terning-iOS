@@ -219,7 +219,6 @@ extension TNCalendarViewController {
         cancelScrapSubject.onNext(scrapId)
     }
     
-    
     private func moveCalendar(by months: Int) {
         let currentPage = rootView.calendarView.currentPage
         
@@ -431,7 +430,6 @@ extension TNCalendarViewController: FSCalendarDataSource {
         
         return cell
     }
-    
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         return 0 // Dot 반환하지 않음 (셀에서 처리!)

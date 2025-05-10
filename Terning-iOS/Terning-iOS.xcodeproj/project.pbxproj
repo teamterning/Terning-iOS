@@ -128,6 +128,7 @@
 		71665AAC2C7C4A94008EB0D7 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAB2C7C4A94008EB0D7 /* EventView.swift */; };
 		71665AAE2C7C4BAA008EB0D7 /* CalendarDateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */; };
 		71665AB12C7C5444008EB0D7 /* TNCalendarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */; };
+		7169097E2DCF8C3500E27F34 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169097D2DCF8C3500E27F34 /* UIApplication+.swift */; };
 		717054FD2D696D7D00B3F2CD /* TerningCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717054FC2D696D7D00B3F2CD /* TerningCustomButton.swift */; };
 		71780C322C45705C0073B731 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C312C45705C0073B731 /* Encodable+.swift */; };
 		71780C352C45725E0073B731 /* Providers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C342C45725E0073B731 /* Providers.swift */; };
@@ -345,6 +346,7 @@
 		71665AAB2C7C4A94008EB0D7 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCellView.swift; sourceTree = "<group>"; };
 		71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarRepository.swift; sourceTree = "<group>"; };
+		7169097D2DCF8C3500E27F34 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		717054FC2D696D7D00B3F2CD /* TerningCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerningCustomButton.swift; sourceTree = "<group>"; };
 		71780C312C45705C0073B731 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		71780C342C45725E0073B731 /* Providers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Providers.swift; sourceTree = "<group>"; };
@@ -1070,6 +1072,7 @@
 				7121A1342C39CCF60056DB8B /* UIButton+.swift */,
 				7119B8102CA72FBD00E94E62 /* UIColor+.swift */,
 				710660382D53B2510065167A /* UITextView+.swift */,
+				7169097D2DCF8C3500E27F34 /* UIApplication+.swift */,
 			);
 			path = "UIKit+";
 			sourceTree = "<group>";
@@ -1793,6 +1796,7 @@
 				715028692C84AA1600F67472 /* LoginRepository.swift in Sources */,
 				7191B0772D88FC6700541921 /* UpdateAlertViewController.swift in Sources */,
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
+				7169097E2DCF8C3500E27F34 /* UIApplication+.swift in Sources */,
 				2D3F7D9E2D7F345C0052B35F /* SearchService.swift in Sources */,
 				2DC61EF92C407E65009F991F /* JobDetailTableViewHeaderCell.swift in Sources */,
 				71780C352C45725E0073B731 /* Providers.swift in Sources */,

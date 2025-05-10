@@ -30,7 +30,6 @@ final class PushNavigator: NSObject {
     
     private static var pendingDestination: PushDestinationType?
     
-    
     // MARK: - static Methods
     
     /// 푸시 클릭시 호출: 목적지를 저장하고 바로 적용 시도

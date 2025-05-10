@@ -160,7 +160,6 @@ extension MyPageViewController {
             .disposed(by: disposeBag)
     }
     
-    
     // MARK: - Push Notification
 
     private func setPushPermissionObserver() {

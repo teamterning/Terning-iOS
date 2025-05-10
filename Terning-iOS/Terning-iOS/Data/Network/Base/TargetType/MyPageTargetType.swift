@@ -13,6 +13,7 @@ enum MyPageTargetType {
     case patchProfileInfo(name: String, profileImage: String)
     case logout
     case withdraw
+    case updatePushStatus(newStatus: String)
 }
 
 extension MyPageTargetType: TargetType {
@@ -34,6 +35,8 @@ extension MyPageTargetType: TargetType {
             return "/auth/logout"
         case .withdraw:
             return "/auth/withdraw"
+        case .updatePushStatus:
+            return "/push-status"
         }
     }
     
@@ -41,7 +44,7 @@ extension MyPageTargetType: TargetType {
         switch self {
         case .getProfileInfo:
             return .get
-        case .patchProfileInfo:
+        case .patchProfileInfo, .updatePushStatus:
             return .patch
         case .logout:
             return .post
@@ -59,6 +62,13 @@ extension MyPageTargetType: TargetType {
                 parameters: [
                     "name": name,
                     "profileImage": profileImage
+                ],
+                encoding: JSONEncoding.default
+            )
+        case .updatePushStatus(let newStatus):
+            return .requestParameters(
+                parameters: [
+                    "newStatus": newStatus
                 ],
                 encoding: JSONEncoding.default
             )

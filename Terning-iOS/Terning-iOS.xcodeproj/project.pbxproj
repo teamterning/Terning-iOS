@@ -111,6 +111,7 @@
 		7121A1552C3EA01F0056DB8B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1542C3EA01F0056DB8B /* Toast.swift */; };
 		7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1562C3EA4C10056DB8B /* LoadingIndicator.swift */; };
 		713C5A742CC1578600321E15 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 713C5A732CC1578600321E15 /* AmplitudeSwift */; };
+		71412D122DBB79A600EA7ED5 /* PushNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71412D112DBB79A600EA7ED5 /* PushNavigator.swift */; };
 		71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAC2C370439002A6999 /* Pretendard-Light.otf */; };
 		71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAE2C370439002A6999 /* Pretendard-Medium.otf */; };
 		71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */; };
@@ -127,6 +128,7 @@
 		71665AAC2C7C4A94008EB0D7 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAB2C7C4A94008EB0D7 /* EventView.swift */; };
 		71665AAE2C7C4BAA008EB0D7 /* CalendarDateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */; };
 		71665AB12C7C5444008EB0D7 /* TNCalendarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */; };
+		7169097E2DCF8C3500E27F34 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169097D2DCF8C3500E27F34 /* UIApplication+.swift */; };
 		717054FD2D696D7D00B3F2CD /* TerningCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717054FC2D696D7D00B3F2CD /* TerningCustomButton.swift */; };
 		71780C322C45705C0073B731 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C312C45705C0073B731 /* Encodable+.swift */; };
 		71780C352C45725E0073B731 /* Providers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71780C342C45725E0073B731 /* Providers.swift */; };
@@ -188,6 +190,7 @@
 		71F004C32C956C8500CD202B /* CalendarScrapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F004C22C956C8500CD202B /* CalendarScrapModel.swift */; };
 		71F004C52C956C9700CD202B /* CalendarAnnouncementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F004C42C956C9700CD202B /* CalendarAnnouncementModel.swift */; };
 		71F004C72C957C8C00CD202B /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F004C62C957C8C00CD202B /* EmptyView.swift */; };
+		71F64BCC2DCA42D2006DE3D6 /* NotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 71F64BC52DCA42D2006DE3D6 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		71F8F8702D278BE900B822F3 /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F8F86F2D278BE900B822F3 /* HomeRepository.swift */; };
 		71F8F8732D278C4700B822F3 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F8F8722D278C4700B822F3 /* HomeService.swift */; };
 		71F8F8762D278C7800B822F3 /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F8F8752D278C7800B822F3 /* HomeUseCase.swift */; };
@@ -204,6 +207,30 @@
 		B8F503382C749309000D2A22 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = B8F503372C749309000D2A22 /* Config.xcconfig */; };
 		B8F5033A2C749315000D2A22 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F503392C749315000D2A22 /* Config.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		71F64BCA2DCA42D2006DE3D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 71E3C3C12C22BAF40026C4DD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 71F64BC42DCA42D2006DE3D6;
+			remoteInfo = NotificationServiceExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		71F64BCD2DCA42D2006DE3D6 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				71F64BCC2DCA42D2006DE3D6 /* NotificationServiceExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2D3F7D9D2D7F344F0052B35F /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
@@ -302,6 +329,7 @@
 		7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		7121A1542C3EA01F0056DB8B /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		7121A1562C3EA4C10056DB8B /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
+		71412D112DBB79A600EA7ED5 /* PushNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNavigator.swift; sourceTree = "<group>"; };
 		71461EAC2C370439002A6999 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		71461EAE2C370439002A6999 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -318,6 +346,7 @@
 		71665AAB2C7C4A94008EB0D7 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		71665AAD2C7C4BAA008EB0D7 /* CalendarDateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCellView.swift; sourceTree = "<group>"; };
 		71665AB02C7C5444008EB0D7 /* TNCalendarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNCalendarRepository.swift; sourceTree = "<group>"; };
+		7169097D2DCF8C3500E27F34 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		717054FC2D696D7D00B3F2CD /* TerningCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerningCustomButton.swift; sourceTree = "<group>"; };
 		71780C312C45705C0073B731 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		71780C342C45725E0073B731 /* Providers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Providers.swift; sourceTree = "<group>"; };
@@ -371,6 +400,7 @@
 		71F004C22C956C8500CD202B /* CalendarScrapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarScrapModel.swift; sourceTree = "<group>"; };
 		71F004C42C956C9700CD202B /* CalendarAnnouncementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAnnouncementModel.swift; sourceTree = "<group>"; };
 		71F004C62C957C8C00CD202B /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		71F64BC52DCA42D2006DE3D6 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		71F8F86F2D278BE900B822F3 /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 		71F8F8722D278C4700B822F3 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
 		71F8F8752D278C7800B822F3 /* HomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
@@ -420,6 +450,13 @@
 			);
 			target = 71E3C3C82C22BAF40026C4DD /* Terning-iOS */;
 		};
+		71F64BD12DCA42D2006DE3D6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 71F64BC42DCA42D2006DE3D6 /* NotificationServiceExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -427,6 +464,7 @@
 		71CDCF742D33C5350087BF6B /* Home */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (71CDCF782D33C5430087BF6B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Home; sourceTree = "<group>"; };
 		71DA88DA2CFDC81D0003078C /* SwiftUI+ */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "SwiftUI+"; sourceTree = "<group>"; };
 		71DA89952CFDFA460003078C /* SwiftUI */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (71DA89982CFDFA960003078C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SwiftUI; sourceTree = "<group>"; };
+		71F64BC62DCA42D2006DE3D6 /* NotificationServiceExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (71F64BD12DCA42D2006DE3D6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = NotificationServiceExtension; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -454,6 +492,13 @@
 				2DC61F2C2C4213C7009F991F /* KakaoSDK in Frameworks */,
 				2DC61F2E2C4213C7009F991F /* KakaoSDKAuth in Frameworks */,
 				2DAFCC872DA58B0D002B9092 /* FirebaseRemoteConfig in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71F64BC22DCA42D2006DE3D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1027,6 +1072,7 @@
 				7121A1342C39CCF60056DB8B /* UIButton+.swift */,
 				7119B8102CA72FBD00E94E62 /* UIColor+.swift */,
 				710660382D53B2510065167A /* UITextView+.swift */,
+				7169097D2DCF8C3500E27F34 /* UIApplication+.swift */,
 			);
 			path = "UIKit+";
 			sourceTree = "<group>";
@@ -1218,6 +1264,7 @@
 			isa = PBXGroup;
 			children = (
 				71D034BF2D66482600D242C2 /* .gitkeep */,
+				71412D112DBB79A600EA7ED5 /* PushNavigator.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1236,6 +1283,7 @@
 			children = (
 				71E3C40C2C2423280026C4DD /* .swiftlint.yml */,
 				71E3C3CB2C22BAF40026C4DD /* Terning-iOS */,
+				71F64BC62DCA42D2006DE3D6 /* NotificationServiceExtension */,
 				2DAFCC852DA58B0D002B9092 /* Frameworks */,
 				71E3C3CA2C22BAF40026C4DD /* Products */,
 			);
@@ -1245,6 +1293,7 @@
 			isa = PBXGroup;
 			children = (
 				71E3C3C92C22BAF40026C4DD /* Terning-iOS.app */,
+				71F64BC52DCA42D2006DE3D6 /* NotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1477,10 +1526,12 @@
 				71E3C3C62C22BAF40026C4DD /* Frameworks */,
 				71E3C3C72C22BAF40026C4DD /* Resources */,
 				71E3C4092C24217E0026C4DD /* SwiftLint Script */,
+				71F64BCD2DCA42D2006DE3D6 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				71F64BCB2DCA42D2006DE3D6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				713C5A772CC15B7E00321E15 /* Amplitude */,
@@ -1513,6 +1564,28 @@
 			productReference = 71E3C3C92C22BAF40026C4DD /* Terning-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
+		71F64BC42DCA42D2006DE3D6 /* NotificationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 71F64BD02DCA42D2006DE3D6 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
+			buildPhases = (
+				71F64BC12DCA42D2006DE3D6 /* Sources */,
+				71F64BC22DCA42D2006DE3D6 /* Frameworks */,
+				71F64BC32DCA42D2006DE3D6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				71F64BC62DCA42D2006DE3D6 /* NotificationServiceExtension */,
+			);
+			name = NotificationServiceExtension;
+			packageProductDependencies = (
+			);
+			productName = NotificationServiceExtension;
+			productReference = 71F64BC52DCA42D2006DE3D6 /* NotificationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1520,11 +1593,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					71E3C3C82C22BAF40026C4DD = {
 						CreatedOnToolsVersion = 15.0;
+					};
+					71F64BC42DCA42D2006DE3D6 = {
+						CreatedOnToolsVersion = 16.3;
 					};
 				};
 			};
@@ -1555,6 +1631,7 @@
 			projectRoot = "";
 			targets = (
 				71E3C3C82C22BAF40026C4DD /* Terning-iOS */,
+				71F64BC42DCA42D2006DE3D6 /* NotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1579,6 +1656,13 @@
 				71461EBA2C37043A002A6999 /* Pretendard-Regular.otf in Resources */,
 				71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */,
 				719D09182D74D53800899C22 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71F64BC32DCA42D2006DE3D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1715,6 +1799,7 @@
 				715028692C84AA1600F67472 /* LoginRepository.swift in Sources */,
 				7191B0772D88FC6700541921 /* UpdateAlertViewController.swift in Sources */,
 				2D4EE3852C3D6E6B00E3E95B /* CustomProgressView.swift in Sources */,
+				7169097E2DCF8C3500E27F34 /* UIApplication+.swift in Sources */,
 				2D3F7D9E2D7F345C0052B35F /* SearchService.swift in Sources */,
 				2DC61EF92C407E65009F991F /* JobDetailTableViewHeaderCell.swift in Sources */,
 				71780C352C45725E0073B731 /* Providers.swift in Sources */,
@@ -1750,6 +1835,7 @@
 				2D74E4F62D1F12230018A56E /* JobType.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,
 				71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */,
+				71412D122DBB79A600EA7ED5 /* PushNavigator.swift in Sources */,
 				2D74E4F22D1F10CD0018A56E /* Grade.swift in Sources */,
 				B8BE0E142C46D38700B3D298 /* UserFilteringInfoModel.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,
@@ -1775,7 +1861,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		71F64BC12DCA42D2006DE3D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		71F64BCB2DCA42D2006DE3D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 71F64BC42DCA42D2006DE3D6 /* NotificationServiceExtension */;
+			targetProxy = 71F64BCA2DCA42D2006DE3D6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		71E3C3D72C22BAF50026C4DD /* LaunchScreen.storyboard */ = {
@@ -1923,7 +2024,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2025.0227.1744;
+				CURRENT_PROJECT_VERSION = 2025.0506.2225;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1940,7 +2041,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.2.0;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",
@@ -1967,7 +2068,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2025.0227.1744;
+				CURRENT_PROJECT_VERSION = 2025.0506.2225;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1984,7 +2085,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1995,6 +2096,62 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		71F64BCE2DCA42D2006DE3D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2025.0506.2225;
+				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationServiceExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS.NotificationServiceExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		71F64BCF2DCA42D2006DE3D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2025.0506.2225;
+				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationServiceExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS.NotificationServiceExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2015,6 +2172,15 @@
 			buildConfigurations = (
 				71E3C3DE2C22BAF50026C4DD /* Debug */,
 				71E3C3DF2C22BAF50026C4DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		71F64BD02DCA42D2006DE3D6 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71F64BCE2DCA42D2006DE3D6 /* Debug */,
+				71F64BCF2DCA42D2006DE3D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

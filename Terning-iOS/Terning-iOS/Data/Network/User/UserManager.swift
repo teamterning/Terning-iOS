@@ -18,6 +18,7 @@ final class UserManager {
     static let shared = UserManager()
     
     private var authProvider = Providers.authProvider
+    private let myPageProvider = Providers.myPageProvider
     
     @UserDefaultWrapper<String>(key: "kakaoAccessToken") public var kakaoAccessToken // 카카오 토큰
     @UserDefaultWrapper<String>(key: "appleAccessToken") public var appleAccessToken // 애플 토큰
@@ -27,6 +28,8 @@ final class UserManager {
     @UserDefaultWrapper<String>(key: "authId") public var authId
     @UserDefaultWrapper<String>(key: "authType") public var authType
     @UserDefaultWrapper<String>(key: "userName") public var userName
+    @UserDefaultWrapper<String>(key: "fcmToken") public var fcmToken
+    @UserDefaultWrapper<Bool>(key: "isPushEnabled") public var isPushEnabled
     
     var hasAccessToken: Bool { return self.accessToken != nil }
     var hasKakaoToken: Bool { return self.kakaoAccessToken != nil }
@@ -133,5 +136,33 @@ final class UserManager {
         self.authType = nil
         self.kakaoAccessToken = nil
         self.appleAccessToken = nil
+    }
+}
+
+extension UserManager {
+    /// 푸시 알림 ON OFF 메서드
+    func updatePushStatus(isEnabled: Bool) {
+        let newStatus = isEnabled ? "ENABLED" : "DISABLED"
+        myPageProvider.request(.updatePushStatus(newStatus: newStatus)) { result in
+            switch result {
+            case .success(let response):
+                let statusCode = response.statusCode
+                if 200..<300 ~= statusCode {
+                    do {
+                        _ = try response.map(BaseResponse<BlankData>.self)
+                        print("✅ 푸시 상태 서버 반영 성공: \(newStatus)")
+                    } catch {
+                        print(error.localizedDescription)
+                        print("❌ 푸시 상태 반영 에러 - code: \(statusCode)")
+                    }
+
+                } else {
+                    print("❌ 푸시 상태 반영 실패 - code: \(statusCode)")
+                }
+
+            case .failure(let error):
+                print("❌ 푸시 상태 반영 실패: \(error.localizedDescription)")
+            }
+        }
     }
 }

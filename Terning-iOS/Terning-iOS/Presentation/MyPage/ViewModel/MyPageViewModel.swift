@@ -118,7 +118,7 @@ final class MyPageViewModel: ViewModelType {
                         MyPageBasicCellModel(
                             image: .icPushAlarm,
                             title: "푸시 알림",
-                            accessoryType: .toggle(isOn: true, action: nil)
+                            accessoryType: .toggle(isOn: UserManager.shared.isPushEnabled ?? false, action: nil)
                         )
                     )
                 ]

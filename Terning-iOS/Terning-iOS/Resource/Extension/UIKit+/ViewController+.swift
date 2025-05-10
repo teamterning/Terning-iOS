@@ -169,3 +169,22 @@ extension UIViewController {
         ])
     }
 }
+
+extension UIViewController {
+    /// 내비게이션, 탭, 프레젠트 구조를 모두 따라가 최상단 ViewController를 반환합니다.
+    func topMostViewController() -> UIViewController {
+        if let nav = self as? UINavigationController {
+            return nav.visibleViewController?.topMostViewController() ?? nav
+        }
+        
+        if let tab = self as? UITabBarController {
+            return tab.selectedViewController?.topMostViewController() ?? tab
+        }
+        
+        if let presented = self.presentedViewController {
+            return presented.topMostViewController()
+        }
+        
+        return self
+    }
+}

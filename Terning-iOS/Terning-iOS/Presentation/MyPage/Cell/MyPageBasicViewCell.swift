@@ -128,7 +128,7 @@ extension MyPageBasicViewCell {
             }
             accessoryLabel = label
             
-        case .toggle(let isOn, let action):
+        case .toggle(let isOn, _):
             let toggle = UISwitch().then {
                 $0.isOn = isOn
                 $0.onTintColor = .terningMain
@@ -140,8 +140,33 @@ extension MyPageBasicViewCell {
                 $0.centerY.equalToSuperview()
             }
             toggleSwitch = toggle
-            toggleAction = action
+            
+            toggleAction = { isOn in
+                UserManager.shared.isPushEnabled = isOn
+                UserManager.shared.updatePushStatus(isEnabled: isOn)
+                print("📬 푸시 설정 저장됨: \(isOn)")
+                
+                if isOn {
+                    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+                        DispatchQueue.main.async {
+                            if granted {
+                                UIApplication.shared.registerForRemoteNotifications()
+                            } else {
+                                print("❗️ 알림 권한 거부됨 ❗️")
+                                toggle.setOn(false, animated: true)
+                                UserManager.shared.isPushEnabled = false
+                            }
+                        }
+                    }
+                } else {
+                    // 사용자가 껐을 때: 알림 등록 해제는 불가능하지만,
+                    // 내부적으로 isPushEnabled를 false로 저장했으니,
+                    // 푸시 수신 필터링 시 사용 가능
+                    print("🚫 푸시 사용 안 함 (값은 UserDefaults 저장됨!) 🚫")
+                }
+            }
         }
+        
         horizontalStickView.isHidden = isLastCellInSection
     }
 }
@@ -151,6 +176,48 @@ extension MyPageBasicViewCell {
 extension MyPageBasicViewCell {
     @objc
     private func toggleChanged(_ sender: UISwitch) {
-        toggleAction?(sender.isOn)
+        let isOn = sender.isOn
+        print("🔄 알림 토글 변경됨: \(isOn)")
+        
+        if isOn {
+            // 1. 현재 알림 권한 상태 확인
+            UNUserNotificationCenter.current().getNotificationSettings { settings in
+                DispatchQueue.main.async {
+                    if settings.authorizationStatus == .denied {
+                        // 2. 알림 권한 꺼져 있음 → 사용자에게 안내
+                        let alert = UIAlertController(
+                            title: "알림 권한이 꺼져있어요",
+                            message: "설정에서 알림 권한을 켜주세요.",
+                            preferredStyle: .alert
+                        )
+                        alert.addAction(UIAlertAction(title: "설정으로 이동", style: .default) { _ in
+                            if let url = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(url)
+                                
+                                // 3. 설정 앱으로 이동했으면, 앱 다시 돌아올 때 상태 확인을 위해 isOn = false 처리
+                                sender.setOn(false, animated: true)
+                                UserManager.shared.isPushEnabled = false
+                            }
+                        })
+                        alert.addAction(UIAlertAction(title: "취소", style: .cancel) { _ in
+                            sender.setOn(false, animated: true)
+                            UserManager.shared.isPushEnabled = false
+                        })
+                        
+                        if let topVC = UIApplication.shared.topMostViewController {
+                            topVC.present(alert, animated: true)
+                        }
+                    } else {
+                        // ✅ 권한 있음 → 정상 저장
+                        UserManager.shared.isPushEnabled = true
+                        self.toggleAction?(true)
+                    }
+                }
+            }
+        } else {
+            // 꺼졌을 때 처리
+            UserManager.shared.isPushEnabled = false
+            toggleAction?(false)
+        }
     }
 }

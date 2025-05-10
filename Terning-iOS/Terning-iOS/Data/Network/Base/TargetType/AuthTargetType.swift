@@ -11,7 +11,7 @@ import Moya
 enum AuthTargetType {
     case signIn(authType: String)
     case getNewToken
-    case signUp(name: String, profileImage: String, authType: String)
+    case signUp(name: String, profileImage: String, authType: String, fcmToken: String)
     case postOnboarding(grade: String, workingPeriod: String, startYear: Int, startMonth: Int)
     case logout
     case withdraw
@@ -61,12 +61,13 @@ extension AuthTargetType: TargetType {
                 parameters: ["Authorization": Config.refreshToken],
                 encoding: JSONEncoding.default
             )
-        case .signUp(let name, let profileImage, let authType):
+        case .signUp(let name, let profileImage, let authType, let fcmToken):
             return .requestParameters(
                 parameters: [
                     "name": name,
                     "profileImage": profileImage,
-                    "authType": authType
+                    "authType": authType,
+                    "fcmToken": fcmToken
                 ],
                 encoding: JSONEncoding.default
             )

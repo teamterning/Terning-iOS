@@ -174,20 +174,20 @@ extension SplashVC {
             updateVC.rx.centerButtonTap
                 .bind { [weak updateVC] in
                     self.goToAppStore()
-                    updateVC?.dismiss(animated: true)
+                    updateVC?.dismiss(animated: false)
                 }
                 .disposed(by: updateVC.disposeBag)
             
             updateVC.rx.rightButtonTap
                 .bind { [weak updateVC] in
                     self.goToAppStore()
-                    updateVC?.dismiss(animated: true)
+                    updateVC?.dismiss(animated: false)
                 }
                 .disposed(by: updateVC.disposeBag)
             
             updateVC.rx.leftButtonTap
                 .bind { [weak updateVC] in
-                    updateVC?.dismiss(animated: true)
+                    updateVC?.dismiss(animated: false)
                     completion()
                 }
                 .disposed(by: updateVC.disposeBag)

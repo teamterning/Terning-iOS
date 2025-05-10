@@ -48,12 +48,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func sceneDidBecomeActive(_ scene: UIScene) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            PushNavigator.applyPendingPushIfNeeded()
+            
             if let url = self.pendingDeeplinkURL {
                 self.handleDeeplink(url)
                 self.pendingDeeplinkURL = nil
             }
         }
+        
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            let isAuthorized = settings.authorizationStatus == .authorized
+            DispatchQueue.main.async {
+                UserManager.shared.isPushEnabled = isAuthorized
+                NotificationCenter.default.post(
+                    name: .didChangePushPermission,
+                    object: nil,
+                    userInfo: ["isEnabled": isAuthorized]
+                )
+            }
+        }
     }
+    
+    
     
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
@@ -133,4 +149,8 @@ extension SceneDelegate {
         
         nav.pushViewController(jobDetailVC, animated: true)
     }
+}
+
+extension Notification.Name {
+    static let didChangePushPermission = Notification.Name("didChangePushPermission")
 }

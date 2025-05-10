@@ -27,7 +27,7 @@ final class CustomOnboardingButton: UIButton {
             } else {
                 self.layer.borderColor = isHighlighted ? UIColor.grey200.cgColor : UIColor.grey200.cgColor
                 self.backgroundColor = isHighlighted ? .grey50 : .clear
-                self.setTitleColor(isHighlighted ? .grey375 : .grey375, for: .normal)
+                self.setTitleColor(isHighlighted ? .grey350 : .grey350, for: .normal)
             }
         }
     }

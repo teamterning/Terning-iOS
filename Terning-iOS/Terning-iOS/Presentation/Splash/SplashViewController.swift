@@ -14,11 +14,6 @@ import Then
 
 final class SplashVC: UIViewController {
     
-    // MARK: - Properties
-    
-    @UserDefaultWrapper<Bool>(key: "isWaitingForForceUpdate")
-    private var isWaitingForForceUpdate
-    
     // MARK: - UI Components
     
     private let backgroundImageView = UIImageView().then {
@@ -178,23 +173,21 @@ extension SplashVC {
             
             updateVC.rx.centerButtonTap
                 .bind { [weak updateVC] in
-                    UserDefaults.standard.set(true, forKey: "isWaitingForForceUpdate")
                     self.goToAppStore()
-                    updateVC?.dismiss(animated: true)
+                    updateVC?.dismiss(animated: false)
                 }
                 .disposed(by: updateVC.disposeBag)
             
             updateVC.rx.rightButtonTap
                 .bind { [weak updateVC] in
-                    UserDefaults.standard.set(true, forKey: "isWaitingForForceUpdate")
                     self.goToAppStore()
-                    updateVC?.dismiss(animated: true)
+                    updateVC?.dismiss(animated: false)
                 }
                 .disposed(by: updateVC.disposeBag)
             
             updateVC.rx.leftButtonTap
                 .bind { [weak updateVC] in
-                    updateVC?.dismiss(animated: true)
+                    updateVC?.dismiss(animated: false)
                     completion()
                 }
                 .disposed(by: updateVC.disposeBag)
@@ -226,11 +219,8 @@ extension SplashVC {
     
     @objc
     private func appDidBecomeActive() {
-        if isWaitingForForceUpdate ?? false {
-            isWaitingForForceUpdate = false
-            checkAppVersion { [self] in
-                checkDidSignIn()
-            }
+        checkAppVersion { [self] in
+            checkDidSignIn()
         }
     }
 }

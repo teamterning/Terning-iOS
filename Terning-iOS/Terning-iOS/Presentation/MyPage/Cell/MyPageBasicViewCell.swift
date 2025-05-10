@@ -143,6 +143,7 @@ extension MyPageBasicViewCell {
             
             toggleAction = { isOn in
                 UserManager.shared.isPushEnabled = isOn
+                UserManager.shared.updatePushStatus(isEnabled: isOn)
                 print("📬 푸시 설정 저장됨: \(isOn)")
                 
                 if isOn {

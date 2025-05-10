@@ -60,7 +60,7 @@ final class PushNavigator: NSObject {
         }
     }
     
-    /// TabBarController가 있을 때 적용
+    /// TabBarController가 window 에 있을 때 타입에 따라 원하는 탭바로 가게 하는 메서드
     static func applyPendingPushIfNeeded() {
         guard let destination = pendingDestination else {
             print("❗️ 적용할 pending push 없음 ❗️")

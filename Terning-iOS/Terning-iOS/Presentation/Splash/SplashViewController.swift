@@ -90,8 +90,14 @@ extension SplashVC {
     private func pushToTabBarController() {
         let tabBarController = TNTabBarController()
         guard let window = self.view.window else { return }
+
         ViewControllerUtils.setRootViewController(window: window, viewController: tabBarController, withAnimation: true)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            PushNavigator.applyPendingPushIfNeeded()
+        }
     }
+    
 }
 
 // MARK: - Update Methods

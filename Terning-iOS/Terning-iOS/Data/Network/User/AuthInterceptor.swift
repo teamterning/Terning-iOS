@@ -43,6 +43,13 @@ final class AuthInterceptor: RequestInterceptor {
             return
         }
         
+        // ✅ 최대 3번까지만 재시도
+        if request.retryCount >= 3 {
+            print("❌ 최대 재시도 횟수 초과")
+            completion(.doNotRetryWithError(error))
+            return
+        }
+        
         UserManager.shared.getNewToken { result in
             switch result {
             case .success:

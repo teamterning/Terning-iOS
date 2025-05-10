@@ -111,6 +111,7 @@
 		7121A1552C3EA01F0056DB8B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1542C3EA01F0056DB8B /* Toast.swift */; };
 		7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1562C3EA4C10056DB8B /* LoadingIndicator.swift */; };
 		713C5A742CC1578600321E15 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 713C5A732CC1578600321E15 /* AmplitudeSwift */; };
+		71412D122DBB79A600EA7ED5 /* PushNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71412D112DBB79A600EA7ED5 /* PushNavigator.swift */; };
 		71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAC2C370439002A6999 /* Pretendard-Light.otf */; };
 		71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAE2C370439002A6999 /* Pretendard-Medium.otf */; };
 		71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */; };
@@ -302,6 +303,7 @@
 		7121A1522C3DE3680056DB8B /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		7121A1542C3EA01F0056DB8B /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		7121A1562C3EA4C10056DB8B /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
+		71412D112DBB79A600EA7ED5 /* PushNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNavigator.swift; sourceTree = "<group>"; };
 		71461EAC2C370439002A6999 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		71461EAE2C370439002A6999 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -1218,6 +1220,7 @@
 			isa = PBXGroup;
 			children = (
 				71D034BF2D66482600D242C2 /* .gitkeep */,
+				71412D112DBB79A600EA7ED5 /* PushNavigator.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1750,6 +1753,7 @@
 				2D74E4F62D1F12230018A56E /* JobType.swift in Sources */,
 				71461ED62C38150C002A6999 /* UILabel+.swift in Sources */,
 				71B509232C41BD90006D8E56 /* CompositionalLayout.swift in Sources */,
+				71412D122DBB79A600EA7ED5 /* PushNavigator.swift in Sources */,
 				2D74E4F22D1F10CD0018A56E /* Grade.swift in Sources */,
 				B8BE0E142C46D38700B3D298 /* UserFilteringInfoModel.swift in Sources */,
 				71D7E6ED2C2FF42500C54EA7 /* TNTabBarController.swift in Sources */,

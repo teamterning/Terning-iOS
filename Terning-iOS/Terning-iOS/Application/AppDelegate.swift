@@ -84,7 +84,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             completionHandler([]) // 아무것도 표시하지 않음
             return
         }
-        completionHandler([.sound, .banner])
+        completionHandler([.sound, .banner, .list])
     }
     
     /// error발생시

@@ -111,7 +111,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 }
                 
                 // ✅ 권한 상태를 UserManager와 동기화
-                UserManager.shared.isPushEnabled = isGranted
+//                UserManager.shared.isPushEnabled = isGranted
             }
         }
     }

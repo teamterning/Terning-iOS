@@ -58,12 +58,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             let isAuthorized = settings.authorizationStatus == .authorized
+            
             DispatchQueue.main.async {
-                UserManager.shared.isPushEnabled = isAuthorized
                 NotificationCenter.default.post(
                     name: .didChangePushPermission,
                     object: nil,
-                    userInfo: ["isEnabled": isAuthorized]
+                    userInfo: ["isAuthorized": isAuthorized]
                 )
             }
         }

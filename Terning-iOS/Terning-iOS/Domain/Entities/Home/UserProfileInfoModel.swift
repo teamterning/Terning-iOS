@@ -11,6 +11,7 @@ public struct UserProfileInfoModel: Codable {
     var name: String
     var profileImage: String
     var authType: String
+    var pushStatus: String?
 }
 
 extension UserProfileInfoModel {

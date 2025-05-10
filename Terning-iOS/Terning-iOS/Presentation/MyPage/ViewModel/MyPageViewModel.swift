@@ -161,10 +161,12 @@ extension MyPageViewModel {
                         let updatedUserInfo = UserProfileInfoModel(
                             name: data.name,
                             profileImage: data.profileImage,
-                            authType: data.authType
+                            authType: data.authType,
+                            pushStatus: data.pushStatus ?? "false"
                         )
                         self.userInfoRelay.accept(updatedUserInfo)
                         UserManager.shared.userName = data.name
+                        UserManager.shared.isPushEnabled = data.pushStatus == "true"
                         
                         var updatedSections = self.sectionsRelay.value
                         updatedSections[0] = SectionData(

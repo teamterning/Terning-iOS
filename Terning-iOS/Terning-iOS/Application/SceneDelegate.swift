@@ -82,7 +82,6 @@ extension SceneDelegate {
               redirect == "intern" else {
             return
         }
-       
         
         if UserManager.shared.hasAccessToken {
             routeToJobDetail(jobId: id)

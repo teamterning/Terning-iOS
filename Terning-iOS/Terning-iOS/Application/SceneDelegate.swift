@@ -77,11 +77,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 extension SceneDelegate {
     private func handleDeeplink(_ url: URL) {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-              let action = components.queryItems?.first(where: { $0.name == "action" })?.value,
-              let id = components.queryItems?.first(where: { $0.name == "id" })?.value,
-              action == "jobDetail" else {
+              let redirect = components.queryItems?.first(where: { $0.name == "redirect" })?.value,
+              let id = components.queryItems?.first(where: { $0.name == "internId" })?.value,
+              redirect == "intern" else {
             return
         }
+       
         
         if UserManager.shared.hasAccessToken {
             routeToJobDetail(jobId: id)

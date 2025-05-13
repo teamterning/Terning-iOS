@@ -226,15 +226,15 @@ final class JobDetailViewModel: ViewModelType {
         
         let shareAction = input.shareTapped
             .withLatestFrom(jobDetail.asSignal(onErrorSignalWith: .empty()))
-            .compactMap { [weak self] job -> [String: String]? in
-                guard let self = self else { return nil }
+            .compactMap { job -> [String: String]? in
                 let templateArgs: [String: String] = [
                     "COMPANY_IMG": job.companyImage,
                     "TITLE": job.title,
                     "DEADLINE": job.deadline,
                     "PERIOD": job.workingPeriod,
                     "START_DATE": job.startYearMonth,
-                    "JOB_ID": "\(input.internshipAnnouncementId.value)"
+                    "redirect": "intern",
+                    "internId": "\(input.internshipAnnouncementId.value)"
                 ]
                 
                 return templateArgs

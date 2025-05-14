@@ -29,7 +29,7 @@ final class MyPageViewModel: ViewModelType {
     }
     
     private let sectionsRelay = BehaviorRelay<[SectionData]>(value: [])
-    private let userInfoRelay = BehaviorRelay<UserProfileInfoModel>(value: UserProfileInfoModel(name: "회원", profileImage: "basic", authType: "UNKNOWN"))
+    private let userInfoRelay = BehaviorRelay<UserProfileInfoModel>(value: UserProfileInfoModel(name: "회원", profileImage: "basic", authType: "UNKNOWN", pushStatus: "DISABLED"))
     
     private let info = Bundle.main.infoDictionary
     
@@ -55,7 +55,7 @@ final class MyPageViewModel: ViewModelType {
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let navigateToProfileEdit = input.fixProfileTap
             .withLatestFrom(userInfoRelay.asObservable())
-            .asDriver(onErrorJustReturn: UserProfileInfoModel(name: "", profileImage: "basic", authType: ""))
+            .asDriver(onErrorJustReturn: UserProfileInfoModel(name: "", profileImage: "basic", authType: "", pushStatus: "DISABLED"))
         let showLogoutAlert = input.logoutTap.asDriver(onErrorJustReturn: ())
         let showWithdrawAlert = input.withdrawTap.asDriver(onErrorJustReturn: ())
         
@@ -118,7 +118,10 @@ final class MyPageViewModel: ViewModelType {
                         MyPageBasicCellModel(
                             image: .icPushAlarm,
                             title: "푸시 알림",
-                            accessoryType: .toggle(isOn: UserManager.shared.isPushEnabled ?? false, action: nil)
+                            accessoryType: .toggle(
+                                isOn: (userInfoRelay.value.pushStatus ?? "disabled") == "enabled",
+                                action: nil
+                            )
                         )
                     )
                 ]
@@ -162,11 +165,11 @@ extension MyPageViewModel {
                             name: data.name,
                             profileImage: data.profileImage,
                             authType: data.authType,
-                            pushStatus: data.pushStatus ?? "false"
+                            pushStatus: data.pushStatus ?? "DISABLED"
                         )
                         self.userInfoRelay.accept(updatedUserInfo)
                         UserManager.shared.userName = data.name
-                        UserManager.shared.isPushEnabled = data.pushStatus == "true"
+                        UserManager.shared.isPushEnabled = data.pushStatus == "ENABLED"
                         
                         var updatedSections = self.sectionsRelay.value
                         updatedSections[0] = SectionData(

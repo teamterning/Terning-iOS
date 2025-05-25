@@ -24,12 +24,8 @@ final class MyPageViewModel: ViewModelType {
     
     private let myPageProvider = Providers.myPageProvider
     
-    private var defaultUserInfo: UserProfileInfoModel {
-        return UserProfileInfoModel(name: "", profileImage: "", authType: "")
-    }
-    
     private let sectionsRelay = BehaviorRelay<[SectionData]>(value: [])
-    private let userInfoRelay = BehaviorRelay<UserProfileInfoModel>(value: UserProfileInfoModel(name: "회원", profileImage: "basic", authType: "UNKNOWN", pushStatus: "DISABLED"))
+    let userInfoRelay = BehaviorRelay<UserProfileInfoModel>(value: UserProfileInfoModel(name: "회원", profileImage: "basic", authType: "UNKNOWN", pushStatus: "ENABLED"))
     
     private let info = Bundle.main.infoDictionary
     
@@ -56,6 +52,7 @@ final class MyPageViewModel: ViewModelType {
         let navigateToProfileEdit = input.fixProfileTap
             .withLatestFrom(userInfoRelay.asObservable())
             .asDriver(onErrorJustReturn: UserProfileInfoModel(name: "", profileImage: "basic", authType: "", pushStatus: "DISABLED"))
+        
         let showLogoutAlert = input.logoutTap.asDriver(onErrorJustReturn: ())
         let showWithdrawAlert = input.withdrawTap.asDriver(onErrorJustReturn: ())
         
@@ -66,16 +63,11 @@ final class MyPageViewModel: ViewModelType {
                     return .nonAction
                 case .cellViewModel(let cellModel):
                     switch cellModel.title {
-                    case "공지사항":
-                        return .showNotice
-                    case "의견 보내기":
-                        return .sendFeedback
-                    case "서비스 이용약관":
-                        return .showTermsOfUse
-                    case "개인정보 처리방침":
-                        return .showPrivacyPolicy
-                    default:
-                        return .nonAction
+                    case "공지사항": return .showNotice
+                    case "의견 보내기": return .sendFeedback
+                    case "서비스 이용약관": return .showTermsOfUse
+                    case "개인정보 처리방침": return .showPrivacyPolicy
+                    default: return .nonAction
                     }
                 case .emptyCell:
                     return .nonAction
@@ -83,12 +75,29 @@ final class MyPageViewModel: ViewModelType {
             }
             .asDriver(onErrorJustReturn: .nonAction)
         
-        let defaultSections = [
+        // 1. 최초 기본 섹션 구성 (서버 호출 전)
+        configureDefaultSections()
+        // 2. 서버에서 실제 정보 반영
+        fetchMyPageInfo()
+        
+        return Output(
+            sections: sectionsRelay.asDriver(),
+            navigateToProfileEdit: navigateToProfileEdit,
+            showLogoutAlert: showLogoutAlert,
+            showWithdrawAlert: showWithdrawAlert,
+            cellTapped: cellTapped
+        )
+    }
+    
+    private func configureDefaultSections() {
+        let version = info?["CFBundleShortVersionString"] as? String ?? ""
+        let userInfo = userInfoRelay.value
+        let isPushOn = userInfo.pushStatus == "ENABLED"
+        
+        let sections = [
             SectionData(
                 title: "프로필",
-                items: [
-                    .userInfoViewModel(userInfoRelay.value)
-                ]
+                items: [.userInfoViewModel(userInfo)]
             ),
             SectionData(
                 title: "터닝 커뮤니티",
@@ -102,95 +111,54 @@ final class MyPageViewModel: ViewModelType {
                 items: [
                     .cellViewModel(MyPageBasicCellModel(image: .icService, title: "서비스 이용약관", accessoryType: .disclosureIndicator)),
                     .cellViewModel(MyPageBasicCellModel(image: .icPersonal, title: "개인정보 처리방침", accessoryType: .disclosureIndicator)),
-                    .cellViewModel(
-                        MyPageBasicCellModel(
-                            image: .icVersion,
-                            title: "버전 정보",
-                            accessoryType: .label(text: info?["CFBundleShortVersionString"] as? String ?? "1.0.0")
-                        )
-                    )
+                    .cellViewModel(MyPageBasicCellModel(image: .icVersion, title: "버전 정보", accessoryType: .label(text: version)))
                 ]
             ),
             SectionData(
                 title: "알림 설정",
                 items: [
                     .cellViewModel(
-                        MyPageBasicCellModel(
-                            image: .icPushAlarm,
-                            title: "푸시 알림",
-                            accessoryType: .toggle(
-                                isOn: (userInfoRelay.value.pushStatus ?? "disabled") == "enabled",
-                                action: nil
-                            )
-                        )
+                        MyPageBasicCellModel(image: .icPushAlarm, title: "푸시 알림", accessoryType: .toggle(isOn: isPushOn, action: nil))
                     )
                 ]
             ),
-            SectionData(
-                title: "기타",
-                items: [
-                    .emptyCell
-                ]
-            )
+            SectionData(title: "기타", items: [.emptyCell])
         ]
         
-        sectionsRelay.accept(defaultSections)
-        getMyPageInfo()
-        
-        return Output(
-            sections: sectionsRelay.asDriver(),
-            navigateToProfileEdit: navigateToProfileEdit,
-            showLogoutAlert: showLogoutAlert,
-            showWithdrawAlert: showWithdrawAlert,
-            cellTapped: cellTapped
-        )
+        sectionsRelay.accept(sections)
     }
 }
 
 // MARK: - API
 
 extension MyPageViewModel {
-    func getMyPageInfo() {
+    func fetchMyPageInfo() {
         myPageProvider.request(.getProfileInfo) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                let status = response.statusCode
-                if 200..<300 ~= status {
-                    do {
-                        let responseDto = try response.map(BaseResponse<UserProfileInfoModel>.self)
-                        guard let data = responseDto.result else { return }
-                        
-                        let updatedUserInfo = UserProfileInfoModel(
-                            name: data.name,
-                            profileImage: data.profileImage,
-                            authType: data.authType,
-                            pushStatus: data.pushStatus ?? "DISABLED"
-                        )
-                        self.userInfoRelay.accept(updatedUserInfo)
-                        UserManager.shared.userName = data.name
-                        UserManager.shared.isPushEnabled = data.pushStatus == "ENABLED"
-                        
-                        var updatedSections = self.sectionsRelay.value
-                        updatedSections[0] = SectionData(
-                            title: "프로필",
-                            items: [
-                                .userInfoViewModel(updatedUserInfo)
-                            ]
-                        )
-                        self.sectionsRelay.accept(updatedSections)
-                        
-                    } catch {
-                        print("사용자 정보를 불러올 수 없어요.")
-                        print(error.localizedDescription)
-                    }
-                    
-                } else {
-                    print("404 error")
+                guard (200..<300).contains(response.statusCode) else {
+                    print("❌ API status: \(response.statusCode)")
+                    return
                 }
-                
+                do {
+                    let responseDto = try response.map(BaseResponse<UserProfileInfoModel>.self)
+                    guard let data = responseDto.result else { return }
+                    
+                    let updatedUserInfo = UserProfileInfoModel(
+                        name: data.name,
+                        profileImage: data.profileImage,
+                        authType: data.authType,
+                        pushStatus: data.pushStatus ?? "DISABLED"
+                    )
+                    self.userInfoRelay.accept(updatedUserInfo)
+                    UserManager.shared.userName = data.name
+                    self.configureDefaultSections() // ✅ pushStatus 반영된 최신 정보로 다시 섹션 구성
+                } catch {
+                    print("❌ map 에러: \(error.localizedDescription)")
+                }
             case .failure(let error):
-                print(error.localizedDescription)
+                print("❌ API 실패: \(error.localizedDescription)")
             }
         }
     }

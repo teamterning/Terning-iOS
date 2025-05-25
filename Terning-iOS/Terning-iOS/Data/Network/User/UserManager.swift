@@ -28,8 +28,11 @@ final class UserManager {
     @UserDefaultWrapper<String>(key: "authId") public var authId
     @UserDefaultWrapper<String>(key: "authType") public var authType
     @UserDefaultWrapper<String>(key: "userName") public var userName
+    
+    // FCM 로직
     @UserDefaultWrapper<String>(key: "fcmToken") public var fcmToken
-    @UserDefaultWrapper<Bool>(key: "isPushEnabled") public var isPushEnabled
+    @UserDefaultWrapper<String>(key: "lastSentFCMToken") public var lastSentFCMToken
+    @NonOptionalUserDefaultWrapper<Bool>(key: "didSyncFCMToken", defaultValue: false) public var didSyncFCMToken
     
     var hasAccessToken: Bool { return self.accessToken != nil }
     var hasKakaoToken: Bool { return self.kakaoAccessToken != nil }

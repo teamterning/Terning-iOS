@@ -66,10 +66,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     /// 푸시 클릭시
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
-        guard UserManager.shared.isPushEnabled ?? true else {
-            print("❌ 사용자가 푸시 OFF 설정함 → 무시")
-            return
-        }
         
         let userInfo = response.notification.request.content.userInfo
         if let type = userInfo["type"] as? String {
@@ -79,11 +75,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     /// Foreground(앱 켜진 상태)에서도 알림 오는 설정
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        guard UserManager.shared.isPushEnabled ?? true else {
-            print("❌ Foreground 푸시 무시됨")
-            completionHandler([]) // 아무것도 표시하지 않음
-            return
-        }
+
         completionHandler([.sound, .banner, .list])
     }
     
@@ -110,8 +102,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                     print("🚫 알림 거부됨")
                 }
                 
-                // ✅ 권한 상태를 UserManager와 동기화
-//                UserManager.shared.isPushEnabled = isGranted
             }
         }
     }
@@ -125,9 +115,12 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("🟢 Firebase 등록 토큰(token): \(String(describing: fcmToken))")
         
+        guard let fcmToken = fcmToken else { return }
+
         UserManager.shared.fcmToken = fcmToken
-        
-        let dataDict: [String: String] = ["token": fcmToken ?? ""]
+        UserManager.shared.setUserFCMTokenToServer(fcmToken: fcmToken)
+
+        let dataDict: [String: String] = ["token": fcmToken]
         NotificationCenter.default.post(
             name: Notification.Name("FCMToken"),
             object: nil,

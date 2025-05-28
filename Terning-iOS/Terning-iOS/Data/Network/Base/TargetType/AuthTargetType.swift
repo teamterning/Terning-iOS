@@ -15,6 +15,7 @@ enum AuthTargetType {
     case postOnboarding(grade: String, workingPeriod: String, startYear: Int, startMonth: Int)
     case logout
     case withdraw
+    case setUserFCMToken(fcmToken: String)
 }
 
 extension AuthTargetType: TargetType {
@@ -40,12 +41,14 @@ extension AuthTargetType: TargetType {
             return "/auth/logout"
         case .withdraw:
             return "/auth/withdraw"
+        case .setUserFCMToken:
+            return "/auth/sync-user"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .signIn, .signUp, .getNewToken, .postOnboarding, .logout:
+        case .signIn, .signUp, .getNewToken, .postOnboarding, .logout, .setUserFCMToken:
             return .post
         case .withdraw:
             return .delete
@@ -80,6 +83,11 @@ extension AuthTargetType: TargetType {
                     "startMonth": startMonth
                 ],
                 encoding: JSONEncoding.default)
+        case .setUserFCMToken(let fcmToken):
+            return .requestParameters(
+                parameters: ["fcmToken": fcmToken],
+                encoding: JSONEncoding.default
+            )
         case .logout, .withdraw:
             return .requestPlain
         }
@@ -113,6 +121,8 @@ extension AuthTargetType: TargetType {
             return Config.userIdHeader
         case .logout, .withdraw:
             return Config.defaultHeader
+        case .setUserFCMToken:
+            return Config.headerWithAccessToken
         }
         return headers
     }

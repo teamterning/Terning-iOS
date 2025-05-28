@@ -28,8 +28,11 @@ final class UserManager {
     @UserDefaultWrapper<String>(key: "authId") public var authId
     @UserDefaultWrapper<String>(key: "authType") public var authType
     @UserDefaultWrapper<String>(key: "userName") public var userName
+    
+    // FCM 로직
     @UserDefaultWrapper<String>(key: "fcmToken") public var fcmToken
-    @UserDefaultWrapper<Bool>(key: "isPushEnabled") public var isPushEnabled
+    @UserDefaultWrapper<String>(key: "lastSentFCMToken") public var lastSentFCMToken
+    @NonOptionalUserDefaultWrapper<Bool>(key: "didSyncFCMToken", defaultValue: false) public var didSyncFCMToken
     
     var hasAccessToken: Bool { return self.accessToken != nil }
     var hasKakaoToken: Bool { return self.kakaoAccessToken != nil }
@@ -163,6 +166,36 @@ extension UserManager {
             case .failure(let error):
                 print("❌ 푸시 상태 반영 실패: \(error.localizedDescription)")
             }
+        }
+    }
+}
+
+extension UserManager {
+    
+    /// 서버에 FCM 토큰을 전송하는 메서드 (최초 1회만 전송)
+    func setUserFCMTokenToServer(fcmToken: String) {
+        print("🧾 [FCM] 전송 시도 시작")
+        print(" ⮕ 현재 FCM Token: \(fcmToken)")
+        print(" ⮕ 저장된 마지막 전송 FCM Token: \(lastSentFCMToken ?? "없음")")
+        print(" ⮕ 로그인 상태: \(hasAccessToken ? "✅ 있음" : "❌ 없음")")
+        print(" ⮕ 동기화된 적 있음?: \(didSyncFCMToken ? "✅ 예" : "❌ 아니오")")
+        
+        // ✅ 조건: 로그인 + (아직 동기화 안 했거나, 저장된 토큰과 다를 때)
+        guard hasAccessToken, (!didSyncFCMToken || lastSentFCMToken != fcmToken) else {
+            print("🚫 전송 조건 불충족 → FCM 토큰 전송 안함\n")
+            return
+        }
+
+        authProvider.request(.setUserFCMToken(fcmToken: fcmToken)) { result in
+            switch result {
+            case .success(let response):
+                print("✅ FCM 토큰 서버 전송 성공 (statusCode: \(response.statusCode))")
+                self.lastSentFCMToken = fcmToken
+                self.didSyncFCMToken = true
+            case .failure(let error):
+                print("❌ FCM 토큰 서버 전송 실패: \(error.localizedDescription)")
+            }
+            print("🧾 [FCM] 전송 처리 종료\n")
         }
     }
 }

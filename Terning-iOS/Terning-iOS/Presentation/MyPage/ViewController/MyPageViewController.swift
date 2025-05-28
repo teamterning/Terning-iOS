@@ -63,12 +63,6 @@ final class MyPageViewController: UIViewController {
         bindViewModel()
         myPageView.registerCells()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        viewModel.getMyPageInfo()
-    }
 }
 
 // MARK: - UI & Layout
@@ -174,8 +168,9 @@ extension MyPageViewController {
     @objc
     private func handlePushPermissionChange(_ notification: Notification) {
         let isAuthorized = notification.userInfo?["isAuthorized"] as? Bool ?? false
-        let isUserEnabled = UserManager.shared.isPushEnabled ?? false
-        let finalToggleState = isAuthorized && isUserEnabled  // ✅ 둘 다 true여야 ON
+        
+        let isPushAllowedInApp = viewModel.userInfoRelay.value.pushStatus == "ENABLED"
+        let isFullyEnabled = isAuthorized && isPushAllowedInApp // ✅ 둘 다 true여야 진짜 ON
 
         var updatedSections = sections
         
@@ -187,14 +182,13 @@ extension MyPageViewController {
                         MyPageBasicCellModel(
                             image: .icPushAlarm,
                             title: "푸시 알림",
-                            accessoryType: .toggle(isOn: finalToggleState, action: nil)
+                            accessoryType: .toggle(isOn: isFullyEnabled, action: nil)
                         )
                     )
                 ]
             )
             
             self.sections = updatedSections
-            
             myPageView.tableView.reloadSections(IndexSet(integer: index), with: .fade)
         }
     }

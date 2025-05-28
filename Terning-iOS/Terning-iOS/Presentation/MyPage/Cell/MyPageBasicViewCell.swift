@@ -142,10 +142,9 @@ extension MyPageBasicViewCell {
             toggleSwitch = toggle
             
             toggleAction = { isOn in
-                UserManager.shared.isPushEnabled = isOn
                 UserManager.shared.updatePushStatus(isEnabled: isOn)
-                print("📬 푸시 설정 저장됨: \(isOn)")
-                
+                print("📬 푸시 상태 서버에 업데이트: \(isOn)")
+
                 if isOn {
                     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
                         DispatchQueue.main.async {
@@ -154,15 +153,9 @@ extension MyPageBasicViewCell {
                             } else {
                                 print("❗️ 알림 권한 거부됨 ❗️")
                                 toggle.setOn(false, animated: true)
-                                UserManager.shared.isPushEnabled = false
                             }
                         }
                     }
-                } else {
-                    // 사용자가 껐을 때: 알림 등록 해제는 불가능하지만,
-                    // 내부적으로 isPushEnabled를 false로 저장했으니,
-                    // 푸시 수신 필터링 시 사용 가능
-                    print("🚫 푸시 사용 안 함 (값은 UserDefaults 저장됨!) 🚫")
                 }
             }
         }
@@ -194,29 +187,25 @@ extension MyPageBasicViewCell {
                             if let url = URL(string: UIApplication.openSettingsURLString) {
                                 UIApplication.shared.open(url)
                                 
-                                // 3. 설정 앱으로 이동했으면, 앱 다시 돌아올 때 상태 확인을 위해 isOn = false 처리
+                                // 설정 이동 → 스위치 다시 false로 돌려놓기
                                 sender.setOn(false, animated: true)
-                                UserManager.shared.isPushEnabled = false
                             }
                         })
                         alert.addAction(UIAlertAction(title: "취소", style: .cancel) { _ in
                             sender.setOn(false, animated: true)
-                            UserManager.shared.isPushEnabled = false
                         })
                         
                         if let topVC = UIApplication.shared.topMostViewController {
                             topVC.present(alert, animated: true)
                         }
                     } else {
-                        // ✅ 권한 있음 → 정상 저장
-                        UserManager.shared.isPushEnabled = true
+                        // ✅ 권한 있음 → 서버로 상태 반영
                         self.toggleAction?(true)
                     }
                 }
             }
         } else {
-            // 꺼졌을 때 처리
-            UserManager.shared.isPushEnabled = false
+            // ✅ 꺼졌을 때 서버로 상태 반영
             toggleAction?(false)
         }
     }

@@ -67,6 +67,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     /// 푸시 클릭시
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         
+        track(eventName: .pushNotificationOpened)
+        
         let userInfo = response.notification.request.content.userInfo
         if let type = userInfo["type"] as? String {
             PushNavigator.handlePush(type: type)
@@ -76,6 +78,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     /// Foreground(앱 켜진 상태)에서도 알림 오는 설정
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
 
+        track(eventName: .pushNotificationReceived)
+        
         completionHandler([.sound, .banner, .list])
     }
     
@@ -128,5 +132,11 @@ extension AppDelegate: MessagingDelegate {
         )
         // TODO: If necessary send token to application server.
         // Note: This callback is fired at each app startup and whenever a new token is generated.
+    }
+}
+
+extension AppDelegate {
+    public func track(eventName: AmplitudeEventType, eventProperties: [String: Any]? = nil) {
+        AmplitudeManager.shared.track(eventType: eventName, eventProperties: eventProperties)
     }
 }

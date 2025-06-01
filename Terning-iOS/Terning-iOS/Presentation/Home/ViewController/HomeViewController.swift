@@ -347,8 +347,6 @@ extension HomeViewController: StickyHeaderCellDelegate {
                 self.sortAndPageSubject.onNext((apiParameter, currentPage))
             }.disposed(by: disposeBag)
         
-        track(eventName: .clickHomeFilteringSave)
-        
         self.present(filterSettingVC, animated: true)
     }
 }

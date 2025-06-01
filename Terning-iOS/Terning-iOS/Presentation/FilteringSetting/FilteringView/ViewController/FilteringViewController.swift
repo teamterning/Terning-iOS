@@ -201,26 +201,14 @@ extension FilteringViewController {
         let saveButtonTap = saveButton.rx.tap
             .do(
                 onNext: {
-                    if planVC.checkBoxState.value {
-                        self.track(
-                            eventName: .clickHomeFilteringSave,
-                            eventProperties: [
-                                "jobType": UserFilteringData.shared.jobType,
-                                "planSaveAll": true
-                            ].compactMapValues { $0 }
-                        )
+                    if self.segmentControl.selectedSegmentIndex == 0 {
+                        self.track( eventName: .clickFilteringJobSave)
                     } else {
-                        self.track(
-                            eventName: .clickHomeFilteringSave,
-                            eventProperties: [
-                                "grade": UserFilteringData.shared.grade,
-                                "jobType": UserFilteringData.shared.jobType,
-                                "planSaveAll": false,
-                                "startMonth": UserFilteringData.shared.startMonth,
-                                "startYear": UserFilteringData.shared.startYear,
-                                "workingPeriod": UserFilteringData.shared.workingPeriod
-                            ].compactMapValues { $0 }
-                        )
+                        if planVC.checkBoxState.value {
+                            self.track(eventName: .clickFilteringPlanSaveAll)
+                        } else {
+                            self.track(eventName: .clickFilteringPlanSaveCustom)
+                        }
                     }
                 }
             )

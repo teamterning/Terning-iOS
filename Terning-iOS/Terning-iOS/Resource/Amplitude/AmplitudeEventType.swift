@@ -18,7 +18,9 @@ public enum AmplitudeEventType: String {
     case clickOnboardingCompleted = "click_onboarding_completed" // 온보딩 완료 스플래쉬_맞춤공고 보러가기
     
     // 홈 화면 이벤트
-    case clickHomeFilteringSave = "click_home_filtering_save" // 홈_필터링
+    case clickFilteringJobSave = "click_filtering_job_save" // 홈_직무 필터링 저장
+    case clickFilteringPlanSaveCustom = "click_filtering_plan_save_custom" // 홈_계획 필터링 저장
+    case clickFilteringPlanSaveAll = "click_filtering_plan_save_all" // 홈_계획 필터링 없이 모든 공고 보기 저장.
 
     case scrollHome = "scroll_home" // 홈_리스트 하단까지 스크롤한 횟수
     case clickInOrderOfDeadline = "click_in_order_of_deadline" // 홈_정렬_채용 마감 이른 순

@@ -63,4 +63,8 @@ public enum AmplitudeEventType: String {
     case clickNavigationSearch = "click_navigation_search" // 네비게이션바_탐색
     case clickNavigationMyPage = "click_navigation_mypage" // 네비게이션바_마이페이지
     case clickNavigationHome = "click_navigation_home" // 네비게이션바_홈
+    
+    // 푸시알림
+    case pushNotificationReceived = "push_notification_received" // 푸시 알림 수신 시
+    case pushNotificationOpened = "push_notification_opened"     // 푸시 알림 클릭 시
 }

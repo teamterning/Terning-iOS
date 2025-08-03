@@ -153,4 +153,5 @@ extension SceneDelegate {
 
 extension Notification.Name {
     static let didChangePushPermission = Notification.Name("didChangePushPermission")
+    static let didReceiveRateLimit = Notification.Name("didReceiveRateLimit")
 }

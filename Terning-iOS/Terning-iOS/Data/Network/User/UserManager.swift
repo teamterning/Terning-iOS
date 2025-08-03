@@ -79,6 +79,10 @@ final class UserManager {
                         print("🍎🍎🍎🍎\(error.localizedDescription)")
                         completion(.failure(.networkFail))
                     }
+                } else if status == 429 {
+                    print("🚫 429 Too Many Requests")
+                    NotificationCenter.default.post(name: .didReceiveRateLimit, object: nil)
+                    completion(.failure(.networkFail))
                 } else if status >= 400 {
                     print("400 error")
                     completion(.failure(.networkFail))

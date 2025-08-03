@@ -45,6 +45,7 @@ final class LoginViewController: UIViewController {
         setUI()
         setLayout()
         bindViewModel()
+        observeRateLimit()
     }
 }
 
@@ -104,6 +105,24 @@ extension LoginViewController {
             }
             
             ViewControllerUtils.setRootViewController(window: window, viewController: profileViewVC, withAnimation: true)
+        }
+    }
+    
+    private func observeRateLimit() {
+        NotificationCenter.default.addObserver(
+            forName: .didReceiveRateLimit,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.loginView.kakaoLoginButton.isEnabled = false
+            self?.loginView.appleLoginButton.isEnabled = false
+
+            self?.showToast(message: "요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.")
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                self?.loginView.kakaoLoginButton.isEnabled = true
+                self?.loginView.appleLoginButton.isEnabled = true
+            }
         }
     }
 }

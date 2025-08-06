@@ -26,6 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setupFCM(application)
         
+        // 푸시 알림 추적 시나리오 3: 앱 종료 상태에서 푸시 클릭으로 앱 실행
+        if let notificationUserInfo = launchOptions?[.remoteNotification] as? [String: Any] {
+            track(eventName: .pushNotificationOpened, eventProperties: ["app_state": "terminated"])
+            print("🔔 앱 종료 상태에서 푸시 알림 클릭으로 실행됨")
+        }
+        
         return true
     }
     
@@ -64,7 +70,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         Messaging.messaging().apnsToken = deviceToken
     }
     
-    /// 푸시 클릭시
+    /// 푸시 알림 추적 시나리오 4: 백그라운드/포그라운드에서 푸시 클릭
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         
         track(eventName: .pushNotificationOpened)
@@ -75,10 +81,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         }
     }
     
-    /// Foreground(앱 켜진 상태)에서도 알림 오는 설정
+    /// 푸시 알림 추적 시나리오 1: 앱 실행 중(포그라운드) 푸시 수신
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
 
-        track(eventName: .pushNotificationReceived)
+        track(eventName: .pushNotificationReceived, eventProperties: ["app_state": "foreground"])
         
         completionHandler([.sound, .banner, .list])
     }
@@ -132,6 +138,12 @@ extension AppDelegate: MessagingDelegate {
         )
         // TODO: If necessary send token to application server.
         // Note: This callback is fired at each app startup and whenever a new token is generated.
+    }
+    
+    /// 푸시 알림 추적 시나리오 2: 백그라운드에서 푸시 수신
+    func messaging(_ messaging: Messaging, didReceiveRemoteMessage remoteMessage: MessagingRemoteMessage) {
+        track(eventName: .pushNotificationReceived, eventProperties: ["app_state": "background"])
+        print("🔔 백그라운드 푸시 알림 수신: \(remoteMessage.appData)")
     }
 }
 

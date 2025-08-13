@@ -457,10 +457,18 @@
 			);
 			target = 71F64BC42DCA42D2006DE3D6 /* NotificationServiceExtension */;
 		};
+		71FD8FFF2E4AD24A00F7058F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AmplitudeEventType.swift,
+				AmplitudeManager.swift,
+			);
+			target = 71F64BC42DCA42D2006DE3D6 /* NotificationServiceExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		713C5A772CC15B7E00321E15 /* Amplitude */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Amplitude; sourceTree = "<group>"; };
+		713C5A772CC15B7E00321E15 /* Amplitude */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (71FD8FFF2E4AD24A00F7058F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Amplitude; sourceTree = "<group>"; };
 		71CDCF742D33C5350087BF6B /* Home */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (71CDCF782D33C5430087BF6B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Home; sourceTree = "<group>"; };
 		71DA88DA2CFDC81D0003078C /* SwiftUI+ */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "SwiftUI+"; sourceTree = "<group>"; };
 		71DA89952CFDFA460003078C /* SwiftUI */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (71DA89982CFDFA960003078C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SwiftUI; sourceTree = "<group>"; };

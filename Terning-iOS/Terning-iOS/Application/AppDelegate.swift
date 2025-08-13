@@ -26,9 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setupFCM(application)
         
-        // 푸시 알림 추적 시나리오 3: 앱 종료 상태에서 푸시 클릭으로 앱 실행
+        // 📱 푸시 알림 이벤트 추적: 앱 종료 상태에서 푸시 클릭으로 앱 실행
+        // ✅ 앱이 완전히 종료된 상태에서 사용자가 푸시 알림을 탭하여 앱이 실행될 때 호출
+        // ✅ push_notification_opened 이벤트가 Amplitude에 정상적으로 로깅됨
         if let notificationUserInfo = launchOptions?[.remoteNotification] as? [String: Any] {
-            track(eventName: .pushNotificationOpened, eventProperties: ["app_state": "terminated"])
+            track(eventName: .pushNotificationOpened)
             print("🔔 앱 종료 상태에서 푸시 알림 클릭으로 실행됨")
         }
         
@@ -70,7 +72,9 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         Messaging.messaging().apnsToken = deviceToken
     }
     
-    /// 푸시 알림 추적 시나리오 4: 백그라운드/포그라운드에서 푸시 클릭
+    /// 📱 푸시 알림 이벤트 추적: 백그라운드/포그라운드에서 푸시 클릭
+    /// ✅ 앱이 백그라운드 또는 포그라운드 상태에서 사용자가 푸시 알림을 탭했을 때 호출
+    /// ✅ push_notification_opened 이벤트가 Amplitude에 정상적으로 로깅됨
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         
         track(eventName: .pushNotificationOpened)
@@ -81,10 +85,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         }
     }
     
-    /// 푸시 알림 추적 시나리오 1: 앱 실행 중(포그라운드) 푸시 수신
+    /// 📱 푸시 알림 이벤트 추적: 앱 실행 중(포그라운드) 푸시 수신
+    /// ✅ 앱이 포그라운드에서 실행 중일 때 푸시 알림을 받으면 호출
+    /// ✅ push_notification_received 이벤트가 Amplitude에 정상적으로 로깅됨
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
 
-        track(eventName: .pushNotificationReceived, eventProperties: ["app_state": "foreground"])
+        track(eventName: .pushNotificationReceived)
         
         completionHandler([.sound, .banner, .list])
     }
@@ -140,11 +146,6 @@ extension AppDelegate: MessagingDelegate {
         // Note: This callback is fired at each app startup and whenever a new token is generated.
     }
     
-    /// 푸시 알림 추적 시나리오 2: 백그라운드에서 푸시 수신
-    func messaging(_ messaging: Messaging, didReceiveRemoteMessage remoteMessage: MessagingRemoteMessage) {
-        track(eventName: .pushNotificationReceived, eventProperties: ["app_state": "background"])
-        print("🔔 백그라운드 푸시 알림 수신: \(remoteMessage.appData)")
-    }
 }
 
 extension AppDelegate {

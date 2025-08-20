@@ -112,6 +112,7 @@
 		7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1562C3EA4C10056DB8B /* LoadingIndicator.swift */; };
 		713C5A742CC1578600321E15 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 713C5A732CC1578600321E15 /* AmplitudeSwift */; };
 		71412D122DBB79A600EA7ED5 /* PushNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71412D112DBB79A600EA7ED5 /* PushNavigator.swift */; };
+		7145B3042E5491F80029E281 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7145B3032E5491F80029E281 /* AmplitudeSwift */; };
 		71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAC2C370439002A6999 /* Pretendard-Light.otf */; };
 		71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAE2C370439002A6999 /* Pretendard-Medium.otf */; };
 		71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */; };
@@ -461,7 +462,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				AmplitudeEventType.swift,
-				AmplitudeManager.swift,
 			);
 			target = 71F64BC42DCA42D2006DE3D6 /* NotificationServiceExtension */;
 		};
@@ -507,6 +507,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7145B3042E5491F80029E281 /* AmplitudeSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1589,6 +1590,7 @@
 			);
 			name = NotificationServiceExtension;
 			packageProductDependencies = (
+				7145B3032E5491F80029E281 /* AmplitudeSwift */,
 			);
 			productName = NotificationServiceExtension;
 			productReference = 71F64BC52DCA42D2006DE3D6 /* NotificationServiceExtension.appex */;
@@ -2323,6 +2325,11 @@
 			productName = RxRelay;
 		};
 		713C5A732CC1578600321E15 /* AmplitudeSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 713C5A722CC1578600321E15 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
+			productName = AmplitudeSwift;
+		};
+		7145B3032E5491F80029E281 /* AmplitudeSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 713C5A722CC1578600321E15 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
 			productName = AmplitudeSwift;

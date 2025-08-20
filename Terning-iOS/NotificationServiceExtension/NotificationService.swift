@@ -13,6 +13,9 @@ final class NotificationService: UNNotificationServiceExtension {
     private var contentHandler: ((UNNotificationContent) -> Void)?
     private var bestAttemptContent: UNMutableNotificationContent?
     
+    // Extension용 Amplitude 인스턴스
+    private let amplitude = Amplitude(configuration: Configuration(apiKey: SharedConfig.AMPLITUDE_API_KEY))
+    
     
     override func didReceive(
         _ request: UNNotificationRequest,
@@ -65,7 +68,7 @@ final class NotificationService: UNNotificationServiceExtension {
             
             do {
                 try fileManager.moveItem(at: tempURL, to: uniqueURL)
-                let attachment = try UNNotificationAttachment(identifier: "image", url: uniqueURL, options: nil)
+                let attachment = try UNNotificationAttachment(identifier: "image", url: uniqueURL, options: [:])
                 completion(attachment)
             } catch {
                 print("❌ 이미지 첨부 실패: \(error)")
@@ -78,7 +81,8 @@ final class NotificationService: UNNotificationServiceExtension {
 // MARK: - Amplitude Tracking Extension
 extension NotificationService {
     private func track(eventName: AmplitudeEventType, eventProperties: [String: Any]? = nil) {
-        // public AmplitudeManager.shared 사용으로 메인 앱과 완전히 동일한 로깅 시스템
-        AmplitudeManager.shared.track(eventType: eventName, eventProperties: eventProperties)
+        // Extension용 독립적인 Amplitude 인스턴스 사용
+        // 메인 앱과 동일한 API 키를 사용하므로 Amplitude 대시보드에서는 통합되어 보임
+        amplitude.track(eventType: eventName.rawValue, eventProperties: eventProperties)
     }
 }

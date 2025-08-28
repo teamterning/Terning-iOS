@@ -18,6 +18,6 @@ public extension Amplitude {
     func track(eventType: AmplitudeEventType, eventProperties: [String: Any]? = nil) {
         let eventType: String = eventType.rawValue
         
-        AmplitudeManager.shared.track(eventType: eventType, eventProperties: eventProperties, options: nil)
+        AmplitudeManager.shared.track(eventType: eventType, eventProperties: eventProperties)
     }
 }

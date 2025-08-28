@@ -85,6 +85,7 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 
 Config.swift
+**/SharedConfig.swift
 
 # Code Injection
 #

@@ -112,6 +112,7 @@
 		7121A1572C3EA4C10056DB8B /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121A1562C3EA4C10056DB8B /* LoadingIndicator.swift */; };
 		713C5A742CC1578600321E15 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 713C5A732CC1578600321E15 /* AmplitudeSwift */; };
 		71412D122DBB79A600EA7ED5 /* PushNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71412D112DBB79A600EA7ED5 /* PushNavigator.swift */; };
+		7145B3042E5491F80029E281 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7145B3032E5491F80029E281 /* AmplitudeSwift */; };
 		71461EB52C37043A002A6999 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAC2C370439002A6999 /* Pretendard-Light.otf */; };
 		71461EB72C37043A002A6999 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EAE2C370439002A6999 /* Pretendard-Medium.otf */; };
 		71461EB92C37043A002A6999 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71461EB02C37043A002A6999 /* Pretendard-SemiBold.otf */; };
@@ -457,10 +458,17 @@
 			);
 			target = 71F64BC42DCA42D2006DE3D6 /* NotificationServiceExtension */;
 		};
+		71FD8FFF2E4AD24A00F7058F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AmplitudeEventType.swift,
+			);
+			target = 71F64BC42DCA42D2006DE3D6 /* NotificationServiceExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		713C5A772CC15B7E00321E15 /* Amplitude */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Amplitude; sourceTree = "<group>"; };
+		713C5A772CC15B7E00321E15 /* Amplitude */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (71FD8FFF2E4AD24A00F7058F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Amplitude; sourceTree = "<group>"; };
 		71CDCF742D33C5350087BF6B /* Home */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (71CDCF782D33C5430087BF6B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Home; sourceTree = "<group>"; };
 		71DA88DA2CFDC81D0003078C /* SwiftUI+ */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "SwiftUI+"; sourceTree = "<group>"; };
 		71DA89952CFDFA460003078C /* SwiftUI */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (71DA89982CFDFA960003078C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SwiftUI; sourceTree = "<group>"; };
@@ -499,6 +507,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7145B3042E5491F80029E281 /* AmplitudeSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1581,6 +1590,7 @@
 			);
 			name = NotificationServiceExtension;
 			packageProductDependencies = (
+				7145B3032E5491F80029E281 /* AmplitudeSwift */,
 			);
 			productName = NotificationServiceExtension;
 			productReference = 71F64BC52DCA42D2006DE3D6 /* NotificationServiceExtension.appex */;
@@ -2024,7 +2034,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2025.0622.0331;
+				CURRENT_PROJECT_VERSION = 2025.0820.1510;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2041,7 +2051,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.0;
+				MARKETING_VERSION = 1.7.0;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",
@@ -2068,7 +2078,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Terning-iOS/Terning-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2025.0622.0331;
+				CURRENT_PROJECT_VERSION = 2025.0820.1510;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2085,7 +2095,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.0;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.terning.Terning-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2104,7 +2114,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2025.0603.1653;
+				CURRENT_PROJECT_VERSION = 2025.0820.1510;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2132,7 +2142,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2025.0603.1653;
+				CURRENT_PROJECT_VERSION = 2025.0820.1510;
 				DEVELOPMENT_TEAM = 8Q4H7X3Q58;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2315,6 +2325,11 @@
 			productName = RxRelay;
 		};
 		713C5A732CC1578600321E15 /* AmplitudeSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 713C5A722CC1578600321E15 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
+			productName = AmplitudeSwift;
+		};
+		7145B3032E5491F80029E281 /* AmplitudeSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 713C5A722CC1578600321E15 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
 			productName = AmplitudeSwift;

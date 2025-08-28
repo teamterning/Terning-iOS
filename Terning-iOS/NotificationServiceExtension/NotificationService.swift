@@ -12,6 +12,7 @@ final class NotificationService: UNNotificationServiceExtension {
     private var contentHandler: ((UNNotificationContent) -> Void)?
     private var bestAttemptContent: UNMutableNotificationContent?
     
+    
     override func didReceive(
         _ request: UNNotificationRequest,
         withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void
@@ -57,7 +58,7 @@ final class NotificationService: UNNotificationServiceExtension {
             
             do {
                 try fileManager.moveItem(at: tempURL, to: uniqueURL)
-                let attachment = try UNNotificationAttachment(identifier: "image", url: uniqueURL, options: nil)
+                let attachment = try UNNotificationAttachment(identifier: "image", url: uniqueURL, options: [:])
                 completion(attachment)
             } catch {
                 print("❌ 이미지 첨부 실패: \(error)")

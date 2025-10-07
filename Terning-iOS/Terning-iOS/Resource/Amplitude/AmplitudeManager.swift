@@ -16,8 +16,12 @@ public struct AmplitudeManager {
 
 public extension Amplitude {
     func track(eventType: AmplitudeEventType, eventProperties: [String: Any]? = nil) {
+        #if DEBUG
+        // Debug 모드에서는 로깅하지 않음
+        return
+        #else
         let eventType: String = eventType.rawValue
-        
         AmplitudeManager.shared.track(eventType: eventType, eventProperties: eventProperties)
+        #endif
     }
 }

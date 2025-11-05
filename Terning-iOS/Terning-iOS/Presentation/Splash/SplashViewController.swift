@@ -299,7 +299,7 @@ extension SplashVC {
         // 자세히 보기 버튼 (인스타그램으로 이동)
         serviceEndVC.rx.rightButtonTap
             .bind { [weak serviceEndVC] in
-                if let url = URL(string: "https://www.instagram.com/terning_official") {
+                if let url = URL(string: "https://abundant-quiver-13f.notion.site/2a22867b52c180649a5bfdf1704820a3?pvs=73") {
                     UIApplication.shared.open(url)
                 }
                 serviceEndVC?.dismiss(animated: false)

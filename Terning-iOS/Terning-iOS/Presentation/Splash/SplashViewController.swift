@@ -237,20 +237,10 @@ extension SplashVC {
     func showServiceEndNoticeIfNeeded(completion: @escaping () -> Void) {
         let isTestMode = true // 테스트 시 true, 실제 배포 시 false로 변경
 
-        if !isTestMode {
-            // 하루에 한번만 표시하는 로직
-            let lastShownDateKey = "serviceEndNoticeLastShownDate"
-            let today = Calendar.current.startOfDay(for: Date())
-
-            if let lastShownDate = UserDefaults.standard.object(forKey: lastShownDateKey) as? Date,
-               Calendar.current.isDate(lastShownDate, inSameDayAs: today) {
-                // 오늘 이미 표시했으면 패스
-                completion()
-                return
-            }
-
-            // 오늘 날짜 저장
-            UserDefaults.standard.set(today, forKey: lastShownDateKey)
+        // 오늘 이미 표시했는지 확인
+        guard UserManager.shared.shouldShowServiceEndNotice(isTestMode: isTestMode) else {
+            completion()
+            return
         }
 
         let title = "터닝 서비스 종료 안내"

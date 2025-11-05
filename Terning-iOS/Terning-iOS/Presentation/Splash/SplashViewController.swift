@@ -235,7 +235,11 @@ extension SplashVC {
     }
 
     func showServiceEndNoticeIfNeeded(completion: @escaping () -> Void) {
-        let isTestMode = true // 테스트 시 true, 실제 배포 시 false로 변경
+        #if DEBUG
+        let isTestMode = true // 디버그 모드: 매번 표시
+        #else
+        let isTestMode = false // 릴리즈 모드: 하루에 한 번만 표시
+        #endif
 
         // 오늘 이미 표시했는지 확인
         guard UserManager.shared.shouldShowServiceEndNotice(isTestMode: isTestMode) else {

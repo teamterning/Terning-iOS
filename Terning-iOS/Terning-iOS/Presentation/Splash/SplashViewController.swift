@@ -13,26 +13,38 @@ import SnapKit
 import Then
 
 final class SplashVC: UIViewController {
-    
+
     // MARK: - UI Components
-    
+
     private let backgroundImageView = UIImageView().then {
         $0.image = .imgSplash
         $0.contentMode = .scaleAspectFill
     }
-    
+
+    // MARK: - Properties
+
+    private var hasInitialized = false
+
     // MARK: - View Life Cycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.setUI()
         self.setNavigationBar()
         self.setLayout()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        print("🔵 [SplashVC] viewDidAppear 호출됨 - hasInitialized: \(hasInitialized)")
+
+        guard !hasInitialized else {
+            print("🟡 [SplashVC] 이미 초기화됨 - 중복 실행 방지")
+            return
+        }
+        hasInitialized = true
 
         self.checkAppVersion {
             self.showServiceEndNoticeIfNeeded {
@@ -53,6 +65,7 @@ final class SplashVC: UIViewController {
 
 extension SplashVC {
     private func checkDidSignIn() {
+        print("🔵 [SplashVC] checkDidSignIn 호출됨")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             if UserManager.shared.hasAccessToken {
                 UserManager.shared.getNewToken { [weak self] result in
@@ -72,8 +85,9 @@ extension SplashVC {
             }
         }
     }
-    
+
     private func pushToSignInView() {
+        print("🔴 [SplashVC] pushToSignInView 호출됨 ⚠️")
         let signInVC = LoginViewController(
             viewModel: LoginViewModel(
                 loginRepository: LoginRepository(
@@ -227,6 +241,7 @@ extension SplashVC {
     
     @objc
     private func appDidBecomeActive() {
+        print("🟢 [SplashVC] appDidBecomeActive 호출됨 (백그라운드 → 포그라운드)")
         checkAppVersion { [self] in
             showServiceEndNoticeIfNeeded {
                 checkDidSignIn()
@@ -281,10 +296,10 @@ extension SplashVC {
             }
             .disposed(by: serviceEndVC.disposeBag)
 
-        // 자세히 보기 버튼 (사파리로 이동)
+        // 자세히 보기 버튼 (인스타그램으로 이동)
         serviceEndVC.rx.rightButtonTap
             .bind { [weak serviceEndVC] in
-                if let url = URL(string: "https://www.google.com") {
+                if let url = URL(string: "https://www.instagram.com/terning_official") {
                     UIApplication.shared.open(url)
                 }
                 serviceEndVC?.dismiss(animated: false)

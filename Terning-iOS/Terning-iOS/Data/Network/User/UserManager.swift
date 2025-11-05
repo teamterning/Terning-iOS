@@ -187,15 +187,20 @@ extension UserManager {
             return true
         }
 
-        let today = Calendar.current.startOfDay(for: Date())
+        let now = Date()
 
-        if let lastShownDate = serviceEndNoticeLastShownDate,
-           Calendar.current.isDate(lastShownDate, inSameDayAs: today) {
-            return false
+        // 마지막 표시 시간으로부터 3시간이 지났는지 확인
+        if let lastShownDate = serviceEndNoticeLastShownDate {
+            let threeHoursInSeconds: TimeInterval = 3 * 60 * 60 // 3시간 = 10,800초
+            let timeSinceLastShown = now.timeIntervalSince(lastShownDate)
+
+            if timeSinceLastShown < threeHoursInSeconds {
+                return false
+            }
         }
 
-        // 오늘 날짜 저장
-        serviceEndNoticeLastShownDate = today
+        // 현재 시간 저장
+        serviceEndNoticeLastShownDate = now
         return true
     }
 }

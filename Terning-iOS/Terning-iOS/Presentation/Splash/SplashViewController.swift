@@ -33,9 +33,11 @@ final class SplashVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         self.checkAppVersion {
-            self.checkDidSignIn()
+            self.showServiceEndNoticeIfNeeded {
+                self.checkDidSignIn()
+            }
         }
         addAppDidBecomeActiveObserver()
     }
@@ -226,8 +228,75 @@ extension SplashVC {
     @objc
     private func appDidBecomeActive() {
         checkAppVersion { [self] in
-            checkDidSignIn()
+            showServiceEndNoticeIfNeeded {
+                checkDidSignIn()
+            }
         }
+    }
+
+    func showServiceEndNoticeIfNeeded(completion: @escaping () -> Void) {
+        let isTestMode = true // 테스트 시 true, 실제 배포 시 false로 변경
+
+        if !isTestMode {
+            // 하루에 한번만 표시하는 로직
+            let lastShownDateKey = "serviceEndNoticeLastShownDate"
+            let today = Calendar.current.startOfDay(for: Date())
+
+            if let lastShownDate = UserDefaults.standard.object(forKey: lastShownDateKey) as? Date,
+               Calendar.current.isDate(lastShownDate, inSameDayAs: today) {
+                // 오늘 이미 표시했으면 패스
+                completion()
+                return
+            }
+
+            // 오늘 날짜 저장
+            UserDefaults.standard.set(today, forKey: lastShownDateKey)
+        }
+
+        let title = "터닝 서비스 종료 안내"
+        let description = """
+        그동안 터닝을 사랑해주신 모든 분들께
+        진심으로 감사의 말씀을 드립니다.
+
+        '터닝'은 11월 25일부로 서비스가 종료될 예정이며,
+        자세한 사항은 공지 내용을 확인해주세요.
+        """
+        let serviceEndDate = "2025년 11월 25일"
+
+        let serviceEndVC = UpdateAlertViewController(
+            updateViewType: .serviceEnd,
+            title: title,
+            discription: description,
+            serviceEndDate: serviceEndDate,
+            leftButtonTitle: "닫기",
+            rightButtonTitle: "자세히 보기"
+        )
+        serviceEndVC.modalPresentationStyle = .overFullScreen
+
+        if let windowScene = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
+           let rootVC = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
+            rootVC.present(serviceEndVC, animated: false)
+        }
+
+        // 닫기 버튼
+        serviceEndVC.rx.leftButtonTap
+            .bind { [weak serviceEndVC] in
+                serviceEndVC?.dismiss(animated: false)
+                completion()
+            }
+            .disposed(by: serviceEndVC.disposeBag)
+
+        // 자세히 보기 버튼 (사파리로 이동)
+        serviceEndVC.rx.rightButtonTap
+            .bind { [weak serviceEndVC] in
+                if let url = URL(string: "https://www.google.com") {
+                    UIApplication.shared.open(url)
+                }
+                serviceEndVC?.dismiss(animated: false)
+                completion()
+            }
+            .disposed(by: serviceEndVC.disposeBag)
     }
 }
 

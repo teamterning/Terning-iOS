@@ -42,5 +42,6 @@ public extension Amplitude {
         
         let eventType: String = eventType.rawValue
         AmplitudeManager.shared.track(eventType: eventType, eventProperties: eventProperties)
+        #endif
     }
 }

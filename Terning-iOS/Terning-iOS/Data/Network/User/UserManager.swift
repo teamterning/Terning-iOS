@@ -33,7 +33,10 @@ final class UserManager {
     @UserDefaultWrapper<String>(key: "fcmToken") public var fcmToken
     @UserDefaultWrapper<String>(key: "lastSentFCMToken") public var lastSentFCMToken
     @NonOptionalUserDefaultWrapper<Bool>(key: "didSyncFCMToken", defaultValue: false) public var didSyncFCMToken
-    
+
+    // 서비스 종료 안내
+    @UserDefaultWrapper<Date>(key: "serviceEndNoticeLastShownDate") public var serviceEndNoticeLastShownDate
+
     var hasAccessToken: Bool { return self.accessToken != nil }
     var hasKakaoToken: Bool { return self.kakaoAccessToken != nil }
     var hasAppleToken: Bool { return self.appleAccessToken != nil }
@@ -175,7 +178,35 @@ extension UserManager {
 }
 
 extension UserManager {
-    
+
+    /// 서비스 종료 안내를 표시해야 하는지 확인하는 메서드
+    /// - Parameter isTestMode: 테스트 모드 여부 (true일 경우 항상 표시)
+    /// - Returns: 표시 여부
+    func shouldShowServiceEndNotice(isTestMode: Bool = false) -> Bool {
+        if isTestMode {
+            return true
+        }
+
+        let now = Date()
+
+        // 마지막 표시 시간으로부터 3시간이 지났는지 확인
+        if let lastShownDate = serviceEndNoticeLastShownDate {
+            let threeHoursInSeconds: TimeInterval = 3 * 60 * 60 // 3시간 = 10,800초
+            let timeSinceLastShown = now.timeIntervalSince(lastShownDate)
+
+            if timeSinceLastShown < threeHoursInSeconds {
+                return false
+            }
+        }
+
+        // 현재 시간 저장
+        serviceEndNoticeLastShownDate = now
+        return true
+    }
+}
+
+extension UserManager {
+
     /// 서버에 FCM 토큰을 전송하는 메서드 (최초 1회만 전송)
     func setUserFCMTokenToServer(fcmToken: String) {
         print("🧾 [FCM] 전송 시도 시작")

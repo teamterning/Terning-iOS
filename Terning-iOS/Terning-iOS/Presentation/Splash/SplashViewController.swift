@@ -13,29 +13,43 @@ import SnapKit
 import Then
 
 final class SplashVC: UIViewController {
-    
+
     // MARK: - UI Components
-    
+
     private let backgroundImageView = UIImageView().then {
         $0.image = .imgSplash
         $0.contentMode = .scaleAspectFill
     }
-    
+
+    // MARK: - Properties
+
+    private var hasInitialized = false
+
     // MARK: - View Life Cycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.setUI()
         self.setNavigationBar()
         self.setLayout()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
+        print("🔵 [SplashVC] viewDidAppear 호출됨 - hasInitialized: \(hasInitialized)")
+
+        guard !hasInitialized else {
+            print("🟡 [SplashVC] 이미 초기화됨 - 중복 실행 방지")
+            return
+        }
+        hasInitialized = true
+
         self.checkAppVersion {
-            self.checkDidSignIn()
+            self.showServiceEndNoticeIfNeeded {
+                self.checkDidSignIn()
+            }
         }
         addAppDidBecomeActiveObserver()
     }
@@ -51,6 +65,7 @@ final class SplashVC: UIViewController {
 
 extension SplashVC {
     private func checkDidSignIn() {
+        print("🔵 [SplashVC] checkDidSignIn 호출됨")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             if UserManager.shared.hasAccessToken {
                 UserManager.shared.getNewToken { [weak self] result in
@@ -70,8 +85,9 @@ extension SplashVC {
             }
         }
     }
-    
+
     private func pushToSignInView() {
+        print("🔴 [SplashVC] pushToSignInView 호출됨 ⚠️")
         let signInVC = LoginViewController(
             viewModel: LoginViewModel(
                 loginRepository: LoginRepository(
@@ -225,9 +241,71 @@ extension SplashVC {
     
     @objc
     private func appDidBecomeActive() {
+        print("🟢 [SplashVC] appDidBecomeActive 호출됨 (백그라운드 → 포그라운드)")
         checkAppVersion { [self] in
-            checkDidSignIn()
+            showServiceEndNoticeIfNeeded {
+                checkDidSignIn()
+            }
         }
+    }
+
+    func showServiceEndNoticeIfNeeded(completion: @escaping () -> Void) {
+        #if DEBUG
+        let isTestMode = true // 디버그 모드: 매번 표시
+        #else
+        let isTestMode = false // 릴리즈 모드: 하루에 한 번만 표시
+        #endif
+
+        // 오늘 이미 표시했는지 확인
+        guard UserManager.shared.shouldShowServiceEndNotice(isTestMode: isTestMode) else {
+            completion()
+            return
+        }
+
+        let title = "터닝 서비스 종료 안내"
+        let description = """
+        그동안 터닝을 사랑해주신 모든 분들께
+        진심으로 감사의 말씀을 드립니다.
+
+        '터닝'은 11월 25일부로 서비스가 종료될 예정이며,
+        자세한 사항은 공지 내용을 확인해주세요.
+        """
+        let serviceEndDate = "2025년 11월 25일"
+
+        let serviceEndVC = UpdateAlertViewController(
+            updateViewType: .serviceEnd,
+            title: title,
+            discription: description,
+            serviceEndDate: serviceEndDate,
+            leftButtonTitle: "닫기",
+            rightButtonTitle: "자세히 보기"
+        )
+        serviceEndVC.modalPresentationStyle = .overFullScreen
+
+        if let windowScene = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
+           let rootVC = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
+            rootVC.present(serviceEndVC, animated: false)
+        }
+
+        // 닫기 버튼
+        serviceEndVC.rx.leftButtonTap
+            .bind { [weak serviceEndVC] in
+                serviceEndVC?.dismiss(animated: false)
+                completion()
+            }
+            .disposed(by: serviceEndVC.disposeBag)
+
+        // 자세히 보기 버튼 (인스타그램으로 이동)
+        serviceEndVC.rx.rightButtonTap
+            .bind { [weak serviceEndVC] in
+                if let url = URL(string: "https://abundant-quiver-13f.notion.site/2a22867b52c180649a5bfdf1704820a3?pvs=73") {
+                    UIApplication.shared.open(url)
+                }
+                serviceEndVC?.dismiss(animated: false)
+                completion()
+            }
+            .disposed(by: serviceEndVC.disposeBag)
     }
 }
 
